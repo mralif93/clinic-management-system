@@ -1,0 +1,28 @@
+# Vercel ignore file
+# Files that should not be deployed to Vercel
+
+# Development files
+.env
+.env.local
+.env.*.local
+.git
+.gitignore
+README.md
+VERCEL_*.md
+VERCEL_*.txt
+vercel.env.example
+.vercelignore
+
+# IDE files
+.idea
+.vscode
+.fleet
+
+# Test files
+.phpunit.result.cache
+tests
+
+# Documentation
+*.md
+!README.md
+

@@ -18,6 +18,12 @@
 composer install --no-dev --optimize-autoloader && php artisan config:cache && php artisan route:cache && php artisan view:cache
 ```
 
+**Important:** If you get 500 errors, temporarily simplify to:
+```
+composer install --no-dev --optimize-autoloader
+```
+Then add caching commands back after it works.
+
 **Explanation:**
 - `composer install --no-dev` - Install production dependencies only
 - `--optimize-autoloader` - Optimize Composer autoloader
