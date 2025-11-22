@@ -14,9 +14,9 @@ Copy and paste these environment variables into your Vercel project settings.
 ```
 APP_NAME=Clinic Management System
 APP_ENV=production
-APP_KEY=base64:YOUR_GENERATED_KEY_HERE
+APP_KEY=base64:4tKqKXGoOnfJ4pUF6SWtEnz+DPeA1YoK2SpTiwb/k6c=
 APP_DEBUG=false
-APP_URL=https://your-project.vercel.app
+APP_URL=https://clinic-management-system-blue.vercel.app
 ```
 
 ### Database Configuration (PostgreSQL/Supabase)
