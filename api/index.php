@@ -7,11 +7,8 @@
  * It bootstraps the Laravel application and handles all requests.
  */
 
+use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
-
-// Enable error reporting for debugging (remove in production)
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
 
 define('LARAVEL_START', microtime(true));
 
@@ -41,12 +38,6 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 |
 */
 
-// Check if vendor directory exists
-if (!file_exists(__DIR__.'/../vendor/autoload.php')) {
-    http_response_code(500);
-    die('Error: vendor/autoload.php not found. Please run "composer install" during build.');
-}
-
 require __DIR__.'/../vendor/autoload.php';
 
 /*
@@ -60,37 +51,13 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-try {
-    $app = require_once __DIR__.'/../bootstrap/app.php';
-    
-    if (!$app) {
-        throw new Exception('Failed to bootstrap Laravel application');
-    }
-    
-    $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
-    
-    $response = $kernel->handle(
-        $request = Request::capture()
-    )->send();
-    
-    $kernel->terminate($request, $response);
-} catch (Throwable $e) {
-    // Log error to stderr for Vercel logs
-    error_log('Laravel Error: ' . $e->getMessage());
-    error_log('File: ' . $e->getFile() . ':' . $e->getLine());
-    error_log('Trace: ' . $e->getTraceAsString());
-    
-    // Show error if APP_DEBUG is true
-    if (env('APP_DEBUG', false)) {
-        http_response_code(500);
-        echo '<h1>500 Server Error</h1>';
-        echo '<p><strong>Message:</strong> ' . htmlspecialchars($e->getMessage()) . '</p>';
-        echo '<p><strong>File:</strong> ' . htmlspecialchars($e->getFile()) . ':' . $e->getLine() . '</p>';
-        echo '<pre>' . htmlspecialchars($e->getTraceAsString()) . '</pre>';
-    } else {
-        http_response_code(500);
-        echo '<h1>500 Internal Server Error</h1>';
-        echo '<p>An error occurred. Please check the server logs.</p>';
-    }
-}
+$app = require_once __DIR__.'/../bootstrap/app.php';
+
+$kernel = $app->make(Kernel::class);
+
+$response = $kernel->handle(
+    $request = Request::capture()
+)->send();
+
+$kernel->terminate($request, $response);
 
