@@ -47,11 +47,21 @@
                         @if($logoUrl && $logoPath)
                             <div class="mb-4">
                                 <p class="text-sm text-gray-600 mb-2">Current Logo:</p>
-                                <div class="inline-block p-3 border-2 border-gray-300 rounded-lg bg-gray-50">
-                                    <img src="{{ $logoUrl }}" 
-                                         alt="Clinic Logo" 
-                                         id="currentLogoPreview"
-                                         class="h-24 w-auto object-contain max-w-xs">
+                                <div class="flex items-start gap-4">
+                                    <div class="inline-block p-3 border-2 border-gray-300 rounded-lg bg-gray-50">
+                                        <img src="{{ $logoUrl }}" 
+                                             alt="Clinic Logo" 
+                                             id="currentLogoPreview"
+                                             class="h-24 w-auto object-contain max-w-xs">
+                                    </div>
+                                    <div class="flex items-start">
+                                        <button type="button" 
+                                                onclick="removeLogo()"
+                                                class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-red-700 transition flex items-center">
+                                            <i class='bx bx-trash mr-2'></i>
+                                            Remove Logo
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         @else
@@ -232,6 +242,74 @@
         } else {
             preview.classList.add('hidden');
         }
+    }
+
+    function removeLogo() {
+        Swal.fire({
+            title: 'Remove Logo?',
+            text: 'Are you sure you want to remove the logo? This action cannot be undone.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Yes, Remove It',
+            cancelButtonText: 'Cancel',
+            width: '450px'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Show loading
+                Swal.fire({
+                    title: 'Removing...',
+                    text: 'Please wait',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                // Create form data
+                const formData = new FormData();
+                formData.append('_token', '{{ csrf_token() }}');
+                formData.append('_method', 'DELETE');
+
+                // Make AJAX request
+                fetch('{{ route("admin.settings.remove-logo") }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json().catch(() => response.text());
+                    }
+                    throw new Error('Network response was not ok');
+                })
+                .then(data => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'Logo removed successfully!',
+                        width: '450px',
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => {
+                        // Reload page to reflect changes
+                        window.location.reload();
+                    });
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Failed to remove logo. Please try again.',
+                        width: '450px'
+                    });
+                });
+            }
+        });
     }
 </script>
 @endpush

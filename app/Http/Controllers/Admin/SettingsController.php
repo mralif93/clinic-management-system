@@ -79,5 +79,47 @@ class SettingsController extends Controller
         return redirect()->route('admin.settings.index')
             ->with('success', 'Settings updated successfully!');
     }
+
+    /**
+     * Remove logo
+     */
+    public function removeLogo(Request $request)
+    {
+        try {
+            $oldLogo = Setting::get('clinic_logo');
+            
+            // Delete file if it's a file path (local development)
+            if ($oldLogo && !str_starts_with($oldLogo, 'data:')) {
+                if (Storage::disk('public')->exists($oldLogo)) {
+                    Storage::disk('public')->delete($oldLogo);
+                }
+            }
+            
+            // Clear logo setting
+            Setting::set('clinic_logo', null);
+            
+            // Return JSON response for AJAX requests
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Logo removed successfully!'
+                ]);
+            }
+            
+            return redirect()->route('admin.settings.index')
+                ->with('success', 'Logo removed successfully!');
+        } catch (\Exception $e) {
+            // Return JSON response for AJAX requests
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to remove logo: ' . $e->getMessage()
+                ], 500);
+            }
+            
+            return redirect()->route('admin.settings.index')
+                ->with('error', 'Failed to remove logo: ' . $e->getMessage());
+        }
+    }
 }
 
