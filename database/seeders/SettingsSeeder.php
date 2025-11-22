@@ -15,6 +15,13 @@ class SettingsSeeder extends Seeder
         $settings = [
             // General Settings
             [
+                'key' => 'clinic_logo',
+                'value' => '',
+                'type' => 'file',
+                'group' => 'general',
+                'description' => 'Clinic logo image',
+            ],
+            [
                 'key' => 'clinic_name',
                 'value' => 'Clinic Management System',
                 'type' => 'text',
