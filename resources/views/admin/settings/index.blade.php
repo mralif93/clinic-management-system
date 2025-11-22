@@ -34,7 +34,14 @@
                         <!-- Current Logo Preview -->
                         @php
                             $logoPath = $logoSetting->value;
-                            $logoUrl = $logoPath ? asset('storage/' . $logoPath) : null;
+                            // Check if logo is base64 (for Vercel) or file path (for local)
+                            if ($logoPath && str_starts_with($logoPath, 'data:')) {
+                                $logoUrl = $logoPath; // Base64 data URI
+                            } elseif ($logoPath) {
+                                $logoUrl = asset('storage/' . $logoPath); // File path
+                            } else {
+                                $logoUrl = null;
+                            }
                         @endphp
                         
                         @if($logoUrl && $logoPath)

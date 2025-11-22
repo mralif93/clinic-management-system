@@ -8,7 +8,14 @@
     
     @php
         $logoPath = get_setting('clinic_logo');
-        $faviconUrl = $logoPath ? asset('storage/' . $logoPath) : 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22></text></svg>';
+        // Check if logo is base64 (for Vercel) or file path (for local)
+        if ($logoPath && str_starts_with($logoPath, 'data:')) {
+            $faviconUrl = $logoPath; // Base64 data URI
+        } elseif ($logoPath) {
+            $faviconUrl = asset('storage/' . $logoPath); // File path
+        } else {
+            $faviconUrl = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22></text></svg>';
+        }
     @endphp
     <link rel="icon" type="image/png" href="{{ $faviconUrl }}">
     <link rel="shortcut icon" type="image/png" href="{{ $faviconUrl }}">
@@ -48,7 +55,14 @@
             <div class="p-6">
                 @php
                     $logoPath = get_setting('clinic_logo');
-                    $logoUrl = $logoPath ? asset('storage/' . $logoPath) : null;
+                    // Check if logo is base64 (for Vercel) or file path (for local)
+                    if ($logoPath && str_starts_with($logoPath, 'data:')) {
+                        $logoUrl = $logoPath; // Base64 data URI
+                    } elseif ($logoPath) {
+                        $logoUrl = asset('storage/' . $logoPath); // File path
+                    } else {
+                        $logoUrl = null;
+                    }
                     $clinicName = get_setting('clinic_name', 'Clinic Management');
                 @endphp
                 

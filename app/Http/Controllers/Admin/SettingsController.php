@@ -35,15 +35,40 @@ class SettingsController extends Controller
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
             
-            // Delete old logo if exists
-            $oldLogo = Setting::get('clinic_logo');
-            if ($oldLogo && Storage::disk('public')->exists($oldLogo)) {
-                Storage::disk('public')->delete($oldLogo);
+            try {
+                // For Vercel/serverless: Use base64 encoding and store in database
+                // For local development: Use file storage
+                $isVercel = env('VERCEL') === '1' || env('VERCEL_ENV') !== null || str_contains(env('APP_URL', ''), 'vercel.app');
+                if ($isVercel || env('APP_ENV') === 'production') {
+                    // Vercel/serverless environment - store as base64 in database
+                    $imageData = file_get_contents($file->getRealPath());
+                    $base64 = base64_encode($imageData);
+                    $mimeType = $file->getMimeType();
+                    $extension = $file->getClientOriginalExtension();
+                    $logoData = 'data:' . $mimeType . ';base64,' . $base64;
+                    
+                    // Delete old logo if exists
+                    $oldLogo = Setting::get('clinic_logo');
+                    if ($oldLogo && str_starts_with($oldLogo, 'data:')) {
+                        // Old logo was base64, just update
+                    }
+                    
+                    // Store base64 data
+                    Setting::set('clinic_logo', $logoData);
+                } else {
+                    // Local development - use file storage
+                    $oldLogo = Setting::get('clinic_logo');
+                    if ($oldLogo && !str_starts_with($oldLogo, 'data:') && Storage::disk('public')->exists($oldLogo)) {
+                        Storage::disk('public')->delete($oldLogo);
+                    }
+                    
+                    $logoPath = $file->store('logos', 'public');
+                    Setting::set('clinic_logo', $logoPath);
+                }
+            } catch (\Exception $e) {
+                return redirect()->route('admin.settings.index')
+                    ->with('error', 'Failed to upload logo: ' . $e->getMessage());
             }
-            
-            // Store new logo
-            $logoPath = $file->store('logos', 'public');
-            Setting::set('clinic_logo', $logoPath);
         }
 
         // Update other settings
