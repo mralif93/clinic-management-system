@@ -1,0 +1,122 @@
+═══════════════════════════════════════════════════════════════
+  VERCEL DASHBOARD CONFIGURATION - QUICK REFERENCE
+═══════════════════════════════════════════════════════════════
+
+1. FRAMEWORK PRESET
+   ─────────────────
+   Select: "Other" or "No Framework"
+   (Don't use Vite/Next.js - Laravel is backend framework)
+
+2. ROOT DIRECTORY
+   ───────────────
+   Value: ./
+   (Keep default)
+
+3. BUILD AND OUTPUT SETTINGS
+   ──────────────────────────
+   
+   Build Command:
+   ──────────────
+   composer install --no-dev --optimize-autoloader && php artisan config:cache && php artisan route:cache && php artisan view:cache
+   
+   Output Directory:
+   ─────────────────
+   Leave EMPTY or set to: public
+   
+   Install Command:
+   ────────────────
+   composer install && npm install
+
+4. ENVIRONMENT VARIABLES
+   ──────────────────────
+   Copy and paste these one by one:
+
+   ┌─ Application ───────────────────────────────────────────┐
+   │ APP_NAME=Clinic Management System                      │
+   │ APP_ENV=production                                     │
+   │ APP_KEY=base64:YOUR_KEY_HERE (generate with:          │
+   │          php artisan key:generate)                     │
+   │ APP_DEBUG=false                                        │
+   │ APP_URL=https://your-project.vercel.app               │
+   └────────────────────────────────────────────────────────┘
+
+   ┌─ Database ────────────────────────────────────────────┐
+   │ DB_CONNECTION=pgsql                                    │
+   │ DB_HOST=db.pgdhknzfdfvpelqiwgop.supabase.co           │
+   │ DB_PORT=5432                                           │
+   │ DB_DATABASE=postgres                                   │
+   │ DB_USERNAME=postgres.pgdhknzfdfvpelqiwgop              │
+   │ DB_PASSWORD=cvqvsaUO2owKiNS5                          │
+   └────────────────────────────────────────────────────────┘
+
+   ┌─ PostgreSQL URLs ─────────────────────────────────────┐
+   │ POSTGRES_HOST=db.pgdhknzfdfvpelqiwgop.supabase.co     │
+   │ POSTGRES_DATABASE=postgres                            │
+   │ POSTGRES_USER=postgres.pgdhknzfdfvpelqiwgop           │
+   │ POSTGRES_PASSWORD=cvqvsaUO2owKiNS5                    │
+   │ POSTGRES_URL=postgres://postgres.pgdhknzfdfvpelqiwgop:│
+   │ cvqvsaUO2owKiNS5@aws-1-ap-southeast-1.pooler.supabase.│
+   │ com:6543/postgres?sslmode=require&supa=base-pooler.x   │
+   │ POSTGRES_URL_NON_POOLING=postgres://postgres.pgdhknzf │
+   │ dfvpelqiwgop:cvqvsaUO2owKiNS5@aws-1-ap-southeast-1.   │
+   │ pooler.supabase.com:5432/postgres?sslmode=require      │
+   │ POSTGRES_PRISMA_URL=postgres://postgres.pgdhknzfdfvpel │
+   │ qiwgop:cvqvsaUO2owKiNS5@aws-1-ap-southeast-1.pooler.  │
+   │ supabase.com:6543/postgres?sslmode=require&pgbouncer= │
+   │ true                                                   │
+   └────────────────────────────────────────────────────────┘
+
+   ┌─ Supabase ────────────────────────────────────────────┐
+   │ SUPABASE_URL=https://pgdhknzfdfvpelqiwgop.supabase.co│
+   │ SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ│
+   │ 9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBnZGhrbnpmZGZ2cGV│
+   │ scWl3Z29wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM3OTI3Njks│
+   │ ImV4cCI6MjA3OTM2ODc2OX0.91F-8BFcAAN2QqxsqIDbsdOAEMJw│
+   │ -3O4MWtVpFWXEAI                                        │
+   │ SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI│
+   │ 6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBnZGhrbnpm│
+   │ ZGZ2cGVscWl3Z29wIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhd│
+   │ CI6MTc2Mzc5Mjc2OSwiZXhwIjoyMDc5MzY4NzY5fQ.gummqqdKvC8│
+   │ gETG4IJ6092PjofsV9S5tlZU7V2F6hjc                      │
+   │ SUPABASE_JWT_SECRET=P0rgOwlLlhU17XjJ4LqRVvoh4YBiQdfEr│
+   │ 7SpG/TqxbHgdZ1hAWOWDA8AQUDaAhW3XYXbL8UlLIDebU3RbRkwrQ│
+   │ ==                                                     │
+   └────────────────────────────────────────────────────────┘
+
+   ┌─ Next.js Public (if needed) ──────────────────────────┐
+   │ NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR│
+   │ 5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBnZGhr│
+   │ bnpmZGZ2cGVscWl3Z29wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3│
+   │ NjM3OTI3NjksImV4cCI6MjA3OTM2ODc2OX0.91F-8BFcAAN2Qqxs│
+   │ qIDbsdOAEMJw-3O4MWtVpFWXEAI                           │
+   │ NEXT_PUBLIC_SUPABASE_URL=https://pgdhknzfdfvpelqiwgop│
+   │ .supabase.co                                           │
+   └────────────────────────────────────────────────────────┘
+
+   ┌─ Laravel Serverless Config ───────────────────────────┐
+   │ APP_CONFIG_CACHE=/tmp/config.php                      │
+   │ APP_EVENTS_CACHE=/tmp/events.php                      │
+   │ APP_PACKAGES_CACHE=/tmp/packages.php                  │
+   │ APP_ROUTES_CACHE=/tmp/routes.php                      │
+   │ APP_SERVICES_CACHE=/tmp/services.php                  │
+   │ VIEW_COMPILED_PATH=/tmp                               │
+   │ CACHE_DRIVER=array                                    │
+   │ LOG_CHANNEL=stderr                                    │
+   │ SESSION_DRIVER=cookie                                 │
+   └────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════
+  BEFORE DEPLOYING:
+═══════════════════════════════════════════════════════════════
+
+1. Generate APP_KEY locally:
+   $ php artisan key:generate
+   Copy the generated key to APP_KEY in Vercel
+
+2. After first deployment, update APP_URL with your Vercel URL
+
+3. Run migrations (add to build command or run manually):
+   php artisan migrate --force
+
+═══════════════════════════════════════════════════════════════
+
