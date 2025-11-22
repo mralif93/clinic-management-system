@@ -131,6 +131,7 @@
                 timer: 3000,
                 timerProgressBar: true,
                 toast: true,
+                width: '450px',
                 didOpen: (toast) => {
                     toast.addEventListener('mouseenter', Swal.stopTimer)
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
