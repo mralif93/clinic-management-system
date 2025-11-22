@@ -8,6 +8,27 @@
     <!-- Hero Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div class="text-center">
+            <!-- Logo Section -->
+            @php
+                $logoPath = get_setting('clinic_logo');
+                // Check if logo is base64 (for Vercel) or file path (for local)
+                if ($logoPath && str_starts_with($logoPath, 'data:')) {
+                    $logoUrl = $logoPath; // Base64 data URI
+                } elseif ($logoPath) {
+                    $logoUrl = asset('storage/' . $logoPath); // File path
+                } else {
+                    $logoUrl = null;
+                }
+            @endphp
+            
+            @if($logoUrl)
+                <div class="flex justify-center mb-12">
+                    <img src="{{ $logoUrl }}" 
+                         alt="{{ get_setting('clinic_name', 'Clinic Management') }} Logo" 
+                         class="h-40 md:h-56 lg:h-64 xl:h-72 w-auto object-contain">
+                </div>
+            @endif
+            
             <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
                 {{ get_setting('hero_title_line1', 'Modern Clinic') }}
                 <span class="text-blue-600">{{ get_setting('hero_title_line2', 'Management') }}</span>
