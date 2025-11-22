@@ -1,0 +1,355 @@
+@extends('layouts.admin')
+
+@section('title', 'Reports')
+@section('page-title', 'Reports & Analytics')
+
+@section('content')
+<div class="space-y-6">
+    <!-- Date Range Filter -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <form method="GET" action="{{ route('admin.reports.index') }}" class="flex flex-wrap gap-4 items-end">
+            <div>
+                <label for="start_date" class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
+                <input type="date" 
+                       id="start_date" 
+                       name="start_date" 
+                       value="{{ $startDate }}"
+                       class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+            <div>
+                <label for="end_date" class="block text-sm font-medium text-gray-700 mb-2">End Date</label>
+                <input type="date" 
+                       id="end_date" 
+                       name="end_date" 
+                       value="{{ $endDate }}"
+                       class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                <i class='bx bx-filter mr-2'></i> Filter
+            </button>
+            <a href="{{ route('admin.reports.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 transition">
+                Reset
+            </a>
+        </form>
+    </div>
+
+    <!-- Overall Statistics -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Total Patients</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ number_format($totalPatients) }}</p>
+                </div>
+                <div class="bg-blue-100 p-4 rounded-full">
+                    <i class='bx bx-user text-3xl text-blue-600'></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Total Doctors</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ number_format($totalDoctors) }}</p>
+                </div>
+                <div class="bg-green-100 p-4 rounded-full">
+                    <i class='bx bx-user-circle text-3xl text-green-600'></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Total Services</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ number_format($totalServices) }}</p>
+                </div>
+                <div class="bg-purple-100 p-4 rounded-full">
+                    <i class='bx bx-list-ul text-3xl text-purple-600'></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Total Users</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ number_format($totalUsers) }}</p>
+                </div>
+                <div class="bg-yellow-100 p-4 rounded-full">
+                    <i class='bx bx-group text-3xl text-yellow-600'></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm font-medium text-gray-600">Total Appointments</p>
+                    <p class="text-3xl font-bold text-gray-900 mt-2">{{ number_format($totalAppointments) }}</p>
+                </div>
+                <div class="bg-indigo-100 p-4 rounded-full">
+                    <i class='bx bx-calendar text-3xl text-indigo-600'></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Revenue & Appointments Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-green-100 text-sm font-medium">Total Revenue</p>
+                    <p class="text-3xl font-bold mt-2">{{ get_setting('currency', '$') }}{{ number_format($totalRevenue, 2) }}</p>
+                    <p class="text-green-100 text-xs mt-1">In selected period</p>
+                </div>
+                <i class='bx bx-dollar text-5xl opacity-50'></i>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-blue-100 text-sm font-medium">Appointments</p>
+                    <p class="text-3xl font-bold mt-2">{{ number_format($appointmentsInRange->count()) }}</p>
+                    <p class="text-blue-100 text-xs mt-1">In selected period</p>
+                </div>
+                <i class='bx bx-calendar text-5xl opacity-50'></i>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg shadow-lg p-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-emerald-100 text-sm font-medium">Completed</p>
+                    <p class="text-3xl font-bold mt-2">{{ number_format($completedAppointments) }}</p>
+                    <p class="text-emerald-100 text-xs mt-1">Appointments</p>
+                </div>
+                <i class='bx bx-check-circle text-5xl opacity-50'></i>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-red-500 to-red-600 rounded-lg shadow-lg p-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-red-100 text-sm font-medium">Cancelled</p>
+                    <p class="text-3xl font-bold mt-2">{{ number_format($cancelledAppointments) }}</p>
+                    <p class="text-red-100 text-xs mt-1">Appointments</p>
+                </div>
+                <i class='bx bx-x-circle text-5xl opacity-50'></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Appointments by Status -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Appointments by Status</h3>
+            <div class="space-y-4">
+                @php
+                    $statusLabels = [
+                        'scheduled' => 'Scheduled',
+                        'confirmed' => 'Confirmed',
+                        'completed' => 'Completed',
+                        'cancelled' => 'Cancelled',
+                        'no_show' => 'No Show'
+                    ];
+                    $statusColors = [
+                        'scheduled' => 'bg-blue-500',
+                        'confirmed' => 'bg-green-500',
+                        'completed' => 'bg-gray-500',
+                        'cancelled' => 'bg-red-500',
+                        'no_show' => 'bg-yellow-500'
+                    ];
+                    $totalStatus = $appointmentsByStatus->sum();
+                @endphp
+                @foreach($statusLabels as $key => $label)
+                    @php
+                        $count = $appointmentsByStatus->get($key, 0);
+                        $percentage = $totalStatus > 0 ? ($count / $totalStatus) * 100 : 0;
+                    @endphp
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-gray-700">{{ $label }}</span>
+                            <span class="text-sm text-gray-600">{{ $count }} ({{ number_format($percentage, 1) }}%)</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="{{ $statusColors[$key] ?? 'bg-blue-500' }} h-2 rounded-full" style="width: {{ $percentage }}%"></div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- Monthly Revenue Chart -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Monthly Revenue (Last 6 Months)</h3>
+            <div class="space-y-3">
+                @php
+                    $maxRevenue = $monthlyRevenue->count() > 0 && $monthlyRevenue->max() > 0 ? $monthlyRevenue->max() : 1;
+                @endphp
+                @foreach($monthlyRevenue as $month => $revenue)
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="text-sm font-medium text-gray-700">{{ $month }}</span>
+                            <span class="text-sm font-semibold text-gray-900">{{ get_setting('currency', '$') }}{{ number_format($revenue, 2) }}</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full" style="width: {{ ($revenue / $maxRevenue) * 100 }}%"></div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Patients Statistics -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Patients Statistics</h3>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <span class="text-sm font-medium text-gray-700">New Patients (Period)</span>
+                    <span class="text-lg font-bold text-gray-900">{{ number_format($newPatientsInRange) }}</span>
+                </div>
+                @if($patientsByGender->count() > 0)
+                <div>
+                    <p class="text-sm font-medium text-gray-700 mb-2">By Gender</p>
+                    <div class="space-y-2">
+                        @foreach($patientsByGender as $gender => $count)
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 capitalize">{{ $gender ?? 'Not Specified' }}</span>
+                                <span class="text-sm font-semibold text-gray-900">{{ $count }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+            </div>
+        </div>
+
+        <!-- Doctors Statistics -->
+        <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Doctors Statistics</h3>
+            <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-3 bg-green-50 rounded-lg">
+                        <p class="text-xs text-gray-600">Available</p>
+                        <p class="text-2xl font-bold text-green-600">{{ $availableDoctors }}</p>
+                    </div>
+                    <div class="p-3 bg-yellow-50 rounded-lg">
+                        <p class="text-xs text-gray-600">Unavailable</p>
+                        <p class="text-2xl font-bold text-yellow-600">{{ $unavailableDoctors }}</p>
+                    </div>
+                </div>
+                @if($doctorsByType->count() > 0)
+                <div>
+                    <p class="text-sm font-medium text-gray-700 mb-2">By Type</p>
+                    <div class="space-y-2">
+                        @foreach($doctorsByType as $type => $count)
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600 capitalize">{{ $type }}</span>
+                                <span class="text-sm font-semibold text-gray-900">{{ $count }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Statistics -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Services Statistics</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-4 bg-green-50 rounded-lg">
+                <p class="text-sm text-gray-600">Active Services</p>
+                <p class="text-3xl font-bold text-green-600">{{ $activeServices }}</p>
+            </div>
+            <div class="p-4 bg-yellow-50 rounded-lg">
+                <p class="text-sm text-gray-600">Inactive Services</p>
+                <p class="text-3xl font-bold text-yellow-600">{{ $inactiveServices }}</p>
+            </div>
+            @if($servicesByType->count() > 0)
+            <div class="p-4 bg-blue-50 rounded-lg">
+                <p class="text-sm text-gray-600 mb-2">By Type</p>
+                <div class="space-y-1">
+                    @foreach($servicesByType as $type => $count)
+                        <div class="flex justify-between">
+                            <span class="text-xs text-gray-600 capitalize">{{ $type }}</span>
+                            <span class="text-xs font-semibold text-gray-900">{{ $count }}</span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+        </div>
+    </div>
+
+    <!-- Top Performers -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Top Doctors by Appointments -->
+        @if($appointmentsByDoctor->count() > 0)
+        <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Top Doctors by Appointments</h3>
+            <div class="space-y-3">
+                @foreach($appointmentsByDoctor as $item)
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <div>
+                            <p class="font-medium text-gray-900">{{ $item->doctor->full_name ?? 'N/A' }}</p>
+                            <p class="text-xs text-gray-500">{{ $item->doctor->specialization ?? 'N/A' }}</p>
+                        </div>
+                        <span class="text-lg font-bold text-blue-600">{{ $item->count }}</span>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+
+        <!-- Top Services by Appointments -->
+        @if($appointmentsByService->count() > 0)
+        <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Top Services by Appointments</h3>
+            <div class="space-y-3">
+                @foreach($appointmentsByService as $item)
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                        <div>
+                            <p class="font-medium text-gray-900">{{ $item->service->name ?? 'N/A' }}</p>
+                            <p class="text-xs text-gray-500 capitalize">{{ $item->service->type ?? 'N/A' }}</p>
+                        </div>
+                        <span class="text-lg font-bold text-purple-600">{{ $item->count }}</span>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+    </div>
+
+    <!-- Daily Appointments (Last 7 Days) -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Daily Appointments (Last 7 Days)</h3>
+        <div class="space-y-3">
+            @php
+                $maxDaily = $dailyAppointments->count() > 0 && $dailyAppointments->max() > 0 ? $dailyAppointments->max() : 1;
+            @endphp
+            @foreach($dailyAppointments as $day => $count)
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-sm font-medium text-gray-700">{{ $day }}</span>
+                        <span class="text-sm font-semibold text-gray-900">{{ $count }} appointments</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div class="bg-blue-500 h-2 rounded-full" style="width: {{ ($count / $maxDaily) * 100 }}%"></div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+</div>
+@endsection
+
