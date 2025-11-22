@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null'); // Patient who booked
             $table->date('appointment_date');
             $table->time('appointment_time');
-            $table->enum('status', ['scheduled', 'confirmed', 'completed', 'cancelled', 'no_show'])->default('scheduled');
+            $table->string('status')->default('scheduled'); // scheduled, confirmed, completed, cancelled, no_show
             $table->text('notes')->nullable();
             $table->text('diagnosis')->nullable();
             $table->text('prescription')->nullable();

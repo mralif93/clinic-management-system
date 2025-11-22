@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('staff', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->unique()->constrained()->onDelete('cascade');
-            $table->string('staff_id')->unique()->after('user_id'); // Auto-generated identifier (STF-001)
+            $table->string('staff_id')->unique(); // Auto-generated identifier (STF-001)
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone')->nullable();

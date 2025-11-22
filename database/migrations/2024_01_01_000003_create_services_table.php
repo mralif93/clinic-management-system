@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
-            $table->enum('type', ['psychology', 'homeopathy', 'general'])->default('general');
+            $table->string('type')->default('general'); // psychology, homeopathy, general
             $table->decimal('price', 10, 2)->default(0);
             $table->integer('duration_minutes')->default(60); // Duration in minutes
             $table->boolean('is_active')->default(true);
