@@ -16,7 +16,7 @@
             </div>
 
             <!-- Login Form -->
-            <form class="space-y-6" action="{{ route('login') }}" method="POST">
+            <form id="loginForm" class="space-y-6" action="{{ route('login') }}" method="POST">
                 @csrf
 
                 <!-- Email -->
@@ -92,10 +92,17 @@
                 <div>
                     <button 
                         type="submit" 
-                        class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"
+                        id="loginButton"
+                        class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        <i class='bx bx-log-in mr-2'></i>
-                        Sign In
+                        <span id="loginButtonText" class="flex items-center">
+                            <i class='bx bx-log-in mr-2'></i>
+                            Sign In
+                        </span>
+                        <span id="loginButtonLoader" class="hidden flex items-center">
+                            <i class='bx bx-loader-alt bx-spin mr-2'></i>
+                            Signing in...
+                        </span>
                     </button>
                 </div>
 
@@ -118,6 +125,39 @@
     @if($errors->any())
         showError('{!! implode('<br>', $errors->all()) !!}', 'Validation Error');
     @endif
+
+    // Login form with 3-second loader
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const form = this;
+        const button = document.getElementById('loginButton');
+        const buttonText = document.getElementById('loginButtonText');
+        const buttonLoader = document.getElementById('loginButtonLoader');
+        
+        // Disable button and show loader
+        button.disabled = true;
+        buttonText.classList.add('hidden');
+        buttonLoader.classList.remove('hidden');
+        
+        // Show loading overlay
+        Swal.fire({
+            title: 'Signing in...',
+            text: 'Please wait while we authenticate you',
+            icon: 'info',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            showConfirmButton: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        
+        // Wait 3 seconds then submit form
+        setTimeout(() => {
+            form.submit();
+        }, 3000);
+    });
 </script>
 @endpush
 @endsection
