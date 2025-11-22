@@ -20,3 +20,4 @@ yarn-error.log
 /database/database.sqlite-journal
 storage/framework/views/*
 storage/logs/laravel.log
+.env.vercel
