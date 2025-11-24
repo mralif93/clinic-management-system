@@ -5,161 +5,257 @@
 
 @section('content')
 <div class="space-y-6">
-    <!-- Header Actions -->
-    <div class="flex justify-between items-center">
-        <div>
-            <h1 class="text-2xl font-bold text-gray-900">Users</h1>
-            <p class="text-gray-600 mt-1">Manage system users and their roles</p>
+    <!-- Header Section -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 flex items-center">
+                    <i class='bx bx-user-circle text-blue-600 mr-3'></i>
+                    User Management
+                </h1>
+                <p class="text-gray-600 mt-2">Manage system users, roles, and permissions</p>
+            </div>
+            <a href="{{ route('admin.users.create') }}" 
+               class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg">
+                <i class='bx bx-plus text-xl mr-2'></i>
+                Add New User
+            </a>
         </div>
-        <a href="{{ route('admin.users.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center">
-            <i class='bx bx-plus mr-2'></i>
-            Add New User
-        </a>
     </div>
 
-    <!-- Filters -->
-    <div class="bg-white rounded-lg shadow p-4">
-        <form method="GET" action="{{ route('admin.users.index') }}" class="flex flex-wrap gap-4">
-            <div class="flex-1 min-w-[200px]">
-                <input type="text" 
-                       name="search" 
-                       value="{{ request('search') }}"
-                       placeholder="Search by name or email..."
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+    <!-- Filters Section -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <form method="GET" action="{{ route('admin.users.index') }}" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <!-- Search -->
+                <div class="md:col-span-2">
+                    <label for="search" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class='bx bx-search mr-1'></i> Search
+                    </label>
+                    <input type="text" 
+                           id="search"
+                           name="search" 
+                           value="{{ request('search') }}"
+                           placeholder="Search by name or email..."
+                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                </div>
+                
+                <!-- Role Filter -->
+                <div>
+                    <label for="role" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class='bx bx-user mr-1'></i> Role
+                    </label>
+                    <select id="role"
+                            name="role" 
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                        <option value="">All Roles</option>
+                        <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                        <option value="patient" {{ request('role') == 'patient' ? 'selected' : '' }}>Patient</option>
+                        <option value="doctor" {{ request('role') == 'doctor' ? 'selected' : '' }}>Doctor</option>
+                        <option value="staff" {{ request('role') == 'staff' ? 'selected' : '' }}>Staff</option>
+                    </select>
+                </div>
+                
+                <!-- Status Filter -->
+                <div>
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class='bx bx-info-circle mr-1'></i> Status
+                    </label>
+                    <select id="status"
+                            name="status" 
+                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                        <option value="active" {{ !in_array(request('status'), ['deleted', 'locked']) ? 'selected' : '' }}>Active</option>
+                        <option value="locked" {{ request('status') == 'locked' ? 'selected' : '' }}>Locked</option>
+                        <option value="deleted" {{ request('status') == 'deleted' ? 'selected' : '' }}>Deleted</option>
+                    </select>
+                </div>
             </div>
-            <div>
-                <select name="role" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <option value="">All Roles</option>
-                    <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
-                    <option value="patient" {{ request('role') == 'patient' ? 'selected' : '' }}>Patient</option>
-                    <option value="doctor" {{ request('role') == 'doctor' ? 'selected' : '' }}>Doctor</option>
-                    <option value="staff" {{ request('role') == 'staff' ? 'selected' : '' }}>Staff</option>
-                </select>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap gap-3">
+                <button type="submit" 
+                        class="inline-flex items-center px-6 py-2.5 bg-gray-700 text-white font-medium rounded-lg hover:bg-gray-800 transition">
+                    <i class='bx bx-filter-alt mr-2'></i>
+                    Apply Filters
+                </button>
+                @if(request()->hasAny(['search', 'role', 'status']))
+                    <a href="{{ route('admin.users.index') }}" 
+                       class="inline-flex items-center px-6 py-2.5 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition">
+                        <i class='bx bx-x mr-2'></i>
+                        Clear Filters
+                    </a>
+                @endif
             </div>
-            <div>
-                <select name="status" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <option value="active" {{ !in_array(request('status'), ['deleted', 'locked']) ? 'selected' : '' }}>Active</option>
-                    <option value="locked" {{ request('status') == 'locked' ? 'selected' : '' }}>Locked</option>
-                    <option value="deleted" {{ request('status') == 'deleted' ? 'selected' : '' }}>Deleted</option>
-                </select>
-            </div>
-            <button type="submit" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition">
-                <i class='bx bx-search mr-1'></i> Filter
-            </button>
-            @if(request()->hasAny(['search', 'role', 'status']))
-                <a href="{{ route('admin.users.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 transition">
-                    Clear
-                </a>
-            @endif
         </form>
     </div>
 
     <!-- Users Table -->
-    <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+                <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Security</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
-                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            User
+                        </th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            Contact
+                        </th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            Role
+                        </th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            Status
+                        </th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            Security
+                        </th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            Created
+                        </th>
+                        <th class="px-6 py-4 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                            Actions
+                        </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse($users as $user)
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-blue-50 transition-colors duration-150 {{ $user->trashed() ? 'opacity-60' : '' }}">
+                            <!-- User Info -->
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10">
-                                        <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                            <span class="text-blue-600 font-semibold">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
+                                    <div class="flex-shrink-0 h-12 w-12">
+                                        <div class="h-12 w-12 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center shadow-md">
+                                            <span class="text-white font-bold text-lg">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
                                         </div>
                                     </div>
                                     <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">{{ $user->name }}</div>
+                                        <div class="text-sm font-semibold text-gray-900">{{ $user->name }}</div>
+                                        @if($user->id === auth()->id())
+                                            <span class="text-xs text-blue-600 font-medium">(You)</span>
+                                        @endif
                                     </div>
                                 </div>
                             </td>
+                            
+                            <!-- Email -->
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ $user->email }}</div>
+                                @if($user->email_verified_at)
+                                    <div class="text-xs text-green-600 flex items-center mt-1">
+                                        <i class='bx bx-check-circle mr-1'></i> Verified
+                                    </div>
+                                @else
+                                    <div class="text-xs text-yellow-600 flex items-center mt-1">
+                                        <i class='bx bx-time mr-1'></i> Unverified
+                                    </div>
+                                @endif
                             </td>
+                            
+                            <!-- Role -->
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $user->role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800' }}">
+                                @php
+                                    $roleConfig = [
+                                        'admin' => ['bg' => 'bg-purple-100', 'text' => 'text-purple-800', 'icon' => 'bx-shield-quarter'],
+                                        'doctor' => ['bg' => 'bg-green-100', 'text' => 'text-green-800', 'icon' => 'bx-user-md'],
+                                        'staff' => ['bg' => 'bg-yellow-100', 'text' => 'text-yellow-800', 'icon' => 'bx-user'],
+                                        'patient' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-800', 'icon' => 'bx-user-circle'],
+                                    ];
+                                    $config = $roleConfig[$user->role] ?? $roleConfig['patient'];
+                                @endphp
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold {{ $config['bg'] }} {{ $config['text'] }}">
+                                    <i class='bx {{ $config['icon'] }} mr-1.5'></i>
                                     {{ ucfirst($user->role) }}
                                 </span>
                             </td>
+                            
+                            <!-- Status -->
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($user->trashed())
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800">
+                                        <i class='bx bx-trash mr-1.5'></i>
                                         Deleted
                                     </span>
+                                    <div class="text-xs text-gray-500 mt-1">
+                                        {{ $user->deleted_at->format('M d, Y') }}
+                                    </div>
                                 @else
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                                        <i class='bx bx-check-circle mr-1.5'></i>
                                         Active
                                     </span>
                                 @endif
                             </td>
+                            
+                            <!-- Security -->
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($user->isLocked())
-                                    <div class="flex flex-col">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 mb-1">
+                                    <div class="flex flex-col gap-1">
+                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-red-100 text-red-800">
                                             <i class='bx bx-lock mr-1'></i> Locked
                                         </span>
-                                        <span class="text-xs text-gray-500">
+                                        <span class="text-xs text-gray-600">
                                             {{ round($user->getRemainingLockoutMinutes()) }} min left
                                         </span>
                                     </div>
                                 @elseif($user->failed_login_attempts > 0)
-                                    <div class="flex flex-col">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                            {{ $user->failed_login_attempts }}/5 attempts
-                                        </span>
-                                    </div>
+                                    <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-yellow-100 text-yellow-800">
+                                        <i class='bx bx-error-circle mr-1'></i>
+                                        {{ $user->failed_login_attempts }}/5 attempts
+                                    </span>
                                 @else
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        <i class='bx bx-check-circle mr-1'></i> Secure
+                                    <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-green-100 text-green-800">
+                                        <i class='bx bx-shield-check mr-1'></i> Secure
                                     </span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $user->created_at->format('M d, Y') }}
+                            
+                            <!-- Created Date -->
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm text-gray-900">{{ $user->created_at->format('M d, Y') }}</div>
+                                <div class="text-xs text-gray-500">{{ $user->created_at->format('h:i A') }}</div>
                             </td>
+                            
+                            <!-- Actions -->
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <div class="flex justify-end space-x-2">
+                                <div class="flex justify-end items-center gap-2">
                                     @if($user->trashed())
-                                        <form action="{{ route('admin.users.restore', $user->id) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('POST')
-                                            <button type="submit" class="text-green-600 hover:text-green-900" title="Restore">
-                                                <i class='bx bx-refresh text-xl'></i>
-                                            </button>
-                                        </form>
-                                        <form action="{{ route('admin.users.force-delete', $user->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to permanently delete this user? This action cannot be undone!');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900" title="Permanently Delete">
-                                                <i class='bx bx-trash text-xl'></i>
-                                            </button>
-                                        </form>
+                                        <!-- Restore -->
+                                        <button onclick="restoreUser({{ $user->id }}, '{{ $user->name }}')" 
+                                                class="p-2 text-green-600 hover:text-green-900 hover:bg-green-50 rounded-lg transition"
+                                                title="Restore User">
+                                            <i class='bx bx-refresh text-xl'></i>
+                                        </button>
+                                        <!-- Force Delete -->
+                                        <button onclick="forceDeleteUser({{ $user->id }}, '{{ $user->name }}')" 
+                                                class="p-2 text-red-600 hover:text-red-900 hover:bg-red-50 rounded-lg transition"
+                                                title="Permanently Delete">
+                                            <i class='bx bx-trash text-xl'></i>
+                                        </button>
                                     @else
-                                        <a href="{{ route('admin.users.show', $user->id) }}" class="text-blue-600 hover:text-blue-900" title="View">
+                                        <!-- View -->
+                                        <a href="{{ route('admin.users.show', $user->id) }}" 
+                                           class="p-2 text-blue-600 hover:text-blue-900 hover:bg-blue-50 rounded-lg transition"
+                                           title="View Details">
                                             <i class='bx bx-show text-xl'></i>
                                         </a>
-                                        @if(!$user->trashed())
-                                        <a href="{{ route('admin.users.edit', $user->id) }}" class="text-indigo-600 hover:text-indigo-900" title="Edit">
+                                        <!-- Edit -->
+                                        <a href="{{ route('admin.users.edit', $user->id) }}" 
+                                           class="p-2 text-indigo-600 hover:text-indigo-900 hover:bg-indigo-50 rounded-lg transition"
+                                           title="Edit User">
                                             <i class='bx bx-edit text-xl'></i>
                                         </a>
-                                        <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this user?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900" title="Delete">
+                                        <!-- Delete -->
+                                        @if($user->id !== auth()->id())
+                                            <button onclick="deleteUser({{ $user->id }}, '{{ $user->name }}')" 
+                                                    class="p-2 text-red-600 hover:text-red-900 hover:bg-red-50 rounded-lg transition"
+                                                    title="Delete User">
                                                 <i class='bx bx-trash text-xl'></i>
                                             </button>
-                                        </form>
+                                        @else
+                                            <span class="p-2 text-gray-400 cursor-not-allowed" title="Cannot delete your own account">
+                                                <i class='bx bx-trash text-xl'></i>
+                                            </span>
                                         @endif
                                     @endif
                                 </div>
@@ -167,19 +263,169 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="px-6 py-4 text-center text-gray-500">
-                                No users found.
+                            <td colspan="7" class="px-6 py-12 text-center">
+                                <div class="flex flex-col items-center justify-center">
+                                    <i class='bx bx-user-x text-6xl text-gray-300 mb-4'></i>
+                                    <p class="text-gray-500 text-lg font-medium">No users found</p>
+                                    <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or create a new user</p>
+                                </div>
                             </td>
                         </tr>
                     @endforelse
                 </tbody>
             </table>
         </div>
+        
         <!-- Pagination -->
-        <div class="px-6 py-4 border-t border-gray-200">
-            {{ $users->links() }}
-        </div>
+        @if($users->hasPages())
+            <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
+                {{ $users->links() }}
+            </div>
+        @endif
     </div>
 </div>
-@endsection
 
+@push('scripts')
+<script>
+    // Delete User (Soft Delete)
+    function deleteUser(id, name) {
+        Swal.fire({
+            title: 'Delete User?',
+            html: `Are you sure you want to delete <strong>${name}</strong>?<br><br>This action will soft delete the user. You can restore them later.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Yes, Delete',
+            cancelButtonText: 'Cancel',
+            width: '450px'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Show loading
+                Swal.fire({
+                    title: 'Deleting...',
+                    text: 'Please wait',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                // Create form and submit
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/admin/users/${id}`;
+                
+                const csrf = document.createElement('input');
+                csrf.type = 'hidden';
+                csrf.name = '_token';
+                csrf.value = '{{ csrf_token() }}';
+                form.appendChild(csrf);
+                
+                const method = document.createElement('input');
+                method.type = 'hidden';
+                method.name = '_method';
+                method.value = 'DELETE';
+                form.appendChild(method);
+                
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+
+    // Restore User
+    function restoreUser(id, name) {
+        Swal.fire({
+            title: 'Restore User?',
+            html: `Are you sure you want to restore <strong>${name}</strong>?`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Yes, Restore',
+            cancelButtonText: 'Cancel',
+            width: '450px'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Show loading
+                Swal.fire({
+                    title: 'Restoring...',
+                    text: 'Please wait',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                // Create form and submit
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/admin/users/${id}/restore`;
+                
+                const csrf = document.createElement('input');
+                csrf.type = 'hidden';
+                csrf.name = '_token';
+                csrf.value = '{{ csrf_token() }}';
+                form.appendChild(csrf);
+                
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+
+    // Force Delete User
+    function forceDeleteUser(id, name) {
+        Swal.fire({
+            title: 'Permanently Delete?',
+            html: `<div class="text-left">
+                <p class="mb-3">Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?</p>
+                <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
+                    <p class="text-sm text-red-800"><i class='bx bx-error-circle mr-1'></i> <strong>Warning:</strong> This action cannot be undone!</p>
+                </div>
+            </div>`,
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Yes, Delete Permanently',
+            cancelButtonText: 'Cancel',
+            width: '500px'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Show loading
+                Swal.fire({
+                    title: 'Deleting...',
+                    text: 'Please wait',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                // Create form and submit
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/admin/users/${id}/force-delete`;
+                
+                const csrf = document.createElement('input');
+                csrf.type = 'hidden';
+                csrf.name = '_token';
+                csrf.value = '{{ csrf_token() }}';
+                form.appendChild(csrf);
+                
+                const method = document.createElement('input');
+                method.type = 'hidden';
+                method.name = '_method';
+                method.value = 'DELETE';
+                form.appendChild(method);
+                
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+</script>
+@endpush
+@endsection

@@ -64,23 +64,61 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:admin,patient,doctor,staff',
-        ]);
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8|confirmed',
+                'role' => 'required|in:admin,patient,doctor,staff',
+            ], [
+                'name.required' => 'The name field is required.',
+                'email.required' => 'The email field is required.',
+                'email.email' => 'Please enter a valid email address.',
+                'email.unique' => 'This email is already registered.',
+                'password.required' => 'The password field is required.',
+                'password.min' => 'Password must be at least 8 characters.',
+                'password.confirmed' => 'Password confirmation does not match.',
+                'role.required' => 'Please select a role.',
+            ]);
 
-        User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role' => $validated['role'],
-            'email_verified_at' => now(),
-        ]);
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+                'role' => $validated['role'],
+                'email_verified_at' => now(),
+            ]);
 
-        return redirect()->route('admin.users.index')
-            ->with('success', 'User created successfully!');
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'User created successfully!',
+                    'user' => $user
+                ]);
+            }
+
+            return redirect()->route('admin.users.index')
+                ->with('success', 'User created successfully!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $e->errors()
+                ], 422);
+            }
+            throw $e;
+        } catch (\Exception $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to create user: ' . $e->getMessage()
+                ], 500);
+            }
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Failed to create user: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -113,83 +151,208 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::withTrashed()->findOrFail($id);
-        
-        // Prevent updating deleted users
-        if ($user->trashed()) {
+        try {
+            $user = User::withTrashed()->findOrFail($id);
+            
+            // Prevent updating deleted users
+            if ($user->trashed()) {
+                $message = 'Cannot update a deleted user. Please restore it first.';
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => $message
+                    ], 422);
+                }
+                return redirect()->route('admin.users.index')
+                    ->with('error', $message);
+            }
+            
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
+                'password' => 'nullable|string|min:8|confirmed',
+                'role' => 'required|in:admin,patient,doctor,staff',
+            ], [
+                'name.required' => 'The name field is required.',
+                'email.required' => 'The email field is required.',
+                'email.email' => 'Please enter a valid email address.',
+                'email.unique' => 'This email is already registered.',
+                'password.min' => 'Password must be at least 8 characters.',
+                'password.confirmed' => 'Password confirmation does not match.',
+                'role.required' => 'Please select a role.',
+            ]);
+
+            $user->name = $validated['name'];
+            $user->email = $validated['email'];
+            $user->role = $validated['role'];
+
+            if ($request->filled('password')) {
+                $user->password = Hash::make($validated['password']);
+            }
+
+            $user->save();
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'User updated successfully!',
+                    'user' => $user
+                ]);
+            }
+
             return redirect()->route('admin.users.index')
-                ->with('error', 'Cannot update a deleted user. Please restore it first.');
+                ->with('success', 'User updated successfully!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $e->errors()
+                ], 422);
+            }
+            throw $e;
+        } catch (\Exception $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to update user: ' . $e->getMessage()
+                ], 500);
+            }
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Failed to update user: ' . $e->getMessage());
         }
-        
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'password' => 'nullable|string|min:8|confirmed',
-            'role' => 'required|in:admin,patient,doctor,staff',
-        ]);
-
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        $user->role = $validated['role'];
-
-        if ($request->filled('password')) {
-            $user->password = Hash::make($validated['password']);
-        }
-
-        $user->save();
-
-        return redirect()->route('admin.users.index')
-            ->with('success', 'User updated successfully!');
     }
 
     /**
      * Remove the specified user (soft delete)
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        
-        // Prevent admin from deleting themselves
-        if ($user->id === auth()->id()) {
+        try {
+            $user = User::findOrFail($id);
+            
+            // Prevent admin from deleting themselves
+            if ($user->id === auth()->id()) {
+                $message = 'You cannot delete your own account!';
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => $message
+                    ], 422);
+                }
+                return redirect()->route('admin.users.index')
+                    ->with('error', $message);
+            }
+
+            $user->delete();
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'User deleted successfully!'
+                ]);
+            }
+
             return redirect()->route('admin.users.index')
-                ->with('error', 'You cannot delete your own account!');
+                ->with('success', 'User deleted successfully!');
+        } catch (\Exception $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to delete user: ' . $e->getMessage()
+                ], 500);
+            }
+            return redirect()->route('admin.users.index')
+                ->with('error', 'Failed to delete user: ' . $e->getMessage());
         }
-
-        $user->delete();
-
-        return redirect()->route('admin.users.index')
-            ->with('success', 'User deleted successfully!');
     }
 
     /**
      * Restore a soft deleted user
      */
-    public function restore($id)
+    public function restore(Request $request, $id)
     {
-        $user = User::withTrashed()->findOrFail($id);
-        $user->restore();
+        try {
+            $user = User::withTrashed()->findOrFail($id);
+            
+            if (!$user->trashed()) {
+                $message = 'This user is not deleted.';
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => $message
+                    ], 422);
+                }
+                return redirect()->route('admin.users.index')
+                    ->with('info', $message);
+            }
+            
+            $user->restore();
 
-        return redirect()->route('admin.users.index')
-            ->with('success', 'User restored successfully!');
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'User restored successfully!'
+                ]);
+            }
+
+            return redirect()->route('admin.users.index')
+                ->with('success', 'User restored successfully!');
+        } catch (\Exception $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to restore user: ' . $e->getMessage()
+                ], 500);
+            }
+            return redirect()->route('admin.users.index')
+                ->with('error', 'Failed to restore user: ' . $e->getMessage());
+        }
     }
 
     /**
      * Permanently delete a user
      */
-    public function forceDelete($id)
+    public function forceDelete(Request $request, $id)
     {
-        $user = User::withTrashed()->findOrFail($id);
+        try {
+            $user = User::withTrashed()->findOrFail($id);
 
-        // Prevent admin from permanently deleting themselves
-        if ($user->id === auth()->id()) {
+            // Prevent admin from permanently deleting themselves
+            if ($user->id === auth()->id()) {
+                $message = 'You cannot permanently delete your own account!';
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => $message
+                    ], 422);
+                }
+                return redirect()->route('admin.users.index')
+                    ->with('error', $message);
+            }
+
+            $user->forceDelete();
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'User permanently deleted!'
+                ]);
+            }
+
             return redirect()->route('admin.users.index')
-                ->with('error', 'You cannot permanently delete your own account!');
+                ->with('success', 'User permanently deleted!');
+        } catch (\Exception $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to permanently delete user: ' . $e->getMessage()
+                ], 500);
+            }
+            return redirect()->route('admin.users.index')
+                ->with('error', 'Failed to permanently delete user: ' . $e->getMessage());
         }
-
-        $user->forceDelete();
-
-        return redirect()->route('admin.users.index')
-            ->with('success', 'User permanently deleted!');
     }
 
     /**
