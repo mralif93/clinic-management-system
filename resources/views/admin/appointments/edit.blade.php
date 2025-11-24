@@ -19,7 +19,7 @@
                     <select id="patient_id" 
                             name="patient_id" 
                             required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('patient_id') border-red-500 @enderror">
+                            class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('patient_id') border-red-500 @enderror">
                         <option value="">Select Patient</option>
                         @foreach($patients as $patient)
                             <option value="{{ $patient->id }}" {{ old('patient_id', $appointment->patient_id) == $patient->id ? 'selected' : '' }}>
@@ -37,7 +37,7 @@
                     <label for="doctor_id" class="block text-sm font-medium text-gray-700 mb-2">Doctor</label>
                     <select id="doctor_id" 
                             name="doctor_id" 
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="">Not Assigned</option>
                         @foreach($doctors as $doctor)
                             <option value="{{ $doctor->id }}" {{ old('doctor_id', $appointment->doctor_id) == $doctor->id ? 'selected' : '' }}>
@@ -52,7 +52,7 @@
                     <label for="service_id" class="block text-sm font-medium text-gray-700 mb-2">Service</label>
                     <select id="service_id" 
                             name="service_id" 
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="">Not Selected</option>
                         @foreach($services as $service)
                             <option value="{{ $service->id }}" {{ old('service_id', $appointment->service_id) == $service->id ? 'selected' : '' }}>
@@ -72,7 +72,7 @@
                            name="appointment_date" 
                            value="{{ old('appointment_date', $appointment->appointment_date->format('Y-m-d')) }}"
                            required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('appointment_date') border-red-500 @enderror">
+                           class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('appointment_date') border-red-500 @enderror">
                     @error('appointment_date')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -88,7 +88,7 @@
                            name="appointment_time" 
                            value="{{ old('appointment_time', \Carbon\Carbon::parse($appointment->appointment_time)->format('H:i')) }}"
                            required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('appointment_time') border-red-500 @enderror">
+                           class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('appointment_time') border-red-500 @enderror">
                     @error('appointment_time')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -102,7 +102,7 @@
                     <select id="status" 
                             name="status" 
                             required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="scheduled" {{ old('status', $appointment->status) == 'scheduled' ? 'selected' : '' }}>Scheduled</option>
                         <option value="confirmed" {{ old('status', $appointment->status) == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
                         <option value="completed" {{ old('status', $appointment->status) == 'completed' ? 'selected' : '' }}>Completed</option>
@@ -120,7 +120,7 @@
                            value="{{ old('fee', $appointment->fee) }}"
                            step="0.01"
                            min="0"
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                           class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
 
                 <!-- Notes -->
@@ -129,7 +129,7 @@
                     <textarea id="notes" 
                               name="notes" 
                               rows="3"
-                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('notes', $appointment->notes) }}</textarea>
+                              class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('notes', $appointment->notes) }}</textarea>
                 </div>
 
                 <!-- Diagnosis -->
@@ -138,7 +138,7 @@
                     <textarea id="diagnosis" 
                               name="diagnosis" 
                               rows="3"
-                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('diagnosis', $appointment->diagnosis) }}</textarea>
+                              class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('diagnosis', $appointment->diagnosis) }}</textarea>
                 </div>
 
                 <!-- Prescription -->
@@ -147,7 +147,7 @@
                     <textarea id="prescription" 
                               name="prescription" 
                               rows="3"
-                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('prescription', $appointment->prescription) }}</textarea>
+                              class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('prescription', $appointment->prescription) }}</textarea>
                 </div>
             </div>
 
@@ -157,7 +157,7 @@
                     Cancel
                 </a>
                 <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                    <i class='bx bx-save mr-2'></i>
+                    <i class='bx bx-save mr-2 text-base'></i>
                     Update Appointment
                 </button>
             </div>

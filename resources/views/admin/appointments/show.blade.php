@@ -11,19 +11,19 @@
             <h3 class="text-lg font-semibold text-gray-900">Appointment Information</h3>
             <div class="flex space-x-2">
                 @if(!$appointment->trashed())
-                <a href="{{ route('admin.appointments.edit', $appointment->id) }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                    <i class='bx bx-edit mr-2'></i> Edit
+                <a href="{{ route('admin.appointments.edit', $appointment->id) }}" class="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                    <i class='bx bx-edit mr-2 text-base'></i> Edit
                 </a>
                 @else
                 <form action="{{ route('admin.appointments.restore', $appointment->id) }}" method="POST" class="inline">
                     @csrf
                     @method('POST')
-                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
-                        <i class='bx bx-refresh mr-2'></i> Restore
+                    <button type="submit" class="px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                        <i class='bx bx-refresh mr-2 text-base'></i> Restore
                     </button>
                 </form>
                 @endif
-                <a href="{{ route('admin.appointments.index') }}" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                <a href="{{ route('admin.appointments.index') }}" class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
                     Back to List
                 </a>
             </div>
@@ -35,21 +35,21 @@
                 <!-- Patient Info -->
                 <div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Patient Information</h3>
-                    <div class="space-y-3">
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Name</label>
-                            <p class="mt-1 text-gray-900">{{ $appointment->patient->full_name }}</p>
+                    <div class="space-y-0 divide-y divide-gray-100">
+                        <div class="flex items-center justify-between py-3.5">
+                            <label class="text-sm font-medium text-gray-600">Name</label>
+                            <p class="text-gray-900">{{ $appointment->patient->full_name }}</p>
                         </div>
                         @if($appointment->patient->email)
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Email</label>
-                            <p class="mt-1 text-gray-900">{{ $appointment->patient->email }}</p>
+                        <div class="flex items-center justify-between py-3.5">
+                            <label class="text-sm font-medium text-gray-600">Email</label>
+                            <p class="text-gray-900">{{ $appointment->patient->email }}</p>
                         </div>
                         @endif
                         @if($appointment->patient->phone)
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Phone</label>
-                            <p class="mt-1 text-gray-900">{{ $appointment->patient->phone }}</p>
+                        <div class="flex items-center justify-between py-3.5">
+                            <label class="text-sm font-medium text-gray-600">Phone</label>
+                            <p class="text-gray-900">{{ $appointment->patient->phone }}</p>
                         </div>
                         @endif
                     </div>
@@ -58,36 +58,36 @@
                 <!-- Appointment Details -->
                 <div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Appointment Details</h3>
-                    <div class="space-y-3">
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Date</label>
-                            <p class="mt-1 text-gray-900">{{ $appointment->appointment_date->format('M d, Y') }}</p>
+                    <div class="space-y-0 divide-y divide-gray-100">
+                        <div class="flex items-center justify-between py-3.5">
+                            <label class="text-sm font-medium text-gray-600">Date</label>
+                            <p class="text-gray-900">{{ $appointment->appointment_date->format('M d, Y') }}</p>
                         </div>
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Time</label>
-                            <p class="mt-1 text-gray-900">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</p>
+                        <div class="flex items-center justify-between py-3.5">
+                            <label class="text-sm font-medium text-gray-600">Time</label>
+                            <p class="text-gray-900">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</p>
                         </div>
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Status</label>
-                            <p class="mt-1">
+                        <div class="flex items-center justify-between py-3.5">
+                            <label class="text-sm font-medium text-gray-600">Status</label>
+                            <div>
                                 @php
                                     $statusColors = [
-                                        'scheduled' => 'bg-blue-100 text-blue-800',
-                                        'confirmed' => 'bg-green-100 text-green-800',
-                                        'completed' => 'bg-gray-100 text-gray-800',
-                                        'cancelled' => 'bg-red-100 text-red-800',
-                                        'no_show' => 'bg-yellow-100 text-yellow-800',
+                                        'scheduled' => 'bg-blue-50 text-blue-700 border border-blue-200',
+                                        'confirmed' => 'bg-green-50 text-green-700 border border-green-200',
+                                        'completed' => 'bg-gray-50 text-gray-700 border border-gray-200',
+                                        'cancelled' => 'bg-red-50 text-red-700 border border-red-200',
+                                        'no_show' => 'bg-yellow-50 text-yellow-700 border border-yellow-200',
                                     ];
                                 @endphp
-                                <span class="px-3 py-1 inline-flex text-sm font-semibold rounded-full {{ $statusColors[$appointment->status] ?? 'bg-gray-100 text-gray-800' }}">
+                                <span class="px-3 py-1 inline-flex text-sm font-semibold rounded-full {{ $statusColors[$appointment->status] ?? 'bg-gray-50 text-gray-700 border border-gray-200' }}">
                                     {{ ucfirst(str_replace('_', ' ', $appointment->status)) }}
                                 </span>
-                            </p>
+                            </div>
                         </div>
                         @if($appointment->fee)
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Fee</label>
-                            <p class="mt-1 text-gray-900">{{ get_setting('currency', '$') }}{{ number_format($appointment->fee, 2) }}</p>
+                        <div class="flex items-center justify-between py-3.5">
+                            <label class="text-sm font-medium text-gray-600">Fee</label>
+                            <p class="text-gray-900">{{ get_setting('currency', '$') }}{{ number_format($appointment->fee, 2) }}</p>
                         </div>
                         @endif
                     </div>
@@ -97,21 +97,21 @@
                 @if($appointment->doctor)
                 <div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Doctor Information</h3>
-                    <div class="space-y-3">
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Name</label>
-                            <p class="mt-1 text-gray-900">{{ $appointment->doctor->full_name }}</p>
+                    <div class="space-y-0 divide-y divide-gray-100">
+                        <div class="flex items-center justify-between py-3.5">
+                            <label class="text-sm font-medium text-gray-600">Name</label>
+                            <p class="text-gray-900">{{ $appointment->doctor->full_name }}</p>
                         </div>
                         @if($appointment->doctor->specialization)
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Specialization</label>
-                            <p class="mt-1 text-gray-900">{{ $appointment->doctor->specialization }}</p>
+                        <div class="flex items-center justify-between py-3.5">
+                            <label class="text-sm font-medium text-gray-600">Specialization</label>
+                            <p class="text-gray-900">{{ $appointment->doctor->specialization }}</p>
                         </div>
                         @endif
                         @if($appointment->doctor->email)
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Email</label>
-                            <p class="mt-1 text-gray-900">{{ $appointment->doctor->email }}</p>
+                        <div class="flex items-center justify-between py-3.5">
+                            <label class="text-sm font-medium text-gray-600">Email</label>
+                            <p class="text-gray-900">{{ $appointment->doctor->email }}</p>
                         </div>
                         @endif
                     </div>
@@ -122,18 +122,18 @@
                 @if($appointment->service)
                 <div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Service Information</h3>
-                    <div class="space-y-3">
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Service</label>
-                            <p class="mt-1 text-gray-900">{{ $appointment->service->name }}</p>
+                    <div class="space-y-0 divide-y divide-gray-100">
+                        <div class="flex items-center justify-between py-3.5">
+                            <label class="text-sm font-medium text-gray-600">Service</label>
+                            <p class="text-gray-900">{{ $appointment->service->name }}</p>
                         </div>
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Type</label>
-                            <p class="mt-1 text-gray-900">{{ ucfirst($appointment->service->type) }}</p>
+                        <div class="flex items-center justify-between py-3.5">
+                            <label class="text-sm font-medium text-gray-600">Type</label>
+                            <p class="text-gray-900">{{ ucfirst($appointment->service->type) }}</p>
                         </div>
-                        <div>
-                            <label class="text-sm font-medium text-gray-500">Price</label>
-                            <p class="mt-1 text-gray-900">{{ get_setting('currency', '$') }}{{ number_format($appointment->service->price, 2) }}</p>
+                        <div class="flex items-center justify-between py-3.5">
+                            <label class="text-sm font-medium text-gray-600">Price</label>
+                            <p class="text-gray-900">{{ get_setting('currency', '$') }}{{ number_format($appointment->service->price, 2) }}</p>
                         </div>
                     </div>
                 </div>
@@ -165,19 +165,19 @@
             @endif
 
             <!-- Timestamps -->
-            <div class="mt-8 border-t pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="text-sm font-medium text-gray-500">Created At</label>
-                    <p class="mt-1 text-gray-900">{{ $appointment->created_at->format('M d, Y H:i') }}</p>
+            <div class="mt-8 border-t pt-6 space-y-0 divide-y divide-gray-100">
+                <div class="flex items-center justify-between py-3.5">
+                    <label class="text-sm font-medium text-gray-600">Created At</label>
+                    <p class="text-gray-900">{{ $appointment->created_at->format('M d, Y H:i') }}</p>
                 </div>
-                <div>
-                    <label class="text-sm font-medium text-gray-500">Last Updated</label>
-                    <p class="mt-1 text-gray-900">{{ $appointment->updated_at->format('M d, Y H:i') }}</p>
+                <div class="flex items-center justify-between py-3.5">
+                    <label class="text-sm font-medium text-gray-600">Last Updated</label>
+                    <p class="text-gray-900">{{ $appointment->updated_at->format('M d, Y H:i') }}</p>
                 </div>
                 @if($appointment->trashed())
-                <div>
-                    <label class="text-sm font-medium text-gray-500">Deleted At</label>
-                    <p class="mt-1 text-gray-900">{{ $appointment->deleted_at->format('M d, Y H:i') }}</p>
+                <div class="flex items-center justify-between py-3.5">
+                    <label class="text-sm font-medium text-gray-600">Deleted At</label>
+                    <p class="text-gray-900">{{ $appointment->deleted_at->format('M d, Y H:i') }}</p>
                 </div>
                 @endif
             </div>

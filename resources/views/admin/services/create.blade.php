@@ -20,7 +20,7 @@
                            name="name" 
                            value="{{ old('name') }}"
                            required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror">
+                           class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror">
                     @error('name')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -35,7 +35,7 @@
                     <select id="type" 
                             name="type" 
                             required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('type') border-red-500 @enderror">
+                            class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('type') border-red-500 @enderror">
                         <option value="">Select Type</option>
                         <option value="psychology" {{ old('type') == 'psychology' ? 'selected' : '' }}>Psychology</option>
                         <option value="homeopathy" {{ old('type') == 'homeopathy' ? 'selected' : '' }}>Homeopathy</option>
@@ -78,7 +78,7 @@
                            value="{{ old('duration_minutes', 60) }}"
                            min="1"
                            required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('duration_minutes') border-red-500 @enderror">
+                           class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('duration_minutes') border-red-500 @enderror">
                     @error('duration_minutes')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -104,7 +104,7 @@
                     <textarea id="description" 
                               name="description" 
                               rows="5"
-                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description') }}</textarea>
+                              class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description') }}</textarea>
                 </div>
             </div>
 
@@ -114,7 +114,7 @@
                     Cancel
                 </a>
                 <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                    <i class='bx bx-save mr-2'></i>
+                    <i class='bx bx-save mr-2 text-base'></i>
                     Create Service
                 </button>
             </div>

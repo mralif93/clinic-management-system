@@ -16,7 +16,7 @@
                 @endif
             </div>
             <div class="text-6xl opacity-20">
-                <i class='bx bx-user-md'></i>
+                <i class='bx bx-plus-medical'></i>
             </div>
         </div>
     </div>

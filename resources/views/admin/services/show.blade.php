@@ -11,19 +11,19 @@
             <h3 class="text-lg font-semibold text-gray-900">Service Information</h3>
             <div class="flex space-x-2">
                 @if(!$service->trashed())
-                <a href="{{ route('admin.services.edit', $service->id) }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                    <i class='bx bx-edit mr-2'></i> Edit
+                <a href="{{ route('admin.services.edit', $service->id) }}" class="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                    <i class='bx bx-edit mr-2 text-base'></i> Edit
                 </a>
                 @else
                 <form action="{{ route('admin.services.restore', $service->id) }}" method="POST" class="inline">
                     @csrf
                     @method('POST')
-                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
-                        <i class='bx bx-refresh mr-2'></i> Restore
+                    <button type="submit" class="px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                        <i class='bx bx-refresh mr-2 text-base'></i> Restore
                     </button>
                 </form>
                 @endif
-                <a href="{{ route('admin.services.index') }}" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                <a href="{{ route('admin.services.index') }}" class="px-3 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
                     Back to List
                 </a>
             </div>
@@ -41,45 +41,45 @@
                 </div>
 
                 <!-- Status Info -->
-                <div class="space-y-4">
-                    <div>
-                        <label class="text-sm font-medium text-gray-500">Status</label>
-                        <p class="mt-1">
+                <div class="space-y-0 divide-y divide-gray-100">
+                    <div class="flex items-center justify-between py-3.5">
+                        <label class="text-sm font-medium text-gray-600">Status</label>
+                        <div>
                             @if($service->trashed())
-                                <span class="px-3 py-1 inline-flex text-sm font-semibold rounded-full bg-red-100 text-red-800">
+                                <span class="px-3 py-1 inline-flex text-sm font-semibold rounded-full bg-red-50 text-red-700 border border-red-200">
                                     Deleted
                                 </span>
                             @elseif($service->is_active)
-                                <span class="px-3 py-1 inline-flex text-sm font-semibold rounded-full bg-green-100 text-green-800">
+                                <span class="px-3 py-1 inline-flex text-sm font-semibold rounded-full bg-green-50 text-green-700 border border-green-200">
                                     Active
                                 </span>
                             @else
-                                <span class="px-3 py-1 inline-flex text-sm font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                <span class="px-3 py-1 inline-flex text-sm font-semibold rounded-full bg-yellow-50 text-yellow-700 border border-yellow-200">
                                     Inactive
                                 </span>
                             @endif
-                        </p>
+                        </div>
                     </div>
-                    <div>
-                        <label class="text-sm font-medium text-gray-500">Type</label>
-                        <p class="mt-1">
-                            <span class="px-3 py-1 inline-flex text-sm font-semibold rounded-full bg-blue-100 text-blue-800">
+                    <div class="flex items-center justify-between py-3.5">
+                        <label class="text-sm font-medium text-gray-600">Type</label>
+                        <div>
+                            <span class="px-3 py-1 inline-flex text-sm font-semibold rounded-full bg-blue-50 text-blue-700 border border-blue-200">
                                 {{ ucfirst($service->type) }}
                             </span>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Service Information -->
-            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="text-sm font-medium text-gray-500">Price</label>
-                    <p class="mt-1 text-gray-900 text-lg font-semibold">{{ get_setting('currency', '$') }}{{ number_format($service->price, 2) }}</p>
+            <div class="mt-8 space-y-0 divide-y divide-gray-100">
+                <div class="flex items-center justify-between py-3.5">
+                    <label class="text-sm font-medium text-gray-600">Price</label>
+                    <p class="text-gray-900 text-lg font-semibold">{{ get_setting('currency', '$') }}{{ number_format($service->price, 2) }}</p>
                 </div>
-                <div>
-                    <label class="text-sm font-medium text-gray-500">Duration</label>
-                    <p class="mt-1 text-gray-900">{{ $service->duration_minutes }} minutes</p>
+                <div class="flex items-center justify-between py-3.5">
+                    <label class="text-sm font-medium text-gray-600">Duration</label>
+                    <p class="text-gray-900">{{ $service->duration_minutes }} minutes</p>
                 </div>
             </div>
 
@@ -92,19 +92,19 @@
             @endif
 
             <!-- Timestamps -->
-            <div class="mt-8 border-t pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="text-sm font-medium text-gray-500">Created At</label>
-                    <p class="mt-1 text-gray-900">{{ $service->created_at->format('M d, Y H:i') }}</p>
+            <div class="mt-8 border-t pt-6 space-y-0 divide-y divide-gray-100">
+                <div class="flex items-center justify-between py-3.5">
+                    <label class="text-sm font-medium text-gray-600">Created At</label>
+                    <p class="text-gray-900">{{ $service->created_at->format('M d, Y H:i') }}</p>
                 </div>
-                <div>
-                    <label class="text-sm font-medium text-gray-500">Last Updated</label>
-                    <p class="mt-1 text-gray-900">{{ $service->updated_at->format('M d, Y H:i') }}</p>
+                <div class="flex items-center justify-between py-3.5">
+                    <label class="text-sm font-medium text-gray-600">Last Updated</label>
+                    <p class="text-gray-900">{{ $service->updated_at->format('M d, Y H:i') }}</p>
                 </div>
                 @if($service->trashed())
-                <div>
-                    <label class="text-sm font-medium text-gray-500">Deleted At</label>
-                    <p class="mt-1 text-gray-900">{{ $service->deleted_at->format('M d, Y H:i') }}</p>
+                <div class="flex items-center justify-between py-3.5">
+                    <label class="text-sm font-medium text-gray-600">Deleted At</label>
+                    <p class="text-gray-900">{{ $service->deleted_at->format('M d, Y H:i') }}</p>
                 </div>
                 @endif
             </div>

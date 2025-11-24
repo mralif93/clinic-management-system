@@ -66,29 +66,71 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id|unique:staff,user_id',
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'position' => 'nullable|string|max:255',
-            'department' => 'nullable|string|max:255',
-            'hire_date' => 'nullable|date',
-            'notes' => 'nullable|string',
-        ]);
+        try {
+            $validated = $request->validate([
+                'user_id' => 'required|exists:users,id|unique:staff,user_id',
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'phone' => 'nullable|string|max:20',
+                'position' => 'nullable|string|max:255',
+                'department' => 'nullable|string|max:255',
+                'hire_date' => 'nullable|date',
+                'notes' => 'nullable|string',
+            ], [
+                'user_id.required' => 'Please select a user account.',
+                'user_id.exists' => 'Selected user does not exist.',
+                'user_id.unique' => 'This user already has a staff profile.',
+                'first_name.required' => 'The first name field is required.',
+                'last_name.required' => 'The last name field is required.',
+            ]);
 
-        // Verify user has staff role
-        $user = User::findOrFail($validated['user_id']);
-        if ($user->role !== 'staff') {
+            // Verify user has staff role
+            $user = User::findOrFail($validated['user_id']);
+            if ($user->role !== 'staff') {
+                $message = 'Selected user must have staff role.';
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => $message
+                    ], 422);
+                }
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', $message);
+            }
+
+            $staff = Staff::create($validated);
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Staff created successfully!',
+                    'staff' => $staff
+                ]);
+            }
+
+            return redirect()->route('admin.staff.index')
+                ->with('success', 'Staff created successfully!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $e->errors()
+                ], 422);
+            }
+            throw $e;
+        } catch (\Exception $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to create staff: ' . $e->getMessage()
+                ], 500);
+            }
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Selected user must have staff role.');
+                ->with('error', 'Failed to create staff: ' . $e->getMessage());
         }
-
-        Staff::create($validated);
-
-        return redirect()->route('admin.staff.index')
-            ->with('success', 'Staff created successfully!');
     }
 
     /**
@@ -120,63 +162,169 @@ class StaffController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $staff = Staff::withTrashed()->findOrFail($id);
-        
-        if ($staff->trashed()) {
+        try {
+            $staff = Staff::withTrashed()->findOrFail($id);
+            
+            if ($staff->trashed()) {
+                $message = 'Cannot update a deleted staff. Please restore it first.';
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => $message
+                    ], 422);
+                }
+                return redirect()->route('admin.staff.index')
+                    ->with('error', $message);
+            }
+            
+            $validated = $request->validate([
+                'first_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'phone' => 'nullable|string|max:20',
+                'position' => 'nullable|string|max:255',
+                'department' => 'nullable|string|max:255',
+                'hire_date' => 'nullable|date',
+                'notes' => 'nullable|string',
+            ], [
+                'first_name.required' => 'The first name field is required.',
+                'last_name.required' => 'The last name field is required.',
+            ]);
+
+            $staff->update($validated);
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Staff updated successfully!',
+                    'staff' => $staff
+                ]);
+            }
+
             return redirect()->route('admin.staff.index')
-                ->with('error', 'Cannot update a deleted staff. Please restore it first.');
+                ->with('success', 'Staff updated successfully!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Validation failed',
+                    'errors' => $e->errors()
+                ], 422);
+            }
+            throw $e;
+        } catch (\Exception $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to update staff: ' . $e->getMessage()
+                ], 500);
+            }
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Failed to update staff: ' . $e->getMessage());
         }
-        
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'position' => 'nullable|string|max:255',
-            'department' => 'nullable|string|max:255',
-            'hire_date' => 'nullable|date',
-            'notes' => 'nullable|string',
-        ]);
-
-        $staff->update($validated);
-
-        return redirect()->route('admin.staff.index')
-            ->with('success', 'Staff updated successfully!');
     }
 
     /**
      * Remove the specified staff (soft delete)
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $staff = Staff::findOrFail($id);
-        $staff->delete();
+        try {
+            $staff = Staff::findOrFail($id);
+            $staff->delete();
 
-        return redirect()->route('admin.staff.index')
-            ->with('success', 'Staff deleted successfully!');
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Staff deleted successfully!'
+                ]);
+            }
+
+            return redirect()->route('admin.staff.index')
+                ->with('success', 'Staff deleted successfully!');
+        } catch (\Exception $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to delete staff: ' . $e->getMessage()
+                ], 500);
+            }
+            return redirect()->route('admin.staff.index')
+                ->with('error', 'Failed to delete staff: ' . $e->getMessage());
+        }
     }
 
     /**
      * Restore a soft deleted staff
      */
-    public function restore($id)
+    public function restore(Request $request, $id)
     {
-        $staff = Staff::withTrashed()->findOrFail($id);
-        $staff->restore();
+        try {
+            $staff = Staff::withTrashed()->findOrFail($id);
+            
+            if (!$staff->trashed()) {
+                $message = 'This staff is not deleted.';
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json([
+                        'success' => false,
+                        'message' => $message
+                    ], 422);
+                }
+                return redirect()->route('admin.staff.index')
+                    ->with('info', $message);
+            }
+            
+            $staff->restore();
 
-        return redirect()->route('admin.staff.index')
-            ->with('success', 'Staff restored successfully!');
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Staff restored successfully!'
+                ]);
+            }
+
+            return redirect()->route('admin.staff.index')
+                ->with('success', 'Staff restored successfully!');
+        } catch (\Exception $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to restore staff: ' . $e->getMessage()
+                ], 500);
+            }
+            return redirect()->route('admin.staff.index')
+                ->with('error', 'Failed to restore staff: ' . $e->getMessage());
+        }
     }
 
     /**
      * Permanently delete a staff
      */
-    public function forceDelete($id)
+    public function forceDelete(Request $request, $id)
     {
-        $staff = Staff::withTrashed()->findOrFail($id);
-        $staff->forceDelete();
+        try {
+            $staff = Staff::withTrashed()->findOrFail($id);
+            $staff->forceDelete();
 
-        return redirect()->route('admin.staff.index')
-            ->with('success', 'Staff permanently deleted!');
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Staff permanently deleted!'
+                ]);
+            }
+
+            return redirect()->route('admin.staff.index')
+                ->with('success', 'Staff permanently deleted!');
+        } catch (\Exception $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Failed to permanently delete staff: ' . $e->getMessage()
+                ], 500);
+            }
+            return redirect()->route('admin.staff.index')
+                ->with('error', 'Failed to permanently delete staff: ' . $e->getMessage());
+        }
     }
 }
 
