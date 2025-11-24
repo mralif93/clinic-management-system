@@ -12,7 +12,7 @@
                     <i class='bx bx-clinic text-4xl text-blue-600'></i>
                 </div>
                 <h2 class="text-3xl font-bold text-gray-900">Welcome Back</h2>
-                <p class="mt-2 text-sm text-gray-600">Sign in to your account (Patient, Doctor, Staff, or Admin)</p>
+                <p class="mt-2 text-sm text-gray-600">Sign in to your account</p>
             </div>
 
             <!-- Login Form -->
