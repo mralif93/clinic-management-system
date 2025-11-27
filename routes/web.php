@@ -99,6 +99,11 @@ Route::middleware('auth')->group(function () {
 
         // Reports
         Route::get('/reports', [App\Http\Controllers\Staff\ReportController::class, 'index'])->name('reports.index');
+
+        // To-Do List (My Tasks)
+        Route::get('/todos', [App\Http\Controllers\Staff\TodoController::class, 'index'])->name('todos.index');
+        Route::get('/todos/{id}', [App\Http\Controllers\Staff\TodoController::class, 'show'])->name('todos.show');
+        Route::put('/todos/{id}/status', [App\Http\Controllers\Staff\TodoController::class, 'updateStatus'])->name('todos.update-status');
     });
 
     // Admin Routes
@@ -144,6 +149,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('settings.index');
         Route::put('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('settings.update');
         Route::delete('/settings/logo', [App\Http\Controllers\Admin\SettingsController::class, 'removeLogo'])->name('settings.remove-logo');
+
+        // To-Do Management
+        Route::resource('todos', App\Http\Controllers\Admin\TodoController::class);
+        Route::post('/todos/{id}/restore', [App\Http\Controllers\Admin\TodoController::class, 'restore'])->name('todos.restore');
+        Route::delete('/todos/{id}/force-delete', [App\Http\Controllers\Admin\TodoController::class, 'forceDelete'])->name('todos.force-delete');
     });
 });
 
