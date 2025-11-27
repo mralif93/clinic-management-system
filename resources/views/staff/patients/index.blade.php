@@ -4,117 +4,126 @@
 @section('page-title', 'Patients')
 
 @section('content')
-<div class="space-y-6">
-    <!-- Header -->
-    <div class="flex justify-between items-center">
-        <div>
-            <h1 class="text-2xl font-bold text-gray-900">Patients</h1>
-            <p class="text-gray-600 mt-1">View and manage all patients</p>
-        </div>
-    </div>
-
-    <!-- Filters -->
-    <div class="bg-white rounded-lg shadow p-4">
-        <form method="GET" action="{{ route('staff.patients.index') }}" class="flex flex-wrap gap-4">
-            <div class="flex-1 min-w-[200px]">
-                <input type="text" 
-                       name="search" 
-                       value="{{ request('search') }}"
-                       placeholder="Search by name, email, phone, or patient ID..."
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
-            </div>
+    <div class="space-y-6">
+        <!-- Header -->
+        <div class="flex justify-between items-center">
             <div>
-                <select name="gender" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
-                    <option value="">All Genders</option>
-                    <option value="male" {{ request('gender') == 'male' ? 'selected' : '' }}>Male</option>
-                    <option value="female" {{ request('gender') == 'female' ? 'selected' : '' }}>Female</option>
-                    <option value="other" {{ request('gender') == 'other' ? 'selected' : '' }}>Other</option>
-                </select>
+                <h1 class="text-2xl font-bold text-gray-900">Patients</h1>
+                <p class="text-gray-600 mt-1">View and manage all patients</p>
             </div>
-            <button type="submit" class="bg-yellow-600 text-white px-6 py-2 rounded-lg hover:bg-yellow-700 transition">
-                <i class='bx bx-search mr-1'></i> Search
-            </button>
-            @if(request()->hasAny(['search', 'gender']))
-                <a href="{{ route('staff.patients.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 transition">
-                    Clear
-                </a>
-            @endif
-        </form>
-    </div>
+        </div>
 
-    <!-- Patients Table -->
-    <div class="bg-white rounded-lg shadow overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient ID</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gender</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Age</th>
-                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @forelse($patients as $patient)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-semibold text-yellow-600">{{ $patient->patient_id ?? 'N/A' }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10">
-                                        <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                            <span class="text-blue-600 font-semibold">{{ strtoupper(substr($patient->first_name, 0, 1)) }}</span>
+        <!-- Filters -->
+        <div class="bg-white rounded-lg shadow p-4">
+            <form method="GET" action="{{ route('staff.patients.index') }}" class="flex flex-wrap gap-4">
+                <div class="flex-1 min-w-[200px]">
+                    <input type="text" name="search" value="{{ request('search') }}"
+                        placeholder="Search by name, email, phone, or patient ID..."
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                </div>
+                <div>
+                    <select name="gender"
+                        class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                        <option value="">All Genders</option>
+                        <option value="male" {{ request('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                        <option value="female" {{ request('gender') == 'female' ? 'selected' : '' }}>Female</option>
+                        <option value="other" {{ request('gender') == 'other' ? 'selected' : '' }}>Other</option>
+                    </select>
+                </div>
+                <button type="submit"
+                    class="inline-flex items-center px-4 py-2 bg-gray-700 text-white font-medium rounded-lg hover:bg-gray-800 transition">
+                    <i class='bx bx-search mr-1'></i> Search
+                </button>
+                @if(request()->hasAny(['search', 'gender']))
+                    <a href="{{ route('staff.patients.index') }}"
+                        class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 transition">
+                        Clear
+                    </a>
+                @endif
+            </form>
+        </div>
+
+        <!-- Patients Table -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Patient ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Patient</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Contact</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Gender</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Age
+                            </th>
+                            <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @forelse($patients as $patient)
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-semibold text-yellow-600">{{ $patient->patient_id ?? 'N/A' }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+                                            <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                                <span
+                                                    class="text-blue-600 font-semibold">{{ strtoupper(substr($patient->first_name, 0, 1)) }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">{{ $patient->full_name }}</div>
                                         </div>
                                     </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium text-gray-900">{{ $patient->full_name }}</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{ $patient->email ?? 'N/A' }}</div>
-                                <div class="text-sm text-gray-500">{{ $patient->phone ?? 'N/A' }}</div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                @if($patient->gender)
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-                                        {{ ucfirst($patient->gender) }}
-                                    </span>
-                                @else
-                                    <span class="text-gray-400">N/A</span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                @if($patient->date_of_birth)
-                                    <div class="text-sm text-gray-900">{{ $patient->date_of_birth->age }} years</div>
-                                @else
-                                    <span class="text-gray-400">N/A</span>
-                                @endif
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="{{ route('staff.patients.show', $patient->id) }}" class="text-yellow-600 hover:text-yellow-900">
-                                    <i class='bx bx-show text-xl'></i>
-                                </a>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="6" class="px-6 py-4 text-center text-gray-500">
-                                No patients found.
-                            </td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        <!-- Pagination -->
-        <div class="px-6 py-4 border-t border-gray-200">
-            {{ $patients->links() }}
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">{{ $patient->email ?? 'N/A' }}</div>
+                                    <div class="text-sm text-gray-500">{{ $patient->phone ?? 'N/A' }}</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if($patient->gender)
+                                        <span
+                                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                            {{ ucfirst($patient->gender) }}
+                                        </span>
+                                    @else
+                                        <span class="text-gray-400">N/A</span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @if($patient->date_of_birth)
+                                        <div class="text-sm text-gray-900">{{ $patient->date_of_birth->age }} years</div>
+                                    @else
+                                        <span class="text-gray-400">N/A</span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <a href="{{ route('staff.patients.show', $patient->id) }}"
+                                        class="inline-flex items-center justify-center w-8 h-8 bg-yellow-600 text-white rounded-full hover:bg-yellow-700 transition shadow-sm hover:shadow-md" title="View">
+                                        <i class='bx bx-show text-base'></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                                    No patients found.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <!-- Pagination -->
+            <div class="px-6 py-4 border-t border-gray-200">
+                {{ $patients->links() }}
+            </div>
         </div>
     </div>
-</div>
 @endsection
-

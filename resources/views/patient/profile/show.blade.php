@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="min-h-screen bg-gray-50 py-8">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header -->
             <div class="mb-6 flex justify-between items-center">
                 <div>
@@ -12,8 +12,8 @@
                     <p class="text-gray-600 mt-1">View your personal information</p>
                 </div>
                 <a href="{{ route('patient.profile.edit') }}"
-                    class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                    <i class='bx bx-edit mr-2'></i>
+                    class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg">
+                    <i class='bx bx-edit mr-2 text-base'></i>
                     Edit Profile
                 </a>
             </div>

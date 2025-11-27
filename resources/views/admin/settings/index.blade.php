@@ -390,6 +390,80 @@
                 </div>
             @endif
 
+    <!-- Operating Hours -->
+    @php
+        $operatingHoursStart = $groupedSettings['general'] ?? collect();
+        $operatingHoursEnd = $groupedSettings['general'] ?? collect();
+        $startTimeSetting = $operatingHoursStart->firstWhere('key', 'operating_hours_start');
+        $endTimeSetting = $operatingHoursEnd->firstWhere('key', 'operating_hours_end');
+    @endphp
+    <div class="bg-white rounded-lg shadow-md border border-gray-200 mx-2 mb-8 overflow-hidden">
+        <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-indigo-50 to-white">
+            <div class="flex items-start">
+                <div class="flex-shrink-0">
+                    <div
+                        class="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shadow-md">
+                        <i class='bx bx-time-five text-xl text-white'></i>
+                    </div>
+                </div>
+                <div class="ml-4">
+                    <h3 class="text-lg font-bold text-gray-900">Operating Hours</h3>
+                    <p class="text-sm text-gray-600 mt-0.5">Configure clinic operating hours</p>
+                </div>
+            </div>
+        </div>
+        <div class="px-6 py-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Start Time -->
+                <div>
+                    <label for="operating_hours_start" class="flex items-start text-sm font-semibold text-gray-700 mb-2">
+                        <i class='bx bx-sun text-indigo-500 mr-2 text-base mt-0.5 flex-shrink-0'></i>
+                        <div>
+                            <div>Opening Time</div>
+                            <p class="text-xs text-gray-500 font-normal mt-1">Clinic opening time</p>
+                        </div>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class='bx bx-time text-gray-400'></i>
+                        </div>
+                        <input type="time" name="settings[operating_hours_start]" id="operating_hours_start"
+                            value="{{ $startTimeSetting->value ?? '09:00' }}"
+                            class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 hover:border-gray-400">
+                    </div>
+                </div>
+
+                <!-- End Time -->
+                <div>
+                    <label for="operating_hours_end" class="flex items-start text-sm font-semibold text-gray-700 mb-2">
+                        <i class='bx bx-moon text-indigo-500 mr-2 text-base mt-0.5 flex-shrink-0'></i>
+                        <div>
+                            <div>Closing Time</div>
+                            <p class="text-xs text-gray-500 font-normal mt-1">Clinic closing time</p>
+                        </div>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class='bx bx-time text-gray-400'></i>
+                        </div>
+                        <input type="time" name="settings[operating_hours_end]" id="operating_hours_end"
+                            value="{{ $endTimeSetting->value ?? '17:00' }}"
+                            class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 hover:border-gray-400">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info Message -->
+            <div class="mt-4 flex items-start gap-2 p-3 bg-indigo-50 border border-indigo-200 rounded-lg">
+                <i class='bx bx-info-circle text-indigo-600 text-base flex-shrink-0 mt-0.5'></i>
+                <p class="text-xs text-indigo-700">
+                    These operating hours will be displayed to patients when booking appointments and used for schedule
+                    management.
+                </p>
+            </div>
+        </div>
+    </div>
+
     <!-- Submit Button -->
     <div class="sticky bottom-0 bg-gradient-to-t from-gray-50 to-transparent pt-8 pb-4 mx-2">
         <div class="bg-white rounded-lg shadow-lg border border-gray-200 px-6 py-4">

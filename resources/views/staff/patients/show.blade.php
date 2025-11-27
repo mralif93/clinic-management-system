@@ -4,7 +4,7 @@
 @section('page-title', 'Patient Details')
 
 @section('content')
-<div class="max-w-6xl">
+<div class="w-full">
     <!-- Statistics -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <div class="bg-white rounded-lg shadow p-6">

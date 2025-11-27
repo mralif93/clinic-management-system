@@ -80,8 +80,8 @@
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">No Medical Records Yet</h3>
                     <p class="text-gray-600 mb-6">You don't have any completed appointments yet.</p>
                     <a href="{{ route('patient.appointments.create') }}"
-                        class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                        <i class='bx bx-calendar-plus mr-2'></i>
+                        class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg">
+                        <i class='bx bx-calendar-plus mr-2 text-lg'></i>
                         Book an Appointment
                     </a>
                 </div>

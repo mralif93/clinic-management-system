@@ -12,8 +12,8 @@
                     <p class="text-gray-600 mt-1">View and manage your appointments</p>
                 </div>
                 <a href="{{ route('patient.appointments.create') }}"
-                    class="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                    <i class='bx bx-plus mr-2'></i>
+                    class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg">
+                    <i class='bx bx-plus mr-2 text-base'></i>
                     Book Appointment
                 </a>
             </div>
@@ -50,12 +50,12 @@
                                 </div>
                                 <div class="flex items-center space-x-3">
                                     <span class="px-4 py-2 text-sm font-medium rounded-full
-                                                @if($appointment->status === 'completed') bg-green-100 text-green-700
-                                                @elseif($appointment->status === 'confirmed') bg-blue-100 text-blue-700
-                                                @elseif($appointment->status === 'pending') bg-yellow-100 text-yellow-700
-                                                @elseif($appointment->status === 'cancelled') bg-red-100 text-red-700
-                                                @else bg-gray-100 text-gray-700
-                                                @endif">
+                                                                        @if($appointment->status === 'completed') bg-green-100 text-green-700
+                                                                        @elseif($appointment->status === 'confirmed') bg-blue-100 text-blue-700
+                                                                        @elseif($appointment->status === 'pending') bg-yellow-100 text-yellow-700
+                                                                        @elseif($appointment->status === 'cancelled') bg-red-100 text-red-700
+                                                                        @else bg-gray-100 text-gray-700
+                                                                        @endif">
                                         {{ ucfirst($appointment->status) }}
                                     </span>
                                     <a href="{{ route('patient.appointments.show', $appointment->id) }}"
@@ -78,8 +78,8 @@
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">No Appointments Yet</h3>
                     <p class="text-gray-600 mb-6">You haven't booked any appointments yet.</p>
                     <a href="{{ route('patient.appointments.create') }}"
-                        class="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                        <i class='bx bx-plus mr-2'></i>
+                        class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg">
+                        <i class='bx bx-plus mr-2 text-lg'></i>
                         Book Your First Appointment
                     </a>
                 </div>
