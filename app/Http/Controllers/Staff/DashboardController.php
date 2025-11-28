@@ -9,6 +9,7 @@ use App\Models\Appointment;
 use App\Models\Patient;
 use App\Models\User;
 use App\Models\Todo;
+use App\Models\Attendance;
 
 class DashboardController extends Controller
 {
@@ -39,13 +40,19 @@ class DashboardController extends Controller
             ->limit(10)
             ->get();
 
+        // Get today's attendance
+        $todayAttendance = Attendance::where('user_id', Auth::id())
+            ->whereDate('date', today())
+            ->first();
+
         return view('staff.dashboard', compact(
             'totalAppointments',
             'todayAppointments',
             'upcomingAppointments',
             'totalPatients',
             'todayAppointmentsList',
-            'todos'
+            'todos',
+            'todayAttendance'
         ));
     }
 }

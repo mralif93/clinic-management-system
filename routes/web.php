@@ -71,6 +71,13 @@ Route::middleware('auth')->group(function () {
         // Patients
         Route::get('/patients', [App\Http\Controllers\Doctor\PatientController::class, 'index'])->name('patients.index');
         Route::get('/patients/{id}', [App\Http\Controllers\Doctor\PatientController::class, 'show'])->name('patients.show');
+
+        // Attendance
+        Route::get('/attendance', [App\Http\Controllers\Doctor\AttendanceController::class, 'index'])->name('attendance.index');
+        Route::post('/attendance/clock-in', [App\Http\Controllers\Doctor\AttendanceController::class, 'clockIn'])->name('attendance.clock-in');
+        Route::post('/attendance/clock-out', [App\Http\Controllers\Doctor\AttendanceController::class, 'clockOut'])->name('attendance.clock-out');
+        Route::post('/attendance/break-start', [App\Http\Controllers\Doctor\AttendanceController::class, 'startBreak'])->name('attendance.break-start');
+        Route::post('/attendance/break-end', [App\Http\Controllers\Doctor\AttendanceController::class, 'endBreak'])->name('attendance.break-end');
     });
 
     // Staff Routes
@@ -99,6 +106,14 @@ Route::middleware('auth')->group(function () {
 
         // Reports
         Route::get('/reports', [App\Http\Controllers\Staff\ReportController::class, 'index'])->name('reports.index');
+
+        // Attendance
+        Route::get('/attendance', [App\Http\Controllers\Staff\AttendanceController::class, 'index'])->name('attendance.index');
+        Route::post('/attendance/clock-in', [App\Http\Controllers\Staff\AttendanceController::class, 'clockIn'])->name('attendance.clock-in');
+        Route::post('/attendance/clock-out', [App\Http\Controllers\Staff\AttendanceController::class, 'clockOut'])->name('attendance.clock-out');
+        Route::post('/attendance/break-start', [App\Http\Controllers\Staff\AttendanceController::class, 'startBreak'])->name('attendance.break-start');
+        Route::post('/attendance/break-end', [App\Http\Controllers\Staff\AttendanceController::class, 'endBreak'])->name('attendance.break-end');
+        Route::post('/attendance/correction', [App\Http\Controllers\Staff\AttendanceController::class, 'requestCorrection'])->name('attendance.correction');
 
         // To-Do List (My Tasks)
         Route::get('/todos', [App\Http\Controllers\Staff\TodoController::class, 'index'])->name('todos.index');
@@ -149,6 +164,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'index'])->name('settings.index');
         Route::put('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('settings.update');
         Route::delete('/settings/logo', [App\Http\Controllers\Admin\SettingsController::class, 'removeLogo'])->name('settings.remove-logo');
+
+        // Attendance Management
+        Route::get('/attendance', [App\Http\Controllers\Admin\AttendanceController::class, 'index'])->name('attendance.index');
+        Route::get('/attendance/live', [App\Http\Controllers\Admin\AttendanceController::class, 'live'])->name('attendance.live');
+        Route::get('/attendance/export', [App\Http\Controllers\Admin\AttendanceController::class, 'export'])->name('attendance.export');
+        Route::get('/attendance/reports', [App\Http\Controllers\Admin\AttendanceController::class, 'reports'])->name('attendance.reports');
+        Route::get('/attendance/corrections', [App\Http\Controllers\Admin\AttendanceController::class, 'corrections'])->name('attendance.corrections');
+        Route::post('/attendance/corrections/{correction}/approve', [App\Http\Controllers\Admin\AttendanceController::class, 'approveCorrection'])->name('attendance.corrections.approve');
+        Route::post('/attendance/corrections/{correction}/reject', [App\Http\Controllers\Admin\AttendanceController::class, 'rejectCorrection'])->name('attendance.corrections.reject');
+        Route::post('/attendance', [App\Http\Controllers\Admin\AttendanceController::class, 'store'])->name('attendance.store');
+        Route::put('/attendance/{attendance}', [App\Http\Controllers\Admin\AttendanceController::class, 'update'])->name('attendance.update');
+        Route::post('/attendance/{attendance}/approve', [App\Http\Controllers\Admin\AttendanceController::class, 'approve'])->name('attendance.approve');
+        Route::delete('/attendance/{attendance}', [App\Http\Controllers\Admin\AttendanceController::class, 'destroy'])->name('attendance.destroy');
 
         // To-Do Management
         Route::resource('todos', App\Http\Controllers\Admin\TodoController::class);

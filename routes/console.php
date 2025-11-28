@@ -14,3 +14,7 @@ Schedule::command('todos:generate-recurring')
     ->at('00:00')
     ->timezone('Asia/Kuala_Lumpur');
 
+// Auto clock-out users who forgot to clock out
+Schedule::command('attendance:auto-clock-out')
+    ->dailyAt('00:01')
+    ->timezone('Asia/Kuala_Lumpur');

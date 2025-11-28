@@ -133,6 +133,11 @@
                     <i class='bx bx-user mr-3 text-xl'></i>
                     <span>Patients</span>
                 </a>
+                <a href="{{ route('staff.attendance.index') }}"
+                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.attendance.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
+                    <i class='bx bx-time-five mr-3 text-xl'></i>
+                    <span>Attendance</span>
+                </a>
                 <a href="{{ route('staff.profile.show') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.profile.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
                     <i class='bx bx-user-circle mr-3 text-xl'></i>

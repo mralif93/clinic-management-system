@@ -115,6 +115,105 @@
             </div>
         </div>
 
+        <!-- Attendance Widget -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">📍 Attendance</h3>
+            </div>
+            <div class="p-6">
+                @if($todayAttendance)
+                    @if($todayAttendance->isClockedIn())
+                        <!-- Clocked In State -->
+                        <div class="text-center">
+                            <div class="mb-4">
+                                <span
+                                    class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-green-100 text-green-700 border border-green-300">
+                                    <i class='bx bx-check-circle mr-2'></i> Clocked In
+                                </span>
+                            </div>
+                            <div class="space-y-2 mb-6">
+                                <p class="text-sm text-gray-600">Clock In: <span
+                                        class="font-semibold text-gray-900">{{ $todayAttendance->clock_in_time->format('h:i A') }}</span>
+                                </p>
+                                <p class="text-sm text-gray-600">Duration: <span
+                                        class="font-semibold text-gray-900">{{ $todayAttendance->getWorkDuration() }}</span></p>
+                                @if($todayAttendance->isOnBreak())
+                                    <p class="text-sm text-yellow-600 font-semibold"><i class='bx bx-coffee'></i> On Break</p>
+                                @endif
+                            </div>
+                            <div class="grid grid-cols-2 gap-3">
+                                @if($todayAttendance->isOnBreak())
+                                    <form action="{{ route('doctor.attendance.break-end') }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">
+                                            <i class='bx bx-play-circle'></i> End Break
+                                        </button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('doctor.attendance.break-start') }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold">
+                                            <i class='bx bx-coffee'></i> Start Break
+                                        </button>
+                                    </form>
+                                @endif
+                                <form action="{{ route('doctor.attendance.clock-out') }}" method="POST"
+                                    onsubmit="return confirm('Are you sure you want to clock out?')">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold">
+                                        <i class='bx bx-log-out'></i> Clock Out
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @else
+                        <!-- Clocked Out State -->
+                        <div class="text-center">
+                            <div class="mb-4">
+                                <span
+                                    class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gray-100 text-gray-700 border border-gray-300">
+                                    <i class='bx bx-check-circle mr-2'></i> Clocked Out
+                                </span>
+                            </div>
+                            <div class="space-y-2 mb-4">
+                                <p class="text-sm text-gray-600">Clock In: <span
+                                        class="font-semibold text-gray-900">{{ $todayAttendance->clock_in_time->format('h:i A') }}</span>
+                                </p>
+                                <p class="text-sm text-gray-600">Clock Out: <span
+                                        class="font-semibold text-gray-900">{{ $todayAttendance->clock_out_time->format('h:i A') }}</span>
+                                </p>
+                                <p class="text-sm text-gray-600">Total Hours: <span
+                                        class="font-semibold text-green-600">{{ $todayAttendance->total_hours }}h</span></p>
+                            </div>
+                            <p class="text-xs text-gray-500">You have completed your shift for today</p>
+                        </div>
+                    @endif
+                @else
+                    <!-- Not Clocked In Yet -->
+                    <div class="text-center">
+                        <div class="mb-4">
+                            <span
+                                class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gray-100 text-gray-700 border border-gray-300">
+                                <i class='bx bx-time mr-2'></i> Not Clocked In
+                            </span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-6">{{ now()->format('l, F d, Y') }}</p>
+                        <form action="{{ route('doctor.attendance.clock-in') }}" method="POST">
+                            @csrf
+                            <button type="submit"
+                                class="w-full px-6 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition font-bold text-lg shadow-lg">
+                                <i class='bx bx-time-five text-2xl mr-2'></i> CLOCK IN
+                            </button>
+                        </form>
+                        <p class="text-xs text-gray-500 mt-4">Tap to start your day</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+
         <!-- Today's Appointments -->
         <div class="bg-white rounded-lg shadow">
             <div class="p-6 border-b border-gray-200">
@@ -142,12 +241,12 @@
                                 </div>
                                 <div class="flex items-center space-x-3">
                                     <span class="px-3 py-1 text-xs font-medium rounded-full
-                                                            @if($appointment->status === 'completed') bg-green-100 text-green-700
-                                                            @elseif($appointment->status === 'confirmed') bg-blue-100 text-blue-700
-                                                            @elseif($appointment->status === 'pending') bg-yellow-100 text-yellow-700
-                                                            @elseif($appointment->status === 'cancelled') bg-red-100 text-red-700
-                                                            @else bg-gray-100 text-gray-700
-                                                            @endif">
+                                                                        @if($appointment->status === 'completed') bg-green-100 text-green-700
+                                                                        @elseif($appointment->status === 'confirmed') bg-blue-100 text-blue-700
+                                                                        @elseif($appointment->status === 'pending') bg-yellow-100 text-yellow-700
+                                                                        @elseif($appointment->status === 'cancelled') bg-red-100 text-red-700
+                                                                        @else bg-gray-100 text-gray-700
+                                                                        @endif">
                                         {{ ucfirst($appointment->status) }}
                                     </span>
                                     <a href="{{ route('doctor.appointments.show', $appointment->id) }}"

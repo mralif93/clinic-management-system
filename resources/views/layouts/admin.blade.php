@@ -181,7 +181,14 @@
                     <span>Services</span>
                 </a>
 
-                <!-- 8. To-Do List -->
+                <!-- 8. Attendance -->
+                <a href="{{ route('admin.attendance.index') }}"
+                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.attendance.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
+                    <i class='bx bx-time-five mr-3 text-xl'></i>
+                    <span>Attendance</span>
+                </a>
+
+                <!-- 9. To-Do List -->
                 <a href="{{ route('admin.todos.index') }}"
                     class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.todos.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
                     <i class='bx bx-task mr-3 text-xl'></i>
