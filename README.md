@@ -23,6 +23,8 @@ A comprehensive Laravel-based clinic management system with role-based access co
 - ✅ **Service Management** - Full CRUD with soft delete (Psychology & Homeopathy)
 - ✅ **Reports & Analytics** - Statistics, revenue tracking, date range filtering
 - ✅ **Settings Management** - Configurable clinic settings, currency, landing page content
+- ✅ **Attendance Management** - Live dashboard, manual entry, approval system, correction requests, CSV export
+- ✅ **To-Do Management** - Task assignment, priority levels, recurring tasks, soft delete
 
 ### Doctor Features
 - ✅ **Dashboard** with appointment statistics
@@ -31,6 +33,7 @@ A comprehensive Laravel-based clinic management system with role-based access co
 - ✅ **Schedule** - Daily and weekly view of appointments
 - ✅ **Patients** - View patients with appointment history
 - ✅ **Appointment Updates** - Update status, diagnosis, prescription, notes
+- ✅ **Attendance Tracking** - Clock in/out, break management, work duration tracking
 
 ### Staff Features
 - ✅ **Dashboard** with clinic statistics
@@ -39,6 +42,8 @@ A comprehensive Laravel-based clinic management system with role-based access co
 - ✅ **Patients** - View and manage all patients
 - ✅ **My Profile** - View and edit profile, change password
 - ✅ **Reports** - View clinic statistics and analytics
+- ✅ **Attendance Tracking** - Clock in/out, break management, correction requests
+- ✅ **My Tasks** - View assigned to-dos, update task status, track priorities
 
 ### Patient Features
 - ✅ **Dashboard** with personal statistics
@@ -168,6 +173,7 @@ After seeding, you can login with these credentials:
 - `/doctor/schedule` - My schedule
 - `/doctor/patients` - My patients
 - `/doctor/patients/{id}` - Patient details
+- `/doctor/attendance` - Attendance tracking
 
 ### Staff Routes (Authenticated)
 - `/staff/dashboard` - Staff dashboard
@@ -180,6 +186,8 @@ After seeding, you can login with these credentials:
 - `/staff/profile` - My profile
 - `/staff/profile/edit` - Edit profile
 - `/staff/reports` - Reports & analytics
+- `/staff/attendance` - Attendance tracking
+- `/staff/todos` - My tasks (to-do list)
 
 ### Admin Routes (Authenticated + Admin Role)
 - `/admin/dashboard` - Admin dashboard
@@ -191,6 +199,11 @@ After seeding, you can login with these credentials:
 - `/admin/services` - Service management
 - `/admin/reports` - Reports & analytics
 - `/admin/settings` - System settings
+- `/admin/attendance` - Attendance management
+- `/admin/attendance/live` - Live attendance dashboard
+- `/admin/attendance/reports` - Attendance reports
+- `/admin/attendance/corrections` - Attendance correction requests
+- `/admin/todos` - To-Do management
 
 ## 👤 User Roles
 
@@ -202,6 +215,8 @@ After seeding, you can login with these credentials:
 - Service management
 - Reports and analytics
 - System settings
+- Attendance management and approval
+- To-Do assignment and tracking
 
 ### Doctor
 - View assigned appointments
@@ -209,6 +224,7 @@ After seeding, you can login with these credentials:
 - View patient information
 - Manage profile
 - View schedule
+- Track attendance (clock in/out, breaks)
 
 ### Staff
 - View all appointments
@@ -217,6 +233,8 @@ After seeding, you can login with these credentials:
 - View clinic schedule
 - View reports
 - Manage profile
+- Track attendance (clock in/out, breaks, correction requests)
+- View and update assigned tasks
 
 ### Patient
 - View personal dashboard
@@ -242,6 +260,10 @@ After seeding, you can login with these credentials:
 - `appointments` - Appointment records
 - `services` - Treatment services
 - `settings` - System configuration
+- `attendances` - Attendance records with clock in/out times
+- `attendance_breaks` - Break tracking for attendance
+- `attendance_corrections` - Correction requests for attendance
+- `todos` - Task management with assignments and priorities
 
 ### Auto-Generated IDs
 - **Patients:** PAT-000001, PAT-000002, etc.
