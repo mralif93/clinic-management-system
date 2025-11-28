@@ -141,21 +141,21 @@
                             </div>
                             <div class="grid grid-cols-2 gap-3">
                                 @if($todayAttendance->isOnBreak())
-                                    <form action="{{ route('staff.attendance.break-end') }}" method="POST">
+                                    <form id="breakEndForm" action="{{ route('staff.attendance.break-end') }}" method="POST" onsubmit="confirmBreakEnd(event)">
                                         @csrf
                                         <button type="submit" class="w-full px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition font-semibold">
                                             <i class='bx bx-play-circle'></i> End Break
                                         </button>
                                     </form>
                                 @else
-                                    <form action="{{ route('staff.attendance.break-start') }}" method="POST">
+                                    <form id="breakStartForm" action="{{ route('staff.attendance.break-start') }}" method="POST" onsubmit="confirmBreakStart(event)">
                                         @csrf
                                         <button type="submit" class="w-full px-4 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition font-semibold">
                                             <i class='bx bx-coffee'></i> Start Break
                                         </button>
                                     </form>
                                 @endif
-                                <form action="{{ route('staff.attendance.clock-out') }}" method="POST" onsubmit="return confirm('Are you sure you want to clock out?')">
+                                <form id="clockOutForm" action="{{ route('staff.attendance.clock-out') }}" method="POST" onsubmit="confirmClockOut(event)">
                                     @csrf
                                     <button type="submit" class="w-full px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition font-semibold">
                                         <i class='bx bx-log-out'></i> Clock Out
@@ -379,6 +379,62 @@
                     timer: 2000,
                     showConfirmButton: false
                 });
+            });
+        }
+        function confirmBreakStart(event) {
+            event.preventDefault();
+            
+            Swal.fire({
+                title: 'Start Break?',
+                text: "Are you sure you want to take a break?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#d97706', // yellow-600
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Yes, Start Break',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('breakStartForm').submit();
+                }
+            });
+        }
+
+        function confirmBreakEnd(event) {
+            event.preventDefault();
+            
+            Swal.fire({
+                title: 'End Break?',
+                text: "Are you ready to resume work?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#16a34a', // green-600
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Yes, Resume Work',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('breakEndForm').submit();
+                }
+            });
+        }
+
+        function confirmClockOut(event) {
+            event.preventDefault();
+            
+            Swal.fire({
+                title: 'Clock Out?',
+                text: "Are you sure you want to end your shift?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, Clock Out',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('clockOutForm').submit();
+                }
             });
         }
     </script>

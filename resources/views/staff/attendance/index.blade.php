@@ -134,64 +134,67 @@
     </div>
 </div>
 
-<!-- Correction Request Modal -->
-<div id="correctionModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden overflow-y-auto h-full w-full z-50">
-    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-        <div class="mt-3">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-medium text-gray-900">Request Correction</h3>
-                <button onclick="document.getElementById('correctionModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-500">
-                    <i class='bx bx-x text-2xl'></i>
-                </button>
-            </div>
-            <form action="{{ route('staff.attendance.correction') }}" method="POST">
-                @csrf
-                <input type="hidden" name="attendance_id" id="correction_attendance_id">
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Date</label>
-                        <input type="date" id="correction_date" disabled
-                            class="mt-1 block w-full rounded-md border-gray-300 bg-gray-100 shadow-sm">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Clock In</label>
-                            <input type="time" name="clock_in_time" id="correction_clock_in" required
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Clock Out</label>
-                            <input type="time" name="clock_out_time" id="correction_clock_out"
-                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700">Reason</label>
-                        <textarea name="reason" required rows="3" placeholder="Why are you requesting this change?"
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></textarea>
-                    </div>
-                </div>
-                <div class="mt-5 flex justify-end gap-3">
-                    <button type="button" onclick="document.getElementById('correctionModal').classList.add('hidden')"
-                        class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition">
-                        Cancel
-                    </button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                        Submit Request
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
+@push('scripts')
 <script>
 function openCorrectionModal(id, date, clockIn, clockOut) {
-    document.getElementById('correction_attendance_id').value = id;
-    document.getElementById('correction_date').value = date;
-    document.getElementById('correction_clock_in').value = clockIn;
-    document.getElementById('correction_clock_out').value = clockOut;
-    document.getElementById('correctionModal').classList.remove('hidden');
+    const actionUrl = "{{ route('staff.attendance.correction') }}";
+    const csrfToken = "{{ csrf_token() }}";
+
+    Swal.fire({
+        title: 'Request Correction',
+        html: `
+            <form id="correctionForm" action="${actionUrl}" method="POST" class="text-left space-y-4 pt-2">
+                <input type="hidden" name="_token" value="${csrfToken}">
+                <input type="hidden" name="attendance_id" value="${id}">
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                    <input type="date" value="${date}" disabled 
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-100 text-gray-500 text-sm">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Clock In <span class="text-red-500">*</span></label>
+                        <input type="time" name="clock_in_time" required value="${clockIn}"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Clock Out</label>
+                        <input type="time" name="clock_out_time" value="${clockOut}"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Reason <span class="text-red-500">*</span></label>
+                    <textarea name="reason" required rows="3" placeholder="Why are you requesting this change?"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"></textarea>
+                </div>
+            </form>
+        `,
+        showCancelButton: true,
+        confirmButtonText: '<i class="bx bx-send mr-1"></i> Submit Request',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#2563eb',
+        cancelButtonColor: '#6b7280',
+        width: '500px',
+        customClass: {
+            container: 'z-[100]',
+            popup: 'rounded-xl',
+            confirmButton: 'px-4 py-2 rounded-lg text-sm font-medium',
+            cancelButton: 'px-4 py-2 rounded-lg text-sm font-medium'
+        },
+        preConfirm: () => {
+            const form = document.getElementById('correctionForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return false;
+            }
+            form.submit();
+        }
+    });
 }
 </script>
+@endpush
 @endsection
