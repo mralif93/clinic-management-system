@@ -7,21 +7,53 @@ use App\Models\Attendance;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
     /**
-     * Display attendance management page
+     * Display attendance management page (grouped by month)
      */
-    public function index(Request $request)
+    public function index()
     {
-        $query = Attendance::with(['user', 'approver']);
+        $driver = DB::connection()->getDriverName();
+
+        if ($driver === 'sqlite') {
+            $yearExpr = "strftime('%Y', date)";
+            $monthExpr = "strftime('%m', date)";
+        } else {
+            $yearExpr = "YEAR(date)";
+            $monthExpr = "MONTH(date)";
+        }
+
+        $months = Attendance::select(
+            DB::raw("$yearExpr as year"),
+            DB::raw("$monthExpr as month"),
+            DB::raw('COUNT(*) as total_records'),
+            DB::raw("SUM(CASE WHEN status = 'present' THEN 1 ELSE 0 END) as present_count"),
+            DB::raw("SUM(CASE WHEN status = 'late' THEN 1 ELSE 0 END) as late_count"),
+            DB::raw("SUM(CASE WHEN status = 'absent' THEN 1 ELSE 0 END) as absent_count")
+        )
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get();
+
+        return view('admin.attendance.months', compact('months'));
+    }
+
+    /**
+     * Display a listing of attendance for a specific month
+     */
+    public function byMonth(Request $request, $year, $month)
+    {
+        $query = Attendance::with(['user', 'approver'])
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month);
 
         // Filter by date
         if ($request->filled('date')) {
             $query->whereDate('date', $request->date);
-        } else {
-            $query->whereDate('date', today());
         }
 
         // Filter by user
@@ -40,15 +72,16 @@ class AttendanceController extends Controller
 
         // Get users for filter
         $users = User::whereIn('role', ['staff', 'doctor'])->get();
+        $monthName = \Carbon\Carbon::createFromDate($year, $month, 1)->format('F Y');
 
-        // Today's stats
-        $todayStats = [
-            'total' => Attendance::whereDate('date', today())->count(),
-            'clocked_in' => Attendance::whereDate('date', today())->clockedIn()->count(),
-            'late' => Attendance::whereDate('date', today())->where('status', 'late')->count(),
+        // Stats for this month
+        $stats = [
+            'total' => Attendance::whereYear('date', $year)->whereMonth('date', $month)->count(),
+            'present' => Attendance::whereYear('date', $year)->whereMonth('date', $month)->where('status', 'present')->count(),
+            'late' => Attendance::whereYear('date', $year)->whereMonth('date', $month)->where('status', 'late')->count(),
         ];
 
-        return view('admin.attendance.index', compact('attendances', 'users', 'todayStats'));
+        return view('admin.attendance.list', compact('attendances', 'users', 'year', 'month', 'monthName', 'stats'));
     }
 
     /**
@@ -105,6 +138,13 @@ class AttendanceController extends Controller
             $attendance->updateTotalHours();
         }
 
+        // Redirect back to month view if date is set, or index
+        if(isset($validated['date'])) {
+             $date = Carbon::parse($validated['date']);
+             return redirect()->route('admin.attendance.by-month', ['year' => $date->year, 'month' => $date->month])
+                ->with('success', 'Attendance entry created successfully!');
+        }
+
         return redirect()->route('admin.attendance.index')
             ->with('success', 'Attendance entry created successfully!');
     }
@@ -137,7 +177,7 @@ class AttendanceController extends Controller
             $attendance->updateTotalHours();
         }
 
-        return redirect()->route('admin.attendance.index')
+        return redirect()->route('admin.attendance.by-month', ['year' => $attendance->date->year, 'month' => $attendance->date->month])
             ->with('success', 'Attendance updated successfully!');
     }
 
@@ -289,5 +329,40 @@ class AttendanceController extends Controller
         ]);
 
         return back()->with('success', 'Correction request rejected.');
+    }
+
+    /**
+     * Trash
+     */
+    public function trash()
+    {
+        $attendances = Attendance::onlyTrashed()
+            ->with('user')
+            ->orderBy('deleted_at', 'desc')
+            ->paginate(20);
+
+        return view('admin.attendance.trash', compact('attendances'));
+    }
+
+    /**
+     * Restore
+     */
+    public function restore($id)
+    {
+        $attendance = Attendance::onlyTrashed()->findOrFail($id);
+        $attendance->restore();
+
+        return back()->with('success', 'Attendance record restored successfully.');
+    }
+
+    /**
+     * Force Delete
+     */
+    public function forceDelete($id)
+    {
+        $attendance = Attendance::onlyTrashed()->findOrFail($id);
+        $attendance->forceDelete();
+
+        return back()->with('success', 'Attendance record permanently deleted.');
     }
 }

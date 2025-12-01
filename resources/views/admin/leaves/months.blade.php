@@ -8,11 +8,18 @@
                 <h1 class="text-3xl font-bold text-gray-800">Leave Management</h1>
                 <p class="text-gray-600 mt-1">Select a month to view leave requests</p>
             </div>
-            <a href="{{ route('admin.leaves.create') }}"
-                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
-                <i class='bx bx-plus-circle text-xl'></i>
-                Apply Leave
-            </a>
+            <div class="flex gap-2">
+                <a href="{{ route('admin.leaves.trash') }}"
+                    class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
+                    <i class='bx bx-trash text-xl'></i>
+                    Trash
+                </a>
+                <a href="{{ route('admin.leaves.create') }}"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
+                    <i class='bx bx-plus-circle text-xl'></i>
+                    Apply Leave
+                </a>
+            </div>
         </div>
 
         <!-- Months Grid -->

@@ -4,56 +4,78 @@
 @section('page-title', 'Attendance Management')
 
 @section('content')
-    <div class="w-full space-y-6">
-        <!-- Today's Stats -->
+    <div class="space-y-6">
+        <!-- Header -->
+        <div class="flex justify-between items-center">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800">Attendance Management</h1>
+                <p class="text-gray-600 mt-1">Records for {{ $monthName }}</p>
+            </div>
+            <div class="flex gap-2">
+                <a href="{{ route('admin.attendance.index') }}"
+                    class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
+                    <i class='bx bx-arrow-back text-xl'></i>
+                    Back to Months
+                </a>
+                <button onclick="openAddEntryModal()"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
+                    <i class='bx bx-plus-circle text-xl'></i>
+                    Add Entry
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl shadow-lg p-6 text-white">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-600">Total Today</p>
-                        <p class="text-3xl font-bold text-gray-900 mt-2">{{ $todayStats['total'] }}</p>
+                        <p class="text-indigo-100 text-sm font-medium">Total Records</p>
+                        <h3 class="text-3xl font-bold mt-2">{{ $stats['total'] }}</h3>
                     </div>
-                    <div class="bg-blue-100 p-4 rounded-full">
-                        <i class='bx bx-user-check text-3xl text-blue-600'></i>
+                    <div class="bg-white bg-opacity-20 rounded-full p-4">
+                        <i class='bx bx-calendar text-3xl'></i>
                     </div>
                 </div>
             </div>
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            
+            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-600">Clocked In</p>
-                        <p class="text-3xl font-bold text-green-600 mt-2">{{ $todayStats['clocked_in'] }}</p>
+                        <p class="text-green-100 text-sm font-medium">Present</p>
+                        <h3 class="text-3xl font-bold mt-2">{{ $stats['present'] }}</h3>
                     </div>
-                    <div class="bg-green-100 p-4 rounded-full">
-                        <i class='bx bx-time-five text-3xl text-green-600'></i>
+                    <div class="bg-white bg-opacity-20 rounded-full p-4">
+                        <i class='bx bx-check-circle text-3xl'></i>
                     </div>
                 </div>
             </div>
-            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+
+            <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl shadow-lg p-6 text-white">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-600">Late Arrivals</p>
-                        <p class="text-3xl font-bold text-yellow-600 mt-2">{{ $todayStats['late'] }}</p>
+                        <p class="text-yellow-100 text-sm font-medium">Late</p>
+                        <h3 class="text-3xl font-bold mt-2">{{ $stats['late'] }}</h3>
                     </div>
-                    <div class="bg-yellow-100 p-4 rounded-full">
-                        <i class='bx bx-error-circle text-3xl text-yellow-600'></i>
+                    <div class="bg-white bg-opacity-20 rounded-full p-4">
+                        <i class='bx bx-time text-3xl'></i>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Filters and Actions -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <form method="GET" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div>
+        <!-- Filters -->
+        <div class="bg-white rounded-xl shadow-md p-6">
+            <form method="GET" action="{{ route('admin.attendance.by-month', ['year' => $year, 'month' => $month]) }}" class="flex flex-wrap gap-4">
+                <div class="flex-1 min-w-[200px]">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
-                    <input type="date" name="date" value="{{ request('date', today()->format('Y-m-d')) }}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    <input type="date" name="date" value="{{ request('date') }}"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                 </div>
-                <div>
+                <div class="flex-1 min-w-[200px]">
                     <label class="block text-sm font-medium text-gray-700 mb-2">User</label>
                     <select name="user_id"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="">All Users</option>
                         @foreach($users as $user)
                             <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
@@ -62,10 +84,10 @@
                         @endforeach
                     </select>
                 </div>
-                <div>
+                <div class="flex-1 min-w-[200px]">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
                     <select name="status"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                         <option value="">All Status</option>
                         <option value="present" {{ request('status') == 'present' ? 'selected' : '' }}>Present</option>
                         <option value="late" {{ request('status') == 'late' ? 'selected' : '' }}>Late</option>
@@ -73,59 +95,45 @@
                         <option value="on_leave" {{ request('status') == 'on_leave' ? 'selected' : '' }}>On Leave</option>
                     </select>
                 </div>
-                <div class="flex items-end">
+                <div class="flex items-end gap-2">
                     <button type="submit"
-                        class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                        <i class='bx bx-filter-alt mr-2'></i>Filter
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
+                        <i class='bx bx-filter-alt'></i> Filter
                     </button>
+                    <a href="{{ route('admin.attendance.by-month', ['year' => $year, 'month' => $month]) }}"
+                        class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2 rounded-lg transition-colors">
+                        <i class='bx bx-reset'></i> Reset
+                    </a>
                 </div>
             </form>
         </div>
 
-        <!-- Attendance Table -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                <h3 class="text-lg font-semibold text-gray-900">Attendance Records</h3>
-                <div class="flex gap-2">
-                    <button onclick="openAddEntryModal()"
-                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition shadow-sm flex items-center">
-                        <i class='bx bx-plus mr-2'></i>Add Entry
-                    </button>
-                    <a href="{{ route('admin.attendance.live') }}"
-                        class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
-                        <i class='bx bx-broadcast mr-2'></i>Live Status
-                    </a>
-                    <a href="{{ route('admin.attendance.reports') }}"
-                        class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
-                        <i class='bx bx-bar-chart mr-2'></i>Reports
-                    </a>
-                    <a href="{{ route('admin.attendance.corrections') }}"
-                        class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition">
-                        <i class='bx bx-edit mr-2'></i>Corrections
-                    </a>
-                </div>
-            </div>
+        <!-- Attendance List -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">User</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Clock In</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Clock Out</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total Hours</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Clock In</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Clock Out</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Hours</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($attendances as $attendance)
-                            <tr class="hover:bg-gray-50">
+                            <tr class="hover:bg-gray-50 transition-colors">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
+                                        <div class="bg-blue-100 rounded-full p-2 mr-3">
+                                            <i class='bx bx-user text-blue-600'></i>
+                                        </div>
                                         <div>
                                             <div class="text-sm font-medium text-gray-900">{{ $attendance->user->name }}</div>
-                                            <div class="text-sm text-gray-500">{{ ucfirst($attendance->user->role) }}</div>
+                                            <div class="text-xs text-gray-500">{{ ucfirst($attendance->user->role) }}</div>
                                         </div>
                                     </div>
                                 </td>
@@ -148,29 +156,32 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                    @if(!$attendance->is_approved)
-                                        <form action="{{ route('admin.attendance.approve', $attendance) }}" method="POST"
-                                            class="inline">
+                                    <div class="flex items-center gap-2">
+                                        @if(!$attendance->is_approved)
+                                            <form action="{{ route('admin.attendance.approve', $attendance) }}" method="POST"
+                                                class="inline">
+                                                @csrf
+                                                <button type="submit" class="w-8 h-8 flex items-center justify-center bg-green-100 text-green-600 hover:bg-green-200 rounded-full transition" title="Approve">
+                                                    <i class='bx bx-check text-xl'></i>
+                                                </button>
+                                            </form>
+                                        @endif
+                                        <form action="{{ route('admin.attendance.destroy', $attendance) }}" method="POST"
+                                            class="inline" onsubmit="return confirm('Delete this attendance record?')">
                                             @csrf
-                                            <button type="submit" class="text-green-600 hover:text-green-700">
-                                                <i class='bx bx-check-circle text-xl'></i>
+                                            @method('DELETE')
+                                            <button type="submit" class="w-8 h-8 flex items-center justify-center bg-red-100 text-red-600 hover:bg-red-200 rounded-full transition" title="Delete">
+                                                <i class='bx bx-trash text-xl'></i>
                                             </button>
                                         </form>
-                                    @endif
-                                    <form action="{{ route('admin.attendance.destroy', $attendance) }}" method="POST"
-                                        class="inline" onsubmit="return confirm('Delete this attendance record?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-700 ml-2">
-                                            <i class='bx bx-trash text-xl'></i>
-                                        </button>
-                                    </form>
+                                    </div>
                                 </td>
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="7" class="px-6 py-8 text-center text-gray-500">
-                                    No attendance records found
+                                    <i class='bx bx-calendar-x text-4xl mb-2'></i>
+                                    <p>No attendance records found for this month</p>
                                 </td>
                             </tr>
                         @endforelse

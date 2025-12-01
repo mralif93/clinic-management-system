@@ -220,6 +220,19 @@ class LeaveController extends Controller
     }
 
     /**
+     * Display trashed leaves
+     */
+    public function trash()
+    {
+        $leaves = Leave::onlyTrashed()
+            ->with(['user', 'reviewer'])
+            ->latest()
+            ->paginate(15);
+
+        return view('admin.leaves.trash', compact('leaves'));
+    }
+
+    /**
      * Restore a soft deleted leave
      */
     public function restore($id)
@@ -227,7 +240,7 @@ class LeaveController extends Controller
         $leave = Leave::withTrashed()->findOrFail($id);
         $leave->restore();
 
-        return redirect()->back()
+        return redirect()->route('admin.leaves.trash')
             ->with('success', 'Leave restored successfully!');
     }
 
@@ -245,7 +258,7 @@ class LeaveController extends Controller
 
         $leave->forceDelete();
 
-        return redirect()->back()
+        return redirect()->route('admin.leaves.trash')
             ->with('success', 'Leave permanently deleted!');
     }
 

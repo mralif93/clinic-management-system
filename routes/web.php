@@ -154,6 +154,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/staff/{id}/force-delete', [App\Http\Controllers\Admin\StaffController::class, 'forceDelete'])->name('staff.force-delete');
 
         // Appointment Management
+        Route::get('/appointments/trash', [App\Http\Controllers\Admin\AppointmentController::class, 'trash'])->name('appointments.trash');
         Route::resource('appointments', App\Http\Controllers\Admin\AppointmentController::class);
         Route::get('/appointments/{year}/{month}', [App\Http\Controllers\Admin\AppointmentController::class, 'byMonth'])->name('appointments.by-month');
         Route::post('/appointments/{id}/restore', [App\Http\Controllers\Admin\AppointmentController::class, 'restore'])->name('appointments.restore');
@@ -177,8 +178,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/attendance/live', [App\Http\Controllers\Admin\AttendanceController::class, 'live'])->name('attendance.live');
         Route::get('/attendance/export', [App\Http\Controllers\Admin\AttendanceController::class, 'export'])->name('attendance.export');
         Route::get('/attendance/reports', [App\Http\Controllers\Admin\AttendanceController::class, 'reports'])->name('attendance.reports');
+        Route::get('/attendance/trash', [App\Http\Controllers\Admin\AttendanceController::class, 'trash'])->name('attendance.trash');
         Route::get('/attendance/corrections', [App\Http\Controllers\Admin\AttendanceController::class, 'corrections'])->name('attendance.corrections');
+        Route::get('/attendance/{year}/{month}', [App\Http\Controllers\Admin\AttendanceController::class, 'byMonth'])->name('attendance.by-month');
         Route::post('/attendance/corrections/{correction}/approve', [App\Http\Controllers\Admin\AttendanceController::class, 'approveCorrection'])->name('attendance.corrections.approve');
+        Route::post('/attendance/{id}/restore', [App\Http\Controllers\Admin\AttendanceController::class, 'restore'])->name('attendance.restore');
+        Route::delete('/attendance/{id}/force-delete', [App\Http\Controllers\Admin\AttendanceController::class, 'forceDelete'])->name('attendance.force-delete');
         Route::post('/attendance/corrections/{correction}/reject', [App\Http\Controllers\Admin\AttendanceController::class, 'rejectCorrection'])->name('attendance.corrections.reject');
         Route::post('/attendance', [App\Http\Controllers\Admin\AttendanceController::class, 'store'])->name('attendance.store');
         Route::put('/attendance/{attendance}', [App\Http\Controllers\Admin\AttendanceController::class, 'update'])->name('attendance.update');
@@ -191,6 +196,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/todos/{id}/force-delete', [App\Http\Controllers\Admin\TodoController::class, 'forceDelete'])->name('todos.force-delete');
 
         // Leave Management
+        Route::get('/leaves/trash', [App\Http\Controllers\Admin\LeaveController::class, 'trash'])->name('leaves.trash');
         Route::get('/leaves/{year}/{month}', [App\Http\Controllers\Admin\LeaveController::class, 'byMonth'])->name('leaves.by-month');
         Route::resource('leaves', App\Http\Controllers\Admin\LeaveController::class)->parameters(['leaves' => 'leave']);
         Route::post('/leaves/{id}/restore', [App\Http\Controllers\Admin\LeaveController::class, 'restore'])->name('leaves.restore');

@@ -206,6 +206,19 @@ class AppointmentController extends Controller
     }
 
     /**
+     * Display trashed appointments
+     */
+    public function trash()
+    {
+        $appointments = Appointment::onlyTrashed()
+            ->with(['patient', 'doctor', 'service'])
+            ->orderBy('deleted_at', 'desc')
+            ->paginate(15);
+
+        return view('admin.appointments.trash', compact('appointments'));
+    }
+
+    /**
      * Restore a soft deleted appointment
      */
     public function restore($id)
@@ -213,7 +226,7 @@ class AppointmentController extends Controller
         $appointment = Appointment::withTrashed()->findOrFail($id);
         $appointment->restore();
 
-        return redirect()->back()
+        return redirect()->route('admin.appointments.trash')
             ->with('success', 'Appointment restored successfully!');
     }
 
@@ -225,7 +238,7 @@ class AppointmentController extends Controller
         $appointment = Appointment::withTrashed()->findOrFail($id);
         $appointment->forceDelete();
 
-        return redirect()->back()
+        return redirect()->route('admin.appointments.trash')
             ->with('success', 'Appointment permanently deleted!');
     }
 }
