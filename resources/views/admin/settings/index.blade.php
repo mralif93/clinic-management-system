@@ -338,156 +338,212 @@
 
             <!-- Email Settings -->
             @if(isset($groupedSettings['email']))
-                        <div class="bg-white rounded-lg shadow-md border border-gray-200 mx-2 mb-8 overflow-hidden">
-                            <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-purple-50 to-white">
-                                <div class="flex items-start">
-                                    <div class="flex-shrink-0">
-                                        <div
-                                            class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-md">
-                                            <i class='bx bx-envelope text-xl text-white'></i>
-                                        </div>
-                                    </div>
-                                    <div class="ml-4">
-                                        <h3 class="text-lg font-bold text-gray-900">Email Settings</h3>
-                                        <p class="text-sm text-gray-600 mt-0.5">Configure email notifications and SMTP settings</p>
-                                    </div>
+                <div class="bg-white rounded-lg shadow-md border border-gray-200 mx-2 mb-8 overflow-hidden">
+                    <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-purple-50 to-white">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div
+                                    class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow-md">
+                                    <i class='bx bx-envelope text-xl text-white'></i>
                                 </div>
                             </div>
-                            <div class="px-6 py-6">
-                                <div class="space-y-5">
-                                    @foreach($groupedSettings['email'] as $setting)
-                                        <div
-                                            class="grid grid-cols-1 md:grid-cols-3 gap-4 items-start py-3 border-b border-gray-100 last:border-0">
-                                            <div class="md:col-span-1">
-                                                <label for="setting_{{ $setting->key }}"
-                                                    class="flex items-start text-sm font-semibold text-gray-700 pt-2">
-                                                    <i class='bx bx-info-circle text-purple-500 mr-2 text-base mt-0.5 flex-shrink-0'></i>
-                                                    <div>
-                                                        <div>{{ ucwords(str_replace('_', ' ', $setting->key)) }}</div>
-                                                        @if($setting->description)
-                                                            <p class="text-xs text-gray-500 font-normal mt-1">{{ $setting->description }}</p>
-                                                        @endif
-                                                    </div>
-                                                </label>
-                                            </div>
-
-                                            <div class="md:col-span-2">
-                                                <div class="relative">
-                                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                                        <i class='bx bx-at text-gray-400'></i>
-                                                    </div>
-                                                    <input type="text" name="settings[{{ $setting->key }}]" id="setting_{{ $setting->key }}"
-                                                        value="{{ $setting->value }}"
-                                                        placeholder="Enter {{ strtolower(str_replace('_', ' ', $setting->key)) }}..."
-                                                        class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200 hover:border-gray-400">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-bold text-gray-900">Email Settings</h3>
+                                <p class="text-sm text-gray-600 mt-0.5">Configure email notifications and SMTP settings</p>
                             </div>
                         </div>
+                    </div>
+                    <div class="px-6 py-6">
+                        <div class="space-y-5">
+                            @foreach($groupedSettings['email'] as $setting)
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-3 gap-4 items-start py-3 border-b border-gray-100 last:border-0">
+                                    <div class="md:col-span-1">
+                                        <label for="setting_{{ $setting->key }}"
+                                            class="flex items-start text-sm font-semibold text-gray-700 pt-2">
+                                            <i class='bx bx-info-circle text-purple-500 mr-2 text-base mt-0.5 flex-shrink-0'></i>
+                                            <div>
+                                                <div>{{ ucwords(str_replace('_', ' ', $setting->key)) }}</div>
+                                                @if($setting->description)
+                                                    <p class="text-xs text-gray-500 font-normal mt-1">{{ $setting->description }}</p>
+                                                @endif
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    <div class="md:col-span-2">
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class='bx bx-at text-gray-400'></i>
+                                            </div>
+                                            <input type="text" name="settings[{{ $setting->key }}]" id="setting_{{ $setting->key }}"
+                                                value="{{ $setting->value }}"
+                                                placeholder="Enter {{ strtolower(str_replace('_', ' ', $setting->key)) }}..."
+                                                class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200 hover:border-gray-400">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             @endif
 
-    <!-- Operating Hours -->
-    @php
-        $operatingHoursStart = $groupedSettings['general'] ?? collect();
-        $operatingHoursEnd = $groupedSettings['general'] ?? collect();
-        $startTimeSetting = $operatingHoursStart->firstWhere('key', 'operating_hours_start');
-        $endTimeSetting = $operatingHoursEnd->firstWhere('key', 'operating_hours_end');
-    @endphp
-    <div class="bg-white rounded-lg shadow-md border border-gray-200 mx-2 mb-8 overflow-hidden">
-        <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-indigo-50 to-white">
-            <div class="flex items-start">
-                <div class="flex-shrink-0">
-                    <div
-                        class="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shadow-md">
-                        <i class='bx bx-time-five text-xl text-white'></i>
+            <!-- Payroll Settings -->
+            @if(isset($groupedSettings['payroll']))
+                <div class="bg-white rounded-lg shadow-md border border-gray-200 mx-2 mb-8 overflow-hidden">
+                    <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-orange-50 to-white">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div
+                                    class="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-md">
+                                    <i class='bx bx-money text-xl text-white'></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-bold text-gray-900">Payroll Configuration</h3>
+                                <p class="text-sm text-gray-600 mt-0.5">Set default contribution rates for EPF, SOCSO, EIS, and
+                                    Tax</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-6">
+                        <div class="space-y-5">
+                            @foreach($groupedSettings['payroll'] as $setting)
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-3 gap-4 items-start py-3 border-b border-gray-100 last:border-0">
+                                    <div class="md:col-span-1">
+                                        <label for="setting_{{ $setting->key }}"
+                                            class="flex items-start text-sm font-semibold text-gray-700 pt-2">
+                                            <i class='bx bx-info-circle text-orange-500 mr-2 text-base mt-0.5 flex-shrink-0'></i>
+                                            <div>
+                                                <div>{{ ucwords(str_replace(['_', 'payroll'], [' ', ''], $setting->key)) }}</div>
+                                                @if($setting->description)
+                                                    <p class="text-xs text-gray-500 font-normal mt-1">{{ $setting->description }}</p>
+                                                @endif
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    <div class="md:col-span-2">
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class='bx bx-percentage text-gray-400'></i>
+                                            </div>
+                                            <input type="number" name="settings[{{ $setting->key }}]"
+                                                id="setting_{{ $setting->key }}" value="{{ $setting->value }}" step="0.01"
+                                                placeholder="0.00"
+                                                class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 hover:border-gray-400">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
-                <div class="ml-4">
-                    <h3 class="text-lg font-bold text-gray-900">Operating Hours</h3>
-                    <p class="text-sm text-gray-600 mt-0.5">Configure clinic operating hours</p>
+            @endif
+
+            <!-- Operating Hours -->
+            @php
+                $operatingHoursStart = $groupedSettings['general'] ?? collect();
+                $operatingHoursEnd = $groupedSettings['general'] ?? collect();
+                $startTimeSetting = $operatingHoursStart->firstWhere('key', 'operating_hours_start');
+                $endTimeSetting = $operatingHoursEnd->firstWhere('key', 'operating_hours_end');
+            @endphp
+            <div class="bg-white rounded-lg shadow-md border border-gray-200 mx-2 mb-8 overflow-hidden">
+                <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-indigo-50 to-white">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shadow-md">
+                                <i class='bx bx-time-five text-xl text-white'></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-bold text-gray-900">Operating Hours</h3>
+                            <p class="text-sm text-gray-600 mt-0.5">Configure clinic operating hours</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="px-6 py-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Start Time -->
-                <div>
-                    <label for="operating_hours_start" class="flex items-start text-sm font-semibold text-gray-700 mb-2">
-                        <i class='bx bx-sun text-indigo-500 mr-2 text-base mt-0.5 flex-shrink-0'></i>
+                <div class="px-6 py-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Start Time -->
                         <div>
-                            <div>Opening Time</div>
-                            <p class="text-xs text-gray-500 font-normal mt-1">Clinic opening time</p>
+                            <label for="operating_hours_start"
+                                class="flex items-start text-sm font-semibold text-gray-700 mb-2">
+                                <i class='bx bx-sun text-indigo-500 mr-2 text-base mt-0.5 flex-shrink-0'></i>
+                                <div>
+                                    <div>Opening Time</div>
+                                    <p class="text-xs text-gray-500 font-normal mt-1">Clinic opening time</p>
+                                </div>
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class='bx bx-time text-gray-400'></i>
+                                </div>
+                                <input type="time" name="settings[operating_hours_start]" id="operating_hours_start"
+                                    value="{{ $startTimeSetting->value ?? '09:00' }}"
+                                    class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 hover:border-gray-400">
+                            </div>
                         </div>
-                    </label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class='bx bx-time text-gray-400'></i>
-                        </div>
-                        <input type="time" name="settings[operating_hours_start]" id="operating_hours_start"
-                            value="{{ $startTimeSetting->value ?? '09:00' }}"
-                            class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 hover:border-gray-400">
-                    </div>
-                </div>
 
-                <!-- End Time -->
-                <div>
-                    <label for="operating_hours_end" class="flex items-start text-sm font-semibold text-gray-700 mb-2">
-                        <i class='bx bx-moon text-indigo-500 mr-2 text-base mt-0.5 flex-shrink-0'></i>
+                        <!-- End Time -->
                         <div>
-                            <div>Closing Time</div>
-                            <p class="text-xs text-gray-500 font-normal mt-1">Clinic closing time</p>
+                            <label for="operating_hours_end"
+                                class="flex items-start text-sm font-semibold text-gray-700 mb-2">
+                                <i class='bx bx-moon text-indigo-500 mr-2 text-base mt-0.5 flex-shrink-0'></i>
+                                <div>
+                                    <div>Closing Time</div>
+                                    <p class="text-xs text-gray-500 font-normal mt-1">Clinic closing time</p>
+                                </div>
+                            </label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class='bx bx-time text-gray-400'></i>
+                                </div>
+                                <input type="time" name="settings[operating_hours_end]" id="operating_hours_end"
+                                    value="{{ $endTimeSetting->value ?? '17:00' }}"
+                                    class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 hover:border-gray-400">
+                            </div>
                         </div>
-                    </label>
-                    <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class='bx bx-time text-gray-400'></i>
-                        </div>
-                        <input type="time" name="settings[operating_hours_end]" id="operating_hours_end"
-                            value="{{ $endTimeSetting->value ?? '17:00' }}"
-                            class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200 hover:border-gray-400">
+                    </div>
+
+                    <!-- Info Message -->
+                    <div class="mt-4 flex items-start gap-2 p-3 bg-indigo-50 border border-indigo-200 rounded-lg">
+                        <i class='bx bx-info-circle text-indigo-600 text-base flex-shrink-0 mt-0.5'></i>
+                        <p class="text-xs text-indigo-700">
+                            These operating hours will be displayed to patients when booking appointments and used for
+                            schedule
+                            management.
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <!-- Info Message -->
-            <div class="mt-4 flex items-start gap-2 p-3 bg-indigo-50 border border-indigo-200 rounded-lg">
-                <i class='bx bx-info-circle text-indigo-600 text-base flex-shrink-0 mt-0.5'></i>
-                <p class="text-xs text-indigo-700">
-                    These operating hours will be displayed to patients when booking appointments and used for schedule
-                    management.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Submit Button -->
-    <div class="sticky bottom-0 bg-gradient-to-t from-gray-50 to-transparent pt-8 pb-4 mx-2">
-        <div class="bg-white rounded-lg shadow-lg border border-gray-200 px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center text-sm text-gray-600">
-                    <i class='bx bx-info-circle text-blue-500 mr-2 text-lg'></i>
-                    <span>Changes will be applied immediately after saving</span>
-                </div>
-                <div class="flex items-center gap-3">
-                    <button type="button" onclick="window.location.reload()"
-                        class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-all duration-200 flex items-center shadow-sm hover:shadow">
-                        <i class='bx bx-refresh mr-2 text-lg'></i>
-                        Reset
-                    </button>
-                    <button type="submit"
-                        class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-2.5 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-200 flex items-center shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
-                        <i class='bx bx-save mr-2 text-lg'></i>
-                        Save All Settings
-                    </button>
+            <!-- Submit Button -->
+            <div class="sticky bottom-0 bg-gradient-to-t from-gray-50 to-transparent pt-8 pb-4 mx-2">
+                <div class="bg-white rounded-lg shadow-lg border border-gray-200 px-6 py-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center text-sm text-gray-600">
+                            <i class='bx bx-info-circle text-blue-500 mr-2 text-lg'></i>
+                            <span>Changes will be applied immediately after saving</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button type="button" onclick="window.location.reload()"
+                                class="px-6 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-all duration-200 flex items-center shadow-sm hover:shadow">
+                                <i class='bx bx-refresh mr-2 text-lg'></i>
+                                Reset
+                            </button>
+                            <button type="submit"
+                                class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-2.5 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition-all duration-200 flex items-center shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                                <i class='bx bx-save mr-2 text-lg'></i>
+                                Save All Settings
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    </form>
+        </form>
     </div>
 
     @push('scripts')

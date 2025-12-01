@@ -195,6 +195,15 @@ Route::middleware('auth')->group(function () {
         Route::delete('/leaves/{id}/force-delete', [App\Http\Controllers\Admin\LeaveController::class, 'forceDelete'])->name('leaves.force-delete');
         Route::post('/leaves/{leave}/approve', [App\Http\Controllers\Admin\LeaveController::class, 'approve'])->name('leaves.approve');
         Route::post('/leaves/{leave}/reject', [App\Http\Controllers\Admin\LeaveController::class, 'reject'])->name('leaves.reject');
+
+        // Payroll Management
+        Route::get('/payrolls/trash', [App\Http\Controllers\Admin\PayrollController::class, 'trash'])->name('payrolls.trash');
+        Route::get('/payrolls/{year}/{month}', [App\Http\Controllers\Admin\PayrollController::class, 'byMonth'])->name('payrolls.by-month');
+        Route::resource('payrolls', App\Http\Controllers\Admin\PayrollController::class)->parameters(['payrolls' => 'payroll']);
+        Route::post('/payrolls/{payroll}/approve', [App\Http\Controllers\Admin\PayrollController::class, 'approve'])->name('payrolls.approve');
+        Route::post('/payrolls/{payroll}/mark-as-paid', [App\Http\Controllers\Admin\PayrollController::class, 'markAsPaid'])->name('payrolls.mark-as-paid');
+        Route::post('/payrolls/{id}/restore', [App\Http\Controllers\Admin\PayrollController::class, 'restore'])->name('payrolls.restore');
+        Route::delete('/payrolls/{id}/force-delete', [App\Http\Controllers\Admin\PayrollController::class, 'forceDelete'])->name('payrolls.force-delete');
     });
 });
 

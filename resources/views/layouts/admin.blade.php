@@ -202,6 +202,13 @@
                     <span>Leave</span>
                 </a>
 
+                <!-- 11. Payroll -->
+                <a href="{{ route('admin.payrolls.index') }}"
+                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.payrolls.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
+                    <i class='bx bx-money mr-3 text-xl'></i>
+                    <span>Payroll</span>
+                </a>
+
                 <!-- 9. Report -->
                 <a href="{{ route('admin.reports.index') }}"
                     class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.reports.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
