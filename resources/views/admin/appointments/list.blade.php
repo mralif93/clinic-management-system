@@ -9,17 +9,63 @@
     <div class="flex justify-between items-center">
         <div>
             <h1 class="text-2xl font-bold text-gray-900">Appointments</h1>
-            <p class="text-sm text-gray-600 mt-1">Manage patient appointments and schedules</p>
+            <p class="text-sm text-gray-600 mt-1">Appointments for {{ $monthName }}</p>
         </div>
-        <a href="{{ route('admin.appointments.create') }}" class="bg-blue-600 text-white px-3 py-2rounded-lg hover:bg-blue-700 transition flex items-center">
-            <i class='bx bx-plus mr-2 text-base'></i>
-            Schedule Appointment
-        </a>
+        <div class="flex gap-2">
+            <a href="{{ route('admin.appointments.index') }}" 
+               class="bg-gray-600 text-white px-3 py-2 rounded-lg hover:bg-gray-700 transition flex items-center">
+                <i class='bx bx-arrow-back mr-2 text-base'></i>
+                Back to Months
+            </a>
+            <a href="{{ route('admin.appointments.create') }}" class="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition flex items-center">
+                <i class='bx bx-plus mr-2 text-base'></i>
+                Schedule Appointment
+            </a>
+        </div>
+    </div>
+
+    <!-- Statistics Cards (Contextual) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl shadow-lg p-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-indigo-100 text-sm font-medium">Total Appointments</p>
+                    <h3 class="text-3xl font-bold mt-2">{{ $stats['total'] }}</h3>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-full p-4">
+                    <i class='bx bx-calendar text-3xl'></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-blue-100 text-sm font-medium">Scheduled</p>
+                    <h3 class="text-3xl font-bold mt-2">{{ $stats['scheduled'] }}</h3>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-full p-4">
+                    <i class='bx bx-time text-3xl'></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-green-100 text-sm font-medium">Completed</p>
+                    <h3 class="text-3xl font-bold mt-2">{{ $stats['completed'] }}</h3>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-full p-4">
+                    <i class='bx bx-check-double text-3xl'></i>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Filters Section -->
     <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <form method="GET" action="{{ route('admin.appointments.index') }}" class="space-y-4">
+        <form method="GET" action="{{ route('admin.appointments.by-month', ['year' => $year, 'month' => $month]) }}" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <!-- Search -->
                 <div class="md:col-span-2">
@@ -72,52 +118,13 @@
                     Apply Filters
                 </button>
                 @if(request()->hasAny(['search', 'status', 'date']))
-                    <a href="{{ route('admin.appointments.index') }}" 
+                    <a href="{{ route('admin.appointments.by-month', ['year' => $year, 'month' => $month]) }}" 
                        class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition">
                         <i class='bx bx-x mr-2 text-base'></i>
                         Clear Filters
                     </a>
                 @endif
             </div>
-            
-            <!-- Active Filters Indicator -->
-            @if(request()->hasAny(['search', 'status', 'date']))
-                <div class="pt-4 border-t border-gray-200">
-                    <div class="flex flex-wrap items-center gap-2">
-                        <span class="text-sm font-medium text-gray-700">Active Filters:</span>
-                        @if(request('search'))
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                <i class='bx bx-search mr-1'></i>
-                                Search: "{{ request('search') }}"
-                                <a href="{{ route('admin.appointments.index', array_merge(request()->except('search'), ['page' => 1])) }}" 
-                                   class="ml-2 hover:text-blue-600">
-                                    <i class='bx bx-x'></i>
-                                </a>
-                            </span>
-                        @endif
-                        @if(request('status'))
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                <i class='bx bx-info-circle mr-1'></i>
-                                Status: {{ ucfirst(str_replace('_', ' ', request('status'))) }}
-                                <a href="{{ route('admin.appointments.index', array_merge(request()->except('status'), ['page' => 1])) }}" 
-                                   class="ml-2 hover:text-green-600">
-                                    <i class='bx bx-x'></i>
-                                </a>
-                            </span>
-                        @endif
-                        @if(request('date'))
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                                <i class='bx bx-calendar mr-1'></i>
-                                Date: {{ \Carbon\Carbon::parse(request('date'))->format('M d, Y') }}
-                                <a href="{{ route('admin.appointments.index', array_merge(request()->except('date'), ['page' => 1])) }}" 
-                                   class="ml-2 hover:text-purple-600">
-                                    <i class='bx bx-x'></i>
-                                </a>
-                            </span>
-                        @endif
-                    </div>
-                </div>
-            @endif
         </form>
     </div>
 
@@ -222,7 +229,7 @@
                     @empty
                         <tr>
                             <td colspan="7" class="px-6 py-4 text-center text-gray-500">
-                                No appointments found.
+                                No appointments found for this month.
                             </td>
                         </tr>
                     @endforelse
@@ -236,4 +243,3 @@
     </div>
 </div>
 @endsection
-

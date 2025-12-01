@@ -24,38 +24,38 @@
 
         <!-- Statistics Cards (Contextual) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
-                <div class="flex justify-between items-center">
+            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white">
+                <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Total Requests</p>
-                        <h3 class="text-2xl font-bold text-gray-800">{{ $stats['total'] }}</h3>
+                        <p class="text-blue-100 text-sm font-medium">Total Requests</p>
+                        <h3 class="text-3xl font-bold mt-2">{{ $stats['total'] }}</h3>
                     </div>
-                    <div class="bg-blue-100 p-3 rounded-full">
-                        <i class='bx bx-file text-2xl text-blue-600'></i>
+                    <div class="bg-white bg-opacity-20 rounded-full p-4">
+                        <i class='bx bx-file text-3xl'></i>
                     </div>
                 </div>
             </div>
             
-            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-yellow-400">
-                <div class="flex justify-between items-center">
+            <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl shadow-lg p-6 text-white">
+                <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Pending Approval</p>
-                        <h3 class="text-2xl font-bold text-gray-800">{{ $stats['pending'] }}</h3>
+                        <p class="text-yellow-100 text-sm font-medium">Pending Approval</p>
+                        <h3 class="text-3xl font-bold mt-2">{{ $stats['pending'] }}</h3>
                     </div>
-                    <div class="bg-yellow-100 p-3 rounded-full">
-                        <i class='bx bx-time text-2xl text-yellow-600'></i>
+                    <div class="bg-white bg-opacity-20 rounded-full p-4">
+                        <i class='bx bx-time text-3xl'></i>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500">
-                <div class="flex justify-between items-center">
+            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white">
+                <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Approved</p>
-                        <h3 class="text-2xl font-bold text-gray-800">{{ $stats['approved'] }}</h3>
+                        <p class="text-green-100 text-sm font-medium">Approved</p>
+                        <h3 class="text-3xl font-bold mt-2">{{ $stats['approved'] }}</h3>
                     </div>
-                    <div class="bg-green-100 p-3 rounded-full">
-                        <i class='bx bx-check-circle text-2xl text-green-600'></i>
+                    <div class="bg-white bg-opacity-20 rounded-full p-4">
+                        <i class='bx bx-check-circle text-3xl'></i>
                     </div>
                 </div>
             </div>

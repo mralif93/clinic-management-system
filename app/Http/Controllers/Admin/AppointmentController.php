@@ -8,15 +8,51 @@ use App\Models\Patient;
 use App\Models\Doctor;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AppointmentController extends Controller
 {
     /**
-     * Display a listing of appointments
+     * Display a listing of appointment months
      */
-    public function index(Request $request)
+    public function index()
     {
-        $query = Appointment::withTrashed()->with(['patient', 'doctor', 'service']);
+        $driver = DB::connection()->getDriverName();
+
+        if ($driver === 'sqlite') {
+            $yearExpr = "strftime('%Y', appointment_date)";
+            $monthExpr = "strftime('%m', appointment_date)";
+        } else {
+            $yearExpr = "YEAR(appointment_date)";
+            $monthExpr = "MONTH(appointment_date)";
+        }
+
+        $months = Appointment::select(
+            DB::raw("$yearExpr as year"),
+            DB::raw("$monthExpr as month"),
+            DB::raw('COUNT(*) as total_appointments'),
+            DB::raw("SUM(CASE WHEN status = 'scheduled' THEN 1 ELSE 0 END) as scheduled_count"),
+            DB::raw("SUM(CASE WHEN status = 'confirmed' THEN 1 ELSE 0 END) as confirmed_count"),
+            DB::raw("SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) as completed_count"),
+            DB::raw("SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) as cancelled_count")
+        )
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get();
+
+        return view('admin.appointments.months', compact('months'));
+    }
+
+    /**
+     * Display a listing of appointments for a specific month
+     */
+    public function byMonth(Request $request, $year, $month)
+    {
+        $query = Appointment::withTrashed()
+            ->with(['patient', 'doctor', 'service'])
+            ->whereYear('appointment_date', $year)
+            ->whereMonth('appointment_date', $month);
 
         // Search functionality
         if ($request->has('search') && $request->search) {
@@ -32,7 +68,7 @@ class AppointmentController extends Controller
             $query->where('status', $request->status);
         }
 
-        // Filter by date
+        // Filter by date (within the month)
         if ($request->has('date') && $request->date) {
             $query->whereDate('appointment_date', $request->date);
         }
@@ -48,7 +84,16 @@ class AppointmentController extends Controller
                               ->orderBy('appointment_time', 'desc')
                               ->paginate(15);
 
-        return view('admin.appointments.index', compact('appointments'));
+        $monthName = \Carbon\Carbon::createFromDate($year, $month, 1)->format('F Y');
+
+        // Contextual stats for this month
+        $stats = [
+            'total' => Appointment::whereYear('appointment_date', $year)->whereMonth('appointment_date', $month)->count(),
+            'scheduled' => Appointment::whereYear('appointment_date', $year)->whereMonth('appointment_date', $month)->where('status', 'scheduled')->count(),
+            'completed' => Appointment::whereYear('appointment_date', $year)->whereMonth('appointment_date', $month)->where('status', 'completed')->count(),
+        ];
+
+        return view('admin.appointments.list', compact('appointments', 'year', 'month', 'monthName', 'stats'));
     }
 
     /**
@@ -142,8 +187,10 @@ class AppointmentController extends Controller
 
         $appointment->update($validated);
 
-        return redirect()->route('admin.appointments.index')
-            ->with('success', 'Appointment updated successfully!');
+        return redirect()->route('admin.appointments.by-month', [
+            'year' => \Carbon\Carbon::parse($validated['appointment_date'])->year,
+            'month' => \Carbon\Carbon::parse($validated['appointment_date'])->month
+        ])->with('success', 'Appointment updated successfully!');
     }
 
     /**
@@ -154,7 +201,7 @@ class AppointmentController extends Controller
         $appointment = Appointment::findOrFail($id);
         $appointment->delete();
 
-        return redirect()->route('admin.appointments.index')
+        return redirect()->back()
             ->with('success', 'Appointment deleted successfully!');
     }
 
@@ -166,7 +213,7 @@ class AppointmentController extends Controller
         $appointment = Appointment::withTrashed()->findOrFail($id);
         $appointment->restore();
 
-        return redirect()->route('admin.appointments.index')
+        return redirect()->back()
             ->with('success', 'Appointment restored successfully!');
     }
 
@@ -178,8 +225,7 @@ class AppointmentController extends Controller
         $appointment = Appointment::withTrashed()->findOrFail($id);
         $appointment->forceDelete();
 
-        return redirect()->route('admin.appointments.index')
+        return redirect()->back()
             ->with('success', 'Appointment permanently deleted!');
     }
 }
-

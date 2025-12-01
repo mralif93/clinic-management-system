@@ -155,6 +155,7 @@ Route::middleware('auth')->group(function () {
 
         // Appointment Management
         Route::resource('appointments', App\Http\Controllers\Admin\AppointmentController::class);
+        Route::get('/appointments/{year}/{month}', [App\Http\Controllers\Admin\AppointmentController::class, 'byMonth'])->name('appointments.by-month');
         Route::post('/appointments/{id}/restore', [App\Http\Controllers\Admin\AppointmentController::class, 'restore'])->name('appointments.restore');
         Route::delete('/appointments/{id}/force-delete', [App\Http\Controllers\Admin\AppointmentController::class, 'forceDelete'])->name('appointments.force-delete');
 
