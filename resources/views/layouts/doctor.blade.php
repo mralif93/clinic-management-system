@@ -118,10 +118,20 @@
                     <i class='bx bx-home-alt-2 mr-3 text-xl'></i>
                     <span>Dashboard</span>
                 </a>
+                <a href="{{ route('doctor.schedule.index') }}"
+                    class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.schedule.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">
+                    <i class='bx bx-time mr-3 text-xl'></i>
+                    <span>Schedule</span>
+                </a>
                 <a href="{{ route('doctor.appointments.index') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.appointments.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">
                     <i class='bx bx-calendar mr-3 text-xl'></i>
-                    <span>My Appointments</span>
+                    <span>Appointments</span>
+                </a>
+                <a href="{{ route('doctor.patients.index') }}"
+                    class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.patients.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">
+                    <i class='bx bx-group mr-3 text-xl'></i>
+                    <span>Patients</span>
                 </a>
                 <a href="{{ route('doctor.attendance.index') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-blue-600 transition {{ request()->routeIs('doctor.attendance.*') ? 'bg-blue-700 border-r-4 border-white' : '' }}">
@@ -136,17 +146,7 @@
                 <a href="{{ route('doctor.profile.show') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.profile.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">
                     <i class='bx bx-user mr-3 text-xl'></i>
-                    <span>My Profile</span>
-                </a>
-                <a href="{{ route('doctor.schedule.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.schedule.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-time mr-3 text-xl'></i>
-                    <span>Schedule</span>
-                </a>
-                <a href="{{ route('doctor.patients.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.patients.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-file-blank mr-3 text-xl'></i>
-                    <span>Patients</span>
+                    <span>Profile</span>
                 </a>
             </nav>
         </aside>
