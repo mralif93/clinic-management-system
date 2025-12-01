@@ -8,15 +8,49 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class LeaveController extends Controller
 {
     /**
-     * Display a listing of leaves
+     * Display a listing of leave months
      */
-    public function index(Request $request)
+    public function index()
     {
-        $query = Leave::with(['user', 'reviewer']);
+        $driver = DB::connection()->getDriverName();
+
+        if ($driver === 'sqlite') {
+            $yearExpr = "strftime('%Y', start_date)";
+            $monthExpr = "strftime('%m', start_date)";
+        } else {
+            $yearExpr = "YEAR(start_date)";
+            $monthExpr = "MONTH(start_date)";
+        }
+
+        $months = Leave::select(
+            DB::raw("$yearExpr as year"),
+            DB::raw("$monthExpr as month"),
+            DB::raw('COUNT(*) as total_leaves'),
+            DB::raw("SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) as pending_count"),
+            DB::raw("SUM(CASE WHEN status = 'approved' THEN 1 ELSE 0 END) as approved_count"),
+            DB::raw("SUM(CASE WHEN status = 'rejected' THEN 1 ELSE 0 END) as rejected_count")
+        )
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get();
+
+        return view('admin.leaves.months', compact('months'));
+    }
+
+    /**
+     * Display a listing of leaves for a specific month
+     */
+    public function byMonth(Request $request, $year, $month)
+    {
+        $query = Leave::with(['user', 'reviewer'])
+            ->whereYear('start_date', $year)
+            ->whereMonth('start_date', $month);
 
         // Filter by status
         if ($request->filled('status')) {
@@ -51,8 +85,16 @@ class LeaveController extends Controller
 
         $leaves = $query->latest()->paginate(15);
         $users = User::whereIn('role', ['doctor', 'staff'])->get();
+        $monthName = \Carbon\Carbon::createFromDate($year, $month, 1)->format('F Y');
 
-        return view('admin.leaves.index', compact('leaves', 'users'));
+        // Stats for this month
+        $stats = [
+            'total' => Leave::whereYear('start_date', $year)->whereMonth('start_date', $month)->count(),
+            'pending' => Leave::whereYear('start_date', $year)->whereMonth('start_date', $month)->where('status', 'pending')->count(),
+            'approved' => Leave::whereYear('start_date', $year)->whereMonth('start_date', $month)->where('status', 'approved')->count(),
+        ];
+
+        return view('admin.leaves.list', compact('leaves', 'users', 'year', 'month', 'monthName', 'stats'));
     }
 
     /**
@@ -160,8 +202,10 @@ class LeaveController extends Controller
 
         $leave->update($validated);
 
-        return redirect()->route('admin.leaves.index')
-            ->with('success', 'Leave updated successfully!');
+        return redirect()->route('admin.leaves.by-month', [
+            'year' => \Carbon\Carbon::parse($validated['start_date'])->year,
+            'month' => \Carbon\Carbon::parse($validated['start_date'])->month
+        ])->with('success', 'Leave updated successfully!');
     }
 
     /**
@@ -171,7 +215,7 @@ class LeaveController extends Controller
     {
         $leave->delete();
 
-        return redirect()->route('admin.leaves.index')
+        return redirect()->back()
             ->with('success', 'Leave deleted successfully!');
     }
 
@@ -183,7 +227,7 @@ class LeaveController extends Controller
         $leave = Leave::withTrashed()->findOrFail($id);
         $leave->restore();
 
-        return redirect()->route('admin.leaves.index')
+        return redirect()->back()
             ->with('success', 'Leave restored successfully!');
     }
 
@@ -201,7 +245,7 @@ class LeaveController extends Controller
 
         $leave->forceDelete();
 
-        return redirect()->route('admin.leaves.index')
+        return redirect()->back()
             ->with('success', 'Leave permanently deleted!');
     }
 

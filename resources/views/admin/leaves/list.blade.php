@@ -6,18 +6,64 @@
         <div class="flex justify-between items-center mb-6">
             <div>
                 <h1 class="text-3xl font-bold text-gray-800">Leave Management</h1>
-                <p class="text-gray-600 mt-1">Manage and approve staff leave requests</p>
+                <p class="text-gray-600 mt-1">Requests for {{ $monthName }}</p>
             </div>
-            <a href="{{ route('admin.leaves.create') }}"
-                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
-                <i class='bx bx-plus-circle text-xl'></i>
-                Create Leave
-            </a>
+            <div class="flex gap-2">
+                <a href="{{ route('admin.leaves.index') }}"
+                    class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
+                    <i class='bx bx-arrow-back text-xl'></i>
+                    Back to Months
+                </a>
+                <a href="{{ route('admin.leaves.create') }}"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
+                    <i class='bx bx-plus-circle text-xl'></i>
+                    Apply Leave
+                </a>
+            </div>
+        </div>
+
+        <!-- Statistics Cards (Contextual) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Total Requests</p>
+                        <h3 class="text-2xl font-bold text-gray-800">{{ $stats['total'] }}</h3>
+                    </div>
+                    <div class="bg-blue-100 p-3 rounded-full">
+                        <i class='bx bx-file text-2xl text-blue-600'></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-yellow-400">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Pending Approval</p>
+                        <h3 class="text-2xl font-bold text-gray-800">{{ $stats['pending'] }}</h3>
+                    </div>
+                    <div class="bg-yellow-100 p-3 rounded-full">
+                        <i class='bx bx-time text-2xl text-yellow-600'></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6 border-l-4 border-green-500">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-sm text-gray-500 mb-1">Approved</p>
+                        <h3 class="text-2xl font-bold text-gray-800">{{ $stats['approved'] }}</h3>
+                    </div>
+                    <div class="bg-green-100 p-3 rounded-full">
+                        <i class='bx bx-check-circle text-2xl text-green-600'></i>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Filters -->
         <div class="bg-white rounded-xl shadow-md p-6 mb-6">
-            <form method="GET" action="{{ route('admin.leaves.index') }}" class="flex flex-wrap gap-4">
+            <form method="GET" action="{{ route('admin.leaves.by-month', ['year' => $year, 'month' => $month]) }}" class="flex flex-wrap gap-4">
                 <div class="flex-1 min-w-[200px]">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Search</label>
                     <div class="relative">
@@ -68,7 +114,7 @@
                         class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
                         <i class='bx bx-filter-alt'></i> Filter
                     </button>
-                    <a href="{{ route('admin.leaves.index') }}"
+                    <a href="{{ route('admin.leaves.by-month', ['year' => $year, 'month' => $month]) }}"
                         class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2 rounded-lg transition-colors">
                         <i class='bx bx-reset'></i> Reset
                     </a>
@@ -175,7 +221,7 @@
                             <tr>
                                 <td colspan="6" class="px-6 py-12 text-center text-gray-500">
                                     <i class='bx bx-calendar-x text-4xl mb-2'></i>
-                                    <p>No leave requests found matching your criteria</p>
+                                    <p>No leave requests found for this month</p>
                                 </td>
                             </tr>
                         @endforelse

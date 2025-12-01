@@ -190,6 +190,7 @@ Route::middleware('auth')->group(function () {
         Route::delete('/todos/{id}/force-delete', [App\Http\Controllers\Admin\TodoController::class, 'forceDelete'])->name('todos.force-delete');
 
         // Leave Management
+        Route::get('/leaves/{year}/{month}', [App\Http\Controllers\Admin\LeaveController::class, 'byMonth'])->name('leaves.by-month');
         Route::resource('leaves', App\Http\Controllers\Admin\LeaveController::class)->parameters(['leaves' => 'leave']);
         Route::post('/leaves/{id}/restore', [App\Http\Controllers\Admin\LeaveController::class, 'restore'])->name('leaves.restore');
         Route::delete('/leaves/{id}/force-delete', [App\Http\Controllers\Admin\LeaveController::class, 'forceDelete'])->name('leaves.force-delete');
