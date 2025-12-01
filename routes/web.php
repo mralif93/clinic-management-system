@@ -78,6 +78,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/attendance/clock-out', [App\Http\Controllers\Doctor\AttendanceController::class, 'clockOut'])->name('attendance.clock-out');
         Route::post('/attendance/break-start', [App\Http\Controllers\Doctor\AttendanceController::class, 'startBreak'])->name('attendance.break-start');
         Route::post('/attendance/break-end', [App\Http\Controllers\Doctor\AttendanceController::class, 'endBreak'])->name('attendance.break-end');
+
+        // Leave Management
+        Route::resource('leaves', App\Http\Controllers\Doctor\LeaveController::class)->parameters(['leaves' => 'leave']);
     });
 
     // Staff Routes
@@ -119,6 +122,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/todos', [App\Http\Controllers\Staff\TodoController::class, 'index'])->name('todos.index');
         Route::get('/todos/{id}', [App\Http\Controllers\Staff\TodoController::class, 'show'])->name('todos.show');
         Route::put('/todos/{id}/status', [App\Http\Controllers\Staff\TodoController::class, 'updateStatus'])->name('todos.update-status');
+
+        // Leave Management
+        Route::resource('leaves', App\Http\Controllers\Staff\LeaveController::class)->parameters(['leaves' => 'leave']);
     });
 
     // Admin Routes
@@ -182,6 +188,13 @@ Route::middleware('auth')->group(function () {
         Route::resource('todos', App\Http\Controllers\Admin\TodoController::class);
         Route::post('/todos/{id}/restore', [App\Http\Controllers\Admin\TodoController::class, 'restore'])->name('todos.restore');
         Route::delete('/todos/{id}/force-delete', [App\Http\Controllers\Admin\TodoController::class, 'forceDelete'])->name('todos.force-delete');
+
+        // Leave Management
+        Route::resource('leaves', App\Http\Controllers\Admin\LeaveController::class)->parameters(['leaves' => 'leave']);
+        Route::post('/leaves/{id}/restore', [App\Http\Controllers\Admin\LeaveController::class, 'restore'])->name('leaves.restore');
+        Route::delete('/leaves/{id}/force-delete', [App\Http\Controllers\Admin\LeaveController::class, 'forceDelete'])->name('leaves.force-delete');
+        Route::post('/leaves/{leave}/approve', [App\Http\Controllers\Admin\LeaveController::class, 'approve'])->name('leaves.approve');
+        Route::post('/leaves/{leave}/reject', [App\Http\Controllers\Admin\LeaveController::class, 'reject'])->name('leaves.reject');
     });
 });
 

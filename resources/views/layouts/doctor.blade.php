@@ -128,6 +128,11 @@
                     <i class='bx bx-time-five mr-3 text-xl'></i>
                     <span>Attendance</span>
                 </a>
+                <a href="{{ route('doctor.leaves.index') }}"
+                    class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.leaves.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">
+                    <i class='bx bx-calendar-check mr-3 text-xl'></i>
+                    <span>Leave</span>
+                </a>
                 <a href="{{ route('doctor.profile.show') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.profile.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">
                     <i class='bx bx-user mr-3 text-xl'></i>

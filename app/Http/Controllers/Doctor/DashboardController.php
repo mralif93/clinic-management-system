@@ -31,6 +31,9 @@ class DashboardController extends Controller
             ->where('appointment_date', '>', now())
             ->where('status', '!=', 'completed')
             ->count();
+        $completedAppointments = Appointment::where('doctor_id', $doctor->id)
+            ->where('status', 'completed')
+            ->count();
         $totalPatients = Appointment::where('doctor_id', $doctor->id)
             ->distinct('patient_id')
             ->count('patient_id');
@@ -51,6 +54,7 @@ class DashboardController extends Controller
             'totalAppointments',
             'todayAppointments',
             'upcomingAppointments',
+            'completedAppointments',
             'totalPatients',
             'todayAppointmentsList',
             'todayAttendance'

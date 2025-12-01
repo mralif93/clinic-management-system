@@ -195,6 +195,13 @@
                     <span>To-Do List</span>
                 </a>
 
+                <!-- 10. Leave -->
+                <a href="{{ route('admin.leaves.index') }}"
+                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.leaves.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
+                    <i class='bx bx-calendar-check mr-3 text-xl'></i>
+                    <span>Leave</span>
+                </a>
+
                 <!-- 9. Report -->
                 <a href="{{ route('admin.reports.index') }}"
                     class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.reports.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">

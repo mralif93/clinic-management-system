@@ -25,6 +25,7 @@ A comprehensive Laravel-based clinic management system with role-based access co
 - ✅ **Settings Management** - Configurable clinic settings, currency, landing page content
 - ✅ **Attendance Management** - Live dashboard, manual entry, approval system, correction requests, CSV export
 - ✅ **To-Do Management** - Task assignment, priority levels, recurring tasks, soft delete
+- ✅ **Leave Management** - Full approval workflow, file attachments, soft delete, filtering
 
 ### Doctor Features
 - ✅ **Dashboard** with appointment statistics
@@ -34,6 +35,7 @@ A comprehensive Laravel-based clinic management system with role-based access co
 - ✅ **Patients** - View patients with appointment history
 - ✅ **Appointment Updates** - Update status, diagnosis, prescription, notes
 - ✅ **Attendance Tracking** - Clock in/out, break management, work duration tracking
+- ✅ **Leave Management** - Apply for leave, view status, upload proof, cancel pending requests
 
 ### Staff Features
 - ✅ **Dashboard** with clinic statistics
@@ -44,6 +46,7 @@ A comprehensive Laravel-based clinic management system with role-based access co
 - ✅ **Reports** - View clinic statistics and analytics
 - ✅ **Attendance Tracking** - Clock in/out, break management, correction requests
 - ✅ **My Tasks** - View assigned to-dos, update task status, track priorities
+- ✅ **Leave Management** - Apply for leave, view status, upload proof, cancel pending requests
 
 ### Patient Features
 - ✅ **Dashboard** with personal statistics
@@ -174,6 +177,7 @@ After seeding, you can login with these credentials:
 - `/doctor/patients` - My patients
 - `/doctor/patients/{id}` - Patient details
 - `/doctor/attendance` - Attendance tracking
+- `/doctor/leaves` - Leave management
 
 ### Staff Routes (Authenticated)
 - `/staff/dashboard` - Staff dashboard
@@ -188,6 +192,7 @@ After seeding, you can login with these credentials:
 - `/staff/reports` - Reports & analytics
 - `/staff/attendance` - Attendance tracking
 - `/staff/todos` - My tasks (to-do list)
+- `/staff/leaves` - Leave management
 
 ### Admin Routes (Authenticated + Admin Role)
 - `/admin/dashboard` - Admin dashboard
@@ -204,6 +209,7 @@ After seeding, you can login with these credentials:
 - `/admin/attendance/reports` - Attendance reports
 - `/admin/attendance/corrections` - Attendance correction requests
 - `/admin/todos` - To-Do management
+- `/admin/leaves` - Leave management
 
 ## 👤 User Roles
 
@@ -264,6 +270,7 @@ After seeding, you can login with these credentials:
 - `attendance_breaks` - Break tracking for attendance
 - `attendance_corrections` - Correction requests for attendance
 - `todos` - Task management with assignments and priorities
+- `leaves` - Leave requests with status, type, and proof attachments
 
 ### Auto-Generated IDs
 - **Patients:** PAT-000001, PAT-000002, etc.
