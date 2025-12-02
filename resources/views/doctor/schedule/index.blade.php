@@ -11,6 +11,10 @@
                 <h1 class="text-2xl font-bold text-gray-900">My Schedule</h1>
                 <p class="text-gray-600 mt-1">View and manage your appointment schedule</p>
             </div>
+            <a href="{{ route('doctor.schedule.settings') }}"
+                class="inline-flex items-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition shadow-md hover:shadow-lg">
+                <i class='bx bx-cog mr-2'></i> Schedule Settings
+            </a>
         </div>
 
         <!-- Statistics -->
@@ -116,7 +120,8 @@
                                             {{ ucfirst(str_replace('_', ' ', $appointment->status)) }}
                                         </span>
                                         <a href="{{ route('doctor.appointments.show', $appointment->id) }}"
-                                            class="inline-flex items-center justify-center w-8 h-8 bg-green-600 text-white rounded-full hover:bg-green-700 transition shadow-sm hover:shadow-md" title="View">
+                                            class="inline-flex items-center justify-center w-8 h-8 bg-green-600 text-white rounded-full hover:bg-green-700 transition shadow-sm hover:shadow-md"
+                                            title="View">
                                             <i class='bx bx-show text-base'></i>
                                         </a>
                                     </div>

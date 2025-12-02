@@ -65,6 +65,14 @@ class Doctor extends Model
     }
 
     /**
+     * Get schedules
+     */
+    public function schedules()
+    {
+        return $this->hasMany(DoctorSchedule::class)->orderBy('day_of_week');
+    }
+
+    /**
      * Boot the model
      */
     protected static function boot()
@@ -84,13 +92,13 @@ class Doctor extends Model
     protected static function generateDoctorId()
     {
         $lastDoctor = static::withTrashed()->whereNotNull('doctor_id')->orderBy('id', 'desc')->first();
-        
+
         if ($lastDoctor && preg_match('/DOC-(\d+)/', $lastDoctor->doctor_id, $matches)) {
             $number = (int) $matches[1] + 1;
         } else {
             $number = 1;
         }
-        
+
         do {
             $doctorId = 'DOC-' . str_pad($number, 6, '0', STR_PAD_LEFT);
             $exists = static::withTrashed()->where('doctor_id', $doctorId)->exists();

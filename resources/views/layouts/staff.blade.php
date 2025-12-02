@@ -115,7 +115,7 @@
             <nav class="mt-6">
                 <a href="{{ route('staff.dashboard') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.dashboard') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-home-alt-2 mr-3 text-xl'></i>
+                    <i class='bx bx-home mr-3 text-xl'></i>
                     <span>Dashboard</span>
                 </a>
                 <a href="{{ route('staff.appointments.index') }}"
@@ -124,13 +124,18 @@
                     <span>Appointments</span>
                 </a>
                 <a href="{{ route('staff.schedule.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.schedule.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-time mr-3 text-xl'></i>
+                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.schedule.index') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
+                    <i class='bx bx-calendar-star mr-3 text-xl'></i>
                     <span>Schedule</span>
+                </a>
+                <a href="{{ route('staff.schedule.doctors') }}"
+                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.schedule.doctors') || request()->routeIs('staff.schedule.view-doctor') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
+                    <i class='bx bx-group mr-3 text-xl'></i>
+                    <span>Doctors</span>
                 </a>
                 <a href="{{ route('staff.patients.index') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.patients.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-user mr-3 text-xl'></i>
+                    <i class='bx bx-group mr-3 text-xl'></i>
                     <span>Patients</span>
                 </a>
                 <a href="{{ route('staff.attendance.index') }}"
@@ -145,12 +150,12 @@
                 </a>
                 <a href="{{ route('staff.profile.show') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.profile.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-user-circle mr-3 text-xl'></i>
+                    <i class='bx bx-user mr-3 text-xl'></i>
                     <span>My Profile</span>
                 </a>
                 <a href="{{ route('staff.reports.index') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.reports.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-file-blank mr-3 text-xl'></i>
+                    <i class='bx bx-file mr-3 text-xl'></i>
                     <span>Reports</span>
                 </a>
             </nav>

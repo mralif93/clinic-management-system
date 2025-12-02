@@ -67,6 +67,8 @@ Route::middleware('auth')->group(function () {
 
         // Schedule
         Route::get('/schedule', [App\Http\Controllers\Doctor\ScheduleController::class, 'index'])->name('schedule.index');
+        Route::get('/schedule/settings', [App\Http\Controllers\Doctor\DoctorScheduleController::class, 'settings'])->name('schedule.settings');
+        Route::post('/schedule/settings', [App\Http\Controllers\Doctor\DoctorScheduleController::class, 'saveSettings'])->name('schedule.save-settings');
 
         // Patients
         Route::get('/patients', [App\Http\Controllers\Doctor\PatientController::class, 'index'])->name('patients.index');
@@ -102,10 +104,15 @@ Route::middleware('auth')->group(function () {
 
         // Schedule
         Route::get('/schedule', [App\Http\Controllers\Staff\ScheduleController::class, 'index'])->name('schedule.index');
+        Route::get('/schedule/doctors', [App\Http\Controllers\Staff\ScheduleController::class, 'listDoctors'])->name('schedule.doctors');
+        Route::get('/schedule/doctor/{doctor}', [App\Http\Controllers\Staff\ScheduleController::class, 'viewDoctorSchedule'])->name('schedule.view-doctor');
 
         // Patients
         Route::get('/patients', [App\Http\Controllers\Staff\PatientController::class, 'index'])->name('patients.index');
         Route::get('/patients/{id}', [App\Http\Controllers\Staff\PatientController::class, 'show'])->name('patients.show');
+
+        // Doctors
+        Route::get('/doctors/{id}', [App\Http\Controllers\Staff\DoctorController::class, 'show'])->name('doctors.show');
 
         // Reports
         Route::get('/reports', [App\Http\Controllers\Staff\ReportController::class, 'index'])->name('reports.index');
@@ -212,6 +219,12 @@ Route::middleware('auth')->group(function () {
         Route::post('/payrolls/{payroll}/mark-as-paid', [App\Http\Controllers\Admin\PayrollController::class, 'markAsPaid'])->name('payrolls.mark-as-paid');
         Route::post('/payrolls/{id}/restore', [App\Http\Controllers\Admin\PayrollController::class, 'restore'])->name('payrolls.restore');
         Route::delete('/payrolls/{id}/force-delete', [App\Http\Controllers\Admin\PayrollController::class, 'forceDelete'])->name('payrolls.force-delete');
+
+        // Schedule Management
+        Route::get('/schedules', [App\Http\Controllers\Admin\ScheduleController::class, 'index'])->name('schedules.index');
+        Route::get('/schedules/{doctor}/manage', [App\Http\Controllers\Admin\ScheduleController::class, 'manage'])->name('schedules.manage');
+        Route::post('/schedules/{doctor}/save', [App\Http\Controllers\Admin\ScheduleController::class, 'saveSettings'])->name('schedules.save-settings');
+        Route::get('/schedules/{doctor}/view', [App\Http\Controllers\Admin\ScheduleController::class, 'view'])->name('schedules.view');
     });
 });
 
