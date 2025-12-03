@@ -217,7 +217,7 @@
                                         <button onclick="deleteAppointment({{ $appointment->id }}, '{{ $appointment->patient->name ?? 'Unknown' }}')"
                                                 class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm"
                                                 title="Delete">
-                                            <i class='bx bx-trash-alt text-base'></i>
+                                            <i class='bx bx-trash text-base'></i>
                                         </button>
                                     @endif
                                 </div>

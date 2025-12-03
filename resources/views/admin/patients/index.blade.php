@@ -37,7 +37,7 @@
                            name="search" 
                            value="{{ request('search') }}"
                            placeholder="Search by name, email, or phone..."
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition">
                 </div>
                 
                 <!-- Gender Filter -->
@@ -47,7 +47,7 @@
                     </label>
                     <select id="gender"
                             name="gender" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition">
                         <option value="">All Genders</option>
                         <option value="male" {{ request('gender') == 'male' ? 'selected' : '' }}>Male</option>
                         <option value="female" {{ request('gender') == 'female' ? 'selected' : '' }}>Female</option>
@@ -62,7 +62,7 @@
                     </label>
                     <select id="status"
                             name="status" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition">
                         <option value="active" {{ request('status') != 'deleted' ? 'selected' : '' }}>Active</option>
                         <option value="deleted" {{ request('status') == 'deleted' ? 'selected' : '' }}>Deleted</option>
                     </select>
@@ -70,16 +70,16 @@
             </div>
             
             <!-- Action Buttons -->
-            <div class="flex flex-wrap gap-3">
+            <div class="flex flex-wrap gap-3 mt-4">
                 <button type="submit" 
-                        class="inline-flex items-center px-4 py-2 bg-gray-700 text-white font-medium rounded-lg hover:bg-gray-800 transition">
-                    <i class='bx bx-filter-alt mr-2 text-base'></i>
+                        class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition shadow-sm">
+                    <i class='bx bx-filter-alt mr-2'></i>
                     Apply Filters
                 </button>
                 @if(request()->hasAny(['search', 'gender', 'status']))
                     <a href="{{ route('admin.patients.index') }}" 
-                       class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition">
-                        <i class='bx bx-x mr-2 text-base'></i>
+                       class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition shadow-sm">
+                        <i class='bx bx-x mr-2'></i>
                         Clear Filters
                     </a>
                 @endif
@@ -208,35 +208,35 @@
                                 <div class="flex justify-end items-center gap-2">
                                     @if($patient->trashed())
                                         <!-- Restore -->
-                                        <button onclick="restorePatient({{ $patient->id }}, '{{ $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name) }}')" 
+                                        <button onclick="restorePatient({{ $patient->id }}, '{{ $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name) }}')"
                                                 class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm"
                                                 title="Restore Patient">
                                             <i class='bx bx-undo text-base'></i>
                                         </button>
                                         <!-- Force Delete -->
-                                        <button onclick="forceDeletePatient({{ $patient->id }}, '{{ $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name) }}')" 
+                                        <button onclick="forceDeletePatient({{ $patient->id }}, '{{ $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name) }}')"
                                                 class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm"
                                                 title="Permanently Delete">
                                             <i class='bx bx-x-circle text-base'></i>
                                         </button>
                                     @else
                                         <!-- View -->
-                                        <a href="{{ route('admin.patients.show', $patient->id) }}" 
+                                        <a href="{{ route('admin.patients.show', $patient->id) }}"
                                            class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600 rounded-full transition shadow-sm"
                                            title="View Details">
                                             <i class='bx bx-info-circle text-base'></i>
                                         </a>
                                         <!-- Edit -->
-                                        <a href="{{ route('admin.patients.edit', $patient->id) }}" 
+                                        <a href="{{ route('admin.patients.edit', $patient->id) }}"
                                            class="w-8 h-8 flex items-center justify-center bg-yellow-500 text-white hover:bg-yellow-600 rounded-full transition shadow-sm"
                                            title="Edit Patient">
                                             <i class='bx bx-pencil text-base'></i>
                                         </a>
                                         <!-- Delete -->
-                                        <button onclick="deletePatient({{ $patient->id }}, '{{ $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name) }}')" 
+                                        <button onclick="deletePatient({{ $patient->id }}, '{{ $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name) }}')"
                                                 class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm"
                                                 title="Delete Patient">
-                                            <i class='bx bx-trash-alt text-base'></i>
+                                            <i class='bx bx-trash text-base'></i>
                                         </button>
                                     @endif
                                 </div>

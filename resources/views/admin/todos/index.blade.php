@@ -19,70 +19,92 @@
         </div>
 
         <!-- Filters -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-            <form method="GET" action="{{ route('admin.todos.index') }}" class="grid grid-cols-1 md:grid-cols-5 gap-4">
-                <!-- Search -->
-                <div>
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Search..."
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <form method="GET" action="{{ route('admin.todos.index') }}" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <!-- Search -->
+                    <div class="md:col-span-2">
+                        <label for="search" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class='bx bx-search mr-1'></i> Search
+                        </label>
+                        <input type="text" id="search" name="search" value="{{ request('search') }}"
+                            placeholder="Search tasks..."
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition">
+                    </div>
+
+                    <!-- Status Filter -->
+                    <div>
+                        <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class='bx bx-info-circle mr-1'></i> Status
+                        </label>
+                        <select id="status" name="status"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition">
+                            <option value="">All Statuses</option>
+                            @foreach(\App\Models\Todo::getStatuses() as $key => $label)
+                                <option value="{{ $key }}" {{ request('status') == $key ? 'selected' : '' }}>{{ $label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Priority Filter -->
+                    <div>
+                        <label for="priority" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class='bx bx-flag mr-1'></i> Priority
+                        </label>
+                        <select id="priority" name="priority"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition">
+                            <option value="">All Priorities</option>
+                            @foreach(\App\Models\Todo::getPriorities() as $key => $label)
+                                <option value="{{ $key }}" {{ request('priority') == $key ? 'selected' : '' }}>{{ $label }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
-                <!-- Status Filter -->
-                <div>
-                    <select name="status"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">All Statuses</option>
-                        @foreach(\App\Models\Todo::getStatuses() as $key => $label)
-                            <option value="{{ $key }}" {{ request('status') == $key ? 'selected' : '' }}>{{ $label }}</option>
-                        @endforeach
-                    </select>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <!-- Assigned To Filter -->
+                    <div class="md:col-span-2">
+                        <label for="assigned_to" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class='bx bx-user mr-1'></i> Assigned To
+                        </label>
+                        <select id="assigned_to" name="assigned_to"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition">
+                            <option value="">All Users</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}" {{ request('assigned_to') == $user->id ? 'selected' : '' }}>
+                                    {{ $user->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Show Trashed -->
+                    <div class="flex items-end">
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="checkbox" name="trashed" value="1" {{ request('trashed') ? 'checked' : '' }}
+                                class="form-checkbox h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-2 focus:ring-gray-500">
+                            <span class="ml-2 text-sm text-gray-700">Show deleted</span>
+                        </label>
+                    </div>
                 </div>
 
-                <!-- Priority Filter -->
-                <div>
-                    <select name="priority"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">All Priorities</option>
-                        @foreach(\App\Models\Todo::getPriorities() as $key => $label)
-                            <option value="{{ $key }}" {{ request('priority') == $key ? 'selected' : '' }}>{{ $label }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <!-- Assigned To Filter -->
-                <div>
-                    <select name="assigned_to"
-                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                        <option value="">All Users</option>
-                        @foreach($users as $user)
-                            <option value="{{ $user->id }}" {{ request('assigned_to') == $user->id ? 'selected' : '' }}>
-                                {{ $user->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <!-- Actions -->
-                <div class="flex gap-2">
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-3 mt-4">
                     <button type="submit"
-                        class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                        <i class='bx bx-filter-alt'></i> Filter
+                        class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition shadow-sm">
+                        <i class='bx bx-filter-alt mr-2'></i>
+                        Apply Filters
                     </button>
-                    <a href="{{ route('admin.todos.index') }}"
-                        class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
-                        <i class='bx bx-reset'></i>
-                    </a>
+                    @if(request()->hasAny(['search', 'status', 'priority', 'assigned_to']))
+                        <a href="{{ route('admin.todos.index') }}"
+                            class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition shadow-sm">
+                            <i class='bx bx-x mr-2'></i>
+                            Clear Filters
+                        </a>
+                    @endif
                 </div>
             </form>
-
-            <!-- Show Trashed Toggle -->
-            <div class="mt-3 pt-3 border-t border-gray-200">
-                <label class="inline-flex items-center cursor-pointer">
-                    <input type="checkbox"
-                        onchange="window.location.href='{{ request('trashed') ? route('admin.todos.index') : route('admin.todos.index', ['trashed' => 1]) }}'"
-                        {{ request('trashed') ? 'checked' : '' }} class="form-checkbox h-4 w-4 text-blue-600">
-                    <span class="ml-2 text-sm text-gray-700">Show deleted to-dos</span>
-                </label>
-            </div>
         </div>
 
         <!-- To-Do Table -->
@@ -210,9 +232,9 @@
                         form.method = 'POST';
                         form.action = `/admin/todos/${id}`;
                         form.innerHTML = `
-                            @csrf
-                            @method('DELETE')
-                        `;
+                                    @csrf
+                                    @method('DELETE')
+                                `;
                         document.body.appendChild(form);
                         form.submit();
                     }
@@ -257,9 +279,9 @@
                         form.method = 'POST';
                         form.action = `/admin/todos/${id}/force-delete`;
                         form.innerHTML = `
-                            @csrf
-                            @method('DELETE')
-                        `;
+                                    @csrf
+                                    @method('DELETE')
+                                `;
                         document.body.appendChild(form);
                         form.submit();
                     }

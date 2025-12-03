@@ -199,6 +199,9 @@ Route::middleware('auth')->group(function () {
         Route::put('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('settings.update');
         Route::delete('/settings/logo', [App\Http\Controllers\Admin\SettingsController::class, 'removeLogo'])->name('settings.remove-logo');
 
+        // Style Guide
+        Route::view('/style-guide/buttons', 'admin.style-guide.buttons')->name('style-guide.buttons');
+
         // Attendance Management
         Route::get('/attendance', [App\Http\Controllers\Admin\AttendanceController::class, 'index'])->name('attendance.index');
         Route::get('/attendance/live', [App\Http\Controllers\Admin\AttendanceController::class, 'live'])->name('attendance.live');

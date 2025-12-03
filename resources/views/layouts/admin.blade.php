@@ -48,6 +48,9 @@
     <!-- Boxicons CDN -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
+    <!-- Global Button Styles -->
+    <link href="{{ asset('css/buttons.css') }}" rel="stylesheet">
+
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -136,84 +139,107 @@
                 <a href="{{ route('admin.dashboard') }}"
                     class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.dashboard') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
                     <i class='bx bx-home-alt-2 mr-3 text-xl'></i>
-                    <span>Dashboard</span>
+                    <span class="text-sm">Dashboard</span>
                 </a>
 
-                <!-- User -->
-                <a href="{{ route('admin.users.index') }}"
-                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.users.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
-                    <i class='bx bx-user-circle mr-3 text-xl'></i>
-                    <span>User</span>
-                </a>
+                <!-- User Management Dropdown -->
+                <div
+                    x-data="{ open: {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.staff.*') || request()->routeIs('admin.doctors.*') || request()->routeIs('admin.patients.*') ? 'true' : 'false' }} }">
+                    <!-- Dropdown Toggle -->
+                    <button @click="open = !open"
+                        class="w-full flex items-center justify-between px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.staff.*') || request()->routeIs('admin.doctors.*') || request()->routeIs('admin.patients.*') ? 'bg-blue-50 text-blue-700' : '' }}">
+                        <div class="flex items-center">
+                            <i class='bx bx-group mr-3 text-xl'></i>
+                            <span class="text-sm">Users</span>
+                        </div>
+                        <i class='bx bx-chevron-down text-xl transition-transform duration-200'
+                            :class="{ 'rotate-180': open }"></i>
+                    </button>
 
-                <!-- Staff -->
-                <a href="{{ route('admin.staff.index') }}"
-                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.staff.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
-                    <i class='bx bx-group mr-3 text-xl'></i>
-                    <span>Staff</span>
-                </a>
+                    <!-- Dropdown Menu -->
+                    <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 transform -translate-y-2"
+                        x-transition:enter-end="opacity-100 transform translate-y-0"
+                        x-transition:leave="transition ease-in duration-150"
+                        x-transition:leave-start="opacity-100 transform translate-y-0"
+                        x-transition:leave-end="opacity-0 transform -translate-y-2" class="bg-gray-50">
+                        <!-- Users -->
+                        <a href="{{ route('admin.users.index') }}"
+                            class="flex items-center px-6 py-2.5 pl-14 text-gray-600 hover:bg-gray-100 transition {{ request()->routeIs('admin.users.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700 font-medium' : '' }}">
+                            <i class='bx bx-user-circle mr-3 text-lg'></i>
+                            <span class="text-sm">Users</span>
+                        </a>
 
-                <!-- Doctor -->
-                <a href="{{ route('admin.doctors.index') }}"
-                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.doctors.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
-                    <i class='bx bx-group mr-3 text-xl'></i>
-                    <span>Doctor</span>
-                </a>
+                        <!-- Staff -->
+                        <a href="{{ route('admin.staff.index') }}"
+                            class="flex items-center px-6 py-2.5 pl-14 text-gray-600 hover:bg-gray-100 transition {{ request()->routeIs('admin.staff.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700 font-medium' : '' }}">
+                            <i class='bx bx-briefcase mr-3 text-lg'></i>
+                            <span class="text-sm">Staff</span>
+                        </a>
 
-                <!-- Patient -->
-                <a href="{{ route('admin.patients.index') }}"
-                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.patients.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
-                    <i class='bx bx-group mr-3 text-xl'></i>
-                    <span>Patient</span>
-                </a>
+                        <!-- Doctors -->
+                        <a href="{{ route('admin.doctors.index') }}"
+                            class="flex items-center px-6 py-2.5 pl-14 text-gray-600 hover:bg-gray-100 transition {{ request()->routeIs('admin.doctors.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700 font-medium' : '' }}">
+                            <i class='bx bx-plus-medical mr-3 text-lg'></i>
+                            <span class="text-sm">Doctors</span>
+                        </a>
+
+                        <!-- Patients -->
+                        <a href="{{ route('admin.patients.index') }}"
+                            class="flex items-center px-6 py-2.5 pl-14 text-gray-600 hover:bg-gray-100 transition {{ request()->routeIs('admin.patients.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700 font-medium' : '' }}">
+                            <i class='bx bx-user mr-3 text-lg'></i>
+                            <span class="text-sm">Patients</span>
+                        </a>
+                    </div>
+                </div>
 
                 <!-- Services -->
                 <a href="{{ route('admin.services.index') }}"
                     class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.services.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
                     <i class='bx bx-list-check mr-3 text-xl'></i>
-                    <span>Services</span>
+                    <span class="text-sm">Services</span>
                 </a>
 
                 <!-- To-Do List -->
                 <a href="{{ route('admin.todos.index') }}"
                     class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.todos.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
                     <i class='bx bx-task mr-3 text-xl'></i>
-                    <span>To-Do List</span>
+                    <span class="text-sm">To-Do List</span>
                 </a>
 
                 <!-- Appointment -->
                 <a href="{{ route('admin.appointments.index') }}"
                     class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.appointments.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
                     <i class='bx bx-calendar mr-3 text-xl'></i>
-                    <span>Appointment</span>
+                    <span class="text-sm">Appointment</span>
                 </a>
 
                 <!-- Attendance -->
                 <a href="{{ route('admin.attendance.index') }}"
                     class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.attendance.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
                     <i class='bx bx-time-five mr-3 text-xl'></i>
-                    <span>Attendance</span>
+                    <span class="text-sm">Attendance</span>
                 </a>
 
                 <!-- Leave -->
                 <a href="{{ route('admin.leaves.index') }}"
                     class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.leaves.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
                     <i class='bx bx-calendar-check mr-3 text-xl'></i>
-                    <span>Leave</span>
+                    <span class="text-sm">Leave</span>
                 </a>
 
                 <!-- Payroll -->
                 <a href="{{ route('admin.payrolls.index') }}"
                     class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.payrolls.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
                     <i class='bx bx-money mr-3 text-xl'></i>
-                    <span>Payroll</span>
+                    <span class="text-sm">Payroll</span>
                 </a>
 
                 <!-- Report -->
                 <a href="{{ route('admin.reports.index') }}"
                     class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.reports.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
                     <i class='bx bx-file-blank mr-3 text-xl'></i>
-                    <span>Report</span>
+                    <span class="text-sm">Report</span>
                 </a>
 
                 <div class="border-t border-gray-200 my-4"></div>
@@ -222,7 +248,7 @@
                 <a href="{{ route('admin.settings.index') }}"
                     class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.settings.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
                     <i class='bx bx-cog mr-3 text-xl'></i>
-                    <span>Settings</span>
+                    <span class="text-sm">Settings</span>
                 </a>
             </nav>
         </aside>

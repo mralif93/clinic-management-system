@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl shadow-lg p-6 text-white">
                 <div class="flex items-center justify-between">
                     <div>
@@ -62,62 +62,50 @@
         </div>
 
         <!-- Filters -->
-        <div class="bg-white rounded-xl shadow-md p-6 mb-6">
-            <form method="GET" action="{{ route('admin.leaves.by-month', ['year' => $year, 'month' => $month]) }}" class="flex flex-wrap gap-4">
-                <div class="flex-1 min-w-[200px]">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Search</label>
-                    <div class="relative">
-                        <i class='bx bx-search absolute left-3 top-3 text-gray-400 text-xl'></i>
-                        <input type="text" name="search" value="{{ request('search') }}"
-                            placeholder="Search by name or reason..."
-                            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+            <form method="GET" action="{{ route('admin.leaves.by-month', ['year' => $year, 'month' => $month]) }}">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+                    <!-- Search -->
+                    <div class="md:col-span-4">
+                        <label for="search" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class='bx bx-search mr-1'></i> Search
+                        </label>
+                        <input type="text" id="search" name="search" value="{{ request('search') }}"
+                            placeholder="Search by patient name, doctor, or service..."
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition">
                     </div>
-                </div>
 
-                <div class="flex-1 min-w-[200px]">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-                    <select name="status"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="">All Status</option>
-                        <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                        <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
-                        <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                    </select>
-                </div>
+                    <!-- Status -->
+                    <div class="md:col-span-3">
+                        <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class='bx bx-info-circle mr-1'></i> Status
+                        </label>
+                        <select id="status" name="status"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition">
+                            <option value="">All Statuses</option>
+                            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
+                            <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                        </select>
+                    </div>
 
-                <div class="flex-1 min-w-[200px]">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Leave Type</label>
-                    <select name="leave_type"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="">All Types</option>
-                        @foreach(\App\Models\Leave::getLeaveTypes() as $key => $label)
-                            <option value="{{ $key }}" {{ request('leave_type') == $key ? 'selected' : '' }}>{{ $label }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                    <!-- Date -->
+                    <div class="md:col-span-3">
+                        <label for="date" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class='bx bx-calendar mr-1'></i> Date
+                        </label>
+                        <input type="date" id="date" name="date" value="{{ request('date') }}"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition">
+                    </div>
 
-                <div class="flex-1 min-w-[200px]">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Employee</label>
-                    <select name="user_id"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        <option value="">All Employees</option>
-                        @foreach($users as $user)
-                            <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
-                                {{ $user->name }} ({{ ucfirst($user->role) }})
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="flex items-end gap-2">
-                    <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
-                        <i class='bx bx-filter-alt'></i> Filter
-                    </button>
-                    <a href="{{ route('admin.leaves.by-month', ['year' => $year, 'month' => $month]) }}"
-                        class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2 rounded-lg transition-colors">
-                        <i class='bx bx-reset'></i> Reset
-                    </a>
+                    <!-- Apply Filters Button -->
+                    <div class="md:col-span-2">
+                        <button type="submit"
+                            class="w-full inline-flex items-center justify-center px-4 py-2 bg-gray-800 text-white text-sm font-medium rounded-lg hover:bg-gray-900 transition shadow-sm">
+                            <i class='bx bx-filter-alt mr-2'></i>
+                            Apply Filters
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -254,13 +242,13 @@
                     const form = document.createElement('form');
                     form.method = 'POST';
                     form.action = `/admin/leaves/${leaveId}/approve`;
-                    
+
                     const csrfToken = document.createElement('input');
                     csrfToken.type = 'hidden';
                     csrfToken.name = '_token';
                     csrfToken.value = '{{ csrf_token() }}';
                     form.appendChild(csrfToken);
-                    
+
                     document.body.appendChild(form);
                     form.submit();
                 }
@@ -294,19 +282,19 @@
                     const form = document.createElement('form');
                     form.method = 'POST';
                     form.action = `/admin/leaves/${leaveId}/reject`;
-                    
+
                     const csrfToken = document.createElement('input');
                     csrfToken.type = 'hidden';
                     csrfToken.name = '_token';
                     csrfToken.value = '{{ csrf_token() }}';
                     form.appendChild(csrfToken);
-                    
+
                     const adminNotes = document.createElement('input');
                     adminNotes.type = 'hidden';
                     adminNotes.name = 'admin_notes';
                     adminNotes.value = result.value;
                     form.appendChild(adminNotes);
-                    
+
                     document.body.appendChild(form);
                     form.submit();
                 }
@@ -315,7 +303,7 @@
 
         // Delete Confirmation
         document.querySelectorAll('.delete-form').forEach(form => {
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function (e) {
                 e.preventDefault();
                 Swal.fire({
                     title: 'Are you sure?',
