@@ -15,7 +15,7 @@ class AppointmentController extends Controller
     public function index(Request $request)
     {
         $doctor = Auth::user()->doctor;
-        
+
         if (!$doctor) {
             return redirect()->route('doctor.dashboard')
                 ->with('error', 'Doctor profile not found. Please contact administrator.');
@@ -37,9 +37,9 @@ class AppointmentController extends Controller
         // Search by patient name
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->whereHas('patient', function($q) use ($search) {
+            $query->whereHas('patient', function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%");
+                    ->orWhere('last_name', 'like', "%{$search}%");
             });
         }
 
@@ -56,7 +56,7 @@ class AppointmentController extends Controller
     public function show($id)
     {
         $doctor = Auth::user()->doctor;
-        
+
         if (!$doctor) {
             return redirect()->route('doctor.dashboard')
                 ->with('error', 'Doctor profile not found. Please contact administrator.');
@@ -70,12 +70,31 @@ class AppointmentController extends Controller
     }
 
     /**
-     * Update appointment status
+     * Show the form for editing the specified appointment
      */
-    public function updateStatus(Request $request, $id)
+    public function edit($id)
     {
         $doctor = Auth::user()->doctor;
-        
+
+        if (!$doctor) {
+            return redirect()->route('doctor.dashboard')
+                ->with('error', 'Doctor profile not found. Please contact administrator.');
+        }
+
+        $appointment = Appointment::with(['patient', 'service', 'user'])
+            ->where('doctor_id', $doctor->id)
+            ->findOrFail($id);
+
+        return view('doctor.appointments.edit', compact('appointment'));
+    }
+
+    /**
+     * Update the specified appointment
+     */
+    public function update(Request $request, $id)
+    {
+        $doctor = Auth::user()->doctor;
+
         if (!$doctor) {
             return redirect()->route('doctor.dashboard')
                 ->with('error', 'Doctor profile not found. Please contact administrator.');
@@ -100,6 +119,25 @@ class AppointmentController extends Controller
 
         return redirect()->route('doctor.appointments.show', $appointment->id)
             ->with('success', 'Appointment updated successfully!');
+    }
+
+    /**
+     * Display the invoice for an appointment
+     */
+    public function invoice($id)
+    {
+        $doctor = Auth::user()->doctor;
+
+        if (!$doctor) {
+            return redirect()->route('doctor.dashboard')
+                ->with('error', 'Doctor profile not found. Please contact administrator.');
+        }
+
+        $appointment = Appointment::with(['patient', 'service', 'user'])
+            ->where('doctor_id', $doctor->id)
+            ->findOrFail($id);
+
+        return view('doctor.appointments.invoice', compact('appointment'));
     }
 }
 

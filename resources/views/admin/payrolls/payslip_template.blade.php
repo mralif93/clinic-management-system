@@ -1,18 +1,33 @@
+@php
+    $clinicLogo = get_setting('clinic_logo');
+    $clinicName = get_setting('clinic_name', 'Clinic Management System');
+    $clinicAddress = get_setting('clinic_address', '123 Medical Street, Health City');
+    $clinicPhone = get_setting('clinic_phone', '+1 (555) 123-4567');
+    $clinicEmail = get_setting('clinic_email', 'info@clinic.com');
+    $currencySymbol = get_currency_symbol();
+@endphp
+
 <div id="payslip-content" class="bg-white p-8 max-w-4xl mx-auto border border-gray-200">
     <!-- Header -->
     <div class="border-b-2 border-gray-800 pb-6 mb-6">
         <div class="flex justify-between items-start">
             <div class="flex items-center gap-4">
-                <!-- Logo Placeholder -->
-                <div
-                    class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center text-white text-2xl font-bold">
-                    CMS
-                </div>
+                <!-- Logo -->
+                @if($clinicLogo)
+                    @if(str_starts_with($clinicLogo, 'data:'))
+                        <img src="{{ $clinicLogo }}" alt="{{ $clinicName }}" class="w-16 h-16 object-contain rounded-lg">
+                    @else
+                        <img src="{{ asset('storage/' . $clinicLogo) }}" alt="{{ $clinicName }}" class="w-16 h-16 object-contain rounded-lg">
+                    @endif
+                @else
+                    <div class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center text-white text-2xl font-bold">
+                        {{ strtoupper(substr($clinicName, 0, 1)) }}
+                    </div>
+                @endif
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-900">CLINIC MANAGEMENT SYSTEM</h1>
-                    <p class="text-sm text-gray-600">123 Healthcare Avenue, Medical District</p>
-                    <p class="text-sm text-gray-600">50450 Kuala Lumpur, Malaysia</p>
-                    <p class="text-sm text-gray-600">Tel: +603-1234 5678 | Email: hr@cms.com</p>
+                    <h1 class="text-2xl font-bold text-gray-900">{{ strtoupper($clinicName) }}</h1>
+                    <p class="text-sm text-gray-600">{{ $clinicAddress }}</p>
+                    <p class="text-sm text-gray-600">Tel: {{ $clinicPhone }} | Email: {{ $clinicEmail }}</p>
                 </div>
             </div>
             <div class="text-right">
@@ -83,7 +98,7 @@
                     <th class="py-3 px-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider w-1/2">
                         Earnings</th>
                     <th class="py-3 px-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider w-1/2">
-                        Amount (RM)</th>
+                        Amount ({{ $currencySymbol }})</th>
                 </tr>
             </thead>
             <tbody class="text-sm">
@@ -136,7 +151,7 @@
                     <th class="py-3 px-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider w-1/2">
                         Deductions</th>
                     <th class="py-3 px-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider w-1/2">
-                        Amount (RM)</th>
+                        Amount ({{ $currencySymbol }})</th>
                 </tr>
             </thead>
             <tbody class="text-sm" id="preview-deductions-list">
@@ -170,7 +185,7 @@
         <div class="bg-gray-900 text-white p-6 rounded-lg min-w-[300px]">
             <p class="text-sm text-gray-400 uppercase tracking-wider mb-1">Net Salary</p>
             <div class="text-4xl font-bold flex items-start gap-1">
-                <span class="text-lg mt-1">RM</span>
+                <span class="text-lg mt-1">{{ $currencySymbol }}</span>
                 <span id="preview-net-salary">{{ number_format($payroll->net_salary ?? 0, 2) }}</span>
             </div>
         </div>
@@ -180,7 +195,7 @@
     <div class="grid grid-cols-2 gap-12 text-sm text-gray-600 border-t border-gray-200 pt-8">
         <div>
             <p class="mb-12">This is a computer-generated document. No signature is required.</p>
-            <p class="font-bold text-gray-900">CMS Admin</p>
+            <p class="font-bold text-gray-900">{{ $clinicName }}</p>
             <p>Authorized Signatory</p>
         </div>
         <div class="text-right">

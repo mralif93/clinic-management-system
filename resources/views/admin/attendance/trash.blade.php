@@ -59,8 +59,8 @@
                                     <td class="px-6 py-4 text-sm text-gray-500">
                                         {{ $attendance->deleted_at->format('d M Y, h:i A') }}
                                     </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-2">
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <div class="flex justify-end items-center gap-2">
                                             <!-- Restore -->
                                             <form action="{{ route('admin.attendance.restore', $attendance->id) }}" method="POST" class="inline">
                                                 @csrf
@@ -79,7 +79,7 @@
                                                 <button type="submit"
                                                     class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm"
                                                     title="Permanently Delete">
-                                                    <i class='bx bx-trash text-base'></i>
+                                                    <i class='bx bx-x-circle text-base'></i>
                                                 </button>
                                             </form>
                                         </div>

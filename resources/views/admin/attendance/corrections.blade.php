@@ -60,18 +60,18 @@
                             <td class="px-6 py-4 text-sm text-gray-600 max-w-xs truncate">
                                 {{ $correction->reason }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <div class="flex gap-2">
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <div class="flex justify-end items-center gap-2">
                                     <form action="{{ route('admin.attendance.corrections.approve', $correction) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="px-3 py-1 bg-green-100 text-green-700 rounded-full hover:bg-green-200 transition text-xs font-semibold">
-                                            Approve
+                                        <button type="submit" class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm" title="Approve">
+                                            <i class='bx bx-check text-base'></i>
                                         </button>
                                     </form>
                                     <form action="{{ route('admin.attendance.corrections.reject', $correction) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="px-3 py-1 bg-red-100 text-red-700 rounded-full hover:bg-red-200 transition text-xs font-semibold">
-                                            Reject
+                                        <button type="submit" class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm" title="Reject">
+                                            <i class='bx bx-x text-base'></i>
                                         </button>
                                     </form>
                                 </div>

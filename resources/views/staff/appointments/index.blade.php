@@ -11,6 +11,11 @@
                 <h1 class="text-2xl font-bold text-gray-900">Appointments</h1>
                 <p class="text-gray-600 mt-1">Manage all clinic appointments</p>
             </div>
+            <a href="{{ route('staff.appointments.create') }}"
+                class="inline-flex items-center px-4 py-2 bg-yellow-600 text-white font-medium rounded-lg hover:bg-yellow-700 transition">
+                <i class='bx bx-plus mr-2'></i>
+                Schedule Appointment
+            </a>
         </div>
 
         <!-- Filters -->
@@ -135,14 +140,18 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <div class="flex justify-end space-x-2">
+                                    <div class="flex justify-end items-center gap-2">
                                         <a href="{{ route('staff.appointments.show', $appointment->id) }}"
-                                            class="inline-flex items-center justify-center w-8 h-8 bg-yellow-600 text-white rounded-full hover:bg-yellow-700 transition shadow-sm hover:shadow-md" title="View">
-                                            <i class='bx bx-show text-base'></i>
+                                            class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600 rounded-full transition shadow-sm" title="View">
+                                            <i class='bx bx-info-circle text-base'></i>
+                                        </a>
+                                        <a href="{{ route('staff.appointments.invoice', $appointment->id) }}"
+                                            class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm" title="Invoice">
+                                            <i class='bx bx-receipt text-base'></i>
                                         </a>
                                         <a href="{{ route('staff.appointments.edit', $appointment->id) }}"
-                                            class="inline-flex items-center justify-center w-8 h-8 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition shadow-sm hover:shadow-md" title="Edit">
-                                            <i class='bx bx-edit text-base'></i>
+                                            class="w-8 h-8 flex items-center justify-center bg-yellow-500 text-white hover:bg-yellow-600 rounded-full transition shadow-sm" title="Edit">
+                                            <i class='bx bx-pencil text-base'></i>
                                         </a>
                                     </div>
                                 </td>

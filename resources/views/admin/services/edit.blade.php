@@ -4,7 +4,7 @@
 @section('page-title', 'Edit Service')
 
 @section('content')
-<div class="max-w-4xl">
+<div class="space-y-6">
     <div class="bg-white rounded-lg shadow p-6">
         <form action="{{ route('admin.services.update', $service->id) }}" method="POST">
             @csrf
@@ -21,7 +21,7 @@
                            name="name" 
                            value="{{ old('name', $service->name) }}"
                            required
-                           class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror">
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror">
                     @error('name')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -37,7 +37,7 @@
                     <select id="type" 
                             name="type" 
                             required
-                            class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('type') border-red-500 @enderror">
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('type') border-red-500 @enderror">
                         <option value="">Select Type</option>
                         <option value="psychology" {{ old('type', $service->type) == 'psychology' ? 'selected' : '' }}>Psychology</option>
                         <option value="homeopathy" {{ old('type', $service->type) == 'homeopathy' ? 'selected' : '' }}>Homeopathy</option>
@@ -80,7 +80,7 @@
                            value="{{ old('duration_minutes', $service->duration_minutes) }}"
                            min="1"
                            required
-                           class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('duration_minutes') border-red-500 @enderror">
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('duration_minutes') border-red-500 @enderror">
                     @error('duration_minutes')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -106,7 +106,7 @@
                     <textarea id="description" 
                               name="description" 
                               rows="5"
-                              class="w-full px-3 py-2border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description', $service->description) }}</textarea>
+                              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">{{ old('description', $service->description) }}</textarea>
                 </div>
             </div>
 

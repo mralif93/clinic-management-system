@@ -11,7 +11,7 @@
             <h1 class="text-2xl font-bold text-gray-900">Services</h1>
             <p class="text-sm text-gray-600 mt-1">Manage clinic services and treatments</p>
         </div>
-        <a href="{{ route('admin.services.create') }}" class="bg-blue-600 text-white px-3 py-2rounded-lg hover:bg-blue-700 transition flex items-center">
+        <a href="{{ route('admin.services.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center">
             <i class='bx bx-plus mr-2 text-base'></i>
             Add New Service
         </a>
@@ -173,20 +173,16 @@
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end items-center gap-2">
                                     @if($service->trashed())
-                                        <form action="{{ route('admin.services.restore', $service->id) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('POST')
-                                            <button type="submit" class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm" title="Restore">
-                                                <i class='bx bx-undo text-base'></i>
-                                            </button>
-                                        </form>
-                                        <form action="{{ route('admin.services.force-delete', $service->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to permanently delete this service? This action cannot be undone!');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm" title="Permanently Delete">
-                                                <i class='bx bx-x-circle text-base'></i>
-                                            </button>
-                                        </form>
+                                        <button onclick="restoreService({{ $service->id }}, '{{ addslashes($service->name) }}')"
+                                                class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm"
+                                                title="Restore">
+                                            <i class='bx bx-undo text-base'></i>
+                                        </button>
+                                        <button onclick="forceDeleteService({{ $service->id }}, '{{ addslashes($service->name) }}')"
+                                                class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm"
+                                                title="Permanently Delete">
+                                            <i class='bx bx-x-circle text-base'></i>
+                                        </button>
                                     @else
                                         <a href="{{ route('admin.services.show', $service->id) }}" class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600 rounded-full transition shadow-sm" title="View">
                                             <i class='bx bx-info-circle text-base'></i>
@@ -194,13 +190,11 @@
                                         <a href="{{ route('admin.services.edit', $service->id) }}" class="w-8 h-8 flex items-center justify-center bg-yellow-500 text-white hover:bg-yellow-600 rounded-full transition shadow-sm" title="Edit">
                                             <i class='bx bx-pencil text-base'></i>
                                         </a>
-                                        <form action="{{ route('admin.services.destroy', $service->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this service?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm" title="Delete">
-                                                <i class='bx bx-trash-alt text-base'></i>
-                                            </button>
-                                        </form>
+                                        <button onclick="deleteService({{ $service->id }}, '{{ addslashes($service->name) }}')"
+                                                class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm"
+                                                title="Delete">
+                                            <i class='bx bx-trash-alt text-base'></i>
+                                        </button>
                                     @endif
                                 </div>
                             </td>
@@ -223,3 +217,72 @@
 </div>
 @endsection
 
+@push('scripts')
+<script>
+    function deleteService(id, name) {
+        Swal.fire({
+            title: 'Delete Service?',
+            html: `Are you sure you want to delete <strong>${name}</strong>?<br><br>This action will soft delete the service. You can restore it later.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Yes, Delete',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/admin/services/${id}`;
+                form.innerHTML = `@csrf @method('DELETE')`;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+
+    function restoreService(id, name) {
+        Swal.fire({
+            title: 'Restore Service?',
+            html: `Are you sure you want to restore <strong>${name}</strong>?`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Yes, Restore',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/admin/services/${id}/restore`;
+                form.innerHTML = `@csrf`;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+
+    function forceDeleteService(id, name) {
+        Swal.fire({
+            title: 'Permanently Delete?',
+            html: `Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?<br><br>This action cannot be undone!`,
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Yes, Delete Permanently',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/admin/services/${id}/force-delete`;
+                form.innerHTML = `@csrf @method('DELETE')`;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+</script>
+@endpush

@@ -118,9 +118,19 @@
                     <i class='bx bx-home-alt-2 mr-3 text-xl'></i>
                     <span>Dashboard</span>
                 </a>
+                <a href="{{ route('doctor.todos.index') }}"
+                    class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.todos.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">
+                    <i class='bx bx-task mr-3 text-xl'></i>
+                    <span>Tasks</span>
+                </a>
+                <a href="{{ route('doctor.attendance.index') }}"
+                    class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.attendance.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">
+                    <i class='bx bx-time-five mr-3 text-xl'></i>
+                    <span>Attendance</span>
+                </a>
                 <a href="{{ route('doctor.schedule.index') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.schedule.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-time mr-3 text-xl'></i>
+                    <i class='bx bx-calendar-star mr-3 text-xl'></i>
                     <span>Schedule</span>
                 </a>
                 <a href="{{ route('doctor.appointments.index') }}"
@@ -133,15 +143,15 @@
                     <i class='bx bx-group mr-3 text-xl'></i>
                     <span>Patients</span>
                 </a>
-                <a href="{{ route('doctor.attendance.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-blue-600 transition {{ request()->routeIs('doctor.attendance.*') ? 'bg-blue-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-time-five mr-3 text-xl'></i>
-                    <span>Attendance</span>
-                </a>
                 <a href="{{ route('doctor.leaves.index') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.leaves.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">
                     <i class='bx bx-calendar-check mr-3 text-xl'></i>
                     <span>Leave</span>
+                </a>
+                <a href="{{ route('doctor.payslips.index') }}"
+                    class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.payslips.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">
+                    <i class='bx bx-receipt mr-3 text-xl'></i>
+                    <span>Payslips</span>
                 </a>
                 <a href="{{ route('doctor.profile.show') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-green-700 transition {{ request()->routeIs('doctor.profile.*') ? 'bg-green-800 border-r-4 border-white' : '' }}">

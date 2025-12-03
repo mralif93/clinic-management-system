@@ -4,7 +4,7 @@
 @section('page-title', 'Edit Appointment')
 
 @section('content')
-    <div class="w-full">
+    <div class="space-y-6">
         <div class="bg-white rounded-lg shadow p-6">
             <form action="{{ route('staff.appointments.update', $appointment->id) }}" method="POST">
                 @csrf
@@ -116,31 +116,127 @@
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <!-- Discount Type -->
+                    <div>
+                        <label for="discount_type" class="block text-sm font-medium text-gray-700 mb-2">Discount Type</label>
+                        <select id="discount_type" name="discount_type"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                            <option value="">No Discount</option>
+                            <option value="percentage" {{ old('discount_type', $appointment->discount_type) == 'percentage' ? 'selected' : '' }}>Percentage (%)</option>
+                            <option value="fixed" {{ old('discount_type', $appointment->discount_type) == 'fixed' ? 'selected' : '' }}>Fixed Amount</option>
+                        </select>
+                    </div>
+
+                    <!-- Discount Value -->
+                    <div>
+                        <label for="discount_value" class="block text-sm font-medium text-gray-700 mb-2">Discount Value</label>
+                        <input type="number" id="discount_value" name="discount_value" step="0.01" min="0"
+                            value="{{ old('discount_value', $appointment->discount_value) }}"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                            placeholder="0.00">
+                    </div>
+
+                    <!-- Payment Status -->
+                    <div>
+                        <label for="payment_status" class="block text-sm font-medium text-gray-700 mb-2">Payment Status</label>
+                        <select id="payment_status" name="payment_status"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                            @foreach(\App\Models\Appointment::getPaymentStatuses() as $value => $label)
+                                <option value="{{ $value }}" {{ old('payment_status', $appointment->payment_status) == $value ? 'selected' : '' }}>{{ $label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div>
+                        <label for="payment_method" class="block text-sm font-medium text-gray-700 mb-2">Payment Method</label>
+                        <select id="payment_method" name="payment_method"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent">
+                            <option value="">Select Method</option>
+                            @foreach(\App\Models\Appointment::getPaymentMethods() as $value => $label)
+                                <option value="{{ $value }}" {{ old('payment_method', $appointment->payment_method) == $value ? 'selected' : '' }}>{{ $label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="md:col-span-2">
+                        <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">Notes</label>
+                        <input id="notes" type="hidden" name="notes" value="{{ old('notes', $appointment->notes) }}">
+                        <trix-editor input="notes" placeholder="Enter notes..."></trix-editor>
+                    </div>
                 </div>
 
-                <!-- Notes -->
-                <div class="mt-6">
-                    <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">Notes</label>
-                    <textarea id="notes" name="notes" rows="4"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent @error('notes') border-red-500 @enderror"
-                        placeholder="Enter any additional notes...">{{ old('notes', $appointment->notes) }}</textarea>
-                    @error('notes')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Submit Button -->
-                <div class="mt-6 flex justify-end space-x-2">
-                    <a href="{{ route('staff.appointments.show', $appointment->id) }}"
+                <!-- Actions -->
+                <div class="flex justify-end space-x-4 mt-6">
+                    <a href="{{ route('staff.appointments.index') }}"
                         class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
                         Cancel
                     </a>
                     <button type="submit"
-                        class="inline-flex items-center px-4 py-2 bg-yellow-600 text-white font-medium rounded-lg hover:bg-yellow-700 transition">
-                        <i class='bx bx-save mr-2'></i> Update Appointment
+                        class="px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition">
+                        <i class='bx bx-save mr-2 text-base'></i>
+                        Update Appointment
                     </button>
                 </div>
             </form>
         </div>
     </div>
+
+    @push('styles')
+        <!-- Trix CSS -->
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+        <style>
+            /* Trix editor styling to match Tailwind */
+            trix-toolbar .trix-button-group {
+                border-radius: 0.375rem;
+                margin-bottom: 0;
+            }
+
+            trix-editor {
+                border: 1px solid #d1d5db;
+                border-radius: 0.5rem;
+                padding: 0.75rem;
+                min-height: 150px;
+                font-family: 'Poppins', sans-serif;
+                font-size: 0.875rem;
+                line-height: 1.5;
+            }
+
+            trix-editor:focus {
+                outline: none;
+                border-color: #eab308;
+                box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.1);
+            }
+
+            trix-toolbar {
+                border: 1px solid #d1d5db;
+                border-radius: 0.5rem 0.5rem 0 0;
+                background: #f9fafb;
+                padding: 0.5rem;
+            }
+
+            trix-toolbar .trix-button {
+                border: 1px solid #d1d5db;
+                background: white;
+                border-radius: 0.25rem;
+                margin: 0 0.125rem;
+            }
+
+            trix-toolbar .trix-button:hover {
+                background: #f3f4f6;
+            }
+
+            trix-toolbar .trix-button.trix-active {
+                background: #fef3c7;
+                border-color: #eab308;
+            }
+        </style>
+    @endpush
+
+    @push('scripts')
+        <!-- Trix JS -->
+        <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+    @endpush
 @endsection

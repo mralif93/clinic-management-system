@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="min-h-screen bg-gray-50 py-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full px-4 sm:px-6 lg:px-8">
             <!-- Header -->
             <div class="mb-6 flex items-center justify-between">
                 <div>
@@ -20,24 +20,24 @@
             <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
                 <!-- Status Banner -->
                 <div class="px-6 py-4 border-b border-gray-200
-                    @if($appointment->status === 'completed') bg-green-50
-                    @elseif($appointment->status === 'confirmed') bg-blue-50
-                    @elseif($appointment->status === 'pending') bg-yellow-50
-                    @elseif($appointment->status === 'cancelled') bg-red-50
-                    @else bg-gray-50
-                    @endif">
+                            @if($appointment->status === 'completed') bg-green-50
+                            @elseif($appointment->status === 'confirmed') bg-blue-50
+                            @elseif($appointment->status === 'pending') bg-yellow-50
+                            @elseif($appointment->status === 'cancelled') bg-red-50
+                            @else bg-gray-50
+                            @endif">
                     <div class="flex items-center justify-between">
                         <div>
                             <h2 class="text-lg font-semibold text-gray-900">{{ $appointment->service->name ?? 'N/A' }}</h2>
                             <p class="text-sm text-gray-600 mt-1">Appointment ID: #{{ $appointment->id }}</p>
                         </div>
                         <span class="px-4 py-2 text-sm font-medium rounded-full
-                            @if($appointment->status === 'completed') bg-green-100 text-green-700
-                            @elseif($appointment->status === 'confirmed') bg-blue-100 text-blue-700
-                            @elseif($appointment->status === 'pending') bg-yellow-100 text-yellow-700
-                            @elseif($appointment->status === 'cancelled') bg-red-100 text-red-700
-                            @else bg-gray-100 text-gray-700
-                            @endif">
+                                    @if($appointment->status === 'completed') bg-green-100 text-green-700
+                                    @elseif($appointment->status === 'confirmed') bg-blue-100 text-blue-700
+                                    @elseif($appointment->status === 'pending') bg-yellow-100 text-yellow-700
+                                    @elseif($appointment->status === 'cancelled') bg-red-100 text-red-700
+                                    @else bg-gray-100 text-gray-700
+                                    @endif">
                             {{ ucfirst($appointment->status) }}
                         </span>
                     </div>
@@ -53,7 +53,8 @@
                         <div>
                             <p class="text-sm text-gray-600">Doctor</p>
                             <p class="text-lg font-semibold text-gray-900">Dr.
-                                {{ $appointment->doctor->user->name ?? 'N/A' }}</p>
+                                {{ $appointment->doctor->user->name ?? 'N/A' }}
+                            </p>
                             <p class="text-sm text-gray-600">{{ $appointment->doctor->specialization ?? 'N/A' }}</p>
                         </div>
                     </div>

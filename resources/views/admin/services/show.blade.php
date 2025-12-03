@@ -4,7 +4,7 @@
 @section('page-title', 'Service Details')
 
 @section('content')
-<div class="max-w-4xl">
+<div class="space-y-6">
     <div class="bg-white rounded-lg shadow">
         <!-- Header -->
         <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">

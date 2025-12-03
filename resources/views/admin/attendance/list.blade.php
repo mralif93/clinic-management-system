@@ -155,25 +155,32 @@
                                         {{ ucfirst(str_replace('_', ' ', $attendance->status)) }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                    <div class="flex items-center gap-2">
+                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                    <div class="flex justify-end items-center gap-2">
+                                        <a href="{{ route('admin.attendance.show', $attendance) }}"
+                                            class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600 rounded-full transition shadow-sm"
+                                            title="View">
+                                            <i class='bx bx-info-circle text-base'></i>
+                                        </a>
+                                        <a href="{{ route('admin.attendance.edit', $attendance) }}"
+                                            class="w-8 h-8 flex items-center justify-center bg-yellow-500 text-white hover:bg-yellow-600 rounded-full transition shadow-sm"
+                                            title="Edit">
+                                            <i class='bx bx-pencil text-base'></i>
+                                        </a>
                                         @if(!$attendance->is_approved)
                                             <form action="{{ route('admin.attendance.approve', $attendance) }}" method="POST"
                                                 class="inline">
                                                 @csrf
-                                                <button type="submit" class="w-8 h-8 flex items-center justify-center bg-green-100 text-green-600 hover:bg-green-200 rounded-full transition" title="Approve">
-                                                    <i class='bx bx-check text-xl'></i>
+                                                <button type="submit" class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm" title="Approve">
+                                                    <i class='bx bx-check text-base'></i>
                                                 </button>
                                             </form>
                                         @endif
-                                        <form action="{{ route('admin.attendance.destroy', $attendance) }}" method="POST"
-                                            class="inline" onsubmit="return confirm('Delete this attendance record?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="w-8 h-8 flex items-center justify-center bg-red-100 text-red-600 hover:bg-red-200 rounded-full transition" title="Delete">
-                                                <i class='bx bx-trash text-xl'></i>
-                                            </button>
-                                        </form>
+                                        <button onclick="deleteAttendance({{ $attendance->id }}, '{{ addslashes($attendance->user->name ?? 'Unknown') }}')"
+                                                class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm"
+                                                title="Delete">
+                                            <i class='bx bx-trash text-base'></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -281,6 +288,28 @@
                             form.reportValidity();
                             return false;
                         }
+                        form.submit();
+                    }
+                });
+            }
+
+            function deleteAttendance(id, userName) {
+                Swal.fire({
+                    title: 'Delete Attendance?',
+                    html: `Are you sure you want to delete the attendance record for <strong>${userName}</strong>?<br><br>This action will soft delete the record. You can restore it later.`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#dc2626',
+                    cancelButtonColor: '#6b7280',
+                    confirmButtonText: 'Yes, Delete',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const form = document.createElement('form');
+                        form.method = 'POST';
+                        form.action = `/admin/attendance/${id}`;
+                        form.innerHTML = `@csrf @method('DELETE')`;
+                        document.body.appendChild(form);
                         form.submit();
                     }
                 });

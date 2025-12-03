@@ -118,19 +118,29 @@
                     <i class='bx bx-home mr-3 text-xl'></i>
                     <span>Dashboard</span>
                 </a>
-                <a href="{{ route('staff.appointments.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.appointments.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-calendar mr-3 text-xl'></i>
-                    <span>Appointments</span>
+                <a href="{{ route('staff.todos.index') }}"
+                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.todos.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
+                    <i class='bx bx-task mr-3 text-xl'></i>
+                    <span>Tasks</span>
+                </a>
+                <a href="{{ route('staff.attendance.index') }}"
+                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.attendance.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
+                    <i class='bx bx-time-five mr-3 text-xl'></i>
+                    <span>Attendance</span>
                 </a>
                 <a href="{{ route('staff.schedule.index') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.schedule.index') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
                     <i class='bx bx-calendar-star mr-3 text-xl'></i>
                     <span>Schedule</span>
                 </a>
+                <a href="{{ route('staff.appointments.index') }}"
+                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.appointments.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
+                    <i class='bx bx-calendar mr-3 text-xl'></i>
+                    <span>Appointments</span>
+                </a>
                 <a href="{{ route('staff.schedule.doctors') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.schedule.doctors') || request()->routeIs('staff.schedule.view-doctor') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-group mr-3 text-xl'></i>
+                    <i class='bx bx-user-pin mr-3 text-xl'></i>
                     <span>Doctors</span>
                 </a>
                 <a href="{{ route('staff.patients.index') }}"
@@ -138,15 +148,15 @@
                     <i class='bx bx-group mr-3 text-xl'></i>
                     <span>Patients</span>
                 </a>
-                <a href="{{ route('staff.attendance.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.attendance.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-time-five mr-3 text-xl'></i>
-                    <span>Attendance</span>
-                </a>
                 <a href="{{ route('staff.leaves.index') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.leaves.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
                     <i class='bx bx-calendar-check mr-3 text-xl'></i>
                     <span>Leave</span>
+                </a>
+                <a href="{{ route('staff.payslips.index') }}"
+                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.payslips.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
+                    <i class='bx bx-receipt mr-3 text-xl'></i>
+                    <span>Payslips</span>
                 </a>
                 <a href="{{ route('staff.profile.show') }}"
                     class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.profile.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">

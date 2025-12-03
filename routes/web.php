@@ -57,7 +57,9 @@ Route::middleware('auth')->group(function () {
         // Appointments
         Route::get('/appointments', [App\Http\Controllers\Doctor\AppointmentController::class, 'index'])->name('appointments.index');
         Route::get('/appointments/{id}', [App\Http\Controllers\Doctor\AppointmentController::class, 'show'])->name('appointments.show');
-        Route::put('/appointments/{id}/status', [App\Http\Controllers\Doctor\AppointmentController::class, 'updateStatus'])->name('appointments.update-status');
+        Route::get('/appointments/{id}/edit', [App\Http\Controllers\Doctor\AppointmentController::class, 'edit'])->name('appointments.edit');
+        Route::put('/appointments/{id}', [App\Http\Controllers\Doctor\AppointmentController::class, 'update'])->name('appointments.update');
+        Route::get('/appointments/{id}/invoice', [App\Http\Controllers\Doctor\AppointmentController::class, 'invoice'])->name('appointments.invoice');
 
         // Profile
         Route::get('/profile', [App\Http\Controllers\Doctor\ProfileController::class, 'show'])->name('profile.show');
@@ -81,8 +83,17 @@ Route::middleware('auth')->group(function () {
         Route::post('/attendance/break-start', [App\Http\Controllers\Doctor\AttendanceController::class, 'startBreak'])->name('attendance.break-start');
         Route::post('/attendance/break-end', [App\Http\Controllers\Doctor\AttendanceController::class, 'endBreak'])->name('attendance.break-end');
 
+        // To-Do List (My Tasks)
+        Route::get('/todos', [App\Http\Controllers\Doctor\TodoController::class, 'index'])->name('todos.index');
+        Route::get('/todos/{id}', [App\Http\Controllers\Doctor\TodoController::class, 'show'])->name('todos.show');
+        Route::put('/todos/{id}/status', [App\Http\Controllers\Doctor\TodoController::class, 'updateStatus'])->name('todos.update-status');
+
         // Leave Management
         Route::resource('leaves', App\Http\Controllers\Doctor\LeaveController::class)->parameters(['leaves' => 'leave']);
+
+        // Payslips (View Own)
+        Route::get('/payslips', [App\Http\Controllers\Doctor\PayslipController::class, 'index'])->name('payslips.index');
+        Route::get('/payslips/{id}', [App\Http\Controllers\Doctor\PayslipController::class, 'show'])->name('payslips.show');
     });
 
     // Staff Routes
@@ -91,10 +102,13 @@ Route::middleware('auth')->group(function () {
 
         // Appointments
         Route::get('/appointments', [App\Http\Controllers\Staff\AppointmentController::class, 'index'])->name('appointments.index');
+        Route::get('/appointments/create', [App\Http\Controllers\Staff\AppointmentController::class, 'create'])->name('appointments.create');
+        Route::post('/appointments', [App\Http\Controllers\Staff\AppointmentController::class, 'store'])->name('appointments.store');
         Route::get('/appointments/{id}', [App\Http\Controllers\Staff\AppointmentController::class, 'show'])->name('appointments.show');
         Route::get('/appointments/{id}/edit', [App\Http\Controllers\Staff\AppointmentController::class, 'edit'])->name('appointments.edit');
         Route::put('/appointments/{id}', [App\Http\Controllers\Staff\AppointmentController::class, 'update'])->name('appointments.update');
         Route::put('/appointments/{id}/status', [App\Http\Controllers\Staff\AppointmentController::class, 'updateStatus'])->name('appointments.update-status');
+        Route::get('/appointments/{id}/invoice', [App\Http\Controllers\Staff\AppointmentController::class, 'invoice'])->name('appointments.invoice');
 
         // Profile
         Route::get('/profile', [App\Http\Controllers\Staff\ProfileController::class, 'show'])->name('profile.show');
@@ -132,6 +146,10 @@ Route::middleware('auth')->group(function () {
 
         // Leave Management
         Route::resource('leaves', App\Http\Controllers\Staff\LeaveController::class)->parameters(['leaves' => 'leave']);
+
+        // Payslips (View Own)
+        Route::get('/payslips', [App\Http\Controllers\Staff\PayslipController::class, 'index'])->name('payslips.index');
+        Route::get('/payslips/{id}', [App\Http\Controllers\Staff\PayslipController::class, 'show'])->name('payslips.show');
     });
 
     // Admin Routes
@@ -162,10 +180,11 @@ Route::middleware('auth')->group(function () {
 
         // Appointment Management
         Route::get('/appointments/trash', [App\Http\Controllers\Admin\AppointmentController::class, 'trash'])->name('appointments.trash');
+        Route::get('/appointments/{id}/invoice', [App\Http\Controllers\Admin\AppointmentController::class, 'invoice'])->name('appointments.invoice')->where('id', '[0-9]+');
+        Route::post('/appointments/{id}/restore', [App\Http\Controllers\Admin\AppointmentController::class, 'restore'])->name('appointments.restore')->where('id', '[0-9]+');
+        Route::delete('/appointments/{id}/force-delete', [App\Http\Controllers\Admin\AppointmentController::class, 'forceDelete'])->name('appointments.force-delete')->where('id', '[0-9]+');
+        Route::get('/appointments/{year}/{month}', [App\Http\Controllers\Admin\AppointmentController::class, 'byMonth'])->name('appointments.by-month')->where(['year' => '[0-9]{4}', 'month' => '[0-9]{1,2}']);
         Route::resource('appointments', App\Http\Controllers\Admin\AppointmentController::class);
-        Route::get('/appointments/{year}/{month}', [App\Http\Controllers\Admin\AppointmentController::class, 'byMonth'])->name('appointments.by-month');
-        Route::post('/appointments/{id}/restore', [App\Http\Controllers\Admin\AppointmentController::class, 'restore'])->name('appointments.restore');
-        Route::delete('/appointments/{id}/force-delete', [App\Http\Controllers\Admin\AppointmentController::class, 'forceDelete'])->name('appointments.force-delete');
 
         // Service Management
         Route::resource('services', App\Http\Controllers\Admin\ServiceController::class);
@@ -187,7 +206,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/attendance/reports', [App\Http\Controllers\Admin\AttendanceController::class, 'reports'])->name('attendance.reports');
         Route::get('/attendance/trash', [App\Http\Controllers\Admin\AttendanceController::class, 'trash'])->name('attendance.trash');
         Route::get('/attendance/corrections', [App\Http\Controllers\Admin\AttendanceController::class, 'corrections'])->name('attendance.corrections');
-        Route::get('/attendance/{year}/{month}', [App\Http\Controllers\Admin\AttendanceController::class, 'byMonth'])->name('attendance.by-month');
+        Route::get('/attendance/{attendance}/show', [App\Http\Controllers\Admin\AttendanceController::class, 'show'])->name('attendance.show')->where('attendance', '[0-9]+');
+        Route::get('/attendance/{attendance}/edit', [App\Http\Controllers\Admin\AttendanceController::class, 'edit'])->name('attendance.edit')->where('attendance', '[0-9]+');
+        Route::get('/attendance/{year}/{month}', [App\Http\Controllers\Admin\AttendanceController::class, 'byMonth'])->name('attendance.by-month')->where(['year' => '[0-9]{4}', 'month' => '[0-9]{1,2}']);
         Route::post('/attendance/corrections/{correction}/approve', [App\Http\Controllers\Admin\AttendanceController::class, 'approveCorrection'])->name('attendance.corrections.approve');
         Route::post('/attendance/{id}/restore', [App\Http\Controllers\Admin\AttendanceController::class, 'restore'])->name('attendance.restore');
         Route::delete('/attendance/{id}/force-delete', [App\Http\Controllers\Admin\AttendanceController::class, 'forceDelete'])->name('attendance.force-delete');

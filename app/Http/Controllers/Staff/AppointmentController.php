@@ -53,6 +53,46 @@ class AppointmentController extends Controller
     }
 
     /**
+     * Show the form for creating a new appointment
+     */
+    public function create()
+    {
+        $patients = Patient::orderBy('first_name')->get();
+        $doctors = Doctor::available()->orderBy('first_name')->get();
+        $services = Service::active()->orderBy('name')->get();
+
+        return view('staff.appointments.create', compact('patients', 'doctors', 'services'));
+    }
+
+    /**
+     * Store a newly created appointment
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'patient_id' => 'required|exists:patients,id',
+            'doctor_id' => 'nullable|exists:doctors,id',
+            'service_id' => 'nullable|exists:services,id',
+            'appointment_date' => 'required|date',
+            'appointment_time' => 'required',
+            'status' => 'required|in:scheduled,confirmed,completed,cancelled,no_show',
+            'notes' => 'nullable|string',
+            'fee' => 'nullable|numeric|min:0',
+            'discount_type' => 'nullable|in:percentage,fixed',
+            'discount_value' => 'nullable|numeric|min:0',
+            'payment_status' => 'nullable|in:unpaid,paid,partial',
+            'payment_method' => 'nullable|in:cash,card,online,insurance',
+        ]);
+
+        $validated['user_id'] = Auth::id();
+
+        $appointment = Appointment::create($validated);
+
+        return redirect()->route('staff.appointments.show', $appointment->id)
+            ->with('success', 'Appointment scheduled successfully!');
+    }
+
+    /**
      * Display the specified appointment
      */
     public function show($id)
@@ -92,6 +132,10 @@ class AppointmentController extends Controller
             'status' => 'required|in:scheduled,confirmed,completed,cancelled,no_show',
             'notes' => 'nullable|string',
             'fee' => 'nullable|numeric|min:0',
+            'discount_type' => 'nullable|in:percentage,fixed',
+            'discount_value' => 'nullable|numeric|min:0',
+            'payment_status' => 'nullable|in:unpaid,paid,partial',
+            'payment_method' => 'nullable|in:cash,card,online,insurance',
         ]);
 
         $appointment->update($validated);
@@ -117,6 +161,17 @@ class AppointmentController extends Controller
 
         return redirect()->route('staff.appointments.show', $appointment->id)
             ->with('success', 'Appointment status updated successfully!');
+    }
+
+    /**
+     * Display the invoice for an appointment
+     */
+    public function invoice($id)
+    {
+        $appointment = Appointment::with(['patient', 'doctor', 'service', 'user'])
+            ->findOrFail($id);
+
+        return view('staff.appointments.invoice', compact('appointment'));
     }
 }
 

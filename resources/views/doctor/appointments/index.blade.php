@@ -120,11 +120,21 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="{{ route('doctor.appointments.show', $appointment->id) }}"
-                                    class="inline-flex items-center justify-center w-8 h-8 bg-green-600 text-white rounded-full hover:bg-green-700 transition shadow-sm hover:shadow-md" title="View">
-                                    <i class='bx bx-show text-base'></i>
-                                </a>
-                            </td>
+                                    <div class="flex justify-end items-center gap-2">
+                                        <a href="{{ route('doctor.appointments.show', $appointment->id) }}"
+                                            class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600 rounded-full transition shadow-sm" title="View">
+                                            <i class='bx bx-info-circle text-base'></i>
+                                        </a>
+                                        <a href="{{ route('doctor.appointments.invoice', $appointment->id) }}"
+                                            class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm" title="Invoice">
+                                            <i class='bx bx-receipt text-base'></i>
+                                        </a>
+                                        <a href="{{ route('doctor.appointments.edit', $appointment->id) }}"
+                                            class="w-8 h-8 flex items-center justify-center bg-yellow-500 text-white hover:bg-yellow-600 rounded-full transition shadow-sm" title="Edit">
+                                            <i class='bx bx-pencil text-base'></i>
+                                        </a>
+                                    </div>
+                                </td>
                             </tr>
                         @empty
                             <tr>

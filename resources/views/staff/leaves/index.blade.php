@@ -151,12 +151,12 @@
                                     <td class="px-6 py-4 text-sm text-gray-600">
                                         {{ $leave->created_at->format('M d, Y') }}
                                     </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-2">
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <div class="flex justify-end items-center gap-2">
                                             <a href="{{ route('staff.leaves.show', $leave->id) }}"
                                                 class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600 rounded-full transition shadow-sm"
                                                 title="View">
-                                                <i class='bx bx-show text-base'></i>
+                                                <i class='bx bx-info-circle text-base'></i>
                                             </a>
                                             @if($leave->status === 'pending')
                                                 <a href="{{ route('staff.leaves.edit', $leave->id) }}"

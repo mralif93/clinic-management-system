@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Appointment;
 use App\Models\User;
 use App\Models\Attendance;
+use App\Models\Todo;
 
 class DashboardController extends Controller
 {
@@ -45,6 +46,14 @@ class DashboardController extends Controller
             ->orderBy('appointment_time', 'asc')
             ->get();
 
+        // Get doctor's pending and in-progress tasks
+        $todos = Todo::where('assigned_to', Auth::id())
+            ->whereIn('status', ['pending', 'in_progress'])
+            ->orderBy('due_date', 'asc')
+            ->orderBy('priority', 'desc')
+            ->limit(10)
+            ->get();
+
         // Get today's attendance
         $todayAttendance = Attendance::where('user_id', Auth::id())
             ->whereDate('date', today())
@@ -57,6 +66,7 @@ class DashboardController extends Controller
             'completedAppointments',
             'totalPatients',
             'todayAppointmentsList',
+            'todos',
             'todayAttendance'
         ));
     }

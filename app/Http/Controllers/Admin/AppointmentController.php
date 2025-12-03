@@ -122,6 +122,10 @@ class AppointmentController extends Controller
             'status' => 'required|in:scheduled,confirmed,completed,cancelled,no_show',
             'notes' => 'nullable|string',
             'fee' => 'nullable|numeric|min:0',
+            'discount_type' => 'nullable|in:percentage,fixed',
+            'discount_value' => 'nullable|numeric|min:0',
+            'payment_status' => 'nullable|in:unpaid,paid,partial',
+            'payment_method' => 'nullable|in:cash,card,online,insurance',
         ]);
 
         Appointment::create($validated);
@@ -183,6 +187,10 @@ class AppointmentController extends Controller
             'diagnosis' => 'nullable|string',
             'prescription' => 'nullable|string',
             'fee' => 'nullable|numeric|min:0',
+            'discount_type' => 'nullable|in:percentage,fixed',
+            'discount_value' => 'nullable|numeric|min:0',
+            'payment_status' => 'nullable|in:unpaid,paid,partial',
+            'payment_method' => 'nullable|in:cash,card,online,insurance',
         ]);
 
         $appointment->update($validated);
@@ -240,5 +248,16 @@ class AppointmentController extends Controller
 
         return redirect()->route('admin.appointments.trash')
             ->with('success', 'Appointment permanently deleted!');
+    }
+
+    /**
+     * Display the invoice for an appointment
+     */
+    public function invoice($id)
+    {
+        $appointment = Appointment::with(['patient', 'doctor', 'service', 'user'])
+            ->findOrFail($id);
+
+        return view('admin.appointments.invoice', compact('appointment'));
     }
 }

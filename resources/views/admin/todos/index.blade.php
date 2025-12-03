@@ -144,28 +144,28 @@
                             <td class="px-6 py-4 text-sm text-gray-900">
                                 {{ $todo->assignedUser ? $todo->assignedUser->name : 'Unassigned' }}
                             </td>
-                            <td class="px-6 py-4 text-sm font-medium">
-                                <div class="flex items-center gap-2">
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <div class="flex justify-end items-center gap-2">
                                     @if($todo->trashed())
                                         <button onclick="restoreTodo({{ $todo->id }}, '{{ $todo->title }}')"
-                                            class="w-8 h-8 rounded-full inline-flex items-center justify-center bg-green-100 text-green-600 hover:bg-green-200 transition">
+                                            class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm">
                                             <i class='bx bx-undo text-base'></i>
                                         </button>
                                         <button onclick="forceDeleteTodo({{ $todo->id }}, '{{ $todo->title }}')"
-                                            class="w-8 h-8 rounded-full inline-flex items-center justify-center bg-red-100 text-red-600 hover:bg-red-200 transition">
-                                            <i class='bx bx-trash text-base'></i>
+                                            class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm">
+                                            <i class='bx bx-x-circle text-base'></i>
                                         </button>
                                     @else
                                         <a href="{{ route('admin.todos.show', $todo->id) }}"
-                                            class="w-8 h-8 rounded-full inline-flex items-center justify-center bg-blue-100 text-blue-600 hover:bg-blue-200 transition">
-                                            <i class='bx bx-show text-base'></i>
+                                            class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600 rounded-full transition shadow-sm">
+                                            <i class='bx bx-info-circle text-base'></i>
                                         </a>
                                         <a href="{{ route('admin.todos.edit', $todo->id) }}"
-                                            class="w-8 h-8 rounded-full inline-flex items-center justify-center bg-yellow-100 text-yellow-600 hover:bg-yellow-200 transition">
-                                            <i class='bx bx-edit text-base'></i>
+                                            class="w-8 h-8 flex items-center justify-center bg-yellow-500 text-white hover:bg-yellow-600 rounded-full transition shadow-sm">
+                                            <i class='bx bx-pencil text-base'></i>
                                         </a>
                                         <button onclick="deleteTodo({{ $todo->id }}, '{{ $todo->title }}')"
-                                            class="w-8 h-8 rounded-full inline-flex items-center justify-center bg-red-100 text-red-600 hover:bg-red-200 transition">
+                                            class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm">
                                             <i class='bx bx-trash text-base'></i>
                                         </button>
                                     @endif

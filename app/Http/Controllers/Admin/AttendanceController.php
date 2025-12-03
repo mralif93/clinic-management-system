@@ -85,6 +85,27 @@ class AttendanceController extends Controller
     }
 
     /**
+     * Display attendance detail
+     */
+    public function show(Attendance $attendance)
+    {
+        $attendance->load(['user', 'approver', 'breaks']);
+
+        return view('admin.attendance.show', compact('attendance'));
+    }
+
+    /**
+     * Show edit form
+     */
+    public function edit(Attendance $attendance)
+    {
+        $attendance->load('user');
+        $users = User::whereIn('role', ['staff', 'doctor'])->get();
+
+        return view('admin.attendance.edit', compact('attendance', 'users'));
+    }
+
+    /**
      * Show live dashboard
      */
     public function live()

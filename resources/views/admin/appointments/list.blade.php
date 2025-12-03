@@ -194,34 +194,31 @@
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end items-center gap-2">
                                     @if($appointment->trashed())
-                                        <form action="{{ route('admin.appointments.restore', $appointment->id) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('POST')
-                                            <button type="submit" class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm" title="Restore">
-                                                <i class='bx bx-undo text-base'></i>
-                                            </button>
-                                        </form>
-                                        <form action="{{ route('admin.appointments.force-delete', $appointment->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to permanently delete this appointment? This action cannot be undone!');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm" title="Permanently Delete">
-                                                <i class='bx bx-x-circle text-base'></i>
-                                            </button>
-                                        </form>
+                                        <button onclick="restoreAppointment({{ $appointment->id }}, '{{ $appointment->patient->name ?? 'Unknown' }}')"
+                                                class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm"
+                                                title="Restore">
+                                            <i class='bx bx-undo text-base'></i>
+                                        </button>
+                                        <button onclick="forceDeleteAppointment({{ $appointment->id }}, '{{ $appointment->patient->name ?? 'Unknown' }}')"
+                                                class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm"
+                                                title="Permanently Delete">
+                                            <i class='bx bx-x-circle text-base'></i>
+                                        </button>
                                     @else
                                         <a href="{{ route('admin.appointments.show', $appointment->id) }}" class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600 rounded-full transition shadow-sm" title="View">
                                             <i class='bx bx-info-circle text-base'></i>
                                         </a>
+                                        <a href="{{ route('admin.appointments.invoice', $appointment->id) }}" class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm" title="Invoice">
+                                            <i class='bx bx-receipt text-base'></i>
+                                        </a>
                                         <a href="{{ route('admin.appointments.edit', $appointment->id) }}" class="w-8 h-8 flex items-center justify-center bg-yellow-500 text-white hover:bg-yellow-600 rounded-full transition shadow-sm" title="Edit">
                                             <i class='bx bx-pencil text-base'></i>
                                         </a>
-                                        <form action="{{ route('admin.appointments.destroy', $appointment->id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this appointment?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm" title="Delete">
-                                                <i class='bx bx-trash-alt text-base'></i>
-                                            </button>
-                                        </form>
+                                        <button onclick="deleteAppointment({{ $appointment->id }}, '{{ $appointment->patient->name ?? 'Unknown' }}')"
+                                                class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm"
+                                                title="Delete">
+                                            <i class='bx bx-trash-alt text-base'></i>
+                                        </button>
                                     @endif
                                 </div>
                             </td>
@@ -243,3 +240,73 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+    function deleteAppointment(id, patientName) {
+        Swal.fire({
+            title: 'Delete Appointment?',
+            html: `Are you sure you want to delete the appointment for <strong>${patientName}</strong>?<br><br>This action will soft delete the appointment. You can restore it later.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Yes, Delete',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/admin/appointments/${id}`;
+                form.innerHTML = `@csrf @method('DELETE')`;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+
+    function restoreAppointment(id, patientName) {
+        Swal.fire({
+            title: 'Restore Appointment?',
+            html: `Are you sure you want to restore the appointment for <strong>${patientName}</strong>?`,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#10b981',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Yes, Restore',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/admin/appointments/${id}/restore`;
+                form.innerHTML = `@csrf`;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+
+    function forceDeleteAppointment(id, patientName) {
+        Swal.fire({
+            title: 'Permanently Delete?',
+            html: `Are you sure you want to <strong class="text-red-600">permanently delete</strong> the appointment for <strong>${patientName}</strong>?<br><br>This action cannot be undone!`,
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Yes, Delete Permanently',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/admin/appointments/${id}/force-delete`;
+                form.innerHTML = `@csrf @method('DELETE')`;
+                document.body.appendChild(form);
+                form.submit();
+            }
+        });
+    }
+</script>
+@endpush
