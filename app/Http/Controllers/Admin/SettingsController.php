@@ -16,7 +16,7 @@ class SettingsController extends Controller
     {
         $settings = Setting::orderBy('group')->orderBy('key')->get();
         $groupedSettings = $settings->groupBy('group');
-        
+
         return view('admin.settings.index', compact('settings', 'groupedSettings'));
     }
 
@@ -26,7 +26,7 @@ class SettingsController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'settings' => 'required|array',
+            'settings' => 'nullable|array',
             'settings.*' => 'nullable',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
@@ -34,7 +34,7 @@ class SettingsController extends Controller
         // Handle logo upload
         if ($request->hasFile('logo')) {
             $file = $request->file('logo');
-            
+
             try {
                 // For Vercel/serverless: Use base64 encoding and store in database
                 // For local development: Use file storage
@@ -46,13 +46,13 @@ class SettingsController extends Controller
                     $mimeType = $file->getMimeType();
                     $extension = $file->getClientOriginalExtension();
                     $logoData = 'data:' . $mimeType . ';base64,' . $base64;
-                    
+
                     // Delete old logo if exists
                     $oldLogo = Setting::get('clinic_logo');
                     if ($oldLogo && str_starts_with($oldLogo, 'data:')) {
                         // Old logo was base64, just update
                     }
-                    
+
                     // Store base64 data
                     Setting::set('clinic_logo', $logoData);
                 } else {
@@ -61,7 +61,7 @@ class SettingsController extends Controller
                     if ($oldLogo && !str_starts_with($oldLogo, 'data:') && Storage::disk('public')->exists($oldLogo)) {
                         Storage::disk('public')->delete($oldLogo);
                     }
-                    
+
                     $logoPath = $file->store('logos', 'public');
                     Setting::set('clinic_logo', $logoPath);
                 }
@@ -72,8 +72,10 @@ class SettingsController extends Controller
         }
 
         // Update other settings
-        foreach ($validated['settings'] as $key => $value) {
-            Setting::set($key, $value);
+        if (!empty($validated['settings'])) {
+            foreach ($validated['settings'] as $key => $value) {
+                Setting::set($key, $value);
+            }
         }
 
         return redirect()->route('admin.settings.index')
@@ -87,17 +89,17 @@ class SettingsController extends Controller
     {
         try {
             $oldLogo = Setting::get('clinic_logo');
-            
+
             // Delete file if it's a file path (local development)
             if ($oldLogo && !str_starts_with($oldLogo, 'data:')) {
                 if (Storage::disk('public')->exists($oldLogo)) {
                     Storage::disk('public')->delete($oldLogo);
                 }
             }
-            
+
             // Clear logo setting
             Setting::set('clinic_logo', null);
-            
+
             // Return JSON response for AJAX requests
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
@@ -105,7 +107,7 @@ class SettingsController extends Controller
                     'message' => 'Logo removed successfully!'
                 ]);
             }
-            
+
             return redirect()->route('admin.settings.index')
                 ->with('success', 'Logo removed successfully!');
         } catch (\Exception $e) {
@@ -116,10 +118,35 @@ class SettingsController extends Controller
                     'message' => 'Failed to remove logo: ' . $e->getMessage()
                 ], 500);
             }
-            
+
             return redirect()->route('admin.settings.index')
                 ->with('error', 'Failed to remove logo: ' . $e->getMessage());
         }
     }
-}
 
+    /**
+     * Update a single setting via AJAX (auto-save)
+     */
+    public function updateSingle(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'key' => 'required|string',
+                'value' => 'nullable',
+            ]);
+
+            Setting::set($validated['key'], $validated['value']);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Setting saved successfully',
+                'key' => $validated['key'],
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to save setting: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+}
