@@ -136,6 +136,47 @@
                         </div>
                     </div>
 
+                    <!-- Commission Breakdown (for Locum Doctors) -->
+                    @if($appointment->is_locum_doctor && $appointment->doctor_commission > 0)
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                                <i class='bx bx-wallet text-purple-600 mr-2'></i>
+                                Commission Breakdown
+                            </h3>
+                            <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4 border border-purple-200">
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-purple-900">Doctor Type</label>
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-purple-200 text-purple-800">
+                                            <i class='bx bx-briefcase-alt mr-1'></i>
+                                            Locum Doctor
+                                        </span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-purple-900">Commission Rate</label>
+                                        <p class="text-purple-900 font-semibold">{{ number_format($appointment->doctor_commission_rate, 0) }}%</p>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <label class="text-sm font-medium text-purple-900">Appointment Fee</label>
+                                        <p class="text-purple-900">{{ get_currency_symbol() }}{{ number_format($appointment->final_amount ?? $appointment->fee, 2) }}</p>
+                                    </div>
+                                    <div class="border-t border-purple-300 pt-3 mt-3">
+                                        <div class="flex items-center justify-between">
+                                            <label class="text-base font-bold text-purple-900">Doctor's Commission</label>
+                                            <p class="text-xl font-bold text-purple-900">
+                                                {{ get_currency_symbol() }}{{ number_format($appointment->doctor_commission, 2) }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="text-xs text-purple-700 bg-purple-200 rounded p-2 mt-2">
+                                        <i class='bx bx-info-circle mr-1'></i>
+                                        This commission will be included in the doctor's payroll calculation for locum doctors.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                     <!-- Doctor Info -->
                     @if($appointment->doctor)
                         <div>
@@ -149,6 +190,15 @@
                                     <div class="flex items-center justify-between py-3.5">
                                         <label class="text-sm font-medium text-gray-600">Specialization</label>
                                         <p class="text-gray-900">{{ $appointment->doctor->specialization }}</p>
+                                    </div>
+                                @endif
+                                @if($appointment->doctor->user && $appointment->doctor->user->employment_type)
+                                    <div class="flex items-center justify-between py-3.5">
+                                        <label class="text-sm font-medium text-gray-600">Employment Type</label>
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold
+                                            {{ $appointment->doctor->user->employment_type === 'locum' ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800' }}">
+                                            {{ ucfirst(str_replace('_', ' ', $appointment->doctor->user->employment_type)) }}
+                                        </span>
                                     </div>
                                 @endif
                                 @if($appointment->doctor->email)

@@ -58,6 +58,20 @@
                     <td class="py-1 text-gray-900">{{ ucfirst($payroll->user->role ?? 'N/A') }}</td>
                 </tr>
                 <tr>
+                    <td class="py-1 text-gray-600">Employment Type:</td>
+                    <td class="py-1 text-gray-900">
+                        @if($payroll->user->employment_type)
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
+                                {{ $payroll->user->employment_type === 'locum' ? 'bg-purple-100 text-purple-800' :
+                                   ($payroll->user->employment_type === 'part_time' ? 'bg-orange-100 text-orange-800' : 'bg-blue-100 text-blue-800') }}">
+                                {{ ucfirst(str_replace('_', ' ', $payroll->user->employment_type)) }}
+                            </span>
+                        @else
+                            Full Time
+                        @endif
+                    </td>
+                </tr>
+                <tr>
                     <td class="py-1 text-gray-600">Department:</td>
                     <td class="py-1 text-gray-900">Medical</td>
                 </tr>
@@ -89,6 +103,119 @@
             </table>
         </div>
     </div>
+
+    <!-- Hours Breakdown for Part-Time Staff -->
+    @if($payroll->user->employment_type === 'part_time')
+        @php
+            $attendances = \App\Models\Attendance::where('user_id', $payroll->user_id)
+                ->whereBetween('date', [$payroll->pay_period_start, $payroll->pay_period_end])
+                ->where('is_approved', true)
+                ->orderBy('date')
+                ->get();
+            $hourlyRate = $payroll->user->hourly_rate ?? 8;
+        @endphp
+
+        @if($attendances->count() > 0)
+            <div class="mb-8 bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200 rounded-lg p-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <i class='bx bx-time text-2xl text-orange-600'></i>
+                    <h3 class="text-lg font-bold text-orange-900">Hours Breakdown</h3>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 mb-4">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-orange-200">
+                                <th class="py-2 px-3 text-left text-xs font-bold text-orange-900 uppercase">Date</th>
+                                <th class="py-2 px-3 text-center text-xs font-bold text-orange-900 uppercase">Hours Worked</th>
+                                <th class="py-2 px-3 text-right text-xs font-bold text-orange-900 uppercase">Rate ({{ $currencySymbol }}/hr)</th>
+                                <th class="py-2 px-3 text-right text-xs font-bold text-orange-900 uppercase">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($attendances as $attendance)
+                                <tr class="border-b border-orange-100">
+                                    <td class="py-2 px-3 text-gray-700">{{ $attendance->date->format('d M Y') }}</td>
+                                    <td class="py-2 px-3 text-center text-gray-900 font-semibold">{{ number_format($attendance->total_hours, 2) }}h</td>
+                                    <td class="py-2 px-3 text-right text-gray-700">{{ number_format($hourlyRate, 2) }}</td>
+                                    <td class="py-2 px-3 text-right text-orange-900 font-semibold">{{ $currencySymbol }}{{ number_format($attendance->total_hours * $hourlyRate, 2) }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-orange-100 font-bold">
+                                <td class="py-3 px-3 text-orange-900">TOTAL ({{ $attendances->count() }} days)</td>
+                                <td class="py-3 px-3 text-center text-orange-900">{{ number_format($attendances->sum('total_hours'), 2) }}h</td>
+                                <td class="py-3 px-3 text-right text-orange-900">{{ number_format($hourlyRate, 2) }}</td>
+                                <td class="py-3 px-3 text-right text-orange-900">{{ $currencySymbol }}{{ number_format($attendances->sum('total_hours') * $hourlyRate, 2) }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="text-xs text-orange-700 bg-orange-200 rounded p-3 flex items-start gap-2">
+                    <i class='bx bx-info-circle text-base mt-0.5'></i>
+                    <p>Hourly rate: <strong>{{ $currencySymbol }}{{ number_format($hourlyRate, 2) }}/hour</strong>. Only approved attendance records are included in the calculation. Total hours are calculated from clock-in to clock-out time minus break duration.</p>
+                </div>
+            </div>
+        @endif
+    @endif
+
+    <!-- Commission Breakdown for Locum Doctors -->
+    @if($payroll->user->employment_type === 'locum' && $payroll->user->doctor)
+        @php
+            $appointments = \App\Models\Appointment::where('doctor_id', $payroll->user->doctor->id)
+                ->whereBetween('appointment_date', [$payroll->pay_period_start, $payroll->pay_period_end])
+                ->whereIn('status', ['completed', 'confirmed'])
+                ->with('patient')
+                ->get();
+            $commissionRate = $payroll->user->doctor->commission_rate ?? 60;
+        @endphp
+
+        @if($appointments->count() > 0)
+            <div class="mb-8 bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-200 rounded-lg p-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <i class='bx bx-wallet text-2xl text-purple-600'></i>
+                    <h3 class="text-lg font-bold text-purple-900">Commission Breakdown</h3>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 mb-4">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-purple-200">
+                                <th class="py-2 px-3 text-left text-xs font-bold text-purple-900 uppercase">Date</th>
+                                <th class="py-2 px-3 text-left text-xs font-bold text-purple-900 uppercase">Patient</th>
+                                <th class="py-2 px-3 text-right text-xs font-bold text-purple-900 uppercase">Fee</th>
+                                <th class="py-2 px-3 text-right text-xs font-bold text-purple-900 uppercase">Commission ({{ number_format($commissionRate, 0) }}%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($appointments as $appointment)
+                                <tr class="border-b border-purple-100">
+                                    <td class="py-2 px-3 text-gray-700">{{ $appointment->appointment_date->format('d M Y') }}</td>
+                                    <td class="py-2 px-3 text-gray-700">{{ $appointment->patient->full_name }}</td>
+                                    <td class="py-2 px-3 text-right text-gray-900">{{ $currencySymbol }}{{ number_format($appointment->fee, 2) }}</td>
+                                    <td class="py-2 px-3 text-right text-purple-900 font-semibold">{{ $currencySymbol }}{{ number_format(($appointment->fee * $commissionRate) / 100, 2) }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-purple-100 font-bold">
+                                <td colspan="2" class="py-3 px-3 text-purple-900">TOTAL ({{ $appointments->count() }} appointments)</td>
+                                <td class="py-3 px-3 text-right text-purple-900">{{ $currencySymbol }}{{ number_format($appointments->sum('fee'), 2) }}</td>
+                                <td class="py-3 px-3 text-right text-purple-900">{{ $currencySymbol }}{{ number_format(($appointments->sum('fee') * $commissionRate) / 100, 2) }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="text-xs text-purple-700 bg-purple-200 rounded p-3 flex items-start gap-2">
+                    <i class='bx bx-info-circle text-base mt-0.5'></i>
+                    <p>Commission rate: <strong>{{ number_format($commissionRate, 0) }}%</strong> of appointment fees. Only completed and confirmed appointments are included in the calculation.</p>
+                </div>
+            </div>
+        @endif
+    @endif
 
     <!-- Salary Details -->
     <div class="mb-8">

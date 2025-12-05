@@ -19,23 +19,25 @@ A comprehensive Laravel-based clinic management system with role-based access co
 - ✅ **Patient Management** - Full CRUD with soft delete, auto-generated IDs (PAT-XXXXXX)
 - ✅ **Doctor Management** - Full CRUD with soft delete, auto-generated IDs (DOC-XXXXXX)
 - ✅ **Staff Management** - Full CRUD with soft delete, auto-generated IDs (STF-XXXXXX)
-- ✅ **Appointment Management** - Full CRUD with soft delete
+- ✅ **Appointment Management** - Full CRUD with soft delete, commission tracking for locum doctors
 - ✅ **Service Management** - Full CRUD with soft delete (Psychology & Homeopathy)
 - ✅ **Reports & Analytics** - Statistics, revenue tracking, date range filtering
 - ✅ **Settings Management** - Configurable clinic settings, currency, landing page content
 - ✅ **Attendance Management** - Live dashboard, manual entry, approval system, correction requests, CSV export
 - ✅ **To-Do Management** - Task assignment, priority levels, recurring tasks, soft delete
 - ✅ **Leave Management** - Full approval workflow, file attachments, soft delete, filtering
+- ✅ **Payroll Management** - Multi-employment type support (Full-Time, Part-Time, Locum), auto-calculate salary, detailed breakdowns
 
 ### Doctor Features
 - ✅ **Dashboard** with appointment statistics
-- ✅ **My Appointments** - View and manage assigned appointments
+- ✅ **My Appointments** - View and manage assigned appointments with commission display (locum doctors)
 - ✅ **My Profile** - View and edit profile, change password
 - ✅ **Schedule** - Daily and weekly view of appointments
 - ✅ **Patients** - View patients with appointment history
 - ✅ **Appointment Updates** - Update status, diagnosis, prescription, notes
 - ✅ **Attendance Tracking** - Clock in/out, break management, work duration tracking
 - ✅ **Leave Management** - Apply for leave, view status, upload proof, cancel pending requests
+- ✅ **Payslip Access** - View approved/paid payslips with detailed commission breakdown (locum doctors)
 
 ### Staff Features
 - ✅ **Dashboard** with clinic statistics
@@ -47,6 +49,7 @@ A comprehensive Laravel-based clinic management system with role-based access co
 - ✅ **Attendance Tracking** - Clock in/out, break management, correction requests
 - ✅ **My Tasks** - View assigned to-dos, update task status, track priorities
 - ✅ **Leave Management** - Apply for leave, view status, upload proof, cancel pending requests
+- ✅ **Payslip Access** - View approved/paid payslips with hours breakdown (part-time staff)
 
 ### Patient Features
 - ✅ **Dashboard** with personal statistics
@@ -169,8 +172,8 @@ After seeding, you can login with these credentials:
 
 ### Doctor Routes (Authenticated)
 - `/doctor/dashboard` - Doctor dashboard
-- `/doctor/appointments` - My appointments
-- `/doctor/appointments/{id}` - Appointment details
+- `/doctor/appointments` - My appointments (with commission display for locum)
+- `/doctor/appointments/{id}` - Appointment details (with commission breakdown for locum)
 - `/doctor/profile` - My profile
 - `/doctor/profile/edit` - Edit profile
 - `/doctor/schedule` - My schedule
@@ -178,6 +181,8 @@ After seeding, you can login with these credentials:
 - `/doctor/patients/{id}` - Patient details
 - `/doctor/attendance` - Attendance tracking
 - `/doctor/leaves` - Leave management
+- `/doctor/payslips` - My payslips (approved/paid only)
+- `/doctor/payslips/{id}` - Payslip details with commission breakdown
 
 ### Staff Routes (Authenticated)
 - `/staff/dashboard` - Staff dashboard
@@ -193,6 +198,8 @@ After seeding, you can login with these credentials:
 - `/staff/attendance` - Attendance tracking
 - `/staff/todos` - My tasks (to-do list)
 - `/staff/leaves` - Leave management
+- `/staff/payslips` - My payslips (approved/paid only)
+- `/staff/payslips/{id}` - Payslip details with hours breakdown
 
 ### Admin Routes (Authenticated + Admin Role)
 - `/admin/dashboard` - Admin dashboard
@@ -210,6 +217,11 @@ After seeding, you can login with these credentials:
 - `/admin/attendance/corrections` - Attendance correction requests
 - `/admin/todos` - To-Do management
 - `/admin/leaves` - Leave management
+- `/admin/payrolls` - Payroll management
+- `/admin/payrolls/create` - Create payroll with auto-calculate
+- `/admin/payrolls/{year}/{month}` - Monthly payroll list
+- `/admin/payrolls/{id}` - Payslip details with breakdowns
+- `/admin/payrolls/{id}/edit` - Edit payroll
 
 ## 👤 User Roles
 
@@ -217,20 +229,22 @@ After seeding, you can login with these credentials:
 - Full system access
 - User management (all roles)
 - Patient, Doctor, Staff management
-- Appointment management
+- Appointment management with commission tracking
 - Service management
 - Reports and analytics
 - System settings
 - Attendance management and approval
 - To-Do assignment and tracking
+- Payroll management with multi-employment type support
 
 ### Doctor
-- View assigned appointments
+- View assigned appointments with commission display (locum doctors)
 - Update appointment status, diagnosis, prescription
 - View patient information
 - Manage profile
 - View schedule
 - Track attendance (clock in/out, breaks)
+- View payslips with commission breakdown (locum doctors)
 
 ### Staff
 - View all appointments
@@ -241,6 +255,7 @@ After seeding, you can login with these credentials:
 - Manage profile
 - Track attendance (clock in/out, breaks, correction requests)
 - View and update assigned tasks
+- View payslips with hours breakdown (part-time staff)
 
 ### Patient
 - View personal dashboard
@@ -259,18 +274,19 @@ After seeding, you can login with these credentials:
 ## 📊 Database Structure
 
 ### Main Tables
-- `users` - User accounts with roles
+- `users` - User accounts with roles and employment types (full_time, part_time, locum)
 - `patients` - Patient profiles (linked to users)
-- `doctors` - Doctor profiles (linked to users)
+- `doctors` - Doctor profiles (linked to users) with commission rates
 - `staff` - Staff profiles (linked to users)
-- `appointments` - Appointment records
+- `appointments` - Appointment records with fees and commission tracking
 - `services` - Treatment services
 - `settings` - System configuration
-- `attendances` - Attendance records with clock in/out times
+- `attendances` - Attendance records with clock in/out times and total hours
 - `attendance_breaks` - Break tracking for attendance
 - `attendance_corrections` - Correction requests for attendance
 - `todos` - Task management with assignments and priorities
 - `leaves` - Leave requests with status, type, and proof attachments
+- `payrolls` - Payroll records with multi-employment type support
 
 ### Auto-Generated IDs
 - **Patients:** PAT-000001, PAT-000002, etc.
@@ -300,6 +316,66 @@ Admin can configure:
 - Currency and currency symbol
 - Landing page content (hero text, stats, CTA, footer)
 - Email settings (for future email functionality)
+
+## 💰 Payroll System
+
+### Multi-Employment Type Support
+
+The system supports three employment types with different salary calculation methods:
+
+#### 1. **Full-Time Employees**
+- **Calculation:** Fixed monthly salary from `users.basic_salary`
+- **Display:** Blue badge with briefcase icon
+- **Payslip:** Shows basic salary and allowances
+
+#### 2. **Part-Time Staff**
+- **Calculation:** `Total Approved Hours × Hourly Rate`
+- **Hours Source:** Attendance records (clock-in to clock-out minus breaks)
+- **Display:** Orange badge with clock icon
+- **Payslip:** Includes detailed **Hours Breakdown** section showing:
+  - Date of each working day
+  - Hours worked per day
+  - Hourly rate
+  - Daily and total earnings
+- **Approval:** Only approved attendance records are counted
+
+#### 3. **Locum Doctors**
+- **Calculation:** `Total Appointment Fees × Commission Rate`
+- **Fee Source:** Completed/confirmed appointments
+- **Display:** Purple badge with wallet icon
+- **Payslip:** Includes detailed **Commission Breakdown** section showing:
+  - Date of each appointment
+  - Patient name
+  - Appointment fee
+  - Commission amount per appointment
+  - Total commission earned
+- **Commission Rate:** Configurable per doctor (default: 60%)
+
+### Payroll Features
+
+- ✅ **Auto-Calculate Salary** - Automatically calculates based on employment type
+- ✅ **Detailed Breakdowns** - Shows all source data (hours/appointments)
+- ✅ **Employment Type Badges** - Color-coded visual indicators
+- ✅ **Monthly View** - List all payrolls by year/month
+- ✅ **Status Workflow** - Draft → Approved → Paid
+- ✅ **Access Control** - Staff/doctors can only view approved/paid payslips
+- ✅ **Print/Download** - Professional payslip template with breakdowns
+- ✅ **Allowances & Deductions** - Support for EPF, SOCSO, tax, bonuses
+- ✅ **Payment Methods** - Bank transfer, cash, cheque
+
+### Appointment Commission Display
+
+For locum doctors, commission information is displayed in:
+
+- **Appointment List View:**
+  - Commission badge showing rate and amount
+  - Purple-themed design
+  - Visible in doctor's appointment list
+
+- **Appointment Detail View:**
+  - Commission breakdown card
+  - Shows fee, rate, and calculated commission
+  - Patient and appointment details
 
 ## 🔄 Soft Deletes
 

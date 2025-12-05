@@ -115,6 +115,71 @@ class SettingsSeeder extends Seeder
                 'description' => 'Default payment method',
             ],
 
+            // Payroll Settings
+            [
+                'key' => 'payroll_part_time_hourly_rate',
+                'value' => '8.00',
+                'type' => 'number',
+                'group' => 'payroll',
+                'description' => 'Default hourly rate for part-time employees (RM/hour)',
+            ],
+            [
+                'key' => 'payroll_locum_commission_rate',
+                'value' => '60.00',
+                'type' => 'number',
+                'group' => 'payroll',
+                'description' => 'Default commission rate for locum doctors (%)',
+            ],
+            [
+                'key' => 'payroll_epf_employee_rate',
+                'value' => '11',
+                'type' => 'number',
+                'group' => 'payroll',
+                'description' => 'EPF employee contribution rate (%)',
+            ],
+            [
+                'key' => 'payroll_epf_employer_rate',
+                'value' => '13',
+                'type' => 'number',
+                'group' => 'payroll',
+                'description' => 'EPF employer contribution rate (%)',
+            ],
+            [
+                'key' => 'payroll_socso_employee_rate',
+                'value' => '0.5',
+                'type' => 'number',
+                'group' => 'payroll',
+                'description' => 'SOCSO employee contribution rate (%)',
+            ],
+            [
+                'key' => 'payroll_socso_employer_rate',
+                'value' => '1.75',
+                'type' => 'number',
+                'group' => 'payroll',
+                'description' => 'SOCSO employer contribution rate (%)',
+            ],
+            [
+                'key' => 'payroll_eis_employee_rate',
+                'value' => '0.2',
+                'type' => 'number',
+                'group' => 'payroll',
+                'description' => 'EIS employee contribution rate (%)',
+            ],
+            [
+                'key' => 'payroll_eis_employer_rate',
+                'value' => '0.2',
+                'type' => 'number',
+                'group' => 'payroll',
+                'description' => 'EIS employer contribution rate (%)',
+            ],
+            [
+                'key' => 'payroll_tax_rate',
+                'value' => '0',
+                'type' => 'number',
+                'group' => 'payroll',
+                'description' => 'Income tax rate (%)',
+            ],
+
             // Email Settings
             [
                 'key' => 'email_from_name',

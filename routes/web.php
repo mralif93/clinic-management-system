@@ -238,6 +238,7 @@ Route::middleware('auth')->group(function () {
         // Payroll Management
         Route::get('/payrolls/trash', [App\Http\Controllers\Admin\PayrollController::class, 'trash'])->name('payrolls.trash');
         Route::get('/payrolls/{year}/{month}', [App\Http\Controllers\Admin\PayrollController::class, 'byMonth'])->name('payrolls.by-month');
+        Route::post('/payrolls/calculate-salary', [App\Http\Controllers\Admin\PayrollController::class, 'calculateSalary'])->name('payrolls.calculate-salary');
         Route::resource('payrolls', App\Http\Controllers\Admin\PayrollController::class)->parameters(['payrolls' => 'payroll']);
         Route::post('/payrolls/{payroll}/approve', [App\Http\Controllers\Admin\PayrollController::class, 'approve'])->name('payrolls.approve');
         Route::post('/payrolls/{payroll}/mark-as-paid', [App\Http\Controllers\Admin\PayrollController::class, 'markAsPaid'])->name('payrolls.mark-as-paid');

@@ -94,11 +94,14 @@ class PayrollController extends Controller
     {
         // Get employees (doctors and staff)
         $employees = User::whereIn('role', ['doctor', 'staff'])
+            ->with('doctor')
             ->orderBy('name')
             ->get();
 
         // Get payroll settings
         $payrollSettings = [
+            'part_time_hourly_rate' => \App\Models\Setting::get('payroll_part_time_hourly_rate', 8),
+            'locum_commission_rate' => \App\Models\Setting::get('payroll_locum_commission_rate', 60),
             'epf_employee' => \App\Models\Setting::get('payroll_epf_employee_rate', 11),
             'epf_employer' => \App\Models\Setting::get('payroll_epf_employer_rate', 13),
             'socso_employee' => \App\Models\Setting::get('payroll_socso_employee_rate', 0.5),
@@ -109,6 +112,55 @@ class PayrollController extends Controller
         ];
 
         return view('admin.payrolls.create', compact('employees', 'payrollSettings'));
+    }
+
+    /**
+     * Calculate basic salary based on employment type
+     */
+    private function calculateBasicSalary($userId, $payPeriodStart, $payPeriodEnd)
+    {
+        $user = User::with('doctor')->find($userId);
+
+        if (!$user) {
+            return 0;
+        }
+
+        switch ($user->employment_type) {
+            case 'full_time':
+                // Full-time: Use basic salary from user profile
+                return $user->basic_salary ?? 0;
+
+            case 'part_time':
+                // Part-time: Calculate hourly (RM8/hour by default)
+                $hourlyRate = $user->hourly_rate ?? \App\Models\Setting::get('payroll_part_time_hourly_rate', 8);
+
+                // Get total hours worked in the pay period
+                $totalHours = \App\Models\Attendance::where('user_id', $userId)
+                    ->whereBetween('date', [$payPeriodStart, $payPeriodEnd])
+                    ->where('is_approved', true)
+                    ->sum('total_hours');
+
+                return $totalHours * $hourlyRate;
+
+            case 'locum':
+                // Locum: Calculate based on appointments with commission rate (60% by default)
+                if (!$user->doctor) {
+                    return 0;
+                }
+
+                $commissionRate = $user->doctor->commission_rate ?? \App\Models\Setting::get('payroll_locum_commission_rate', 60);
+
+                // Get total appointments fee in the pay period
+                $totalFee = \App\Models\Appointment::where('doctor_id', $user->doctor->id)
+                    ->whereBetween('appointment_date', [$payPeriodStart, $payPeriodEnd])
+                    ->whereIn('status', ['completed', 'confirmed'])
+                    ->sum('fee');
+
+                return ($totalFee * $commissionRate) / 100;
+
+            default:
+                return 0;
+        }
     }
 
     /**
@@ -359,6 +411,101 @@ class PayrollController extends Controller
 
         return redirect()->back()
             ->with('success', 'Payroll approved successfully!');
+    }
+
+    /**
+     * Calculate salary for an employee (AJAX endpoint)
+     */
+    public function calculateSalary(Request $request)
+    {
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'pay_period_start' => 'required|date',
+            'pay_period_end' => 'required|date|after_or_equal:pay_period_start',
+        ]);
+
+        $basicSalary = $this->calculateBasicSalary(
+            $validated['user_id'],
+            $validated['pay_period_start'],
+            $validated['pay_period_end']
+        );
+
+        $user = User::with('doctor')->find($validated['user_id']);
+
+        return response()->json([
+            'success' => true,
+            'basic_salary' => number_format($basicSalary, 2, '.', ''),
+            'employment_type' => $user->employment_type,
+            'details' => $this->getSalaryCalculationDetails($user, $validated['pay_period_start'], $validated['pay_period_end']),
+        ]);
+    }
+
+    /**
+     * Get salary calculation details for display
+     */
+    private function getSalaryCalculationDetails($user, $payPeriodStart, $payPeriodEnd)
+    {
+        switch ($user->employment_type) {
+            case 'full_time':
+                return [
+                    'type' => 'Full Time',
+                    'description' => 'Monthly basic salary',
+                    'amount' => $user->basic_salary ?? 0,
+                ];
+
+            case 'part_time':
+                $hourlyRate = $user->hourly_rate ?? \App\Models\Setting::get('payroll_part_time_hourly_rate', 8);
+                $totalHours = \App\Models\Attendance::where('user_id', $user->id)
+                    ->whereBetween('date', [$payPeriodStart, $payPeriodEnd])
+                    ->where('is_approved', true)
+                    ->sum('total_hours');
+
+                return [
+                    'type' => 'Part Time',
+                    'description' => "Total hours: {$totalHours}h × RM{$hourlyRate}/hour",
+                    'hours' => $totalHours,
+                    'rate' => $hourlyRate,
+                    'amount' => $totalHours * $hourlyRate,
+                ];
+
+            case 'locum':
+                if (!$user->doctor) {
+                    return [
+                        'type' => 'Locum',
+                        'description' => 'No doctor profile found',
+                        'amount' => 0,
+                    ];
+                }
+
+                $commissionRate = $user->doctor->commission_rate ?? \App\Models\Setting::get('payroll_locum_commission_rate', 60);
+
+                // Get appointments with details
+                $appointments = \App\Models\Appointment::where('doctor_id', $user->doctor->id)
+                    ->whereBetween('appointment_date', [$payPeriodStart, $payPeriodEnd])
+                    ->whereIn('status', ['completed', 'confirmed'])
+                    ->with('patient')
+                    ->get();
+
+                $totalFee = $appointments->sum('fee');
+                $appointmentCount = $appointments->count();
+
+                return [
+                    'type' => 'Locum',
+                    'description' => "{$appointmentCount} appointments × {$commissionRate}% commission",
+                    'appointments' => $appointmentCount,
+                    'appointment_details' => $appointments,
+                    'total_fee' => $totalFee,
+                    'commission_rate' => $commissionRate,
+                    'amount' => ($totalFee * $commissionRate) / 100,
+                ];
+
+            default:
+                return [
+                    'type' => 'Unknown',
+                    'description' => 'Employment type not set',
+                    'amount' => 0,
+                ];
+        }
     }
 
     /**

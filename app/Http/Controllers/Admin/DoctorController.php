@@ -75,6 +75,9 @@ class DoctorController extends Controller
                 'qualification' => 'nullable|string|max:255',
                 'bio' => 'nullable|string',
                 'type' => 'required|in:psychology,homeopathy,general',
+                'employment_type' => 'required|in:full_time,locum',
+                'basic_salary' => 'required_if:employment_type,full_time|nullable|numeric|min:0',
+                'commission_rate' => 'required_if:employment_type,locum|nullable|numeric|min:0|max:100',
                 'is_available' => 'boolean',
             ], [
                 'first_name.required' => 'The first name field is required.',
@@ -83,6 +86,9 @@ class DoctorController extends Controller
                 'email.email' => 'Please enter a valid email address.',
                 'email.unique' => 'This email is already registered.',
                 'type.required' => 'Please select a doctor type.',
+                'employment_type.required' => 'Please select an employment type.',
+                'basic_salary.required_if' => 'Basic salary is required for full-time doctors.',
+                'commission_rate.required_if' => 'Commission rate is required for locum doctors.',
             ]);
 
             // If user_id is provided, verify user has doctor role
@@ -103,6 +109,14 @@ class DoctorController extends Controller
             }
 
             $validated['is_available'] = $request->has('is_available') ? true : false;
+
+            // If user_id is provided, update user employment fields
+            if (isset($validated['user_id'])) {
+                $user->update([
+                    'employment_type' => $validated['employment_type'],
+                    'basic_salary' => $validated['employment_type'] === 'full_time' ? $validated['basic_salary'] : null,
+                ]);
+            }
 
             $doctor = Doctor::create($validated);
 
@@ -201,6 +215,9 @@ class DoctorController extends Controller
                 'qualification' => 'nullable|string|max:255',
                 'bio' => 'nullable|string',
                 'type' => 'required|in:psychology,homeopathy,general',
+                'employment_type' => 'required|in:full_time,locum',
+                'basic_salary' => 'required_if:employment_type,full_time|nullable|numeric|min:0',
+                'commission_rate' => 'required_if:employment_type,locum|nullable|numeric|min:0|max:100',
                 'is_available' => 'boolean',
             ], [
                 'first_name.required' => 'The first name field is required.',
@@ -209,6 +226,9 @@ class DoctorController extends Controller
                 'email.email' => 'Please enter a valid email address.',
                 'email.unique' => 'This email is already registered.',
                 'type.required' => 'Please select a doctor type.',
+                'employment_type.required' => 'Please select an employment type.',
+                'basic_salary.required_if' => 'Basic salary is required for full-time doctors.',
+                'commission_rate.required_if' => 'Commission rate is required for locum doctors.',
             ]);
 
             // If user_id is provided, verify user has doctor role
@@ -229,6 +249,14 @@ class DoctorController extends Controller
             }
 
             $validated['is_available'] = $request->has('is_available') ? true : false;
+
+            // Update user employment fields if user is linked
+            if ($doctor->user) {
+                $doctor->user->update([
+                    'employment_type' => $validated['employment_type'],
+                    'basic_salary' => $validated['employment_type'] === 'full_time' ? $validated['basic_salary'] : null,
+                ]);
+            }
 
             $doctor->update($validated);
 

@@ -163,11 +163,77 @@
                         <i class='bx bx-calendar mr-1 text-sm text-yellow-600'></i>
                         Hire Date
                     </label>
-                    <input type="date" 
-                           id="hire_date" 
-                           name="hire_date" 
+                    <input type="date"
+                           id="hire_date"
+                           name="hire_date"
                            value="{{ old('hire_date', $staff->hire_date?->format('Y-m-d')) }}"
                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition">
+                </div>
+
+                <!-- Employment Type -->
+                <div>
+                    <label for="employment_type" class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class='bx bx-briefcase mr-1 text-sm text-yellow-600'></i>
+                        Employment Type <span class="text-red-500">*</span>
+                    </label>
+                    <select id="employment_type"
+                            name="employment_type"
+                            required
+                            onchange="toggleSalaryFields()"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition @error('employment_type') border-red-500 ring-red-200 @enderror">
+                        <option value="full_time" {{ old('employment_type', $staff->user->employment_type ?? 'full_time') == 'full_time' ? 'selected' : '' }}>Full Time</option>
+                        <option value="part_time" {{ old('employment_type', $staff->user->employment_type) == 'part_time' ? 'selected' : '' }}>Part Time</option>
+                    </select>
+                    @error('employment_type')
+                        <p class="mt-2 text-sm text-red-600 flex items-center">
+                            <i class='bx bx-error-circle mr-1'></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+
+                <!-- Basic Salary (Full Time) -->
+                <div id="basic_salary_field">
+                    <label for="basic_salary" class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class='bx bx-money mr-1 text-sm text-yellow-600'></i>
+                        Basic Salary (RM) <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number"
+                           id="basic_salary"
+                           name="basic_salary"
+                           value="{{ old('basic_salary', $staff->user->basic_salary) }}"
+                           step="0.01"
+                           min="0"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition @error('basic_salary') border-red-500 ring-red-200 @enderror"
+                           placeholder="Enter basic salary">
+                    @error('basic_salary')
+                        <p class="mt-2 text-sm text-red-600 flex items-center">
+                            <i class='bx bx-error-circle mr-1'></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+
+                <!-- Hourly Rate (Part Time) -->
+                <div id="hourly_rate_field" style="display: none;">
+                    <label for="hourly_rate" class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class='bx bx-time mr-1 text-sm text-yellow-600'></i>
+                        Hourly Rate (RM/hour) <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number"
+                           id="hourly_rate"
+                           name="hourly_rate"
+                           value="{{ old('hourly_rate', $staff->user->hourly_rate ?? '8.00') }}"
+                           step="0.01"
+                           min="0"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition @error('hourly_rate') border-red-500 ring-red-200 @enderror"
+                           placeholder="Enter hourly rate">
+                    @error('hourly_rate')
+                        <p class="mt-2 text-sm text-red-600 flex items-center">
+                            <i class='bx bx-error-circle mr-1'></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
                 </div>
 
                 <!-- Notes -->
@@ -200,4 +266,33 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+function toggleSalaryFields() {
+    const employmentType = document.getElementById('employment_type').value;
+    const basicSalaryField = document.getElementById('basic_salary_field');
+    const hourlyRateField = document.getElementById('hourly_rate_field');
+    const basicSalaryInput = document.getElementById('basic_salary');
+    const hourlyRateInput = document.getElementById('hourly_rate');
+
+    if (employmentType === 'full_time') {
+        basicSalaryField.style.display = 'block';
+        hourlyRateField.style.display = 'none';
+        basicSalaryInput.required = true;
+        hourlyRateInput.required = false;
+    } else if (employmentType === 'part_time') {
+        basicSalaryField.style.display = 'none';
+        hourlyRateField.style.display = 'block';
+        basicSalaryInput.required = false;
+        hourlyRateInput.required = true;
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    toggleSalaryFields();
+});
+</script>
+@endpush
 @endsection

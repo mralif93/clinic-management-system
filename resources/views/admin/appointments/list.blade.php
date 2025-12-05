@@ -154,6 +154,12 @@
                                 @if($appointment->doctor)
                                     <div class="text-sm text-gray-900">{{ $appointment->doctor->full_name }}</div>
                                     <div class="text-sm text-gray-500">{{ $appointment->doctor->specialization ?? 'N/A' }}</div>
+                                    @if($appointment->is_locum_doctor)
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 mt-1">
+                                            <i class='bx bx-briefcase-alt text-xs mr-1'></i>
+                                            Locum
+                                        </span>
+                                    @endif
                                 @else
                                     <span class="text-gray-400">Not Assigned</span>
                                 @endif
@@ -184,9 +190,29 @@
                                     {{ ucfirst(str_replace('_', ' ', $appointment->status)) }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
                                 @if($appointment->fee)
-                                    {{ get_setting('currency', '$') }}{{ number_format($appointment->fee, 2) }}
+                                    <div class="text-gray-900 font-medium">
+                                        {{ get_setting('currency', '$') }}{{ number_format($appointment->fee, 2) }}
+                                    </div>
+
+                                    @if($appointment->discount_amount > 0)
+                                        <div class="text-xs text-orange-600">
+                                            <i class='bx bx-purchase-tag-alt'></i>
+                                            Discount: -{{ get_setting('currency', '$') }}{{ number_format($appointment->discount_amount, 2) }}
+                                        </div>
+                                        <div class="text-xs text-gray-600 font-semibold">
+                                            Final: {{ get_setting('currency', '$') }}{{ number_format($appointment->final_amount, 2) }}
+                                        </div>
+                                    @endif
+
+                                    @if($appointment->is_locum_doctor && $appointment->doctor_commission > 0)
+                                        <div class="text-xs text-purple-600 mt-1 flex items-center">
+                                            <i class='bx bx-wallet mr-1'></i>
+                                            Commission ({{ number_format($appointment->doctor_commission_rate, 0) }}%):
+                                            <span class="font-semibold ml-1">{{ get_setting('currency', '$') }}{{ number_format($appointment->doctor_commission, 2) }}</span>
+                                        </div>
+                                    @endif
                                 @else
                                     <span class="text-gray-400">N/A</span>
                                 @endif

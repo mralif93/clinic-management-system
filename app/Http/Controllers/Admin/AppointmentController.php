@@ -50,7 +50,7 @@ class AppointmentController extends Controller
     public function byMonth(Request $request, $year, $month)
     {
         $query = Appointment::withTrashed()
-            ->with(['patient', 'doctor', 'service'])
+            ->with(['patient', 'doctor.user', 'service'])
             ->whereYear('appointment_date', $year)
             ->whereMonth('appointment_date', $month);
 
@@ -140,7 +140,7 @@ class AppointmentController extends Controller
     public function show($id)
     {
         $appointment = Appointment::withTrashed()
-            ->with(['patient', 'doctor', 'service', 'user'])
+            ->with(['patient', 'doctor.user', 'service', 'user'])
             ->findOrFail($id);
         return view('admin.appointments.show', compact('appointment'));
     }

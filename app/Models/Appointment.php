@@ -78,6 +78,50 @@ class Appointment extends Model
     }
 
     /**
+     * Calculate doctor's commission amount
+     */
+    public function getDoctorCommissionAttribute()
+    {
+        if (!$this->doctor || !$this->doctor->user) {
+            return 0;
+        }
+
+        // Only calculate commission for locum doctors
+        if ($this->doctor->user->employment_type !== 'locum') {
+            return 0;
+        }
+
+        $commissionRate = $this->doctor->commission_rate ?? 60;
+        $finalAmount = $this->final_amount ?? $this->fee ?? 0;
+
+        return round(($finalAmount * $commissionRate) / 100, 2);
+    }
+
+    /**
+     * Get doctor's commission rate
+     */
+    public function getDoctorCommissionRateAttribute()
+    {
+        if (!$this->doctor) {
+            return 0;
+        }
+
+        return $this->doctor->commission_rate ?? 0;
+    }
+
+    /**
+     * Check if doctor is locum
+     */
+    public function getIsLocumDoctorAttribute()
+    {
+        if (!$this->doctor || !$this->doctor->user) {
+            return false;
+        }
+
+        return $this->doctor->user->employment_type === 'locum';
+    }
+
+    /**
      * Get payment status options
      */
     public static function getPaymentStatuses()

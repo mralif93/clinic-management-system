@@ -22,6 +22,9 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'employment_type',
+        'basic_salary',
+        'hourly_rate',
         'failed_login_attempts',
         'locked_until',
     ];
@@ -45,6 +48,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'locked_until' => 'datetime',
+        'basic_salary' => 'decimal:2',
+        'hourly_rate' => 'decimal:2',
     ];
 
     /**

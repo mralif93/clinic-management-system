@@ -145,6 +145,16 @@
                                             <div>
                                                 <p class="font-medium text-gray-900">{{ $payroll->user->name }}</p>
                                                 <p class="text-sm text-gray-500">{{ ucfirst($payroll->user->role) }}</p>
+                                                @if($payroll->user->employment_type)
+                                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium mt-1
+                                                        {{ $payroll->user->employment_type === 'locum' ? 'bg-purple-100 text-purple-800' :
+                                                           ($payroll->user->employment_type === 'part_time' ? 'bg-orange-100 text-orange-800' : 'bg-blue-100 text-blue-800') }}">
+                                                        @if($payroll->user->employment_type === 'locum')
+                                                            <i class='bx bx-briefcase-alt text-xs mr-1'></i>
+                                                        @endif
+                                                        {{ ucfirst(str_replace('_', ' ', $payroll->user->employment_type)) }}
+                                                    </span>
+                                                @endif
                                             </div>
                                         </div>
                                     </td>

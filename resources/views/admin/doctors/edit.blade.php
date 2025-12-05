@@ -208,6 +208,74 @@
                     @enderror
                 </div>
 
+                <!-- Employment Type -->
+                <div>
+                    <label for="employment_type" class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class='bx bx-briefcase mr-1 text-sm text-green-600'></i>
+                        Employment Type <span class="text-red-500">*</span>
+                    </label>
+                    <select id="employment_type"
+                            name="employment_type"
+                            required
+                            onchange="toggleDoctorSalaryFields()"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition @error('employment_type') border-red-500 ring-red-200 @enderror">
+                        <option value="full_time" {{ old('employment_type', $doctor->user->employment_type ?? 'full_time') == 'full_time' ? 'selected' : '' }}>Full Time</option>
+                        <option value="locum" {{ old('employment_type', $doctor->user->employment_type) == 'locum' ? 'selected' : '' }}>Locum</option>
+                    </select>
+                    @error('employment_type')
+                        <p class="mt-2 text-sm text-red-600 flex items-center">
+                            <i class='bx bx-error-circle mr-1'></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+
+                <!-- Basic Salary (Full Time) -->
+                <div id="doctor_basic_salary_field">
+                    <label for="basic_salary" class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class='bx bx-money mr-1 text-sm text-green-600'></i>
+                        Basic Salary (RM) <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number"
+                           id="basic_salary"
+                           name="basic_salary"
+                           value="{{ old('basic_salary', $doctor->user->basic_salary) }}"
+                           step="0.01"
+                           min="0"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition @error('basic_salary') border-red-500 ring-red-200 @enderror"
+                           placeholder="Enter basic salary">
+                    @error('basic_salary')
+                        <p class="mt-2 text-sm text-red-600 flex items-center">
+                            <i class='bx bx-error-circle mr-1'></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+
+                <!-- Commission Rate (Locum) -->
+                <div id="commission_rate_field" style="display: none;">
+                    <label for="commission_rate" class="block text-sm font-semibold text-gray-700 mb-2">
+                        <i class='bx bx-percentage mr-1 text-sm text-green-600'></i>
+                        Commission Rate (%) <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number"
+                           id="commission_rate"
+                           name="commission_rate"
+                           value="{{ old('commission_rate', $doctor->commission_rate ?? '60.00') }}"
+                           step="0.01"
+                           min="0"
+                           max="100"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition @error('commission_rate') border-red-500 ring-red-200 @enderror"
+                           placeholder="Enter commission rate">
+                    @error('commission_rate')
+                        <p class="mt-2 text-sm text-red-600 flex items-center">
+                            <i class='bx bx-error-circle mr-1'></i>
+                            {{ $message }}
+                        </p>
+                    @enderror
+                    <p class="mt-1 text-xs text-gray-500">Percentage of appointment fees earned as salary</p>
+                </div>
+
                 <!-- Is Available -->
                 <div>
                     <label for="is_available" class="block text-sm font-semibold text-gray-700 mb-2">
@@ -215,9 +283,9 @@
                         Availability
                     </label>
                     <div class="flex items-center mt-2">
-                        <input type="checkbox" 
-                               id="is_available" 
-                               name="is_available" 
+                        <input type="checkbox"
+                               id="is_available"
+                               name="is_available"
                                value="1"
                                {{ old('is_available', $doctor->is_available) ? 'checked' : '' }}
                                class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
@@ -255,4 +323,33 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+function toggleDoctorSalaryFields() {
+    const employmentType = document.getElementById('employment_type').value;
+    const basicSalaryField = document.getElementById('doctor_basic_salary_field');
+    const commissionRateField = document.getElementById('commission_rate_field');
+    const basicSalaryInput = document.getElementById('basic_salary');
+    const commissionRateInput = document.getElementById('commission_rate');
+
+    if (employmentType === 'full_time') {
+        basicSalaryField.style.display = 'block';
+        commissionRateField.style.display = 'none';
+        basicSalaryInput.required = true;
+        commissionRateInput.required = false;
+    } else if (employmentType === 'locum') {
+        basicSalaryField.style.display = 'none';
+        commissionRateField.style.display = 'block';
+        basicSalaryInput.required = false;
+        commissionRateInput.required = true;
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    toggleDoctorSalaryFields();
+});
+</script>
+@endpush
 @endsection

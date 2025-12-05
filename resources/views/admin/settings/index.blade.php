@@ -336,6 +336,59 @@
                 </div>
             @endif
 
+            <!-- Payroll Settings -->
+            @if(isset($groupedSettings['payroll']))
+                <div class="bg-white rounded-lg shadow-md border border-gray-200 mx-2 mb-8 overflow-hidden">
+                    <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-orange-50 to-white">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <div
+                                    class="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-md">
+                                    <i class='bx bx-money text-xl text-white'></i>
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-bold text-gray-900">Payroll Settings</h3>
+                                <p class="text-sm text-gray-600 mt-0.5">Configure payroll calculation rates and deductions</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-6 py-6">
+                        <div class="space-y-5">
+                            @foreach($groupedSettings['payroll'] as $setting)
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-3 gap-4 items-start py-3 border-b border-gray-100 last:border-0">
+                                    <div class="md:col-span-1">
+                                        <label for="setting_{{ $setting->key }}"
+                                            class="flex items-start text-sm font-semibold text-gray-700 pt-2">
+                                            <i class='bx bx-info-circle text-orange-500 mr-2 text-base mt-0.5 flex-shrink-0'></i>
+                                            <div>
+                                                <div>{{ ucwords(str_replace(['payroll_', '_'], ['', ' '], $setting->key)) }}</div>
+                                                @if($setting->description)
+                                                    <p class="text-xs text-gray-500 font-normal mt-1">{{ $setting->description }}</p>
+                                                @endif
+                                            </div>
+                                        </label>
+                                    </div>
+
+                                    <div class="md:col-span-2">
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class='bx bx-hash text-gray-400'></i>
+                                            </div>
+                                            <input type="number" step="0.01" name="settings[{{ $setting->key }}]"
+                                                id="setting_{{ $setting->key }}" value="{{ $setting->value }}"
+                                                placeholder="Enter {{ strtolower(str_replace(['payroll_', '_'], ['', ' '], $setting->key)) }}..."
+                                                class="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 hover:border-gray-400">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <!-- Email Settings -->
             @if(isset($groupedSettings['email']))
                 <div class="bg-white rounded-lg shadow-md border border-gray-200 mx-2 mb-8 overflow-hidden">

@@ -75,6 +75,9 @@ class StaffController extends Controller
                 'position' => 'nullable|string|max:255',
                 'department' => 'nullable|string|max:255',
                 'hire_date' => 'nullable|date',
+                'employment_type' => 'required|in:full_time,part_time',
+                'basic_salary' => 'required_if:employment_type,full_time|nullable|numeric|min:0',
+                'hourly_rate' => 'required_if:employment_type,part_time|nullable|numeric|min:0',
                 'notes' => 'nullable|string',
             ], [
                 'user_id.required' => 'Please select a user account.',
@@ -82,6 +85,9 @@ class StaffController extends Controller
                 'user_id.unique' => 'This user already has a staff profile.',
                 'first_name.required' => 'The first name field is required.',
                 'last_name.required' => 'The last name field is required.',
+                'employment_type.required' => 'Please select an employment type.',
+                'basic_salary.required_if' => 'Basic salary is required for full-time employees.',
+                'hourly_rate.required_if' => 'Hourly rate is required for part-time employees.',
             ]);
 
             // Verify user has staff role
@@ -98,6 +104,13 @@ class StaffController extends Controller
                     ->withInput()
                     ->with('error', $message);
             }
+
+            // Update user employment fields
+            $user->update([
+                'employment_type' => $validated['employment_type'],
+                'basic_salary' => $validated['employment_type'] === 'full_time' ? $validated['basic_salary'] : null,
+                'hourly_rate' => $validated['employment_type'] === 'part_time' ? $validated['hourly_rate'] : null,
+            ]);
 
             $staff = Staff::create($validated);
 
@@ -184,10 +197,23 @@ class StaffController extends Controller
                 'position' => 'nullable|string|max:255',
                 'department' => 'nullable|string|max:255',
                 'hire_date' => 'nullable|date',
+                'employment_type' => 'required|in:full_time,part_time',
+                'basic_salary' => 'required_if:employment_type,full_time|nullable|numeric|min:0',
+                'hourly_rate' => 'required_if:employment_type,part_time|nullable|numeric|min:0',
                 'notes' => 'nullable|string',
             ], [
                 'first_name.required' => 'The first name field is required.',
                 'last_name.required' => 'The last name field is required.',
+                'employment_type.required' => 'Please select an employment type.',
+                'basic_salary.required_if' => 'Basic salary is required for full-time employees.',
+                'hourly_rate.required_if' => 'Hourly rate is required for part-time employees.',
+            ]);
+
+            // Update user employment fields
+            $staff->user->update([
+                'employment_type' => $validated['employment_type'],
+                'basic_salary' => $validated['employment_type'] === 'full_time' ? $validated['basic_salary'] : null,
+                'hourly_rate' => $validated['employment_type'] === 'part_time' ? $validated['hourly_rate'] : null,
             ]);
 
             $staff->update($validated);

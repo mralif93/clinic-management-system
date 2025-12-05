@@ -21,7 +21,12 @@ class Doctor extends Model
         'qualification',
         'bio',
         'type',
+        'commission_rate',
         'is_available',
+    ];
+
+    protected $casts = [
+        'commission_rate' => 'decimal:2',
     ];
 
     /**
