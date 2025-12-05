@@ -70,10 +70,10 @@ class ScheduleController extends Controller
                 'schedules.*.break_start' => 'nullable|date_format:H:i',
                 'schedules.*.break_end' => 'nullable|date_format:H:i',
                 'schedules.*.end_time' => 'nullable|date_format:H:i',
-                'schedules.*.slot_duration' => 'required|integer|in:15,30,45,60',
+                'schedules.*.slot_duration' => 'nullable|integer|in:15,30,45,60',
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
-            return redirect()->route('admin.schedule.manage', $doctorId)
+            return redirect()->route('admin.schedules.manage', $doctorId)
                 ->withErrors($e->validator)
                 ->withInput();
         }
@@ -92,7 +92,7 @@ class ScheduleController extends Controller
                         'break_start' => $scheduleData['break_start'] ?? null,
                         'break_end' => $scheduleData['break_end'] ?? null,
                         'end_time' => $scheduleData['end_time'] ?? null,
-                        'slot_duration' => $scheduleData['slot_duration'],
+                        'slot_duration' => $scheduleData['slot_duration'] ?? 30,
                     ]
                 );
             }
@@ -108,7 +108,7 @@ class ScheduleController extends Controller
             \Log::error('Failed to save doctor schedule (admin): ' . $e->getMessage());
             \Log::error('Exception: ' . $e->getTraceAsString());
 
-            return redirect()->route('admin.schedule.manage', $doctorId)
+            return redirect()->route('admin.schedules.manage', $doctorId)
                 ->with('error', 'Failed to save schedule settings. Please try again.');
         }
     }
