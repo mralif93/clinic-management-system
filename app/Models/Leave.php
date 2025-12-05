@@ -62,6 +62,25 @@ class Leave extends Model
     }
 
     /**
+     * Check if there is an overlapping leave for a user
+     */
+    public static function hasOverlap(int $userId, $startDate, $endDate, ?int $ignoreId = null): bool
+    {
+        return static::where('user_id', $userId)
+            ->whereIn('status', [self::STATUS_PENDING, self::STATUS_APPROVED])
+            ->when($ignoreId, fn ($query) => $query->where('id', '!=', $ignoreId))
+            ->where(function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('start_date', [$startDate, $endDate])
+                    ->orWhereBetween('end_date', [$startDate, $endDate])
+                    ->orWhere(function ($query) use ($startDate, $endDate) {
+                        $query->where('start_date', '<=', $startDate)
+                            ->where('end_date', '>=', $endDate);
+                    });
+            })
+            ->exists();
+    }
+
+    /**
      * Relationships
      */
     public function user()

@@ -48,8 +48,16 @@ class AppointmentController extends Controller
             'notes' => 'nullable|string|max:500'
         ]);
 
+        $patientId = Auth::id();
+
+        if (Appointment::hasConflict($validated['doctor_id'], $patientId, $validated['appointment_date'], $validated['appointment_time'])) {
+            return back()
+                ->withErrors(['appointment_time' => 'The selected time is already booked for you or the doctor.'])
+                ->withInput();
+        }
+
         $appointment = Appointment::create([
-            'patient_id' => Auth::id(),
+            'patient_id' => $patientId,
             'doctor_id' => $validated['doctor_id'],
             'service_id' => $validated['service_id'],
             'appointment_date' => $validated['appointment_date'],

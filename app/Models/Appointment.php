@@ -36,6 +36,27 @@ class Appointment extends Model
     ];
 
     /**
+     * Determine if the appointment time conflicts with an existing booking
+     */
+    public static function hasConflict(?int $doctorId, ?int $patientId, $appointmentDate, string $appointmentTime, ?int $ignoreId = null): bool
+    {
+        $baseQuery = static::whereDate('appointment_date', $appointmentDate)
+            ->where('appointment_time', $appointmentTime)
+            ->whereNotIn('status', ['cancelled'])
+            ->when($ignoreId, fn ($query) => $query->where('id', '!=', $ignoreId));
+
+        if ($doctorId && (clone $baseQuery)->where('doctor_id', $doctorId)->exists()) {
+            return true;
+        }
+
+        if ($patientId && (clone $baseQuery)->where('patient_id', $patientId)->exists()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Calculate discount amount
      */
     public function getDiscountAmountAttribute()

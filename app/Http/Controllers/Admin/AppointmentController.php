@@ -128,6 +128,12 @@ class AppointmentController extends Controller
             'payment_method' => 'nullable|in:cash,card,online,insurance',
         ]);
 
+        if (Appointment::hasConflict($validated['doctor_id'] ?? null, $validated['patient_id'], $validated['appointment_date'], $validated['appointment_time'])) {
+            return back()
+                ->withErrors(['appointment_time' => 'The selected time is already booked for this doctor or patient.'])
+                ->withInput();
+        }
+
         Appointment::create($validated);
 
         return redirect()->route('admin.appointments.index')
@@ -192,6 +198,12 @@ class AppointmentController extends Controller
             'payment_status' => 'nullable|in:unpaid,paid,partial',
             'payment_method' => 'nullable|in:cash,card,online,insurance',
         ]);
+
+        if (Appointment::hasConflict($validated['doctor_id'] ?? null, $validated['patient_id'], $validated['appointment_date'], $validated['appointment_time'], $appointment->id)) {
+            return back()
+                ->withErrors(['appointment_time' => 'The selected time is already booked for this doctor or patient.'])
+                ->withInput();
+        }
 
         $appointment->update($validated);
 

@@ -127,6 +127,12 @@ class LeaveController extends Controller
         $endDate = \Carbon\Carbon::parse($validated['end_date']);
         $validated['total_days'] = $startDate->diffInDays($endDate) + 1;
 
+        if (Leave::hasOverlap($validated['user_id'], $validated['start_date'], $validated['end_date'])) {
+            return back()
+                ->withErrors(['start_date' => 'This user already has a leave that overlaps with the selected dates.'])
+                ->withInput();
+        }
+
         // Handle file upload
         if ($request->hasFile('attachment')) {
             $path = $request->file('attachment')->store('leave-attachments', 'public');
@@ -183,6 +189,12 @@ class LeaveController extends Controller
         $startDate = \Carbon\Carbon::parse($validated['start_date']);
         $endDate = \Carbon\Carbon::parse($validated['end_date']);
         $validated['total_days'] = $startDate->diffInDays($endDate) + 1;
+
+        if (Leave::hasOverlap($validated['user_id'], $validated['start_date'], $validated['end_date'], $leave->id)) {
+            return back()
+                ->withErrors(['start_date' => 'This user already has a leave that overlaps with the selected dates.'])
+                ->withInput();
+        }
 
         // Handle file upload
         if ($request->hasFile('attachment')) {
