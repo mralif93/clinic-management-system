@@ -6,19 +6,22 @@
 @section('content')
     <div class="space-y-6">
         <!-- Header -->
-        <div class="flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl font-bold text-gray-900">Schedule: {{ $doctor->user->name }}</h1>
-                <p class="text-gray-600 mt-1">Weekly working schedule for Dr. {{ $doctor->user->name }}</p>
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div class="space-y-1">
+                <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <i class='bx bx-time text-primary-600 text-2xl'></i>
+                    Schedule: {{ $doctor->user->name }}
+                </h1>
+                <p class="text-sm text-gray-600">Weekly working schedule for Dr. {{ $doctor->user->name }}</p>
             </div>
-            <div class="flex space-x-3">
+            <div class="flex flex-wrap gap-2">
                 <a href="{{ route('admin.schedules.manage', $doctor->id) }}"
-                    class="inline-flex items-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition shadow-md hover:shadow-lg">
-                    <i class='bx bx-edit mr-2'></i> Edit Schedule
+                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-success-600 text-white hover:bg-success-700 focus:ring-2 focus:ring-success-600 focus:ring-offset-2 shadow-sm">
+                    <i class='bx bx-edit text-base'></i> Edit Schedule
                 </a>
                 <a href="{{ route('admin.schedules.index') }}"
-                    class="inline-flex items-center px-4 py-2 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition">
-                    <i class='bx bx-arrow-back mr-2'></i> Back to List
+                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 shadow-sm">
+                    <i class='bx bx-arrow-back text-base'></i> Back to List
                 </a>
             </div>
         </div>
@@ -33,13 +36,13 @@
                 @endphp
 
                 <div
-                    class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition {{ $isActive ? '' : 'opacity-75' }}">
+                    class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow transition {{ $isActive ? '' : 'opacity-75' }}">
                     <!-- Card Header -->
                     <div
-                        class="{{ $isActive ? 'bg-gradient-to-r from-blue-600 to-blue-700' : 'bg-gray-500' }} px-4 py-3 flex items-center justify-between">
-                        <h3 class="text-lg font-bold text-white">{{ $dayName }}</h3>
+                        class="{{ $isActive ? 'bg-primary-600' : 'bg-gray-500' }} px-4 py-3 flex items-center justify-between text-white">
+                        <h3 class="text-lg font-bold">{{ $dayName }}</h3>
                         <span
-                            class="px-2 py-1 text-xs font-semibold rounded-full {{ $isActive ? 'bg-green-100 text-green-800' : 'bg-gray-200 text-gray-800' }}">
+                            class="px-3 py-1 text-xs font-semibold rounded-full {{ $isActive ? 'bg-white/90 text-primary-700' : 'bg-white/70 text-gray-700' }}">
                             {{ $isActive ? 'Working' : 'Off Day' }}
                         </span>
                     </div>

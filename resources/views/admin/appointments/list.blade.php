@@ -6,19 +6,22 @@
 @section('content')
 <div class="space-y-6">
     <!-- Header Actions -->
-    <div class="flex justify-between items-center">
-        <div>
-            <h1 class="text-2xl font-bold text-gray-900">Appointments</h1>
-            <p class="text-sm text-gray-600 mt-1">Appointments for {{ $monthName }}</p>
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="space-y-1">
+            <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                <i class='bx bx-calendar text-primary-600 text-2xl'></i>
+                Appointments
+            </h1>
+            <p class="text-sm text-gray-600">Appointments for {{ $monthName }}</p>
         </div>
-        <div class="flex gap-2">
+        <div class="flex flex-wrap gap-2">
             <a href="{{ route('admin.appointments.index') }}" 
-               class="bg-gray-600 text-white px-3 py-2 rounded-lg hover:bg-gray-700 transition flex items-center">
-                <i class='bx bx-arrow-back mr-2 text-base'></i>
+               class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 shadow-sm">
+                <i class='bx bx-arrow-back text-base'></i>
                 Back to Months
             </a>
-            <a href="{{ route('admin.appointments.create') }}" class="bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition flex items-center">
-                <i class='bx bx-plus mr-2 text-base'></i>
+            <a href="{{ route('admin.appointments.create') }}" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-primary-600 text-white hover:bg-primary-700 focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 shadow-sm">
+                <i class='bx bx-plus text-base'></i>
                 Schedule Appointment
             </a>
         </div>
@@ -26,37 +29,37 @@
 
     <!-- Statistics Cards (Contextual) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl shadow-lg p-6 text-white">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-indigo-100 text-sm font-medium">Total Appointments</p>
-                    <h3 class="text-3xl font-bold mt-2">{{ $stats['total'] }}</h3>
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-600">Total Appointments</p>
+                    <h3 class="text-3xl font-bold text-gray-900">{{ $stats['total'] }}</h3>
                 </div>
-                <div class="bg-white bg-opacity-20 rounded-full p-4">
+                <div class="bg-primary-50 text-primary-700 p-4 rounded-full">
                     <i class='bx bx-calendar text-3xl'></i>
                 </div>
             </div>
         </div>
         
-        <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-blue-100 text-sm font-medium">Scheduled</p>
-                    <h3 class="text-3xl font-bold mt-2">{{ $stats['scheduled'] }}</h3>
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-600">Scheduled</p>
+                    <h3 class="text-3xl font-bold text-gray-900">{{ $stats['scheduled'] }}</h3>
                 </div>
-                <div class="bg-white bg-opacity-20 rounded-full p-4">
+                <div class="bg-primary-50 text-primary-700 p-4 rounded-full">
                     <i class='bx bx-time text-3xl'></i>
                 </div>
             </div>
         </div>
 
-        <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-green-100 text-sm font-medium">Completed</p>
-                    <h3 class="text-3xl font-bold mt-2">{{ $stats['completed'] }}</h3>
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-600">Completed</p>
+                    <h3 class="text-3xl font-bold text-gray-900">{{ $stats['completed'] }}</h3>
                 </div>
-                <div class="bg-white bg-opacity-20 rounded-full p-4">
+                <div class="bg-success-50 text-success-600 p-4 rounded-full">
                     <i class='bx bx-check-double text-3xl'></i>
                 </div>
             </div>
@@ -64,30 +67,30 @@
     </div>
 
     <!-- Filters Section -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+    <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
         <form method="GET" action="{{ route('admin.appointments.by-month', ['year' => $year, 'month' => $month]) }}" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <!-- Search -->
                 <div class="md:col-span-2">
-                    <label for="search" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class='bx bx-search mr-1'></i> Search
+                    <label for="search" class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                        <i class='bx bx-search'></i> Search
                     </label>
                     <input type="text" 
                            id="search"
                            name="search" 
                            value="{{ request('search') }}"
                            placeholder="Search by patient name, doctor, or service..."
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                           class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                 </div>
                 
                 <!-- Status Filter -->
                 <div>
-                    <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class='bx bx-info-circle mr-1'></i> Status
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                        <i class='bx bx-info-circle'></i> Status
                     </label>
                     <select id="status"
                             name="status" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                         <option value="">All Statuses</option>
                         <option value="scheduled" {{ request('status') == 'scheduled' ? 'selected' : '' }}>Scheduled</option>
                         <option value="confirmed" {{ request('status') == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
@@ -99,28 +102,28 @@
                 
                 <!-- Date Filter -->
                 <div>
-                    <label for="date" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class='bx bx-calendar mr-1'></i> Date
+                    <label for="date" class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                        <i class='bx bx-calendar'></i> Date
                     </label>
                     <input type="date" 
                            id="date"
                            name="date" 
                            value="{{ request('date') }}"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                           class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                 </div>
             </div>
             
             <!-- Action Buttons -->
             <div class="flex flex-wrap gap-3">
                 <button type="submit" 
-                        class="inline-flex items-center px-4 py-2 bg-gray-700 text-white font-medium rounded-lg hover:bg-gray-800 transition">
-                    <i class='bx bx-filter-alt mr-2 text-base'></i>
+                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-primary-600 text-white hover:bg-primary-700 focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 shadow-sm">
+                    <i class='bx bx-filter-alt text-base'></i>
                     Apply Filters
                 </button>
                 @if(request()->hasAny(['search', 'status', 'date']))
                     <a href="{{ route('admin.appointments.by-month', ['year' => $year, 'month' => $month]) }}" 
-                       class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition">
-                        <i class='bx bx-x mr-2 text-base'></i>
+                       class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 shadow-sm">
+                        <i class='bx bx-x text-base'></i>
                         Clear Filters
                     </a>
                 @endif
@@ -129,23 +132,23 @@
     </div>
 
     <!-- Appointments Table -->
-    <div class="bg-white rounded-lg shadow overflow-hidden">
-        <div class="overflow-x-auto">
+    <div class="bg-white border border-gray-100 rounded-lg shadow-sm overflow-hidden">
+        <div class="w-full overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+                <thead class="bg-gray-50 text-xs font-semibold uppercase text-gray-600">
                     <tr>
-                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
-                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
-                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
-                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
-                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fee</th>
-                        <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        <th class="px-6 py-3 text-left tracking-wide">Patient</th>
+                        <th class="px-6 py-3 text-left tracking-wide">Doctor</th>
+                        <th class="px-6 py-3 text-left tracking-wide">Service</th>
+                        <th class="px-6 py-3 text-left tracking-wide">Date & Time</th>
+                        <th class="px-6 py-3 text-left tracking-wide">Status</th>
+                        <th class="px-6 py-3 text-left tracking-wide">Fee</th>
+                        <th class="px-6 py-3 text-right tracking-wide">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse($appointments as $appointment)
-                        <tr class="hover:bg-gray-50">
+                        <tr class="hover:bg-gray-50 transition-colors duration-150 {{ $appointment->trashed() ? 'opacity-60' : '' }}">
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm font-medium text-gray-900">{{ $appointment->patient->full_name }}</div>
                                 <div class="text-sm text-gray-500">{{ $appointment->patient->phone ?? 'N/A' }}</div>
@@ -155,7 +158,7 @@
                                     <div class="text-sm text-gray-900">{{ $appointment->doctor->full_name }}</div>
                                     <div class="text-sm text-gray-500">{{ $appointment->doctor->specialization ?? 'N/A' }}</div>
                                     @if($appointment->is_locum_doctor)
-                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 mt-1">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary-50 text-primary-700 mt-1">
                                             <i class='bx bx-briefcase-alt text-xs mr-1'></i>
                                             Locum
                                         </span>
@@ -186,7 +189,7 @@
                                         'no_show' => 'bg-yellow-100 text-yellow-800',
                                     ];
                                 @endphp
-                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $statusColors[$appointment->status] ?? 'bg-gray-100 text-gray-800' }}">
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold {{ $statusColors[$appointment->status] ?? 'bg-gray-100 text-gray-800' }}">
                                     {{ ucfirst(str_replace('_', ' ', $appointment->status)) }}
                                 </span>
                             </td>

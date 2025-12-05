@@ -6,20 +6,23 @@
 @section('content')
     <div class="space-y-6">
         <!-- Header -->
-        <div class="flex justify-between items-center">
-            <div>
-                <h1 class="text-3xl font-bold text-gray-800">Attendance Management</h1>
-                <p class="text-gray-600 mt-1">Records for {{ $monthName }}</p>
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="space-y-1">
+                <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <i class='bx bx-time text-primary-600 text-2xl'></i>
+                    Attendance Management
+                </h1>
+                <p class="text-sm text-gray-600">Records for {{ $monthName }}</p>
             </div>
-            <div class="flex gap-2">
+            <div class="flex flex-wrap gap-2">
                 <a href="{{ route('admin.attendance.index') }}"
-                    class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
-                    <i class='bx bx-arrow-back text-xl'></i>
+                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 shadow-sm">
+                    <i class='bx bx-arrow-back text-base'></i>
                     Back to Months
                 </a>
                 <button onclick="openAddEntryModal()"
-                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
-                    <i class='bx bx-plus-circle text-xl'></i>
+                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-primary-600 text-white hover:bg-primary-700 focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 shadow-sm">
+                    <i class='bx bx-plus-circle text-base'></i>
                     Add Entry
                 </button>
             </div>
@@ -27,37 +30,37 @@
 
         <!-- Statistics Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl shadow-lg p-6 text-white">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-indigo-100 text-sm font-medium">Total Records</p>
-                        <h3 class="text-3xl font-bold mt-2">{{ $stats['total'] }}</h3>
+            <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <p class="text-sm font-medium text-gray-600">Total Records</p>
+                        <h3 class="text-3xl font-bold text-gray-900">{{ $stats['total'] }}</h3>
                     </div>
-                    <div class="bg-white bg-opacity-20 rounded-full p-4">
+                    <div class="bg-primary-50 text-primary-700 p-4 rounded-full">
                         <i class='bx bx-calendar text-3xl'></i>
                     </div>
                 </div>
             </div>
             
-            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-green-100 text-sm font-medium">Present</p>
-                        <h3 class="text-3xl font-bold mt-2">{{ $stats['present'] }}</h3>
+            <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <p class="text-sm font-medium text-gray-600">Present</p>
+                        <h3 class="text-3xl font-bold text-gray-900">{{ $stats['present'] }}</h3>
                     </div>
-                    <div class="bg-white bg-opacity-20 rounded-full p-4">
+                    <div class="bg-success-50 text-success-600 p-4 rounded-full">
                         <i class='bx bx-check-circle text-3xl'></i>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl shadow-lg p-6 text-white">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-yellow-100 text-sm font-medium">Late</p>
-                        <h3 class="text-3xl font-bold mt-2">{{ $stats['late'] }}</h3>
+            <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+                <div class="flex items-center justify-between gap-4">
+                    <div class="space-y-1">
+                        <p class="text-sm font-medium text-gray-600">Late</p>
+                        <h3 class="text-3xl font-bold text-gray-900">{{ $stats['late'] }}</h3>
                     </div>
-                    <div class="bg-white bg-opacity-20 rounded-full p-4">
+                    <div class="bg-yellow-50 text-yellow-700 p-4 rounded-full">
                         <i class='bx bx-time text-3xl'></i>
                     </div>
                 </div>
@@ -65,17 +68,17 @@
         </div>
 
         <!-- Filters -->
-        <div class="bg-white rounded-xl shadow-md p-6">
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
             <form method="GET" action="{{ route('admin.attendance.by-month', ['year' => $year, 'month' => $month]) }}" class="flex flex-wrap gap-4">
                 <div class="flex-1 min-w-[200px]">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
                     <input type="date" name="date" value="{{ request('date') }}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                 </div>
                 <div class="flex-1 min-w-[200px]">
                     <label class="block text-sm font-medium text-gray-700 mb-2">User</label>
                     <select name="user_id"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                         <option value="">All Users</option>
                         @foreach($users as $user)
                             <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
@@ -87,7 +90,7 @@
                 <div class="flex-1 min-w-[200px]">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
                     <select name="status"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                         <option value="">All Status</option>
                         <option value="present" {{ request('status') == 'present' ? 'selected' : '' }}>Present</option>
                         <option value="late" {{ request('status') == 'late' ? 'selected' : '' }}>Late</option>
@@ -97,11 +100,11 @@
                 </div>
                 <div class="flex items-end gap-2">
                     <button type="submit"
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">
+                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-primary-600 text-white hover:bg-primary-700 focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 shadow-sm">
                         <i class='bx bx-filter-alt'></i> Filter
                     </button>
                     <a href="{{ route('admin.attendance.by-month', ['year' => $year, 'month' => $month]) }}"
-                        class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2 rounded-lg transition-colors">
+                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 shadow-sm">
                         <i class='bx bx-reset'></i> Reset
                     </a>
                 </div>
@@ -109,27 +112,27 @@
         </div>
 
         <!-- Attendance List -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                    <thead class="bg-gray-50 text-xs font-semibold uppercase text-gray-600">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Clock In</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Clock Out</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Hours</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                            <th class="px-6 py-3 text-left tracking-wide">User</th>
+                            <th class="px-6 py-3 text-left tracking-wide">Date</th>
+                            <th class="px-6 py-3 text-left tracking-wide">Clock In</th>
+                            <th class="px-6 py-3 text-left tracking-wide">Clock Out</th>
+                            <th class="px-6 py-3 text-left tracking-wide">Total Hours</th>
+                            <th class="px-6 py-3 text-left tracking-wide">Status</th>
+                            <th class="px-6 py-3 text-left tracking-wide">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @forelse($attendances as $attendance)
-                            <tr class="hover:bg-gray-50 transition-colors">
+                            <tr class="hover:bg-gray-50 transition-colors {{ $attendance->trashed() ? 'opacity-60' : '' }}">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="bg-blue-100 rounded-full p-2 mr-3">
-                                            <i class='bx bx-user text-blue-600'></i>
+                                        <div class="bg-primary-50 text-primary-700 rounded-full p-2 mr-3">
+                                            <i class='bx bx-user'></i>
                                         </div>
                                         <div>
                                             <div class="text-sm font-medium text-gray-900">{{ $attendance->user->name }}</div>
@@ -146,24 +149,24 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     {{ $attendance->clock_out_time ? $attendance->clock_out_time->format('h:i A') : '-' }}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-green-600">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-success-600">
                                     {{ $attendance->total_hours ? $attendance->total_hours . 'h' : '-' }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
-                                        class="px-2 py-1 text-xs font-semibold rounded-full border {{ $attendance->status_color }}">
+                                        class="inline-flex items-center px-3 py-1 text-xs font-semibold rounded-full border {{ $attendance->status_color }}">
                                         {{ ucfirst(str_replace('_', ' ', $attendance->status)) }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <div class="flex justify-end items-center gap-2">
                                         <a href="{{ route('admin.attendance.show', $attendance) }}"
-                                            class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600 rounded-full transition shadow-sm"
+                                            class="w-8 h-8 flex items-center justify-center rounded-full bg-primary-600 text-white hover:bg-primary-700 focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 text-xs"
                                             title="View">
                                             <i class='bx bx-info-circle text-base'></i>
                                         </a>
                                         <a href="{{ route('admin.attendance.edit', $attendance) }}"
-                                            class="w-8 h-8 flex items-center justify-center bg-yellow-500 text-white hover:bg-yellow-600 rounded-full transition shadow-sm"
+                                            class="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 text-xs"
                                             title="Edit">
                                             <i class='bx bx-pencil text-base'></i>
                                         </a>
@@ -171,13 +174,13 @@
                                             <form action="{{ route('admin.attendance.approve', $attendance) }}" method="POST"
                                                 class="inline">
                                                 @csrf
-                                                <button type="submit" class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm" title="Approve">
+                                                <button type="submit" class="w-8 h-8 flex items-center justify-center rounded-full bg-success-600 text-white hover:bg-success-700 focus:ring-2 focus:ring-success-600 focus:ring-offset-2 text-xs" title="Approve">
                                                     <i class='bx bx-check text-base'></i>
                                                 </button>
                                             </form>
                                         @endif
                                         <button onclick="deleteAttendance({{ $attendance->id }}, '{{ addslashes($attendance->user->name ?? 'Unknown') }}')"
-                                                class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm"
+                                                class="w-8 h-8 flex items-center justify-center rounded-full bg-red-600 text-white hover:bg-red-700 focus:ring-2 focus:ring-red-600 focus:ring-offset-2 text-xs"
                                                 title="Delete">
                                             <i class='bx bx-trash text-base'></i>
                                         </button>

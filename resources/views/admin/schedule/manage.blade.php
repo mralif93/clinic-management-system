@@ -6,14 +6,17 @@
 @section('content')
     <div class="space-y-6">
         <!-- Header -->
-        <div class="flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl font-bold text-gray-900">Manage Schedule: {{ $doctor->user->name }}</h1>
-                <p class="text-gray-600 mt-1">Configure weekly working schedule for Dr. {{ $doctor->user->name }}</p>
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+            <div class="space-y-1">
+                <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <i class='bx bx-time text-primary-600 text-2xl'></i>
+                    Manage Schedule: {{ $doctor->user->name }}
+                </h1>
+                <p class="text-sm text-gray-600">Configure weekly working schedule for Dr. {{ $doctor->user->name }}</p>
             </div>
             <a href="{{ route('admin.schedules.index') }}"
-                class="inline-flex items-center px-4 py-2 bg-gray-600 text-white font-medium rounded-lg hover:bg-gray-700 transition">
-                <i class='bx bx-arrow-back mr-2'></i> Back to List
+                class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 shadow-sm">
+                <i class='bx bx-arrow-back text-base'></i> Back to List
             </a>
         </div>
 
@@ -29,10 +32,10 @@
                         $dayName = $dayNames[$dayIndex];
                     @endphp
                     
-                    <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition">
+                    <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow transition">
                         <!-- Card Header with Day and Status -->
-                        <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-3 flex items-center justify-between">
-                            <h3 class="text-lg font-bold text-white">{{ $dayName }}</h3>
+                        <div class="bg-primary-600 px-4 py-3 flex items-center justify-between text-white">
+                            <h3 class="text-lg font-bold">{{ $dayName }}</h3>
                             <!-- Status Toggle in Header -->
                             <label class="relative inline-flex items-center cursor-pointer">
                                 <!-- Hidden input for unchecked state -->
@@ -43,7 +46,7 @@
                                     {{ $schedule->is_active ? 'checked' : '' }}
                                     class="sr-only peer day-toggle"
                                     data-day="{{ $dayIndex }}">
-                                <div class="w-11 h-6 bg-white/30 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-white/40"></div>
+                                <div class="w-11 h-6 bg-white/30 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-white/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-white/60"></div>
                             </label>
                         </div>
 
@@ -61,14 +64,14 @@
                                         <input type="time" 
                                             name="schedules[{{ $dayIndex }}][start_time]" 
                                             value="{{ $schedule->start_time ?? '09:00' }}"
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                                            class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                                     </div>
                                     <div>
                                         <label class="block text-xs font-medium text-gray-700 mb-1">End Time</label>
                                         <input type="time" 
                                             name="schedules[{{ $dayIndex }}][end_time]" 
                                             value="{{ $schedule->end_time ?? '17:00' }}"
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                                            class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                                     </div>
                                 </div>
 
@@ -79,14 +82,14 @@
                                         <input type="time" 
                                             name="schedules[{{ $dayIndex }}][break_start]" 
                                             value="{{ $schedule->break_start ?? '12:00' }}"
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                                            class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                                     </div>
                                     <div>
                                         <label class="block text-xs font-medium text-gray-700 mb-1">Break End</label>
                                         <input type="time" 
                                             name="schedules[{{ $dayIndex }}][break_end]" 
                                             value="{{ $schedule->break_end ?? '13:00' }}"
-                                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                                            class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                                     </div>
                                 </div>
 
@@ -94,7 +97,7 @@
                                 <div>
                                     <label class="block text-xs font-medium text-gray-700 mb-1">Slot Duration</label>
                                     <select name="schedules[{{ $dayIndex }}][slot_duration]" 
-                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm">
+                                        class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                                         <option value="15" {{ ($schedule->slot_duration ?? 30) == 15 ? 'selected' : '' }}>15 minutes</option>
                                         <option value="30" {{ ($schedule->slot_duration ?? 30) == 30 ? 'selected' : '' }}>30 minutes</option>
                                         <option value="45" {{ ($schedule->slot_duration ?? 30) == 45 ? 'selected' : '' }}>45 minutes</option>

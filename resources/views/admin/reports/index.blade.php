@@ -6,45 +6,45 @@
 @section('content')
 <div class="space-y-6">
     <!-- Filters Section -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+    <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
         <form method="GET" action="{{ route('admin.reports.index') }}" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Start Date -->
                 <div>
-                    <label for="start_date" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class='bx bx-calendar mr-1'></i> Start Date
+                    <label for="start_date" class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                        <i class='bx bx-calendar'></i> Start Date
                     </label>
                     <input type="date" 
                            id="start_date" 
                            name="start_date" 
                            value="{{ $startDate }}"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                           class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                 </div>
                 
                 <!-- End Date -->
                 <div>
-                    <label for="end_date" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class='bx bx-calendar-check mr-1'></i> End Date
+                    <label for="end_date" class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                        <i class='bx bx-calendar-check'></i> End Date
                     </label>
                     <input type="date" 
                            id="end_date" 
                            name="end_date" 
                            value="{{ $endDate }}"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                           class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                 </div>
             </div>
             
             <!-- Action Buttons -->
             <div class="flex flex-wrap gap-3">
                 <button type="submit" 
-                        class="inline-flex items-center px-4 py-2 bg-gray-700 text-white font-medium rounded-lg hover:bg-gray-800 transition">
-                    <i class='bx bx-filter-alt mr-2 text-base'></i>
+                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-primary-600 text-white hover:bg-primary-700 focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 shadow-sm">
+                    <i class='bx bx-filter-alt text-base'></i>
                     Apply Filters
                 </button>
                 @if(request()->hasAny(['start_date', 'end_date']))
                     <a href="{{ route('admin.reports.index') }}" 
-                       class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 transition">
-                        <i class='bx bx-x mr-2 text-base'></i>
+                       class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 shadow-sm">
+                        <i class='bx bx-x text-base'></i>
                         Clear Filters
                     </a>
                 @endif
@@ -56,21 +56,21 @@
                     <div class="flex flex-wrap items-center gap-2">
                         <span class="text-sm font-medium text-gray-700">Active Filters:</span>
                         @if(request('start_date'))
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary-50 text-primary-700">
                                 <i class='bx bx-calendar mr-1'></i>
                                 From: {{ \Carbon\Carbon::parse(request('start_date'))->format('M d, Y') }}
                                 <a href="{{ route('admin.reports.index', array_merge(request()->except('start_date'), ['page' => 1])) }}" 
-                                   class="ml-2 hover:text-blue-600">
+                                   class="ml-2 hover:text-primary-700">
                                     <i class='bx bx-x'></i>
                                 </a>
                             </span>
                         @endif
                         @if(request('end_date'))
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-success-50 text-success-600">
                                 <i class='bx bx-calendar-check mr-1'></i>
                                 To: {{ \Carbon\Carbon::parse(request('end_date'))->format('M d, Y') }}
                                 <a href="{{ route('admin.reports.index', array_merge(request()->except('end_date'), ['page' => 1])) }}" 
-                                   class="ml-2 hover:text-green-600">
+                                   class="ml-2 hover:text-success-600">
                                     <i class='bx bx-x'></i>
                                 </a>
                             </span>
@@ -83,62 +83,62 @@
 
     <!-- Overall Statistics -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between">
-                <div>
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-1">
                     <p class="text-sm font-medium text-gray-600">Total Patients</p>
                     <p class="text-3xl font-bold text-gray-900 mt-2">{{ number_format($totalPatients) }}</p>
                 </div>
-                <div class="bg-blue-100 p-4 rounded-full">
-                    <i class='bx bx-user text-3xl text-blue-600'></i>
+                <div class="bg-primary-50 text-primary-700 p-4 rounded-full">
+                    <i class='bx bx-user text-3xl'></i>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between">
-                <div>
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-1">
                     <p class="text-sm font-medium text-gray-600">Total Doctors</p>
                     <p class="text-3xl font-bold text-gray-900 mt-2">{{ number_format($totalDoctors) }}</p>
                 </div>
-                <div class="bg-green-100 p-4 rounded-full">
-                    <i class='bx bx-user-circle text-3xl text-green-600'></i>
+                <div class="bg-success-50 text-success-600 p-4 rounded-full">
+                    <i class='bx bx-user-circle text-3xl'></i>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between">
-                <div>
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-1">
                     <p class="text-sm font-medium text-gray-600">Total Services</p>
                     <p class="text-3xl font-bold text-gray-900 mt-2">{{ number_format($totalServices) }}</p>
                 </div>
-                <div class="bg-purple-100 p-4 rounded-full">
-                    <i class='bx bx-list-ul text-3xl text-purple-600'></i>
+                <div class="bg-primary-50 text-primary-700 p-4 rounded-full">
+                    <i class='bx bx-list-ul text-3xl'></i>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between">
-                <div>
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-1">
                     <p class="text-sm font-medium text-gray-600">Total Users</p>
                     <p class="text-3xl font-bold text-gray-900 mt-2">{{ number_format($totalUsers) }}</p>
                 </div>
-                <div class="bg-yellow-100 p-4 rounded-full">
-                    <i class='bx bx-group text-3xl text-yellow-600'></i>
+                <div class="bg-yellow-50 text-yellow-700 p-4 rounded-full">
+                    <i class='bx bx-group text-3xl'></i>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex items-center justify-between">
-                <div>
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-1">
                     <p class="text-sm font-medium text-gray-600">Total Appointments</p>
                     <p class="text-3xl font-bold text-gray-900 mt-2">{{ number_format($totalAppointments) }}</p>
                 </div>
-                <div class="bg-indigo-100 p-4 rounded-full">
-                    <i class='bx bx-calendar text-3xl text-indigo-600'></i>
+                <div class="bg-primary-50 text-primary-700 p-4 rounded-full">
+                    <i class='bx bx-calendar text-3xl'></i>
                 </div>
             </div>
         </div>
@@ -146,47 +146,55 @@
 
     <!-- Revenue & Appointments Overview -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-white">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-green-100 text-sm font-medium">Total Revenue</p>
-                    <p class="text-3xl font-bold mt-2">{{ get_setting('currency', '$') }}{{ number_format($totalRevenue, 2) }}</p>
-                    <p class="text-green-100 text-xs mt-1">In selected period</p>
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-600">Total Revenue</p>
+                    <p class="text-3xl font-bold text-gray-900">{{ get_setting('currency', '$') }}{{ number_format($totalRevenue, 2) }}</p>
+                    <p class="text-xs text-gray-500">In selected period</p>
                 </div>
-                <i class='bx bx-dollar text-5xl opacity-50'></i>
+                <div class="bg-success-50 text-success-600 p-4 rounded-full">
+                    <i class='bx bx-dollar text-3xl'></i>
+                </div>
             </div>
         </div>
 
-        <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 text-white">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-blue-100 text-sm font-medium">Appointments</p>
-                    <p class="text-3xl font-bold mt-2">{{ number_format($appointmentsInRange->count()) }}</p>
-                    <p class="text-blue-100 text-xs mt-1">In selected period</p>
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-600">Appointments</p>
+                    <p class="text-3xl font-bold text-gray-900">{{ number_format($appointmentsInRange->count()) }}</p>
+                    <p class="text-xs text-gray-500">In selected period</p>
                 </div>
-                <i class='bx bx-calendar text-5xl opacity-50'></i>
+                <div class="bg-primary-50 text-primary-700 p-4 rounded-full">
+                    <i class='bx bx-calendar text-3xl'></i>
+                </div>
             </div>
         </div>
 
-        <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg shadow-lg p-6 text-white">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-emerald-100 text-sm font-medium">Completed</p>
-                    <p class="text-3xl font-bold mt-2">{{ number_format($completedAppointments) }}</p>
-                    <p class="text-emerald-100 text-xs mt-1">Appointments</p>
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-600">Completed</p>
+                    <p class="text-3xl font-bold text-gray-900">{{ number_format($completedAppointments) }}</p>
+                    <p class="text-xs text-gray-500">Appointments</p>
                 </div>
-                <i class='bx bx-check-circle text-5xl opacity-50'></i>
+                    <div class="bg-success-50 text-success-600 p-4 rounded-full">
+                        <i class='bx bx-check-circle text-3xl'></i>
+                    </div>
             </div>
         </div>
 
-        <div class="bg-gradient-to-br from-red-500 to-red-600 rounded-lg shadow-lg p-6 text-white">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-red-100 text-sm font-medium">Cancelled</p>
-                    <p class="text-3xl font-bold mt-2">{{ number_format($cancelledAppointments) }}</p>
-                    <p class="text-red-100 text-xs mt-1">Appointments</p>
+        <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
+            <div class="flex items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-600">Cancelled</p>
+                    <p class="text-3xl font-bold text-gray-900">{{ number_format($cancelledAppointments) }}</p>
+                    <p class="text-xs text-gray-500">Appointments</p>
                 </div>
-                <i class='bx bx-x-circle text-5xl opacity-50'></i>
+                <div class="bg-red-50 text-red-700 p-4 rounded-full">
+                    <i class='bx bx-x-circle text-3xl'></i>
+                </div>
             </div>
         </div>
     </div>

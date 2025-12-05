@@ -1,0 +1,305 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "framework": "tailwind",
+    "description": "UI design standard for Clinic Management System (Laravel + Tailwind). Values map directly to Tailwind theme keys and utility classes; component roles reference tokens."
+  },
+  "tokens": {
+    "fonts": {
+      "sans": "Poppins, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif",
+      "mono": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace"
+    },
+    "fontSizes": {
+      "xs": "0.75rem",
+      "sm": "0.875rem",
+      "md": "1rem",
+      "lg": "1.125rem",
+      "xl": "1.25rem",
+      "2xl": "1.5rem"
+    },
+    "fontWeights": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    },
+    "lineHeights": {
+      "tight": 1.25,
+      "normal": 1.5,
+      "relaxed": 1.625
+    },
+    "colors": {
+      "primary": {
+        "default": "#2563eb",
+        "hover": "#1d4ed8",
+        "muted": "#dbeafe"
+      },
+      "secondary": {
+        "default": "#6b7280",
+        "hover": "#4b5563",
+        "muted": "#f3f4f6"
+      },
+      "success": {
+        "default": "#16a34a",
+        "hover": "#15803d",
+        "muted": "#dcfce7"
+      },
+      "warning": {
+        "default": "#ca8a04",
+        "hover": "#a16207",
+        "muted": "#fef9c3"
+      },
+      "danger": {
+        "default": "#dc2626",
+        "hover": "#b91c1c",
+        "muted": "#fee2e2"
+      },
+      "info": {
+        "default": "#0ea5e9",
+        "hover": "#0284c7",
+        "muted": "#e0f2fe"
+      },
+      "neutral": {
+        "50": "#f9fafb",
+        "100": "#f3f4f6",
+        "200": "#e5e7eb",
+        "300": "#d1d5db",
+        "400": "#9ca3af",
+        "500": "#6b7280",
+        "600": "#4b5563",
+        "700": "#374151",
+        "800": "#1f2937",
+        "900": "#111827"
+      },
+      "text": {
+        "default": "{tokens.colors.neutral.800}",
+        "muted": "{tokens.colors.neutral.600}",
+        "subtle": "{tokens.colors.neutral.500}",
+        "onPrimary": "#ffffff",
+        "onSurface": "{tokens.colors.neutral.900}"
+      },
+      "background": {
+        "body": "#f8fafc",
+        "surface": "#ffffff",
+        "elevated": "#ffffff",
+        "brandTint": "{tokens.colors.primary.muted}"
+      },
+      "border": {
+        "default": "{tokens.colors.neutral.200}",
+        "subtle": "{tokens.colors.neutral.100}",
+        "strong": "{tokens.colors.neutral.300}",
+        "focus": "{tokens.colors.primary.default}"
+      }
+    },
+    "spacing": {
+      "0": "0rem",
+      "1": "0.25rem",
+      "2": "0.5rem",
+      "3": "0.75rem",
+      "4": "1rem",
+      "5": "1.25rem",
+      "6": "1.5rem",
+      "8": "2rem",
+      "10": "2.5rem",
+      "12": "3rem"
+    },
+    "radii": {
+      "sm": "0.25rem",
+      "md": "0.5rem",
+      "lg": "0.75rem",
+      "full": "9999px"
+    },
+    "shadows": {
+      "xs": "shadow-xs",
+      "sm": "shadow-sm",
+      "md": "shadow",
+      "lg": "shadow-lg",
+      "card": "shadow-sm"
+    },
+    "transitions": {
+      "fast": "150ms ease-in-out",
+      "normal": "200ms ease-in-out"
+    },
+    "breakpoints": {
+      "sm": "640px",
+      "md": "768px",
+      "lg": "1024px",
+      "xl": "1280px"
+    },
+    "zIndex": {
+      "dropdown": 20,
+      "sticky": 30,
+      "modal": 40,
+      "toast": 50
+    },
+    "focusRing": {
+      "width": "2px",
+      "offset": "2px",
+      "color": "{tokens.colors.primary.default}",
+      "class": "focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2"
+    },
+    "contrast": {
+      "minText": "4.5:1",
+      "minUi": "3:1"
+    }
+  },
+  "components": {
+    "button": {
+      "sizes": {
+        "sm": { "px": "{tokens.spacing.3}", "py": "{tokens.spacing.2}", "fontSize": "sm", "radius": "md" },
+        "md": { "px": "{tokens.spacing.4}", "py": "{tokens.spacing.2}", "fontSize": "sm", "radius": "md" },
+        "lg": { "px": "{tokens.spacing.6}", "py": "{tokens.spacing.3}", "fontSize": "md", "radius": "lg" }
+      },
+      "variants": {
+        "primary": { "bg": "{tokens.colors.primary.default}", "text": "{tokens.colors.text.onPrimary}", "hoverBg": "{tokens.colors.primary.hover}", "focusRing": "{tokens.colors.primary.default}" },
+        "secondary": { "bg": "{tokens.colors.neutral.100}", "text": "{tokens.colors.neutral.700}", "hoverBg": "{tokens.colors.neutral.200}", "focusRing": "{tokens.colors.neutral.500}" },
+        "success": { "bg": "{tokens.colors.success.default}", "text": "{tokens.colors.text.onPrimary}", "hoverBg": "{tokens.colors.success.hover}", "focusRing": "{tokens.colors.success.default}" },
+        "warning": { "bg": "{tokens.colors.warning.default}", "text": "{tokens.colors.text.onPrimary}", "hoverBg": "{tokens.colors.warning.hover}", "focusRing": "{tokens.colors.warning.default}" },
+        "danger": { "bg": "{tokens.colors.danger.default}", "text": "{tokens.colors.text.onPrimary}", "hoverBg": "{tokens.colors.danger.hover}", "focusRing": "{tokens.colors.danger.default}" },
+        "outline": {
+          "primary": { "bg": "transparent", "text": "{tokens.colors.primary.default}", "border": "{tokens.colors.primary.default}", "hoverBg": "{tokens.colors.primary.muted}", "focusRing": "{tokens.colors.primary.default}" },
+          "secondary": { "bg": "transparent", "text": "{tokens.colors.neutral.700}", "border": "{tokens.colors.neutral.300}", "hoverBg": "{tokens.colors.neutral.100}", "focusRing": "{tokens.colors.neutral.500}" }
+        },
+        "link": { "text": "{tokens.colors.primary.default}", "hoverText": "{tokens.colors.primary.hover}" }
+      },
+      "states": { "disabled": { "opacity": 0.5, "cursor": "not-allowed" }, "loading": { "text": "transparent", "spinner": "{tokens.colors.text.onPrimary}" } },
+      "classes": {
+        "base": "inline-flex items-center justify-center font-medium rounded-md transition duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 gap-2",
+        "size": { "sm": "px-3 py-2 text-sm", "md": "px-4 py-2 text-sm", "lg": "px-6 py-3 text-base" },
+        "primary": "bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-600",
+        "secondary": "bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-gray-500",
+        "outlinePrimary": "border border-primary-600 text-primary-600 hover:bg-primary-50 focus:ring-primary-600",
+        "link": "text-primary-600 hover:text-primary-700"
+      },
+      "meta": "Use inline-flex + gap-2 for icon+label; default size md."
+    },
+    "input": {
+      "base": { "bg": "{tokens.colors.background.surface}", "border": "{tokens.colors.border.default}", "text": "{tokens.colors.text.default}", "radius": "md", "shadow": "xs" },
+      "states": {
+        "focus": { "ring": "{tokens.colors.focus}", "ringOffset": "{tokens.focusRing.offset}", "border": "{tokens.colors.primary.default}" },
+        "error": { "border": "{tokens.colors.danger.default}", "text": "{tokens.colors.text.default}", "helper": "{tokens.colors.danger.default}" },
+        "disabled": { "bg": "{tokens.colors.neutral.100}", "text": "{tokens.colors.neutral.500}" }
+      },
+      "sizes": { "sm": { "px": "{tokens.spacing.3}", "py": "{tokens.spacing.2}", "fontSize": "sm" }, "md": { "px": "{tokens.spacing.3}", "py": "{tokens.spacing.2}", "fontSize": "sm" } },
+      "classes": {
+        "base": "w-full rounded-md border border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2",
+        "error": "border-red-500 focus:ring-red-500",
+        "disabled": "bg-gray-100 text-gray-500 cursor-not-allowed",
+        "size": { "sm": "px-3 py-2 text-sm", "md": "px-3 py-2 text-sm" }
+      },
+      "meta": "Shared by text/email/password/date/time/number/search; add left icons via pl-10."
+    },
+    "select": { "inherits": "input", "meta": "Match input styling; include chevron icon area with pr-10." },
+    "textarea": { "inherits": "input", "meta": "Min-height 120px; allow resize-y only." },
+    "checkbox": {
+      "box": { "size": "1rem", "radius": "md", "border": "{tokens.colors.border.default}", "checkedBg": "{tokens.colors.primary.default}", "checkedBorder": "{tokens.colors.primary.default}" },
+      "label": { "text": "{tokens.colors.text.default}", "fontSize": "sm" },
+      "meta": "Use focus ring on box; spacing gap-2."
+    },
+    "toggle": {
+      "track": { "width": "2.75rem", "height": "1.5rem", "radius": "full", "bgOff": "{tokens.colors.neutral.200}", "bgOn": "{tokens.colors.primary.muted}" },
+      "thumb": { "size": "1.25rem", "bg": "{tokens.colors.background.surface}", "shadow": "{tokens.shadows.sm}" },
+      "meta": "Animate thumb translate-x; respect reduced motion."
+    },
+    "badge": {
+      "variants": {
+        "primary": { "bg": "{tokens.colors.primary.muted}", "text": "{tokens.colors.primary.hover}" },
+        "success": { "bg": "{tokens.colors.success.muted}", "text": "{tokens.colors.success.hover}" },
+        "warning": { "bg": "{tokens.colors.warning.muted}", "text": "{tokens.colors.warning.hover}" },
+        "danger": { "bg": "{tokens.colors.danger.muted}", "text": "{tokens.colors.danger.hover}" },
+        "info": { "bg": "{tokens.colors.info.muted}", "text": "{tokens.colors.info.hover}" },
+        "neutral": { "bg": "{tokens.colors.neutral.100}", "text": "{tokens.colors.neutral.700}" }
+      },
+      "sizes": { "sm": { "px": "{tokens.spacing.2}", "py": "{tokens.spacing.1}", "fontSize": "xs", "radius": "full" }, "md": { "px": "{tokens.spacing.3}", "py": "{tokens.spacing.1}", "fontSize": "sm", "radius": "full" } }
+    },
+    "chip": { "bg": "{tokens.colors.neutral.100}", "text": "{tokens.colors.neutral.700}", "radius": "full", "border": "{tokens.colors.neutral.200}", "meta": "Optional leading icon and dismiss x with hover:bg-neutral.200." },
+    "alert": {
+      "variants": {
+        "success": { "bg": "{tokens.colors.success.muted}", "border": "{tokens.colors.success.default}", "text": "{tokens.colors.success.hover}" },
+        "warning": { "bg": "{tokens.colors.warning.muted}", "border": "{tokens.colors.warning.default}", "text": "{tokens.colors.warning.hover}" },
+        "danger": { "bg": "{tokens.colors.danger.muted}", "border": "{tokens.colors.danger.default}", "text": "{tokens.colors.danger.hover}" },
+        "info": { "bg": "{tokens.colors.info.muted}", "border": "{tokens.colors.info.default}", "text": "{tokens.colors.info.hover}" }
+      },
+      "meta": "Layout: icon + content + optional actions; radius md; padding 4."
+    },
+    "toast": { "inherits": "alert", "shadow": "{tokens.shadows.md}", "classes": { "base": "rounded-md shadow-md border bg-white p-4" }, "meta": "Use zIndex.toast; position top-right; auto-dismiss timers." },
+    "card": { "bg": "{tokens.colors.background.surface}", "border": "{tokens.colors.border.subtle}", "radius": "lg", "shadow": "{tokens.shadows.card}", "padding": "{tokens.spacing.6}", "classes": { "base": "bg-white border border-gray-100 rounded-lg shadow-sm p-6" }, "meta": "Use header with title + actions; body spacing 4; optional footer border-t." },
+    "table": {
+      "header": { "bg": "{tokens.colors.neutral.100}", "text": "{tokens.colors.neutral.700}", "border": "{tokens.colors.border.strong}", "fontSize": "xs", "fontWeight": "semibold" },
+      "row": { "border": "{tokens.colors.border.subtle}", "hoverBg": "{tokens.colors.neutral.50}", "selectedBg": "{tokens.colors.primary.muted}" },
+      "cell": { "padding": "{tokens.spacing.4}", "text": "{tokens.colors.text.default}", "fontSize": "sm" },
+      "classes": {
+        "wrapper": "w-full overflow-x-auto",
+        "table": "min-w-full divide-y divide-gray-200",
+        "thead": "bg-gray-50 text-xs font-semibold uppercase text-gray-600",
+        "th": "px-4 py-3 text-left tracking-wide",
+        "td": "px-4 py-3 text-sm text-gray-800",
+        "trHover": "hover:bg-gray-50"
+      },
+      "meta": "Enable responsive scroll on mobile; sticky header optional."
+    },
+    "pagination": { "button": "button.primary|secondary", "gap": "{tokens.spacing.2}", "meta": "Use rounded md, focus ring, disabled styles." },
+    "modal": { "overlay": "rgba(0,0,0,0.45)", "panel": { "bg": "{tokens.colors.background.surface}", "radius": "lg", "shadow": "{tokens.shadows.lg}", "padding": "{tokens.spacing.6}", "classes": "w-full max-w-2xl bg-white rounded-lg shadow-lg p-6" }, "meta": "Center with max-w-lg/-2xl; close button top-right; trap focus." },
+    "dropdown": { "bg": "{tokens.colors.background.surface}", "border": "{tokens.colors.border.default}", "radius": "md", "shadow": "{tokens.shadows.md}", "item": { "padding": "{tokens.spacing.3}", "hoverBg": "{tokens.colors.neutral.100}", "activeText": "{tokens.colors.primary.default}" }, "meta": "Min-width 12rem; zIndex.dropdown." },
+    "tooltip": { "bg": "{tokens.colors.neutral.800}", "text": "#ffffff", "radius": "md", "padding": "{tokens.spacing.2}", "shadow": "{tokens.shadows.sm}", "meta": "Small arrow optional; max-w-xs; delay on hover." },
+    "tabs": { "track": { "border": "{tokens.colors.border.default}" }, "tab": { "padding": "{tokens.spacing.3}", "radius": "md", "activeBg": "{tokens.colors.primary.muted}", "activeText": "{tokens.colors.primary.hover}", "inactiveText": "{tokens.colors.neutral.600}" }, "meta": "Use focus ring; optionally underline style via border-b." },
+    "breadcrumb": { "separator": ">", "text": "{tokens.colors.neutral.600}", "activeText": "{tokens.colors.neutral.900}", "meta": "Font size sm; spacing 2." }
+  },
+  "layouts": {
+    "auth": {
+      "background": "{tokens.colors.background.body}",
+      "card": "card",
+      "formSpacing": "{tokens.spacing.4}",
+      "meta": "Center column; include logo/name; use alerts for errors; primary button full-width."
+    },
+    "dashboard": {
+      "shell": { "sidebarWidth": "16rem", "bg": "{tokens.colors.background.body}", "contentBg": "{tokens.colors.background.surface}" },
+      "navigation": { "active": { "bg": "{tokens.colors.primary.muted}", "border": "{tokens.colors.primary.default}", "text": "{tokens.colors.primary.hover}" }, "idleText": "{tokens.colors.neutral.700}" },
+      "header": { "height": "4rem", "shadow": "{tokens.shadows.xs}" },
+      "cards": { "gap": "{tokens.spacing.4}", "stats": { "radius": "lg", "padding": "{tokens.spacing.5}" } },
+      "meta": "Apply per role (admin/doctor/staff/patient) with same shell; use cards for KPIs and tables for recent activity."
+    },
+    "listPage": {
+      "filters": { "layout": "flex wrap gap-3", "bg": "{tokens.colors.background.surface}", "padding": "{tokens.spacing.4}", "radius": "lg", "shadow": "{tokens.shadows.xs}" },
+      "table": "table",
+      "emptyState": { "icon": "neutral", "title": "No records", "cta": "button.primary" },
+      "meta": "Keep actions (add/export) top-right; use pagination component."
+    },
+    "formPage": {
+      "sections": { "gap": "{tokens.spacing.6}", "card": "card" },
+      "actions": { "primary": "button.primary", "secondary": "button.secondary" },
+      "meta": "Use 2-column layout on lg+; stack on mobile; inline validation with helper text."
+    },
+    "detailPage": {
+      "header": { "titleSize": "xl", "actions": "button group" },
+      "body": { "layout": "grid lg:2", "cards": "card" },
+      "meta": "Expose status badge near title; use info table with label/value rows."
+    },
+    "wizard": {
+      "steps": { "indicator": "tabs|breadcrumb hybrid", "activeColor": "{tokens.colors.primary.default}" },
+      "panel": "card",
+      "meta": "Show step count; next/previous buttons; persist partial state."
+    },
+    "landing": {
+      "hero": { "bg": "gradient from {tokens.colors.primary.muted} to #ffffff", "headline": "2xl/bold", "ctaPrimary": "button.primary", "ctaSecondary": "button.secondary" },
+      "services": { "card": "card", "iconBg": "{tokens.colors.primary.muted}" },
+      "stats": { "card": "card", "accent": "{tokens.colors.primary.default}" },
+      "cta": { "bg": "{tokens.colors.primary.default}", "text": "{tokens.colors.text.onPrimary}", "radius": "lg" },
+      "footer": { "bg": "{tokens.colors.neutral.900}", "text": "#e5e7eb", "link": "#cbd5f5" },
+      "meta": "Max width 7xl; generous spacing (py-16+); responsive grid for services."
+    }
+  },
+  "accessibility": {
+    "contrast": "Respect tokens.contrast.minText; ensure badges on colored backgrounds still readable.",
+    "focus": "Use {tokens.focusRing.color} with {tokens.focusRing.width} and {tokens.focusRing.offset}; never remove outline without replacement.",
+    "motion": "Reduce transitions to 0 when prefers-reduced-motion is set; avoid large parallax.",
+    "hitTargets": "Min 44x44px for interactive controls.",
+    "feedback": "Use alerts/toasts for system messages; inline errors under inputs."
+  },
+  "implementationNotes": {
+    "tailwind": "Map token values to Tailwind via theme extension or CSS vars. Example: set --color-primary: #2563eb and use bg-[color:var(--color-primary)].",
+    "blade": "Include buttons.css; apply component class recipes (e.g., btn btn-primary) aligned to token values; keep headings using font-semibold with fontSizes scale.",
+    "responsive": "Use container max-w-7xl for public, px-4/6 for dashboards; stack filters/cards on <md."
+  }
+}
+

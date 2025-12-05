@@ -6,48 +6,48 @@
 @section('content')
 <div class="space-y-6">
     <!-- Header Section -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+    <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-                <h1 class="text-2xl font-bold text-gray-900 flex items-center">
-                    <i class='bx bx-user-circle text-blue-600 mr-3'></i>
+            <div class="space-y-1">
+                <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                    <i class='bx bx-user-circle text-primary-600 text-2xl'></i>
                     User Management
                 </h1>
-                <p class="text-sm text-gray-600 mt-2">Manage system users, roles, and permissions</p>
+                <p class="text-sm text-gray-600">Manage system users, roles, and permissions</p>
             </div>
             <a href="{{ route('admin.users.create') }}" 
-               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg">
-                <i class='bx bx-plus mr-2 text-base'></i>
+               class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-primary-600 text-white hover:bg-primary-700 focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 shadow-sm">
+                <i class='bx bx-plus text-base'></i>
                 Add New User
             </a>
         </div>
     </div>
 
     <!-- Filters Section -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+    <div class="bg-white border border-gray-100 rounded-lg shadow-sm p-6">
         <form method="GET" action="{{ route('admin.users.index') }}" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                 <!-- Search -->
                 <div class="md:col-span-2">
-                    <label for="search" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class='bx bx-search mr-1'></i> Search
+                    <label for="search" class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                        <i class='bx bx-search'></i> Search
                     </label>
                     <input type="text" 
                            id="search"
                            name="search" 
                            value="{{ request('search') }}"
                            placeholder="Search by name or email..."
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition">
+                           class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                 </div>
                 
                 <!-- Role Filter -->
                 <div>
-                    <label for="role" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class='bx bx-user mr-1'></i> Role
+                    <label for="role" class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                        <i class='bx bx-user'></i> Role
                     </label>
                     <select id="role"
                             name="role" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition">
+                            class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                         <option value="">All Roles</option>
                         <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                         <option value="patient" {{ request('role') == 'patient' ? 'selected' : '' }}>Patient</option>
@@ -58,12 +58,12 @@
                 
                 <!-- Status Filter -->
                 <div>
-                    <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class='bx bx-info-circle mr-1'></i> Status
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                        <i class='bx bx-info-circle'></i> Status
                     </label>
                     <select id="status"
                             name="status" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-500 focus:border-gray-500 transition">
+                            class="w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 shadow-xs focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2">
                         <option value="active" {{ !in_array(request('status'), ['deleted', 'locked']) ? 'selected' : '' }}>Active</option>
                         <option value="locked" {{ request('status') == 'locked' ? 'selected' : '' }}>Locked</option>
                         <option value="deleted" {{ request('status') == 'deleted' ? 'selected' : '' }}>Deleted</option>
@@ -74,14 +74,14 @@
             <!-- Action Buttons -->
             <div class="flex flex-wrap gap-3 mt-4">
                 <button type="submit" 
-                        class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition shadow-sm">
-                    <i class='bx bx-filter-alt mr-2'></i>
+                        class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-primary-600 text-white hover:bg-primary-700 focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 shadow-sm">
+                    <i class='bx bx-filter-alt'></i>
                     Apply Filters
                 </button>
                 @if(request()->hasAny(['search', 'role', 'status']))
                     <a href="{{ route('admin.users.index') }}" 
-                       class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition shadow-sm">
-                        <i class='bx bx-x mr-2'></i>
+                       class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-md bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 shadow-sm">
+                        <i class='bx bx-x'></i>
                         Clear Filters
                     </a>
                 @endif
@@ -93,21 +93,21 @@
                     <div class="flex flex-wrap items-center gap-2">
                         <span class="text-sm font-medium text-gray-700">Active Filters:</span>
                         @if(request('search'))
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-primary-50 text-primary-700">
                                 <i class='bx bx-search mr-1'></i>
                                 Search: "{{ request('search') }}"
                                 <a href="{{ route('admin.users.index', array_merge(request()->except('search'), ['page' => 1])) }}" 
-                                   class="ml-2 hover:text-blue-600">
+                                   class="ml-2 hover:text-primary-700">
                                     <i class='bx bx-x'></i>
                                 </a>
                             </span>
                         @endif
                         @if(request('role'))
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 text-gray-800">
                                 <i class='bx bx-user mr-1'></i>
                                 Role: {{ ucfirst(request('role')) }}
                                 <a href="{{ route('admin.users.index', array_merge(request()->except('role'), ['page' => 1])) }}" 
-                                   class="ml-2 hover:text-purple-600">
+                                   class="ml-2 hover:text-gray-700">
                                     <i class='bx bx-x'></i>
                                 </a>
                             </span>
@@ -116,11 +116,11 @@
                             @php
                                 $statusColor = request('status') == 'deleted' ? 'red' : 'yellow';
                             @endphp
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium @if(request('status') == 'deleted') bg-red-100 text-red-800 @else bg-yellow-100 text-yellow-800 @endif">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold @if(request('status') == 'deleted') bg-red-50 text-red-700 @else bg-yellow-50 text-yellow-700 @endif">
                                 <i class='bx bx-info-circle mr-1'></i>
                                 Status: {{ ucfirst(request('status')) }}
                                 <a href="{{ route('admin.users.index', array_merge(request()->except('status'), ['page' => 1])) }}" 
-                                   class="ml-2 @if(request('status') == 'deleted') hover:text-red-600 @else hover:text-yellow-600 @endif">
+                                   class="ml-2 @if(request('status') == 'deleted') hover:text-red-700 @else hover:text-yellow-700 @endif">
                                     <i class='bx bx-x'></i>
                                 </a>
                             </span>
@@ -132,42 +132,42 @@
     </div>
 
     <!-- Users Table -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-        <div class="overflow-x-auto">
+    <div class="bg-white border border-gray-100 rounded-lg shadow-sm overflow-hidden">
+        <div class="w-full overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gradient-to-r from-gray-50 to-gray-100">
+                <thead class="bg-gray-50 text-xs font-semibold uppercase text-gray-600">
                     <tr>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left tracking-wide">
                             User
                         </th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left tracking-wide">
                             Contact
                         </th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left tracking-wide">
                             Role
                         </th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left tracking-wide">
                             Status
                         </th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left tracking-wide">
                             Security
                         </th>
-                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-left tracking-wide">
                             Created
                         </th>
-                        <th class="px-6 py-4 text-right text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                        <th class="px-6 py-3 text-right tracking-wide">
                             Actions
                         </th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse($users as $user)
-                        <tr class="hover:bg-blue-50 transition-colors duration-150 {{ $user->trashed() ? 'opacity-60' : '' }}">
+                        <tr class="hover:bg-gray-50 transition-colors duration-150 {{ $user->trashed() ? 'opacity-60' : '' }}">
                             <!-- User Info -->
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-12 w-12">
-                                        <div class="h-12 w-12 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center shadow-md">
+                                        <div class="h-12 w-12 rounded-full bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-sm">
                                             <span class="text-white font-bold text-base">{{ strtoupper(substr($user->name, 0, 1)) }}</span>
                                         </div>
                                     </div>
@@ -184,7 +184,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{ $user->email }}</div>
                                 @if($user->email_verified_at)
-                                    <div class="text-xs text-green-600 flex items-center mt-1">
+                                    <div class="text-xs text-success-600 flex items-center mt-1">
                                         <i class='bx bx-check-circle mr-1'></i> Verified
                                     </div>
                                 @else
@@ -198,15 +198,15 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @php
                                     $roleConfig = [
-                                        'admin' => ['bg' => 'bg-purple-100', 'text' => 'text-purple-800', 'icon' => 'bx-shield-quarter'],
-                                        'doctor' => ['bg' => 'bg-green-100', 'text' => 'text-green-800', 'icon' => 'bx-plus-medical'],
-                                        'staff' => ['bg' => 'bg-yellow-100', 'text' => 'text-yellow-800', 'icon' => 'bx-user'],
-                                        'patient' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-800', 'icon' => 'bx-user-circle'],
+                                        'admin' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-800', 'icon' => 'bx-shield-quarter'],
+                                        'doctor' => ['bg' => 'bg-success-50', 'text' => 'text-success-600', 'icon' => 'bx-plus-medical'],
+                                        'staff' => ['bg' => 'bg-yellow-50', 'text' => 'text-yellow-700', 'icon' => 'bx-user'],
+                                        'patient' => ['bg' => 'bg-primary-50', 'text' => 'text-primary-700', 'icon' => 'bx-user-circle'],
                                     ];
                                     $config = $roleConfig[$user->role] ?? $roleConfig['patient'];
                                 @endphp
-                                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold {{ $config['bg'] }} {{ $config['text'] }}">
-                                    <i class='bx {{ $config['icon'] }} mr-1.5'></i>
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold {{ $config['bg'] }} {{ $config['text'] }}">
+                                    <i class='bx {{ $config['icon'] }}'></i>
                                     {{ ucfirst($user->role) }}
                                 </span>
                             </td>
@@ -214,7 +214,7 @@
                             <!-- Status -->
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($user->trashed())
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-700">
                                         <i class='bx bx-trash mr-1.5'></i>
                                         Deleted
                                     </span>
@@ -222,7 +222,7 @@
                                         {{ $user->deleted_at->format('M d, Y') }}
                                     </div>
                                 @else
-                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-success-50 text-success-600">
                                         <i class='bx bx-check-circle mr-1.5'></i>
                                         Active
                                     </span>
@@ -233,7 +233,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if($user->isLocked())
                                     <div class="flex flex-col gap-1">
-                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-red-100 text-red-800">
+                                        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-red-50 text-red-700">
                                             <i class='bx bx-lock mr-1'></i> Locked
                                         </span>
                                         <span class="text-xs text-gray-600">
@@ -241,12 +241,12 @@
                                         </span>
                                     </div>
                                 @elseif($user->failed_login_attempts > 0)
-                                    <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-yellow-100 text-yellow-800">
+                                    <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-yellow-50 text-yellow-700">
                                         <i class='bx bx-error-circle mr-1'></i>
                                         {{ $user->failed_login_attempts }}/5 attempts
                                     </span>
                                 @else
-                                    <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-green-100 text-green-800">
+                                    <span class="inline-flex items-center px-2 py-1 rounded text-xs font-semibold bg-success-50 text-success-600">
                                         <i class='bx bx-shield-check mr-1'></i> Secure
                                     </span>
                                 @endif
@@ -264,38 +264,38 @@
                                     @if($user->trashed())
                                         <!-- Restore -->
                                         <button onclick="restoreUser({{ $user->id }}, '{{ $user->name }}')"
-                                                class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm"
+                                                class="w-8 h-8 flex items-center justify-center rounded-full bg-success-600 text-white hover:bg-success-700 focus:ring-2 focus:ring-success-600 focus:ring-offset-2 text-xs"
                                                 title="Restore User">
                                             <i class='bx bx-undo text-base'></i>
                                         </button>
                                         <!-- Force Delete -->
                                         <button onclick="forceDeleteUser({{ $user->id }}, '{{ $user->name }}')"
-                                                class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm"
+                                                class="w-8 h-8 flex items-center justify-center rounded-full bg-red-600 text-white hover:bg-red-700 focus:ring-2 focus:ring-red-600 focus:ring-offset-2 text-xs"
                                                 title="Permanently Delete">
                                             <i class='bx bx-x-circle text-base'></i>
                                         </button>
                                     @else
                                         <!-- View -->
                                         <a href="{{ route('admin.users.show', $user->id) }}"
-                                           class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600 rounded-full transition shadow-sm"
+                                           class="w-8 h-8 flex items-center justify-center rounded-full bg-primary-600 text-white hover:bg-primary-700 focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 text-xs"
                                            title="View Details">
                                             <i class='bx bx-info-circle text-base'></i>
                                         </a>
                                         <!-- Edit -->
                                         <a href="{{ route('admin.users.edit', $user->id) }}"
-                                           class="w-8 h-8 flex items-center justify-center bg-yellow-500 text-white hover:bg-yellow-600 rounded-full transition shadow-sm"
+                                           class="w-8 h-8 flex items-center justify-center rounded-full bg-yellow-500 text-white hover:bg-yellow-600 focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 text-xs"
                                            title="Edit User">
                                             <i class='bx bx-pencil text-base'></i>
                                         </a>
                                         <!-- Delete -->
                                         @if($user->id !== auth()->id())
                                             <button onclick="deleteUser({{ $user->id }}, '{{ $user->name }}')"
-                                                    class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm"
+                                                    class="w-8 h-8 flex items-center justify-center rounded-full bg-red-600 text-white hover:bg-red-700 focus:ring-2 focus:ring-red-600 focus:ring-offset-2 text-xs"
                                                     title="Delete User">
                                                 <i class='bx bx-trash text-base'></i>
                                             </button>
                                         @else
-                                            <span class="w-8 h-8 flex items-center justify-center bg-gray-300 text-gray-500 cursor-not-allowed rounded-full" title="Cannot delete your own account">
+                                            <span class="w-8 h-8 flex items-center justify-center bg-gray-200 text-gray-500 cursor-not-allowed rounded-full" title="Cannot delete your own account">
                                                 <i class='bx bx-trash text-base'></i>
                                             </span>
                                         @endif

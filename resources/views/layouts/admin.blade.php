@@ -34,8 +34,31 @@
         tailwind.config = {
             theme: {
                 extend: {
+                    colors: {
+                        primary: {
+                            50: '#dbeafe',
+                            100: '#bfdbfe',
+                            600: '#2563eb',
+                            700: '#1d4ed8'
+                        },
+                        success: {
+                            50: '#dcfce7',
+                            600: '#16a34a'
+                        },
+                        warning: {
+                            50: '#fef9c3',
+                            600: '#ca8a04'
+                        },
+                        danger: {
+                            50: '#fee2e2',
+                            600: '#dc2626'
+                        }
+                    },
                     fontFamily: {
-                        'sans': ['Poppins', 'sans-serif'],
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        card: '0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08)'
                     }
                 }
             }
@@ -107,10 +130,10 @@
     @stack('styles')
 </head>
 
-<body class="bg-gray-100 font-sans text-base">
+<body class="bg-gray-50 font-sans text-base text-gray-900">
     <div class="min-h-screen flex">
         <!-- Sidebar -->
-        <aside class="w-64 bg-white shadow-lg">
+        <aside class="w-64 bg-white border-r border-gray-100 shadow-card">
             <div class="p-6">
                 @php
                     $logoPath = get_setting('clinic_logo');
@@ -134,12 +157,17 @@
                     <p class="text-sm text-gray-500 mt-1">Admin Panel</p>
                 @endif
             </div>
-            <nav class="mt-1">
+            @php
+                $navBase = 'flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-md transition-colors';
+                $navActive = 'bg-primary-50 text-primary-700 shadow-inner border border-primary-100';
+                $navIdle = 'text-gray-700 hover:bg-gray-50';
+            @endphp
+            <nav class="mt-2 space-y-1 px-2">
                 <!-- Dashboard -->
                 <a href="{{ route('admin.dashboard') }}"
-                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.dashboard') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
-                    <i class='bx bx-home-alt-2 mr-3 text-xl'></i>
-                    <span class="text-sm">Dashboard</span>
+                    class="{{ $navBase }} {{ request()->routeIs('admin.dashboard') ? $navActive : $navIdle }}">
+                    <i class='bx bx-home-alt-2 text-lg'></i>
+                    <span>Dashboard</span>
                 </a>
 
                 <!-- User Management Dropdown -->
@@ -147,12 +175,12 @@
                     x-data="{ open: {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.staff.*') || request()->routeIs('admin.doctors.*') || request()->routeIs('admin.patients.*') ? 'true' : 'false' }} }">
                     <!-- Dropdown Toggle -->
                     <button @click="open = !open"
-                        class="w-full flex items-center justify-between px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.staff.*') || request()->routeIs('admin.doctors.*') || request()->routeIs('admin.patients.*') ? 'bg-blue-50 text-blue-700' : '' }}">
+                        class="w-full {{ $navBase }} justify-between {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.staff.*') || request()->routeIs('admin.doctors.*') || request()->routeIs('admin.patients.*') ? $navActive : $navIdle }}">
                         <div class="flex items-center">
-                            <i class='bx bx-group mr-3 text-xl'></i>
-                            <span class="text-sm">Users</span>
+                            <i class='bx bx-group text-lg'></i>
+                            <span>Users</span>
                         </div>
-                        <i class='bx bx-chevron-down text-xl transition-transform duration-200'
+                        <i class='bx bx-chevron-down text-lg transition-transform duration-200'
                             :class="{ 'rotate-180': open }"></i>
                     </button>
 
@@ -162,93 +190,93 @@
                         x-transition:enter-end="opacity-100 transform translate-y-0"
                         x-transition:leave="transition ease-in duration-150"
                         x-transition:leave-start="opacity-100 transform translate-y-0"
-                        x-transition:leave-end="opacity-0 transform -translate-y-2" class="bg-gray-50">
+                        x-transition:leave-end="opacity-0 transform -translate-y-2" class="bg-gray-50 rounded-md border border-gray-100 ml-2 mr-1 mb-2">
                         <!-- Users -->
                         <a href="{{ route('admin.users.index') }}"
-                            class="flex items-center px-6 py-2.5 pl-14 text-gray-600 hover:bg-gray-100 transition {{ request()->routeIs('admin.users.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700 font-medium' : '' }}">
-                            <i class='bx bx-user-circle mr-3 text-lg'></i>
-                            <span class="text-sm">Users</span>
+                            class="{{ $navBase }} ml-8 mr-3 {{ request()->routeIs('admin.users.*') ? $navActive : $navIdle }}">
+                            <i class='bx bx-user-circle text-base'></i>
+                            <span>Users</span>
                         </a>
 
                         <!-- Staff -->
                         <a href="{{ route('admin.staff.index') }}"
-                            class="flex items-center px-6 py-2.5 pl-14 text-gray-600 hover:bg-gray-100 transition {{ request()->routeIs('admin.staff.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700 font-medium' : '' }}">
-                            <i class='bx bx-briefcase mr-3 text-lg'></i>
-                            <span class="text-sm">Staff</span>
+                            class="{{ $navBase }} ml-8 mr-3 {{ request()->routeIs('admin.staff.*') ? $navActive : $navIdle }}">
+                            <i class='bx bx-briefcase text-base'></i>
+                            <span>Staff</span>
                         </a>
 
                         <!-- Doctors -->
                         <a href="{{ route('admin.doctors.index') }}"
-                            class="flex items-center px-6 py-2.5 pl-14 text-gray-600 hover:bg-gray-100 transition {{ request()->routeIs('admin.doctors.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700 font-medium' : '' }}">
-                            <i class='bx bx-plus-medical mr-3 text-lg'></i>
-                            <span class="text-sm">Doctors</span>
+                            class="{{ $navBase }} ml-8 mr-3 {{ request()->routeIs('admin.doctors.*') ? $navActive : $navIdle }}">
+                            <i class='bx bx-plus-medical text-base'></i>
+                            <span>Doctors</span>
                         </a>
 
                         <!-- Patients -->
                         <a href="{{ route('admin.patients.index') }}"
-                            class="flex items-center px-6 py-2.5 pl-14 text-gray-600 hover:bg-gray-100 transition {{ request()->routeIs('admin.patients.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700 font-medium' : '' }}">
-                            <i class='bx bx-user mr-3 text-lg'></i>
-                            <span class="text-sm">Patients</span>
+                            class="{{ $navBase }} ml-8 mr-3 {{ request()->routeIs('admin.patients.*') ? $navActive : $navIdle }}">
+                            <i class='bx bx-user text-base'></i>
+                            <span>Patients</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- Services -->
                 <a href="{{ route('admin.services.index') }}"
-                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.services.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
-                    <i class='bx bx-list-check mr-3 text-xl'></i>
-                    <span class="text-sm">Services</span>
+                    class="{{ $navBase }} {{ request()->routeIs('admin.services.*') ? $navActive : $navIdle }}">
+                    <i class='bx bx-list-check text-lg'></i>
+                    <span>Services</span>
                 </a>
 
                 <!-- To-Do List -->
                 <a href="{{ route('admin.todos.index') }}"
-                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.todos.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
-                    <i class='bx bx-task mr-3 text-xl'></i>
-                    <span class="text-sm">To-Do List</span>
+                    class="{{ $navBase }} {{ request()->routeIs('admin.todos.*') ? $navActive : $navIdle }}">
+                    <i class='bx bx-task text-lg'></i>
+                    <span>To-Do List</span>
                 </a>
 
                 <!-- Appointment -->
                 <a href="{{ route('admin.appointments.index') }}"
-                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.appointments.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
-                    <i class='bx bx-calendar mr-3 text-xl'></i>
-                    <span class="text-sm">Appointment</span>
+                    class="{{ $navBase }} {{ request()->routeIs('admin.appointments.*') ? $navActive : $navIdle }}">
+                    <i class='bx bx-calendar text-lg'></i>
+                    <span>Appointment</span>
                 </a>
 
                 <!-- Attendance -->
                 <a href="{{ route('admin.attendance.index') }}"
-                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.attendance.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
-                    <i class='bx bx-time-five mr-3 text-xl'></i>
-                    <span class="text-sm">Attendance</span>
+                    class="{{ $navBase }} {{ request()->routeIs('admin.attendance.*') ? $navActive : $navIdle }}">
+                    <i class='bx bx-time-five text-lg'></i>
+                    <span>Attendance</span>
                 </a>
 
                 <!-- Leave -->
                 <a href="{{ route('admin.leaves.index') }}"
-                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.leaves.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
-                    <i class='bx bx-calendar-check mr-3 text-xl'></i>
-                    <span class="text-sm">Leave</span>
+                    class="{{ $navBase }} {{ request()->routeIs('admin.leaves.*') ? $navActive : $navIdle }}">
+                    <i class='bx bx-calendar-check text-lg'></i>
+                    <span>Leave</span>
                 </a>
 
                 <!-- Payroll -->
                 <a href="{{ route('admin.payrolls.index') }}"
-                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.payrolls.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
-                    <i class='bx bx-money mr-3 text-xl'></i>
-                    <span class="text-sm">Payroll</span>
+                    class="{{ $navBase }} {{ request()->routeIs('admin.payrolls.*') ? $navActive : $navIdle }}">
+                    <i class='bx bx-money text-lg'></i>
+                    <span>Payroll</span>
                 </a>
 
                 <!-- Report -->
                 <a href="{{ route('admin.reports.index') }}"
-                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.reports.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
-                    <i class='bx bx-file-blank mr-3 text-xl'></i>
-                    <span class="text-sm">Report</span>
+                    class="{{ $navBase }} {{ request()->routeIs('admin.reports.*') ? $navActive : $navIdle }}">
+                    <i class='bx bx-file-blank text-lg'></i>
+                    <span>Report</span>
                 </a>
 
                 <div class="border-t border-gray-200 my-4"></div>
 
                 <!-- Settings -->
                 <a href="{{ route('admin.settings.index') }}"
-                    class="flex items-center px-6 py-3 text-gray-700 hover:bg-gray-100 transition {{ request()->routeIs('admin.settings.*') ? 'bg-blue-50 border-r-4 border-blue-500 text-blue-700' : '' }}">
-                    <i class='bx bx-cog mr-3 text-xl'></i>
-                    <span class="text-sm">Settings</span>
+                    class="{{ $navBase }} {{ request()->routeIs('admin.settings.*') ? $navActive : $navIdle }}">
+                    <i class='bx bx-cog text-lg'></i>
+                    <span>Settings</span>
                 </a>
             </nav>
         </aside>
@@ -258,7 +286,7 @@
             <!-- Header -->
             <header class="bg-white shadow-sm">
                 <div class="flex items-center justify-between px-6 py-4">
-                    <h2 class="text-lg font-semibold text-gray-800">@yield('page-title', 'Dashboard')</h2>
+                    <h2 class="text-lg font-semibold text-gray-900">@yield('page-title', 'Dashboard')</h2>
 
                     <!-- User Dropdown -->
                     <div class="relative" x-data="{ open: false }" @click.away="open = false">
