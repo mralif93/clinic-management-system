@@ -9,11 +9,10 @@
 
     @php
         $logoPath = get_setting('clinic_logo');
-        // Check if logo is base64 (for Vercel) or file path (for local)
         if ($logoPath && str_starts_with($logoPath, 'data:')) {
-            $faviconUrl = $logoPath; // Base64 data URI
+            $faviconUrl = $logoPath;
         } elseif ($logoPath) {
-            $faviconUrl = asset('storage/' . $logoPath); // File path
+            $faviconUrl = asset('storage/' . $logoPath);
         } else {
             $faviconUrl = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22></text></svg>';
         }
@@ -22,10 +21,10 @@
     <link rel="shortcut icon" type="image/png" href="{{ $faviconUrl }}">
     <link rel="apple-touch-icon" href="{{ $faviconUrl }}">
 
-    <!-- Google Fonts - Poppins -->
+    <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
     <!-- Tailwind CSS CDN -->
@@ -34,15 +33,40 @@
         tailwind.config = {
             theme: {
                 extend: {
+                    colors: {
+                        primary: {
+                            50: '#fffbeb',
+                            100: '#fef3c7',
+                            200: '#fde68a',
+                            300: '#fcd34d',
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                            800: '#92400e',
+                            900: '#78350f'
+                        },
+                        sidebar: {
+                            dark: '#0f172a',
+                            darker: '#0c1322',
+                            light: '#1e293b',
+                            text: '#94a3b8',
+                            hover: '#334155'
+                        }
+                    },
                     fontFamily: {
-                        'sans': ['Poppins', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        card: '0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08)',
+                        sidebar: '4px 0 6px -1px rgb(0 0 0 / 0.1)',
                     }
                 }
             }
         }
     </script>
 
-    <!-- Alpine.js CDN for dropdown functionality -->
+    <!-- Alpine.js CDN -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     <!-- Boxicons CDN -->
@@ -54,8 +78,49 @@
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <!-- Global Styles for Smaller Inputs and Buttons -->
     <style>
+        /* Sidebar Scrollbar */
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 4px;
+        }
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.5);
+        }
+
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(2px);
+        }
+
+        /* Navigation item hover effect */
+        .nav-item {
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(to bottom, #f59e0b, #d97706);
+            transform: scaleY(0);
+            transition: transform 0.2s ease;
+        }
+        .nav-item:hover::before,
+        .nav-item.active::before {
+            transform: scaleY(1);
+        }
+
         /* Global Input Sizing */
         input[type="text"],
         input[type="email"],
@@ -70,37 +135,12 @@
         input[type="file"],
         select,
         textarea {
-            @apply text-sm py-2 px-3;
             font-size: 0.875rem !important;
             line-height: 1.25rem !important;
         }
 
-        /* Global Button Sizing */
-        button,
-        .btn,
-        a.btn {
-            @apply text-sm py-2 px-4;
-            font-size: 0.875rem !important;
-            line-height: 1.25rem !important;
-        }
-
-        /* Smaller icon buttons */
-        button i,
-        .btn i,
-        a.btn i {
-            font-size: 1rem !important;
-        }
-
-        /* Labels */
         label {
-            @apply text-sm;
             font-size: 0.875rem !important;
-        }
-
-        /* Form groups spacing */
-        .form-group,
-        .space-y-4>div {
-            margin-bottom: 0.75rem;
         }
 
         /* Rich content styles for WYSIWYG editor output */
@@ -165,139 +205,310 @@
     @stack('styles')
 </head>
 
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-50 font-sans text-base text-gray-900" x-data="{ sidebarOpen: true, mobileSidebarOpen: false }">
     <div class="min-h-screen flex">
+
+        <!-- Mobile Sidebar Overlay -->
+        <div x-show="mobileSidebarOpen" x-transition:enter="transition-opacity ease-out duration-300"
+            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+            x-transition:leave="transition-opacity ease-in duration-200" x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0" @click="mobileSidebarOpen = false"
+            class="fixed inset-0 z-40 lg:hidden sidebar-overlay" style="display: none;"></div>
+
         <!-- Sidebar -->
-        <aside class="w-64 bg-gradient-to-b from-yellow-500 to-yellow-600 shadow-lg">
-            <div class="p-6">
-                <h1 class="text-2xl font-bold text-white">Clinic Management</h1>
-                <p class="text-sm text-yellow-100 mt-1">Staff Portal</p>
+        <aside :class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
+            class="fixed lg:sticky top-0 left-0 z-50 h-screen w-64 bg-sidebar-dark text-white flex flex-col transition-transform duration-300 ease-in-out shadow-sidebar">
+
+            <!-- Logo Section -->
+            <div class="flex-shrink-0 p-5 border-b border-white/10">
+                @php
+                    $logoPath = get_setting('clinic_logo');
+                    if ($logoPath && str_starts_with($logoPath, 'data:')) {
+                        $logoUrl = $logoPath;
+                    } elseif ($logoPath) {
+                        $logoUrl = asset('storage/' . $logoPath);
+                    } else {
+                        $logoUrl = null;
+                    }
+                    $clinicName = get_setting('clinic_name', 'Clinic Management');
+                @endphp
+
+                <div class="flex items-center gap-3">
+                    @if($logoUrl)
+                        <div class="w-10 h-10 rounded-xl bg-white/10 p-1.5 flex items-center justify-center">
+                            <img src="{{ $logoUrl }}" alt="{{ $clinicName }}" class="max-h-full max-w-full object-contain">
+                        </div>
+                    @else
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
+                            <i class='bx bx-id-card text-xl text-white'></i>
+                        </div>
+                    @endif
+                    <div class="flex-1 min-w-0">
+                        <h1 class="text-sm font-bold text-white truncate">{{ $clinicName }}</h1>
+                        <p class="text-xs text-sidebar-text">Staff Portal</p>
+                    </div>
+                </div>
             </div>
-            <nav class="mt-6">
-                <a href="{{ route('staff.dashboard') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.dashboard') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-home mr-3 text-xl'></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="{{ route('staff.todos.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.todos.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-task mr-3 text-xl'></i>
-                    <span>Tasks</span>
-                </a>
-                <a href="{{ route('staff.attendance.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.attendance.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-time-five mr-3 text-xl'></i>
-                    <span>Attendance</span>
-                </a>
-                <a href="{{ route('staff.schedule.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.schedule.index') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-calendar-star mr-3 text-xl'></i>
-                    <span>Schedule</span>
-                </a>
-                <a href="{{ route('staff.appointments.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.appointments.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-calendar mr-3 text-xl'></i>
-                    <span>Appointments</span>
-                </a>
-                <a href="{{ route('staff.schedule.doctors') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.schedule.doctors') || request()->routeIs('staff.schedule.view-doctor') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-user-pin mr-3 text-xl'></i>
-                    <span>Doctors</span>
-                </a>
-                <a href="{{ route('staff.patients.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.patients.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-group mr-3 text-xl'></i>
-                    <span>Patients</span>
-                </a>
-                <a href="{{ route('staff.leaves.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.leaves.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-calendar-check mr-3 text-xl'></i>
-                    <span>Leave</span>
-                </a>
-                <a href="{{ route('staff.payslips.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.payslips.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-receipt mr-3 text-xl'></i>
-                    <span>Payslips</span>
-                </a>
-                <a href="{{ route('staff.profile.show') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.profile.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-user mr-3 text-xl'></i>
-                    <span>My Profile</span>
-                </a>
-                <a href="{{ route('staff.reports.index') }}"
-                    class="flex items-center px-6 py-3 text-white hover:bg-yellow-600 transition {{ request()->routeIs('staff.reports.*') ? 'bg-yellow-700 border-r-4 border-white' : '' }}">
-                    <i class='bx bx-file mr-3 text-xl'></i>
-                    <span>Reports</span>
-                </a>
+
+            <!-- Navigation -->
+            <nav class="flex-1 overflow-y-auto sidebar-scroll py-4 px-3">
+                <!-- Main Section -->
+                <div class="mb-6">
+                    <p class="px-3 mb-2 text-xs font-semibold text-sidebar-text uppercase tracking-wider">Main</p>
+
+                    <!-- Dashboard -->
+                    <a href="{{ route('staff.dashboard') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('staff.dashboard') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.dashboard') ? 'bg-amber-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i class='bx bxs-dashboard text-lg {{ request()->routeIs('staff.dashboard') ? 'text-amber-400' : '' }}'></i>
+                        </div>
+                        <span>Dashboard</span>
+                    </a>
+
+                    <!-- Tasks -->
+                    <a href="{{ route('staff.todos.index') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('staff.todos.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.todos.*') ? 'bg-pink-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i class='bx bx-task text-lg {{ request()->routeIs('staff.todos.*') ? 'text-pink-400' : '' }}'></i>
+                        </div>
+                        <span>Tasks</span>
+                    </a>
+                </div>
+
+                <!-- Work Section -->
+                <div class="mb-6">
+                    <p class="px-3 mb-2 text-xs font-semibold text-sidebar-text uppercase tracking-wider">Work</p>
+
+                    <!-- Attendance -->
+                    <a href="{{ route('staff.attendance.index') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('staff.attendance.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.attendance.*') ? 'bg-green-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i class='bx bx-time-five text-lg {{ request()->routeIs('staff.attendance.*') ? 'text-green-400' : '' }}'></i>
+                        </div>
+                        <span>Attendance</span>
+                    </a>
+
+                    <!-- Schedule -->
+                    <a href="{{ route('staff.schedule.index') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('staff.schedule.index') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.schedule.index') ? 'bg-cyan-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i class='bx bx-calendar-star text-lg {{ request()->routeIs('staff.schedule.index') ? 'text-cyan-400' : '' }}'></i>
+                        </div>
+                        <span>My Schedule</span>
+                    </a>
+
+                    <!-- Appointments -->
+                    <a href="{{ route('staff.appointments.index') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('staff.appointments.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.appointments.*') ? 'bg-blue-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i class='bx bx-calendar text-lg {{ request()->routeIs('staff.appointments.*') ? 'text-blue-400' : '' }}'></i>
+                        </div>
+                        <span>Appointments</span>
+                    </a>
+                </div>
+
+                <!-- Management Section -->
+                <div class="mb-6">
+                    <p class="px-3 mb-2 text-xs font-semibold text-sidebar-text uppercase tracking-wider">Management</p>
+
+                    <!-- Doctors -->
+                    <a href="{{ route('staff.schedule.doctors') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('staff.schedule.doctors') || request()->routeIs('staff.schedule.view-doctor') || request()->routeIs('staff.doctors.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.schedule.doctors') || request()->routeIs('staff.schedule.view-doctor') || request()->routeIs('staff.doctors.*') ? 'bg-emerald-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i class='bx bx-user-pin text-lg {{ request()->routeIs('staff.schedule.doctors') || request()->routeIs('staff.schedule.view-doctor') || request()->routeIs('staff.doctors.*') ? 'text-emerald-400' : '' }}'></i>
+                        </div>
+                        <span>Doctors</span>
+                    </a>
+
+                    <!-- Patients -->
+                    <a href="{{ route('staff.patients.index') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('staff.patients.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.patients.*') ? 'bg-violet-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i class='bx bx-group text-lg {{ request()->routeIs('staff.patients.*') ? 'text-violet-400' : '' }}'></i>
+                        </div>
+                        <span>Patients</span>
+                    </a>
+                </div>
+
+                <!-- Personal Section -->
+                <div class="mb-6">
+                    <p class="px-3 mb-2 text-xs font-semibold text-sidebar-text uppercase tracking-wider">Personal</p>
+
+                    <!-- Leave -->
+                    <a href="{{ route('staff.leaves.index') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('staff.leaves.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.leaves.*') ? 'bg-orange-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i class='bx bx-calendar-check text-lg {{ request()->routeIs('staff.leaves.*') ? 'text-orange-400' : '' }}'></i>
+                        </div>
+                        <span>Leave</span>
+                    </a>
+
+                    <!-- Payslips -->
+                    <a href="{{ route('staff.payslips.index') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('staff.payslips.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.payslips.*') ? 'bg-teal-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i class='bx bx-receipt text-lg {{ request()->routeIs('staff.payslips.*') ? 'text-teal-400' : '' }}'></i>
+                        </div>
+                        <span>Payslips</span>
+                    </a>
+
+                    <!-- Profile -->
+                    <a href="{{ route('staff.profile.show') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('staff.profile.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.profile.*') ? 'bg-indigo-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i class='bx bx-user text-lg {{ request()->routeIs('staff.profile.*') ? 'text-indigo-400' : '' }}'></i>
+                        </div>
+                        <span>My Profile</span>
+                    </a>
+
+                    <!-- Reports -->
+                    <a href="{{ route('staff.reports.index') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('staff.reports.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.reports.*') ? 'bg-rose-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i class='bx bx-file text-lg {{ request()->routeIs('staff.reports.*') ? 'text-rose-400' : '' }}'></i>
+                        </div>
+                        <span>Reports</span>
+                    </a>
+                </div>
             </nav>
+
+            <!-- User Section at Bottom -->
+            <div class="flex-shrink-0 p-4 border-t border-white/10">
+                <div x-data="{ open: false }" class="relative">
+                    <button @click="open = !open"
+                        class="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-all">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white font-semibold text-sm">
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        </div>
+                        <div class="flex-1 min-w-0 text-left">
+                            <p class="text-sm font-medium text-white truncate">{{ Auth::user()->name }}</p>
+                            <p class="text-xs text-sidebar-text truncate">
+                                @if(Auth::user()->staff)
+                                    {{ Auth::user()->staff->staff_id }}
+                                @else
+                                    Staff
+                                @endif
+                            </p>
+                        </div>
+                        <i class='bx bx-chevron-up text-sidebar-text transition-transform duration-200' :class="{ 'rotate-180': open }"></i>
+                    </button>
+
+                    <!-- Dropdown -->
+                    <div x-show="open" @click.away="open = false"
+                        x-transition:enter="transition ease-out duration-100"
+                        x-transition:enter-start="opacity-0 transform scale-95"
+                        x-transition:enter-end="opacity-100 transform scale-100"
+                        x-transition:leave="transition ease-in duration-75"
+                        x-transition:leave-start="opacity-100 transform scale-100"
+                        x-transition:leave-end="opacity-0 transform scale-95"
+                        class="absolute bottom-full left-0 right-0 mb-2 bg-sidebar-light rounded-lg shadow-lg border border-white/10 overflow-hidden"
+                        style="display: none;">
+                        <a href="{{ route('staff.profile.show') }}"
+                            class="flex items-center gap-3 px-4 py-3 text-sm text-sidebar-text hover:bg-white/5 hover:text-white transition-all">
+                            <i class='bx bx-user'></i>
+                            <span>View Profile</span>
+                        </a>
+                        <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                            @csrf
+                            <button type="submit"
+                                class="w-full flex items-center gap-3 px-4 py-3 text-sm text-red-400 hover:bg-red-500/10 transition-all">
+                                <i class='bx bx-log-out'></i>
+                                <span>Logout</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </aside>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col">
+        <div class="flex-1 flex flex-col min-h-screen lg:ml-0">
             <!-- Header -->
-            <header class="bg-white shadow-sm">
-                <div class="flex items-center justify-between px-6 py-4">
-                    <h2 class="text-xl font-semibold text-gray-800">@yield('page-title', 'Dashboard')</h2>
-
-                    <!-- User Dropdown -->
-                    <div class="relative" x-data="{ open: false }" @click.away="open = false">
-                        <button @click="open = !open"
-                            class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors">
-                            <div class="flex items-center space-x-3">
-                                <div
-                                    class="w-9 h-9 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center text-white font-semibold shadow-md">
-                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                                </div>
-                                <div class="text-left hidden md:block">
-                                    <p class="text-sm font-semibold text-gray-800">{{ Auth::user()->name }}</p>
-                                    <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
-                                </div>
-                                @if(Auth::user()->staff)
-                                    <span
-                                        class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                        {{ Auth::user()->staff->staff_id ?? 'N/A' }}
-                                    </span>
-                                @endif
-                            </div>
-                            <i class='bx bx-chevron-down text-gray-500 transition-transform'
-                                :class="open ? 'rotate-180' : ''"></i>
+            <header class="sticky top-0 z-30 bg-white border-b border-gray-200">
+                <div class="flex items-center justify-between px-4 lg:px-6 py-3">
+                    <!-- Left: Mobile Menu + Page Title -->
+                    <div class="flex items-center gap-4">
+                        <!-- Mobile Menu Button -->
+                        <button @click="mobileSidebarOpen = !mobileSidebarOpen"
+                            class="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors">
+                            <i class='bx bx-menu text-xl'></i>
                         </button>
 
-                        <!-- Dropdown Menu -->
-                        <div x-show="open" x-transition:enter="transition ease-out duration-100"
-                            x-transition:enter-start="transform opacity-0 scale-95"
-                            x-transition:enter-end="transform opacity-100 scale-100"
-                            x-transition:leave="transition ease-in duration-75"
-                            x-transition:leave-start="transform opacity-100 scale-100"
-                            x-transition:leave-end="transform opacity-0 scale-95"
-                            class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50"
-                            style="display: none;">
+                        <!-- Page Title -->
+                        <div>
+                            <h1 class="text-lg font-semibold text-gray-900">@yield('page-title', 'Dashboard')</h1>
+                        </div>
+                    </div>
 
-                            <!-- User Info -->
-                            <div class="px-4 py-3 border-b border-gray-100">
-                                <p class="text-sm font-semibold text-gray-800">{{ Auth::user()->name }}</p>
-                                <p class="text-xs text-gray-500 mt-0.5">{{ Auth::user()->email }}</p>
-                                @if(Auth::user()->staff)
-                                    <p class="text-xs text-yellow-600 mt-1">ID: {{ Auth::user()->staff->staff_id }}</p>
-                                @endif
+                    <!-- Right: User Info -->
+                    <div class="flex items-center gap-3">
+                        <!-- Staff Badge -->
+                        @if(Auth::user()->staff)
+                            <span class="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
+                                <i class='bx bx-id-card mr-1'></i>
+                                {{ Auth::user()->staff->staff_id }}
+                            </span>
+                        @endif
+
+                        <!-- User Dropdown -->
+                        <div class="relative" x-data="{ open: false }">
+                            <button @click="open = !open"
+                                class="flex items-center gap-2 p-1.5 rounded-lg hover:bg-gray-100 transition-colors">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white font-semibold text-sm">
+                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                </div>
+                                <span class="hidden md:block text-sm font-medium text-gray-700">{{ Auth::user()->name }}</span>
+                                <i class='bx bx-chevron-down text-gray-400 transition-transform duration-200' :class="{ 'rotate-180': open }"></i>
+                            </button>
+
+                            <!-- Dropdown Menu -->
+                            <div x-show="open" @click.away="open = false"
+                                x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="opacity-0 transform scale-95"
+                                x-transition:enter-end="opacity-100 transform scale-100"
+                                x-transition:leave="transition ease-in duration-75"
+                                x-transition:leave-start="opacity-100 transform scale-100"
+                                x-transition:leave-end="opacity-0 transform scale-95"
+                                class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-200 py-1 z-50"
+                                style="display: none;">
+                                <div class="px-4 py-3 border-b border-gray-100">
+                                    <p class="text-sm font-semibold text-gray-900">{{ Auth::user()->name }}</p>
+                                    <p class="text-xs text-gray-500 mt-0.5">{{ Auth::user()->email }}</p>
+                                </div>
+                                <a href="{{ route('staff.profile.show') }}"
+                                    class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                    <i class='bx bx-user text-lg text-gray-400'></i>
+                                    <span>My Profile</span>
+                                </a>
+                                <div class="border-t border-gray-100 mt-1 pt-1">
+                                    <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                                            <i class='bx bx-log-out text-lg'></i>
+                                            <span>Logout</span>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-
-                            <!-- Logout -->
-                            <form method="POST" action="{{ route('logout') }}" class="logout-form">
-                                @csrf
-                                <button type="submit"
-                                    class="w-full flex items-center px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
-                                    <i class='bx bx-log-out mr-3 text-lg'></i>
-                                    <span>Logout</span>
-                                </button>
-                            </form>
                         </div>
                     </div>
                 </div>
             </header>
 
             <!-- Page Content -->
-            <main class="flex-1 p-6">
+            <main class="flex-1 p-4 lg:p-6">
                 @yield('content')
             </main>
         </div>
