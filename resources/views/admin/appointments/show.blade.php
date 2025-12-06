@@ -332,7 +332,7 @@
                             </h3>
                         </div>
                         <div class="p-6">
-                            <div class="text-sm text-gray-700 prose max-w-none">{!! $appointment->notes !!}</div>
+                            <div class="text-sm text-gray-700 rich-content">{!! $appointment->notes !!}</div>
                         </div>
                     </div>
                 @endif
@@ -346,7 +346,7 @@
                             </h3>
                         </div>
                         <div class="p-6">
-                            <div class="text-sm text-gray-700 prose max-w-none">{!! $appointment->diagnosis !!}</div>
+                            <div class="text-sm text-gray-700 rich-content">{!! $appointment->diagnosis !!}</div>
                         </div>
                     </div>
                 @endif
@@ -360,7 +360,7 @@
                             </h3>
                         </div>
                         <div class="p-6">
-                            <div class="text-sm text-gray-700 prose max-w-none">{!! $appointment->prescription !!}</div>
+                            <div class="text-sm text-gray-700 rich-content">{!! $appointment->prescription !!}</div>
                         </div>
                     </div>
                 @endif

@@ -160,7 +160,7 @@
                 @if($appointment->notes)
                     <div class="mt-8 border-t pt-6">
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">Notes</h3>
-                        <div class="text-gray-900 bg-gray-50 p-4 rounded-lg prose max-w-none">{!! $appointment->notes !!}</div>
+                        <div class="text-gray-900 bg-gray-50 p-4 rounded-lg rich-content">{!! $appointment->notes !!}</div>
                     </div>
                 @endif
 
@@ -168,7 +168,7 @@
                 @if($appointment->diagnosis)
                     <div class="mt-8 border-t pt-6">
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">Diagnosis</h3>
-                        <div class="text-gray-900 bg-gray-50 p-4 rounded-lg prose max-w-none">{!! $appointment->diagnosis !!}</div>
+                        <div class="text-gray-900 bg-gray-50 p-4 rounded-lg rich-content">{!! $appointment->diagnosis !!}</div>
                     </div>
                 @endif
 
@@ -176,7 +176,7 @@
                 @if($appointment->prescription)
                     <div class="mt-8 border-t pt-6">
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">Prescription</h3>
-                        <div class="text-gray-900 bg-gray-50 p-4 rounded-lg prose max-w-none">{!! $appointment->prescription !!}</div>
+                        <div class="text-gray-900 bg-gray-50 p-4 rounded-lg rich-content">{!! $appointment->prescription !!}</div>
                     </div>
                 @endif
             </div>

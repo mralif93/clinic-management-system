@@ -167,7 +167,7 @@
                             <label class="text-sm font-semibold text-gray-700 flex items-center gap-2 mb-2">
                                 <i class='bx bx-search-alt text-gray-400'></i> Diagnosis
                             </label>
-                            <div class="text-gray-900 bg-gray-50 p-4 rounded-xl prose max-w-none">{!! $appointment->diagnosis !!}</div>
+                            <div class="text-gray-900 bg-gray-50 p-4 rounded-xl rich-content">{!! $appointment->diagnosis !!}</div>
                         </div>
                     @endif
                     @if($appointment->prescription)
@@ -175,7 +175,7 @@
                             <label class="text-sm font-semibold text-gray-700 flex items-center gap-2 mb-2">
                                 <i class='bx bx-capsule text-gray-400'></i> Prescription
                             </label>
-                            <div class="text-gray-900 bg-gray-50 p-4 rounded-xl prose max-w-none">{!! $appointment->prescription !!}</div>
+                            <div class="text-gray-900 bg-gray-50 p-4 rounded-xl rich-content">{!! $appointment->prescription !!}</div>
                         </div>
                     @endif
                     @if($appointment->notes)
@@ -183,7 +183,7 @@
                             <label class="text-sm font-semibold text-gray-700 flex items-center gap-2 mb-2">
                                 <i class='bx bx-note text-gray-400'></i> Notes
                             </label>
-                            <div class="text-gray-900 bg-gray-50 p-4 rounded-xl prose max-w-none">{!! $appointment->notes !!}</div>
+                            <div class="text-gray-900 bg-gray-50 p-4 rounded-xl rich-content">{!! $appointment->notes !!}</div>
                         </div>
                     @endif
                 </div>

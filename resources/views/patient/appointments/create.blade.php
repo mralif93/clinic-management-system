@@ -85,13 +85,12 @@
 
                     <!-- Notes -->
                     <div class="mb-6">
-                        <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">
                             <i class='bx bx-note mr-1'></i>
                             Notes (Optional)
                         </label>
-                        <textarea name="notes" id="notes" rows="4"
-                            placeholder="Any additional information or special requests..."
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">{{ old('notes') }}</textarea>
+                        <input type="hidden" name="notes" id="notes-input" value="{{ old('notes') }}">
+                        <div id="notes-editor" class="quill-editor"></div>
                         @error('notes')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -113,4 +112,111 @@
             </div>
         </div>
     </div>
+
+@push('styles')
+<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+<style>
+    .quill-wrapper {
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        background: white;
+    }
+    .quill-wrapper .ql-toolbar {
+        border: none;
+        border-bottom: 1px solid #d1d5db;
+        background: #f9fafb;
+        padding: 8px;
+    }
+    .quill-wrapper .ql-container {
+        border: none;
+        font-family: system-ui, sans-serif;
+        font-size: 0.875rem;
+    }
+    .quill-wrapper .ql-editor {
+        min-height: 100px;
+        padding: 12px;
+        line-height: 1.6;
+    }
+    .quill-wrapper .ql-editor.ql-blank::before {
+        font-style: normal;
+        color: #9ca3af;
+    }
+    .quill-wrapper:focus-within {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    .ql-toolbar.ql-snow .ql-formats {
+        margin-right: 10px;
+    }
+    .ql-snow.ql-toolbar button:hover,
+    .ql-snow .ql-toolbar button:hover,
+    .ql-snow.ql-toolbar button:focus,
+    .ql-snow .ql-toolbar button:focus,
+    .ql-snow.ql-toolbar button.ql-active,
+    .ql-snow .ql-toolbar button.ql-active {
+        color: #3b82f6;
+    }
+    .ql-snow.ql-toolbar button:hover .ql-stroke,
+    .ql-snow .ql-toolbar button:hover .ql-stroke,
+    .ql-snow.ql-toolbar button:focus .ql-stroke,
+    .ql-snow .ql-toolbar button:focus .ql-stroke,
+    .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+    .ql-snow .ql-toolbar button.ql-active .ql-stroke {
+        stroke: #3b82f6;
+    }
+    .ql-snow.ql-toolbar button:hover .ql-fill,
+    .ql-snow .ql-toolbar button:hover .ql-fill,
+    .ql-snow.ql-toolbar button:focus .ql-fill,
+    .ql-snow .ql-toolbar button:focus .ql-fill,
+    .ql-snow.ql-toolbar button.ql-active .ql-fill,
+    .ql-snow .ql-toolbar button.ql-active .ql-fill {
+        fill: #3b82f6;
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        ['blockquote'],
+        ['clean']
+    ];
+
+    function initQuillEditor(editorId, inputId, placeholder) {
+        const container = document.getElementById(editorId);
+        const input = document.getElementById(inputId);
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'quill-wrapper';
+        container.parentNode.insertBefore(wrapper, container);
+        wrapper.appendChild(container);
+
+        const quill = new Quill(container, {
+            theme: 'snow',
+            modules: {
+                toolbar: toolbarOptions
+            },
+            placeholder: placeholder || 'Enter content...'
+        });
+
+        if (input.value) {
+            quill.root.innerHTML = input.value;
+        }
+
+        quill.on('text-change', function() {
+            input.value = quill.root.innerHTML;
+        });
+
+        return quill;
+    }
+
+    initQuillEditor('notes-editor', 'notes-input', 'Any additional information or special requests...');
+});
+</script>
+@endpush
 @endsection

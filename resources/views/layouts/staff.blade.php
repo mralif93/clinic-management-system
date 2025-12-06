@@ -102,6 +102,64 @@
         .space-y-4>div {
             margin-bottom: 0.75rem;
         }
+
+        /* Rich content styles for WYSIWYG editor output */
+        .rich-content p {
+            margin-bottom: 0.5rem;
+        }
+        .rich-content p:last-child {
+            margin-bottom: 0;
+        }
+        .rich-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin: 0.5rem 0;
+        }
+        .rich-content ol {
+            list-style-type: decimal;
+            padding-left: 1.5rem;
+            margin: 0.5rem 0;
+        }
+        .rich-content li {
+            margin-bottom: 0.25rem;
+        }
+        .rich-content strong, .rich-content b {
+            font-weight: 600;
+        }
+        .rich-content em, .rich-content i:not([class]) {
+            font-style: italic;
+        }
+        .rich-content u {
+            text-decoration: underline;
+        }
+        .rich-content s {
+            text-decoration: line-through;
+        }
+        .rich-content blockquote {
+            border-left: 3px solid #d1d5db;
+            padding-left: 1rem;
+            margin: 0.5rem 0;
+            color: #6b7280;
+        }
+        .rich-content pre {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            overflow-x: auto;
+            margin: 0.5rem 0;
+        }
+        .rich-content code {
+            background: #f3f4f6;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+            font-size: 0.875em;
+        }
+        .rich-content pre code {
+            background: none;
+            padding: 0;
+        }
     </style>
 
     @stack('styles')

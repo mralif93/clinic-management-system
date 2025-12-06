@@ -81,12 +81,11 @@
 
                 <!-- Diagnosis -->
                 <div class="mb-6">
-                    <label for="diagnosis" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
                         <i class='bx bx-search-alt text-gray-400 mr-1'></i> Diagnosis
                     </label>
-                    <textarea id="diagnosis" name="diagnosis" rows="4"
-                        class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition @error('diagnosis') border-red-500 @enderror"
-                        placeholder="Enter diagnosis...">{{ old('diagnosis', $appointment->diagnosis) }}</textarea>
+                    <input type="hidden" name="diagnosis" id="diagnosis-input" value="{{ old('diagnosis', $appointment->diagnosis) }}">
+                    <div id="diagnosis-editor" class="quill-editor"></div>
                     @error('diagnosis')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -94,12 +93,11 @@
 
                 <!-- Prescription -->
                 <div class="mb-6">
-                    <label for="prescription" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
                         <i class='bx bx-capsule text-gray-400 mr-1'></i> Prescription
                     </label>
-                    <textarea id="prescription" name="prescription" rows="4"
-                        class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition @error('prescription') border-red-500 @enderror"
-                        placeholder="Enter prescription...">{{ old('prescription', $appointment->prescription) }}</textarea>
+                    <input type="hidden" name="prescription" id="prescription-input" value="{{ old('prescription', $appointment->prescription) }}">
+                    <div id="prescription-editor" class="quill-editor"></div>
                     @error('prescription')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -107,12 +105,11 @@
 
                 <!-- Notes -->
                 <div class="mb-6">
-                    <label for="notes" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
                         <i class='bx bx-note text-gray-400 mr-1'></i> Notes
                     </label>
-                    <textarea id="notes" name="notes" rows="4"
-                        class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition @error('notes') border-red-500 @enderror"
-                        placeholder="Enter notes...">{{ old('notes', $appointment->notes) }}</textarea>
+                    <input type="hidden" name="notes" id="notes-input" value="{{ old('notes', $appointment->notes) }}">
+                    <div id="notes-editor" class="quill-editor"></div>
                     @error('notes')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -133,4 +130,113 @@
             </form>
         </div>
     </div>
+
+@push('styles')
+<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+<style>
+    .quill-wrapper {
+        border: 1px solid #e5e7eb;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        background: white;
+    }
+    .quill-wrapper .ql-toolbar {
+        border: none;
+        border-bottom: 1px solid #e5e7eb;
+        background: #f9fafb;
+        padding: 8px;
+    }
+    .quill-wrapper .ql-container {
+        border: none;
+        font-family: 'Inter', system-ui, sans-serif;
+        font-size: 0.875rem;
+    }
+    .quill-wrapper .ql-editor {
+        min-height: 120px;
+        padding: 12px;
+        line-height: 1.6;
+    }
+    .quill-wrapper .ql-editor.ql-blank::before {
+        font-style: normal;
+        color: #9ca3af;
+    }
+    .quill-wrapper:focus-within {
+        border-color: #10b981;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+    .ql-toolbar.ql-snow .ql-formats {
+        margin-right: 10px;
+    }
+    .ql-snow.ql-toolbar button:hover,
+    .ql-snow .ql-toolbar button:hover,
+    .ql-snow.ql-toolbar button:focus,
+    .ql-snow .ql-toolbar button:focus,
+    .ql-snow.ql-toolbar button.ql-active,
+    .ql-snow .ql-toolbar button.ql-active {
+        color: #10b981;
+    }
+    .ql-snow.ql-toolbar button:hover .ql-stroke,
+    .ql-snow .ql-toolbar button:hover .ql-stroke,
+    .ql-snow.ql-toolbar button:focus .ql-stroke,
+    .ql-snow .ql-toolbar button:focus .ql-stroke,
+    .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+    .ql-snow .ql-toolbar button.ql-active .ql-stroke {
+        stroke: #10b981;
+    }
+    .ql-snow.ql-toolbar button:hover .ql-fill,
+    .ql-snow .ql-toolbar button:hover .ql-fill,
+    .ql-snow.ql-toolbar button:focus .ql-fill,
+    .ql-snow .ql-toolbar button:focus .ql-fill,
+    .ql-snow.ql-toolbar button.ql-active .ql-fill,
+    .ql-snow .ql-toolbar button.ql-active .ql-fill {
+        fill: #10b981;
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        ['blockquote', 'code-block'],
+        ['clean']
+    ];
+
+    function initQuillEditor(editorId, inputId, placeholder) {
+        const container = document.getElementById(editorId);
+        const input = document.getElementById(inputId);
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'quill-wrapper';
+        container.parentNode.insertBefore(wrapper, container);
+        wrapper.appendChild(container);
+
+        const quill = new Quill(container, {
+            theme: 'snow',
+            modules: {
+                toolbar: toolbarOptions
+            },
+            placeholder: placeholder || 'Enter content...'
+        });
+
+        if (input.value) {
+            quill.root.innerHTML = input.value;
+        }
+
+        quill.on('text-change', function() {
+            input.value = quill.root.innerHTML;
+        });
+
+        return quill;
+    }
+
+    initQuillEditor('diagnosis-editor', 'diagnosis-input', 'Enter diagnosis...');
+    initQuillEditor('prescription-editor', 'prescription-input', 'Enter prescription...');
+    initQuillEditor('notes-editor', 'notes-input', 'Enter notes...');
+});
+</script>
+@endpush
 @endsection

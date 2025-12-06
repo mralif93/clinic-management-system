@@ -162,9 +162,9 @@
 
                     <!-- Notes -->
                     <div class="md:col-span-2">
-                        <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">Notes</label>
-                        <input id="notes" type="hidden" name="notes" value="{{ old('notes', $appointment->notes) }}">
-                        <trix-editor input="notes" placeholder="Enter notes..."></trix-editor>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Notes</label>
+                        <input type="hidden" name="notes" id="notes-input" value="{{ old('notes', $appointment->notes) }}">
+                        <div id="notes-editor" class="quill-editor"></div>
                     </div>
                 </div>
 
@@ -184,59 +184,110 @@
         </div>
     </div>
 
-    @push('styles')
-        <!-- Trix CSS -->
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
-        <style>
-            /* Trix editor styling to match Tailwind */
-            trix-toolbar .trix-button-group {
-                border-radius: 0.375rem;
-                margin-bottom: 0;
-            }
+@push('styles')
+<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+<style>
+    .quill-wrapper {
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        background: white;
+    }
+    .quill-wrapper .ql-toolbar {
+        border: none;
+        border-bottom: 1px solid #d1d5db;
+        background: #f9fafb;
+        padding: 8px;
+    }
+    .quill-wrapper .ql-container {
+        border: none;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.875rem;
+    }
+    .quill-wrapper .ql-editor {
+        min-height: 120px;
+        padding: 12px;
+        line-height: 1.6;
+    }
+    .quill-wrapper .ql-editor.ql-blank::before {
+        font-style: normal;
+        color: #9ca3af;
+    }
+    .quill-wrapper:focus-within {
+        border-color: #eab308;
+        box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.1);
+    }
+    .ql-toolbar.ql-snow .ql-formats {
+        margin-right: 10px;
+    }
+    .ql-snow.ql-toolbar button:hover,
+    .ql-snow .ql-toolbar button:hover,
+    .ql-snow.ql-toolbar button:focus,
+    .ql-snow .ql-toolbar button:focus,
+    .ql-snow.ql-toolbar button.ql-active,
+    .ql-snow .ql-toolbar button.ql-active {
+        color: #eab308;
+    }
+    .ql-snow.ql-toolbar button:hover .ql-stroke,
+    .ql-snow .ql-toolbar button:hover .ql-stroke,
+    .ql-snow.ql-toolbar button:focus .ql-stroke,
+    .ql-snow .ql-toolbar button:focus .ql-stroke,
+    .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+    .ql-snow .ql-toolbar button.ql-active .ql-stroke {
+        stroke: #eab308;
+    }
+    .ql-snow.ql-toolbar button:hover .ql-fill,
+    .ql-snow .ql-toolbar button:hover .ql-fill,
+    .ql-snow.ql-toolbar button:focus .ql-fill,
+    .ql-snow .ql-toolbar button:focus .ql-fill,
+    .ql-snow.ql-toolbar button.ql-active .ql-fill,
+    .ql-snow .ql-toolbar button.ql-active .ql-fill {
+        fill: #eab308;
+    }
+</style>
+@endpush
 
-            trix-editor {
-                border: 1px solid #d1d5db;
-                border-radius: 0.5rem;
-                padding: 0.75rem;
-                min-height: 150px;
-                font-family: 'Poppins', sans-serif;
-                font-size: 0.875rem;
-                line-height: 1.5;
-            }
+@push('scripts')
+<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const toolbarOptions = [
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        ['blockquote', 'code-block'],
+        ['clean']
+    ];
 
-            trix-editor:focus {
-                outline: none;
-                border-color: #eab308;
-                box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.1);
-            }
+    function initQuillEditor(editorId, inputId, placeholder) {
+        const container = document.getElementById(editorId);
+        const input = document.getElementById(inputId);
 
-            trix-toolbar {
-                border: 1px solid #d1d5db;
-                border-radius: 0.5rem 0.5rem 0 0;
-                background: #f9fafb;
-                padding: 0.5rem;
-            }
+        const wrapper = document.createElement('div');
+        wrapper.className = 'quill-wrapper';
+        container.parentNode.insertBefore(wrapper, container);
+        wrapper.appendChild(container);
 
-            trix-toolbar .trix-button {
-                border: 1px solid #d1d5db;
-                background: white;
-                border-radius: 0.25rem;
-                margin: 0 0.125rem;
-            }
+        const quill = new Quill(container, {
+            theme: 'snow',
+            modules: {
+                toolbar: toolbarOptions
+            },
+            placeholder: placeholder || 'Enter content...'
+        });
 
-            trix-toolbar .trix-button:hover {
-                background: #f3f4f6;
-            }
+        if (input.value) {
+            quill.root.innerHTML = input.value;
+        }
 
-            trix-toolbar .trix-button.trix-active {
-                background: #fef3c7;
-                border-color: #eab308;
-            }
-        </style>
-    @endpush
+        quill.on('text-change', function() {
+            input.value = quill.root.innerHTML;
+        });
 
-    @push('scripts')
-        <!-- Trix JS -->
-        <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
-    @endpush
+        return quill;
+    }
+
+    initQuillEditor('notes-editor', 'notes-input', 'Enter notes...');
+});
+</script>
+@endpush
 @endsection

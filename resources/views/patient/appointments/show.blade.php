@@ -105,7 +105,7 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-600">Notes</p>
-                                <p class="text-gray-900">{{ $appointment->notes }}</p>
+                                <div class="text-gray-900 rich-content">{!! $appointment->notes !!}</div>
                             </div>
                         </div>
                     @endif
