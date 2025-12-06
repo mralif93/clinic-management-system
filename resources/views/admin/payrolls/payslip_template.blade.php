@@ -7,95 +7,131 @@
     $currencySymbol = get_currency_symbol();
 @endphp
 
-<div id="payslip-content" class="bg-white p-8 max-w-4xl mx-auto border border-gray-200">
+<style>
+    #payslip-content {
+        width: 100%;
+        max-width: 100%;
+    }
+    @media print {
+        #payslip-content {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+            border: none !important;
+            border-radius: 0 !important;
+            font-size: 11px !important;
+        }
+        #payslip-content * {
+            print-color-adjust: exact !important;
+            -webkit-print-color-adjust: exact !important;
+        }
+        .no-print {
+            display: none !important;
+        }
+    }
+    @page {
+        size: A4 portrait;
+        margin: 8mm;
+    }
+</style>
+
+<div id="payslip-content" class="bg-white overflow-hidden shadow-sm border border-gray-100 rounded-2xl print:rounded-none print:border-none print:shadow-none">
     <!-- Header -->
-    <div class="border-b-2 border-gray-800 pb-6 mb-6">
+    <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 px-5 py-4 text-white">
         <div class="flex justify-between items-start">
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3">
                 <!-- Logo -->
                 @if($clinicLogo)
                     @if(str_starts_with($clinicLogo, 'data:'))
-                        <img src="{{ $clinicLogo }}" alt="{{ $clinicName }}" class="w-16 h-16 object-contain rounded-lg">
+                        <img src="{{ $clinicLogo }}" alt="{{ $clinicName }}" class="w-11 h-11 object-contain rounded-lg bg-white/20 p-1">
                     @else
-                        <img src="{{ asset('storage/' . $clinicLogo) }}" alt="{{ $clinicName }}" class="w-16 h-16 object-contain rounded-lg">
+                        <img src="{{ asset('storage/' . $clinicLogo) }}" alt="{{ $clinicName }}" class="w-11 h-11 object-contain rounded-lg bg-white/20 p-1">
                     @endif
                 @else
-                    <div class="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center text-white text-2xl font-bold">
+                    <div class="w-11 h-11 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center text-white text-xl font-bold">
                         {{ strtoupper(substr($clinicName, 0, 1)) }}
                     </div>
                 @endif
                 <div>
-                    <h1 class="text-2xl font-bold text-gray-900">{{ strtoupper($clinicName) }}</h1>
-                    <p class="text-sm text-gray-600">{{ $clinicAddress }}</p>
-                    <p class="text-sm text-gray-600">Tel: {{ $clinicPhone }} | Email: {{ $clinicEmail }}</p>
+                    <h1 class="text-base font-bold">{{ strtoupper($clinicName) }}</h1>
+                    <p class="text-xs text-emerald-100">{{ $clinicAddress }}</p>
+                    <p class="text-xs text-emerald-100">Tel: {{ $clinicPhone }} | Email: {{ $clinicEmail }}</p>
                 </div>
             </div>
             <div class="text-right">
-                <h2 class="text-3xl font-bold text-gray-800 tracking-wide">PAYSLIP</h2>
-                <p class="text-gray-600 mt-1 font-medium" id="preview-period">Period:
-                    {{ $payroll->pay_period ?? 'N/A' }}</p>
+                <div class="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur px-3 py-1.5 rounded-lg">
+                    <i class='bx bx-receipt text-lg'></i>
+                    <span class="text-base font-bold tracking-wide">PAYSLIP</span>
+                </div>
+                <p class="text-emerald-100 mt-1 text-xs" id="preview-period">Period: {{ $payroll->pay_period ?? 'N/A' }}</p>
             </div>
         </div>
     </div>
 
+    <div class="p-4">
+
     <!-- Employee Info -->
-    <div class="grid grid-cols-2 gap-8 mb-8">
-        <div>
-            <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Employee Details</h3>
-            <table class="w-full text-sm">
+    <div class="grid grid-cols-2 gap-4 mb-4">
+        <div class="bg-gray-50 rounded-lg p-3">
+            <h3 class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-2 flex items-center gap-1">
+                <i class='bx bx-user text-xs'></i> Employee Details
+            </h3>
+            <table class="w-full text-xs">
                 <tr>
-                    <td class="py-1 text-gray-600 w-32">Name:</td>
-                    <td class="py-1 font-semibold text-gray-900" id="preview-name">{{ $payroll->user->name ?? 'N/A' }}
-                    </td>
+                    <td class="py-1 text-gray-500 w-24">Name:</td>
+                    <td class="py-1 font-semibold text-gray-900" id="preview-name">{{ $payroll->user->name ?? 'N/A' }}</td>
                 </tr>
                 <tr>
-                    <td class="py-1 text-gray-600">Employee ID:</td>
-                    <td class="py-1 font-medium text-gray-900">
-                        EMP-{{ str_pad($payroll->user->id ?? 0, 4, '0', STR_PAD_LEFT) }}</td>
+                    <td class="py-1 text-gray-500">Employee ID:</td>
+                    <td class="py-1 font-medium text-gray-900">EMP-{{ str_pad($payroll->user->id ?? 0, 4, '0', STR_PAD_LEFT) }}</td>
                 </tr>
                 <tr>
-                    <td class="py-1 text-gray-600">Position:</td>
+                    <td class="py-1 text-gray-500">Position:</td>
                     <td class="py-1 text-gray-900">{{ ucfirst($payroll->user->role ?? 'N/A') }}</td>
                 </tr>
                 <tr>
-                    <td class="py-1 text-gray-600">Employment Type:</td>
+                    <td class="py-1 text-gray-500">Employment:</td>
                     <td class="py-1 text-gray-900">
                         @if($payroll->user->employment_type)
-                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
-                                {{ $payroll->user->employment_type === 'locum' ? 'bg-purple-100 text-purple-800' :
-                                   ($payroll->user->employment_type === 'part_time' ? 'bg-orange-100 text-orange-800' : 'bg-blue-100 text-blue-800') }}">
+                            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold
+                                {{ $payroll->user->employment_type === 'locum' ? 'bg-purple-100 text-purple-700' :
+                                   ($payroll->user->employment_type === 'part_time' ? 'bg-orange-100 text-orange-700' : 'bg-emerald-100 text-emerald-700') }}">
                                 {{ ucfirst(str_replace('_', ' ', $payroll->user->employment_type)) }}
                             </span>
                         @else
-                            Full Time
+                            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-700">Full Time</span>
                         @endif
                     </td>
                 </tr>
                 <tr>
-                    <td class="py-1 text-gray-600">Department:</td>
+                    <td class="py-1 text-gray-500">Department:</td>
                     <td class="py-1 text-gray-900">Medical</td>
                 </tr>
             </table>
         </div>
-        <div>
-            <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Bank Details</h3>
-            <table class="w-full text-sm">
+        <div class="bg-gray-50 rounded-lg p-3">
+            <h3 class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-2 flex items-center gap-1">
+                <i class='bx bx-credit-card text-xs'></i> Payment Details
+            </h3>
+            <table class="w-full text-xs">
                 <tr>
-                    <td class="py-1 text-gray-600 w-32">Bank Name:</td>
+                    <td class="py-1 text-gray-500 w-24">Bank Name:</td>
                     <td class="py-1 text-gray-900">Maybank</td>
                 </tr>
                 <tr>
-                    <td class="py-1 text-gray-600">Account No:</td>
+                    <td class="py-1 text-gray-500">Account No:</td>
                     <td class="py-1 text-gray-900">123456789012</td>
                 </tr>
                 <tr>
-                    <td class="py-1 text-gray-600">Payment Date:</td>
+                    <td class="py-1 text-gray-500">Payment Date:</td>
                     <td class="py-1 text-gray-900" id="preview-payment-date">
                         {{ $payroll->payment_date ? $payroll->payment_date->format('d M Y') : now()->format('d M Y') }}
                     </td>
                 </tr>
                 <tr>
-                    <td class="py-1 text-gray-600">Payment Method:</td>
+                    <td class="py-1 text-gray-500">Method:</td>
                     <td class="py-1 text-gray-900" id="preview-payment-method">
                         {{ \App\Models\Payroll::getPaymentMethods()[$payroll->payment_method ?? 'bank_transfer'] ?? 'Bank Transfer' }}
                     </td>
@@ -116,47 +152,36 @@
         @endphp
 
         @if($attendances->count() > 0)
-            <div class="mb-8 bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-orange-200 rounded-lg p-6">
-                <div class="flex items-center gap-2 mb-4">
-                    <i class='bx bx-time text-2xl text-orange-600'></i>
-                    <h3 class="text-lg font-bold text-orange-900">Hours Breakdown</h3>
+            <div class="mb-4 border border-amber-200 rounded-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-amber-500 to-orange-500 px-3 py-2 flex items-center gap-1">
+                    <i class='bx bx-time text-sm text-white'></i>
+                    <h3 class="text-xs font-bold text-white">Hours Breakdown ({{ $currencySymbol }}{{ number_format($hourlyRate, 2) }}/hr)</h3>
                 </div>
-
-                <div class="bg-white rounded-lg p-4 mb-4">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr class="border-b border-orange-200">
-                                <th class="py-2 px-3 text-left text-xs font-bold text-orange-900 uppercase">Date</th>
-                                <th class="py-2 px-3 text-center text-xs font-bold text-orange-900 uppercase">Hours Worked</th>
-                                <th class="py-2 px-3 text-right text-xs font-bold text-orange-900 uppercase">Rate ({{ $currencySymbol }}/hr)</th>
-                                <th class="py-2 px-3 text-right text-xs font-bold text-orange-900 uppercase">Amount</th>
+                <table class="w-full text-xs bg-amber-50">
+                    <thead>
+                        <tr class="border-b border-amber-200">
+                            <th class="py-1.5 px-2 text-left text-[10px] font-bold text-amber-800 uppercase">Date</th>
+                            <th class="py-1.5 px-2 text-center text-[10px] font-bold text-amber-800 uppercase">Hours</th>
+                            <th class="py-1.5 px-2 text-right text-[10px] font-bold text-amber-800 uppercase">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($attendances as $attendance)
+                            <tr class="border-b border-amber-100">
+                                <td class="py-1 px-2 text-gray-700">{{ $attendance->date->format('d M Y') }}</td>
+                                <td class="py-1 px-2 text-center text-gray-900 font-semibold">{{ number_format($attendance->total_hours, 2) }}h</td>
+                                <td class="py-1 px-2 text-right text-amber-700 font-semibold">{{ $currencySymbol }}{{ number_format($attendance->total_hours * $hourlyRate, 2) }}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($attendances as $attendance)
-                                <tr class="border-b border-orange-100">
-                                    <td class="py-2 px-3 text-gray-700">{{ $attendance->date->format('d M Y') }}</td>
-                                    <td class="py-2 px-3 text-center text-gray-900 font-semibold">{{ number_format($attendance->total_hours, 2) }}h</td>
-                                    <td class="py-2 px-3 text-right text-gray-700">{{ number_format($hourlyRate, 2) }}</td>
-                                    <td class="py-2 px-3 text-right text-orange-900 font-semibold">{{ $currencySymbol }}{{ number_format($attendance->total_hours * $hourlyRate, 2) }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr class="bg-orange-100 font-bold">
-                                <td class="py-3 px-3 text-orange-900">TOTAL ({{ $attendances->count() }} days)</td>
-                                <td class="py-3 px-3 text-center text-orange-900">{{ number_format($attendances->sum('total_hours'), 2) }}h</td>
-                                <td class="py-3 px-3 text-right text-orange-900">{{ number_format($hourlyRate, 2) }}</td>
-                                <td class="py-3 px-3 text-right text-orange-900">{{ $currencySymbol }}{{ number_format($attendances->sum('total_hours') * $hourlyRate, 2) }}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-
-                <div class="text-xs text-orange-700 bg-orange-200 rounded p-3 flex items-start gap-2">
-                    <i class='bx bx-info-circle text-base mt-0.5'></i>
-                    <p>Hourly rate: <strong>{{ $currencySymbol }}{{ number_format($hourlyRate, 2) }}/hour</strong>. Only approved attendance records are included in the calculation. Total hours are calculated from clock-in to clock-out time minus break duration.</p>
-                </div>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr class="bg-amber-100 font-bold">
+                            <td class="py-1.5 px-2 text-amber-900">TOTAL ({{ $attendances->count() }} days)</td>
+                            <td class="py-1.5 px-2 text-center text-amber-900">{{ number_format($attendances->sum('total_hours'), 2) }}h</td>
+                            <td class="py-1.5 px-2 text-right text-amber-900">{{ $currencySymbol }}{{ number_format($attendances->sum('total_hours') * $hourlyRate, 2) }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         @endif
     @endif
@@ -173,133 +198,127 @@
         @endphp
 
         @if($appointments->count() > 0)
-            <div class="mb-8 bg-gradient-to-br from-purple-50 to-purple-100 border-2 border-purple-200 rounded-lg p-6">
-                <div class="flex items-center gap-2 mb-4">
-                    <i class='bx bx-wallet text-2xl text-purple-600'></i>
-                    <h3 class="text-lg font-bold text-purple-900">Commission Breakdown</h3>
+            <div class="mb-4 border border-purple-200 rounded-lg overflow-hidden">
+                <div class="bg-gradient-to-r from-purple-500 to-violet-500 px-3 py-2 flex items-center gap-1">
+                    <i class='bx bx-wallet text-sm text-white'></i>
+                    <h3 class="text-xs font-bold text-white">Commission Breakdown ({{ number_format($commissionRate, 0) }}%)</h3>
                 </div>
-
-                <div class="bg-white rounded-lg p-4 mb-4">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr class="border-b border-purple-200">
-                                <th class="py-2 px-3 text-left text-xs font-bold text-purple-900 uppercase">Date</th>
-                                <th class="py-2 px-3 text-left text-xs font-bold text-purple-900 uppercase">Patient</th>
-                                <th class="py-2 px-3 text-right text-xs font-bold text-purple-900 uppercase">Fee</th>
-                                <th class="py-2 px-3 text-right text-xs font-bold text-purple-900 uppercase">Commission ({{ number_format($commissionRate, 0) }}%)</th>
+                <table class="w-full text-xs bg-purple-50">
+                    <thead>
+                        <tr class="border-b border-purple-200">
+                            <th class="py-1.5 px-2 text-left text-[10px] font-bold text-purple-800 uppercase">Date</th>
+                            <th class="py-1.5 px-2 text-left text-[10px] font-bold text-purple-800 uppercase">Patient</th>
+                            <th class="py-1.5 px-2 text-right text-[10px] font-bold text-purple-800 uppercase">Fee</th>
+                            <th class="py-1.5 px-2 text-right text-[10px] font-bold text-purple-800 uppercase">Commission</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($appointments as $appointment)
+                            <tr class="border-b border-purple-100">
+                                <td class="py-1 px-2 text-gray-700">{{ $appointment->appointment_date->format('d M') }}</td>
+                                <td class="py-1 px-2 text-gray-700">{{ $appointment->patient->full_name }}</td>
+                                <td class="py-1 px-2 text-right text-gray-900">{{ $currencySymbol }}{{ number_format($appointment->fee, 2) }}</td>
+                                <td class="py-1 px-2 text-right text-purple-700 font-semibold">{{ $currencySymbol }}{{ number_format(($appointment->fee * $commissionRate) / 100, 2) }}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($appointments as $appointment)
-                                <tr class="border-b border-purple-100">
-                                    <td class="py-2 px-3 text-gray-700">{{ $appointment->appointment_date->format('d M Y') }}</td>
-                                    <td class="py-2 px-3 text-gray-700">{{ $appointment->patient->full_name }}</td>
-                                    <td class="py-2 px-3 text-right text-gray-900">{{ $currencySymbol }}{{ number_format($appointment->fee, 2) }}</td>
-                                    <td class="py-2 px-3 text-right text-purple-900 font-semibold">{{ $currencySymbol }}{{ number_format(($appointment->fee * $commissionRate) / 100, 2) }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot>
-                            <tr class="bg-purple-100 font-bold">
-                                <td colspan="2" class="py-3 px-3 text-purple-900">TOTAL ({{ $appointments->count() }} appointments)</td>
-                                <td class="py-3 px-3 text-right text-purple-900">{{ $currencySymbol }}{{ number_format($appointments->sum('fee'), 2) }}</td>
-                                <td class="py-3 px-3 text-right text-purple-900">{{ $currencySymbol }}{{ number_format(($appointments->sum('fee') * $commissionRate) / 100, 2) }}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-
-                <div class="text-xs text-purple-700 bg-purple-200 rounded p-3 flex items-start gap-2">
-                    <i class='bx bx-info-circle text-base mt-0.5'></i>
-                    <p>Commission rate: <strong>{{ number_format($commissionRate, 0) }}%</strong> of appointment fees. Only completed and confirmed appointments are included in the calculation.</p>
-                </div>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr class="bg-purple-100 font-bold">
+                            <td colspan="2" class="py-1.5 px-2 text-purple-900">TOTAL ({{ $appointments->count() }} appointments)</td>
+                            <td class="py-1.5 px-2 text-right text-purple-900">{{ $currencySymbol }}{{ number_format($appointments->sum('fee'), 2) }}</td>
+                            <td class="py-1.5 px-2 text-right text-purple-900">{{ $currencySymbol }}{{ number_format(($appointments->sum('fee') * $commissionRate) / 100, 2) }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         @endif
     @endif
 
     <!-- Salary Details -->
-    <div class="mb-8">
-        <table class="w-full border-collapse">
+    <div class="mb-4 border border-emerald-200 rounded-lg overflow-hidden">
+        <div class="bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-2 flex items-center gap-1">
+            <i class='bx bx-money text-sm text-white'></i>
+            <h3 class="text-xs font-bold text-white">Earnings</h3>
+        </div>
+        <table class="w-full text-xs">
             <thead>
-                <tr class="bg-gray-50 border-y border-gray-200">
-                    <th class="py-3 px-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider w-1/2">
-                        Earnings</th>
-                    <th class="py-3 px-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider w-1/2">
-                        Amount ({{ $currencySymbol }})</th>
+                <tr class="bg-emerald-50 border-b border-emerald-100">
+                    <th class="py-2 px-3 text-left text-[10px] font-bold text-emerald-700 uppercase tracking-wider w-1/2">Description</th>
+                    <th class="py-2 px-3 text-right text-[10px] font-bold text-emerald-700 uppercase tracking-wider w-1/2">Amount ({{ $currencySymbol }})</th>
                 </tr>
             </thead>
-            <tbody class="text-sm">
+            <tbody>
                 <!-- Basic Salary -->
                 <tr class="border-b border-gray-100">
-                    <td class="py-3 px-4 text-gray-800">Basic Salary</td>
-                    <td class="py-3 px-4 text-right font-medium text-gray-900" id="preview-basic-salary">
+                    <td class="py-1.5 px-3 text-gray-800 font-medium">Basic Salary</td>
+                    <td class="py-1.5 px-3 text-right font-semibold text-gray-900" id="preview-basic-salary">
                         {{ number_format($payroll->basic_salary ?? 0, 2) }}
                     </td>
                 </tr>
 
                 <!-- Allowances -->
-            <tbody id="preview-allowances-list">
                 @if(isset($payroll->allowances) && count($payroll->allowances) > 0)
                     @foreach($payroll->allowances as $name => $amount)
                         <tr class="border-b border-gray-100">
-                            <td class="py-3 px-4 text-gray-600">{{ ucfirst(str_replace('_', ' ', $name)) }}</td>
-                            <td class="py-3 px-4 text-right text-gray-900">{{ number_format($amount, 2) }}</td>
+                            <td class="py-1.5 px-3 text-gray-600">{{ ucfirst(str_replace('_', ' ', $name)) }}</td>
+                            <td class="py-1.5 px-3 text-right text-gray-900">{{ number_format($amount, 2) }}</td>
                         </tr>
                     @endforeach
                 @endif
-            </tbody>
 
-            <!-- Overtime -->
-            <tr class="border-b border-gray-100" id="preview-overtime-row"
-                style="{{ ($payroll->overtime_pay ?? 0) > 0 ? '' : 'display: none;' }}">
-                <td class="py-3 px-4 text-gray-600">Overtime <span id="preview-overtime-hours"
-                        class="text-xs text-gray-500">({{ $payroll->overtime_hours ?? 0 }} hrs)</span></td>
-                <td class="py-3 px-4 text-right text-gray-900" id="preview-overtime-pay">
-                    {{ number_format($payroll->overtime_pay ?? 0, 2) }}
-                </td>
-            </tr>
+                <!-- Overtime -->
+                @if(($payroll->overtime_pay ?? 0) > 0)
+                <tr class="border-b border-gray-100" id="preview-overtime-row">
+                    <td class="py-1.5 px-3 text-gray-600">Overtime <span id="preview-overtime-hours" class="text-[10px] text-gray-500">({{ $payroll->overtime_hours ?? 0 }} hrs)</span></td>
+                    <td class="py-1.5 px-3 text-right text-gray-900" id="preview-overtime-pay">
+                        {{ number_format($payroll->overtime_pay ?? 0, 2) }}
+                    </td>
+                </tr>
+                @endif
 
-            <!-- Gross Salary -->
-            <tr class="bg-gray-50 font-bold">
-                <td class="py-3 px-4 text-gray-800">GROSS SALARY</td>
-                <td class="py-3 px-4 text-right text-gray-900" id="preview-gross-salary">
-                    {{ number_format($payroll->gross_salary ?? 0, 2) }}
-                </td>
-            </tr>
+                <!-- Gross Salary -->
+                <tr class="bg-emerald-50 font-bold">
+                    <td class="py-2 px-3 text-emerald-800">GROSS SALARY</td>
+                    <td class="py-2 px-3 text-right text-emerald-700" id="preview-gross-salary">
+                        {{ number_format($payroll->gross_salary ?? 0, 2) }}
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
 
     <!-- Deductions -->
-    <div class="mb-8">
-        <table class="w-full border-collapse">
+    <div class="mb-4 border border-red-200 rounded-lg overflow-hidden">
+        <div class="bg-gradient-to-r from-red-500 to-rose-500 px-3 py-2 flex items-center gap-1">
+            <i class='bx bx-minus-circle text-sm text-white'></i>
+            <h3 class="text-xs font-bold text-white">Deductions</h3>
+        </div>
+        <table class="w-full text-xs">
             <thead>
-                <tr class="bg-gray-50 border-y border-gray-200">
-                    <th class="py-3 px-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider w-1/2">
-                        Deductions</th>
-                    <th class="py-3 px-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider w-1/2">
-                        Amount ({{ $currencySymbol }})</th>
+                <tr class="bg-red-50 border-b border-red-100">
+                    <th class="py-2 px-3 text-left text-[10px] font-bold text-red-700 uppercase tracking-wider w-1/2">Description</th>
+                    <th class="py-2 px-3 text-right text-[10px] font-bold text-red-700 uppercase tracking-wider w-1/2">Amount ({{ $currencySymbol }})</th>
                 </tr>
             </thead>
-            <tbody class="text-sm" id="preview-deductions-list">
+            <tbody id="preview-deductions-list">
                 @if(isset($payroll->deductions) && count($payroll->deductions) > 0)
                     @foreach($payroll->deductions as $name => $amount)
                         <tr class="border-b border-gray-100">
-                            <td class="py-3 px-4 text-gray-600">{{ ucfirst(str_replace('_', ' ', $name)) }}</td>
-                            <td class="py-3 px-4 text-right text-red-600">- {{ number_format($amount, 2) }}</td>
+                            <td class="py-1.5 px-3 text-gray-600">{{ ucfirst(str_replace('_', ' ', $name)) }}</td>
+                            <td class="py-1.5 px-3 text-right text-red-600 font-medium">- {{ number_format($amount, 2) }}</td>
                         </tr>
                     @endforeach
                 @else
                     <tr class="border-b border-gray-100">
-                        <td class="py-3 px-4 text-gray-500 italic">No deductions</td>
-                        <td class="py-3 px-4 text-right text-gray-500">- 0.00</td>
+                        <td class="py-1.5 px-3 text-gray-500 italic">No deductions</td>
+                        <td class="py-1.5 px-3 text-right text-gray-500">- 0.00</td>
                     </tr>
                 @endif
             </tbody>
             <tfoot>
-                <tr class="bg-gray-50 font-bold">
-                    <td class="py-3 px-4 text-gray-800">TOTAL DEDUCTIONS</td>
-                    <td class="py-3 px-4 text-right text-red-600" id="preview-total-deductions">
+                <tr class="bg-red-50 font-bold">
+                    <td class="py-2 px-3 text-red-800">TOTAL DEDUCTIONS</td>
+                    <td class="py-2 px-3 text-right text-red-600" id="preview-total-deductions">
                         - {{ number_format($payroll->total_deductions ?? 0, 2) }}
                     </td>
                 </tr>
@@ -308,26 +327,29 @@
     </div>
 
     <!-- Net Salary -->
-    <div class="flex justify-end mb-12">
-        <div class="bg-gray-900 text-white p-6 rounded-lg min-w-[300px]">
-            <p class="text-sm text-gray-400 uppercase tracking-wider mb-1">Net Salary</p>
-            <div class="text-4xl font-bold flex items-start gap-1">
-                <span class="text-lg mt-1">{{ $currencySymbol }}</span>
+    <div class="flex justify-end mb-3">
+        <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-4 py-2 rounded-lg min-w-[180px]">
+            <p class="text-[9px] text-emerald-100 uppercase tracking-wider">Net Salary</p>
+            <div class="text-xl font-bold flex items-start gap-0.5">
+                <span class="text-xs mt-0.5">{{ $currencySymbol }}</span>
                 <span id="preview-net-salary">{{ number_format($payroll->net_salary ?? 0, 2) }}</span>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <div class="grid grid-cols-2 gap-12 text-sm text-gray-600 border-t border-gray-200 pt-8">
+    <div class="grid grid-cols-2 gap-4 text-gray-500 border-t border-gray-200 pt-3">
         <div>
-            <p class="mb-12">This is a computer-generated document. No signature is required.</p>
-            <p class="font-bold text-gray-900">{{ $clinicName }}</p>
-            <p>Authorized Signatory</p>
+            <p class="mb-2 text-[9px]">This is a computer-generated document. No signature is required.</p>
+            <div class="border-t border-gray-300 pt-1 inline-block">
+                <p class="font-bold text-gray-700 text-[10px]">{{ $clinicName }}</p>
+                <p class="text-[9px]">Authorized Signatory</p>
+            </div>
         </div>
         <div class="text-right">
-            <p class="mb-1">Date Generated: <span id="preview-generated-date">{{ now()->format('d M Y') }}</span></p>
-            <p>Generated by: {{ Auth::user()->name }}</p>
+            <p class="text-[9px]">Date Generated: <span id="preview-generated-date" class="font-medium text-gray-700">{{ now()->format('d M Y') }}</span></p>
+            <p class="text-[9px]">Generated by: <span class="font-medium text-gray-700">{{ Auth::user()->name }}</span></p>
         </div>
+    </div>
     </div>
 </div>
