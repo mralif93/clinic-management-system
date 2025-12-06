@@ -65,67 +65,111 @@
         </div>
 
         <!-- Date Selector -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
-            <form method="GET" action="{{ route('doctor.schedule.index') }}" class="flex flex-wrap items-center gap-4">
-                <label class="text-sm font-semibold text-gray-700">Select Date:</label>
-                <input type="date" name="date" value="{{ $selectedDate->format('Y-m-d') }}"
-                    class="px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition">
-                <button type="submit"
-                    class="inline-flex items-center px-5 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 transition shadow-sm">
-                    <i class='bx bx-search mr-2'></i> View
-                </button>
-                <a href="{{ route('doctor.schedule.index') }}"
-                    class="inline-flex items-center px-5 py-2.5 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition">
-                    Today
-                </a>
+        <div class="bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 rounded-2xl border border-emerald-100/50 p-5">
+            <form method="GET" action="{{ route('doctor.schedule.index') }}">
+                <div class="flex flex-wrap items-center gap-3">
+                    <span class="text-sm font-medium text-emerald-700 flex items-center gap-1.5">
+                        <i class='bx bx-calendar-event'></i> Select Date:
+                    </span>
+
+                    <input type="date" name="date" value="{{ $selectedDate->format('Y-m-d') }}"
+                        class="px-3 py-2 bg-white border-0 rounded-lg shadow-sm focus:ring-2 focus:ring-emerald-500 text-sm text-gray-700">
+
+                    <div class="flex items-center gap-2 ml-auto">
+                        <a href="{{ route('doctor.schedule.index') }}"
+                            class="inline-flex items-center px-4 py-2 bg-white text-gray-600 text-sm font-medium rounded-lg shadow-sm hover:bg-gray-50 transition">
+                            <i class='bx bx-calendar-check mr-1'></i> Today
+                        </a>
+                        <button type="submit"
+                            class="inline-flex items-center px-5 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-lg hover:from-emerald-600 hover:to-teal-600 transition-all">
+                            <i class='bx bx-search mr-1.5'></i> View
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
 
         <!-- Today's Appointments -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
-                <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-list-ul text-emerald-500'></i>
-                    Appointments for {{ $selectedDate->format('l, F d, Y') }}
-                </h3>
+            <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-emerald-50 to-teal-50">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-semibold text-gray-800 flex items-center gap-2">
+                        <div class="w-8 h-8 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg flex items-center justify-center">
+                            <i class='bx bx-list-ul text-white text-lg'></i>
+                        </div>
+                        Appointments for {{ $selectedDate->format('l, F d, Y') }}
+                    </h3>
+                    <span class="inline-flex items-center px-3 py-1 bg-emerald-100 text-emerald-700 text-sm font-semibold rounded-full">
+                        <i class='bx bx-calendar-check mr-1'></i>
+                        {{ $appointments->count() }} {{ Str::plural('appointment', $appointments->count()) }}
+                    </span>
+                </div>
             </div>
             <div class="p-6">
                 @if($appointments->count() > 0)
-                    <div class="space-y-4">
+                    <div class="space-y-3">
                         @foreach($appointments as $appointment)
-                            <div class="border border-gray-100 rounded-xl p-4 hover:bg-gray-50/50 hover:shadow-sm transition-all duration-200">
-                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
-                                    <div class="flex items-start gap-4">
-                                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex flex-col items-center justify-center text-white flex-shrink-0">
-                                            <span class="text-lg font-bold leading-none">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i') }}</span>
-                                            <span class="text-xs font-medium uppercase">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('A') }}</span>
-                                        </div>
-                                        <div>
-                                            <h4 class="font-semibold text-gray-900">{{ $appointment->patient->full_name }}</h4>
-                                            <p class="text-sm text-gray-600">{{ $appointment->service->name ?? 'N/A' }}</p>
-                                            <span class="inline-flex items-center mt-1 px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-xs font-medium">
-                                                ID: {{ $appointment->patient->patient_id ?? 'N/A' }}
-                                            </span>
+                            @php
+                                $statusConfig = [
+                                    'scheduled' => ['bg' => 'bg-blue-50/50', 'border' => 'border-blue-100', 'badge_bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'bx-calendar', 'time_bg' => 'bg-blue-500', 'time_text' => 'text-blue-600'],
+                                    'confirmed' => ['bg' => 'bg-emerald-50/50', 'border' => 'border-emerald-100', 'badge_bg' => 'bg-emerald-100', 'text' => 'text-emerald-700', 'icon' => 'bx-check', 'time_bg' => 'bg-emerald-500', 'time_text' => 'text-emerald-600'],
+                                    'in_progress' => ['bg' => 'bg-amber-50/50', 'border' => 'border-amber-100', 'badge_bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'bx-loader-alt', 'time_bg' => 'bg-amber-500', 'time_text' => 'text-amber-600'],
+                                    'completed' => ['bg' => 'bg-purple-50/50', 'border' => 'border-purple-100', 'badge_bg' => 'bg-purple-100', 'text' => 'text-purple-700', 'icon' => 'bx-check-double', 'time_bg' => 'bg-purple-500', 'time_text' => 'text-purple-600'],
+                                    'cancelled' => ['bg' => 'bg-red-50/50', 'border' => 'border-red-100', 'badge_bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-x', 'time_bg' => 'bg-red-500', 'time_text' => 'text-red-600'],
+                                    'no_show' => ['bg' => 'bg-gray-50/50', 'border' => 'border-gray-100', 'badge_bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-error', 'time_bg' => 'bg-gray-500', 'time_text' => 'text-gray-600'],
+                                ];
+                                $sConfig = $statusConfig[$appointment->status] ?? ['bg' => 'bg-gray-50/50', 'border' => 'border-gray-100', 'badge_bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-help-circle', 'time_bg' => 'bg-gray-500', 'time_text' => 'text-gray-600'];
+                            @endphp
+                            <div class="group {{ $sConfig['bg'] }} border {{ $sConfig['border'] }} rounded-xl p-4 hover:shadow-md transition-all duration-200">
+                                <div class="flex items-center gap-4">
+                                    <!-- Time Display -->
+                                    <div class="flex-shrink-0 text-center w-16">
+                                        <div class="text-2xl font-bold {{ $sConfig['time_text'] }}">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i') }}</div>
+                                        <div class="text-xs font-semibold {{ $sConfig['time_text'] }} opacity-70 uppercase">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('A') }}</div>
+                                    </div>
+
+                                    <!-- Divider -->
+                                    <div class="w-px h-12 {{ $sConfig['time_bg'] }} opacity-30"></div>
+
+                                    <!-- Patient Avatar -->
+                                    <div class="flex-shrink-0">
+                                        <div class="w-11 h-11 bg-white rounded-full flex items-center justify-center shadow-sm border border-gray-200">
+                                            <span class="text-sm font-bold text-gray-600">{{ strtoupper(substr($appointment->patient->first_name ?? 'P', 0, 1)) }}{{ strtoupper(substr($appointment->patient->last_name ?? '', 0, 1)) }}</span>
                                         </div>
                                     </div>
-                                    <div class="flex items-center gap-3 sm:flex-col sm:items-end">
-                                        @php
-                                            $statusColors = [
-                                                'scheduled' => 'bg-blue-100 text-blue-700',
-                                                'confirmed' => 'bg-emerald-100 text-emerald-700',
-                                                'completed' => 'bg-purple-100 text-purple-700',
-                                                'cancelled' => 'bg-red-100 text-red-700',
-                                                'no_show' => 'bg-amber-100 text-amber-700',
-                                            ];
-                                            $statusColor = $statusColors[$appointment->status] ?? 'bg-gray-100 text-gray-700';
-                                        @endphp
-                                        <span class="px-2.5 py-1 text-xs font-semibold rounded-lg {{ $statusColor }}">
+
+                                    <!-- Main Content -->
+                                    <div class="flex-grow min-w-0">
+                                        <h4 class="font-semibold text-gray-900">{{ $appointment->patient->full_name }}</h4>
+                                        <div class="flex flex-wrap items-center gap-2 mt-1 text-sm text-gray-500">
+                                            <span class="inline-flex items-center gap-1">
+                                                <i class='bx bx-briefcase-alt-2 text-emerald-500'></i>
+                                                {{ $appointment->service->name ?? 'N/A' }}
+                                            </span>
+                                            <span class="text-gray-300">•</span>
+                                            <span class="inline-flex items-center gap-1 text-xs bg-emerald-50 text-emerald-600 px-2 py-0.5 rounded-md font-medium">
+                                                <i class='bx bx-id-card'></i>
+                                                {{ $appointment->patient->patient_id ?? 'N/A' }}
+                                            </span>
+                                            @if($appointment->fee)
+                                                <span class="text-gray-300">•</span>
+                                                <span class="inline-flex items-center gap-1 text-xs">
+                                                    <i class='bx bx-money text-green-500'></i>
+                                                    <span class="font-medium text-gray-600">RM{{ number_format($appointment->fee, 2) }}</span>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <!-- Status & Action - Right Aligned, Vertically Centered -->
+                                    <div class="flex-shrink-0 flex items-center gap-3">
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold {{ $sConfig['badge_bg'] }} {{ $sConfig['text'] }}">
+                                            <i class='bx {{ $sConfig['icon'] }}'></i>
                                             {{ ucfirst(str_replace('_', ' ', $appointment->status)) }}
                                         </span>
                                         <a href="{{ route('doctor.appointments.show', $appointment->id) }}"
-                                            class="w-8 h-8 flex items-center justify-center bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-lg transition"
-                                            title="View">
-                                            <i class='bx bx-show text-lg'></i>
+                                            class="w-9 h-9 flex items-center justify-center bg-gradient-to-br from-emerald-500 to-teal-500 text-white rounded-full hover:from-emerald-600 hover:to-teal-600 transition-all shadow-sm hover:shadow-md group-hover:scale-105" title="View Details">
+                                            <i class='bx bx-right-arrow-alt text-lg'></i>
                                         </a>
                                     </div>
                                 </div>
@@ -133,11 +177,12 @@
                         @endforeach
                     </div>
                 @else
-                    <div class="flex flex-col items-center py-12">
-                        <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                            <i class='bx bx-calendar-x text-3xl text-gray-400'></i>
+                    <div class="text-center py-16">
+                        <div class="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class='bx bx-calendar-x text-4xl text-gray-400'></i>
                         </div>
-                        <p class="text-gray-500 font-medium">No appointments scheduled for this date</p>
+                        <p class="text-gray-600 font-semibold text-lg">No appointments scheduled</p>
+                        <p class="text-gray-400 text-sm mt-1">Select another date to view your appointments</p>
                     </div>
                 @endif
             </div>
@@ -145,43 +190,46 @@
 
         <!-- Week View -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
-                <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-calendar-week text-blue-500'></i>
-                    Week View ({{ $weekStart->format('M d') }} - {{ $weekEnd->format('M d, Y') }})
+            <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+                <h3 class="font-semibold text-gray-800 flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                        <i class='bx bx-calendar-week text-white text-lg'></i>
+                    </div>
+                    Week View
+                    <span class="text-sm font-normal text-gray-500 ml-2">{{ $weekStart->format('M d') }} - {{ $weekEnd->format('M d, Y') }}</span>
                 </h3>
             </div>
             <div class="p-6">
-                <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3">
+                <div class="grid grid-cols-2 md:grid-cols-7 gap-3">
                     @for($date = $weekStart->copy(); $date <= $weekEnd; $date->addDay())
                         @php
                             $dayAppointments = $weekAppointments->get($date->format('Y-m-d'), collect());
                             $isToday = $date->isToday();
                             $isSelected = $date->format('Y-m-d') == $selectedDate->format('Y-m-d');
                         @endphp
-                        <div class="border rounded-xl p-3 transition-all duration-200 hover:shadow-sm {{ $isToday ? 'bg-emerald-50 border-emerald-300 ring-2 ring-emerald-200' : ($isSelected ? 'bg-blue-50 border-blue-300' : 'border-gray-100 hover:border-gray-200') }}">
-                            <div class="text-center mb-3">
-                                <div class="text-xs font-semibold uppercase {{ $isToday ? 'text-emerald-600' : 'text-gray-500' }}">{{ $date->format('D') }}</div>
+                        <a href="{{ route('doctor.schedule.index', ['date' => $date->format('Y-m-d')]) }}"
+                            class="block border rounded-xl p-3 transition-all duration-150 hover:shadow-md {{ $isToday ? 'bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-300 ring-2 ring-emerald-200' : ($isSelected ? 'bg-blue-50 border-blue-300' : 'border-gray-200 hover:border-emerald-200 hover:bg-emerald-50/30') }}">
+                            <div class="text-center mb-2">
+                                <div class="text-xs font-semibold {{ $isToday ? 'text-emerald-600' : 'text-gray-500' }} uppercase">{{ $date->format('D') }}</div>
                                 <div class="text-xl font-bold {{ $isToday ? 'text-emerald-700' : 'text-gray-900' }}">{{ $date->format('d') }}</div>
                             </div>
-                            <div class="space-y-1.5">
-                                @foreach($dayAppointments->take(3) as $appointment)
-                                    <div class="text-xs bg-emerald-100 text-emerald-700 rounded-lg px-2 py-1 truncate font-medium"
+                            <div class="space-y-1">
+                                @foreach($dayAppointments->take(2) as $appointment)
+                                    <div class="text-xs bg-emerald-100 text-emerald-800 rounded-lg px-2 py-1 truncate font-medium"
                                         title="{{ $appointment->patient->full_name }}">
-                                        {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }} -
-                                        {{ $appointment->patient->first_name }}
+                                        {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
                                     </div>
                                 @endforeach
-                                @if($dayAppointments->count() > 3)
-                                    <div class="text-xs text-gray-500 text-center font-medium">
-                                        +{{ $dayAppointments->count() - 3 }} more
+                                @if($dayAppointments->count() > 2)
+                                    <div class="text-xs text-emerald-600 text-center font-semibold">
+                                        +{{ $dayAppointments->count() - 2 }} more
                                     </div>
                                 @endif
+                                @if($dayAppointments->count() == 0)
+                                    <div class="text-xs text-gray-400 text-center py-1">—</div>
+                                @endif
                             </div>
-                            @if($dayAppointments->count() == 0)
-                                <div class="text-xs text-gray-400 text-center mt-2">No appointments</div>
-                            @endif
-                        </div>
+                        </a>
                     @endfor
                 </div>
             </div>

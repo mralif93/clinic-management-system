@@ -70,4 +70,64 @@ class DashboardController extends Controller
             'todayAttendance'
         ));
     }
+
+    /**
+     * Show doctor check-in page
+     */
+    public function checkIn()
+    {
+        $user = Auth::user();
+
+        // Check if already checked in today
+        $todayAttendance = Attendance::where('user_id', Auth::id())
+            ->whereDate('date', today())
+            ->first();
+
+        if ($todayAttendance) {
+            return redirect()->route('doctor.dashboard')
+                ->with('info', 'You have already checked in today.');
+        }
+
+        return view('doctor.check-in', compact('user'));
+    }
+
+    /**
+     * Process doctor check-in
+     */
+    public function storeCheckIn(Request $request)
+    {
+        $userId = Auth::id();
+        $today = today();
+
+        // Check if already checked in today
+        $existing = Attendance::where('user_id', $userId)
+            ->whereDate('date', $today)
+            ->first();
+
+        if ($existing) {
+            return redirect()->route('doctor.dashboard')
+                ->with('info', 'You have already checked in today.');
+        }
+
+        // Get location (IP address)
+        $location = $request->ip();
+
+        // Create attendance record
+        $attendance = Attendance::create([
+            'user_id' => $userId,
+            'date' => $today,
+            'clock_in_time' => now(),
+            'clock_in_location' => $location,
+            'status' => 'present',
+        ]);
+
+        // Check if late (after 9:15 AM)
+        if ($attendance->isLate()) {
+            $attendance->status = 'late';
+            $attendance->save();
+        }
+
+        return redirect()->route('doctor.dashboard')
+            ->with('success', 'Welcome! You have successfully checked in at ' . now()->format('h:i A'));
+    }
 }

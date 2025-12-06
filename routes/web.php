@@ -52,48 +52,57 @@ Route::middleware('auth')->group(function () {
 
     // Doctor Routes
     Route::prefix('doctor')->name('doctor.')->group(function () {
-        Route::get('/dashboard', [App\Http\Controllers\Doctor\DashboardController::class, 'index'])->name('dashboard');
+        // Check-in routes (no middleware)
+        Route::get('/check-in', [App\Http\Controllers\Doctor\DashboardController::class, 'checkIn'])->name('check-in');
+        Route::post('/check-in', [App\Http\Controllers\Doctor\DashboardController::class, 'storeCheckIn'])->name('check-in.store');
 
-        // Appointments
-        Route::get('/appointments', [App\Http\Controllers\Doctor\AppointmentController::class, 'index'])->name('appointments.index');
-        Route::get('/appointments/{id}', [App\Http\Controllers\Doctor\AppointmentController::class, 'show'])->name('appointments.show');
-        Route::get('/appointments/{id}/edit', [App\Http\Controllers\Doctor\AppointmentController::class, 'edit'])->name('appointments.edit');
-        Route::put('/appointments/{id}', [App\Http\Controllers\Doctor\AppointmentController::class, 'update'])->name('appointments.update');
-        Route::get('/appointments/{id}/invoice', [App\Http\Controllers\Doctor\AppointmentController::class, 'invoice'])->name('appointments.invoice');
-
-        // Profile
-        Route::get('/profile', [App\Http\Controllers\Doctor\ProfileController::class, 'show'])->name('profile.show');
-        Route::get('/profile/edit', [App\Http\Controllers\Doctor\ProfileController::class, 'edit'])->name('profile.edit');
-        Route::put('/profile', [App\Http\Controllers\Doctor\ProfileController::class, 'update'])->name('profile.update');
-        Route::put('/profile/password', [App\Http\Controllers\Doctor\ProfileController::class, 'updatePassword'])->name('profile.update-password');
-
-        // Schedule
-        Route::get('/schedule', [App\Http\Controllers\Doctor\ScheduleController::class, 'index'])->name('schedule.index');
-        Route::get('/schedule/settings', [App\Http\Controllers\Doctor\DoctorScheduleController::class, 'settings'])->name('schedule.settings');
-        Route::post('/schedule/settings', [App\Http\Controllers\Doctor\DoctorScheduleController::class, 'saveSettings'])->name('schedule.save-settings');
-
-        // Patients
-        Route::get('/patients', [App\Http\Controllers\Doctor\PatientController::class, 'index'])->name('patients.index');
-        Route::get('/patients/{id}', [App\Http\Controllers\Doctor\PatientController::class, 'show'])->name('patients.show');
-
-        // Attendance
-        Route::get('/attendance', [App\Http\Controllers\Doctor\AttendanceController::class, 'index'])->name('attendance.index');
+        // Attendance clock routes (no middleware - needed for clock-out during logout)
         Route::post('/attendance/clock-in', [App\Http\Controllers\Doctor\AttendanceController::class, 'clockIn'])->name('attendance.clock-in');
         Route::post('/attendance/clock-out', [App\Http\Controllers\Doctor\AttendanceController::class, 'clockOut'])->name('attendance.clock-out');
-        Route::post('/attendance/break-start', [App\Http\Controllers\Doctor\AttendanceController::class, 'startBreak'])->name('attendance.break-start');
-        Route::post('/attendance/break-end', [App\Http\Controllers\Doctor\AttendanceController::class, 'endBreak'])->name('attendance.break-end');
 
-        // To-Do List (My Tasks)
-        Route::get('/todos', [App\Http\Controllers\Doctor\TodoController::class, 'index'])->name('todos.index');
-        Route::get('/todos/{id}', [App\Http\Controllers\Doctor\TodoController::class, 'show'])->name('todos.show');
-        Route::put('/todos/{id}/status', [App\Http\Controllers\Doctor\TodoController::class, 'updateStatus'])->name('todos.update-status');
+        // All other routes require check-in
+        Route::middleware('doctor.checkin')->group(function () {
+            Route::get('/dashboard', [App\Http\Controllers\Doctor\DashboardController::class, 'index'])->name('dashboard');
 
-        // Leave Management
-        Route::resource('leaves', App\Http\Controllers\Doctor\LeaveController::class)->parameters(['leaves' => 'leave']);
+            // Appointments
+            Route::get('/appointments', [App\Http\Controllers\Doctor\AppointmentController::class, 'index'])->name('appointments.index');
+            Route::get('/appointments/{id}', [App\Http\Controllers\Doctor\AppointmentController::class, 'show'])->name('appointments.show');
+            Route::get('/appointments/{id}/edit', [App\Http\Controllers\Doctor\AppointmentController::class, 'edit'])->name('appointments.edit');
+            Route::put('/appointments/{id}', [App\Http\Controllers\Doctor\AppointmentController::class, 'update'])->name('appointments.update');
+            Route::get('/appointments/{id}/invoice', [App\Http\Controllers\Doctor\AppointmentController::class, 'invoice'])->name('appointments.invoice');
 
-        // Payslips (View Own)
-        Route::get('/payslips', [App\Http\Controllers\Doctor\PayslipController::class, 'index'])->name('payslips.index');
-        Route::get('/payslips/{id}', [App\Http\Controllers\Doctor\PayslipController::class, 'show'])->name('payslips.show');
+            // Profile
+            Route::get('/profile', [App\Http\Controllers\Doctor\ProfileController::class, 'show'])->name('profile.show');
+            Route::get('/profile/edit', [App\Http\Controllers\Doctor\ProfileController::class, 'edit'])->name('profile.edit');
+            Route::put('/profile', [App\Http\Controllers\Doctor\ProfileController::class, 'update'])->name('profile.update');
+            Route::put('/profile/password', [App\Http\Controllers\Doctor\ProfileController::class, 'updatePassword'])->name('profile.update-password');
+
+            // Schedule
+            Route::get('/schedule', [App\Http\Controllers\Doctor\ScheduleController::class, 'index'])->name('schedule.index');
+            Route::get('/schedule/settings', [App\Http\Controllers\Doctor\DoctorScheduleController::class, 'settings'])->name('schedule.settings');
+            Route::post('/schedule/settings', [App\Http\Controllers\Doctor\DoctorScheduleController::class, 'saveSettings'])->name('schedule.save-settings');
+
+            // Patients
+            Route::get('/patients', [App\Http\Controllers\Doctor\PatientController::class, 'index'])->name('patients.index');
+            Route::get('/patients/{id}', [App\Http\Controllers\Doctor\PatientController::class, 'show'])->name('patients.show');
+
+            // Attendance
+            Route::get('/attendance', [App\Http\Controllers\Doctor\AttendanceController::class, 'index'])->name('attendance.index');
+            Route::post('/attendance/break-start', [App\Http\Controllers\Doctor\AttendanceController::class, 'startBreak'])->name('attendance.break-start');
+            Route::post('/attendance/break-end', [App\Http\Controllers\Doctor\AttendanceController::class, 'endBreak'])->name('attendance.break-end');
+
+            // To-Do List (My Tasks)
+            Route::get('/todos', [App\Http\Controllers\Doctor\TodoController::class, 'index'])->name('todos.index');
+            Route::get('/todos/{id}', [App\Http\Controllers\Doctor\TodoController::class, 'show'])->name('todos.show');
+            Route::put('/todos/{id}/status', [App\Http\Controllers\Doctor\TodoController::class, 'updateStatus'])->name('todos.update-status');
+
+            // Leave Management
+            Route::resource('leaves', App\Http\Controllers\Doctor\LeaveController::class)->parameters(['leaves' => 'leave']);
+
+            // Payslips (View Own)
+            Route::get('/payslips', [App\Http\Controllers\Doctor\PayslipController::class, 'index'])->name('payslips.index');
+            Route::get('/payslips/{id}', [App\Http\Controllers\Doctor\PayslipController::class, 'show'])->name('payslips.show');
+        });
     });
 
     // Staff Routes

@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'guest' => \App\Http\Middleware\GuestMiddleware::class,
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'staff.checkin' => \App\Http\Middleware\StaffCheckInMiddleware::class,
+            'doctor.checkin' => \App\Http\Middleware\DoctorCheckInMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

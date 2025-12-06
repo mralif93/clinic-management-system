@@ -1,23 +1,21 @@
-@extends('layouts.staff')
+@extends('layouts.doctor')
 
 @section('title', 'Check In')
+@section('page-title', 'Check In')
 
 @push('styles')
 <style>
     @keyframes pulse-ring {
         0% { transform: scale(0.8); opacity: 1; }
-        100% { transform: scale(1.5); opacity: 0; }
+        100% { transform: scale(1.4); opacity: 0; }
     }
-    .pulse-ring {
-        animation: pulse-ring 1.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
-    }
+    .pulse-ring { animation: pulse-ring 1.5s infinite; }
+    
     @keyframes float {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-10px); }
     }
-    .float-animation {
-        animation: float 3s ease-in-out infinite;
-    }
+    .float-animation { animation: float 3s ease-in-out infinite; }
 </style>
 @endpush
 
@@ -27,7 +25,7 @@
         <!-- Check-in Card -->
         <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
             <!-- Header with Gradient -->
-            <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 px-8 py-10 text-center relative overflow-hidden">
+            <div class="bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 px-8 py-10 text-center relative overflow-hidden">
                 <!-- Background Pattern -->
                 <div class="absolute inset-0 opacity-10">
                     <div class="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-white"></div>
@@ -38,37 +36,34 @@
                 <div class="relative inline-flex items-center justify-center mb-4">
                     <div class="absolute w-24 h-24 bg-white/30 rounded-full pulse-ring"></div>
                     <div class="relative w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg float-animation">
-                        <i class='bx bx-time-five text-5xl text-amber-500'></i>
+                        <i class='bx bx-time-five text-5xl text-emerald-500'></i>
                     </div>
                 </div>
                 
-                <h1 class="text-2xl font-bold text-white mb-1 relative">Good {{ now()->format('H') < 12 ? 'Morning' : (now()->format('H') < 17 ? 'Afternoon' : 'Evening') }}!</h1>
-                <p class="text-amber-100 relative">Please check in to start your shift</p>
+                <h1 class="text-2xl font-bold text-white mb-1 relative">Good {{ now()->format('H') < 12 ? 'Morning' : (now()->format('H') < 17 ? 'Afternoon' : 'Evening') }}, Dr.!</h1>
+                <p class="text-emerald-100 relative">Please check in to start your shift</p>
             </div>
 
-            <!-- Body -->
-            <div class="px-8 py-8">
+            <!-- Content -->
+            <div class="p-8">
                 <!-- User Info -->
-                <div class="flex items-center gap-4 mb-8 p-4 bg-slate-50 rounded-2xl">
-                    <div class="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-md">
-                        {{ strtoupper(substr($user->name, 0, 1)) }}
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-slate-800 text-lg">{{ $user->name }}</h3>
-                        <p class="text-sm text-slate-500">{{ $user->email }}</p>
+                <div class="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-2xl p-5 mb-6 border border-emerald-100">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                            {{ strtoupper(substr($user->first_name ?? $user->name, 0, 1)) }}{{ strtoupper(substr($user->last_name ?? '', 0, 1)) }}
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Dr. {{ $user->first_name ?? $user->name }} {{ $user->last_name ?? '' }}</h3>
+                            <p class="text-sm text-gray-500">{{ $user->email }}</p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Current Time -->
-                <div class="text-center mb-8">
-                    <p class="text-sm text-slate-500 mb-2">Current Time</p>
-                    <div class="text-4xl font-bold text-slate-800" id="currentTime">
-                        {{ now()->format('h:i:s A') }}
-                    </div>
-                    <p class="text-slate-500 mt-2">
-                        <i class='bx bx-calendar mr-1'></i>
-                        {{ now()->format('l, F j, Y') }}
-                    </p>
+                <div class="text-center mb-6">
+                    <p class="text-sm text-gray-500 mb-1">Current Time</p>
+                    <p class="text-4xl font-bold text-gray-800" id="currentTime">--:--:--</p>
+                    <p class="text-sm text-gray-500 mt-1">{{ now()->format('l, F j, Y') }}</p>
                 </div>
 
                 <!-- Late Warning - Show only between 9:16 AM and 11:59 AM -->
@@ -92,10 +87,10 @@
                 @endif
 
                 <!-- Check-in Button -->
-                <form action="{{ route('staff.check-in.store') }}" method="POST" id="checkInForm">
+                <form action="{{ route('doctor.check-in.store') }}" method="POST" id="checkInForm">
                     @csrf
                     <button type="submit" id="checkInBtn"
-                        class="w-full py-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-2xl font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3">
+                        class="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-2xl font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3">
                         <i class='bx bx-log-in-circle text-2xl'></i>
                         CHECK IN NOW
                     </button>
@@ -109,13 +104,12 @@
             </div>
         </div>
 
-        <!-- Logout Link -->
-        <div class="text-center mt-6">
-            <form action="{{ route('logout') }}" method="POST" class="inline">
+        <!-- Quick Links -->
+        <div class="mt-6 text-center">
+            <form method="POST" action="{{ route('logout') }}" class="inline">
                 @csrf
-                <button type="submit" class="text-slate-400 hover:text-white transition-colors text-sm">
-                    <i class='bx bx-log-out mr-1'></i>
-                    Logout instead
+                <button type="submit" class="text-white/60 hover:text-white text-sm transition-colors">
+                    <i class='bx bx-log-out mr-1'></i> Logout instead
                 </button>
             </form>
         </div>
@@ -124,20 +118,15 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    // Update clock every second
-    function updateClock() {
+    // Update current time
+    function updateTime() {
         const now = new Date();
-        let hours = now.getHours();
-        const ampm = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12;
-        hours = hours ? hours : 12;
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        document.getElementById('currentTime').textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+        const timeStr = now.toLocaleTimeString('en-US', { hour12: false });
+        document.getElementById('currentTime').textContent = timeStr;
     }
-    setInterval(updateClock, 1000);
+    updateTime();
+    setInterval(updateTime, 1000);
 
     // Check-in confirmation
     document.getElementById('checkInForm').addEventListener('submit', function(e) {
@@ -147,9 +136,9 @@
             html: `<p class="text-gray-600">You are about to check in for today's shift.</p>
                    <p class="text-sm text-gray-500 mt-2">Time: <strong>${document.getElementById('currentTime').textContent}</strong></p>`,
             icon: 'question',
-            iconColor: '#f59e0b',
+            iconColor: '#10b981',
             showCancelButton: true,
-            confirmButtonColor: '#f59e0b',
+            confirmButtonColor: '#10b981',
             cancelButtonColor: '#6b7280',
             confirmButtonText: '<i class="bx bx-check mr-1"></i> Yes, Check In',
             cancelButtonText: 'Cancel',
@@ -159,11 +148,11 @@
             if (result.isConfirmed) {
                 Swal.fire({
                     title: 'Checking In...',
-                    html: '<i class="bx bx-loader-alt bx-spin text-3xl text-amber-500"></i>',
-                    showConfirmButton: false,
-                    allowOutsideClick: false
+                    html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-emerald-500"></i><span>Recording your attendance...</span></div>',
+                    allowOutsideClick: false,
+                    showConfirmButton: false
                 });
-                this.submit();
+                setTimeout(() => this.submit(), 1500);
             }
         });
     });
