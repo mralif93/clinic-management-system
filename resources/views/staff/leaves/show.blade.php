@@ -1,39 +1,43 @@
 @extends('layouts.staff')
 
 @section('content')
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-3xl mx-auto">
-            <!-- Header -->
-            <div class="flex items-center justify-between mb-8">
-                <div class="flex items-center gap-4">
-                    <a href="{{ route('staff.leaves.index') }}"
-                        class="bg-white p-2 rounded-full shadow-sm hover:shadow-md transition-shadow text-gray-600">
-                        <i class='bx bx-arrow-back text-2xl'></i>
-                    </a>
-                    <div>
-                        <h1 class="text-3xl font-bold text-gray-800">Leave Details</h1>
-                        <p class="text-gray-600 mt-1">View leave request information</p>
-                    </div>
-                </div>
-
-                @if($leave->status === 'pending')
-                    <div class="flex gap-2">
-                        <a href="{{ route('staff.leaves.edit', $leave->id) }}"
-                            class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
-                            <i class='bx bx-edit'></i> Edit
+    <div class="space-y-6">
+        <!-- Page Header -->
+        <div class="bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 rounded-2xl shadow-lg overflow-hidden">
+            <div class="p-6 md:p-8">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <a href="{{ route('staff.leaves.index') }}"
+                            class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/30 transition">
+                            <i class='bx bx-arrow-back text-white text-xl'></i>
                         </a>
-                        <form action="{{ route('staff.leaves.destroy', $leave->id) }}" method="POST"
-                            class="delete-form">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
-                                <i class='bx bx-trash'></i> Cancel
-                            </button>
-                        </form>
+                        <div class="text-white">
+                            <h1 class="text-2xl font-bold">Leave Details</h1>
+                            <p class="text-purple-100 text-sm mt-1">View leave request information</p>
+                        </div>
                     </div>
-                @endif
+
+                    @if($leave->status === 'pending')
+                        <div class="flex flex-wrap gap-2">
+                            <a href="{{ route('staff.leaves.edit', $leave->id) }}"
+                                class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm text-white font-medium rounded-xl hover:bg-white/30 transition border border-white/30">
+                                <i class='bx bx-edit mr-2'></i> Edit
+                            </a>
+                            <form action="{{ route('staff.leaves.destroy', $leave->id) }}" method="POST" class="delete-form">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="inline-flex items-center px-4 py-2 bg-red-500 text-white font-medium rounded-xl hover:bg-red-600 transition shadow-lg">
+                                    <i class='bx bx-trash mr-2'></i> Cancel
+                                </button>
+                            </form>
+                        </div>
+                    @endif
+                </div>
             </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Main Info -->

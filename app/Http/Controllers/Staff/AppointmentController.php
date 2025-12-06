@@ -75,7 +75,7 @@ class AppointmentController extends Controller
             'service_id' => 'nullable|exists:services,id',
             'appointment_date' => 'required|date',
             'appointment_time' => 'required',
-            'status' => 'required|in:scheduled,confirmed,completed,cancelled,no_show',
+            'status' => 'required|in:scheduled,confirmed,in_progress,completed,cancelled,no_show',
             'notes' => 'nullable|string',
             'fee' => 'nullable|numeric|min:0',
             'discount_type' => 'nullable|in:percentage,fixed',
@@ -135,7 +135,7 @@ class AppointmentController extends Controller
             'service_id' => 'nullable|exists:services,id',
             'appointment_date' => 'required|date',
             'appointment_time' => 'required',
-            'status' => 'required|in:scheduled,confirmed,completed,cancelled,no_show',
+            'status' => 'required|in:scheduled,confirmed,in_progress,completed,cancelled,no_show',
             'notes' => 'nullable|string',
             'fee' => 'nullable|numeric|min:0',
             'discount_type' => 'nullable|in:percentage,fixed',
@@ -164,7 +164,7 @@ class AppointmentController extends Controller
         $appointment = Appointment::findOrFail($id);
 
         $request->validate([
-            'status' => 'required|in:scheduled,confirmed,completed,cancelled,no_show',
+            'status' => 'required|in:scheduled,confirmed,in_progress,completed,cancelled,no_show',
         ]);
 
         $appointment->update([

@@ -5,126 +5,235 @@
 
 @section('content')
 <div class="w-full space-y-6">
+    <!-- Page Header -->
+    <div class="bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 rounded-2xl shadow-lg p-6 text-white">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                    <i class='bx bx-time-five text-3xl'></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold">My Attendance</h1>
+                    <p class="text-blue-100 text-sm mt-1">Track your daily attendance records</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 text-sm">
+                    <i class='bx bx-calendar mr-1'></i>
+                    {{ now()->format('F Y') }}
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Today's Status Card -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">Today's Attendance</h3>
-        
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="flex items-center gap-2 mb-4">
+            <i class='bx bx-calendar-check text-blue-500 text-xl'></i>
+            <h3 class="font-semibold text-gray-800">Today's Attendance</h3>
+            <span class="ml-auto text-sm text-gray-500">{{ now()->format('l, M d, Y') }}</span>
+        </div>
+
         @if($todayAttendance)
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div class="text-center p-4 bg-gray-50 rounded-lg">
-                    <p class="text-sm text-gray-600">Status</p>
-                    <p class="text-lg font-bold mt-1">
-                        <span class="px-3 py-1 rounded-full text-sm {{ $todayAttendance->status_color }}">
-                            {{ ucfirst(str_replace('_', ' ', $todayAttendance->status)) }}
-                        </span>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 text-center">
+                    <p class="text-xs text-gray-500 uppercase tracking-wide mb-2">Status</p>
+                    @php
+                        $statusConfig = [
+                            'present' => ['bg' => 'bg-green-100', 'text' => 'text-green-700'],
+                            'late' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700'],
+                            'absent' => ['bg' => 'bg-red-100', 'text' => 'text-red-700'],
+                            'half_day' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700'],
+                        ];
+                        $sConfig = $statusConfig[$todayAttendance->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700'];
+                    @endphp
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold {{ $sConfig['bg'] }} {{ $sConfig['text'] }}">
+                        {{ ucfirst(str_replace('_', ' ', $todayAttendance->status)) }}
+                    </span>
+                </div>
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
+                    <p class="text-xs text-green-600 uppercase tracking-wide mb-2">Clock In</p>
+                    <p class="text-xl font-bold text-green-700">{{ $todayAttendance->clock_in_time->format('h:i A') }}</p>
+                </div>
+                <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-4 text-center">
+                    <p class="text-xs text-red-600 uppercase tracking-wide mb-2">Clock Out</p>
+                    <p class="text-xl font-bold text-red-700">
+                        {{ $todayAttendance->clock_out_time ? $todayAttendance->clock_out_time->format('h:i A') : '—' }}
                     </p>
                 </div>
-                <div class="text-center p-4 bg-gray-50 rounded-lg">
-                    <p class="text-sm text-gray-600">Clock In</p>
-                    <p class="text-lg font-bold text-gray-900 mt-1">{{ $todayAttendance->clock_in_time->format('h:i A') }}</p>
-                </div>
-                <div class="text-center p-4 bg-gray-50 rounded-lg">
-                    <p class="text-sm text-gray-600">Clock Out</p>
-                    <p class="text-lg font-bold text-gray-900 mt-1">
-                        {{ $todayAttendance->clock_out_time ? $todayAttendance->clock_out_time->format('h:i A') : 'Not yet' }}
-                    </p>
-                </div>
-                <div class="text-center p-4 bg-gray-50 rounded-lg">
-                    <p class="text-sm text-gray-600">Total Hours</p>
-                    <p class="text-lg font-bold text-green-600 mt-1">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
+                    <p class="text-xs text-blue-600 uppercase tracking-wide mb-2">Total Hours</p>
+                    <p class="text-xl font-bold text-blue-700">
                         {{ $todayAttendance->total_hours ?? $todayAttendance->getWorkDuration() }}
                     </p>
                 </div>
             </div>
         @else
-            <p class="text-center text-gray-500 py-8">No attendance record for today</p>
+            <div class="text-center py-8">
+                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class='bx bx-calendar-x text-2xl text-gray-400'></i>
+                </div>
+                <p class="text-gray-500">No attendance record for today</p>
+            </div>
         @endif
     </div>
 
     <!-- This Month Stats -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-4">This Month Summary</h3>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div class="text-center p-4 bg-blue-50 rounded-lg">
-                <p class="text-sm text-blue-600">Total Days</p>
-                <p class="text-2xl font-bold text-blue-700 mt-1">{{ $stats['total_days'] }}</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                    <i class='bx bx-calendar text-white text-xl'></i>
+                </div>
+                <div>
+                    <p class="text-2xl font-bold text-gray-900">{{ $stats['total_days'] }}</p>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Total Days</p>
+                </div>
             </div>
-            <div class="text-center p-4 bg-green-50 rounded-lg">
-                <p class="text-sm text-green-600">Present</p>
-                <p class="text-2xl font-bold text-green-700 mt-1">{{ $stats['present_days'] }}</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                    <i class='bx bx-check-circle text-white text-xl'></i>
+                </div>
+                <div>
+                    <p class="text-2xl font-bold text-gray-900">{{ $stats['present_days'] }}</p>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Present</p>
+                </div>
             </div>
-            <div class="text-center p-4 bg-yellow-50 rounded-lg">
-                <p class="text-sm text-yellow-600">Late</p>
-                <p class="text-2xl font-bold text-yellow-700 mt-1">{{ $stats['late_days'] }}</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
+                    <i class='bx bx-time-five text-white text-xl'></i>
+                </div>
+                <div>
+                    <p class="text-2xl font-bold text-gray-900">{{ $stats['late_days'] }}</p>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Late</p>
+                </div>
             </div>
-            <div class="text-center p-4 bg-purple-50 rounded-lg">
-                <p class="text-sm text-purple-600">Total Hours</p>
-                <p class="text-2xl font-bold text-purple-700 mt-1">{{ number_format($stats['total_hours'], 1) }}h</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <i class='bx bx-timer text-white text-xl'></i>
+                </div>
+                <div>
+                    <p class="text-2xl font-bold text-gray-900">{{ number_format($stats['total_hours'], 1) }}h</p>
+                    <p class="text-xs text-gray-500 uppercase tracking-wide">Total Hours</p>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Attendance History -->
-    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-        <div class="px-6 py-4 border-b border-gray-200">
-            <h3 class="text-lg font-semibold text-gray-900">Attendance History</h3>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+            <div class="flex items-center justify-between">
+                <h3 class="font-semibold text-gray-800 flex items-center gap-2">
+                    <i class='bx bx-list-ul text-blue-500'></i>
+                    Attendance History
+                </h3>
+                <span class="text-sm text-gray-500">{{ now()->format('F Y') }}</span>
+            </div>
         </div>
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+            <table class="min-w-full divide-y divide-gray-100">
+                <thead class="bg-gray-50/50">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Clock In</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Clock Out</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total Hours</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Date</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Clock In</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Clock Out</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Total Hours</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
+                <tbody class="bg-white divide-y divide-gray-50">
                     @forelse($attendances as $attendance)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {{ $attendance->date->format('M d, Y') }}
+                        <tr class="hover:bg-blue-50/30 transition-colors duration-150">
+                            <td class="px-6 py-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-lg flex items-center justify-center">
+                                        <span class="text-white text-sm font-bold">{{ $attendance->date->format('d') }}</span>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-semibold text-gray-900">{{ $attendance->date->format('l') }}</div>
+                                        <div class="text-xs text-gray-500">{{ $attendance->date->format('M d, Y') }}</div>
+                                    </div>
+                                </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {{ $attendance->clock_in_time->format('h:i A') }}
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center gap-1 text-sm text-green-700 font-medium">
+                                    <i class='bx bx-log-in-circle'></i>
+                                    {{ $attendance->clock_in_time->format('h:i A') }}
+                                </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                {{ $attendance->clock_out_time ? $attendance->clock_out_time->format('h:i A') : '-' }}
+                            <td class="px-6 py-4">
+                                @if($attendance->clock_out_time)
+                                    <span class="inline-flex items-center gap-1 text-sm text-red-700 font-medium">
+                                        <i class='bx bx-log-out-circle'></i>
+                                        {{ $attendance->clock_out_time->format('h:i A') }}
+                                    </span>
+                                @else
+                                    <span class="text-gray-400 text-sm">—</span>
+                                @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-green-600">
-                                {{ $attendance->total_hours ? $attendance->total_hours . 'h' : '-' }}
+                            <td class="px-6 py-4">
+                                @if($attendance->total_hours)
+                                    <span class="inline-flex items-center justify-center px-2.5 py-1 rounded-lg bg-blue-100 text-blue-700 text-sm font-bold">
+                                        {{ $attendance->total_hours }}h
+                                    </span>
+                                @else
+                                    <span class="text-gray-400 text-sm">—</span>
+                                @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <span class="px-2 py-1 text-xs font-semibold rounded-full border {{ $attendance->status_color }}">
+                            <td class="px-6 py-4">
+                                @php
+                                    $statusConfig = [
+                                        'present' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'bx-check-circle'],
+                                        'late' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'bx-time-five'],
+                                        'absent' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-x-circle'],
+                                        'half_day' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'icon' => 'bx-adjust'],
+                                    ];
+                                    $sConfig = $statusConfig[$attendance->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-help-circle'];
+                                @endphp
+                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $sConfig['bg'] }} {{ $sConfig['text'] }}">
+                                    <i class='bx {{ $sConfig['icon'] }}'></i>
                                     {{ ucfirst(str_replace('_', ' ', $attendance->status)) }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                @php
-                                    $pendingCorrection = \App\Models\AttendanceCorrection::where('attendance_id', $attendance->id)
-                                        ->where('status', 'pending')
-                                        ->first();
-                                @endphp
-                                
-                                @if($pendingCorrection)
-                                    <span class="text-yellow-600 text-xs font-semibold">
-                                        <i class='bx bx-time-five'></i> Correction Pending
-                                    </span>
-                                @else
-                                    <button onclick="openCorrectionModal('{{ $attendance->id }}', '{{ $attendance->date->format('Y-m-d') }}', '{{ $attendance->clock_in_time->format('H:i') }}', '{{ $attendance->clock_out_time ? $attendance->clock_out_time->format('H:i') : '' }}')" 
-                                        class="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                                        Request Correction
-                                    </button>
-                                @endif
+                            <td class="px-6 py-4">
+                                <div class="flex justify-end">
+                                    @php
+                                        $pendingCorrection = \App\Models\AttendanceCorrection::where('attendance_id', $attendance->id)
+                                            ->where('status', 'pending')
+                                            ->first();
+                                    @endphp
+
+                                    @if($pendingCorrection)
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-semibold">
+                                            <i class='bx bx-time-five'></i> Pending
+                                        </span>
+                                    @else
+                                        <button onclick="openCorrectionModal('{{ $attendance->id }}', '{{ $attendance->date->format('Y-m-d') }}', '{{ $attendance->clock_in_time->format('H:i') }}', '{{ $attendance->clock_out_time ? $attendance->clock_out_time->format('H:i') : '' }}')"
+                                            class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600 rounded-full transition shadow-sm hover:shadow" title="Request Correction">
+                                            <i class='bx bx-edit text-sm'></i>
+                                        </button>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-6 py-8 text-center text-gray-500">
-                                No attendance records found
+                            <td colspan="6" class="px-6 py-16 text-center">
+                                <div class="flex flex-col items-center">
+                                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                        <i class='bx bx-calendar-x text-3xl text-gray-400'></i>
+                                    </div>
+                                    <p class="text-gray-500 font-medium">No attendance records found</p>
+                                    <p class="text-gray-400 text-sm mt-1">Your attendance history will appear here</p>
+                                </div>
                             </td>
                         </tr>
                     @endforelse

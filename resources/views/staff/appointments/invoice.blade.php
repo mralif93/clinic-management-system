@@ -5,33 +5,37 @@
 
 @section('content')
     <div class="space-y-6">
-        <!-- Header -->
-        <div class="flex items-center justify-between mb-8">
-            <div class="flex items-center gap-4">
-                <a href="{{ route('staff.appointments.show', $appointment->id) }}"
-                    class="bg-white p-2 rounded-full shadow-sm hover:shadow-md transition-shadow text-gray-600">
-                    <i class='bx bx-arrow-back text-2xl'></i>
-                </a>
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-800">Invoice</h1>
-                    <p class="text-gray-600 mt-1">INV-{{ str_pad($appointment->id, 6, '0', STR_PAD_LEFT) }}</p>
-                </div>
-            </div>
+        <!-- Page Header -->
+        <div class="bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 rounded-2xl shadow-lg overflow-hidden">
+            <div class="p-6 md:p-8">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <a href="{{ route('staff.appointments.show', $appointment->id) }}"
+                            class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/30 transition">
+                            <i class='bx bx-arrow-back text-white text-xl'></i>
+                        </a>
+                        <div class="text-white">
+                            <h1 class="text-2xl font-bold">Invoice</h1>
+                            <p class="text-emerald-100 text-sm mt-1">INV-{{ str_pad($appointment->id, 6, '0', STR_PAD_LEFT) }}</p>
+                        </div>
+                    </div>
 
-            <div class="flex gap-2">
-                <button onclick="printInvoice()"
-                    class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
-                    <i class='bx bx-printer'></i> Print
-                </button>
-                <button onclick="downloadInvoice()"
-                    class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center gap-2">
-                    <i class='bx bx-download'></i> Download
-                </button>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="printInvoice()"
+                            class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm text-white font-medium rounded-xl hover:bg-white/30 transition border border-white/30">
+                            <i class='bx bx-printer mr-2'></i> Print
+                        </button>
+                        <button onclick="downloadInvoice()"
+                            class="inline-flex items-center px-4 py-2 bg-white text-emerald-600 font-medium rounded-xl hover:bg-emerald-50 transition shadow-lg">
+                            <i class='bx bx-download mr-2'></i> Download
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Invoice Card -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
             <div class="p-8">
                 <x-invoice-template :appointment="$appointment" />
             </div>

@@ -98,58 +98,70 @@ Route::middleware('auth')->group(function () {
 
     // Staff Routes
     Route::prefix('staff')->name('staff.')->group(function () {
-        Route::get('/dashboard', [App\Http\Controllers\Staff\DashboardController::class, 'index'])->name('dashboard');
+        // Check-in page (not protected by check-in middleware)
+        Route::get('/check-in', [App\Http\Controllers\Staff\DashboardController::class, 'checkIn'])->name('check-in');
+        Route::post('/check-in', [App\Http\Controllers\Staff\DashboardController::class, 'storeCheckIn'])->name('check-in.store');
 
-        // Appointments
-        Route::get('/appointments', [App\Http\Controllers\Staff\AppointmentController::class, 'index'])->name('appointments.index');
-        Route::get('/appointments/create', [App\Http\Controllers\Staff\AppointmentController::class, 'create'])->name('appointments.create');
-        Route::post('/appointments', [App\Http\Controllers\Staff\AppointmentController::class, 'store'])->name('appointments.store');
-        Route::get('/appointments/{id}', [App\Http\Controllers\Staff\AppointmentController::class, 'show'])->name('appointments.show');
-        Route::get('/appointments/{id}/edit', [App\Http\Controllers\Staff\AppointmentController::class, 'edit'])->name('appointments.edit');
-        Route::put('/appointments/{id}', [App\Http\Controllers\Staff\AppointmentController::class, 'update'])->name('appointments.update');
-        Route::put('/appointments/{id}/status', [App\Http\Controllers\Staff\AppointmentController::class, 'updateStatus'])->name('appointments.update-status');
-        Route::get('/appointments/{id}/invoice', [App\Http\Controllers\Staff\AppointmentController::class, 'invoice'])->name('appointments.invoice');
+        // All other routes require check-in
+        Route::middleware('staff.checkin')->group(function () {
+            Route::get('/dashboard', [App\Http\Controllers\Staff\DashboardController::class, 'index'])->name('dashboard');
 
-        // Profile
-        Route::get('/profile', [App\Http\Controllers\Staff\ProfileController::class, 'show'])->name('profile.show');
-        Route::get('/profile/edit', [App\Http\Controllers\Staff\ProfileController::class, 'edit'])->name('profile.edit');
-        Route::put('/profile', [App\Http\Controllers\Staff\ProfileController::class, 'update'])->name('profile.update');
-        Route::put('/profile/password', [App\Http\Controllers\Staff\ProfileController::class, 'updatePassword'])->name('profile.update-password');
+            // Patient Flow Dashboard
+            Route::get('/patient-flow', [App\Http\Controllers\Staff\DashboardController::class, 'patientFlow'])->name('patient-flow');
+            Route::post('/patient-flow/{id}/update-status', [App\Http\Controllers\Staff\DashboardController::class, 'updateFlowStatus'])->name('patient-flow.update-status');
+            Route::get('/patient-flow/data', [App\Http\Controllers\Staff\DashboardController::class, 'getFlowData'])->name('patient-flow.data');
 
-        // Schedule
-        Route::get('/schedule', [App\Http\Controllers\Staff\ScheduleController::class, 'index'])->name('schedule.index');
-        Route::get('/schedule/doctors', [App\Http\Controllers\Staff\ScheduleController::class, 'listDoctors'])->name('schedule.doctors');
-        Route::get('/schedule/doctor/{doctor}', [App\Http\Controllers\Staff\ScheduleController::class, 'viewDoctorSchedule'])->name('schedule.view-doctor');
+            // Appointments
+            Route::get('/appointments', [App\Http\Controllers\Staff\AppointmentController::class, 'index'])->name('appointments.index');
+            Route::get('/appointments/create', [App\Http\Controllers\Staff\AppointmentController::class, 'create'])->name('appointments.create');
+            Route::post('/appointments', [App\Http\Controllers\Staff\AppointmentController::class, 'store'])->name('appointments.store');
+            Route::get('/appointments/{id}', [App\Http\Controllers\Staff\AppointmentController::class, 'show'])->name('appointments.show');
+            Route::get('/appointments/{id}/edit', [App\Http\Controllers\Staff\AppointmentController::class, 'edit'])->name('appointments.edit');
+            Route::put('/appointments/{id}', [App\Http\Controllers\Staff\AppointmentController::class, 'update'])->name('appointments.update');
+            Route::put('/appointments/{id}/status', [App\Http\Controllers\Staff\AppointmentController::class, 'updateStatus'])->name('appointments.update-status');
+            Route::get('/appointments/{id}/invoice', [App\Http\Controllers\Staff\AppointmentController::class, 'invoice'])->name('appointments.invoice');
 
-        // Patients
-        Route::get('/patients', [App\Http\Controllers\Staff\PatientController::class, 'index'])->name('patients.index');
-        Route::get('/patients/{id}', [App\Http\Controllers\Staff\PatientController::class, 'show'])->name('patients.show');
+            // Profile
+            Route::get('/profile', [App\Http\Controllers\Staff\ProfileController::class, 'show'])->name('profile.show');
+            Route::get('/profile/edit', [App\Http\Controllers\Staff\ProfileController::class, 'edit'])->name('profile.edit');
+            Route::put('/profile', [App\Http\Controllers\Staff\ProfileController::class, 'update'])->name('profile.update');
+            Route::put('/profile/password', [App\Http\Controllers\Staff\ProfileController::class, 'updatePassword'])->name('profile.update-password');
 
-        // Doctors
-        Route::get('/doctors/{id}', [App\Http\Controllers\Staff\DoctorController::class, 'show'])->name('doctors.show');
+            // Schedule
+            Route::get('/schedule', [App\Http\Controllers\Staff\ScheduleController::class, 'index'])->name('schedule.index');
+            Route::get('/schedule/doctors', [App\Http\Controllers\Staff\ScheduleController::class, 'listDoctors'])->name('schedule.doctors');
+            Route::get('/schedule/doctor/{doctor}', [App\Http\Controllers\Staff\ScheduleController::class, 'viewDoctorSchedule'])->name('schedule.view-doctor');
 
-        // Reports
-        Route::get('/reports', [App\Http\Controllers\Staff\ReportController::class, 'index'])->name('reports.index');
+            // Patients
+            Route::get('/patients', [App\Http\Controllers\Staff\PatientController::class, 'index'])->name('patients.index');
+            Route::get('/patients/{id}', [App\Http\Controllers\Staff\PatientController::class, 'show'])->name('patients.show');
 
-        // Attendance
-        Route::get('/attendance', [App\Http\Controllers\Staff\AttendanceController::class, 'index'])->name('attendance.index');
-        Route::post('/attendance/clock-in', [App\Http\Controllers\Staff\AttendanceController::class, 'clockIn'])->name('attendance.clock-in');
-        Route::post('/attendance/clock-out', [App\Http\Controllers\Staff\AttendanceController::class, 'clockOut'])->name('attendance.clock-out');
-        Route::post('/attendance/break-start', [App\Http\Controllers\Staff\AttendanceController::class, 'startBreak'])->name('attendance.break-start');
-        Route::post('/attendance/break-end', [App\Http\Controllers\Staff\AttendanceController::class, 'endBreak'])->name('attendance.break-end');
-        Route::post('/attendance/correction', [App\Http\Controllers\Staff\AttendanceController::class, 'requestCorrection'])->name('attendance.correction');
+            // Doctors
+            Route::get('/doctors/{id}', [App\Http\Controllers\Staff\DoctorController::class, 'show'])->name('doctors.show');
 
-        // To-Do List (My Tasks)
-        Route::get('/todos', [App\Http\Controllers\Staff\TodoController::class, 'index'])->name('todos.index');
-        Route::get('/todos/{id}', [App\Http\Controllers\Staff\TodoController::class, 'show'])->name('todos.show');
-        Route::put('/todos/{id}/status', [App\Http\Controllers\Staff\TodoController::class, 'updateStatus'])->name('todos.update-status');
+            // Reports
+            Route::get('/reports', [App\Http\Controllers\Staff\ReportController::class, 'index'])->name('reports.index');
 
-        // Leave Management
-        Route::resource('leaves', App\Http\Controllers\Staff\LeaveController::class)->parameters(['leaves' => 'leave']);
+            // Attendance
+            Route::get('/attendance', [App\Http\Controllers\Staff\AttendanceController::class, 'index'])->name('attendance.index');
+            Route::post('/attendance/clock-in', [App\Http\Controllers\Staff\AttendanceController::class, 'clockIn'])->name('attendance.clock-in');
+            Route::post('/attendance/clock-out', [App\Http\Controllers\Staff\AttendanceController::class, 'clockOut'])->name('attendance.clock-out');
+            Route::post('/attendance/break-start', [App\Http\Controllers\Staff\AttendanceController::class, 'startBreak'])->name('attendance.break-start');
+            Route::post('/attendance/break-end', [App\Http\Controllers\Staff\AttendanceController::class, 'endBreak'])->name('attendance.break-end');
+            Route::post('/attendance/correction', [App\Http\Controllers\Staff\AttendanceController::class, 'requestCorrection'])->name('attendance.correction');
 
-        // Payslips (View Own)
-        Route::get('/payslips', [App\Http\Controllers\Staff\PayslipController::class, 'index'])->name('payslips.index');
-        Route::get('/payslips/{id}', [App\Http\Controllers\Staff\PayslipController::class, 'show'])->name('payslips.show');
+            // To-Do List (My Tasks)
+            Route::get('/todos', [App\Http\Controllers\Staff\TodoController::class, 'index'])->name('todos.index');
+            Route::get('/todos/{id}', [App\Http\Controllers\Staff\TodoController::class, 'show'])->name('todos.show');
+            Route::put('/todos/{id}/status', [App\Http\Controllers\Staff\TodoController::class, 'updateStatus'])->name('todos.update-status');
+
+            // Leave Management
+            Route::resource('leaves', App\Http\Controllers\Staff\LeaveController::class)->parameters(['leaves' => 'leave']);
+
+            // Payslips (View Own)
+            Route::get('/payslips', [App\Http\Controllers\Staff\PayslipController::class, 'index'])->name('payslips.index');
+            Route::get('/payslips/{id}', [App\Http\Controllers\Staff\PayslipController::class, 'show'])->name('payslips.show');
+        });
     });
 
     // Admin Routes

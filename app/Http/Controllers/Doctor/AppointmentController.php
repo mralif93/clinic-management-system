@@ -104,7 +104,7 @@ class AppointmentController extends Controller
             ->findOrFail($id);
 
         $request->validate([
-            'status' => 'required|in:scheduled,confirmed,completed,cancelled,no_show',
+            'status' => 'required|in:scheduled,confirmed,in_progress,completed,cancelled,no_show',
             'diagnosis' => 'nullable|string',
             'prescription' => 'nullable|string',
             'notes' => 'nullable|string',

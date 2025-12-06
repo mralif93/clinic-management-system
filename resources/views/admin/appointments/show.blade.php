@@ -24,15 +24,24 @@
                             @php
                                 $statusColors = [
                                     'scheduled' => 'bg-blue-400/30',
-                                    'confirmed' => 'bg-green-400/30',
-                                    'completed' => 'bg-gray-400/30',
+                                    'confirmed' => 'bg-cyan-400/30',
+                                    'in_progress' => 'bg-amber-400/30',
+                                    'completed' => 'bg-green-400/30',
                                     'cancelled' => 'bg-red-400/30',
-                                    'no_show' => 'bg-yellow-400/30',
+                                    'no_show' => 'bg-gray-400/30',
+                                ];
+                                $statusLabels = [
+                                    'scheduled' => 'Scheduled',
+                                    'confirmed' => 'Checked In',
+                                    'in_progress' => 'In Consultation',
+                                    'completed' => 'Completed',
+                                    'cancelled' => 'Cancelled',
+                                    'no_show' => 'No Show',
                                 ];
                             @endphp
                             <span
                                 class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium {{ $statusColors[$appointment->status] ?? 'bg-gray-400/30' }}">
-                                {{ ucfirst(str_replace('_', ' ', $appointment->status)) }}
+                                {{ $statusLabels[$appointment->status] ?? ucfirst(str_replace('_', ' ', $appointment->status)) }}
                             </span>
                             @if($appointment->trashed())
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-red-500/30">
@@ -191,15 +200,24 @@
                             @php
                                 $statusBadge = [
                                     'scheduled' => 'bg-blue-50 text-blue-700 border-blue-200',
-                                    'confirmed' => 'bg-green-50 text-green-700 border-green-200',
-                                    'completed' => 'bg-gray-50 text-gray-700 border-gray-200',
+                                    'confirmed' => 'bg-cyan-50 text-cyan-700 border-cyan-200',
+                                    'in_progress' => 'bg-amber-50 text-amber-700 border-amber-200',
+                                    'completed' => 'bg-green-50 text-green-700 border-green-200',
                                     'cancelled' => 'bg-red-50 text-red-700 border-red-200',
-                                    'no_show' => 'bg-yellow-50 text-yellow-700 border-yellow-200',
+                                    'no_show' => 'bg-gray-50 text-gray-700 border-gray-200',
+                                ];
+                                $statusLabels2 = [
+                                    'scheduled' => 'Scheduled',
+                                    'confirmed' => 'Checked In',
+                                    'in_progress' => 'In Consultation',
+                                    'completed' => 'Completed',
+                                    'cancelled' => 'Cancelled',
+                                    'no_show' => 'No Show',
                                 ];
                             @endphp
                             <span
                                 class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium border {{ $statusBadge[$appointment->status] ?? 'bg-gray-50 text-gray-700 border-gray-200' }}">
-                                {{ ucfirst(str_replace('_', ' ', $appointment->status)) }}
+                                {{ $statusLabels2[$appointment->status] ?? ucfirst(str_replace('_', ' ', $appointment->status)) }}
                             </span>
                         </div>
                         @if($appointment->payment_method)

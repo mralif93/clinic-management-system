@@ -97,15 +97,24 @@
                                     @php
                                         $statusColors = [
                                             'scheduled' => 'bg-blue-100 text-blue-700',
-                                            'confirmed' => 'bg-emerald-100 text-emerald-700',
-                                            'completed' => 'bg-purple-100 text-purple-700',
+                                            'confirmed' => 'bg-cyan-100 text-cyan-700',
+                                            'in_progress' => 'bg-amber-100 text-amber-700',
+                                            'completed' => 'bg-emerald-100 text-emerald-700',
                                             'cancelled' => 'bg-red-100 text-red-700',
-                                            'no_show' => 'bg-amber-100 text-amber-700',
+                                            'no_show' => 'bg-gray-100 text-gray-700',
+                                        ];
+                                        $statusLabels = [
+                                            'scheduled' => 'Scheduled',
+                                            'confirmed' => 'Checked In',
+                                            'in_progress' => 'In Consultation',
+                                            'completed' => 'Completed',
+                                            'cancelled' => 'Cancelled',
+                                            'no_show' => 'No Show',
                                         ];
                                         $statusColor = $statusColors[$appointment->status] ?? 'bg-gray-100 text-gray-700';
                                     @endphp
                                     <span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-lg {{ $statusColor }}">
-                                        {{ ucfirst(str_replace('_', ' ', $appointment->status)) }}
+                                        {{ $statusLabels[$appointment->status] ?? ucfirst(str_replace('_', ' ', $appointment->status)) }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">

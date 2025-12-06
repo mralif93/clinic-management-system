@@ -266,6 +266,16 @@
                         <span>Dashboard</span>
                     </a>
 
+                    <!-- Patient Flow -->
+                    <a href="{{ route('staff.patient-flow') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('staff.patient-flow*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.patient-flow*') ? 'bg-teal-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i class='bx bx-transfer-alt text-lg {{ request()->routeIs('staff.patient-flow*') ? 'text-teal-400' : '' }}'></i>
+                        </div>
+                        <span>Patient Flow</span>
+                    </a>
+
                     <!-- Tasks -->
                     <a href="{{ route('staff.todos.index') }}"
                         class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
@@ -572,41 +582,131 @@
             showWarning('{{ session('warning') }}');
         @endif
 
-        // Logout confirmation with loading
+        // Logout confirmation with clock-out option
+        @php
+            $hasActiveAttendance = \App\Models\Attendance::where('user_id', auth()->id())
+                ->whereDate('date', today())
+                ->whereNotNull('clock_in_time')
+                ->whereNull('clock_out_time')
+                ->exists();
+        @endphp
+
         document.querySelectorAll('.logout-form').forEach(form => {
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
+                const formElement = this;
+
+                @if($hasActiveAttendance)
+                // Staff is clocked in - show options
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: 'Do you want to logout?',
+                    title: 'Before you go...',
+                    html: `
+                        <div class="text-left py-2">
+                            <p class="text-gray-600 mb-4">You are still clocked in. What would you like to do?</p>
+                            <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-3">
+                                <div class="flex items-center gap-2 text-amber-700">
+                                    <i class='bx bx-time-five text-xl'></i>
+                                    <span class="font-medium">You haven't clocked out yet</span>
+                                </div>
+                            </div>
+                        </div>
+                    `,
+                    icon: 'warning',
+                    iconColor: '#f59e0b',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: '<i class="bx bx-log-out-circle mr-1"></i> Clock Out & Logout',
+                    denyButtonText: '<i class="bx bx-exit mr-1"></i> Just Logout',
+                    cancelButtonText: 'Cancel',
+                    confirmButtonColor: '#10b981',
+                    denyButtonColor: '#ef4444',
+                    cancelButtonColor: '#6b7280',
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'rounded-2xl',
+                        confirmButton: 'rounded-xl px-4 py-2',
+                        denyButton: 'rounded-xl px-4 py-2',
+                        cancelButton: 'rounded-xl px-4 py-2'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Clock out first, then logout
+                        Swal.fire({
+                            title: 'Clocking Out...',
+                            html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-green-500"></i><span>Recording your clock out time...</span></div>',
+                            allowOutsideClick: false,
+                            showConfirmButton: false
+                        });
+
+                        // Submit clock out via AJAX
+                        fetch('{{ route("staff.attendance.clock-out") }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/json'
+                            }
+                        }).then(response => {
+                            // Now logout
+                            Swal.fire({
+                                title: 'Logging out...',
+                                html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-amber-500"></i><span>Goodbye!</span></div>',
+                                allowOutsideClick: false,
+                                showConfirmButton: false
+                            });
+                            setTimeout(() => {
+                                formElement.submit();
+                            }, 1500);
+                        }).catch(error => {
+                            console.error('Clock out error:', error);
+                            // Still logout even if clock out fails
+                            formElement.submit();
+                        });
+                    } else if (result.isDenied) {
+                        // Just logout without clocking out
+                        Swal.fire({
+                            title: 'Logging out...',
+                            html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-red-500"></i><span>Goodbye!</span></div>',
+                            allowOutsideClick: false,
+                            showConfirmButton: false
+                        });
+                        setTimeout(() => {
+                            formElement.submit();
+                        }, 1500);
+                    }
+                });
+                @else
+                // Staff not clocked in or already clocked out - simple logout
+                Swal.fire({
+                    title: 'Logout?',
+                    text: 'Are you sure you want to logout?',
                     icon: 'question',
+                    iconColor: '#f59e0b',
                     showCancelButton: true,
                     confirmButtonColor: '#ef4444',
                     cancelButtonColor: '#6b7280',
-                    confirmButtonText: 'Yes, logout',
+                    confirmButtonText: '<i class="bx bx-log-out mr-1"></i> Yes, Logout',
                     cancelButtonText: 'Cancel',
-                    reverseButtons: true
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'rounded-2xl',
+                        confirmButton: 'rounded-xl px-4 py-2',
+                        cancelButton: 'rounded-xl px-4 py-2'
+                    }
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        // Show loading
                         Swal.fire({
                             title: 'Logging out...',
-                            text: 'Please wait',
-                            icon: 'info',
+                            html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-amber-500"></i><span>Goodbye!</span></div>',
                             allowOutsideClick: false,
-                            allowEscapeKey: false,
-                            showConfirmButton: false,
-                            didOpen: () => {
-                                Swal.showLoading();
-                            }
+                            showConfirmButton: false
                         });
-
-                        // Wait 3 seconds then submit
                         setTimeout(() => {
-                            form.submit();
-                        }, 3000);
+                            formElement.submit();
+                        }, 1500);
                     }
                 });
+                @endif
             });
         });
     </script>

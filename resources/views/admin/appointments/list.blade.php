@@ -193,22 +193,32 @@
                                 @php
                                     $statusStyles = [
                                         'scheduled' => 'bg-blue-50 text-blue-700 ring-blue-500/20',
-                                        'confirmed' => 'bg-indigo-50 text-indigo-700 ring-indigo-500/20',
+                                        'confirmed' => 'bg-cyan-50 text-cyan-700 ring-cyan-500/20',
+                                        'in_progress' => 'bg-amber-50 text-amber-700 ring-amber-500/20',
                                         'completed' => 'bg-green-50 text-green-700 ring-green-500/20',
                                         'cancelled' => 'bg-red-50 text-red-700 ring-red-500/20',
-                                        'no_show' => 'bg-amber-50 text-amber-700 ring-amber-500/20',
+                                        'no_show' => 'bg-gray-50 text-gray-700 ring-gray-500/20',
                                     ];
                                     $statusIcons = [
                                         'scheduled' => 'bx-time',
-                                        'confirmed' => 'bx-check',
+                                        'confirmed' => 'bx-log-in',
+                                        'in_progress' => 'bx-user-voice',
                                         'completed' => 'bx-check-double',
                                         'cancelled' => 'bx-x',
                                         'no_show' => 'bx-error',
                                     ];
+                                    $statusLabels = [
+                                        'scheduled' => 'Scheduled',
+                                        'confirmed' => 'Checked In',
+                                        'in_progress' => 'In Consultation',
+                                        'completed' => 'Completed',
+                                        'cancelled' => 'Cancelled',
+                                        'no_show' => 'No Show',
+                                    ];
                                 @endphp
                                 <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold ring-1 ring-inset {{ $statusStyles[$appointment->status] ?? $statusStyles['scheduled'] }}">
                                     <i class='bx {{ $statusIcons[$appointment->status] ?? 'bx-time' }}'></i>
-                                    {{ ucfirst(str_replace('_', ' ', $appointment->status)) }}
+                                    {{ $statusLabels[$appointment->status] ?? ucfirst(str_replace('_', ' ', $appointment->status)) }}
                                 </span>
                             </td>
                             

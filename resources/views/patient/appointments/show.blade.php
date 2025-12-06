@@ -19,10 +19,21 @@
 
             <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
                 <!-- Status Banner -->
+                @php
+                    $statusLabels = [
+                        'scheduled' => 'Scheduled',
+                        'confirmed' => 'Checked In',
+                        'in_progress' => 'In Consultation',
+                        'completed' => 'Completed',
+                        'cancelled' => 'Cancelled',
+                        'no_show' => 'No Show',
+                    ];
+                @endphp
                 <div class="px-6 py-4 border-b border-gray-200
                             @if($appointment->status === 'completed') bg-green-50
-                            @elseif($appointment->status === 'confirmed') bg-blue-50
-                            @elseif($appointment->status === 'pending') bg-yellow-50
+                            @elseif($appointment->status === 'in_progress') bg-amber-50
+                            @elseif($appointment->status === 'confirmed') bg-cyan-50
+                            @elseif($appointment->status === 'scheduled') bg-blue-50
                             @elseif($appointment->status === 'cancelled') bg-red-50
                             @else bg-gray-50
                             @endif">
@@ -33,12 +44,13 @@
                         </div>
                         <span class="px-4 py-2 text-sm font-medium rounded-full
                                     @if($appointment->status === 'completed') bg-green-100 text-green-700
-                                    @elseif($appointment->status === 'confirmed') bg-blue-100 text-blue-700
-                                    @elseif($appointment->status === 'pending') bg-yellow-100 text-yellow-700
+                                    @elseif($appointment->status === 'in_progress') bg-amber-100 text-amber-700
+                                    @elseif($appointment->status === 'confirmed') bg-cyan-100 text-cyan-700
+                                    @elseif($appointment->status === 'scheduled') bg-blue-100 text-blue-700
                                     @elseif($appointment->status === 'cancelled') bg-red-100 text-red-700
                                     @else bg-gray-100 text-gray-700
                                     @endif">
-                            {{ ucfirst($appointment->status) }}
+                            {{ $statusLabels[$appointment->status] ?? ucfirst($appointment->status) }}
                         </span>
                     </div>
                 </div>

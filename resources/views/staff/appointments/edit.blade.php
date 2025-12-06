@@ -5,7 +5,25 @@
 
 @section('content')
     <div class="space-y-6">
-        <div class="bg-white rounded-lg shadow p-6">
+        <!-- Page Header -->
+        <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 rounded-2xl shadow-lg overflow-hidden">
+            <div class="p-6 md:p-8">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <a href="{{ route('staff.appointments.index') }}"
+                            class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/30 transition">
+                            <i class='bx bx-arrow-back text-white text-xl'></i>
+                        </a>
+                        <div class="text-white">
+                            <h1 class="text-2xl font-bold">Edit Appointment</h1>
+                            <p class="text-amber-100 text-sm mt-1">Update appointment details</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
             <form action="{{ route('staff.appointments.update', $appointment->id) }}" method="POST">
                 @csrf
                 @method('PUT')
@@ -94,11 +112,11 @@
                         <select id="status" name="status" required
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent @error('status') border-red-500 @enderror">
                             <option value="scheduled" {{ old('status', $appointment->status) == 'scheduled' ? 'selected' : '' }}>Scheduled</option>
-                            <option value="confirmed" {{ old('status', $appointment->status) == 'confirmed' ? 'selected' : '' }}>Confirmed</option>
+                            <option value="confirmed" {{ old('status', $appointment->status) == 'confirmed' ? 'selected' : '' }}>Checked In</option>
+                            <option value="in_progress" {{ old('status', $appointment->status) == 'in_progress' ? 'selected' : '' }}>In Consultation</option>
                             <option value="completed" {{ old('status', $appointment->status) == 'completed' ? 'selected' : '' }}>Completed</option>
                             <option value="cancelled" {{ old('status', $appointment->status) == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-                            <option value="no_show" {{ old('status', $appointment->status) == 'no_show' ? 'selected' : '' }}>
-                                No Show</option>
+                            <option value="no_show" {{ old('status', $appointment->status) == 'no_show' ? 'selected' : '' }}>No Show</option>
                         </select>
                         @error('status')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -169,14 +187,14 @@
                 </div>
 
                 <!-- Actions -->
-                <div class="flex justify-end space-x-4 mt-6">
+                <div class="flex justify-end space-x-4 mt-6 pt-4 border-t border-gray-100">
                     <a href="{{ route('staff.appointments.index') }}"
-                        class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
+                        class="px-6 py-2.5 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium">
                         Cancel
                     </a>
                     <button type="submit"
-                        class="px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition">
-                        <i class='bx bx-save mr-2 text-base'></i>
+                        class="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl hover:from-amber-600 hover:to-orange-700 transition-all shadow-lg shadow-amber-500/30 flex items-center gap-2 font-semibold">
+                        <i class='bx bx-save'></i>
                         Update Appointment
                     </button>
                 </div>

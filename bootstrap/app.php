@@ -13,11 +13,12 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         // Trust all proxies (needed for Vercel)
         $middleware->trustProxies(at: '*');
-        
+
         $middleware->alias([
             'auth' => \App\Http\Middleware\Authenticate::class,
             'guest' => \App\Http\Middleware\GuestMiddleware::class,
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'staff.checkin' => \App\Http\Middleware\StaffCheckInMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
