@@ -134,6 +134,14 @@
                         class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
                         Services
                     </a>
+                    <a href="{{ route('about') }}"
+                        class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
+                        About Us
+                    </a>
+                    <a href="{{ route('team') }}"
+                        class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
+                        Our Team
+                    </a>
                     @auth
                         <!-- User Dropdown -->
                         <div class="relative" x-data="{ open: false }" @click.away="open = false">

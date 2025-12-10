@@ -12,12 +12,39 @@ class SettingsController extends Controller
     /**
      * Display the settings page
      */
-    public function index()
+    public function index(Request $request)
     {
         $settings = Setting::orderBy('group')->orderBy('key')->get();
         $groupedSettings = $settings->groupBy('group');
 
-        return view('admin.settings.index', compact('settings', 'groupedSettings'));
+        // Prefer explicit query param, then route default, then fallback
+        $activeTab = $request->input('tab', $request->route('tab', 'general'));
+
+        return view('admin.settings.index', compact('settings', 'groupedSettings', 'activeTab'));
+    }
+
+    /**
+     * Dedicated Pages management view (About / Team)
+     */
+    public function pages()
+    {
+        return view('admin.pages.index');
+    }
+
+    /**
+     * Edit About page content
+     */
+    public function editAbout()
+    {
+        return view('admin.pages.edit', ['mode' => 'about']);
+    }
+
+    /**
+     * Edit Team page content
+     */
+    public function editTeam()
+    {
+        return view('admin.pages.edit', ['mode' => 'team']);
     }
 
     /**

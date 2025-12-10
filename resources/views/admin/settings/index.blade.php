@@ -21,7 +21,14 @@
         </div>
 
         <!-- Tabs Navigation -->
-        <div x-data="{ activeTab: 'general' }" class="space-y-6">
+        @php
+            $initialTab = $activeTab ?? request('tab') ?? request()->route('tab') ?? 'general';
+        @endphp
+        <div x-data="{ activeTab: '{{ $initialTab }}' }" x-init="
+            // If tab passed via URL params, ensure it exists; else fallback
+            const validTabs = ['general','branding','payment','payroll','email','hours'];
+            if (!validTabs.includes(activeTab)) activeTab = 'general';
+        " class="space-y-6">
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="border-b border-gray-100">
                     <nav class="flex -mb-px overflow-x-auto" aria-label="Tabs">
@@ -487,6 +494,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -536,9 +544,8 @@
                     pendingSaves.delete(key);
 
                     if (data.success) {
-                        if (pendingSaves.size === 0) {
-                            showSaveStatus('saved');
-                        }
+                        showSaveStatus('saved');
+                        showSavedToast(key);
                     } else {
                         showSaveStatus('error');
                         showError('Failed to save: ' + (data.message || 'Unknown error'));
@@ -548,7 +555,67 @@
                     showSaveStatus('error');
                     showError('Failed to save setting. Please try again.');
                 }
+
+        function showSavedToast(key) {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Changes updated',
+                    showConfirmButton: false,
+                    timer: 1600,
+                    timerProgressBar: true,
+                    customClass: {
+                        popup: 'swal-toast-fixed'
+                    }
+                });
+                ensureToastStyle();
+                return;
             }
+
+            const toast = document.createElement('div');
+            toast.textContent = 'Changes updated';
+            toast.className = 'swal-toast-fallback';
+            document.body.appendChild(toast);
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 250);
+            }, 1600);
+        }
+
+        function ensureToastStyle() {
+            const id = 'swal-toast-fixed-style';
+            if (document.getElementById(id)) return;
+            const style = document.createElement('style');
+            style.id = id;
+            style.textContent = `
+                .swal-toast-fixed { margin-top: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.12); }
+                .swal2-container.swal2-top-end { padding: 12px; }
+                .swal-toast-fallback {
+                    position: fixed;
+                    top: 16px;
+                    right: 16px;
+                    z-index: 9999;
+                    padding: 10px 14px;
+                    border-radius: 10px;
+                    background: #2563eb;
+                    color: #fff;
+                    font-size: 14px;
+                    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+                    opacity: 0;
+                    transition: opacity 0.2s ease;
+                }
+                .swal-toast-fallback.show { opacity: 1; }
+            `;
+            document.head.appendChild(style);
+        }
+            }
+
+        // Toast removed per request; visual status handled by status badge only
 
             // Toggle boolean settings
             function toggleSetting(key, button) {
@@ -577,40 +644,59 @@
             }
 
             // Show save status indicator
-            function showSaveStatus(status) {
-                const statusEl = document.getElementById('saveStatus');
-                statusEl.classList.remove('hidden');
-                statusEl.classList.add('flex');
-
-                const icon = statusEl.querySelector('i');
-                const text = statusEl.querySelector('span');
-
-                switch (status) {
-                    case 'saving':
-                        statusEl.className = 'flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-50 border border-blue-200';
-                        icon.className = 'bx bx-loader-alt animate-spin text-blue-600';
-                        text.className = 'text-sm font-medium text-blue-700';
-                        text.textContent = 'Saving...';
-                        break;
-                    case 'saved':
-                        statusEl.className = 'flex items-center gap-2 px-4 py-2 rounded-lg bg-green-50 border border-green-200';
-                        icon.className = 'bx bx-check-circle text-green-600';
-                        text.className = 'text-sm font-medium text-green-700';
-                        text.textContent = 'All changes saved';
-                        // Auto-hide after 3 seconds
-                        setTimeout(() => {
-                            statusEl.classList.add('hidden');
-                            statusEl.classList.remove('flex');
-                        }, 3000);
-                        break;
-                    case 'error':
-                        statusEl.className = 'flex items-center gap-2 px-4 py-2 rounded-lg bg-red-50 border border-red-200';
-                        icon.className = 'bx bx-error-circle text-red-600';
-                        text.className = 'text-sm font-medium text-red-700';
-                        text.textContent = 'Failed to save';
-                        break;
-                }
+        let lastStatusToastAt = 0;
+        function showSaveStatus(status) {
+            // hide inline badge; use SweetAlert toasts instead
+            const statusEl = document.getElementById('saveStatus');
+            if (statusEl) {
+                statusEl.classList.add('hidden');
+                statusEl.classList.remove('flex');
             }
+            showStatusToast(status);
+        }
+
+        function showStatusToast(kind) {
+                const now = Date.now();
+                // light throttle to avoid toast spam on rapid saves
+                if (kind === 'saving' && now - lastStatusToastAt < 800) return;
+                lastStatusToastAt = now;
+
+            const title = kind === 'saving'
+                ? 'Saving...'
+                : kind === 'error'
+                    ? 'Failed to save'
+                    : 'All changes saved';
+            const icon = kind === 'saving'
+                ? 'info'
+                : kind === 'error'
+                    ? 'error'
+                    : 'success';
+
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon,
+                        title,
+                        showConfirmButton: false,
+                    timer: kind === 'saving' ? 1200 : 1600,
+                        timerProgressBar: true,
+                        customClass: { popup: 'swal-toast-fixed' }
+                    });
+                    ensureToastStyle();
+                    return;
+                }
+
+            const toast = document.createElement('div');
+            toast.textContent = title;
+            toast.className = 'swal-toast-fallback';
+            document.body.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.add('show'));
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 250);
+            }, kind === 'saving' ? 1200 : 1600);
+        }
 
             // File size validation
             const MAX_FILE_SIZE = 2 * 1024 * 1024;

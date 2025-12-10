@@ -225,17 +225,17 @@
                 <div>
                     <h4 class="font-semibold mb-4">Product</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">Features</a></li>
-                        <li><a href="#" class="hover:text-white transition">Pricing</a></li>
-                        <li><a href="#" class="hover:text-white transition">Updates</a></li>
+                        <li><a href="{{ route('services.index') }}" class="hover:text-white transition">Features</a></li>
+                        <li><a href="{{ route('services.index') }}" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="{{ route('services.index') }}" class="hover:text-white transition">Updates</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-semibold mb-4">Company</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">About</a></li>
-                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
-                        <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                        <li><a href="{{ route('about') }}" class="hover:text-white transition">About</a></li>
+                        <li><a href="{{ route('team') }}" class="hover:text-white transition">Our Team</a></li>
+                        <li><a href="mailto:{{ get_setting('clinic_email', 'hello@example.com') }}" class="hover:text-white transition">Contact</a></li>
                     </ul>
                 </div>
                 <div>

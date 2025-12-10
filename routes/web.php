@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/team', [HomeController::class, 'team'])->name('team');
 
 // Services Routes
 Route::get('/services', [App\Http\Controllers\ServiceController::class, 'index'])->name('services.index');
@@ -220,6 +222,12 @@ Route::middleware('auth')->group(function () {
         Route::put('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('settings.update');
         Route::post('/settings/auto-save', [App\Http\Controllers\Admin\SettingsController::class, 'updateSingle'])->name('settings.auto-save');
         Route::delete('/settings/logo', [App\Http\Controllers\Admin\SettingsController::class, 'removeLogo'])->name('settings.remove-logo');
+        Route::get('/pages', [App\Http\Controllers\Admin\SettingsController::class, 'pages'])
+            ->name('pages.index');
+        Route::get('/pages/about', [App\Http\Controllers\Admin\SettingsController::class, 'editAbout'])
+            ->name('pages.about');
+        Route::get('/pages/team', [App\Http\Controllers\Admin\SettingsController::class, 'editTeam'])
+            ->name('pages.team');
 
         // Style Guide
         Route::view('/style-guide/buttons', 'admin.style-guide.buttons')->name('style-guide.buttons');

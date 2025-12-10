@@ -496,13 +496,25 @@
                 <!-- Settings -->
                 <a href="{{ route('admin.settings.index') }}"
                     class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-2
-                    {{ request()->routeIs('admin.settings.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                    {{ request()->routeIs('admin.settings.*') && request('tab') !== 'pages' ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
                     <div
-                        class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.settings.*') ? 'bg-slate-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                        class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.settings.*') && request('tab') !== 'pages' ? 'bg-slate-500/20' : 'bg-white/5' }} flex items-center justify-center">
                         <i
-                            class='bx bx-cog text-lg {{ request()->routeIs('admin.settings.*') ? 'text-slate-400' : '' }}'></i>
+                            class='bx bx-cog text-lg {{ request()->routeIs('admin.settings.*') && request('tab') !== 'pages' ? 'text-slate-400' : '' }}'></i>
                     </div>
                     <span>Settings</span>
+                </a>
+
+                <!-- Pages -->
+                <a href="{{ route('admin.pages.index') }}"
+                    class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-2
+                    {{ (request()->routeIs('admin.pages.*')) || (request()->routeIs('admin.settings.*') && request('tab') === 'pages') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                    <div
+                        class="w-8 h-8 rounded-lg {{ (request()->routeIs('admin.pages.*')) || (request()->routeIs('admin.settings.*') && request('tab') === 'pages') ? 'bg-slate-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                        <i
+                            class='bx bx-file text-lg {{ (request()->routeIs('admin.pages.*')) || (request()->routeIs('admin.settings.*') && request('tab') === 'pages') ? 'text-slate-400' : '' }}'></i>
+                    </div>
+                    <span>Pages</span>
                 </a>
 
                 <!-- User Profile Section -->
@@ -581,6 +593,11 @@
                                         class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
                                         <i class='bx bx-cog text-lg text-gray-400'></i>
                                         <span>Settings</span>
+                                    </a>
+                                    <a href="{{ route('admin.pages.index') }}"
+                                        class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                        <i class='bx bx-file text-lg text-gray-400'></i>
+                                        <span>Pages</span>
                                     </a>
                                 </div>
 
