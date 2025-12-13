@@ -3,26 +3,20 @@
 @section('title', 'Our Team - Clinic Management System')
 
 @section('content')
-<div class="bg-white min-h-screen flex flex-col">
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-b from-slate-50 to-white border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 lg:py-24">
-            <div class="text-center max-w-3xl mx-auto">
-                <p class="text-sm font-semibold text-indigo-600 uppercase tracking-wider mb-4">Our Team</p>
-                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-5">
-                    {{ $teamHeroTitle }}
-                </h1>
-                <p class="text-base md:text-lg text-gray-600 leading-relaxed">
-                    {{ $teamHeroSubtitle }}
-                </p>
-            </div>
+<div class="min-h-screen bg-gray-50 flex flex-col">
+    <div class="flex-1 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">{{ $teamHeroTitle ?: 'Our Team' }}</h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                {{ $teamHeroSubtitle ?: 'Meet the multidisciplinary team that delivers continuous, connected care—combining psychology, homeopathy, and coordinated support.' }}
+            </p>
         </div>
-    </section>
 
-    <!-- Team Members Section -->
-    <section class="flex-1 py-16 md:py-20 lg:py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <!-- Team Members Grid -->
+        @if(!empty($teamMembers))
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($teamMembers as $member)
                     @php
                         $photo = $member['photo'] ?? null;
@@ -31,43 +25,61 @@
                             $initial = 'A';
                         }
                     @endphp
-                    <div class="group bg-white border border-gray-200 rounded-2xl p-6 lg:p-7 hover:shadow-xl hover:border-indigo-200 transition-all duration-300">
-                        <!-- Profile Header -->
-                        <div class="flex items-center gap-4 mb-5">
-                            <div class="w-16 h-16 flex-shrink-0 relative">
-                                <div class="avatar-fallback absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-600 text-white flex items-center justify-center font-bold text-lg shadow-lg group-hover:shadow-xl transition-shadow duration-300">
-                                    {{ $initial }}
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+                        <div class="p-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="w-16 h-16 flex-shrink-0 relative">
+                                    <div class="avatar-fallback absolute inset-0 rounded-full bg-gradient-to-br from-indigo-500 to-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-lg">
+                                        {{ $initial }}
+                                    </div>
+                                    @if($photo)
+                                        <img src="{{ str_starts_with($photo, 'data:') ? $photo : (str_starts_with($photo, 'http') ? $photo : asset('storage/' . $photo)) }}" 
+                                            alt="{{ $member['name'] }}"
+                                            class="w-16 h-16 rounded-full object-cover border-2 border-indigo-50 shadow-lg relative z-10"
+                                            onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';"
+                                            onload="this.previousElementSibling.style.display='none';">
+                                    @endif
                                 </div>
-                                @if($photo)
-                                    <img src="{{ $photo }}" alt="{{ $member['name'] }}"
-                                        class="w-16 h-16 rounded-full object-cover border-3 border-indigo-50 shadow-lg group-hover:border-indigo-100 transition-colors duration-300"
-                                        onerror="this.style.display='none'; this.previousElementSibling.style.display='flex';"
-                                        onload="this.previousElementSibling.style.display='none';">
-                                @endif
+                                <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full">Team Member</span>
                             </div>
-                            <div class="flex-1 min-w-0">
-                                <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-1 group-hover:text-indigo-600 transition-colors duration-300">
-                                    {{ $member['name'] }}
-                                </h3>
-                                <p class="text-sm md:text-base text-gray-600 font-medium">
-                                    {{ $member['title'] }}
+                            <h3 class="text-xl font-bold text-gray-900 mb-1">{{ $member['name'] ?? 'Team Member' }}</h3>
+                            <p class="text-gray-600 text-sm mb-4 font-medium">{{ $member['title'] ?? '' }}</p>
+                            
+                            @if(!empty($member['bio']))
+                                <p class="text-gray-600 text-sm leading-relaxed text-justify">
+                                    {{ Str::limit($member['bio'], 120) }}
                                 </p>
-                            </div>
+                            @endif
                         </div>
-                        
-                        <!-- Bio Section -->
-                        @if(!empty($member['bio']))
-                            <div class="pt-4 border-t border-gray-100">
-                                <p class="text-sm text-gray-600 leading-relaxed text-justify">
-                                    {{ $member['bio'] }}
-                                </p>
-                            </div>
-                        @endif
                     </div>
                 @endforeach
             </div>
+        @else
+            <div class="text-center py-16">
+                <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class='bx bx-group text-3xl text-indigo-400'></i>
+                </div>
+                <p class="text-gray-500 text-lg">No team members available at the moment.</p>
+                <p class="text-gray-400 text-sm mt-2">Please check back later or contact us for more information.</p>
+            </div>
+        @endif
+
+        <!-- CTA Section -->
+        <div class="mt-12 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white text-center">
+            <h3 class="text-2xl font-bold mb-4">Ready to Book an Appointment?</h3>
+            <p class="text-indigo-100 mb-6">Connect with our experienced team members</p>
+            @auth
+                <a href="{{ route('patient.dashboard') }}" class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition inline-block">
+                    Go to Dashboard
+                </a>
+            @else
+                <a href="{{ route('register') }}" class="bg-white text-indigo-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition inline-block">
+                    Get Started
+                </a>
+            @endauth
         </div>
-    </section>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-white border-t border-gray-200 mt-auto">
@@ -79,4 +91,3 @@
     </footer>
 </div>
 @endsection
-

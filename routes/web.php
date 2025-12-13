@@ -16,6 +16,10 @@ Route::get('/packages', [HomeController::class, 'packages'])->name('packages');
 Route::get('/services', [App\Http\Controllers\ServiceController::class, 'index'])->name('services.index');
 Route::get('/services/{service:slug}', [App\Http\Controllers\ServiceController::class, 'show'])->name('services.show');
 
+// Dynamic Page Route (must be after specific routes)
+Route::get('/{slug}', [HomeController::class, 'page'])->name('page.show')
+    ->where('slug', '^(?!admin|login|register|logout|services|about|team|packages).*');
+
 // Authentication Routes
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -223,14 +227,22 @@ Route::middleware('auth')->group(function () {
         Route::put('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('settings.update');
         Route::post('/settings/auto-save', [App\Http\Controllers\Admin\SettingsController::class, 'updateSingle'])->name('settings.auto-save');
         Route::delete('/settings/logo', [App\Http\Controllers\Admin\SettingsController::class, 'removeLogo'])->name('settings.remove-logo');
-        Route::get('/pages', [App\Http\Controllers\Admin\SettingsController::class, 'pages'])
-            ->name('pages.index');
+        
+        // Legacy page edit routes (for About/Team/Packages) - MUST come before resource route
         Route::get('/pages/about', [App\Http\Controllers\Admin\SettingsController::class, 'editAbout'])
             ->name('pages.about');
         Route::get('/pages/team', [App\Http\Controllers\Admin\SettingsController::class, 'editTeam'])
             ->name('pages.team');
         Route::get('/pages/packages', [App\Http\Controllers\Admin\SettingsController::class, 'editPackages'])
             ->name('pages.packages');
+        
+        // Pages Management (CRUD) - Resource route must come after specific routes
+        Route::post('/pages/reorder', [App\Http\Controllers\Admin\PageController::class, 'reorder'])->name('pages.reorder');
+        Route::post('/pages/{id}/restore', [App\Http\Controllers\Admin\PageController::class, 'restore'])->name('pages.restore');
+        Route::delete('/pages/{id}/force-delete', [App\Http\Controllers\Admin\PageController::class, 'forceDelete'])->name('pages.force-delete');
+        Route::post('/pages/{id}/duplicate', [App\Http\Controllers\Admin\PageController::class, 'duplicate'])->name('pages.duplicate');
+        Route::post('/pages/{id}/toggle-status', [App\Http\Controllers\Admin\PageController::class, 'toggleStatus'])->name('pages.toggle-status');
+        Route::resource('pages', App\Http\Controllers\Admin\PageController::class);
 
         // Style Guide
         Route::view('/style-guide/buttons', 'admin.style-guide.buttons')->name('style-guide.buttons');

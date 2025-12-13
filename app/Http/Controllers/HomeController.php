@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -137,6 +138,19 @@ class HomeController extends Controller
             'packagesHeroTitle',
             'packagesHeroSubtitle'
         ));
+    }
+
+    /**
+     * Show dynamic custom page by slug
+     */
+    public function page($slug)
+    {
+        $page = Page::published()
+            ->where('slug', $slug)
+            ->where('type', 'custom')
+            ->firstOrFail();
+
+        return view('page', compact('page'));
     }
 }
 
