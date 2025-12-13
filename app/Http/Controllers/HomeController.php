@@ -112,5 +112,31 @@ class HomeController extends Controller
             'teamHeroSubtitle'
         ));
     }
+
+    /**
+     * Show Packages page with special packages
+     */
+    public function packages()
+    {
+        $packages = $this->decodeSettingArray(
+            get_setting('packages'),
+            []
+        );
+
+        $packagesHeroTitle = get_setting(
+            'packages_hero_title',
+            'Special Packages'
+        );
+        $packagesHeroSubtitle = get_setting(
+            'packages_hero_subtitle',
+            'Choose from our specially curated packages designed to meet your wellness needs.'
+        );
+
+        return view('packages', compact(
+            'packages',
+            'packagesHeroTitle',
+            'packagesHeroSubtitle'
+        ));
+    }
 }
 

@@ -142,6 +142,10 @@
                         class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
                         Our Team
                     </a>
+                    <a href="{{ route('packages') }}"
+                        class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
+                        Packages
+                    </a>
                     @auth
                         <!-- User Dropdown -->
                         <div class="relative" x-data="{ open: false }" @click.away="open = false">

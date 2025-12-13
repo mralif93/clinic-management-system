@@ -3,7 +3,7 @@
 @section('title', 'Our Team - Clinic Management System')
 
 @section('content')
-<div class="bg-white min-h-screen">
+<div class="bg-white min-h-screen flex flex-col">
     <!-- Hero Section -->
     <section class="bg-gradient-to-b from-slate-50 to-white border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 lg:py-24">
@@ -20,7 +20,7 @@
     </section>
 
     <!-- Team Members Section -->
-    <section class="py-16 md:py-20 lg:py-24">
+    <section class="flex-1 py-16 md:py-20 lg:py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                 @foreach($teamMembers as $member)
@@ -70,7 +70,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-12">
+    <footer class="bg-white border-t border-gray-200 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="text-center">
                 <p class="text-xs text-gray-500">&copy; {{ date('Y') }} Clinic Management System. All rights reserved.</p>

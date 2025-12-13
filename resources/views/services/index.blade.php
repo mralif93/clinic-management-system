@@ -3,8 +3,9 @@
 @section('title', 'Our Services - Clinic Management System')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
+<div class="min-h-screen bg-gray-50 flex flex-col">
+    <div class="flex-1 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <div class="text-center mb-12">
             <h1 class="text-4xl font-bold text-gray-900 mb-4">Our Services</h1>
@@ -139,16 +140,17 @@
                 </a>
             @endauth
         </div>
-    </div>
-</div>
-
-<!-- Footer -->
-<footer class="bg-white border-t border-gray-200 mt-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div class="text-center">
-            <p class="text-xs text-gray-500">&copy; {{ date('Y') }} Clinic Management System. All rights reserved.</p>
         </div>
     </div>
-</footer>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="text-center">
+                <p class="text-xs text-gray-500">&copy; {{ date('Y') }} Clinic Management System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</div>
 @endsection
 

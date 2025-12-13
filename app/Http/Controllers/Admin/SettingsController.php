@@ -48,6 +48,14 @@ class SettingsController extends Controller
     }
 
     /**
+     * Edit Packages page content
+     */
+    public function editPackages()
+    {
+        return view('admin.pages.edit', ['mode' => 'packages']);
+    }
+
+    /**
      * Update settings
      */
     public function update(Request $request)

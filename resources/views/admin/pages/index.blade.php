@@ -10,7 +10,7 @@
             <div class="flex items-center justify-between">
                 <div>
                     <h1 class="text-2xl font-bold text-gray-900">Pages</h1>
-                    <p class="mt-1 text-sm text-gray-500">Edit About Us and Our Team page content</p>
+                    <p class="mt-1 text-sm text-gray-500">Edit About Us, Our Team, and Packages page content</p>
                 </div>
                 <div id="saveStatus"
                     class="hidden items-center gap-2 px-4 py-2 rounded-lg bg-green-50 border border-green-200">
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <a href="{{ route('admin.pages.about') }}" class="group block p-5 rounded-xl border border-gray-100 hover:border-blue-200 hover:shadow-md transition bg-white">
                 <div class="flex items-center justify-between">
                     <div>
@@ -50,6 +50,23 @@
                     </span>
                 </div>
                 <div class="mt-4 flex items-center text-sm text-indigo-600 font-semibold">
+                    <span>Edit content</span>
+                    <i class='bx bx-right-arrow-alt ml-2 text-lg transition group-hover:translate-x-1'></i>
+                </div>
+            </a>
+
+            <a href="{{ route('admin.pages.packages') }}" class="group block p-5 rounded-xl border border-gray-100 hover:border-purple-200 hover:shadow-md transition bg-white">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-xs font-semibold uppercase text-purple-600 mb-1">Page</p>
+                        <h3 class="text-lg font-semibold text-gray-900">Packages</h3>
+                        <p class="text-sm text-gray-500 mt-1">Hero and special packages.</p>
+                    </div>
+                    <span class="w-10 h-10 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center">
+                        <i class='bx bx-package text-lg'></i>
+                    </span>
+                </div>
+                <div class="mt-4 flex items-center text-sm text-purple-600 font-semibold">
                     <span>Edit content</span>
                     <i class='bx bx-right-arrow-alt ml-2 text-lg transition group-hover:translate-x-1'></i>
                 </div>

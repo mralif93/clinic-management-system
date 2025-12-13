@@ -5,9 +5,11 @@
 @php
     $isAbout = !isset($mode) || $mode === 'about';
     $isTeam = !isset($mode) || $mode === 'team';
+    $isPackages = !isset($mode) || $mode === 'packages';
 
     $aboutValuesArr = json_decode(get_setting('about_values', $defaultAboutValues), true) ?? [];
     $teamMembersArr = json_decode(get_setting('team_members', json_encode([], JSON_PRETTY_PRINT)), true) ?? [];
+    $packagesArr = json_decode(get_setting('packages', json_encode([], JSON_PRETTY_PRINT)), true) ?? [];
 @endphp
 
 @if($isAbout)
@@ -278,6 +280,148 @@
     </div>
 @endif
 
+@if($isPackages)
+    <div class="space-y-4">
+        <!-- Hero Section -->
+        <div class="space-y-3">
+            <h3 class="text-sm font-bold text-gray-800 mb-3">Hero Section</h3>
+            <div>
+                <label class="text-xs font-semibold text-gray-700">Hero Title</label>
+                <input type="text" data-key="packages_hero_title"
+                    onchange="autoSave('packages_hero_title', this.value)"
+                    class="auto-save-input w-full mt-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                    placeholder="Main title for the hero section" value="{{ get_setting('packages_hero_title', 'Special Packages') }}">
+            </div>
+            <div>
+                <label class="text-xs font-semibold text-gray-700">Hero Subtitle</label>
+                <textarea rows="3" data-key="packages_hero_subtitle"
+                    onchange="autoSave('packages_hero_subtitle', this.value)"
+                    class="auto-save-input w-full mt-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all resize-none"
+                    placeholder="Subtitle/description for the hero section">{{ get_setting('packages_hero_subtitle', 'Choose from our specially curated packages designed to meet your wellness needs.') }}</textarea>
+            </div>
+        </div>
+
+        <!-- Packages Section -->
+        <div class="space-y-2 border-t border-gray-200 pt-4 mt-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold text-gray-700">Packages</p>
+                    <p class="text-[11px] text-gray-500">Name, pricing, sessions, duration, image</p>
+                </div>
+                <button type="button" onclick="pageEditor.addItem('packages')"
+                    class="inline-flex items-center gap-2 px-3 h-9 rounded-full bg-indigo-50 text-indigo-600 border border-indigo-100 hover:bg-indigo-100 text-xs font-semibold transition">
+                    <span class="w-5 h-5 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[11px]">+</span>
+                    Add Package
+                </button>
+            </div>
+            <div id="packages" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                @foreach($packagesArr as $idx => $item)
+                    <div class="relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow p-4 space-y-3" data-index="{{ $idx }}">
+                        <div class="flex items-center justify-between pb-2 border-b border-gray-100">
+                            <div class="flex items-center gap-2">
+                                <span class="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center text-sm font-semibold">{{ $idx + 1 }}</span>
+                                <div class="text-sm font-semibold text-gray-800">Package</div>
+                            </div>
+                            <button type="button"
+                                class="flex items-center justify-center w-8 h-8 rounded-full bg-red-50 text-red-600 border border-red-100 text-sm font-semibold shadow"
+                                onclick="pageEditor.removeItem('packages', {{ $idx }})">×</button>
+                        </div>
+                        <div>
+                            <label class="text-[11px] font-semibold text-gray-700">Package Name</label>
+                            <input type="text" class="w-full mt-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                                value="{{ $item['name'] ?? '' }}" data-field="name" oninput="pageEditor.sync('packages')">
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-[11px] font-semibold text-gray-700">Original Price (RM)</label>
+                                <input type="number" step="0.01" class="w-full mt-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                                    value="{{ $item['original_price'] ?? '' }}" data-field="original_price" oninput="pageEditor.sync('packages')" placeholder="500">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-semibold text-gray-700">Price (RM)</label>
+                                <input type="number" step="0.01" class="w-full mt-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                                    value="{{ $item['price'] ?? '' }}" data-field="price" oninput="pageEditor.sync('packages')" placeholder="450">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="text-[11px] font-semibold text-gray-700">Sessions</label>
+                                <input type="text" class="w-full mt-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                                    value="{{ $item['sessions'] ?? '' }}" data-field="sessions" oninput="pageEditor.sync('packages')" placeholder="2X SESSIONS">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-semibold text-gray-700">Duration</label>
+                                <input type="text" class="w-full mt-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                                    value="{{ $item['duration'] ?? '' }}" data-field="duration" oninput="pageEditor.sync('packages')" placeholder="1 HOUR PER SESSION">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[11px] font-semibold text-gray-700 mb-2 block">Package Image</label>
+                            <div class="space-y-2">
+                                <div class="flex items-center gap-2">
+                                    <input type="file" accept="image/png,image/jpeg,image/jpg,image/webp" 
+                                        class="hidden" 
+                                        id="package-image-{{ $idx }}"
+                                        onchange="handlePackageImageUpload({{ $idx }}, this)">
+                                    <label for="package-image-{{ $idx }}" 
+                                        class="flex-1 cursor-pointer inline-flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-lg hover:bg-indigo-100 transition">
+                                        <i class='bx bx-cloud-upload text-sm'></i>
+                                        Upload Image
+                                    </label>
+                                    @if(!empty($item['image']))
+                                        <button type="button" 
+                                            onclick="clearPackageImage({{ $idx }})"
+                                            class="px-3 py-2 text-xs font-medium text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition">
+                                            <i class='bx bx-x'></i>
+                                        </button>
+                                    @endif
+                                </div>
+                                <div class="relative">
+                                    @if(!empty($item['image']))
+                                        <div class="flex items-center gap-2">
+                                            <img src="{{ str_starts_with($item['image'], 'data:') ? $item['image'] : (str_starts_with($item['image'], 'http') ? $item['image'] : asset('storage/' . $item['image'])) }}" 
+                                                alt="Preview" 
+                                                class="w-16 h-16 rounded-lg object-cover border border-gray-200"
+                                                id="package-image-preview-{{ $idx }}"
+                                                onerror="this.style.display='none';">
+                                            <div class="flex-1">
+                                                <p class="text-[10px] text-gray-500 mb-1">Image URL</p>
+                                                <input type="text" 
+                                                    class="w-full rounded-lg border border-gray-200 px-2 py-1.5 text-xs focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/20"
+                                                    value="{{ $item['image'] }}" 
+                                                    data-field="image" 
+                                                    data-index="{{ $idx }}"
+                                                    id="package-image-input-{{ $idx }}"
+                                                    oninput="pageEditor.sync('packages'); updatePackageImagePreview({{ $idx }}, this.value)"
+                                                    placeholder="Image URL">
+                                            </div>
+                                        </div>
+                                    @else
+                                        <input type="text" 
+                                            class="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                                            value="{{ $item['image'] ?? '' }}" 
+                                            data-field="image" 
+                                            data-index="{{ $idx }}"
+                                            id="package-image-input-{{ $idx }}"
+                                            oninput="pageEditor.sync('packages')"
+                                            placeholder="Image URL or upload image">
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[11px] font-semibold text-gray-700">Description (Optional)</label>
+                            <textarea rows="2" class="w-full mt-1 rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+                                data-field="description" oninput="pageEditor.sync('packages')"
+                                placeholder="Package description">{{ $item['description'] ?? '' }}</textarea>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+@endif
+
 @push('scripts')
 <script>
 if (!window.pageEditor) {
@@ -357,7 +501,8 @@ if (!window.pageEditor) {
             const keyMap = {
                 'about-values': 'about_values',
                 'about-mission': 'about_mission_items',
-                'team-members': 'team_members'
+                'team-members': 'team_members',
+                'packages': 'packages'
             };
             const key = keyMap[section];
             if (key && typeof autoSave === 'function') {
@@ -471,6 +616,7 @@ if (!window.pageEditor) {
             const labels = {
                 'about-values': 'Value',
                 'team-members': 'Member',
+                'packages': 'Package',
             };
             const label = labels[section] || 'Item';
             const title = `${label} ${action}`;
@@ -613,6 +759,92 @@ if (!window.pageEditor) {
     // Update team photo preview
     window.updateTeamPhotoPreview = function(idx, url) {
         const preview = document.getElementById(`team-photo-preview-${idx}`);
+        if (preview && url) {
+            preview.src = url;
+            preview.style.display = 'block';
+            preview.onerror = function() {
+                this.style.display = 'none';
+            };
+        }
+    };
+
+    // Handle package image upload
+    window.handlePackageImageUpload = function(idx, input) {
+        const file = input.files[0];
+        if (!file) return;
+
+        // Validate file size (max 2MB)
+        if (file.size > 2 * 1024 * 1024) {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'File too large',
+                    text: 'Maximum file size is 2MB',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            }
+            input.value = '';
+            return;
+        }
+
+        // Validate file type
+        const validTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
+        if (!validTypes.includes(file.type)) {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid file type',
+                    text: 'Please upload PNG, JPG, or WEBP image',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            }
+            input.value = '';
+            return;
+        }
+
+        // Convert to base64
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const base64Data = e.target.result;
+            const imageInput = document.getElementById(`package-image-input-${idx}`);
+            if (imageInput) {
+                imageInput.value = base64Data;
+                pageEditor.sync('packages');
+                
+                // Update preview if exists
+                updatePackageImagePreview(idx, base64Data);
+            }
+        };
+        reader.readAsDataURL(file);
+    };
+
+    // Clear package image
+    window.clearPackageImage = function(idx) {
+        const imageInput = document.getElementById(`package-image-input-${idx}`);
+        const fileInput = document.getElementById(`package-image-${idx}`);
+        const preview = document.getElementById(`package-image-preview-${idx}`);
+        
+        if (imageInput) {
+            imageInput.value = '';
+            pageEditor.sync('packages');
+        }
+        if (fileInput) {
+            fileInput.value = '';
+        }
+        if (preview) {
+            preview.style.display = 'none';
+        }
+    };
+
+    // Update package image preview
+    window.updatePackageImagePreview = function(idx, url) {
+        const preview = document.getElementById(`package-image-preview-${idx}`);
         if (preview && url) {
             preview.src = url;
             preview.style.display = 'block';

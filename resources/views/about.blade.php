@@ -3,7 +3,7 @@
 @section('title', 'About Us - Clinic Management System')
 
 @section('content')
-<div class="bg-white overflow-x-hidden">
+<div class="bg-white overflow-x-hidden min-h-screen flex flex-col">
     <!-- Hero Section -->
     <section class="bg-slate-50 border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20">
@@ -114,7 +114,7 @@
     </section>
 
     <!-- Values Section -->
-    <section class="bg-slate-50 border-b border-gray-100">
+    <section class="flex-1 bg-slate-50 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
             <div class="mb-8">
                 <div class="flex items-center gap-3 mb-4">
@@ -148,7 +148,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-12">
+    <footer class="bg-white border-t border-gray-200 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="text-center">
                 <p class="text-xs text-gray-500">&copy; {{ date('Y') }} Clinic Management System. All rights reserved.</p>

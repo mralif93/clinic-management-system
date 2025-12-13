@@ -473,6 +473,57 @@ class SettingsSeeder extends Seeder
                 'group' => 'pages',
                 'description' => 'Team - Team members list',
             ],
+
+            // Packages Page Settings
+            [
+                'key' => 'packages_hero_title',
+                'value' => 'Special Packages',
+                'type' => 'text',
+                'group' => 'pages',
+                'description' => 'Packages - Hero title',
+            ],
+            [
+                'key' => 'packages_hero_subtitle',
+                'value' => 'Choose from our specially curated packages designed to meet your wellness needs.',
+                'type' => 'textarea',
+                'group' => 'pages',
+                'description' => 'Packages - Hero subtitle',
+            ],
+            [
+                'key' => 'packages',
+                'value' => json_encode([
+                    [
+                        'name' => 'TWIN PACKAGE',
+                        'original_price' => 500,
+                        'price' => 450,
+                        'sessions' => '2X SESSIONS',
+                        'duration' => '1 HOUR PER SESSION',
+                        'image' => null,
+                        'description' => '',
+                    ],
+                    [
+                        'name' => 'PLATINUM PACKAGE',
+                        'original_price' => 2500,
+                        'price' => 2000,
+                        'sessions' => '10X SESSIONS',
+                        'duration' => '1 HOUR PER SESSION',
+                        'image' => null,
+                        'description' => '',
+                    ],
+                    [
+                        'name' => 'PREMIUM PACKAGE',
+                        'original_price' => 1000,
+                        'price' => 860,
+                        'sessions' => '4X SESSIONS',
+                        'duration' => '1 HOUR PER SESSION',
+                        'image' => null,
+                        'description' => '',
+                    ],
+                ]),
+                'type' => 'json',
+                'group' => 'pages',
+                'description' => 'Packages - Special packages list',
+            ],
         ];
 
         foreach ($settings as $setting) {

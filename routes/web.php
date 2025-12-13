@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/team', [HomeController::class, 'team'])->name('team');
+Route::get('/packages', [HomeController::class, 'packages'])->name('packages');
 
 // Services Routes
 Route::get('/services', [App\Http\Controllers\ServiceController::class, 'index'])->name('services.index');
@@ -228,6 +229,8 @@ Route::middleware('auth')->group(function () {
             ->name('pages.about');
         Route::get('/pages/team', [App\Http\Controllers\Admin\SettingsController::class, 'editTeam'])
             ->name('pages.team');
+        Route::get('/pages/packages', [App\Http\Controllers\Admin\SettingsController::class, 'editPackages'])
+            ->name('pages.packages');
 
         // Style Guide
         Route::view('/style-guide/buttons', 'admin.style-guide.buttons')->name('style-guide.buttons');

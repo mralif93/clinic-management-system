@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
 @section('title', 'Pages')
-@section('page-title', $mode === 'team' ? 'Edit Team Page' : 'Edit About Page')
+@section('page-title', $mode === 'team' ? 'Edit Team Page' : ($mode === 'packages' ? 'Edit Packages Page' : 'Edit About Page'))
 
 @section('content')
     <div class="max-w-6xl mx-auto">
         <!-- Header Section -->
         <div class="mb-6 flex items-center justify-between">
             <div>
-                <p class="text-xs font-semibold uppercase text-blue-600 mb-1">{{ $mode === 'team' ? 'Team page' : 'About page' }}</p>
-                <h1 class="text-2xl font-bold text-gray-900">{{ $mode === 'team' ? 'Our Team Content' : 'About Us Content' }}</h1>
-                <p class="mt-1 text-sm text-gray-500">Edit the {{ $mode === 'team' ? 'team hero, leadership, and care teams.' : 'hero, values, and timeline.' }}</p>
+                <p class="text-xs font-semibold uppercase text-blue-600 mb-1">{{ $mode === 'team' ? 'Team page' : ($mode === 'packages' ? 'Packages page' : 'About page') }}</p>
+                <h1 class="text-2xl font-bold text-gray-900">{{ $mode === 'team' ? 'Our Team Content' : ($mode === 'packages' ? 'Packages Content' : 'About Us Content') }}</h1>
+                <p class="mt-1 text-sm text-gray-500">Edit the {{ $mode === 'team' ? 'team hero, leadership, and care teams.' : ($mode === 'packages' ? 'hero and special packages.' : 'hero, values, and timeline.') }}</p>
             </div>
             <a href="{{ route('admin.pages.index') }}"
                 class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition">
