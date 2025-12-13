@@ -309,6 +309,170 @@ class SettingsSeeder extends Seeder
                 'group' => 'general',
                 'description' => 'Statistics - Uptime label',
             ],
+
+            // About Us Page Settings
+            [
+                'key' => 'about_hero_title',
+                'value' => 'Sakeenah Medicare (SKMED)',
+                'type' => 'text',
+                'group' => 'pages',
+                'description' => 'About Us - Hero title',
+            ],
+            [
+                'key' => 'about_hero_subtitle',
+                'value' => 'We provide high-quality mental health and wellness services while advocating for mental health awareness in Malaysia.',
+                'type' => 'textarea',
+                'group' => 'pages',
+                'description' => 'About Us - Hero subtitle',
+            ],
+            [
+                'key' => 'about_story_short',
+                'value' => 'At SKMED, quality over quantity is our priority. We ensure that every client receives personalized, high-quality care at an affordable rate. Our team supports individuals facing mental health challenges, life transitions, or emotional struggles with hope, guidance, and expert care.',
+                'type' => 'textarea',
+                'group' => 'pages',
+                'description' => 'About Us - Short story',
+            ],
+            [
+                'key' => 'about_story_long',
+                'value' => 'At Sakeenah Medicare (SKMED), we are committed to providing high-quality mental health and wellness services while advocating for mental health awareness in Malaysia. We strive to create a safe, supportive environment for emotional well-being, healing, and growth. Our certified clinical psychologists, counsellors, occupational therapists, and homeopathy practitioners deliver care through psychotherapy, assessments, screenings, counseling, holistic wellness, and trainee supervision for future professionals.',
+                'type' => 'textarea',
+                'group' => 'pages',
+                'description' => 'About Us - Long story',
+            ],
+            [
+                'key' => 'about_vision',
+                'value' => 'To be a leading mental health and wellness center in Malaysia, breaking the stigma and providing compassionate, high-quality, and accessible care.',
+                'type' => 'textarea',
+                'group' => 'pages',
+                'description' => 'About Us - Vision statement',
+            ],
+            [
+                'key' => 'about_mission_items',
+                'value' => json_encode([
+                    'Advocating for mental health awareness and reducing stigma.',
+                    'Providing expert yet affordable care for all.',
+                    'Empowering individuals towards healing and growth.',
+                    'Training future mental health professionals with excellence.',
+                ]),
+                'type' => 'json',
+                'group' => 'pages',
+                'description' => 'About Us - Mission items',
+            ],
+            [
+                'key' => 'about_values',
+                'value' => json_encode([
+                    [
+                        'icon' => 'bx-heart',
+                        'title' => 'Care & Compassion',
+                        'description' => 'We prioritize kindness, empathy, and understanding in everything we do.',
+                        'accent' => 'text-rose-600 bg-rose-50',
+                    ],
+                    [
+                        'icon' => 'bx-shield',
+                        'title' => 'Excellence',
+                        'description' => 'We provide the highest quality care through expertise and innovation.',
+                        'accent' => 'text-indigo-600 bg-indigo-50',
+                    ],
+                    [
+                        'icon' => 'bx-megaphone',
+                        'title' => 'Advocacy',
+                        'description' => 'We actively fight against mental health stigma through education and support.',
+                        'accent' => 'text-amber-600 bg-amber-50',
+                    ],
+                ]),
+                'type' => 'json',
+                'group' => 'pages',
+                'description' => 'About Us - Values',
+            ],
+            [
+                'key' => 'about_values_description',
+                'value' => 'Guided by compassion, excellence, and advocacy to serve our community.',
+                'type' => 'textarea',
+                'group' => 'pages',
+                'description' => 'About Us - Values section description',
+            ],
+
+            // Team Page Settings
+            [
+                'key' => 'team_members',
+                'value' => json_encode([
+                    [
+                        'name' => 'Sarah',
+                        'title' => 'Senior Clinical Psychologist',
+                        'photo' => null,
+                        'bio' => 'Experienced in trauma-informed therapy and evidence-based interventions. Specializes in anxiety, depression, and relationship counseling.',
+                    ],
+                    [
+                        'name' => 'Qistina',
+                        'title' => 'Clinical Psychologist',
+                        'photo' => null,
+                        'bio' => 'Dedicated to providing compassionate mental health care. Focuses on cognitive-behavioral therapy and mindfulness-based approaches.',
+                    ],
+                    [
+                        'name' => 'Andrea',
+                        'title' => 'Clinical Psychologist',
+                        'photo' => null,
+                        'bio' => 'Expert in child and adolescent psychology. Passionate about supporting young people through life transitions and challenges.',
+                    ],
+                    [
+                        'name' => 'Adrianna',
+                        'title' => 'Clinical Psychologist',
+                        'photo' => null,
+                        'bio' => 'Specializes in family therapy and couples counseling. Committed to helping individuals build stronger, healthier relationships.',
+                    ],
+                    [
+                        'name' => 'Farhah',
+                        'title' => 'Clinical Psychologist',
+                        'photo' => null,
+                        'bio' => 'Focuses on stress management and work-life balance. Helps clients develop effective coping strategies for daily challenges.',
+                    ],
+                    [
+                        'name' => 'Marjan',
+                        'title' => 'Clinical Psychologist',
+                        'photo' => null,
+                        'bio' => 'Expert in mood disorders and emotional regulation. Uses integrative approaches to support clients\' mental wellness journey.',
+                    ],
+                    [
+                        'name' => 'Aina',
+                        'title' => 'Clinical Psychologist/Counsellor',
+                        'photo' => null,
+                        'bio' => 'Combines clinical psychology expertise with counseling skills. Specializes in grief counseling and life transition support.',
+                    ],
+                    [
+                        'name' => 'Alya',
+                        'title' => 'Clinical Psychologist',
+                        'photo' => null,
+                        'bio' => 'Dedicated to mental health advocacy and stigma reduction. Provides culturally sensitive therapy for diverse populations.',
+                    ],
+                    [
+                        'name' => 'Kelly',
+                        'title' => 'Clinical Psychologist',
+                        'photo' => null,
+                        'bio' => 'Specializes in assessment and diagnosis. Experienced in working with adults facing various mental health challenges.',
+                    ],
+                    [
+                        'name' => 'Adeera',
+                        'title' => 'Counselor',
+                        'photo' => null,
+                        'bio' => 'Provides supportive counseling for individuals navigating personal and professional challenges. Warm and empathetic approach.',
+                    ],
+                    [
+                        'name' => 'Izzam',
+                        'title' => 'Counselor',
+                        'photo' => null,
+                        'bio' => 'Experienced counselor specializing in men\'s mental health and career counseling. Helps clients achieve personal and professional goals.',
+                    ],
+                    [
+                        'name' => 'Hannan',
+                        'title' => 'Counselor',
+                        'photo' => null,
+                        'bio' => 'Compassionate counselor focused on supporting individuals through difficult times. Specializes in self-esteem and personal growth.',
+                    ],
+                ]),
+                'type' => 'json',
+                'group' => 'pages',
+                'description' => 'Team - Team members list',
+            ],
         ];
 
         foreach ($settings as $setting) {

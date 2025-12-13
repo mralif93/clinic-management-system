@@ -195,60 +195,10 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white mt-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center mb-4">
-                        <i class='bx bx-clinic text-2xl text-blue-400 mr-2'></i>
-                        <span class="text-lg font-bold">{{ get_setting('clinic_name', 'Clinic Management') }}</span>
-                    </div>
-                    <p class="text-gray-400 text-sm">
-                        {{ get_setting('footer_description', 'Modern clinic management solution for healthcare professionals.') }}
-                    </p>
-                    @if(get_setting('clinic_address'))
-                    <p class="text-gray-400 text-sm mt-2">
-                        <i class='bx bx-map mr-1'></i> {{ get_setting('clinic_address') }}
-                    </p>
-                    @endif
-                    @if(get_setting('clinic_phone'))
-                    <p class="text-gray-400 text-sm mt-1">
-                        <i class='bx bx-phone mr-1'></i> {{ get_setting('clinic_phone') }}
-                    </p>
-                    @endif
-                    @if(get_setting('clinic_email'))
-                    <p class="text-gray-400 text-sm mt-1">
-                        <i class='bx bx-envelope mr-1'></i> {{ get_setting('clinic_email') }}
-                    </p>
-                    @endif
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Product</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="{{ route('services.index') }}" class="hover:text-white transition">Features</a></li>
-                        <li><a href="{{ route('services.index') }}" class="hover:text-white transition">Pricing</a></li>
-                        <li><a href="{{ route('services.index') }}" class="hover:text-white transition">Updates</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Company</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="{{ route('about') }}" class="hover:text-white transition">About</a></li>
-                        <li><a href="{{ route('team') }}" class="hover:text-white transition">Our Team</a></li>
-                        <li><a href="mailto:{{ get_setting('clinic_email', 'hello@example.com') }}" class="hover:text-white transition">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Support</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">Help Center</a></li>
-                        <li><a href="#" class="hover:text-white transition">Documentation</a></li>
-                        <li><a href="#" class="hover:text-white transition">Privacy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-                <p>&copy; {{ date('Y') }} Clinic Management System. All rights reserved.</p>
+    <footer class="bg-white border-t border-gray-200 mt-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="text-center">
+                <p class="text-xs text-gray-500">&copy; {{ date('Y') }} Clinic Management System. All rights reserved.</p>
             </div>
         </div>
     </footer>
