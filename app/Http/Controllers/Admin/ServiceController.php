@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Service;
+use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -49,7 +50,10 @@ class ServiceController extends Controller
 
         $services = $query->orderBy('created_at', 'desc')->paginate(15);
 
-        return view('admin.services.index', compact('services'));
+        // Get the Services module page for visibility and order management
+        $modulePage = Page::where('type', 'services')->first();
+
+        return view('admin.services.index', compact('services', 'modulePage'));
     }
 
     /**
@@ -195,6 +199,52 @@ class ServiceController extends Controller
 
         return redirect()->route('admin.services.index')
             ->with('success', 'Service permanently deleted!');
+    }
+
+    /**
+     * Toggle module visibility (published/unpublished)
+     */
+    public function toggleModuleVisibility()
+    {
+        $page = Page::where('type', 'services')->first();
+        
+        if (!$page) {
+            return redirect()->route('admin.services.index')
+                ->with('error', 'Services page not found.');
+        }
+
+        if ($page->is_published) {
+            $page->unpublish();
+            $message = 'Services module hidden successfully!';
+        } else {
+            $page->publish();
+            $message = 'Services module published successfully!';
+        }
+
+        return redirect()->route('admin.services.index')
+            ->with('success', $message);
+    }
+
+    /**
+     * Update module order
+     */
+    public function updateModuleOrder(Request $request)
+    {
+        $validated = $request->validate([
+            'order' => 'required|integer|min:0',
+        ]);
+
+        $page = Page::where('type', 'services')->first();
+        
+        if (!$page) {
+            return redirect()->route('admin.services.index')
+                ->with('error', 'Services page not found.');
+        }
+
+        $page->update(['order' => $validated['order']]);
+
+        return redirect()->route('admin.services.index')
+            ->with('success', 'Services module order updated successfully!');
     }
 }
 

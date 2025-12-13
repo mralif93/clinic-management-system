@@ -53,66 +53,111 @@
         </div>
     </div>
 
-    <!-- System Pages Section -->
+    <!-- Module Visibility Section -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="p-5 border-b border-gray-100 bg-gray-50/50">
             <div class="flex items-center gap-2">
-                <i class='bx bx-info-circle text-indigo-600'></i>
-                <h3 class="font-semibold text-gray-700">System Pages</h3>
+                <i class='bx bx-toggle-left text-indigo-600'></i>
+                <h3 class="font-semibold text-gray-700">Module Visibility Control</h3>
             </div>
+            <p class="text-sm text-gray-500 mt-1">Control which modules appear on the public website</p>
         </div>
         <div class="p-5">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <a href="{{ route('admin.pages.about') }}" class="group block p-5 rounded-xl border border-gray-100 hover:border-blue-200 hover:shadow-md transition bg-white">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-semibold uppercase text-blue-600 mb-1">Page</p>
-                            <h3 class="text-lg font-semibold text-gray-900">About Us</h3>
-                            <p class="text-sm text-gray-500 mt-1">Hero, values, and timeline content.</p>
-                        </div>
-                        <span class="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
-                            <i class='bx bx-info-circle text-lg'></i>
-                        </span>
-                    </div>
-                    <div class="mt-4 flex items-center text-sm text-blue-600 font-semibold">
-                        <span>Edit content</span>
-                        <i class='bx bx-right-arrow-alt ml-2 text-lg transition group-hover:translate-x-1'></i>
-                    </div>
-                </a>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                @php
+                    $modulePages = [
+                        'services' => [
+                            'name' => 'Services',
+                            'icon' => 'bx-grid-alt',
+                            'color' => 'cyan',
+                            'route' => 'services.index',
+                            'admin_route' => 'admin.services.index',
+                        ],
+                        'packages' => [
+                            'name' => 'Packages',
+                            'icon' => 'bx-package',
+                            'color' => 'purple',
+                            'route' => 'packages.index',
+                            'admin_route' => 'admin.packages.index',
+                        ],
+                        'team' => [
+                            'name' => 'Team',
+                            'icon' => 'bx-group',
+                            'color' => 'indigo',
+                            'route' => 'team.index',
+                            'admin_route' => 'admin.team.index',
+                        ],
+                        'about' => [
+                            'name' => 'About',
+                            'icon' => 'bx-info-circle',
+                            'color' => 'blue',
+                            'route' => 'about',
+                            'admin_route' => 'admin.pages.about',
+                        ],
+                    ];
+                    
+                    foreach ($modulePages as $type => $config) {
+                        $page = \App\Models\Page::where('type', $type)->first();
+                        $isPublished = $page ? $page->is_published : false;
+                        $modulePages[$type]['page'] = $page;
+                        $modulePages[$type]['is_published'] = $isPublished;
+                    }
+                @endphp
 
-                <a href="{{ route('admin.pages.team') }}" class="group block p-5 rounded-xl border border-gray-100 hover:border-indigo-200 hover:shadow-md transition bg-white">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-semibold uppercase text-indigo-600 mb-1">Page</p>
-                            <h3 class="text-lg font-semibold text-gray-900">Our Team</h3>
-                            <p class="text-sm text-gray-500 mt-1">Hero, leadership, and care teams.</p>
+                @foreach($modulePages as $type => $config)
+                    <div class="border border-gray-200 rounded-xl p-4 hover:shadow-md transition {{ $config['is_published'] ? 'bg-green-50/50 border-green-200' : 'bg-gray-50/50' }}">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-lg bg-{{ $config['color'] }}-100 flex items-center justify-center">
+                                    <i class='bx {{ $config['icon'] }} text-xl text-{{ $config['color'] }}-600'></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">{{ $config['name'] }}</h4>
+                                    <p class="text-xs text-gray-500">Module</p>
+                                </div>
+                            </div>
+                            @if($config['is_published'])
+                                <span class="px-2 py-1 rounded-lg text-xs font-semibold bg-green-100 text-green-700">
+                                    <i class='bx bx-check-circle'></i> Visible
+                                </span>
+                            @else
+                                <span class="px-2 py-1 rounded-lg text-xs font-semibold bg-gray-100 text-gray-600">
+                                    <i class='bx bx-x-circle'></i> Hidden
+                                </span>
+                            @endif
                         </div>
-                        <span class="w-10 h-10 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center">
-                            <i class='bx bx-group text-lg'></i>
-                        </span>
-                    </div>
-                    <div class="mt-4 flex items-center text-sm text-indigo-600 font-semibold">
-                        <span>Edit content</span>
-                        <i class='bx bx-right-arrow-alt ml-2 text-lg transition group-hover:translate-x-1'></i>
-                    </div>
-                </a>
-
-                <a href="{{ route('admin.pages.packages') }}" class="group block p-5 rounded-xl border border-gray-100 hover:border-purple-200 hover:shadow-md transition bg-white">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-xs font-semibold uppercase text-purple-600 mb-1">Page</p>
-                            <h3 class="text-lg font-semibold text-gray-900">Packages</h3>
-                            <p class="text-sm text-gray-500 mt-1">Hero and special packages.</p>
+                        
+                        <div class="space-y-2">
+                            @if($config['page'])
+                                <form action="{{ route('admin.pages.toggle-status', $config['page']->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    <button type="submit" 
+                                        class="w-full px-3 py-2 rounded-lg text-sm font-medium transition-all
+                                        {{ $config['is_published'] ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'bg-green-100 text-green-700 hover:bg-green-200' }}">
+                                        <i class='bx {{ $config['is_published'] ? 'bx-hide' : 'bx-show' }} mr-1'></i>
+                                        {{ $config['is_published'] ? 'Hide' : 'Show' }} Module
+                                    </button>
+                                </form>
+                            @else
+                                <p class="text-xs text-gray-500 text-center py-2">Page not created yet</p>
+                            @endif
+                            
+                            <div class="flex gap-2">
+                                @if($type !== 'about')
+                                    <a href="{{ route($config['admin_route']) }}" 
+                                       class="flex-1 px-3 py-2 bg-{{ $config['color'] }}-100 text-{{ $config['color'] }}-700 rounded-lg text-sm font-medium hover:bg-{{ $config['color'] }}-200 transition text-center">
+                                        <i class='bx bx-cog mr-1'></i> Manage
+                                    </a>
+                                @else
+                                    <a href="{{ route($config['admin_route']) }}" 
+                                       class="flex-1 px-3 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 transition text-center">
+                                        <i class='bx bx-edit mr-1'></i> Edit
+                                    </a>
+                                @endif
+                            </div>
                         </div>
-                        <span class="w-10 h-10 rounded-full bg-purple-50 text-purple-600 flex items-center justify-center">
-                            <i class='bx bx-package text-lg'></i>
-                        </span>
                     </div>
-                    <div class="mt-4 flex items-center text-sm text-purple-600 font-semibold">
-                        <span>Edit content</span>
-                        <i class='bx bx-right-arrow-alt ml-2 text-lg transition group-hover:translate-x-1'></i>
-                    </div>
-                </a>
+                @endforeach
             </div>
         </div>
     </div>
@@ -250,10 +295,22 @@
                                             <i class='bx bx-x-circle text-lg'></i>
                                         </button>
                                     @else
-                                        @if(in_array($page->type, ['about', 'team', 'packages']))
-                                            <a href="{{ route('admin.pages.' . $page->type) }}"
+                                        @if($page->type === 'about')
+                                            <a href="{{ route('admin.pages.about') }}"
                                                class="w-9 h-9 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 hover:scale-110 transition-all" title="Edit">
                                                 <i class='bx bx-edit text-lg'></i>
+                                            </a>
+                                        @elseif(in_array($page->type, ['team', 'packages', 'services']))
+                                            @php
+                                                $moduleRoutes = [
+                                                    'team' => 'admin.team.index',
+                                                    'packages' => 'admin.packages.index',
+                                                    'services' => 'admin.services.index',
+                                                ];
+                                            @endphp
+                                            <a href="{{ route($moduleRoutes[$page->type]) }}"
+                                               class="w-9 h-9 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 hover:scale-110 transition-all" title="Manage Module">
+                                                <i class='bx bx-cog text-lg'></i>
                                             </a>
                                         @else
                                             <a href="{{ route('admin.pages.show', $page->id) }}"

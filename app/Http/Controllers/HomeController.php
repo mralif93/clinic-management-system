@@ -90,54 +90,20 @@ class HomeController extends Controller
 
     /**
      * Show Our Team page highlighting clinicians and staff
+     * Redirects to the new TeamController
      */
     public function team()
     {
-        $teamMembers = $this->decodeSettingArray(
-            get_setting('team_members'),
-            []
-        );
-
-        $teamHeroTitle = get_setting(
-            'team_hero_title',
-            'People-first clinicians. Coordinated, informed, and ready to help.'
-        );
-        $teamHeroSubtitle = get_setting(
-            'team_hero_subtitle',
-            'Meet the multidisciplinary team that delivers continuous, connected care—combining psychology, homeopathy, and coordinated support.'
-        );
-
-        return view('team', compact(
-            'teamMembers',
-            'teamHeroTitle',
-            'teamHeroSubtitle'
-        ));
+        return redirect()->route('team.index');
     }
 
     /**
      * Show Packages page with special packages
+     * Redirects to the new PackageController
      */
     public function packages()
     {
-        $packages = $this->decodeSettingArray(
-            get_setting('packages'),
-            []
-        );
-
-        $packagesHeroTitle = get_setting(
-            'packages_hero_title',
-            'Special Packages'
-        );
-        $packagesHeroSubtitle = get_setting(
-            'packages_hero_subtitle',
-            'Choose from our specially curated packages designed to meet your wellness needs.'
-        );
-
-        return view('packages', compact(
-            'packages',
-            'packagesHeroTitle',
-            'packagesHeroSubtitle'
-        ));
+        return redirect()->route('packages.index');
     }
 
     /**

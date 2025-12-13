@@ -394,6 +394,30 @@
                         <span>Services</span>
                     </a>
 
+                    <!-- Packages -->
+                    <a href="{{ route('admin.packages.index') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('admin.packages.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.packages.*') ? 'bg-purple-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-package text-lg {{ request()->routeIs('admin.packages.*') ? 'text-purple-400' : '' }}'></i>
+                        </div>
+                        <span>Packages</span>
+                    </a>
+
+                    <!-- Team -->
+                    <a href="{{ route('admin.team.index') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('admin.team.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.team.*') ? 'bg-indigo-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-group text-lg {{ request()->routeIs('admin.team.*') ? 'text-indigo-400' : '' }}'></i>
+                        </div>
+                        <span>Team</span>
+                    </a>
+
                     <!-- Appointments -->
                     <a href="{{ route('admin.appointments.index') }}"
                         class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1

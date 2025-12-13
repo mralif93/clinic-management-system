@@ -69,7 +69,7 @@ class PageController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:pages,slug',
-            'type' => 'required|in:custom,about,team,packages',
+            'type' => 'required|in:custom,about,team,packages,services',
             'content' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
@@ -128,9 +128,19 @@ class PageController extends Controller
         }
 
         // For system pages (about, team, packages), redirect to their dedicated edit pages
-        if (in_array($page->type, ['about', 'team', 'packages'])) {
-            return redirect()->route('admin.pages.' . $page->type)
+        // Services, packages, and team modules are managed through their own CRUD
+        if ($page->type === 'about') {
+            return redirect()->route('admin.pages.about')
                 ->with('info', 'This page is managed through its dedicated editor.');
+        } elseif (in_array($page->type, ['team', 'packages', 'services'])) {
+            // These are now modules - redirect to their module management
+            $routeMap = [
+                'team' => 'admin.team.index',
+                'packages' => 'admin.packages.index',
+                'services' => 'admin.services.index',
+            ];
+            return redirect()->route($routeMap[$page->type])
+                ->with('info', 'This module is managed through its dedicated management page.');
         }
         
         return view('admin.pages.edit', compact('page'));
@@ -148,9 +158,18 @@ class PageController extends Controller
         }
 
         // System pages should be edited through their dedicated editors
-        if (in_array($page->type, ['about', 'team', 'packages'])) {
-            return redirect()->route('admin.pages.' . $page->type)
+        if ($page->type === 'about') {
+            return redirect()->route('admin.pages.about')
                 ->with('info', 'This page is managed through its dedicated editor.');
+        } elseif (in_array($page->type, ['team', 'packages', 'services'])) {
+            // These are now modules - redirect to their module management
+            $routeMap = [
+                'team' => 'admin.team.index',
+                'packages' => 'admin.packages.index',
+                'services' => 'admin.services.index',
+            ];
+            return redirect()->route($routeMap[$page->type])
+                ->with('info', 'This module is managed through its dedicated management page.');
         }
         
         $validated = $request->validate([
@@ -161,6 +180,7 @@ class PageController extends Controller
                 'max:255',
                 Rule::unique('pages', 'slug')->ignore($page->id),
             ],
+            'type' => 'required|in:custom,about,team,packages,services',
             'content' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
@@ -202,13 +222,6 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
-
-        // Prevent deletion of system pages
-        if (in_array($page->type, ['about', 'team', 'packages'])) {
-            return redirect()->route('admin.pages.index')
-                ->with('error', 'System pages cannot be deleted.');
-        }
-
         $page->delete();
 
         return redirect()->route('admin.pages.index')
@@ -233,13 +246,6 @@ class PageController extends Controller
     public function forceDelete($id)
     {
         $page = Page::withTrashed()->findOrFail($id);
-
-        // Prevent deletion of system pages
-        if (in_array($page->type, ['about', 'team', 'packages'])) {
-            return redirect()->route('admin.pages.index')
-                ->with('error', 'System pages cannot be permanently deleted.');
-        }
-
         $page->forceDelete();
 
         return redirect()->route('admin.pages.index')
@@ -271,6 +277,7 @@ class PageController extends Controller
     {
         $page = Page::findOrFail($id);
         
+        // Allow toggling for all pages including system pages (services, packages, team)
         if ($page->is_published) {
             $page->unpublish();
             $message = 'Page unpublished successfully!';

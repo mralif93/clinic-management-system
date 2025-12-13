@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\Page;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -12,6 +13,11 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
+        // Check if services module is visible
+        if (!Page::isModuleVisible('services')) {
+            abort(404);
+        }
+
         $query = Service::active();
 
         // Filter by type if provided
@@ -32,7 +38,18 @@ class ServiceController extends Controller
      */
     public function show($slug)
     {
+        // Check if services module is visible
+        if (!Page::isModuleVisible('services')) {
+            abort(404);
+        }
+
         $service = Service::where('slug', $slug)->firstOrFail();
+        
+        // Only show active services
+        if (!$service->is_active) {
+            abort(404);
+        }
+        
         return view('services.show', compact('service'));
     }
 }

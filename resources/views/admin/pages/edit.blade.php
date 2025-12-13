@@ -170,7 +170,7 @@
         </div>
     @else
         {{-- System Page Edit (About/Team/Packages) --}}
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-6xl mx-auto space-y-6">
             <!-- Header Section -->
             <div class="mb-6 flex items-center justify-between">
                 <div>
@@ -184,6 +184,77 @@
                     Back to Pages
                 </a>
             </div>
+
+            @if($mode === 'about' && isset($modulePage))
+            <!-- Module Visibility Control for About Page -->
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                <div class="p-5 border-b border-gray-100 bg-gray-50/50">
+                    <div class="flex items-center gap-2">
+                        <i class='bx bx-toggle-left text-blue-600'></i>
+                        <h3 class="font-semibold text-gray-700">Module Visibility & Order</h3>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-1">Control whether the About page appears on the public website</p>
+                </div>
+                <div class="p-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Visibility Toggle -->
+                        <div class="border border-gray-200 rounded-xl p-4 {{ $modulePage->is_published ? 'bg-green-50/50 border-green-200' : 'bg-gray-50/50' }}">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                                        <i class='bx bx-info-circle text-xl text-blue-600'></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900">Visibility Status</h4>
+                                        <p class="text-xs text-gray-500">Public website</p>
+                                    </div>
+                                </div>
+                                @if($modulePage->is_published)
+                                    <span class="px-2 py-1 rounded-lg text-xs font-semibold bg-green-100 text-green-700">
+                                        <i class='bx bx-check-circle'></i> Visible
+                                    </span>
+                                @else
+                                    <span class="px-2 py-1 rounded-lg text-xs font-semibold bg-gray-100 text-gray-600">
+                                        <i class='bx bx-x-circle'></i> Hidden
+                                    </span>
+                                @endif
+                            </div>
+                            <form action="{{ route('admin.pages.about.toggle-visibility') }}" method="POST" class="inline">
+                                @csrf
+                                <button type="submit" 
+                                    class="w-full px-3 py-2 rounded-lg text-sm font-medium transition-all
+                                    {{ $modulePage->is_published ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'bg-green-100 text-green-700 hover:bg-green-200' }}">
+                                    <i class='bx {{ $modulePage->is_published ? 'bx-hide' : 'bx-show' }} mr-1'></i>
+                                    {{ $modulePage->is_published ? 'Hide' : 'Show' }} Page
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- Order Control -->
+                        <div class="border border-gray-200 rounded-xl p-4 bg-gray-50/50">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                                    <i class='bx bx-sort text-xl text-blue-600'></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900">Display Order</h4>
+                                    <p class="text-xs text-gray-500">Navigation position</p>
+                                </div>
+                            </div>
+                            <form action="{{ route('admin.pages.about.update-order') }}" method="POST" class="flex gap-2">
+                                @csrf
+                                <input type="number" name="order" value="{{ $modulePage->order }}" min="0" 
+                                    class="flex-1 px-3 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm">
+                                <button type="submit" 
+                                    class="px-4 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 transition">
+                                    <i class='bx bx-check mr-1'></i> Update
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
 
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
                 @include('admin.settings.partials.pages', ['mode' => $mode])

@@ -130,22 +130,40 @@
                     </a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="{{ route('services.index') }}"
-                        class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
-                        Services
-                    </a>
-                    <a href="{{ route('about') }}"
-                        class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
-                        About Us
-                    </a>
-                    <a href="{{ route('team') }}"
-                        class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
-                        Our Team
-                    </a>
-                    <a href="{{ route('packages') }}"
-                        class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
-                        Packages
-                    </a>
+                    @php
+                        $servicesPage = \App\Models\Page::where('type', 'services')->first();
+                        $teamPage = \App\Models\Page::where('type', 'team')->first();
+                        $packagesPage = \App\Models\Page::where('type', 'packages')->first();
+                        $aboutPage = \App\Models\Page::where('type', 'about')->first();
+                    @endphp
+                    
+                    @if(!$servicesPage || $servicesPage->is_published)
+                        <a href="{{ route('services.index') }}"
+                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
+                            Services
+                        </a>
+                    @endif
+                    
+                    @if(!$aboutPage || $aboutPage->is_published)
+                        <a href="{{ route('about') }}"
+                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
+                            About Us
+                        </a>
+                    @endif
+                    
+                    @if(!$teamPage || $teamPage->is_published)
+                        <a href="{{ route('team.index') }}"
+                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
+                            Our Team
+                        </a>
+                    @endif
+                    
+                    @if(!$packagesPage || $packagesPage->is_published)
+                        <a href="{{ route('packages.index') }}"
+                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
+                            Packages
+                        </a>
+                    @endif
                     @auth
                         <!-- User Dropdown -->
                         <div class="relative" x-data="{ open: false }" @click.away="open = false">

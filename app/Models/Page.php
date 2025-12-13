@@ -89,9 +89,11 @@ class Page extends Model
         if ($this->type === 'about') {
             return route('about');
         } elseif ($this->type === 'team') {
-            return route('team');
+            return route('team.index');
         } elseif ($this->type === 'packages') {
-            return route('packages');
+            return route('packages.index');
+        } elseif ($this->type === 'services') {
+            return route('services.index');
         }
         return route('page.show', $this->slug);
     }
@@ -151,7 +153,32 @@ class Page extends Model
      */
     public function scopeSystem($query)
     {
-        return $query->whereIn('type', ['about', 'team', 'packages']);
+        return $query->whereIn('type', ['about', 'team', 'packages', 'services']);
+    }
+
+    /**
+     * Scope for module pages (services, packages, team)
+     */
+    public function scopeModules($query)
+    {
+        return $query->whereIn('type', ['services', 'packages', 'team']);
+    }
+
+    /**
+     * Scope for a specific module type
+     */
+    public function scopeModuleType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+
+    /**
+     * Check if module is visible (published)
+     */
+    public static function isModuleVisible($moduleType)
+    {
+        $page = static::where('type', $moduleType)->first();
+        return $page && $page->is_published;
     }
 
     /**

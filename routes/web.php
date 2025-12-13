@@ -9,12 +9,17 @@ use Illuminate\Support\Facades\Route;
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
-Route::get('/team', [HomeController::class, 'team'])->name('team');
-Route::get('/packages', [HomeController::class, 'packages'])->name('packages');
+
+// Team Routes
+Route::get('/team', [App\Http\Controllers\TeamController::class, 'index'])->name('team.index');
 
 // Services Routes
 Route::get('/services', [App\Http\Controllers\ServiceController::class, 'index'])->name('services.index');
 Route::get('/services/{service:slug}', [App\Http\Controllers\ServiceController::class, 'show'])->name('services.show');
+
+// Packages Routes
+Route::get('/packages', [App\Http\Controllers\PackageController::class, 'index'])->name('packages.index');
+Route::get('/packages/{package:slug}', [App\Http\Controllers\PackageController::class, 'show'])->name('packages.show');
 
 // Dynamic Page Route (must be after specific routes)
 Route::get('/{slug}', [HomeController::class, 'page'])->name('page.show')
@@ -215,9 +220,25 @@ Route::middleware('auth')->group(function () {
         Route::resource('appointments', App\Http\Controllers\Admin\AppointmentController::class);
 
         // Service Management
+        Route::post('/services/toggle-visibility', [App\Http\Controllers\Admin\ServiceController::class, 'toggleModuleVisibility'])->name('services.toggle-visibility');
+        Route::post('/services/update-order', [App\Http\Controllers\Admin\ServiceController::class, 'updateModuleOrder'])->name('services.update-order');
         Route::resource('services', App\Http\Controllers\Admin\ServiceController::class);
         Route::post('/services/{id}/restore', [App\Http\Controllers\Admin\ServiceController::class, 'restore'])->name('services.restore');
         Route::delete('/services/{id}/force-delete', [App\Http\Controllers\Admin\ServiceController::class, 'forceDelete'])->name('services.force-delete');
+
+        // Package Management
+        Route::post('/packages/toggle-visibility', [App\Http\Controllers\Admin\PackageController::class, 'toggleModuleVisibility'])->name('packages.toggle-visibility');
+        Route::post('/packages/update-order', [App\Http\Controllers\Admin\PackageController::class, 'updateModuleOrder'])->name('packages.update-order');
+        Route::resource('packages', App\Http\Controllers\Admin\PackageController::class);
+        Route::post('/packages/{id}/restore', [App\Http\Controllers\Admin\PackageController::class, 'restore'])->name('packages.restore');
+        Route::delete('/packages/{id}/force-delete', [App\Http\Controllers\Admin\PackageController::class, 'forceDelete'])->name('packages.force-delete');
+
+        // Team Management
+        Route::post('/team/toggle-visibility', [App\Http\Controllers\Admin\TeamController::class, 'toggleModuleVisibility'])->name('team.toggle-visibility');
+        Route::post('/team/update-order', [App\Http\Controllers\Admin\TeamController::class, 'updateModuleOrder'])->name('team.update-order');
+        Route::resource('team', App\Http\Controllers\Admin\TeamController::class);
+        Route::post('/team/{id}/restore', [App\Http\Controllers\Admin\TeamController::class, 'restore'])->name('team.restore');
+        Route::delete('/team/{id}/force-delete', [App\Http\Controllers\Admin\TeamController::class, 'forceDelete'])->name('team.force-delete');
 
         // Reports
         Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('reports.index');
@@ -228,13 +249,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/settings/auto-save', [App\Http\Controllers\Admin\SettingsController::class, 'updateSingle'])->name('settings.auto-save');
         Route::delete('/settings/logo', [App\Http\Controllers\Admin\SettingsController::class, 'removeLogo'])->name('settings.remove-logo');
         
-        // Legacy page edit routes (for About/Team/Packages) - MUST come before resource route
+        // Legacy page edit route (for About only) - MUST come before resource route
         Route::get('/pages/about', [App\Http\Controllers\Admin\SettingsController::class, 'editAbout'])
             ->name('pages.about');
-        Route::get('/pages/team', [App\Http\Controllers\Admin\SettingsController::class, 'editTeam'])
-            ->name('pages.team');
-        Route::get('/pages/packages', [App\Http\Controllers\Admin\SettingsController::class, 'editPackages'])
-            ->name('pages.packages');
+        Route::post('/pages/about/toggle-visibility', [App\Http\Controllers\Admin\SettingsController::class, 'toggleAboutVisibility'])->name('pages.about.toggle-visibility');
+        Route::post('/pages/about/update-order', [App\Http\Controllers\Admin\SettingsController::class, 'updateAboutOrder'])->name('pages.about.update-order');
         
         // Pages Management (CRUD) - Resource route must come after specific routes
         Route::post('/pages/reorder', [App\Http\Controllers\Admin\PageController::class, 'reorder'])->name('pages.reorder');

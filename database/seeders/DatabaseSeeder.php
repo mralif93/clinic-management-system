@@ -17,6 +17,12 @@ class DatabaseSeeder extends Seeder
         // Seed services
         $this->call(ServiceSeeder::class);
 
+        // Seed packages
+        $this->call(PackageSeeder::class);
+
+        // Seed team members
+        $this->call(TeamMemberSeeder::class);
+
         // Seed settings
         $this->call(SettingsSeeder::class);
 

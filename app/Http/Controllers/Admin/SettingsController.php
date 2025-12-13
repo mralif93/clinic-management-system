@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,23 +37,56 @@ class SettingsController extends Controller
      */
     public function editAbout()
     {
-        return view('admin.pages.edit', ['mode' => 'about']);
+        // Get the About module page for visibility and order management
+        $modulePage = Page::where('type', 'about')->first();
+        
+        return view('admin.pages.edit', ['mode' => 'about', 'modulePage' => $modulePage]);
     }
 
     /**
-     * Edit Team page content
+     * Toggle About page visibility (published/unpublished)
      */
-    public function editTeam()
+    public function toggleAboutVisibility()
     {
-        return view('admin.pages.edit', ['mode' => 'team']);
+        $page = Page::where('type', 'about')->first();
+        
+        if (!$page) {
+            return redirect()->route('admin.pages.about')
+                ->with('error', 'About page not found.');
+        }
+
+        if ($page->is_published) {
+            $page->unpublish();
+            $message = 'About page hidden successfully!';
+        } else {
+            $page->publish();
+            $message = 'About page published successfully!';
+        }
+
+        return redirect()->route('admin.pages.about')
+            ->with('success', $message);
     }
 
     /**
-     * Edit Packages page content
+     * Update About page order
      */
-    public function editPackages()
+    public function updateAboutOrder(Request $request)
     {
-        return view('admin.pages.edit', ['mode' => 'packages']);
+        $validated = $request->validate([
+            'order' => 'required|integer|min:0',
+        ]);
+
+        $page = Page::where('type', 'about')->first();
+        
+        if (!$page) {
+            return redirect()->route('admin.pages.about')
+                ->with('error', 'About page not found.');
+        }
+
+        $page->update(['order' => $validated['order']]);
+
+        return redirect()->route('admin.pages.about')
+            ->with('success', 'About page order updated successfully!');
     }
 
     /**
