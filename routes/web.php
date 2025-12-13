@@ -255,13 +255,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/pages/about/toggle-visibility', [App\Http\Controllers\Admin\SettingsController::class, 'toggleAboutVisibility'])->name('pages.about.toggle-visibility');
         Route::post('/pages/about/update-order', [App\Http\Controllers\Admin\SettingsController::class, 'updateAboutOrder'])->name('pages.about.update-order');
         
-        // Pages Management (CRUD) - Resource route must come after specific routes
-        Route::post('/pages/reorder', [App\Http\Controllers\Admin\PageController::class, 'reorder'])->name('pages.reorder');
-        Route::post('/pages/{id}/restore', [App\Http\Controllers\Admin\PageController::class, 'restore'])->name('pages.restore');
-        Route::delete('/pages/{id}/force-delete', [App\Http\Controllers\Admin\PageController::class, 'forceDelete'])->name('pages.force-delete');
-        Route::post('/pages/{id}/duplicate', [App\Http\Controllers\Admin\PageController::class, 'duplicate'])->name('pages.duplicate');
+        // Pages Management - Module Visibility Control only
+        Route::get('/pages', [App\Http\Controllers\Admin\PageController::class, 'index'])->name('pages.index');
         Route::post('/pages/{id}/toggle-status', [App\Http\Controllers\Admin\PageController::class, 'toggleStatus'])->name('pages.toggle-status');
-        Route::resource('pages', App\Http\Controllers\Admin\PageController::class);
+        Route::post('/pages/{id}/update-order', [App\Http\Controllers\Admin\PageController::class, 'updateOrder'])->name('pages.update-order');
 
         // Style Guide
         Route::view('/style-guide/buttons', 'admin.style-guide.buttons')->name('style-guide.buttons');
