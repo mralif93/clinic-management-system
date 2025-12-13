@@ -50,10 +50,7 @@ class ServiceController extends Controller
 
         $services = $query->orderBy('created_at', 'desc')->paginate(15);
 
-        // Get the Services module page for visibility and order management
-        $modulePage = Page::where('type', 'services')->first();
-
-        return view('admin.services.index', compact('services', 'modulePage'));
+        return view('admin.services.index', compact('services'));
     }
 
     /**

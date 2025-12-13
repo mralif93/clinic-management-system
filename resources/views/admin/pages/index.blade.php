@@ -28,7 +28,7 @@
             <p class="text-sm text-gray-500 mt-1">Control which modules appear on the public website</p>
         </div>
         <div class="p-5">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach($modules as $module)
                     @php
                         $type = $module['type'];

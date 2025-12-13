@@ -45,10 +45,7 @@ class PackageController extends Controller
 
         $packages = $query->orderBy('created_at', 'desc')->paginate(15);
 
-        // Get the Packages module page for visibility and order management
-        $modulePage = Page::where('type', 'packages')->first();
-
-        return view('admin.packages.index', compact('packages', 'modulePage'));
+        return view('admin.packages.index', compact('packages'));
     }
 
     /**

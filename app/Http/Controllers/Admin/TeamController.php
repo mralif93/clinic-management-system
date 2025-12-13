@@ -44,10 +44,7 @@ class TeamController extends Controller
 
         $teamMembers = $query->ordered()->paginate(15);
 
-        // Get the Team module page for visibility and order management
-        $modulePage = Page::where('type', 'team')->first();
-
-        return view('admin.team.index', compact('teamMembers', 'modulePage'));
+        return view('admin.team.index', compact('teamMembers'));
     }
 
     /**
