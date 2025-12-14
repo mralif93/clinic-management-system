@@ -63,13 +63,8 @@
 
             <!-- Pagination -->
             @if($announcements->hasPages())
-                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-8 pt-6 border-t border-gray-200">
-                    <div class="text-sm text-gray-600">
-                        Showing <span class="font-semibold text-gray-900">{{ $announcements->firstItem() }}</span> to <span class="font-semibold text-gray-900">{{ $announcements->lastItem() }}</span> of <span class="font-semibold text-gray-900">{{ $announcements->total() }}</span> results
-                    </div>
-                    <div class="flex justify-end">
-                        {{ $announcements->links() }}
-                    </div>
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    {{ $announcements->links() }}
                 </div>
             @endif
         @else

@@ -17,10 +17,10 @@
                     @if(Auth::user()->staff)
                         <div class="flex items-center gap-3 mt-3">
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-sm">
-                                <i class='bx bx-id-card mr-1'></i> {{ Auth::user()->staff->staff_id }}
+                                <i class='bx bx-id-card mr-1'></i> {{ Auth::user()->staff?->staff_id ?? 'Staff' }}
                             </span>
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-sm">
-                                <i class='bx bx-briefcase mr-1'></i> {{ Auth::user()->staff->position ?? 'Staff' }}
+                                <i class='bx bx-briefcase mr-1'></i> {{ Auth::user()->staff?->position ?? 'Staff' }}
                             </span>
                         </div>
                     @endif

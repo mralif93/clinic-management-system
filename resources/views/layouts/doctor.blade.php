@@ -414,7 +414,7 @@
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="text-sm font-medium text-white truncate">Dr. {{ Auth::user()->name }}</p>
-                        <p class="text-xs text-sidebar-text truncate">{{ Auth::user()->doctor->doctor_id ?? 'Doctor' }}</p>
+                        <p class="text-xs text-sidebar-text truncate">{{ Auth::user()->doctor?->doctor_id ?? 'Doctor' }}</p>
                     </div>
                 </div>
             </div>

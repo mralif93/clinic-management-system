@@ -404,11 +404,7 @@
                         <div class="flex-1 min-w-0 text-left">
                             <p class="text-sm font-medium text-white truncate">{{ Auth::user()->name }}</p>
                             <p class="text-xs text-sidebar-text truncate">
-                                @if(Auth::user()->staff)
-                                    {{ Auth::user()->staff->staff_id }}
-                                @else
-                                    Staff
-                                @endif
+                                {{ Auth::user()->staff?->staff_id ?? 'Staff' }}
                             </p>
                         </div>
                         <i class='bx bx-chevron-up text-sidebar-text transition-transform duration-200' :class="{ 'rotate-180': open }"></i>
@@ -467,7 +463,7 @@
                         @if(Auth::user()->staff)
                             <span class="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700">
                                 <i class='bx bx-id-card mr-1'></i>
-                                {{ Auth::user()->staff->staff_id }}
+                                {{ Auth::user()->staff?->staff_id ?? 'Staff' }}
                             </span>
                         @endif
 

@@ -31,8 +31,8 @@ class DoctorCheckInMiddleware
         }
 
         // Skip check for excluded routes
-        $currentRoute = $request->route()->getName();
-        if (in_array($currentRoute, $this->excludedRoutes)) {
+        $currentRoute = $request->route()?->getName();
+        if ($currentRoute && in_array($currentRoute, $this->excludedRoutes)) {
             return $next($request);
         }
 
