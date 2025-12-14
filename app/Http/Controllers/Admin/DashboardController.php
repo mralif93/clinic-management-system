@@ -68,15 +68,15 @@ class DashboardController extends Controller
         // ========== REVENUE INSIGHTS ==========
         $todayRevenue = Appointment::whereDate('appointment_date', $today)
             ->where('payment_status', 'paid')
-            ->sum('fee');
+            ->sum('fee') ?? 0;
 
         $monthlyRevenue = Appointment::whereBetween('appointment_date', [$startOfMonth, $endOfMonth])
             ->where('payment_status', 'paid')
-            ->sum('fee');
+            ->sum('fee') ?? 0;
 
         $pendingPayments = Appointment::where('payment_status', 'unpaid')
             ->whereIn('status', ['completed', 'confirmed'])
-            ->sum('fee');
+            ->sum('fee') ?? 0;
 
         // Last 7 days revenue for chart
         $revenueData = [];
@@ -84,7 +84,7 @@ class DashboardController extends Controller
             $date = Carbon::today()->subDays($i);
             $revenue = Appointment::whereDate('appointment_date', $date)
                 ->where('payment_status', 'paid')
-                ->sum('fee');
+                ->sum('fee') ?? 0;
             $revenueData[] = [
                 'date' => $date->format('M d'),
                 'day' => $date->format('D'),

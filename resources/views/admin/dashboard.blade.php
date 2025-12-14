@@ -379,14 +379,18 @@
                 </div>
                 <div class="p-6">
                     @php
-                        $maxRevenue = max(array_column($revenueData, 'revenue')) ?: 1;
+                        $revenueValues = array_column($revenueData, 'revenue');
+                        $maxRevenue = !empty($revenueValues) ? max($revenueValues) : 1;
+                        if ($maxRevenue == 0) {
+                            $maxRevenue = 1; // Prevent division by zero
+                        }
                     @endphp
                     <div class="flex items-end justify-between gap-2 h-40">
                         @foreach($revenueData as $data)
                             <div class="flex-1 flex flex-col items-center gap-2">
                                 <div class="w-full bg-gray-100 rounded-t-lg relative" style="height: 120px;">
                                     <div class="absolute bottom-0 w-full bg-gradient-to-t from-green-500 to-emerald-400 rounded-t-lg transition-all duration-500 hover:from-green-600 hover:to-emerald-500"
-                                        style="height: {{ ($data['revenue'] / $maxRevenue) * 100 }}%;"
+                                        style="height: {{ ($maxRevenue > 0 ? ($data['revenue'] / $maxRevenue) * 100 : 0) }}%;"
                                         title="{{ get_currency_symbol() }}{{ number_format($data['revenue'], 2) }}"></div>
                                 </div>
                                 <span class="text-xs text-gray-500 font-medium">{{ $data['day'] }}</span>
@@ -437,15 +441,15 @@
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3">
                                             <p class="text-sm font-medium text-gray-800">
-                                                {{ $appointment->patient->full_name ?? 'N/A' }}</p>
+                                                {{ ($appointment->patient && $appointment->patient->full_name) ? $appointment->patient->full_name : 'N/A' }}</p>
                                         </td>
                                         <td class="px-4 py-3">
-                                            <p class="text-sm text-gray-600">Dr. {{ $appointment->doctor->full_name ?? 'N/A' }}</p>
+                                            <p class="text-sm text-gray-600">Dr. {{ ($appointment->doctor && $appointment->doctor->full_name) ? $appointment->doctor->full_name : 'N/A' }}</p>
                                         </td>
                                         <td class="px-4 py-3">
-                                            <p class="text-sm text-gray-800">{{ $appointment->appointment_date->format('M d') }}</p>
+                                            <p class="text-sm text-gray-800">{{ $appointment->appointment_date ? $appointment->appointment_date->format('M d') : 'N/A' }}</p>
                                             <p class="text-xs text-gray-500">
-                                                {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</p>
+                                                {{ $appointment->appointment_time ? \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') : 'N/A' }}</p>
                                         </td>
                                         <td class="px-4 py-3">
                                             <span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded-full
@@ -497,7 +501,7 @@
                                 @foreach($pendingLeaves as $leave)
                                     <tr class="hover:bg-gray-50 transition-colors">
                                         <td class="px-4 py-3">
-                                            <p class="text-sm font-medium text-gray-800">{{ $leave->user->name ?? 'N/A' }}</p>
+                                            <p class="text-sm font-medium text-gray-800">{{ ($leave->user && $leave->user->name) ? $leave->user->name : 'N/A' }}</p>
                                         </td>
                                         <td class="px-4 py-3">
                                             <span
@@ -506,9 +510,11 @@
                                             </span>
                                         </td>
                                         <td class="px-4 py-3">
-                                            <p class="text-sm text-gray-800">{{ $leave->start_date->format('M d') }} -
-                                                {{ $leave->end_date->format('M d') }}</p>
-                                            <p class="text-xs text-gray-500">{{ $leave->total_days }} day(s)</p>
+                                            <p class="text-sm text-gray-800">
+                                                {{ $leave->start_date ? $leave->start_date->format('M d') : 'N/A' }} -
+                                                {{ $leave->end_date ? $leave->end_date->format('M d') : 'N/A' }}
+                                            </p>
+                                            <p class="text-xs text-gray-500">{{ $leave->total_days ?? 0 }} day(s)</p>
                                         </td>
                                         <td class="px-4 py-3">
                                             <a href="{{ route('admin.leaves.show', $leave) }}"
@@ -556,11 +562,11 @@
                                         <i class='bx {{ $activity['icon'] }} text-xs'></i>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm font-medium text-gray-800">{{ $activity['title'] }}</p>
-                                        <p class="text-xs text-gray-500 truncate">{{ $activity['description'] }}</p>
+                                        <p class="text-sm font-medium text-gray-800">{{ $activity['title'] ?? 'Activity' }}</p>
+                                        <p class="text-xs text-gray-500 truncate">{{ $activity['description'] ?? 'N/A' }}</p>
                                     </div>
                                     <span class="text-xs text-gray-400 whitespace-nowrap">
-                                        {{ $activity['time']->diffForHumans() }}
+                                        {{ ($activity['time'] && method_exists($activity['time'], 'diffForHumans')) ? $activity['time']->diffForHumans() : 'N/A' }}
                                     </span>
                                 </div>
                             @endforeach
