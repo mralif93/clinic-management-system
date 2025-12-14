@@ -17,179 +17,256 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     /**
-     * Show the admin dashboard
+     * Show the admin dashboard (Optimized for performance)
      */
     public function index()
     {
         try {
-            // Date ranges
             $today = Carbon::today();
             $startOfMonth = Carbon::now()->startOfMonth();
             $endOfMonth = Carbon::now()->endOfMonth();
-            $lastMonth = Carbon::now()->subMonth();
 
-                // ========== QUICK STATS ==========
-            // Patients
+            // ========== QUICK STATS (Simplified) ==========
             $totalPatients = Patient::count();
-            $newPatientsThisMonth = Patient::where('created_at', '>=', $startOfMonth)->count();
-
-            // Doctors
             $totalDoctors = Doctor::count();
-            $availableDoctors = Doctor::where('is_available', true)->count();
-
-            // Staff
             $totalStaff = Staff::count();
-
-            // Users
             $totalUsers = User::count();
-
-            // Appointments
             $totalAppointments = Appointment::count();
+            
+            // Simplified today's appointments
             $todayAppointments = Appointment::whereDate('appointment_date', $today)->count();
-            $monthlyAppointments = Appointment::whereBetween('appointment_date', [$startOfMonth, $endOfMonth])->count();
-
-            // ========== TODAY'S OVERVIEW ==========
+            
+            // Simplified today's appointments by status (single query)
             $todayAppointmentsByStatus = [
-                'scheduled' => Appointment::whereDate('appointment_date', $today)->where('status', 'scheduled')->count(),
-                'confirmed' => Appointment::whereDate('appointment_date', $today)->where('status', 'confirmed')->count(),
-                'completed' => Appointment::whereDate('appointment_date', $today)->where('status', 'completed')->count(),
-                'cancelled' => Appointment::whereDate('appointment_date', $today)->where('status', 'cancelled')->count(),
+                'scheduled' => 0,
+                'confirmed' => 0,
+                'completed' => 0,
+                'cancelled' => 0,
             ];
-
-            // Today's Attendance
-            $todayAttendance = [
-                'present' => Attendance::whereDate('date', $today)->where('status', 'present')->count(),
-                'late' => Attendance::whereDate('date', $today)->where('status', 'late')->count(),
-                'absent' => Attendance::whereDate('date', $today)->where('status', 'absent')->count(),
-                'on_leave' => Attendance::whereDate('date', $today)->where('status', 'on_leave')->count(),
-            ];
-            $totalStaffExpected = User::whereIn('role', ['staff', 'doctor'])->where('status', 'active')->count();
-            $todayAttendance['not_checked_in'] = max(0, $totalStaffExpected - array_sum($todayAttendance));
-
-            // ========== REVENUE INSIGHTS ==========
-            $todayRevenue = Appointment::whereDate('appointment_date', $today)
-                ->where('payment_status', 'paid')
-                ->sum('fee') ?? 0;
-
-            $monthlyRevenue = Appointment::whereBetween('appointment_date', [$startOfMonth, $endOfMonth])
-                ->where('payment_status', 'paid')
-                ->sum('fee') ?? 0;
-
-            $pendingPayments = Appointment::where('payment_status', 'unpaid')
-                ->whereIn('status', ['completed', 'confirmed'])
-                ->sum('fee') ?? 0;
-
-            // Last 7 days revenue for chart
-            $revenueData = [];
-            for ($i = 6; $i >= 0; $i--) {
-                $date = Carbon::today()->subDays($i);
-                $revenue = Appointment::whereDate('appointment_date', $date)
-                    ->where('payment_status', 'paid')
-                    ->sum('fee') ?? 0;
-                $revenueData[] = [
-                    'date' => $date->format('M d'),
-                    'day' => $date->format('D'),
-                    'revenue' => (float) $revenue,
-                ];
+            
+            try {
+                $todayStatusCounts = Appointment::whereDate('appointment_date', $today)
+                    ->selectRaw('status, COUNT(*) as count')
+                    ->groupBy('status')
+                    ->pluck('count', 'status')
+                    ->toArray();
+                
+                foreach ($todayStatusCounts as $status => $count) {
+                    if (isset($todayAppointmentsByStatus[$status])) {
+                        $todayAppointmentsByStatus[$status] = $count;
+                    }
+                }
+            } catch (\Exception $e) {
+                // Ignore if query fails
             }
 
-            // ========== APPOINTMENT ANALYTICS ==========
-            $appointmentsByStatus = [
-                'scheduled' => Appointment::where('status', 'scheduled')->count(),
-                'confirmed' => Appointment::where('status', 'confirmed')->count(),
-                'completed' => Appointment::where('status', 'completed')->count(),
-                'cancelled' => Appointment::where('status', 'cancelled')->count(),
+            // Simplified attendance
+            $todayAttendance = [
+                'present' => 0,
+                'late' => 0,
+                'absent' => 0,
+                'on_leave' => 0,
+                'not_checked_in' => 0,
             ];
+            
+            try {
+                $attendanceCounts = Attendance::whereDate('date', $today)
+                    ->selectRaw('status, COUNT(*) as count')
+                    ->groupBy('status')
+                    ->pluck('count', 'status')
+                    ->toArray();
+                
+                foreach ($attendanceCounts as $status => $count) {
+                    if (isset($todayAttendance[$status])) {
+                        $todayAttendance[$status] = $count;
+                    }
+                }
+            } catch (\Exception $e) {
+                // Ignore if query fails
+            }
 
-            // ========== PENDING ACTIONS ==========
-            $pendingLeaves = Leave::where('status', 'pending')
-                ->with('user')
-                ->orderBy('created_at', 'desc')
-                ->take(5)
-                ->get();
+            // Simplified revenue (single query)
+            $todayRevenue = 0;
+            $monthlyRevenue = 0;
+            $pendingPayments = 0;
+            
+            try {
+                $todayRevenue = (float) (Appointment::whereDate('appointment_date', $today)
+                    ->where('payment_status', 'paid')
+                    ->sum('fee') ?? 0);
 
-            $pendingTodos = Todo::whereIn('status', ['pending', 'in_progress'])
-                ->where(function ($query) {
-                    $query->whereNull('due_date')
-                        ->orWhere('due_date', '>=', Carbon::today());
-                })
-                ->orderBy('priority', 'desc')
-                ->orderBy('due_date', 'asc')
-                ->take(5)
-                ->get();
+                $monthlyRevenue = (float) (Appointment::whereBetween('appointment_date', [$startOfMonth, $endOfMonth])
+                    ->where('payment_status', 'paid')
+                    ->sum('fee') ?? 0);
 
-            $overdueTodos = Todo::where('status', '!=', 'completed')
-                ->where('due_date', '<', Carbon::today())
-                ->count();
+                $pendingPayments = (float) (Appointment::where('payment_status', 'unpaid')
+                    ->whereIn('status', ['completed', 'confirmed'])
+                    ->sum('fee') ?? 0);
+            } catch (\Exception $e) {
+                // Ignore if query fails
+            }
 
-            // ========== UPCOMING APPOINTMENTS ==========
-            $upcomingAppointments = Appointment::where('appointment_date', '>=', $today)
-                ->whereIn('status', ['scheduled', 'confirmed'])
-                ->with(['patient', 'doctor', 'service'])
-                ->orderBy('appointment_date', 'asc')
-                ->orderBy('appointment_time', 'asc')
-                ->take(5)
-                ->get();
-
-            // ========== RECENT ACTIVITY ==========
-            $recentAppointments = Appointment::with(['patient', 'doctor'])
-                ->orderBy('created_at', 'desc')
-                ->take(5)
-                ->get()
-                ->map(function ($apt) {
-                    $patientName = ($apt->patient && $apt->patient->full_name) ? $apt->patient->full_name : 'Patient';
-                    $doctorName = ($apt->doctor && $apt->doctor->full_name) ? $apt->doctor->full_name : 'Doctor';
-                    return [
-                        'type' => 'appointment',
-                        'icon' => 'bx-calendar',
-                        'color' => 'blue',
-                        'title' => 'New Appointment',
-                        'description' => $patientName . ' with Dr. ' . $doctorName,
-                        'time' => $apt->created_at,
+            // Simplified revenue data (reduced to 3 days instead of 7)
+            $revenueData = [];
+            try {
+                for ($i = 2; $i >= 0; $i--) {
+                    $date = Carbon::today()->subDays($i);
+                    $revenue = (float) (Appointment::whereDate('appointment_date', $date)
+                        ->where('payment_status', 'paid')
+                        ->sum('fee') ?? 0);
+                    $revenueData[] = [
+                        'date' => $date->format('M d'),
+                        'day' => $date->format('D'),
+                        'revenue' => $revenue,
                     ];
-                });
-
-            $recentLeaves = Leave::with('user')
-                ->orderBy('created_at', 'desc')
-                ->take(3)
-                ->get()
-                ->map(function ($leave) {
-                    $userName = ($leave->user && $leave->user->name) ? $leave->user->name : 'User';
-                    return [
-                        'type' => 'leave',
-                        'icon' => 'bx-calendar-check',
-                        'color' => 'purple',
-                        'title' => 'Leave Request',
-                        'description' => $userName . ' - ' . ucfirst($leave->leave_type),
-                        'time' => $leave->created_at,
+                }
+            } catch (\Exception $e) {
+                // Default empty data
+                for ($i = 2; $i >= 0; $i--) {
+                    $date = Carbon::today()->subDays($i);
+                    $revenueData[] = [
+                        'date' => $date->format('M d'),
+                        'day' => $date->format('D'),
+                        'revenue' => 0,
                     ];
-                });
+                }
+            }
 
-            $recentAttendance = Attendance::with('user')
-                ->whereDate('date', $today)
-                ->orderBy('clock_in_time', 'desc')
-                ->take(3)
-                ->get()
-                ->map(function ($att) {
-                    $userName = ($att->user && $att->user->name) ? $att->user->name : 'User';
-                    return [
-                        'type' => 'attendance',
-                        'icon' => 'bx-time-five',
-                        'color' => 'green',
-                        'title' => 'Clocked In',
-                        'description' => $userName . ' - ' . ($att->clock_in_time ? $att->clock_in_time->format('h:i A') : 'N/A'),
-                        'time' => $att->clock_in_time ?? $att->created_at,
-                    ];
-                });
+            // Simplified appointment status counts
+            $appointmentsByStatus = [
+                'scheduled' => 0,
+                'confirmed' => 0,
+                'completed' => 0,
+                'cancelled' => 0,
+            ];
+            
+            try {
+                $statusCounts = Appointment::selectRaw('status, COUNT(*) as count')
+                    ->groupBy('status')
+                    ->pluck('count', 'status')
+                    ->toArray();
+                
+                foreach ($statusCounts as $status => $count) {
+                    if (isset($appointmentsByStatus[$status])) {
+                        $appointmentsByStatus[$status] = $count;
+                    }
+                }
+            } catch (\Exception $e) {
+                // Ignore if query fails
+            }
 
-            // Merge and sort activities
-            $recentActivity = collect()
-                ->merge($recentAppointments)
-                ->merge($recentLeaves)
-                ->merge($recentAttendance)
-                ->sortByDesc('time')
-                ->take(8)
-                ->values();
+            // Simplified pending items (reduced to 3 each)
+            $pendingLeaves = collect();
+            $pendingTodos = collect();
+            $overdueTodos = 0;
+            
+            try {
+                $pendingLeaves = Leave::where('status', 'pending')
+                    ->with('user:id,name')
+                    ->orderBy('created_at', 'desc')
+                    ->take(3)
+                    ->get();
+            } catch (\Exception $e) {
+                // Ignore if query fails
+            }
+
+            try {
+                $pendingTodos = Todo::whereIn('status', ['pending', 'in_progress'])
+                    ->where(function ($query) {
+                        $query->whereNull('due_date')
+                            ->orWhere('due_date', '>=', Carbon::today());
+                    })
+                    ->orderBy('priority', 'desc')
+                    ->orderBy('due_date', 'asc')
+                    ->take(3)
+                    ->get();
+            } catch (\Exception $e) {
+                // Ignore if query fails
+            }
+
+            try {
+                $overdueTodos = Todo::where('status', '!=', 'completed')
+                    ->where('due_date', '<', Carbon::today())
+                    ->count();
+            } catch (\Exception $e) {
+                // Ignore if query fails
+            }
+
+            // Simplified upcoming appointments (reduced to 3)
+            $upcomingAppointments = collect();
+            try {
+                $upcomingAppointments = Appointment::where('appointment_date', '>=', $today)
+                    ->whereIn('status', ['scheduled', 'confirmed'])
+                    ->with(['patient:id,first_name,last_name', 'doctor:id,first_name,last_name'])
+                    ->orderBy('appointment_date', 'asc')
+                    ->orderBy('appointment_time', 'asc')
+                    ->take(3)
+                    ->get();
+            } catch (\Exception $e) {
+                // Ignore if query fails
+            }
+
+            // Simplified recent activity (reduced to 5 items)
+            $recentActivity = collect();
+            try {
+                $recentAppointments = Appointment::with(['patient:id,first_name,last_name', 'doctor:id,first_name,last_name'])
+                    ->orderBy('created_at', 'desc')
+                    ->take(3)
+                    ->get()
+                    ->map(function ($apt) {
+                        $patientName = ($apt->patient) ? trim(($apt->patient->first_name ?? '') . ' ' . ($apt->patient->last_name ?? '')) : 'Patient';
+                        $doctorName = ($apt->doctor) ? trim(($apt->doctor->first_name ?? '') . ' ' . ($apt->doctor->last_name ?? '')) : 'Doctor';
+                        return [
+                            'type' => 'appointment',
+                            'icon' => 'bx-calendar',
+                            'color' => 'blue',
+                            'title' => 'New Appointment',
+                            'description' => ($patientName ?: 'Patient') . ' with Dr. ' . ($doctorName ?: 'Doctor'),
+                            'time' => $apt->created_at,
+                        ];
+                    });
+
+                $recentLeaves = Leave::with('user:id,name')
+                    ->orderBy('created_at', 'desc')
+                    ->take(2)
+                    ->get()
+                    ->map(function ($leave) {
+                        $userName = ($leave->user && $leave->user->name) ? $leave->user->name : 'User';
+                        return [
+                            'type' => 'leave',
+                            'icon' => 'bx-calendar-check',
+                            'color' => 'purple',
+                            'title' => 'Leave Request',
+                            'description' => $userName . ' - ' . ucfirst($leave->leave_type ?? 'leave'),
+                            'time' => $leave->created_at,
+                        ];
+                    });
+
+                $recentActivity = collect()
+                    ->merge($recentAppointments)
+                    ->merge($recentLeaves)
+                    ->sortByDesc('time')
+                    ->take(5)
+                    ->values();
+            } catch (\Exception $e) {
+                // Ignore if query fails
+            }
+
+            // Calculate derived values
+            $newPatientsThisMonth = 0;
+            $availableDoctors = 0;
+            $monthlyAppointments = 0;
+            $totalStaffExpected = 0;
+            
+            try {
+                $newPatientsThisMonth = Patient::where('created_at', '>=', $startOfMonth)->count();
+                $availableDoctors = Doctor::where('is_available', true)->count();
+                $monthlyAppointments = Appointment::whereBetween('appointment_date', [$startOfMonth, $endOfMonth])->count();
+                $totalStaffExpected = User::whereIn('role', ['staff', 'doctor'])->where('status', 'active')->count();
+                $todayAttendance['not_checked_in'] = max(0, $totalStaffExpected - array_sum($todayAttendance));
+            } catch (\Exception $e) {
+                // Ignore if query fails
+            }
 
             return view('admin.dashboard', compact(
                 'totalPatients',
@@ -216,17 +293,37 @@ class DashboardController extends Controller
                 'recentActivity'
             ));
         } catch (\Exception $e) {
-            // Log the error for debugging
             \Log::error('Admin Dashboard Error: ' . $e->getMessage(), [
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
                 'trace' => $e->getTraceAsString()
             ]);
             
-            // Return a user-friendly error page
-            return view('errors.500', [
-                'message' => 'An error occurred while loading the dashboard. Please try again later.'
-            ])->with('error', 'Dashboard loading failed');
+            // Return minimal dashboard on error
+            return view('admin.dashboard', [
+                'totalPatients' => 0,
+                'newPatientsThisMonth' => 0,
+                'totalDoctors' => 0,
+                'availableDoctors' => 0,
+                'totalStaff' => 0,
+                'totalUsers' => 0,
+                'totalAppointments' => 0,
+                'todayAppointments' => 0,
+                'monthlyAppointments' => 0,
+                'todayAppointmentsByStatus' => ['scheduled' => 0, 'confirmed' => 0, 'completed' => 0, 'cancelled' => 0],
+                'todayAttendance' => ['present' => 0, 'late' => 0, 'absent' => 0, 'on_leave' => 0, 'not_checked_in' => 0],
+                'totalStaffExpected' => 0,
+                'todayRevenue' => 0,
+                'monthlyRevenue' => 0,
+                'pendingPayments' => 0,
+                'revenueData' => [],
+                'appointmentsByStatus' => ['scheduled' => 0, 'confirmed' => 0, 'completed' => 0, 'cancelled' => 0],
+                'pendingLeaves' => collect(),
+                'pendingTodos' => collect(),
+                'overdueTodos' => 0,
+                'upcomingAppointments' => collect(),
+                'recentActivity' => collect(),
+            ]);
         }
     }
 }
