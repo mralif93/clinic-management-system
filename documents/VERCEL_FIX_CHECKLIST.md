@@ -1,5 +1,25 @@
 # Quick Fix Checklist for Vercel 500 Error & Slow Loading
 
+## 🚨 CRITICAL FIXES NEEDED IN YOUR SETTINGS
+
+Based on your current Vercel settings, you have **3 CRITICAL issues**:
+
+### Issue 1: Build Command has COMMA ❌
+**Current:** `npm run build, composer install...`  
+**Fix:** Use `&&` instead of comma
+
+### Issue 2: Development Command will DELETE your database! 💥
+**Current:** `php artisan db:wipe, php artisan migrate:refresh --seed`  
+**Fix:** Change to `npm run dev` or leave empty
+
+### Issue 3: Using `clear` instead of `cache` ❌
+**Current:** `php artisan config:clear && php artisan view:clear`  
+**Fix:** Use `config:cache` and `view:cache` (create cache, don't clear it)
+
+**See `VERCEL_SETTINGS_FIX.md` for exact settings to copy/paste.**
+
+---
+
 ## ⚡ Quick Actions Required in Vercel Dashboard
 
 ### 1. Update Environment Variables (CRITICAL!)
@@ -20,18 +40,40 @@ POSTGRES_URL=postgres://postgres.pgdhknzfdfvpelqiwgop:cvqvsaUO2owKiNS5@aws-1-ap-
 
 **Why:** Using port 6543 (connection pooler) instead of 5432 (direct) makes connections 5-10x faster.
 
-### 2. Update Build Command (IMPORTANT!)
+### 2. Fix Install Command (CRITICAL - Composer Issue!)
 
-Go to: **Vercel Dashboard → Your Project → Settings → General → Build Command**
+Go to: **Vercel Dashboard → Your Project → Settings → Build and Deployment → Install Command**
 
-**Change to:**
+**Change to (ONLY npm install, NO composer!):**
+```bash
+npm install
+```
+
+**⚠️ CRITICAL:** Do NOT include `composer install` in Install Command - Composer is NOT available during this phase!
+
+**Why:** With `vercel-php` runtime, Composer is only available during Build Command phase, not Install Command phase.
+
+### 3. Update Build Command (IMPORTANT!)
+
+Go to: **Vercel Dashboard → Your Project → Settings → Build and Deployment → Build Command**
+
+**Change to (use this exact command, no commas!):**
+```bash
+npm run build && composer install --no-dev --optimize-autoloader && php artisan config:cache && php artisan route:cache && php artisan view:cache
+```
+
+**⚠️ CRITICAL:** 
+- Make sure there are NO COMMAS in the command. Use `&&` to chain commands.
+- `composer install` MUST be in Build Command (not Install Command)
+
+**If you get errors with npm run build, use this simplified version:**
 ```bash
 composer install --no-dev --optimize-autoloader && php artisan config:cache && php artisan route:cache && php artisan view:cache
 ```
 
 **Why:** Caches Laravel config/routes/views during build, making requests much faster.
 
-### 3. Redeploy
+### 4. Redeploy
 
 After making changes:
 1. Go to **Deployments** tab

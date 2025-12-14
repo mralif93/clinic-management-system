@@ -24,11 +24,22 @@
 ### Build Command (IMPORTANT!)
 Update your Build Command in Vercel Dashboard → Settings → General:
 
+**Full version (includes Vite build for assets):**
+```bash
+npm run build && composer install --no-dev --optimize-autoloader && php artisan config:cache && php artisan route:cache && php artisan view:cache
+```
+
+**⚠️ CRITICAL:** 
+- Use `&&` (double ampersand) to chain commands, NOT commas
+- No spaces around `&&`
+- Make sure the command is complete (not cut off)
+
+**If you get errors with npm run build, use this simplified version:**
 ```bash
 composer install --no-dev --optimize-autoloader && php artisan config:cache && php artisan route:cache && php artisan view:cache
 ```
 
-**If you get errors, start with simplified version:**
+**If still having issues, start with minimal version:**
 ```bash
 composer install --no-dev --optimize-autoloader
 ```
