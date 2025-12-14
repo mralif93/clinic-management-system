@@ -8,5 +8,10 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        host: process.env.PORT ? '0.0.0.0' : 'localhost',
+        port: process.env.PORT ? parseInt(process.env.PORT) : 5173,
+        strictPort: true,
+    },
 });
 
