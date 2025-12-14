@@ -83,7 +83,7 @@
                 }
                 $isUrgent = $waitTime && $waitTime > 30;
                 $isWarning = $waitTime && $waitTime > 15 && $waitTime <= 30;
-                $patientName = $appointment->patient->name ?? 'Unknown Patient';
+                $patientName = ($appointment->patient && $appointment->patient->name) ? $appointment->patient->name : 'Unknown Patient';
                 $patientInitials = collect(explode(' ', $patientName))->map(fn($n) => substr($n, 0, 1))->take(2)->implode('');
             @endphp
 

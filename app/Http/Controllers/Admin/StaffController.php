@@ -210,11 +210,13 @@ class StaffController extends Controller
             ]);
 
             // Update user employment fields
-            $staff->user->update([
-                'employment_type' => $validated['employment_type'],
-                'basic_salary' => $validated['employment_type'] === 'full_time' ? $validated['basic_salary'] : null,
-                'hourly_rate' => $validated['employment_type'] === 'part_time' ? $validated['hourly_rate'] : null,
-            ]);
+            if ($staff->user) {
+                $staff->user->update([
+                    'employment_type' => $validated['employment_type'],
+                    'basic_salary' => $validated['employment_type'] === 'full_time' ? $validated['basic_salary'] : null,
+                    'hourly_rate' => $validated['employment_type'] === 'part_time' ? $validated['hourly_rate'] : null,
+                ]);
+            }
 
             $staff->update($validated);
 

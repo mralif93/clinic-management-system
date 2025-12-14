@@ -136,12 +136,14 @@ class DashboardController extends Controller
             ->take(5)
             ->get()
             ->map(function ($apt) {
+                $patientName = ($apt->patient && $apt->patient->full_name) ? $apt->patient->full_name : 'Patient';
+                $doctorName = ($apt->doctor && $apt->doctor->full_name) ? $apt->doctor->full_name : 'Doctor';
                 return [
                     'type' => 'appointment',
                     'icon' => 'bx-calendar',
                     'color' => 'blue',
                     'title' => 'New Appointment',
-                    'description' => ($apt->patient->full_name ?? 'Patient') . ' with Dr. ' . ($apt->doctor->full_name ?? 'Doctor'),
+                    'description' => $patientName . ' with Dr. ' . $doctorName,
                     'time' => $apt->created_at,
                 ];
             });
@@ -151,12 +153,13 @@ class DashboardController extends Controller
             ->take(3)
             ->get()
             ->map(function ($leave) {
+                $userName = ($leave->user && $leave->user->name) ? $leave->user->name : 'User';
                 return [
                     'type' => 'leave',
                     'icon' => 'bx-calendar-check',
                     'color' => 'purple',
                     'title' => 'Leave Request',
-                    'description' => ($leave->user->name ?? 'User') . ' - ' . ucfirst($leave->leave_type),
+                    'description' => $userName . ' - ' . ucfirst($leave->leave_type),
                     'time' => $leave->created_at,
                 ];
             });
@@ -167,12 +170,13 @@ class DashboardController extends Controller
             ->take(3)
             ->get()
             ->map(function ($att) {
+                $userName = ($att->user && $att->user->name) ? $att->user->name : 'User';
                 return [
                     'type' => 'attendance',
                     'icon' => 'bx-time-five',
                     'color' => 'green',
                     'title' => 'Clocked In',
-                    'description' => ($att->user->name ?? 'User') . ' - ' . ($att->clock_in_time ? $att->clock_in_time->format('h:i A') : 'N/A'),
+                    'description' => $userName . ' - ' . ($att->clock_in_time ? $att->clock_in_time->format('h:i A') : 'N/A'),
                     'time' => $att->clock_in_time ?? $att->created_at,
                 ];
             });

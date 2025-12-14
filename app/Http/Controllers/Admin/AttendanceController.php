@@ -282,8 +282,8 @@ class AttendanceController extends Controller
             foreach ($attendances as $attendance) {
                 $row = [
                     $attendance->date->format('Y-m-d'),
-                    $attendance->user->name,
-                    ucfirst($attendance->user->role),
+                    ($attendance->user && $attendance->user->name) ? $attendance->user->name : 'N/A',
+                    ($attendance->user && $attendance->user->role) ? ucfirst($attendance->user->role) : 'N/A',
                     $attendance->clock_in_time ? $attendance->clock_in_time->format('H:i') : '-',
                     $attendance->clock_out_time ? $attendance->clock_out_time->format('H:i') : '-',
                     $attendance->total_hours ?? '0',
