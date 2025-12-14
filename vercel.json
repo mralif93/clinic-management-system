@@ -2,7 +2,8 @@
   "version": 2,
   "functions": {
     "api/index.php": {
-      "runtime": "vercel-php@0.7.4"
+      "runtime": "vercel-php@0.7.4",
+      "maxDuration": 60
     }
   },
   "routes": [
@@ -44,6 +45,8 @@
     "VIEW_COMPILED_PATH": "/tmp",
     "CACHE_DRIVER": "array",
     "LOG_CHANNEL": "stderr",
-    "SESSION_DRIVER": "database"
+    "SESSION_DRIVER": "database",
+    "DB_CONNECTION": "pgsql",
+    "DB_PORT": "6543"
   }
 }
