@@ -21,9 +21,13 @@ Route::get('/services/{service:slug}', [App\Http\Controllers\ServiceController::
 Route::get('/packages', [App\Http\Controllers\PackageController::class, 'index'])->name('packages.index');
 Route::get('/packages/{package:slug}', [App\Http\Controllers\PackageController::class, 'show'])->name('packages.show');
 
+// Announcements Routes
+Route::get('/announcements', [HomeController::class, 'announcements'])->name('announcements.index');
+Route::get('/announcements/{id}', [HomeController::class, 'showAnnouncement'])->name('announcements.show');
+
 // Dynamic Page Route (must be after specific routes)
 Route::get('/{slug}', [HomeController::class, 'page'])->name('page.show')
-    ->where('slug', '^(?!admin|login|register|logout|services|about|team|packages).*');
+    ->where('slug', '^(?!admin|login|register|logout|services|about|team|packages|announcements).*');
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -239,6 +243,13 @@ Route::middleware('auth')->group(function () {
         Route::resource('team', App\Http\Controllers\Admin\TeamController::class);
         Route::post('/team/{id}/restore', [App\Http\Controllers\Admin\TeamController::class, 'restore'])->name('team.restore');
         Route::delete('/team/{id}/force-delete', [App\Http\Controllers\Admin\TeamController::class, 'forceDelete'])->name('team.force-delete');
+
+        // Announcement Management
+        Route::resource('announcements', App\Http\Controllers\Admin\AnnouncementController::class);
+        Route::post('/announcements/{id}/toggle-publish', [App\Http\Controllers\Admin\AnnouncementController::class, 'togglePublish'])->name('announcements.toggle-publish');
+        Route::post('/announcements/{id}/toggle-featured', [App\Http\Controllers\Admin\AnnouncementController::class, 'toggleFeatured'])->name('announcements.toggle-featured');
+        Route::post('/announcements/{id}/restore', [App\Http\Controllers\Admin\AnnouncementController::class, 'restore'])->name('announcements.restore');
+        Route::delete('/announcements/{id}/force-delete', [App\Http\Controllers\Admin\AnnouncementController::class, 'forceDelete'])->name('announcements.force-delete');
 
         // Reports
         Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('reports.index');

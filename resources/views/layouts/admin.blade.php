@@ -430,6 +430,18 @@
                         <span>Team</span>
                     </a>
 
+                    <!-- Announcements -->
+                    <a href="{{ route('admin.announcements.index') }}"
+                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
+                        {{ request()->routeIs('admin.announcements.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.announcements.*') ? 'bg-blue-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-news text-lg {{ request()->routeIs('admin.announcements.*') ? 'text-blue-400' : '' }}'></i>
+                        </div>
+                        <span>Announcements</span>
+                    </a>
+
                     <!-- Appointments -->
                     <a href="{{ route('admin.appointments.index') }}"
                         class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1

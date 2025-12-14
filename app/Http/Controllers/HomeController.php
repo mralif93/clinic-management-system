@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Models\Page;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -30,6 +31,22 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Get featured announcements for hero carousel
+        $featuredAnnouncements = Announcement::featured()
+            ->active()
+            ->published()
+            ->orderBy('order')
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+
+        // Get recent announcements for announcements section
+        $recentAnnouncements = Announcement::active()
+            ->published()
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get();
+
         // Get featured services (limit to 3 per type for landing page)
         $psychologyServices = Service::active()
             ->byType('psychology')
@@ -47,7 +64,14 @@ class HomeController extends Controller
         $totalPsychologyServices = Service::active()->byType('psychology')->count();
         $totalHomeopathyServices = Service::active()->byType('homeopathy')->count();
 
-        return view('home', compact('psychologyServices', 'homeopathyServices', 'totalPsychologyServices', 'totalHomeopathyServices'));
+        return view('home', compact(
+            'featuredAnnouncements',
+            'recentAnnouncements',
+            'psychologyServices',
+            'homeopathyServices',
+            'totalPsychologyServices',
+            'totalHomeopathyServices'
+        ));
     }
 
     /**
@@ -117,6 +141,39 @@ class HomeController extends Controller
             ->firstOrFail();
 
         return view('page', compact('page'));
+    }
+
+    /**
+     * Show all announcements listing page
+     */
+    public function announcements()
+    {
+        $announcements = Announcement::active()
+            ->published()
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+
+        return view('announcements.index', compact('announcements'));
+    }
+
+    /**
+     * Show single announcement detail page
+     */
+    public function showAnnouncement($id)
+    {
+        $announcement = Announcement::active()
+            ->published()
+            ->findOrFail($id);
+
+        // Get related announcements
+        $relatedAnnouncements = Announcement::active()
+            ->published()
+            ->where('id', '!=', $announcement->id)
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
+
+        return view('announcements.show', compact('announcement', 'relatedAnnouncements'));
     }
 }
 

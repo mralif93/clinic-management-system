@@ -14,6 +14,9 @@ class DatabaseSeeder extends Seeder
         // Seed users
         $this->call(UserSeeder::class);
 
+        // Seed announcements (needs users for created_by)
+        $this->call(AnnouncementSeeder::class);
+
         // Seed services
         $this->call(ServiceSeeder::class);
 
