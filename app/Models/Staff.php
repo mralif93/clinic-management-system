@@ -31,7 +31,10 @@ class Staff extends Model
      */
     public function getFullNameAttribute()
     {
-        return "{$this->first_name} {$this->last_name}";
+        $firstName = $this->first_name ?? '';
+        $lastName = $this->last_name ?? '';
+        $fullName = trim("{$firstName} {$lastName}");
+        return $fullName ?: 'N/A';
     }
 
     /**
