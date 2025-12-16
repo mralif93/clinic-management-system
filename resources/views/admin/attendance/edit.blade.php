@@ -62,7 +62,7 @@
                 <!-- Clock Out Time -->
                 <div>
                     <label for="clock_out_time" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class='bx bx-log-out-circle mr-1 text-red-600'></i> Clock Out Time
+                        <i class='bx bx-log-out mr-1 text-red-600'></i> Clock Out Time
                     </label>
                     <input type="time" name="clock_out_time" id="clock_out_time"
                         value="{{ old('clock_out_time', $attendance->clock_out_time ? $attendance->clock_out_time->format('H:i') : '') }}"

@@ -196,7 +196,7 @@
                         </div>
                         @if($announcement->expires_at)
                             <div class="flex items-center {{ $announcement->isExpired() ? 'text-red-600' : '' }}">
-                                <i class='bx bx-time-five text-blue-600 mr-2'></i>
+                                <i class='bx bx-time text-blue-600 mr-2'></i>
                                 <span>Expires: {{ $announcement->expires_at->format('M d, Y') }}</span>
                             </div>
                         @endif

@@ -5,6 +5,11 @@
 
 @section('content')
     <div class="space-y-6">
+        <x-ui.breadcrumb :items="breadcrumb([
+            ['label' => 'Appointments', 'url' => route('admin.appointments.index')],
+            ['label' => 'Appointment #' . $appointment->id]
+        ])" />
+        
         <!-- Page Header -->
         <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -236,7 +241,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-plus-medical text-indigo-600'></i>
+                            <i class='bx bx-plus-circle text-indigo-600'></i>
                             Doctor Information
                         </h3>
                     </div>

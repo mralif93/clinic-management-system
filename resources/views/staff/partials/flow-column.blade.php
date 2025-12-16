@@ -95,7 +95,7 @@
                     </div>
                 @elseif($isWarning)
                     <div class="absolute top-0 right-0 bg-amber-500 text-white text-xs px-2 py-0.5 rounded-bl-lg font-medium">
-                        <i class='bx bx-time-five mr-1'></i>{{ $waitTime }}min wait
+                        <i class='bx bx-time mr-1'></i>{{ $waitTime }}min wait
                     </div>
                 @endif
 
@@ -137,7 +137,7 @@
                     @if($appointment->service)
                         <div class="flex items-center gap-2 text-sm">
                             <div class="w-7 h-7 rounded-lg {{ $colors['light'] }} flex items-center justify-center">
-                                <i class='bx bx-plus-medical {{ $colors['text'] }} text-sm'></i>
+                                <i class='bx bx-plus-circle {{ $colors['text'] }} text-sm'></i>
                             </div>
                             <span class="text-gray-600 truncate">{{ $appointment->service->name }}</span>
                         </div>

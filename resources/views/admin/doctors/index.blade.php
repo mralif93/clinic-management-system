@@ -11,7 +11,7 @@
             <div>
                 <h1 class="text-2xl font-bold flex items-center gap-3">
                     <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='bx bx-plus-medical text-2xl'></i>
+                        <i class='bx bx-plus-circle text-2xl'></i>
                     </div>
                     Doctor Management
                 </h1>
@@ -219,7 +219,7 @@
                             <td colspan="6" class="px-6 py-16 text-center">
                                 <div class="flex flex-col items-center">
                                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                        <i class='bx bx-plus-medical text-4xl text-gray-400'></i>
+                                        <i class='bx bx-plus-circle text-4xl text-gray-400'></i>
                                     </div>
                                     <p class="text-gray-500 font-medium">No doctors found</p>
                                     <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or add a new doctor</p>

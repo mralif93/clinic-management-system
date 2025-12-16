@@ -94,7 +94,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100">
                 <div class="p-5 border-b border-gray-100 flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
-                        <i class='bx bx-time-five text-xl text-green-500'></i>
+                        <i class='bx bx-time text-xl text-green-500'></i>
                     </div>
                     <h3 class="text-base font-semibold text-gray-900">Attendance</h3>
                 </div>
@@ -167,7 +167,7 @@
                             <form action="{{ route('staff.attendance.clock-in') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="w-full px-6 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl hover:from-amber-600 hover:to-orange-600 transition font-bold text-lg shadow-lg">
-                                    <i class='bx bx-time-five text-2xl mr-2'></i> CLOCK IN
+                                    <i class='bx bx-time text-2xl mr-2'></i> CLOCK IN
                                 </button>
                             </form>
                             <p class="text-xs text-gray-500 mt-4">Tap to start your day</p>

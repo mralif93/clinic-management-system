@@ -93,6 +93,24 @@
 
     <!-- Global Button Styles -->
     <link href="{{ asset('css/buttons.css') }}" rel="stylesheet">
+    
+    <!-- Design Tokens -->
+    <link href="{{ asset('css/design-tokens.css') }}" rel="stylesheet">
+    
+    <!-- Focus Styles -->
+    <link href="{{ asset('css/focus.css') }}" rel="stylesheet">
+    
+    <!-- Mobile Styles -->
+    <link href="{{ asset('css/mobile.css') }}" rel="stylesheet">
+    
+    <!-- Accessibility Styles -->
+    <link href="{{ asset('css/accessibility.css') }}" rel="stylesheet">
+    
+    <!-- Animations -->
+    <link href="{{ asset('css/animations.css') }}" rel="stylesheet">
+    
+    <!-- Responsive Fixes -->
+    <link href="{{ asset('css/responsive-fixes.css') }}" rel="stylesheet">
 
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -268,6 +286,7 @@
 </head>
 
 <body class="bg-gray-50 font-sans text-base text-gray-900" x-data="{ sidebarOpen: true, mobileSidebarOpen: false }">
+    <x-ui.skip-nav />
     <div class="min-h-screen flex">
 
         <!-- Mobile Sidebar Overlay -->
@@ -303,7 +322,7 @@
                     @else
                         <div
                             class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-                            <i class='bx bx-plus-medical text-xl text-white'></i>
+                            <i class='bx bx-plus-circle text-xl text-white'></i>
                         </div>
                     @endif
                     <div class="flex-1 min-w-0">
@@ -370,7 +389,7 @@
                             <a href="{{ route('admin.doctors.index') }}"
                                 class="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all
                                 {{ request()->routeIs('admin.doctors.*') ? 'bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
-                                <i class='bx bx-plus-medical'></i>
+                                <i class='bx bx-plus-circle'></i>
                                 <span>Doctors</span>
                             </a>
                             <a href="{{ route('admin.patients.index') }}"
@@ -401,7 +420,7 @@
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.services.*') ? 'bg-cyan-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
-                                class='bx bx-grid-alt text-lg {{ request()->routeIs('admin.services.*') ? 'text-cyan-400' : '' }}'></i>
+                                class='bx bx-grid text-lg {{ request()->routeIs('admin.services.*') ? 'text-cyan-400' : '' }}'></i>
                         </div>
                         <span>Services</span>
                     </a>
@@ -479,7 +498,7 @@
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.attendance.*') ? 'bg-orange-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
-                                class='bx bx-time-five text-lg {{ request()->routeIs('admin.attendance.*') ? 'text-orange-400' : '' }}'></i>
+                                class='bx bx-time text-lg {{ request()->routeIs('admin.attendance.*') ? 'text-orange-400' : '' }}'></i>
                         </div>
                         <span>Attendance</span>
                     </a>
@@ -491,7 +510,7 @@
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.leaves.*') ? 'bg-purple-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
-                                class='bx bx-calendar-x text-lg {{ request()->routeIs('admin.leaves.*') ? 'text-purple-400' : '' }}'></i>
+                                class='bx bx-calendar-minus text-lg {{ request()->routeIs('admin.leaves.*') ? 'text-purple-400' : '' }}'></i>
                         </div>
                         <span>Leave</span>
                     </a>
@@ -532,7 +551,7 @@
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.reports.*') ? 'bg-indigo-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
-                                class='bx bx-bar-chart-alt-2 text-lg {{ request()->routeIs('admin.reports.*') ? 'text-indigo-400' : '' }}'></i>
+                                class='bx bx-bar-chart-alt text-lg {{ request()->routeIs('admin.reports.*') ? 'text-indigo-400' : '' }}'></i>
                         </div>
                         <span>Reports</span>
                     </a>
@@ -571,39 +590,45 @@
         <div class="flex-1 flex flex-col min-h-screen lg:ml-0">
             <!-- Header -->
             <header class="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-sm">
-                <div class="flex items-center justify-between px-4 lg:px-6 h-16">
+                <div class="flex items-center justify-between px-3 sm:px-4 lg:px-6 h-14 sm:h-15 md:h-16">
                     <!-- Left Side - Mobile Menu & Breadcrumb -->
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2 sm:gap-3 md:gap-4 min-w-0 flex-1">
                         <!-- Mobile Menu Toggle -->
                         <button @click="mobileSidebarOpen = !mobileSidebarOpen"
-                            class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                            <i class='bx bx-menu text-xl text-gray-600'></i>
+                            class="lg:hidden p-1.5 sm:p-2 rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0"
+                            aria-label="Toggle sidebar">
+                            <i class='bx bx-menu text-lg sm:text-xl text-gray-600'></i>
                         </button>
 
                         <!-- Page Title -->
-                        <div>
-                            <h1 class="text-lg font-semibold text-gray-900">@yield('page-title', 'Dashboard')</h1>
+                        <div class="min-w-0">
+                            <h1 class="text-base sm:text-lg font-semibold text-gray-900 truncate">@yield('page-title', 'Dashboard')</h1>
                         </div>
                     </div>
 
                     <!-- Right Side - Actions -->
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                        <!-- Global Search -->
+                        <div class="hidden md:block w-48 lg:w-64 xl:w-80">
+                            <x-search.global-search />
+                        </div>
+                        
                         <!-- Quick Actions -->
                         <a href="{{ route('admin.appointments.create') }}"
-                            class="hidden sm:inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
-                            <i class='bx bx-plus'></i>
-                            <span>New Appointment</span>
+                            class="hidden sm:inline-flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
+                            <i class='bx bx-plus text-sm sm:text-base'></i>
+                            <span class="hidden lg:inline">New Appointment</span>
                         </a>
 
                         <!-- User Dropdown -->
                         <div class="relative" x-data="{ open: false }" @click.away="open = false">
                             <button @click="open = !open"
-                                class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                                class="flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-lg hover:bg-gray-100 transition-colors">
                                 <div
-                                    class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-sm font-semibold">
+                                    class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs sm:text-sm font-semibold flex-shrink-0">
                                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                                 </div>
-                                <i class='bx bx-chevron-down text-gray-500 hidden sm:block'
+                                <i class='bx bx-chevron-down text-gray-500 hidden sm:block text-sm sm:text-base flex-shrink-0'
                                     :class="open ? 'rotate-180' : ''" style="transition: transform 0.2s;"></i>
                             </button>
 
@@ -614,7 +639,7 @@
                                 x-transition:leave="transition ease-in duration-75"
                                 x-transition:leave-start="transform opacity-100 scale-100"
                                 x-transition:leave-end="transform opacity-0 scale-95"
-                                class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50"
+                                class="absolute right-0 mt-2 w-48 sm:w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50"
                                 style="display: none;">
 
                                 <!-- User Info -->
@@ -655,7 +680,7 @@
             </header>
 
             <!-- Page Content -->
-            <main class="flex-1 p-4 lg:p-6">
+            <main id="main-content" class="flex-1 p-4 lg:p-6">
                 @yield('content')
             </main>
 
@@ -670,6 +695,27 @@
     </div>
 
     @stack('scripts')
+    
+    <!-- UI Enhancement Scripts -->
+    <script src="{{ asset('js/skeleton.js') }}"></script>
+    <script src="{{ asset('js/validation.js') }}"></script>
+    <script src="{{ asset('js/input-masks.js') }}"></script>
+    <script src="{{ asset('js/table-sort.js') }}"></script>
+    <script src="{{ asset('js/table-filter.js') }}"></script>
+    <script src="{{ asset('js/mobile-table.js') }}"></script>
+    <script src="{{ asset('js/table-actions.js') }}"></script>
+    <script src="{{ asset('js/form-wizard.js') }}"></script>
+    <script src="{{ asset('js/search.js') }}"></script>
+    <script src="{{ asset('js/keyboard-shortcuts.js') }}"></script>
+    <script src="{{ asset('js/charts.js') }}"></script>
+    <script src="{{ asset('js/dashboard-customize.js') }}"></script>
+    <script src="{{ asset('js/realtime.js') }}"></script>
+    <script src="{{ asset('js/touch-interactions.js') }}"></script>
+    <script src="{{ asset('js/lazy-load.js') }}"></script>
+    <script src="{{ asset('js/infinite-scroll.js') }}"></script>
+    <script src="{{ asset('js/animations.js') }}"></script>
+    <script src="{{ asset('js/onboarding.js') }}"></script>
+    <script src="{{ asset('js/image-optimizer.js') }}"></script>
 
     <script>
         // CSRF Token setup for AJAX requests

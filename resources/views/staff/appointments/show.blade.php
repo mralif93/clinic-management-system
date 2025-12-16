@@ -220,7 +220,7 @@
                         @if($appointment->diagnosis)
                         <div>
                             <h4 class="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                                <i class='bx bx-plus-medical text-gray-400'></i> Diagnosis
+                                <i class='bx bx-plus-circle text-gray-400'></i> Diagnosis
                             </h4>
                             <div class="bg-blue-50 p-4 rounded-lg text-sm text-gray-700 rich-content">{!! $appointment->diagnosis !!}</div>
                         </div>
@@ -277,7 +277,7 @@
                     <div class="p-6">
                         <div class="flex items-center gap-4">
                             <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center">
-                                <i class='bx bx-plus-medical text-white text-xl'></i>
+                                <i class='bx bx-plus-circle text-white text-xl'></i>
                             </div>
                             <div>
                                 <h4 class="font-semibold text-gray-900">{{ $appointment->service->name }}</h4>

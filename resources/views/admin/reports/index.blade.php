@@ -11,7 +11,7 @@
                 <div>
                     <h1 class="text-2xl font-bold flex items-center gap-3">
                         <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                            <i class='bx bx-bar-chart-alt-2 text-2xl'></i>
+                            <i class='bx bx-bar-chart-alt text-2xl'></i>
                         </div>
                         Reports & Analytics
                     </h1>
@@ -79,7 +79,7 @@
                         <p class="text-2xl font-bold text-gray-900">{{ number_format($totalDoctors) }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center">
-                        <i class='bx bx-plus-medical text-2xl text-emerald-600'></i>
+                        <i class='bx bx-plus-circle text-2xl text-emerald-600'></i>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                         <p class="text-2xl font-bold text-gray-900">{{ number_format($totalServices) }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center">
-                        <i class='bx bx-grid-alt text-2xl text-purple-600'></i>
+                        <i class='bx bx-grid text-2xl text-purple-600'></i>
                     </div>
                 </div>
             </div>
@@ -271,7 +271,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-5 border-b border-gray-100">
                     <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-plus-medical text-gray-500'></i>
+                        <i class='bx bx-plus-circle text-gray-500'></i>
                         Doctors Statistics
                     </h3>
                 </div>
@@ -307,7 +307,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-5 border-b border-gray-100">
                 <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-grid-alt text-gray-500'></i>
+                    <i class='bx bx-grid text-gray-500'></i>
                     Services Statistics
                 </h3>
             </div>

@@ -135,7 +135,7 @@
                         @else
                             <div class="text-center py-8">
                                 <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <i class='bx bx-calendar-x text-gray-400 text-3xl'></i>
+                                    <i class='bx bx-calendar-minus text-gray-400 text-3xl'></i>
                                 </div>
                                 <p class="text-gray-500">No recent appointments found</p>
                             </div>

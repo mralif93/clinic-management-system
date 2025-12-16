@@ -30,26 +30,26 @@
                     ];
                 @endphp
                 <div class="px-6 py-4 border-b border-gray-200
-                            @if($appointment->status === 'completed') bg-green-50
-                            @elseif($appointment->status === 'in_progress') bg-amber-50
-                            @elseif($appointment->status === 'confirmed') bg-cyan-50
-                            @elseif($appointment->status === 'scheduled') bg-blue-50
-                            @elseif($appointment->status === 'cancelled') bg-red-50
-                            @else bg-gray-50
-                            @endif">
+                                @if($appointment->status === 'completed') bg-green-50
+                                @elseif($appointment->status === 'in_progress') bg-amber-50
+                                @elseif($appointment->status === 'confirmed') bg-cyan-50
+                                @elseif($appointment->status === 'scheduled') bg-blue-50
+                                @elseif($appointment->status === 'cancelled') bg-red-50
+                                @else bg-gray-50
+                                @endif">
                     <div class="flex items-center justify-between">
                         <div>
                             <h2 class="text-lg font-semibold text-gray-900">{{ $appointment->service->name ?? 'N/A' }}</h2>
                             <p class="text-sm text-gray-600 mt-1">Appointment ID: #{{ $appointment->id }}</p>
                         </div>
                         <span class="px-4 py-2 text-sm font-medium rounded-full
-                                    @if($appointment->status === 'completed') bg-green-100 text-green-700
-                                    @elseif($appointment->status === 'in_progress') bg-amber-100 text-amber-700
-                                    @elseif($appointment->status === 'confirmed') bg-cyan-100 text-cyan-700
-                                    @elseif($appointment->status === 'scheduled') bg-blue-100 text-blue-700
-                                    @elseif($appointment->status === 'cancelled') bg-red-100 text-red-700
-                                    @else bg-gray-100 text-gray-700
-                                    @endif">
+                                        @if($appointment->status === 'completed') bg-green-100 text-green-700
+                                        @elseif($appointment->status === 'in_progress') bg-amber-100 text-amber-700
+                                        @elseif($appointment->status === 'confirmed') bg-cyan-100 text-cyan-700
+                                        @elseif($appointment->status === 'scheduled') bg-blue-100 text-blue-700
+                                        @elseif($appointment->status === 'cancelled') bg-red-100 text-red-700
+                                        @else bg-gray-100 text-gray-700
+                                        @endif">
                             {{ $statusLabels[$appointment->status] ?? ucfirst($appointment->status) }}
                         </span>
                     </div>
@@ -122,7 +122,26 @@
                         </div>
                     @endif
 
-                    <!-- Created At -->
+                    <!-- Actions -->
+                    @php
+                        $appointmentTime = \Carbon\Carbon::parse($appointment->appointment_date . ' ' . $appointment->appointment_time);
+                        $canCancel = $appointment->status !== 'cancelled' &&
+                            $appointment->status !== 'completed' &&
+                            now()->diffInHours($appointmentTime, false) > 24;
+                    @endphp
+
+                    @if($canCancel)
+                        <div class="pt-6 border-t border-gray-200 flex justify-end">
+                            <form action="{{ route('patient.appointments.cancel', $appointment->id) }}" method="POST"
+                                onsubmit="return confirm('Are you sure you want to cancel this appointment? This action cannot be undone.');">
+                                @csrf
+                                <button type="submit"
+                                    class="px-4 py-2 border border-red-300 text-red-700 bg-white hover:bg-red-50 rounded-md shadow-sm text-sm font-medium transition-colors duration-150">
+                                    Cancel Appointment
+                                </button>
+                            </form>
+                        </div>
+                    @endif
                     <div class="pt-4 border-t border-gray-200">
                         <p class="text-sm text-gray-500">
                             Booked on {{ \Carbon\Carbon::parse($appointment->created_at)->format('M d, Y \a\t h:i A') }}

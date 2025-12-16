@@ -79,6 +79,42 @@ class AppointmentController extends Controller
             ->with(['doctor.user', 'service'])
             ->findOrFail($id);
 
+        $this->authorize('view', $appointment);
+
         return view('patient.appointments.show', compact('appointment'));
+    }
+
+    /**
+     * Cancel the specified appointment
+     */
+    public function cancel($id)
+    {
+        $appointment = Appointment::where('patient_id', Auth::id())
+            ->findOrFail($id);
+
+        $this->authorize('cancel', $appointment);
+
+        // Check if appointment is cancelable (more than 24 hours away)
+        $appointmentTime = \Carbon\Carbon::parse($appointment->appointment_date . ' ' . $appointment->appointment_time);
+
+        if ($appointmentTime->diffInHours(now(), false) > -24) {
+            return back()->with('error', 'Appointments can only be cancelled at least 24 hours in advance.');
+        }
+
+        if ($appointment->status === 'cancelled') {
+            return back()->with('info', 'This appointment is already cancelled.');
+        }
+
+        if ($appointment->status === 'completed') {
+            return back()->with('error', 'Cannot cancel a completed appointment.');
+        }
+
+        $appointment->update([
+            'status' => 'cancelled',
+            'notes' => $appointment->notes . "\n[Cancelled by Patient at " . now()->format('Y-m-d H:i') . "]"
+        ]);
+
+        return redirect()->route('patient.appointments.index')
+            ->with('success', 'Appointment cancelled successfully!');
     }
 }

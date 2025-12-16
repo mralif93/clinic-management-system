@@ -12,7 +12,7 @@
                 <div>
                     <div class="flex items-center gap-3 mb-2">
                         <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                            <i class='bx bx-plus-medical text-2xl'></i>
+                            <i class='bx bx-plus-circle text-2xl'></i>
                         </div>
                         <div>
                             <h1 class="text-2xl font-bold">Welcome back, Dr. {{ Auth::user()->name }}!</h1>
@@ -97,7 +97,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-time-five text-orange-500'></i>Attendance
+                        <i class='bx bx-time text-orange-500'></i>Attendance
                     </h3>
                 </div>
                 <div class="p-6">
@@ -169,7 +169,7 @@
                             <form action="{{ route('doctor.attendance.clock-in') }}" method="POST">
                                 @csrf
                                 <button type="submit" class="w-full px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl hover:from-emerald-600 hover:to-teal-700 transition font-bold text-lg shadow-lg shadow-emerald-500/30">
-                                    <i class='bx bx-time-five text-2xl mr-2'></i> CLOCK IN
+                                    <i class='bx bx-time text-2xl mr-2'></i> CLOCK IN
                                 </button>
                             </form>
                             <p class="text-xs text-gray-500 mt-4">Tap to start your day</p>
@@ -295,7 +295,7 @@
                 @else
                     <div class="text-center py-8">
                         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-                            <i class='bx bx-calendar-x text-3xl text-gray-400'></i>
+                            <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
                         </div>
                         <p class="text-gray-500 font-medium">No appointments scheduled for today</p>
                         <p class="text-gray-400 text-sm mt-1">Enjoy your free time!</p>

@@ -11,7 +11,7 @@
                 <div class="flex items-center gap-4">
                     <div
                         class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30">
-                        <i class='bx bx-time-five text-4xl'></i>
+                        <i class='bx bx-time text-4xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">Attendance Record</h1>
@@ -24,7 +24,7 @@
                                 $statusConfig = [
                                     'present' => ['color' => 'bg-green-400/30', 'icon' => 'bx-check-circle'],
                                     'late' => ['color' => 'bg-yellow-400/30', 'icon' => 'bx-time'],
-                                    'half_day' => ['color' => 'bg-orange-400/30', 'icon' => 'bx-time-five'],
+                                    'half_day' => ['color' => 'bg-orange-400/30', 'icon' => 'bx-time'],
                                     'absent' => ['color' => 'bg-red-400/30', 'icon' => 'bx-x-circle'],
                                     'on_leave' => ['color' => 'bg-purple-400/30', 'icon' => 'bx-calendar-exclamation'],
                                 ];
@@ -97,7 +97,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center">
-                        <i class='bx bx-log-out-circle text-2xl text-red-600'></i>
+                        <i class='bx bx-log-out text-2xl text-red-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Clock Out</p>
@@ -162,7 +162,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-time-five text-teal-600'></i>
+                            <i class='bx bx-time text-teal-600'></i>
                             Time Details
                         </h3>
                     </div>
@@ -178,7 +178,7 @@
                                 @endif
                             </div>
                             <div class="text-center p-4 bg-red-50 rounded-xl">
-                                <i class='bx bx-log-out-circle text-2xl text-red-600 mb-2'></i>
+                                <i class='bx bx-log-out text-2xl text-red-600 mb-2'></i>
                                 <p class="text-xs text-gray-500">Clock Out</p>
                                 <p class="text-lg font-bold text-gray-900">
                                     {{ $attendance->clock_out_time ? $attendance->clock_out_time->format('h:i A') : '-' }}
@@ -268,7 +268,7 @@
                             $statusStyle = [
                                 'present' => ['bg' => 'bg-green-100', 'text' => 'text-green-600', 'icon' => 'bx-check-circle'],
                                 'late' => ['bg' => 'bg-yellow-100', 'text' => 'text-yellow-600', 'icon' => 'bx-time'],
-                                'half_day' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-600', 'icon' => 'bx-time-five'],
+                                'half_day' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-600', 'icon' => 'bx-time'],
                                 'absent' => ['bg' => 'bg-red-100', 'text' => 'text-red-600', 'icon' => 'bx-x-circle'],
                                 'on_leave' => ['bg' => 'bg-purple-100', 'text' => 'text-purple-600', 'icon' => 'bx-calendar-exclamation'],
                             ];

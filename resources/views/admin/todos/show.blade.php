@@ -181,7 +181,7 @@
                     @else
                         <div class="text-center py-8">
                             <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                                <i class='bx bx-calendar-x text-3xl text-gray-400'></i>
+                                <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
                             </div>
                             <p class="text-gray-500">This is not a recurring task</p>
                         </div>

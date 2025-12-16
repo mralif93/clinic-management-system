@@ -45,7 +45,7 @@
                         <p class="text-3xl font-bold text-gray-900">{{ $stats['pending'] }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform">
-                        <i class='bx bx-time-five text-xl'></i>
+                        <i class='bx bx-time text-xl'></i>
                     </div>
                 </div>
             </div>
@@ -198,7 +198,7 @@
             @else
                 <div class="text-center py-16">
                     <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                        <i class='bx bx-calendar-x text-3xl text-gray-400'></i>
+                        <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No leave requests found</p>
                     <p class="text-gray-400 text-sm mt-1">Apply for a leave to get started</p>

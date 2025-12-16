@@ -74,7 +74,7 @@
                                 <!-- Working Hours -->
                                 <div class="space-y-2">
                                     <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                                        <i class='bx bx-time-five'></i> Working Hours
+                                        <i class='bx bx-time'></i> Working Hours
                                     </label>
                                     <div class="grid grid-cols-2 gap-2">
                                         <div class="relative">

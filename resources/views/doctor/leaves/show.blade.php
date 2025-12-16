@@ -61,7 +61,7 @@
                                         </span>
                                     @else
                                         <span class="inline-flex items-center px-4 py-2 rounded-xl text-lg font-bold bg-amber-100 text-amber-700">
-                                            <i class='bx bx-time-five mr-2'></i> Pending
+                                            <i class='bx bx-time mr-2'></i> Pending
                                         </span>
                                     @endif
                                 </div>

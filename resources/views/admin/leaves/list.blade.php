@@ -147,7 +147,7 @@
                             ];
                             $typeIcons = [
                                 'annual' => 'bx-sun',
-                                'sick' => 'bx-plus-medical',
+                                'sick' => 'bx-plus-circle',
                                 'emergency' => 'bx-error',
                                 'maternity' => 'bx-heart',
                                 'paternity' => 'bx-heart',
@@ -218,7 +218,7 @@
             <div class="col-span-full">
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                        <i class='bx bx-calendar-x text-4xl text-gray-400'></i>
+                        <i class='bx bx-calendar-minus text-4xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No leave requests found</p>
                     <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or apply for a new leave</p>

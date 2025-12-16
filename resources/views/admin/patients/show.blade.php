@@ -5,6 +5,11 @@
 
 @section('content')
     <div class="space-y-6">
+        <x-ui.breadcrumb :items="breadcrumb([
+            ['label' => 'Patients', 'url' => route('admin.patients.index')],
+            ['label' => $patient->full_name ?? 'Patient Details']
+        ])" />
+        
         <!-- Page Header -->
         <div class="bg-gradient-to-r from-rose-600 to-pink-600 rounded-2xl p-6 text-white shadow-lg">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">

@@ -85,7 +85,7 @@
                 </div>
             @else
                 <div class="bg-white rounded-lg shadow-md border border-gray-200 p-12 text-center">
-                    <i class='bx bx-calendar-x text-6xl text-gray-300 mb-4'></i>
+                    <i class='bx bx-calendar-minus text-6xl text-gray-300 mb-4'></i>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">No Appointments Yet</h3>
                     <p class="text-gray-600 mb-6">You haven't booked any appointments yet.</p>
                     <a href="{{ route('patient.appointments.create') }}"

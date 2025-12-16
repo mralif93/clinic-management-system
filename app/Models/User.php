@@ -60,23 +60,25 @@ class User extends Authenticatable
         if ($this->locked_until && $this->locked_until->isFuture()) {
             return true;
         }
-        
+
         // Auto-unlock if lockout period has passed
         if ($this->locked_until && $this->locked_until->isPast()) {
             $this->unlockAccount();
         }
-        
+
         return false;
     }
 
     /**
      * Lock the user account
      */
-    public function lockAccount($minutes = 30)
+    public function lockAccount($minutes = null)
     {
+        $minutes = $minutes ?? config('security.login.lockout_minutes', 30);
+
         $this->update([
             'locked_until' => now()->addMinutes($minutes),
-            'failed_login_attempts' => 5,
+            'failed_login_attempts' => config('security.login.max_attempts', 5),
         ]);
     }
 
@@ -97,10 +99,10 @@ class User extends Authenticatable
     public function incrementFailedAttempts()
     {
         $this->increment('failed_login_attempts');
-        
-        // Lock account after 5 failed attempts
-        if ($this->failed_login_attempts >= 5) {
-            $this->lockAccount(30); // Lock for 30 minutes
+
+        // Lock account after X failed attempts
+        if ($this->failed_login_attempts >= config('security.login.max_attempts', 5)) {
+            $this->lockAccount();
         }
     }
 
@@ -123,7 +125,7 @@ class User extends Authenticatable
         if (!$this->locked_until || $this->locked_until->isPast()) {
             return 0;
         }
-        
+
         $minutes = now()->diffInMinutes($this->locked_until, false);
         return max(0, (int) round($minutes));
     }

@@ -47,6 +47,9 @@ class HomeController extends Controller
             ->limit(6)
             ->get();
 
+        // Get slider announcements - use recent announcements (up to 5)
+        $sliderAnnouncements = $recentAnnouncements->take(5);
+
         // Get featured services (limit to 3 per type for landing page)
         $psychologyServices = Service::active()
             ->byType('psychology')
@@ -67,6 +70,7 @@ class HomeController extends Controller
         return view('home', compact(
             'featuredAnnouncements',
             'recentAnnouncements',
+            'sliderAnnouncements',
             'psychologyServices',
             'homeopathyServices',
             'totalPsychologyServices',

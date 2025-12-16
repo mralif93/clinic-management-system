@@ -38,7 +38,7 @@
                 <div class="text-white">
                     <h1 class="text-2xl md:text-3xl font-bold flex items-center gap-3">
                         <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                            <i class='bx bx-transfer-alt text-2xl'></i>
+                            <i class='bx bx-transfer text-2xl'></i>
                         </div>
                         Patient Flow
                     </h1>
@@ -138,7 +138,7 @@
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <div class="px-5 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-user-pin text-amber-500 text-xl'></i>
+                    <i class='bx bx-user text-amber-500 text-xl'></i>
                     Doctor Availability
                 </h3>
             </div>

@@ -1,0 +1,255 @@
+/**
+ * Accessibility Enhancements
+ * WCAG AA compliance improvements
+ */
+
+/* Screen Reader Only */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.sr-only-focusable:focus,
+.sr-only-focusable:active {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: inherit;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
+/* ARIA Live Regions */
+[aria-live] {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    * {
+        border-color: currentColor !important;
+    }
+    
+    button,
+    a.btn {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Focus Visible Enhancement */
+:focus-visible {
+    outline: 2px solid var(--color-primary-600, #2563eb);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+}
+
+/* Skip Links */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-primary-600, #2563eb);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 100;
+    border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Icon Labels */
+.icon-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Error Announcements */
+.error-announcement {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* Loading Announcements */
+.loading-announcement {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* Form Field Associations */
+.form-field-group {
+    position: relative;
+}
+
+.form-field-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-field-group input,
+.form-field-group select,
+.form-field-group textarea {
+    width: 100%;
+}
+
+/* Required Field Indicators */
+.required-indicator {
+    color: var(--color-danger-600, #dc2626);
+    margin-left: 0.25rem;
+}
+
+/* Error States */
+.has-error {
+    border-color: var(--color-danger-600, #dc2626) !important;
+}
+
+.has-error:focus {
+    outline-color: var(--color-danger-600, #dc2626);
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+/* Success States */
+.has-success {
+    border-color: var(--color-success-600, #16a34a) !important;
+}
+
+.has-success:focus {
+    outline-color: var(--color-success-600, #16a34a);
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+}
+
+/* Landmark Roles */
+[role="banner"],
+[role="navigation"],
+[role="main"],
+[role="contentinfo"],
+[role="complementary"],
+[role="search"] {
+    /* Ensure landmarks are properly identified */
+}
+
+/* Button Accessibility */
+button:not(:disabled),
+a.btn:not(.disabled) {
+    cursor: pointer;
+}
+
+button:disabled,
+a.btn.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Link Accessibility */
+a:not([href]) {
+    cursor: default;
+}
+
+a[aria-disabled="true"] {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Table Accessibility */
+table {
+    border-collapse: collapse;
+}
+
+th {
+    font-weight: 600;
+}
+
+th[scope="col"] {
+    text-align: left;
+}
+
+th[scope="row"] {
+    text-align: right;
+    padding-right: 1rem;
+}
+
+/* Image Accessibility */
+img:not([alt]) {
+    border: 2px dashed var(--color-danger-600, #dc2626);
+}
+
+/* Color Contrast Fixes */
+.text-muted {
+    color: var(--color-neutral-600, #4b5563) !important; /* Ensure sufficient contrast */
+}
+
+.text-subtle {
+    color: var(--color-neutral-500, #6b7280) !important; /* Ensure sufficient contrast */
+}
+
+/* Interactive Element Sizing */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+a.btn {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Form Control Sizing */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+input[type="url"],
+select,
+textarea {
+    min-height: 44px;
+}
+
+/* Checkbox and Radio Sizing */
+input[type="checkbox"],
+input[type="radio"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    min-width: 1.25rem;
+    min-height: 1.25rem;
+}
+

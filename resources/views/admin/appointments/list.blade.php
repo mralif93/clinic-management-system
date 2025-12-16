@@ -119,8 +119,8 @@
 
     <!-- Appointments Table -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full">
+        <div class="overflow-x-auto -mx-4 sm:mx-0">
+            <table class="w-full min-w-[800px] sm:min-w-0">
                 <thead>
                     <tr class="bg-gray-50/80">
                         <th class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Patient</th>
@@ -273,7 +273,7 @@
                             <td colspan="7" class="px-6 py-16 text-center">
                                 <div class="flex flex-col items-center">
                                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                        <i class='bx bx-calendar-x text-4xl text-gray-400'></i>
+                                        <i class='bx bx-calendar-minus text-4xl text-gray-400'></i>
                                     </div>
                                     <p class="text-gray-500 font-medium">No appointments found</p>
                                     <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or schedule a new appointment</p>

@@ -197,7 +197,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-900">{{ $appointment->appointment_date->format('M d, Y') }}</div>
                                     <div class="text-xs text-gray-500 flex items-center gap-1">
-                                        <i class='bx bx-time-five'></i>
+                                        <i class='bx bx-time'></i>
                                         {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
                                     </div>
                                 </td>
@@ -257,7 +257,7 @@
                                 <td colspan="7" class="px-6 py-16 text-center">
                                     <div class="flex flex-col items-center">
                                         <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                                            <i class='bx bx-calendar-x text-3xl text-gray-400'></i>
+                                            <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
                                         </div>
                                         <p class="text-gray-500 font-medium">No appointments found</p>
                                         <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or create a new appointment</p>

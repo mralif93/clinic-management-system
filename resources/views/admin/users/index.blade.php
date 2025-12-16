@@ -203,7 +203,7 @@
                                     ];
                                     $roleIcons = [
                                         'admin' => 'bx-shield-quarter',
-                                        'doctor' => 'bx-plus-medical',
+                                        'doctor' => 'bx-plus-circle',
                                         'staff' => 'bx-id-card',
                                         'patient' => 'bx-user',
                                     ];

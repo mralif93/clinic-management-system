@@ -141,7 +141,7 @@
                     @else
                         <div class="text-center py-8">
                             <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class='bx bx-calendar-x text-gray-400 text-3xl'></i>
+                                <i class='bx bx-calendar-minus text-gray-400 text-3xl'></i>
                             </div>
                             <p class="text-gray-500">No appointment history found</p>
                         </div>
@@ -154,7 +154,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                        <i class='bx bx-plus-medical text-blue-500'></i>
+                        <i class='bx bx-plus-circle text-blue-500'></i>
                         Medical Information
                     </h3>
                 </div>

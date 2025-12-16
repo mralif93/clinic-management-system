@@ -28,7 +28,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS CDN (dev warning is expected) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -48,8 +48,29 @@
     <!-- Boxicons CDN -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
+    <!-- Splide.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+
     <!-- Global Button Styles -->
     <link href="{{ asset('css/buttons.css') }}" rel="stylesheet">
+    
+    <!-- Design Tokens -->
+    <link href="{{ asset('css/design-tokens.css') }}" rel="stylesheet">
+    
+    <!-- Focus Styles -->
+    <link href="{{ asset('css/focus.css') }}" rel="stylesheet">
+    
+    <!-- Mobile Styles -->
+    <link href="{{ asset('css/mobile.css') }}" rel="stylesheet">
+    
+    <!-- Accessibility Styles -->
+    <link href="{{ asset('css/accessibility.css') }}" rel="stylesheet">
+    
+    <!-- Animations -->
+    <link href="{{ asset('css/animations.css') }}" rel="stylesheet">
+    
+    <!-- Responsive Fixes -->
+    <link href="{{ asset('css/responsive-fixes.css') }}" rel="stylesheet">
 
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -118,18 +139,41 @@
 </head>
 
 <body class="bg-gray-50 font-sans">
-    <!-- Navigation Header -->
-    <nav class="bg-white shadow-sm">
+    <x-ui.skip-nav />
+    <!-- Header -->
+    <header class="bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-sm sticky top-0 transition-all duration-300" style="z-index: 40 !important;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
+            <div class="flex justify-between items-center h-16 md:h-18">
+                <!-- Logo -->
                 <div class="flex items-center">
-                    <a href="{{ route('home') }}" class="flex-shrink-0 flex items-center">
-                        <i class='bx bx-clinic text-3xl text-blue-600 mr-2'></i>
-                        <span
-                            class="text-xl font-bold text-gray-900">{{ get_setting('clinic_name', 'Clinic Management') }}</span>
+                    <a href="{{ route('home') }}" class="flex items-center space-x-3">
+                        @php
+                            $logoPath = get_setting('clinic_logo');
+                            if ($logoPath && str_starts_with($logoPath, 'data:')) {
+                                $logoUrl = $logoPath;
+                            } elseif ($logoPath) {
+                                $logoUrl = asset('storage/' . $logoPath);
+                            } else {
+                                $logoUrl = null;
+                            }
+                        @endphp
+                        @if($logoUrl)
+                            <img src="{{ $logoUrl }}" 
+                                 alt="{{ get_setting('clinic_name', 'Clinic Management') }} Logo" 
+                                 class="h-8 w-auto">
+                        @else
+                            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                                <i class='bx bx-clinic text-white text-xl'></i>
+                            </div>
+                        @endif
+                        <span class="text-xl font-bold text-gray-900 hidden sm:block">
+                            {{ get_setting('clinic_name', 'Clinic Management') }}
+                        </span>
                     </a>
                 </div>
-                <div class="flex items-center space-x-4">
+
+                <!-- Navigation - Desktop Only (1024px+) -->
+                <nav class="hidden lg:flex items-center space-x-8">
                     @php
                         $servicesPage = \App\Models\Page::where('type', 'services')->first();
                         $teamPage = \App\Models\Page::where('type', 'team')->first();
@@ -138,119 +182,143 @@
                     @endphp
                     
                     @if(!$servicesPage || $servicesPage->is_published)
-                        <a href="{{ route('services.index') }}"
-                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
+                        <a href="{{ route('services.index') }}" 
+                           class="text-gray-700 hover:text-blue-600 font-medium">
                             Services
                         </a>
                     @endif
                     
                     @if(!$aboutPage || $aboutPage->is_published)
-                        <a href="{{ route('about') }}"
-                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
-                            About Us
+                        <a href="{{ route('about') }}" 
+                           class="text-gray-700 hover:text-blue-600 font-medium">
+                            About
                         </a>
                     @endif
                     
                     @if(!$teamPage || $teamPage->is_published)
-                        <a href="{{ route('team.index') }}"
-                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
-                            Our Team
+                        <a href="{{ route('team.index') }}" 
+                           class="text-gray-700 hover:text-blue-600 font-medium">
+                            Team
                         </a>
                     @endif
                     
                     @if(!$packagesPage || $packagesPage->is_published)
-                        <a href="{{ route('packages.index') }}"
-                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
+                        <a href="{{ route('packages.index') }}" 
+                           class="text-gray-700 hover:text-blue-600 font-medium">
                             Packages
                         </a>
                     @endif
+                </nav>
+
+                <!-- Actions -->
+                <div class="flex items-center space-x-4">
                     @auth
-                        <!-- User Dropdown -->
-                        <div class="relative" x-data="{ open: false }" @click.away="open = false">
+                        <!-- User Menu - Desktop Only -->
+                        <div class="hidden lg:block relative" x-data="{ open: false }" @click.away="open = false">
                             <button @click="open = !open"
-                                class="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors">
-                                <div
-                                    class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold text-sm shadow-md">
+                                    class="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
+                                <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-semibold">
                                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                                 </div>
-                                <span
-                                    class="text-sm font-medium text-gray-700 hidden md:block">{{ Auth::user()->name }}</span>
-                                <i class='bx bx-chevron-down text-gray-500 transition-transform text-lg'
-                                    :class="open ? 'rotate-180' : ''"></i>
+                                <span class="hidden lg:block font-medium">{{ explode(' ', Auth::user()->name)[0] }}</span>
+                                <i class='bx bx-chevron-down'></i>
                             </button>
 
-                            <!-- Dropdown Menu -->
-                            <div x-show="open" x-transition:enter="transition ease-out duration-100"
-                                x-transition:enter-start="transform opacity-0 scale-95"
-                                x-transition:enter-end="transform opacity-100 scale-100"
-                                x-transition:leave="transition ease-in duration-75"
-                                x-transition:leave-start="transform opacity-100 scale-100"
-                                x-transition:leave-end="transform opacity-0 scale-95"
-                                class="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50"
-                                style="display: none;">
-
-                                <!-- User Info -->
-                                <div class="px-4 py-3 border-b border-gray-100">
-                                    <p class="text-sm font-semibold text-gray-800">{{ Auth::user()->name }}</p>
-                                    <p class="text-xs text-gray-500 mt-0.5">{{ Auth::user()->email }}</p>
+                            <!-- Dropdown -->
+                            <div x-show="open" 
+                                 x-cloak
+                                 x-transition
+                                 class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1"
+                                 style="display: none;">
+                                
+                                <div class="px-4 py-2 border-b border-gray-100">
+                                    <p class="text-sm font-semibold text-gray-900">{{ Auth::user()->name }}</p>
+                                    <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
                                 </div>
 
-                                <!-- Dashboard Link -->
                                 @if(Auth::user()->role === 'admin')
                                     <a href="{{ route('admin.dashboard') }}"
-                                        class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                        <i class='bx bx-home-alt mr-3 text-lg'></i>
-                                        <span>Dashboard</span>
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        Dashboard
                                     </a>
                                 @elseif(Auth::user()->role === 'doctor')
                                     <a href="{{ route('doctor.dashboard') }}"
-                                        class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                        <i class='bx bx-home-alt mr-3 text-lg'></i>
-                                        <span>Dashboard</span>
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        Dashboard
                                     </a>
                                 @elseif(Auth::user()->role === 'staff')
                                     <a href="{{ route('staff.dashboard') }}"
-                                        class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                        <i class='bx bx-home-alt mr-3 text-lg'></i>
-                                        <span>Dashboard</span>
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        Dashboard
                                     </a>
                                 @else
                                     <a href="{{ route('patient.dashboard') }}"
-                                        class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                        <i class='bx bx-home-alt mr-3 text-lg'></i>
-                                        <span>Dashboard</span>
+                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        Dashboard
                                     </a>
                                 @endif
 
-                                <!-- Logout -->
-                                <form method="POST" action="{{ route('logout') }}" class="logout-form">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full flex items-center px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
-                                        <i class='bx bx-log-out mr-3 text-lg'></i>
-                                        <span>Logout</span>
-                                    </button>
-                                </form>
+                                <div class="border-t border-gray-100">
+                                    <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                                        @csrf
+                                        <button type="submit"
+                                                class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                                            Logout
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     @else
-                        <a href="{{ route('login') }}"
-                            class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition">
-                            Login
-                        </a>
-                        <a href="{{ route('register') }}"
-                            class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition">
-                            Get Started
-                        </a>
+                        <!-- Guest Buttons - Desktop Only -->
+                        <div class="hidden lg:flex items-center space-x-4">
+                            <a href="{{ route('login') }}"
+                               class="text-gray-700 hover:text-blue-600 font-medium">
+                                Login
+                            </a>
+                            <a href="{{ route('register') }}"
+                               class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
+                                Get Started
+                            </a>
+                        </div>
                     @endauth
+                    
+                    <!-- Mobile & Tablet Menu Button (< 1024px) -->
+                    <div class="lg:hidden flex items-center">
+                        <x-public.mobile-menu :items="[
+                            ['label' => 'Home', 'url' => route('home'), 'icon' => 'bx bx-home'],
+                            ['label' => 'Services', 'url' => route('services.index'), 'icon' => 'bx bx-list-ul'],
+                            ['label' => 'About Us', 'url' => route('about'), 'icon' => 'bx bx-info-circle'],
+                            ['label' => 'Our Team', 'url' => route('team.index'), 'icon' => 'bx bx-group'],
+                            ['label' => 'Packages', 'url' => route('packages.index'), 'icon' => 'bx bx-package'],
+                        ]" />
+                    </div>
                 </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    @yield('content')
+    <main id="main-content" class="main-content" style="position: relative !important; z-index: 1 !important;" 
+          x-data="{ menuOpen: false }"
+          @menu-open.window="menuOpen = true"
+          @menu-close.window="menuOpen = false"
+          :class="menuOpen ? 'pointer-events-none' : ''">
+        @yield('content')
+    </main>
 
+    <!-- Footer -->
+    <x-public.footer />
+
+    <!-- Splide.js JS - Load before scripts stack -->
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    
     @stack('scripts')
+    
+    <!-- UI Enhancement Scripts -->
+    <script src="{{ asset('js/skeleton.js') }}"></script>
+    <script src="{{ asset('js/lazy-load.js') }}"></script>
+    <script src="{{ asset('js/animations.js') }}"></script>
+    <script src="{{ asset('js/image-optimizer.js') }}"></script>
 
     <script>
         // CSRF Token setup for AJAX requests

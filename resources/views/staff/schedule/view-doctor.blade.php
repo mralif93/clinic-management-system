@@ -50,7 +50,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-500 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-calendar-x text-white text-xl'></i>
+                        <i class='bx bx-calendar-minus text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $offDays }}</p>
@@ -158,7 +158,7 @@
                                 @else
                                     <div class="flex flex-col items-center justify-center py-8 text-gray-400">
                                         <div class="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center mb-3">
-                                            <i class='bx bx-calendar-x text-2xl'></i>
+                                            <i class='bx bx-calendar-minus text-2xl'></i>
                                         </div>
                                         <span class="text-sm font-medium">Day Off</span>
                                         <span class="text-xs text-gray-400 mt-1">No schedule</span>

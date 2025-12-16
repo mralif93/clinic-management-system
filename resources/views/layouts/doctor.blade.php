@@ -93,6 +93,24 @@
 
     <!-- Global Button Styles -->
     <link href="{{ asset('css/buttons.css') }}" rel="stylesheet">
+    
+    <!-- Design Tokens -->
+    <link href="{{ asset('css/design-tokens.css') }}" rel="stylesheet">
+    
+    <!-- Focus Styles -->
+    <link href="{{ asset('css/focus.css') }}" rel="stylesheet">
+    
+    <!-- Mobile Styles -->
+    <link href="{{ asset('css/mobile.css') }}" rel="stylesheet">
+    
+    <!-- Accessibility Styles -->
+    <link href="{{ asset('css/accessibility.css') }}" rel="stylesheet">
+    
+    <!-- Animations -->
+    <link href="{{ asset('css/animations.css') }}" rel="stylesheet">
+    
+    <!-- Responsive Fixes -->
+    <link href="{{ asset('css/responsive-fixes.css') }}" rel="stylesheet">
 
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -242,6 +260,7 @@
 </head>
 
 <body class="bg-gray-50 font-sans text-base text-gray-900" x-data="{ sidebarOpen: true, mobileSidebarOpen: false }">
+    <x-ui.skip-nav />
     <div class="min-h-screen flex">
 
         <!-- Mobile Sidebar Overlay -->
@@ -277,7 +296,7 @@
                     @else
                         <div
                             class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center">
-                            <i class='bx bx-plus-medical text-xl text-white'></i>
+                            <i class='bx bx-plus-circle text-xl text-white'></i>
                         </div>
                     @endif
                     <div class="flex-1 min-w-0">
@@ -326,7 +345,7 @@
                         {{ request()->routeIs('doctor.schedule.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.schedule.*') ? 'bg-teal-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-calendar-star text-lg {{ request()->routeIs('doctor.schedule.*') ? 'text-teal-400' : '' }}'></i>
+                            <i class='bx bx-calendar text-lg {{ request()->routeIs('doctor.schedule.*') ? 'text-teal-400' : '' }}'></i>
                         </div>
                         <span>Schedule</span>
                     </a>
@@ -364,7 +383,7 @@
                         {{ request()->routeIs('doctor.attendance.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.attendance.*') ? 'bg-orange-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-time-five text-lg {{ request()->routeIs('doctor.attendance.*') ? 'text-orange-400' : '' }}'></i>
+                            <i class='bx bx-time text-lg {{ request()->routeIs('doctor.attendance.*') ? 'text-orange-400' : '' }}'></i>
                         </div>
                         <span>Attendance</span>
                     </a>
@@ -375,7 +394,7 @@
                         {{ request()->routeIs('doctor.leaves.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.leaves.*') ? 'bg-purple-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-calendar-x text-lg {{ request()->routeIs('doctor.leaves.*') ? 'text-purple-400' : '' }}'></i>
+                            <i class='bx bx-calendar-minus text-lg {{ request()->routeIs('doctor.leaves.*') ? 'text-purple-400' : '' }}'></i>
                         </div>
                         <span>Leave</span>
                     </a>
@@ -424,32 +443,38 @@
         <div class="flex-1 flex flex-col min-h-screen lg:ml-0">
             <!-- Header -->
             <header class="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-sm">
-                <div class="flex items-center justify-between px-4 lg:px-6 h-16">
+                <div class="flex items-center justify-between px-3 sm:px-4 lg:px-6 h-14 sm:h-15 md:h-16">
                     <!-- Left Side - Mobile Menu & Breadcrumb -->
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2 sm:gap-3 md:gap-4 min-w-0 flex-1">
                         <!-- Mobile Menu Toggle -->
                         <button @click="mobileSidebarOpen = !mobileSidebarOpen"
-                            class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                            <i class='bx bx-menu text-xl text-gray-600'></i>
+                            class="lg:hidden p-1.5 sm:p-2 rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0"
+                            aria-label="Toggle sidebar">
+                            <i class='bx bx-menu text-lg sm:text-xl text-gray-600'></i>
                         </button>
 
                         <!-- Page Title -->
-                        <div>
-                            <h1 class="text-lg font-semibold text-gray-900">@yield('page-title', 'Dashboard')</h1>
+                        <div class="min-w-0">
+                            <h1 class="text-base sm:text-lg font-semibold text-gray-900 truncate">@yield('page-title', 'Dashboard')</h1>
                         </div>
                     </div>
 
                     <!-- Right Side - Actions -->
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                        <!-- Global Search -->
+                        <div class="hidden md:block w-48 lg:w-64 xl:w-80">
+                            <x-search.global-search />
+                        </div>
+                        
                         <!-- User Dropdown -->
                         <div class="relative" x-data="{ open: false }" @click.away="open = false">
                             <button @click="open = !open"
-                                class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                                class="flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-lg hover:bg-gray-100 transition-colors">
                                 <div
-                                    class="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-sm font-semibold">
+                                    class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-xs sm:text-sm font-semibold flex-shrink-0">
                                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                                 </div>
-                                <i class='bx bx-chevron-down text-gray-500 hidden sm:block'
+                                <i class='bx bx-chevron-down text-gray-500 hidden sm:block text-sm sm:text-base flex-shrink-0'
                                     :class="open ? 'rotate-180' : ''" style="transition: transform 0.2s;"></i>
                             </button>
 
@@ -460,7 +485,7 @@
                                 x-transition:leave="transition ease-in duration-75"
                                 x-transition:leave-start="transform opacity-100 scale-100"
                                 x-transition:leave-end="transform opacity-0 scale-95"
-                                class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50"
+                                class="absolute right-0 mt-2 w-48 sm:w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50"
                                 style="display: none;">
 
                                 <!-- User Info -->
@@ -499,7 +524,7 @@
             </header>
 
             <!-- Page Content -->
-            <main class="flex-1 p-4 lg:p-6">
+            <main id="main-content" class="flex-1 p-4 lg:p-6">
                 @yield('content')
             </main>
 
@@ -514,6 +539,27 @@
     </div>
 
     @stack('scripts')
+    
+    <!-- UI Enhancement Scripts -->
+    <script src="{{ asset('js/skeleton.js') }}"></script>
+    <script src="{{ asset('js/validation.js') }}"></script>
+    <script src="{{ asset('js/input-masks.js') }}"></script>
+    <script src="{{ asset('js/table-sort.js') }}"></script>
+    <script src="{{ asset('js/table-filter.js') }}"></script>
+    <script src="{{ asset('js/mobile-table.js') }}"></script>
+    <script src="{{ asset('js/table-actions.js') }}"></script>
+    <script src="{{ asset('js/form-wizard.js') }}"></script>
+    <script src="{{ asset('js/search.js') }}"></script>
+    <script src="{{ asset('js/keyboard-shortcuts.js') }}"></script>
+    <script src="{{ asset('js/charts.js') }}"></script>
+    <script src="{{ asset('js/dashboard-customize.js') }}"></script>
+    <script src="{{ asset('js/realtime.js') }}"></script>
+    <script src="{{ asset('js/touch-interactions.js') }}"></script>
+    <script src="{{ asset('js/lazy-load.js') }}"></script>
+    <script src="{{ asset('js/infinite-scroll.js') }}"></script>
+    <script src="{{ asset('js/animations.js') }}"></script>
+    <script src="{{ asset('js/onboarding.js') }}"></script>
+    <script src="{{ asset('js/image-optimizer.js') }}"></script>
 
     <script>
         // CSRF Token setup for AJAX requests
@@ -571,7 +617,7 @@
                             <p class="text-gray-600 mb-4">You are still clocked in. What would you like to do?</p>
                             <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-3">
                                 <div class="flex items-center gap-2 text-amber-700">
-                                    <i class='bx bx-time-five text-xl'></i>
+                                    <i class='bx bx-time text-xl'></i>
                                     <span class="font-medium">You haven't clocked out yet</span>
                                 </div>
                             </div>
@@ -581,8 +627,8 @@
                     iconColor: '#f59e0b',
                     showDenyButton: true,
                     showCancelButton: true,
-                    confirmButtonText: '<i class="bx bx-log-out-circle mr-1"></i> Clock Out & Logout',
-                    denyButtonText: '<i class="bx bx-exit mr-1"></i> Just Logout',
+                    confirmButtonText: '<i class="bx bx-log-out mr-1"></i> Clock Out & Logout',
+                    denyButtonText: '<i class="bx bx-log-out mr-1"></i> Just Logout',
                     cancelButtonText: 'Cancel',
                     confirmButtonColor: '#10b981',
                     denyButtonColor: '#ef4444',

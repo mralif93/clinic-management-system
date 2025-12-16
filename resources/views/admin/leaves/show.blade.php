@@ -10,7 +10,7 @@
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div class="flex items-center gap-4">
                 <div class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30">
-                    <i class='bx bx-calendar-x text-4xl'></i>
+                    <i class='bx bx-calendar-minus text-4xl'></i>
                 </div>
                 <div>
                     <h1 class="text-2xl font-bold">Leave Request</h1>
@@ -32,7 +32,7 @@
                             @elseif($leave->status === 'rejected')
                                 <i class='bx bx-x-circle mr-1'></i>
                             @else
-                                <i class='bx bx-time-five mr-1'></i>
+                                <i class='bx bx-time mr-1'></i>
                             @endif
                             {{ ucfirst($leave->status) }}
                         </span>
@@ -172,7 +172,7 @@
                                 @elseif($leave->status === 'rejected')
                                     <i class='bx bx-x-circle text-2xl text-red-500'></i>
                                 @else
-                                    <i class='bx bx-time-five text-2xl text-yellow-500'></i>
+                                    <i class='bx bx-time text-2xl text-yellow-500'></i>
                                 @endif
                             </div>
                         </div>

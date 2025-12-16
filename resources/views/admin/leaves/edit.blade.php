@@ -85,7 +85,7 @@
                         <!-- Duration Calculation (Auto-updated via JS) -->
                         <div id="duration_display"
                             class="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-center gap-3">
-                            <i class='bx bx-time-five text-blue-600 text-xl'></i>
+                            <i class='bx bx-time text-blue-600 text-xl'></i>
                             <p class="text-blue-800 font-medium">Total Duration: <span
                                     id="total_days">{{ $leave->total_days }}</span> days</p>
                         </div>

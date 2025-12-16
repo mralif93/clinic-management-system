@@ -58,7 +58,7 @@
                                     @elseif($leave->status === 'rejected')
                                         <i class='bx bx-x-circle text-2xl text-red-500'></i>
                                     @else
-                                        <i class='bx bx-time-five text-2xl text-yellow-500'></i>
+                                        <i class='bx bx-time text-2xl text-yellow-500'></i>
                                     @endif
                                 </div>
                             </div>

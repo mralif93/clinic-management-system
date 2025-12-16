@@ -17,6 +17,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Appointment::class);
         $driver = DB::connection()->getDriverName();
 
         if ($driver === 'sqlite') {
@@ -49,6 +50,7 @@ class AppointmentController extends Controller
      */
     public function byMonth(Request $request, $year, $month)
     {
+        $this->authorize('viewAny', Appointment::class);
         $query = Appointment::withTrashed()
             ->with(['patient', 'doctor.user', 'service'])
             ->whereYear('appointment_date', $year)
@@ -57,9 +59,9 @@ class AppointmentController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->whereHas('patient', function($q) use ($search) {
+            $query->whereHas('patient', function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%");
+                    ->orWhere('last_name', 'like', "%{$search}%");
             });
         }
 
@@ -81,16 +83,23 @@ class AppointmentController extends Controller
         }
 
         $appointments = $query->orderBy('appointment_date', 'desc')
-                              ->orderBy('appointment_time', 'desc')
-                              ->paginate(15);
+            ->orderBy('appointment_time', 'desc')
+            ->paginate(15);
 
         $monthName = \Carbon\Carbon::createFromDate($year, $month, 1)->format('F Y');
 
         // Contextual stats for this month
+        $statsData = Appointment::whereYear('appointment_date', $year)
+            ->whereMonth('appointment_date', $month)
+            ->selectRaw('count(*) as total')
+            ->selectRaw("sum(case when status = 'scheduled' then 1 else 0 end) as scheduled")
+            ->selectRaw("sum(case when status = 'completed' then 1 else 0 end) as completed")
+            ->first();
+
         $stats = [
-            'total' => Appointment::whereYear('appointment_date', $year)->whereMonth('appointment_date', $month)->count(),
-            'scheduled' => Appointment::whereYear('appointment_date', $year)->whereMonth('appointment_date', $month)->where('status', 'scheduled')->count(),
-            'completed' => Appointment::whereYear('appointment_date', $year)->whereMonth('appointment_date', $month)->where('status', 'completed')->count(),
+            'total' => $statsData->total ?? 0,
+            'scheduled' => $statsData->scheduled ?? 0,
+            'completed' => $statsData->completed ?? 0,
         ];
 
         return view('admin.appointments.list', compact('appointments', 'year', 'month', 'monthName', 'stats'));
@@ -101,6 +110,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Appointment::class);
         $patients = Patient::orderBy('first_name')->get();
         $doctors = Doctor::available()->orderBy('first_name')->get();
         $services = Service::active()->orderBy('name')->get();
@@ -113,6 +123,7 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Appointment::class);
         $validated = $request->validate([
             'patient_id' => 'required|exists:patients,id',
             'doctor_id' => 'nullable|exists:doctors,id',
@@ -148,6 +159,8 @@ class AppointmentController extends Controller
         $appointment = Appointment::withTrashed()
             ->with(['patient', 'doctor.user', 'service', 'user'])
             ->findOrFail($id);
+
+        $this->authorize('view', $appointment);
         return view('admin.appointments.show', compact('appointment'));
     }
 
@@ -157,12 +170,13 @@ class AppointmentController extends Controller
     public function edit($id)
     {
         $appointment = Appointment::withTrashed()->findOrFail($id);
-        
+        $this->authorize('update', $appointment);
+
         if ($appointment->trashed()) {
             return redirect()->route('admin.appointments.index')
                 ->with('error', 'Cannot edit a deleted appointment. Please restore it first.');
         }
-        
+
         $patients = Patient::orderBy('first_name')->get();
         $doctors = Doctor::available()->orderBy('first_name')->get();
         $services = Service::active()->orderBy('name')->get();
@@ -176,12 +190,13 @@ class AppointmentController extends Controller
     public function update(Request $request, $id)
     {
         $appointment = Appointment::withTrashed()->findOrFail($id);
-        
+        $this->authorize('update', $appointment);
+
         if ($appointment->trashed()) {
             return redirect()->route('admin.appointments.index')
                 ->with('error', 'Cannot update a deleted appointment. Please restore it first.');
         }
-        
+
         $validated = $request->validate([
             'patient_id' => 'required|exists:patients,id',
             'doctor_id' => 'nullable|exists:doctors,id',
@@ -219,6 +234,7 @@ class AppointmentController extends Controller
     public function destroy($id)
     {
         $appointment = Appointment::findOrFail($id);
+        $this->authorize('delete', $appointment);
         $appointment->delete();
 
         return redirect()->back()
@@ -230,6 +246,7 @@ class AppointmentController extends Controller
      */
     public function trash()
     {
+        $this->authorize('viewAny', Appointment::class);
         $appointments = Appointment::onlyTrashed()
             ->with(['patient', 'doctor', 'service'])
             ->orderBy('deleted_at', 'desc')
@@ -244,6 +261,7 @@ class AppointmentController extends Controller
     public function restore($id)
     {
         $appointment = Appointment::withTrashed()->findOrFail($id);
+        $this->authorize('restore', $appointment);
         $appointment->restore();
 
         return redirect()->route('admin.appointments.trash')
@@ -256,6 +274,7 @@ class AppointmentController extends Controller
     public function forceDelete($id)
     {
         $appointment = Appointment::withTrashed()->findOrFail($id);
+        $this->authorize('forceDelete', $appointment);
         $appointment->forceDelete();
 
         return redirect()->route('admin.appointments.trash')

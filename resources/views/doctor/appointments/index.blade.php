@@ -146,7 +146,7 @@
                                 <td colspan="6" class="px-6 py-12 text-center">
                                     <div class="flex flex-col items-center">
                                         <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                            <i class='bx bx-calendar-x text-3xl text-gray-400'></i>
+                                            <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
                                         </div>
                                         <p class="text-gray-500 font-medium">No appointments found</p>
                                         <p class="text-gray-400 text-sm mt-1">Try adjusting your filters</p>

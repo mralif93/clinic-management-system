@@ -232,7 +232,7 @@
             @else
                 <div class="flex flex-col items-center py-12">
                     <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                        <i class='bx bx-calendar-x text-3xl text-gray-400'></i>
+                        <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No appointment history found</p>
                 </div>

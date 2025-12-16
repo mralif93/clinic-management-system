@@ -73,7 +73,7 @@
         @else
             <div class="text-center py-12 bg-white rounded-xl shadow-md">
                 <div class="bg-gray-50 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                    <i class='bx bx-calendar-x text-4xl text-gray-400'></i>
+                    <i class='bx bx-calendar-minus text-4xl text-gray-400'></i>
                 </div>
                 <h3 class="text-xl font-medium text-gray-900">No Payroll Records</h3>
                 <p class="text-gray-500 mt-2 mb-6">Start by generating your first payslip.</p>

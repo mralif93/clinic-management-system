@@ -175,7 +175,7 @@
                 @else
                     <div class="text-center py-16">
                         <div class="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                            <i class='bx bx-calendar-x text-4xl text-gray-400'></i>
+                            <i class='bx bx-calendar-minus text-4xl text-gray-400'></i>
                         </div>
                         <p class="text-gray-600 font-semibold text-lg">No appointments scheduled</p>
                         <p class="text-gray-400 text-sm mt-1">Select another date to view appointments</p>

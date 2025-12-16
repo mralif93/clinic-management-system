@@ -11,7 +11,7 @@
             <div>
                 <h1 class="text-2xl font-bold flex items-center gap-3">
                     <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='bx bx-grid-alt text-2xl'></i>
+                        <i class='bx bx-grid text-2xl'></i>
                     </div>
                     Services
                 </h1>
@@ -137,7 +137,7 @@
                                 $typeIcons = [
                                     'psychology' => 'bx-brain',
                                     'homeopathy' => 'bx-leaf',
-                                    'general' => 'bx-plus-medical',
+                                    'general' => 'bx-plus-circle',
                                 ];
                             @endphp
                             <div class="w-12 h-12 rounded-xl bg-gradient-to-br {{ $typeColors[$service->type] ?? 'from-gray-500 to-gray-600' }} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
@@ -211,7 +211,7 @@
             <div class="col-span-full">
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                        <i class='bx bx-grid-alt text-4xl text-gray-400'></i>
+                        <i class='bx bx-grid text-4xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No services found</p>
                     <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or add a new service</p>

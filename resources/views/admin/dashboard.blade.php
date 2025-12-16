@@ -87,7 +87,7 @@
                     </div>
                     <div
                         class="bg-gradient-to-br from-violet-500 to-violet-600 text-white p-4 rounded-xl shadow-lg group-hover:scale-110 transition-transform">
-                        <i class='bx bx-plus-medical text-2xl'></i>
+                        <i class='bx bx-plus-circle text-2xl'></i>
                     </div>
                 </div>
             </div>
@@ -180,7 +180,7 @@
                 <div class="p-4 border-b border-gray-100 bg-gradient-to-r from-green-50 to-emerald-50">
                     <div class="flex items-center justify-between">
                         <h3 class="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                            <i class='bx bx-time-five text-green-600'></i>
+                            <i class='bx bx-time text-green-600'></i>
                             Staff Attendance
                         </h3>
                         <span
@@ -424,9 +424,9 @@
                         </a>
                     </div>
                 </div>
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto -mx-4 sm:mx-0">
                     @if($upcomingAppointments->count() > 0)
-                        <table class="w-full">
+                        <table class="w-full min-w-[600px] sm:min-w-0">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Patient</th>
@@ -465,7 +465,7 @@
                         </table>
                     @else
                         <div class="p-8 text-center">
-                            <i class='bx bx-calendar-x text-4xl text-gray-300 mb-2'></i>
+                            <i class='bx bx-calendar-minus text-4xl text-gray-300 mb-2'></i>
                             <p class="text-sm text-gray-500">No upcoming appointments</p>
                         </div>
                     @endif
@@ -486,9 +486,9 @@
                         </a>
                     </div>
                 </div>
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto -mx-4 sm:mx-0">
                     @if($pendingLeaves->count() > 0)
-                        <table class="w-full">
+                        <table class="w-full min-w-[600px] sm:min-w-0">
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Employee</th>

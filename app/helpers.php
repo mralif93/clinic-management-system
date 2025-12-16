@@ -48,3 +48,52 @@ if (!function_exists('get_currency_symbol')) {
     }
 }
 
+if (!function_exists('breadcrumb')) {
+    /**
+     * Generate breadcrumb items array
+     *
+     * @param array $items Array of ['label' => string, 'url' => string|null]
+     * @return array
+     */
+    function breadcrumb(array $items = []): array
+    {
+        $breadcrumbs = [];
+        
+        // Add home/dashboard based on user role
+        if (Auth::check()) {
+            $role = Auth::user()->role;
+            $dashboardRoute = match($role) {
+                'admin' => route('admin.dashboard'),
+                'doctor' => route('doctor.dashboard'),
+                'staff' => route('staff.dashboard'),
+                'patient' => route('patient.dashboard'),
+                default => route('home')
+            };
+            
+            $breadcrumbs[] = [
+                'label' => 'Dashboard',
+                'url' => $dashboardRoute
+            ];
+        } else {
+            $breadcrumbs[] = [
+                'label' => 'Home',
+                'url' => route('home')
+            ];
+        }
+        
+        // Add custom items
+        foreach ($items as $item) {
+            if (is_string($item)) {
+                $breadcrumbs[] = [
+                    'label' => $item,
+                    'url' => null
+                ];
+            } else {
+                $breadcrumbs[] = $item;
+            }
+        }
+        
+        return $breadcrumbs;
+    }
+}
+

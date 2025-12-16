@@ -32,7 +32,7 @@
 <div class="min-h-screen bg-gradient-to-b from-gray-50 to-white flex flex-col">
     <!-- Hero Section -->
     @if($announcement->image)
-    <div class="relative h-[70vh] min-h-[600px] bg-gradient-to-br from-blue-600 to-indigo-700 overflow-hidden">
+    <div class="announcement-hero relative h-[50vh] sm:h-[60vh] md:h-[70vh] min-h-[400px] sm:min-h-[500px] md:min-h-[600px] bg-gradient-to-br from-blue-600 to-indigo-700 overflow-hidden">
         <div class="absolute inset-0">
             <img src="{{ $announcement->image_url }}" 
                  alt="{{ $announcement->title }}"
@@ -64,7 +64,7 @@
                     </span>
                     @if($announcement->expires_at)
                         <span class="text-white/95 flex items-center gap-2 text-sm font-medium {{ $announcement->isExpired() ? 'bg-red-500/40 px-3 py-1.5 rounded-full' : '' }}">
-                            <i class='bx bx-time-five text-base'></i>
+                            <i class='bx bx-time text-base'></i>
                             Expires: {{ $announcement->expires_at->format('M d, Y') }}
                         </span>
                     @endif
@@ -111,7 +111,7 @@
                 </span>
                 @if($announcement->expires_at)
                     <span class="text-white/95 flex items-center gap-2 text-sm font-medium {{ $announcement->isExpired() ? 'bg-red-500/40 px-3 py-1.5 rounded-full' : '' }}">
-                        <i class='bx bx-time-five text-base'></i>
+                        <i class='bx bx-time text-base'></i>
                         Expires: {{ $announcement->expires_at->format('M d, Y') }}
                     </span>
                 @endif
@@ -187,9 +187,9 @@
             </div>
 
             <!-- Sidebar Column -->
-            <div class="lg:col-span-4">
+            <div class="sidebar lg:col-span-4">
                 <!-- Share Section -->
-                <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 lg:p-8 no-print sticky top-6">
+                <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-4 sm:p-6 lg:p-8 no-print lg:sticky lg:top-6">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg">
                             <i class='bx bx-share-alt text-white text-xl'></i>
@@ -198,16 +198,16 @@
                     </div>
                     <div class="space-y-3">
                         <button onclick="if(navigator.share) { navigator.share({title: '{{ addslashes($announcement->title) }}', text: '{{ addslashes($announcement->subtitle ?? $announcement->title) }}', url: window.location.href}); } else { navigator.clipboard.writeText(window.location.href); const btn = this; const original = btn.innerHTML; btn.innerHTML='<i class=\'bx bx-check text-lg\'></i> Copied!'; btn.classList.add('bg-green-600'); setTimeout(() => { btn.innerHTML = original; btn.classList.remove('bg-green-600'); }, 2000); }"
-                                class="w-full px-5 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 transform hover:scale-105">
-                            <i class='bx bx-share text-xl'></i> Share
+                                class="share-button w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 active:from-blue-800 active:to-indigo-800 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 min-h-[48px] text-sm sm:text-base">
+                            <i class='bx bx-share text-lg sm:text-xl'></i> Share
                         </button>
                         <button onclick="navigator.clipboard.writeText(window.location.href); const btn = this; const original = btn.innerHTML; btn.innerHTML='<i class=\'bx bx-check text-lg\'></i> Copied!'; btn.classList.add('bg-green-600', 'text-white'); setTimeout(() => { btn.innerHTML = original; btn.classList.remove('bg-green-600', 'text-white'); }, 2000);"
-                                class="w-full px-5 py-4 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md">
-                            <i class='bx bx-link text-xl'></i> Copy Link
+                                class="share-button w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 active:bg-gray-300 transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md min-h-[48px] text-sm sm:text-base">
+                            <i class='bx bx-link text-lg sm:text-xl'></i> Copy Link
                         </button>
                         <button onclick="window.print();"
-                                class="w-full px-5 py-4 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md">
-                            <i class='bx bx-printer text-xl'></i> Print
+                                class="share-button w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 active:bg-gray-300 transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md min-h-[48px] text-sm sm:text-base">
+                            <i class='bx bx-printer text-lg sm:text-xl'></i> Print
                         </button>
                     </div>
                 </div>
@@ -216,19 +216,19 @@
 
         <!-- Related Announcements Section -->
         @if($relatedAnnouncements->count() > 0)
-            <div class="mt-20 pt-16 border-t-2 border-gray-200">
-                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-12">
+            <div class="related-grid mt-12 sm:mt-16 md:mt-20 pt-8 sm:pt-12 md:pt-16 border-t-2 border-gray-200">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 sm:gap-6 mb-8 sm:mb-12">
                     <div>
-                        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">Related Announcements</h2>
-                        <p class="text-gray-600 text-lg md:text-xl">You might also be interested in these updates</p>
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 sm:mb-3">Related Announcements</h2>
+                        <p class="text-gray-600 text-base sm:text-lg md:text-xl">You might also be interested in these updates</p>
                     </div>
                     <a href="{{ route('announcements.index') }}" 
-                       class="inline-flex items-center gap-2 px-6 py-3.5 bg-white border-2 border-blue-600 text-blue-600 rounded-xl font-bold hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                       class="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 bg-white border-2 border-blue-600 text-blue-600 rounded-xl font-bold hover:bg-blue-50 active:bg-blue-100 transition-all shadow-lg hover:shadow-xl min-h-[44px] text-sm sm:text-base">
                         View All
-                        <i class='bx bx-arrow-right text-xl'></i>
+                        <i class='bx bx-arrow-right text-lg sm:text-xl'></i>
                     </a>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                     @foreach($relatedAnnouncements as $related)
                         <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-2xl hover:border-blue-300 transition-all duration-300 group cursor-pointer transform hover:-translate-y-1">
                             <a href="{{ route('announcements.show', $related->id) }}" class="block">

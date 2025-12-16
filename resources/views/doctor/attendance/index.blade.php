@@ -11,7 +11,7 @@
         <div class="relative">
             <h1 class="text-2xl font-bold flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                    <i class='bx bx-time-five text-xl'></i>
+                    <i class='bx bx-time text-xl'></i>
                 </div>
                 My Attendance
             </h1>
@@ -61,7 +61,7 @@
             @else
                 <div class="text-center py-10">
                     <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                        <i class='bx bx-calendar-x text-3xl text-gray-400'></i>
+                        <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No attendance record for today</p>
                 </div>
@@ -192,7 +192,7 @@
                         <tr>
                             <td colspan="5" class="px-6 py-12 text-center">
                                 <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                                    <i class='bx bx-calendar-x text-3xl text-gray-400'></i>
+                                    <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
                                 </div>
                                 <p class="text-gray-500 font-medium">No attendance records found</p>
                             </td>

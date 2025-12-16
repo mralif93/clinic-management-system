@@ -265,7 +265,7 @@
                         </a>
                         <a href="{{ route('staff.attendance.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-50 transition group">
                             <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition">
-                                <i class='bx bx-time-five text-blue-600'></i>
+                                <i class='bx bx-time text-blue-600'></i>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-900">My Attendance</p>

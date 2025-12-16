@@ -47,7 +47,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-time-five text-white text-xl'></i>
+                        <i class='bx bx-time text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $stats['pending'] }}</p>
@@ -151,7 +151,7 @@
                                         @php
                                             $typeConfig = [
                                                 'annual' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'bx-sun'],
-                                                'sick' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-plus-medical'],
+                                                'sick' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-plus-circle'],
                                                 'emergency' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'icon' => 'bx-error'],
                                                 'unpaid' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-wallet'],
                                                 'maternity' => ['bg' => 'bg-pink-100', 'text' => 'text-pink-700', 'icon' => 'bx-child'],
@@ -176,7 +176,7 @@
                                     <td class="px-6 py-4">
                                         @php
                                             $statusConfig = [
-                                                'pending' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'bx-time-five'],
+                                                'pending' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'bx-time'],
                                                 'approved' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'bx-check-circle'],
                                                 'rejected' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-x-circle'],
                                             ];
@@ -226,7 +226,7 @@
             @else
                 <div class="text-center py-16">
                     <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class='bx bx-calendar-x text-3xl text-gray-400'></i>
+                        <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No leave requests found</p>
                     <p class="text-gray-400 text-sm mt-1">You haven't submitted any leave requests yet</p>

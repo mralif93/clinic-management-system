@@ -15,40 +15,40 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
 
         // Seed announcements (needs users for created_by)
-        // $this->call(AnnouncementSeeder::class);
+        $this->call(AnnouncementSeeder::class);
 
         // Seed services
-        // $this->call(ServiceSeeder::class);
+        $this->call(ServiceSeeder::class);
 
         // Seed packages
-        // $this->call(PackageSeeder::class);
+        $this->call(PackageSeeder::class);
 
         // Seed team members
-        // $this->call(TeamMemberSeeder::class);
+        $this->call(TeamMemberSeeder::class);
 
         // Seed settings
-        // $this->call(SettingsSeeder::class);
+        $this->call(SettingsSeeder::class);
 
         // Seed doctor schedules
-        // $this->call(DoctorScheduleSeeder::class);
+        $this->call(DoctorScheduleSeeder::class);
 
         // Seed payroll settings
-        // $this->call(PayrollSettingsSeeder::class);
+        $this->call(PayrollSettingsSeeder::class);
 
         // Seed appointments
-        // $this->call(AppointmentSeeder::class);
+        $this->call(AppointmentSeeder::class);
 
         // Seed attendance
-        // $this->call(AttendanceSeeder::class);
+        $this->call(AttendanceSeeder::class);
 
         // Seed leaves
-        // $this->call(LeaveSeeder::class);
+        $this->call(LeaveSeeder::class);
 
         // Seed payrolls
-        // $this->call(PayrollSeeder::class);
+        $this->call(PayrollSeeder::class);
 
         // Seed todos
-        // $this->call(TodoSeeder::class);
+        $this->call(TodoSeeder::class);
     }
 }
 

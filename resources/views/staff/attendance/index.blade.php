@@ -10,7 +10,7 @@
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div class="flex items-center gap-4">
                 <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                    <i class='bx bx-time-five text-3xl'></i>
+                    <i class='bx bx-time text-3xl'></i>
                 </div>
                 <div>
                     <h1 class="text-2xl font-bold">My Attendance</h1>
@@ -71,7 +71,7 @@
         @else
             <div class="text-center py-8">
                 <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <i class='bx bx-calendar-x text-2xl text-gray-400'></i>
+                    <i class='bx bx-calendar-minus text-2xl text-gray-400'></i>
                 </div>
                 <p class="text-gray-500">No attendance record for today</p>
             </div>
@@ -105,7 +105,7 @@
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
-                    <i class='bx bx-time-five text-white text-xl'></i>
+                    <i class='bx bx-time text-white text-xl'></i>
                 </div>
                 <div>
                     <p class="text-2xl font-bold text-gray-900">{{ $stats['late_days'] }}</p>
@@ -172,7 +172,7 @@
                             <td class="px-6 py-4">
                                 @if($attendance->clock_out_time)
                                     <span class="inline-flex items-center gap-1 text-sm text-red-700 font-medium">
-                                        <i class='bx bx-log-out-circle'></i>
+                                        <i class='bx bx-log-out'></i>
                                         {{ $attendance->clock_out_time->format('h:i A') }}
                                     </span>
                                 @else
@@ -192,7 +192,7 @@
                                 @php
                                     $statusConfig = [
                                         'present' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'bx-check-circle'],
-                                        'late' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'bx-time-five'],
+                                        'late' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'bx-time'],
                                         'absent' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-x-circle'],
                                         'half_day' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'icon' => 'bx-adjust'],
                                     ];
@@ -213,7 +213,7 @@
 
                                     @if($pendingCorrection)
                                         <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-semibold">
-                                            <i class='bx bx-time-five'></i> Pending
+                                            <i class='bx bx-time'></i> Pending
                                         </span>
                                     @else
                                         <button onclick="openCorrectionModal('{{ $attendance->id }}', '{{ $attendance->date->format('Y-m-d') }}', '{{ $attendance->clock_in_time->format('H:i') }}', '{{ $attendance->clock_out_time ? $attendance->clock_out_time->format('H:i') : '' }}')"
@@ -229,7 +229,7 @@
                             <td colspan="6" class="px-6 py-16 text-center">
                                 <div class="flex flex-col items-center">
                                     <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                                        <i class='bx bx-calendar-x text-3xl text-gray-400'></i>
+                                        <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
                                     </div>
                                     <p class="text-gray-500 font-medium">No attendance records found</p>
                                     <p class="text-gray-400 text-sm mt-1">Your attendance history will appear here</p>

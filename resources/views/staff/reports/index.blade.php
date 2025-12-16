@@ -10,7 +10,7 @@
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                        <i class='bx bx-bar-chart-alt-2 text-3xl'></i>
+                        <i class='bx bx-bar-chart-alt text-3xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">Reports & Analytics</h1>

@@ -23,7 +23,7 @@
                             @php
                                 $roleConfig = [
                                     'admin' => ['icon' => 'bx-shield-quarter'],
-                                    'doctor' => ['icon' => 'bx-plus-medical'],
+                                    'doctor' => ['icon' => 'bx-plus-circle'],
                                     'staff' => ['icon' => 'bx-user'],
                                     'patient' => ['icon' => 'bx-user-circle'],
                                 ];

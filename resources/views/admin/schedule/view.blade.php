@@ -67,7 +67,7 @@
                                 <div class="space-y-1">
                                     <label
                                         class="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                                        <i class='bx bx-time-five'></i> Working Hours
+                                        <i class='bx bx-time'></i> Working Hours
                                     </label>
                                     <div class="p-3 bg-indigo-50 rounded-xl border border-indigo-100">
                                         <p class="text-indigo-900 font-bold text-lg text-center">
@@ -110,7 +110,7 @@
                         @else
                             <div class="flex flex-col items-center justify-center py-8 text-gray-400">
                                 <div class="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mb-3">
-                                    <i class='bx bx-calendar-x text-3xl text-gray-300'></i>
+                                    <i class='bx bx-calendar-minus text-3xl text-gray-300'></i>
                                 </div>
                                 <span class="text-sm font-medium">No schedule configured</span>
                             </div>

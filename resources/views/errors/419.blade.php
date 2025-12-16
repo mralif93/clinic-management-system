@@ -79,7 +79,7 @@
         <!-- Icon -->
         <div class="mb-8 flex justify-center">
             <div class="w-24 h-24 rounded-full bg-purple-100 flex items-center justify-center">
-                <i class='bx bx-time-five text-5xl text-purple-600'></i>
+                <i class='bx bx-time text-5xl text-purple-600'></i>
             </div>
         </div>
 

@@ -71,7 +71,7 @@
                     <!-- Duration Calculation (Auto-updated via JS) -->
                     <div id="duration_display" class="hidden bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-center gap-3">
                         <div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
-                            <i class='bx bx-time-five text-emerald-600 text-xl'></i>
+                            <i class='bx bx-time text-emerald-600 text-xl'></i>
                         </div>
                         <p class="text-emerald-800 font-medium">Total Duration: <span id="total_days" class="font-bold">0</span> days</p>
                     </div>

@@ -38,7 +38,7 @@
                 <div class="relative inline-flex items-center justify-center mb-4">
                     <div class="absolute w-24 h-24 bg-white/30 rounded-full pulse-ring"></div>
                     <div class="relative w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg float-animation">
-                        <i class='bx bx-time-five text-5xl text-amber-500'></i>
+                        <i class='bx bx-time text-5xl text-amber-500'></i>
                     </div>
                 </div>
                 

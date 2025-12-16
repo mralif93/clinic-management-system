@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/appointments', [App\Http\Controllers\Patient\AppointmentController::class, 'index'])->name('appointments.index');
         Route::get('/appointments/create', [App\Http\Controllers\Patient\AppointmentController::class, 'create'])->name('appointments.create');
         Route::post('/appointments', [App\Http\Controllers\Patient\AppointmentController::class, 'store'])->name('appointments.store');
+        Route::post('/appointments/{id}/cancel', [App\Http\Controllers\Patient\AppointmentController::class, 'cancel'])->name('appointments.cancel');
         Route::get('/appointments/{id}', [App\Http\Controllers\Patient\AppointmentController::class, 'show'])->name('appointments.show');
 
         // Profile
@@ -259,13 +260,13 @@ Route::middleware('auth')->group(function () {
         Route::put('/settings', [App\Http\Controllers\Admin\SettingsController::class, 'update'])->name('settings.update');
         Route::post('/settings/auto-save', [App\Http\Controllers\Admin\SettingsController::class, 'updateSingle'])->name('settings.auto-save');
         Route::delete('/settings/logo', [App\Http\Controllers\Admin\SettingsController::class, 'removeLogo'])->name('settings.remove-logo');
-        
+
         // Legacy page edit route (for About only) - MUST come before resource route
         Route::get('/pages/about', [App\Http\Controllers\Admin\SettingsController::class, 'editAbout'])
             ->name('pages.about');
         Route::post('/pages/about/toggle-visibility', [App\Http\Controllers\Admin\SettingsController::class, 'toggleAboutVisibility'])->name('pages.about.toggle-visibility');
         Route::post('/pages/about/update-order', [App\Http\Controllers\Admin\SettingsController::class, 'updateAboutOrder'])->name('pages.about.update-order');
-        
+
         // Pages Management - Module Visibility Control only
         Route::get('/pages', [App\Http\Controllers\Admin\PageController::class, 'index'])->name('pages.index');
         Route::post('/pages/{id}/toggle-status', [App\Http\Controllers\Admin\PageController::class, 'toggleStatus'])->name('pages.toggle-status');
@@ -322,6 +323,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/schedules/{doctor}/manage', [App\Http\Controllers\Admin\ScheduleController::class, 'manage'])->name('schedules.manage');
         Route::post('/schedules/{doctor}/save', [App\Http\Controllers\Admin\ScheduleController::class, 'saveSettings'])->name('schedules.save-settings');
         Route::get('/schedules/{doctor}/view', [App\Http\Controllers\Admin\ScheduleController::class, 'view'])->name('schedules.view');
+
+        // Export
+        Route::post('/export/csv', [App\Http\Controllers\ExportController::class, 'csv'])->name('export.csv');
+        Route::post('/export/json', [App\Http\Controllers\ExportController::class, 'json'])->name('export.json');
     });
+});
+
+// Global Search (available to all authenticated users)
+Route::middleware('auth')->group(function () {
+    Route::get('/search', [App\Http\Controllers\SearchController::class, 'search'])->name('search');
+    Route::get('/search/autocomplete', [App\Http\Controllers\SearchController::class, 'autocomplete'])->name('search.autocomplete');
 });
 
