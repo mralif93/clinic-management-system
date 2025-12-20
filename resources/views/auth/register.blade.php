@@ -24,7 +24,7 @@
                     name="name"
                     label="Full Name"
                     type="text"
-                    icon="bx-user"
+                    icon="bx bx-user"
                     placeholder="Enter your full name"
                     required
                     :value="old('name')"
@@ -36,7 +36,7 @@
                     name="email"
                     label="Email Address"
                     type="email"
-                    icon="bx-envelope"
+                    icon="bx bx-envelope"
                     placeholder="Enter your email"
                     required
                     :value="old('email')"
@@ -48,7 +48,7 @@
                     name="password"
                     label="Password"
                     type="password"
-                    icon="bx-lock"
+                    icon="bx bx-lock"
                     placeholder="Enter your password"
                     required
                     autocomplete="new-password"
@@ -59,7 +59,7 @@
                     name="password_confirmation"
                     label="Confirm Password"
                     type="password"
-                    icon="bx-lock-alt"
+                    icon="bx bx-lock-alt"
                     placeholder="Confirm your password"
                     required
                     autocomplete="new-password"

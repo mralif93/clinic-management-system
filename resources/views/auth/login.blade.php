@@ -24,7 +24,7 @@
                     name="email"
                     label="Email Address"
                     type="email"
-                    icon="bx-envelope"
+                    icon="bx bx-envelope"
                     placeholder="Enter your email"
                     required
                     :value="old('email')"
@@ -36,7 +36,7 @@
                     name="password"
                     label="Password"
                     type="password"
-                    icon="bx-lock"
+                    icon="bx bx-lock"
                     placeholder="Enter your password"
                     required
                     autocomplete="current-password"

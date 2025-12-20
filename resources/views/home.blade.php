@@ -69,6 +69,7 @@
                             View All <i class='bx bx-arrow-right ml-1'></i>
                         </a>
                     </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                         @foreach($recentAnnouncements->take(6) as $announcement)
                             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
@@ -283,3 +284,6 @@
 
     </div>
 @endsection
+
+
+

@@ -31,15 +31,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Get featured announcements for hero carousel
-        $featuredAnnouncements = Announcement::featured()
-            ->active()
-            ->published()
-            ->orderBy('order')
-            ->orderBy('created_at', 'desc')
-            ->limit(5)
-            ->get();
-
         // Get recent announcements for announcements section
         $recentAnnouncements = Announcement::active()
             ->published()
@@ -68,7 +59,6 @@ class HomeController extends Controller
         $totalHomeopathyServices = Service::active()->byType('homeopathy')->count();
 
         return view('home', compact(
-            'featuredAnnouncements',
             'recentAnnouncements',
             'sliderAnnouncements',
             'psychologyServices',
