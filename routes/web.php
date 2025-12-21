@@ -27,7 +27,7 @@ Route::get('/announcements/{id}', [HomeController::class, 'showAnnouncement'])->
 
 // Dynamic Page Route (must be after specific routes)
 Route::get('/{slug}', [HomeController::class, 'page'])->name('page.show')
-    ->where('slug', '^(?!admin|login|register|logout|services|about|team|packages|announcements|staff|doctor|patient).*');
+    ->where('slug', '^(?!admin|login|register|logout|forgot-password|reset-password|services|about|team|packages|announcements|staff|doctor|patient).*');
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {

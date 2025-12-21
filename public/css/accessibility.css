@@ -29,7 +29,8 @@
 }
 
 /* ARIA Live Regions */
-[aria-live] {
+/* ARIA Live Regions - Only hide if really meant to be hidden */
+[aria-live]:not(.swal2-popup):not(.swal2-html-container):not(.swal2-content):not(.swal2-title) {
     position: absolute;
     left: -10000px;
     width: 1px;
@@ -42,7 +43,7 @@
     * {
         border-color: currentColor !important;
     }
-    
+
     button,
     a.btn {
         border: 2px solid currentColor;
@@ -51,6 +52,7 @@
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -215,11 +217,13 @@ img:not([alt]) {
 
 /* Color Contrast Fixes */
 .text-muted {
-    color: var(--color-neutral-600, #4b5563) !important; /* Ensure sufficient contrast */
+    color: var(--color-neutral-600, #4b5563) !important;
+    /* Ensure sufficient contrast */
 }
 
 .text-subtle {
-    color: var(--color-neutral-500, #6b7280) !important; /* Ensure sufficient contrast */
+    color: var(--color-neutral-500, #6b7280) !important;
+    /* Ensure sufficient contrast */
 }
 
 /* Interactive Element Sizing */
@@ -252,4 +256,3 @@ input[type="radio"] {
     min-width: 1.25rem;
     min-height: 1.25rem;
 }
-

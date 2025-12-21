@@ -53,22 +53,22 @@
 
     <!-- Global Button Styles -->
     <link href="{{ asset('css/buttons.css') }}" rel="stylesheet">
-    
+
     <!-- Design Tokens -->
     <link href="{{ asset('css/design-tokens.css') }}" rel="stylesheet">
-    
+
     <!-- Focus Styles -->
     <link href="{{ asset('css/focus.css') }}" rel="stylesheet">
-    
+
     <!-- Mobile Styles -->
     <link href="{{ asset('css/mobile.css') }}" rel="stylesheet">
-    
+
     <!-- Accessibility Styles -->
     <link href="{{ asset('css/accessibility.css') }}" rel="stylesheet">
-    
+
     <!-- Animations -->
     <link href="{{ asset('css/animations.css') }}" rel="stylesheet">
-    
+
     <!-- Responsive Fixes -->
     <link href="{{ asset('css/responsive-fixes.css') }}" rel="stylesheet">
 
@@ -80,40 +80,52 @@
         .rich-content p {
             margin-bottom: 0.5rem;
         }
+
         .rich-content p:last-child {
             margin-bottom: 0;
         }
+
         .rich-content ul {
             list-style-type: disc;
             padding-left: 1.5rem;
             margin: 0.5rem 0;
         }
+
         .rich-content ol {
             list-style-type: decimal;
             padding-left: 1.5rem;
             margin: 0.5rem 0;
         }
+
         .rich-content li {
             margin-bottom: 0.25rem;
         }
-        .rich-content strong, .rich-content b {
+
+        .rich-content strong,
+        .rich-content b {
             font-weight: 600;
         }
-        .rich-content em, .rich-content i:not([class]) {
+
+        .rich-content em,
+        .rich-content i:not([class]) {
             font-style: italic;
         }
+
         .rich-content u {
             text-decoration: underline;
         }
+
         .rich-content s {
             text-decoration: line-through;
         }
+
         .rich-content blockquote {
             border-left: 3px solid #d1d5db;
             padding-left: 1rem;
             margin: 0.5rem 0;
             color: #6b7280;
         }
+
         .rich-content pre {
             background: #1f2937;
             color: #f9fafb;
@@ -122,6 +134,7 @@
             overflow-x: auto;
             margin: 0.5rem 0;
         }
+
         .rich-content code {
             background: #f3f4f6;
             padding: 0.125rem 0.25rem;
@@ -129,6 +142,7 @@
             font-family: monospace;
             font-size: 0.875em;
         }
+
         .rich-content pre code {
             background: none;
             padding: 0;
@@ -141,7 +155,9 @@
 <body class="bg-gray-50 font-sans">
     <x-ui.skip-nav />
     <!-- Header -->
-    <header class="bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-sm sticky top-0 transition-all duration-300" style="z-index: 40 !important;">
+    <header
+        class="bg-white/95 backdrop-blur-md border-b border-gray-200/80 shadow-sm sticky top-0 transition-all duration-300"
+        style="z-index: 40 !important;">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16 md:h-18">
                 <!-- Logo -->
@@ -158,9 +174,8 @@
                             }
                         @endphp
                         @if($logoUrl)
-                            <img src="{{ $logoUrl }}" 
-                                 alt="{{ get_setting('clinic_name', 'Clinic Management') }} Logo" 
-                                 class="h-8 w-auto">
+                            <img src="{{ $logoUrl }}" alt="{{ get_setting('clinic_name', 'Clinic Management') }} Logo"
+                                class="h-8 w-auto">
                         @else
                             <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                                 <i class='bx bx-clinic text-white text-xl'></i>
@@ -180,31 +195,27 @@
                         $packagesPage = \App\Models\Page::where('type', 'packages')->first();
                         $aboutPage = \App\Models\Page::where('type', 'about')->first();
                     @endphp
-                    
+
                     @if(!$servicesPage || $servicesPage->is_published)
-                        <a href="{{ route('services.index') }}" 
-                           class="text-gray-700 hover:text-blue-600 font-medium">
+                        <a href="{{ route('services.index') }}" class="text-gray-700 hover:text-blue-600 font-medium">
                             Services
                         </a>
                     @endif
-                    
+
                     @if(!$aboutPage || $aboutPage->is_published)
-                        <a href="{{ route('about') }}" 
-                           class="text-gray-700 hover:text-blue-600 font-medium">
+                        <a href="{{ route('about') }}" class="text-gray-700 hover:text-blue-600 font-medium">
                             About
                         </a>
                     @endif
-                    
+
                     @if(!$teamPage || $teamPage->is_published)
-                        <a href="{{ route('team.index') }}" 
-                           class="text-gray-700 hover:text-blue-600 font-medium">
+                        <a href="{{ route('team.index') }}" class="text-gray-700 hover:text-blue-600 font-medium">
                             Team
                         </a>
                     @endif
-                    
+
                     @if(!$packagesPage || $packagesPage->is_published)
-                        <a href="{{ route('packages.index') }}" 
-                           class="text-gray-700 hover:text-blue-600 font-medium">
+                        <a href="{{ route('packages.index') }}" class="text-gray-700 hover:text-blue-600 font-medium">
                             Packages
                         </a>
                     @endif
@@ -216,8 +227,9 @@
                         <!-- User Menu - Desktop Only -->
                         <div class="hidden lg:block relative" x-data="{ open: false }" @click.away="open = false">
                             <button @click="open = !open"
-                                    class="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
-                                <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-semibold">
+                                class="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
+                                <div
+                                    class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-semibold">
                                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                                 </div>
                                 <span class="hidden lg:block font-medium">{{ explode(' ', Auth::user()->name)[0] }}</span>
@@ -225,12 +237,10 @@
                             </button>
 
                             <!-- Dropdown -->
-                            <div x-show="open" 
-                                 x-cloak
-                                 x-transition
-                                 class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1"
-                                 style="display: none;">
-                                
+                            <div x-show="open" x-cloak x-transition
+                                class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1"
+                                style="display: none;">
+
                                 <div class="px-4 py-2 border-b border-gray-100">
                                     <p class="text-sm font-semibold text-gray-900">{{ Auth::user()->name }}</p>
                                     <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
@@ -238,22 +248,22 @@
 
                                 @if(Auth::user()->role === 'admin')
                                     <a href="{{ route('admin.dashboard') }}"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         Dashboard
                                     </a>
                                 @elseif(Auth::user()->role === 'doctor')
                                     <a href="{{ route('doctor.dashboard') }}"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         Dashboard
                                     </a>
                                 @elseif(Auth::user()->role === 'staff')
                                     <a href="{{ route('staff.dashboard') }}"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         Dashboard
                                     </a>
                                 @else
                                     <a href="{{ route('patient.dashboard') }}"
-                                       class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                         Dashboard
                                     </a>
                                 @endif
@@ -262,7 +272,7 @@
                                     <form method="POST" action="{{ route('logout') }}" class="logout-form">
                                         @csrf
                                         <button type="submit"
-                                                class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                                            class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
                                             Logout
                                         </button>
                                     </form>
@@ -272,37 +282,34 @@
                     @else
                         <!-- Guest Buttons - Desktop Only -->
                         <div class="hidden lg:flex items-center space-x-4">
-                            <a href="{{ route('login') }}"
-                               class="text-gray-700 hover:text-blue-600 font-medium">
+                            <a href="{{ route('login') }}" class="text-gray-700 hover:text-blue-600 font-medium">
                                 Login
                             </a>
                             <a href="{{ route('register') }}"
-                               class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
+                                class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
                                 Get Started
                             </a>
                         </div>
                     @endauth
-                    
+
                     <!-- Mobile & Tablet Menu Button (< 1024px) -->
                     <div class="lg:hidden flex items-center">
                         <x-public.mobile-menu :items="[
-                            ['label' => 'Home', 'url' => route('home'), 'icon' => 'bx bx-home'],
-                            ['label' => 'Services', 'url' => route('services.index'), 'icon' => 'bx bx-list-ul'],
-                            ['label' => 'About Us', 'url' => route('about'), 'icon' => 'bx bx-info-circle'],
-                            ['label' => 'Our Team', 'url' => route('team.index'), 'icon' => 'bx bx-group'],
-                            ['label' => 'Packages', 'url' => route('packages.index'), 'icon' => 'bx bx-package'],
-                        ]" />
+        ['label' => 'Home', 'url' => route('home'), 'icon' => 'bx bx-home'],
+        ['label' => 'Services', 'url' => route('services.index'), 'icon' => 'bx bx-list-ul'],
+        ['label' => 'About Us', 'url' => route('about'), 'icon' => 'bx bx-info-circle'],
+        ['label' => 'Our Team', 'url' => route('team.index'), 'icon' => 'bx bx-group'],
+        ['label' => 'Packages', 'url' => route('packages.index'), 'icon' => 'bx bx-package'],
+    ]" />
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <main id="main-content" class="main-content" style="position: relative !important; z-index: 1 !important;" 
-          x-data="{ menuOpen: false }"
-          @menu-open.window="menuOpen = true"
-          @menu-close.window="menuOpen = false"
-          :class="menuOpen ? 'pointer-events-none' : ''">
+    <main id="main-content" class="main-content"
+        x-data="{ menuOpen: false }" @menu-open.window="menuOpen = true" @menu-close.window="menuOpen = false"
+        :class="menuOpen ? 'pointer-events-none' : ''">
         @yield('content')
     </main>
 
@@ -311,9 +318,9 @@
 
     <!-- Splide.js JS - Load before scripts stack -->
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-    
+
     @stack('scripts')
-    
+
     <!-- UI Enhancement Scripts -->
     <script src="{{ asset('js/skeleton.js') }}"></script>
     <script src="{{ asset('js/lazy-load.js') }}"></script>
@@ -361,20 +368,21 @@
 
         // Show session messages as SweetAlert
         @if(session('success'))
-            showSuccess('{{ session('success') }}');
+            showSuccess(@json(session('success')));
         @endif
 
         @if(session('error'))
-            showError('{{ session('error') }}');
+            showError(@json(session('error')));
         @endif
 
         @if(session('info'))
-            showInfo('{{ session('info') }}');
+            showInfo(@json(session('info')));
         @endif
 
         @if(session('warning'))
-            showWarning('{{ session('warning') }}');
+            showWarning(@json(session('warning')));
         @endif
+
 
         // Logout confirmation with loading
         document.querySelectorAll('.logout-form').forEach(form => {
