@@ -60,22 +60,26 @@
     <!-- Focus Styles -->
     <link href="{{ asset('css/focus.css') }}" rel="stylesheet">
 
-    <!-- Mobile Styles -->
-    <link href="{{ asset('css/mobile.css') }}" rel="stylesheet">
-
     <!-- Accessibility Styles -->
     <link href="{{ asset('css/accessibility.css') }}" rel="stylesheet">
 
     <!-- Animations -->
     <link href="{{ asset('css/animations.css') }}" rel="stylesheet">
 
-    <!-- Responsive Fixes -->
-    <link href="{{ asset('css/responsive-fixes.css') }}" rel="stylesheet">
-
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
+        /* Alpine.js - Hide elements until initialized */
+        [x-cloak] {
+            display: none !important;
+        }
+
+        /* Prevent body scroll when menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+
         /* Rich content styles for WYSIWYG editor output */
         .rich-content p {
             margin-bottom: 0.5rem;
@@ -152,7 +156,7 @@
     @stack('styles')
 </head>
 
-<body class="bg-gray-50 font-sans">
+<body class="bg-gray-50 font-sans" x-data="{ mobileMenuOpen: false }" :class="{ 'overflow-hidden': mobileMenuOpen }">
     <x-ui.skip-nav />
     <!-- Header -->
     <header
@@ -187,7 +191,7 @@
                     </a>
                 </div>
 
-                <!-- Navigation - Desktop Only (1024px+) -->
+                <!-- Navigation (Desktop) -->
                 <nav class="hidden lg:flex items-center space-x-8">
                     @php
                         $servicesPage = \App\Models\Page::where('type', 'services')->first();
@@ -223,65 +227,73 @@
 
                 <!-- Actions -->
                 <div class="flex items-center space-x-4">
-                    @auth
-                        <!-- User Menu - Desktop Only -->
-                        <div class="hidden lg:block relative" x-data="{ open: false }" @click.away="open = false">
-                            <button @click="open = !open"
-                                class="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
-                                <div
-                                    class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-semibold">
-                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                                </div>
-                                <span class="hidden lg:block font-medium">{{ explode(' ', Auth::user()->name)[0] }}</span>
-                                <i class='bx bx-chevron-down'></i>
-                            </button>
+                    <!-- Hamburger Menu Button (Mobile) -->
+                    <button @click="mobileMenuOpen = !mobileMenuOpen"
+                        class="lg:hidden p-2 text-gray-600 hover:text-gray-900 focus:outline-none rounded-lg hover:bg-gray-100">
+                        <i class='bx bx-menu text-2xl' x-show="!mobileMenuOpen"></i>
+                        <i class='bx bx-x text-2xl' x-show="mobileMenuOpen" x-cloak></i>
+                    </button>
 
-                            <!-- Dropdown -->
-                            <div x-show="open" x-cloak x-transition
-                                class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1"
-                                style="display: none;">
+                    <!-- Desktop Actions -->
+                    <div class="hidden lg:flex items-center space-x-4">
+                        @auth
+                            <!-- User Menu -->
+                            <div class="relative" x-data="{ open: false }" @click.away="open = false">
+                                <button @click="open = !open"
+                                    class="flex items-center space-x-2 text-gray-700 hover:text-blue-600">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white text-sm font-semibold">
+                                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                    </div>
+                                    <span class="font-medium">{{ explode(' ', Auth::user()->name)[0] }}</span>
+                                    <i class='bx bx-chevron-down'></i>
+                                </button>
 
-                                <div class="px-4 py-2 border-b border-gray-100">
-                                    <p class="text-sm font-semibold text-gray-900">{{ Auth::user()->name }}</p>
-                                    <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
-                                </div>
+                                <!-- Dropdown -->
+                                <div x-show="open" x-cloak x-transition
+                                    class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-1"
+                                    style="display: none;">
 
-                                @if(Auth::user()->role === 'admin')
-                                    <a href="{{ route('admin.dashboard') }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        Dashboard
-                                    </a>
-                                @elseif(Auth::user()->role === 'doctor')
-                                    <a href="{{ route('doctor.dashboard') }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        Dashboard
-                                    </a>
-                                @elseif(Auth::user()->role === 'staff')
-                                    <a href="{{ route('staff.dashboard') }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        Dashboard
-                                    </a>
-                                @else
-                                    <a href="{{ route('patient.dashboard') }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                        Dashboard
-                                    </a>
-                                @endif
+                                    <div class="px-4 py-2 border-b border-gray-100">
+                                        <p class="text-sm font-semibold text-gray-900">{{ Auth::user()->name }}</p>
+                                        <p class="text-xs text-gray-500">{{ Auth::user()->email }}</p>
+                                    </div>
 
-                                <div class="border-t border-gray-100">
-                                    <form method="POST" action="{{ route('logout') }}" class="logout-form">
-                                        @csrf
-                                        <button type="submit"
-                                            class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
-                                            Logout
-                                        </button>
-                                    </form>
+                                    @if(Auth::user()->role === 'admin')
+                                        <a href="{{ route('admin.dashboard') }}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Dashboard
+                                        </a>
+                                    @elseif(Auth::user()->role === 'doctor')
+                                        <a href="{{ route('doctor.dashboard') }}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Dashboard
+                                        </a>
+                                    @elseif(Auth::user()->role === 'staff')
+                                        <a href="{{ route('staff.dashboard') }}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Dashboard
+                                        </a>
+                                    @else
+                                        <a href="{{ route('patient.dashboard') }}"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                            Dashboard
+                                        </a>
+                                    @endif
+
+                                    <div class="border-t border-gray-100">
+                                        <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                                            @csrf
+                                            <button type="submit"
+                                                class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                                                Logout
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @else
-                        <!-- Guest Buttons - Desktop Only -->
-                        <div class="hidden lg:flex items-center space-x-4">
+                        @else
+                            <!-- Guest Buttons -->
                             <a href="{{ route('login') }}" class="text-gray-700 hover:text-blue-600 font-medium">
                                 Login
                             </a>
@@ -289,27 +301,17 @@
                                 class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
                                 Get Started
                             </a>
-                        </div>
-                    @endauth
-
-                    <!-- Mobile & Tablet Menu Button (< 1024px) -->
-                    <div class="lg:hidden flex items-center">
-                        <x-public.mobile-menu :items="[
-        ['label' => 'Home', 'url' => route('home'), 'icon' => 'bx bx-home'],
-        ['label' => 'Services', 'url' => route('services.index'), 'icon' => 'bx bx-list-ul'],
-        ['label' => 'About Us', 'url' => route('about'), 'icon' => 'bx bx-info-circle'],
-        ['label' => 'Our Team', 'url' => route('team.index'), 'icon' => 'bx bx-group'],
-        ['label' => 'Packages', 'url' => route('packages.index'), 'icon' => 'bx bx-package'],
-    ]" />
+                        @endauth
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <main id="main-content" class="main-content"
-        x-data="{ menuOpen: false }" @menu-open.window="menuOpen = true" @menu-close.window="menuOpen = false"
-        :class="menuOpen ? 'pointer-events-none' : ''">
+    <!-- Mobile Menu Component -->
+    <x-public.mobile-menu />
+
+    <main id="main-content" class="main-content">
         @yield('content')
     </main>
 
@@ -420,7 +422,7 @@
                     }
                 });
             });
-        });
+    });
     </script>
 </body>
 

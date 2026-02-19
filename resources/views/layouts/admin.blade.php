@@ -93,81 +93,23 @@
 
     <!-- Global Button Styles -->
     <link href="{{ asset('css/buttons.css') }}" rel="stylesheet">
-    
+
     <!-- Design Tokens -->
     <link href="{{ asset('css/design-tokens.css') }}" rel="stylesheet">
-    
+
     <!-- Focus Styles -->
     <link href="{{ asset('css/focus.css') }}" rel="stylesheet">
-    
-    <!-- Mobile Styles -->
-    <link href="{{ asset('css/mobile.css') }}" rel="stylesheet">
-    
+
     <!-- Accessibility Styles -->
     <link href="{{ asset('css/accessibility.css') }}" rel="stylesheet">
-    
+
     <!-- Animations -->
     <link href="{{ asset('css/animations.css') }}" rel="stylesheet">
-    
-    <!-- Responsive Fixes -->
-    <link href="{{ asset('css/responsive-fixes.css') }}" rel="stylesheet">
 
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
-        /* Scrollbar Styling */
-        .sidebar-scroll::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .sidebar-scroll::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .sidebar-scroll::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
-
-        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }
-
-        /* Navigation Item Animations */
-        .nav-item {
-            position: relative;
-            transition: all 0.2s ease;
-        }
-
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 3px;
-            height: 0;
-            background: linear-gradient(180deg, #3b82f6, #60a5fa);
-            border-radius: 0 4px 4px 0;
-            transition: height 0.2s ease;
-        }
-
-        .nav-item:hover::before,
-        .nav-item.active::before {
-            height: 60%;
-        }
-
-        .nav-item.active::before {
-            height: 70%;
-        }
-
-        /* Mobile Sidebar Overlay */
-        .sidebar-overlay {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(2px);
-        }
-
         /* Pulse animation for notifications */
         @keyframes pulse-dot {
 
@@ -220,40 +162,52 @@
         .rich-content p {
             margin-bottom: 0.5rem;
         }
+
         .rich-content p:last-child {
             margin-bottom: 0;
         }
+
         .rich-content ul {
             list-style-type: disc;
             padding-left: 1.5rem;
             margin: 0.5rem 0;
         }
+
         .rich-content ol {
             list-style-type: decimal;
             padding-left: 1.5rem;
             margin: 0.5rem 0;
         }
+
         .rich-content li {
             margin-bottom: 0.25rem;
         }
-        .rich-content strong, .rich-content b {
+
+        .rich-content strong,
+        .rich-content b {
             font-weight: 600;
         }
-        .rich-content em, .rich-content i:not([class]) {
+
+        .rich-content em,
+        .rich-content i:not([class]) {
             font-style: italic;
         }
+
         .rich-content u {
             text-decoration: underline;
         }
+
         .rich-content s {
             text-decoration: line-through;
         }
+
         .rich-content blockquote {
             border-left: 3px solid #d1d5db;
             padding-left: 1rem;
             margin: 0.5rem 0;
             color: #6b7280;
         }
+
         .rich-content pre {
             background: #1f2937;
             color: #f9fafb;
@@ -262,6 +216,7 @@
             overflow-x: auto;
             margin: 0.5rem 0;
         }
+
         .rich-content code {
             background: #f3f4f6;
             padding: 0.125rem 0.25rem;
@@ -269,17 +224,30 @@
             font-family: monospace;
             font-size: 0.875em;
         }
+
         .rich-content pre code {
             background: none;
             padding: 0;
         }
-        .rich-content h1, .rich-content h2, .rich-content h3 {
+
+        .rich-content h1,
+        .rich-content h2,
+        .rich-content h3 {
             font-weight: 600;
             margin: 0.75rem 0 0.5rem 0;
         }
-        .rich-content h1 { font-size: 1.5rem; }
-        .rich-content h2 { font-size: 1.25rem; }
-        .rich-content h3 { font-size: 1.125rem; }
+
+        .rich-content h1 {
+            font-size: 1.5rem;
+        }
+
+        .rich-content h2 {
+            font-size: 1.25rem;
+        }
+
+        .rich-content h3 {
+            font-size: 1.125rem;
+        }
     </style>
 
     @stack('styles')
@@ -294,7 +262,7 @@
             x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
             x-transition:leave="transition-opacity ease-in duration-200" x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0" @click="mobileSidebarOpen = false"
-            class="fixed inset-0 z-40 lg:hidden sidebar-overlay" style="display: none;"></div>
+            class="fixed inset-0 z-40 lg:hidden bg-black/50 backdrop-blur-sm" style="display: none;"></div>
 
         <!-- Sidebar -->
         <aside :class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
@@ -333,15 +301,19 @@
             </div>
 
             <!-- Navigation -->
-            <nav class="flex-1 overflow-y-auto sidebar-scroll py-4 px-3">
+            @php
+                $navBase = "relative overflow-hidden flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1 before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[3px] before:bg-gradient-to-b before:from-blue-500 before:to-blue-400 before:rounded-r-sm before:transition-all before:duration-200 before:content-['']";
+                $navActive = "bg-white/10 text-white before:h-[70%]";
+                $navInactive = "text-sidebar-text hover:bg-white/5 hover:text-white before:h-0 hover:before:h-[60%]";
+            @endphp
+            <nav class="flex-1 overflow-y-auto py-4 px-3">
                 <!-- Main Section -->
                 <div class="mb-6">
                     <p class="px-3 mb-2 text-xs font-semibold text-sidebar-text uppercase tracking-wider">Main</p>
 
                     <!-- Dashboard -->
                     <a href="{{ route('admin.dashboard') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('admin.dashboard') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        class="{{ $navBase }} {{ request()->routeIs('admin.dashboard') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.dashboard') ? 'bg-blue-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
@@ -359,8 +331,7 @@
                     <div x-data="{ open: {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.staff.*') || request()->routeIs('admin.doctors.*') || request()->routeIs('admin.patients.*') ? 'true' : 'false' }} }"
                         class="mb-1">
                         <button @click="open = !open"
-                            class="nav-item w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all
-                            {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.staff.*') || request()->routeIs('admin.doctors.*') || request()->routeIs('admin.patients.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                            class="w-full justify-between {{ $navBase }} {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.staff.*') || request()->routeIs('admin.doctors.*') || request()->routeIs('admin.patients.*') ? $navActive : $navInactive }}">
                             <div class="flex items-center gap-3">
                                 <div
                                     class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.staff.*') || request()->routeIs('admin.doctors.*') || request()->routeIs('admin.patients.*') ? 'bg-violet-500/20' : 'bg-white/5' }} flex items-center justify-center">
@@ -403,8 +374,7 @@
 
                     <!-- Pages -->
                     <a href="{{ route('admin.pages.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ (request()->routeIs('admin.pages.*')) || (request()->routeIs('admin.settings.*') && request('tab') === 'pages') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        class="{{ $navBase }} {{ (request()->routeIs('admin.pages.*')) || (request()->routeIs('admin.settings.*') && request('tab') === 'pages') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ (request()->routeIs('admin.pages.*')) || (request()->routeIs('admin.settings.*') && request('tab') === 'pages') ? 'bg-slate-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
@@ -415,8 +385,7 @@
 
                     <!-- Services -->
                     <a href="{{ route('admin.services.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('admin.services.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        class="{{ $navBase }} {{ request()->routeIs('admin.services.*') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.services.*') ? 'bg-cyan-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
@@ -427,8 +396,7 @@
 
                     <!-- Packages -->
                     <a href="{{ route('admin.packages.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('admin.packages.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        class="{{ $navBase }} {{ request()->routeIs('admin.packages.*') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.packages.*') ? 'bg-purple-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
@@ -439,8 +407,7 @@
 
                     <!-- Team -->
                     <a href="{{ route('admin.team.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('admin.team.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        class="{{ $navBase }} {{ request()->routeIs('admin.team.*') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.team.*') ? 'bg-indigo-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
@@ -451,8 +418,7 @@
 
                     <!-- Announcements -->
                     <a href="{{ route('admin.announcements.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('admin.announcements.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        class="{{ $navBase }} {{ request()->routeIs('admin.announcements.*') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.announcements.*') ? 'bg-blue-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
@@ -463,8 +429,7 @@
 
                     <!-- Appointments -->
                     <a href="{{ route('admin.appointments.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('admin.appointments.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        class="{{ $navBase }} {{ request()->routeIs('admin.appointments.*') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.appointments.*') ? 'bg-green-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
@@ -475,8 +440,7 @@
 
                     <!-- Schedules -->
                     <a href="{{ route('admin.schedules.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('admin.schedules.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        class="{{ $navBase }} {{ request()->routeIs('admin.schedules.*') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.schedules.*') ? 'bg-teal-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
@@ -493,8 +457,7 @@
 
                     <!-- Attendance -->
                     <a href="{{ route('admin.attendance.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('admin.attendance.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        class="{{ $navBase }} {{ request()->routeIs('admin.attendance.*') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.attendance.*') ? 'bg-orange-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
@@ -505,8 +468,7 @@
 
                     <!-- Leave -->
                     <a href="{{ route('admin.leaves.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('admin.leaves.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        class="{{ $navBase }} {{ request()->routeIs('admin.leaves.*') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.leaves.*') ? 'bg-purple-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
@@ -517,8 +479,7 @@
 
                     <!-- Payroll -->
                     <a href="{{ route('admin.payrolls.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('admin.payrolls.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        class="{{ $navBase }} {{ request()->routeIs('admin.payrolls.*') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.payrolls.*') ? 'bg-emerald-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
@@ -534,8 +495,7 @@
 
                     <!-- To-Do List -->
                     <a href="{{ route('admin.todos.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('admin.todos.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        class="{{ $navBase }} {{ request()->routeIs('admin.todos.*') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.todos.*') ? 'bg-pink-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
@@ -546,8 +506,7 @@
 
                     <!-- Report -->
                     <a href="{{ route('admin.reports.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('admin.reports.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                        class="{{ $navBase }} {{ request()->routeIs('admin.reports.*') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.reports.*') ? 'bg-indigo-500/20' : 'bg-white/5' }} flex items-center justify-center">
                             <i
@@ -562,8 +521,7 @@
             <div class="flex-shrink-0 border-t border-white/10 p-3">
                 <!-- Settings -->
                 <a href="{{ route('admin.settings.index') }}"
-                    class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-2
-                    {{ request()->routeIs('admin.settings.*') && request('tab') !== 'pages' ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
+                    class="{{ $navBase }} {{ request()->routeIs('admin.settings.*') && request('tab') !== 'pages' ? $navActive : $navInactive }}">
                     <div
                         class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.settings.*') && request('tab') !== 'pages' ? 'bg-slate-500/20' : 'bg-white/5' }} flex items-center justify-center">
                         <i
@@ -602,7 +560,8 @@
 
                         <!-- Page Title -->
                         <div class="min-w-0">
-                            <h1 class="text-base sm:text-lg font-semibold text-gray-900 truncate">@yield('page-title', 'Dashboard')</h1>
+                            <h1 class="text-base sm:text-lg font-semibold text-gray-900 truncate">
+                                @yield('page-title', 'Dashboard')</h1>
                         </div>
                     </div>
 
@@ -612,7 +571,7 @@
                         <div class="hidden md:block w-48 lg:w-64 xl:w-80">
                             <x-search.global-search />
                         </div>
-                        
+
                         <!-- Quick Actions -->
                         <a href="{{ route('admin.appointments.create') }}"
                             class="hidden sm:inline-flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap">
@@ -695,7 +654,7 @@
     </div>
 
     @stack('scripts')
-    
+
     <!-- UI Enhancement Scripts -->
     <script src="{{ asset('js/skeleton.js') }}"></script>
     <script src="{{ asset('js/validation.js') }}"></script>

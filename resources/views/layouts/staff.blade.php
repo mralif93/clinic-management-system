@@ -74,71 +74,23 @@
 
     <!-- Global Button Styles -->
     <link href="{{ asset('css/buttons.css') }}" rel="stylesheet">
-    
+
     <!-- Design Tokens -->
     <link href="{{ asset('css/design-tokens.css') }}" rel="stylesheet">
-    
+
     <!-- Focus Styles -->
     <link href="{{ asset('css/focus.css') }}" rel="stylesheet">
-    
-    <!-- Mobile Styles -->
-    <link href="{{ asset('css/mobile.css') }}" rel="stylesheet">
-    
+
     <!-- Accessibility Styles -->
     <link href="{{ asset('css/accessibility.css') }}" rel="stylesheet">
-    
+
     <!-- Animations -->
     <link href="{{ asset('css/animations.css') }}" rel="stylesheet">
-    
-    <!-- Responsive Fixes -->
-    <link href="{{ asset('css/responsive-fixes.css') }}" rel="stylesheet">
 
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
-        /* Sidebar Scrollbar */
-        .sidebar-scroll::-webkit-scrollbar {
-            width: 4px;
-        }
-        .sidebar-scroll::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .sidebar-scroll::-webkit-scrollbar-thumb {
-            background: rgba(148, 163, 184, 0.3);
-            border-radius: 4px;
-        }
-        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
-            background: rgba(148, 163, 184, 0.5);
-        }
-
-        /* Sidebar Overlay */
-        .sidebar-overlay {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(2px);
-        }
-
-        /* Navigation item hover effect */
-        .nav-item {
-            position: relative;
-            overflow: hidden;
-        }
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background: linear-gradient(to bottom, #f59e0b, #d97706);
-            transform: scaleY(0);
-            transition: transform 0.2s ease;
-        }
-        .nav-item:hover::before,
-        .nav-item.active::before {
-            transform: scaleY(1);
-        }
-
         /* Global Input Sizing */
         input[type="text"],
         input[type="email"],
@@ -165,40 +117,52 @@
         .rich-content p {
             margin-bottom: 0.5rem;
         }
+
         .rich-content p:last-child {
             margin-bottom: 0;
         }
+
         .rich-content ul {
             list-style-type: disc;
             padding-left: 1.5rem;
             margin: 0.5rem 0;
         }
+
         .rich-content ol {
             list-style-type: decimal;
             padding-left: 1.5rem;
             margin: 0.5rem 0;
         }
+
         .rich-content li {
             margin-bottom: 0.25rem;
         }
-        .rich-content strong, .rich-content b {
+
+        .rich-content strong,
+        .rich-content b {
             font-weight: 600;
         }
-        .rich-content em, .rich-content i:not([class]) {
+
+        .rich-content em,
+        .rich-content i:not([class]) {
             font-style: italic;
         }
+
         .rich-content u {
             text-decoration: underline;
         }
+
         .rich-content s {
             text-decoration: line-through;
         }
+
         .rich-content blockquote {
             border-left: 3px solid #d1d5db;
             padding-left: 1rem;
             margin: 0.5rem 0;
             color: #6b7280;
         }
+
         .rich-content pre {
             background: #1f2937;
             color: #f9fafb;
@@ -207,6 +171,7 @@
             overflow-x: auto;
             margin: 0.5rem 0;
         }
+
         .rich-content code {
             background: #f3f4f6;
             padding: 0.125rem 0.25rem;
@@ -214,6 +179,7 @@
             font-family: monospace;
             font-size: 0.875em;
         }
+
         .rich-content pre code {
             background: none;
             padding: 0;
@@ -232,7 +198,7 @@
             x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
             x-transition:leave="transition-opacity ease-in duration-200" x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0" @click="mobileSidebarOpen = false"
-            class="fixed inset-0 z-40 lg:hidden sidebar-overlay" style="display: none;"></div>
+            class="fixed inset-0 z-40 lg:hidden bg-black/50 backdrop-blur-sm" style="display: none;"></div>
 
         <!-- Sidebar -->
         <aside :class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
@@ -258,7 +224,8 @@
                             <img src="{{ $logoUrl }}" alt="{{ $clinicName }}" class="max-h-full max-w-full object-contain">
                         </div>
                     @else
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
                             <i class='bx bx-id-card text-xl text-white'></i>
                         </div>
                     @endif
@@ -270,37 +237,45 @@
             </div>
 
             <!-- Navigation -->
-            <nav class="flex-1 overflow-y-auto sidebar-scroll py-4 px-3">
+            @php
+                $navBase = "relative overflow-hidden flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1 before:absolute before:left-0 before:top-0 before:h-full before:w-[3px] before:bg-gradient-to-b before:from-amber-500 before:to-amber-600 before:transition-transform before:duration-200 before:ease-out before:content-['']";
+                $navActive = "bg-white/10 text-white before:scale-y-100";
+                $navInactive = "text-sidebar-text hover:bg-white/5 hover:text-white before:scale-y-0 hover:before:scale-y-100";
+            @endphp
+            <nav class="flex-1 overflow-y-auto py-4 px-3">
                 <!-- Main Section -->
                 <div class="mb-6">
                     <p class="px-3 mb-2 text-xs font-semibold text-sidebar-text uppercase tracking-wider">Main</p>
 
                     <!-- Dashboard -->
                     <a href="{{ route('staff.dashboard') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('staff.dashboard') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.dashboard') ? 'bg-amber-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bxs-dashboard text-lg {{ request()->routeIs('staff.dashboard') ? 'text-amber-400' : '' }}'></i>
+                        class="{{ $navBase }} {{ request()->routeIs('staff.dashboard') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.dashboard') ? 'bg-amber-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bxs-dashboard text-lg {{ request()->routeIs('staff.dashboard') ? 'text-amber-400' : '' }}'></i>
                         </div>
                         <span>Dashboard</span>
                     </a>
 
                     <!-- Patient Flow -->
                     <a href="{{ route('staff.patient-flow') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('staff.patient-flow*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.patient-flow*') ? 'bg-teal-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-transfer text-lg {{ request()->routeIs('staff.patient-flow*') ? 'text-teal-400' : '' }}'></i>
+                        class="{{ $navBase }} {{ request()->routeIs('staff.patient-flow*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.patient-flow*') ? 'bg-teal-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-transfer text-lg {{ request()->routeIs('staff.patient-flow*') ? 'text-teal-400' : '' }}'></i>
                         </div>
                         <span>Patient Flow</span>
                     </a>
 
                     <!-- Tasks -->
                     <a href="{{ route('staff.todos.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('staff.todos.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.todos.*') ? 'bg-pink-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-task text-lg {{ request()->routeIs('staff.todos.*') ? 'text-pink-400' : '' }}'></i>
+                        class="{{ $navBase }} {{ request()->routeIs('staff.todos.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.todos.*') ? 'bg-pink-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-task text-lg {{ request()->routeIs('staff.todos.*') ? 'text-pink-400' : '' }}'></i>
                         </div>
                         <span>Tasks</span>
                     </a>
@@ -312,30 +287,33 @@
 
                     <!-- Attendance -->
                     <a href="{{ route('staff.attendance.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('staff.attendance.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.attendance.*') ? 'bg-green-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-time text-lg {{ request()->routeIs('staff.attendance.*') ? 'text-green-400' : '' }}'></i>
+                        class="{{ $navBase }} {{ request()->routeIs('staff.attendance.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.attendance.*') ? 'bg-green-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-time text-lg {{ request()->routeIs('staff.attendance.*') ? 'text-green-400' : '' }}'></i>
                         </div>
                         <span>Attendance</span>
                     </a>
 
                     <!-- Schedule -->
                     <a href="{{ route('staff.schedule.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('staff.schedule.index') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.schedule.index') ? 'bg-cyan-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-calendar text-lg {{ request()->routeIs('staff.schedule.index') ? 'text-cyan-400' : '' }}'></i>
+                        class="{{ $navBase }} {{ request()->routeIs('staff.schedule.index') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.schedule.index') ? 'bg-cyan-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-calendar text-lg {{ request()->routeIs('staff.schedule.index') ? 'text-cyan-400' : '' }}'></i>
                         </div>
                         <span>My Schedule</span>
                     </a>
 
                     <!-- Appointments -->
                     <a href="{{ route('staff.appointments.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('staff.appointments.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.appointments.*') ? 'bg-blue-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-calendar text-lg {{ request()->routeIs('staff.appointments.*') ? 'text-blue-400' : '' }}'></i>
+                        class="{{ $navBase }} {{ request()->routeIs('staff.appointments.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.appointments.*') ? 'bg-blue-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-calendar text-lg {{ request()->routeIs('staff.appointments.*') ? 'text-blue-400' : '' }}'></i>
                         </div>
                         <span>Appointments</span>
                     </a>
@@ -347,20 +325,22 @@
 
                     <!-- Doctors -->
                     <a href="{{ route('staff.schedule.doctors') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('staff.schedule.doctors') || request()->routeIs('staff.schedule.view-doctor') || request()->routeIs('staff.doctors.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.schedule.doctors') || request()->routeIs('staff.schedule.view-doctor') || request()->routeIs('staff.doctors.*') ? 'bg-emerald-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-user text-lg {{ request()->routeIs('staff.schedule.doctors') || request()->routeIs('staff.schedule.view-doctor') || request()->routeIs('staff.doctors.*') ? 'text-emerald-400' : '' }}'></i>
+                        class="{{ $navBase }} {{ request()->routeIs('staff.schedule.doctors') || request()->routeIs('staff.schedule.view-doctor') || request()->routeIs('staff.doctors.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.schedule.doctors') || request()->routeIs('staff.schedule.view-doctor') || request()->routeIs('staff.doctors.*') ? 'bg-emerald-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-user text-lg {{ request()->routeIs('staff.schedule.doctors') || request()->routeIs('staff.schedule.view-doctor') || request()->routeIs('staff.doctors.*') ? 'text-emerald-400' : '' }}'></i>
                         </div>
                         <span>Doctors</span>
                     </a>
 
                     <!-- Patients -->
                     <a href="{{ route('staff.patients.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('staff.patients.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.patients.*') ? 'bg-violet-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-group text-lg {{ request()->routeIs('staff.patients.*') ? 'text-violet-400' : '' }}'></i>
+                        class="{{ $navBase }} {{ request()->routeIs('staff.patients.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.patients.*') ? 'bg-violet-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-group text-lg {{ request()->routeIs('staff.patients.*') ? 'text-violet-400' : '' }}'></i>
                         </div>
                         <span>Patients</span>
                     </a>
@@ -372,40 +352,44 @@
 
                     <!-- Leave -->
                     <a href="{{ route('staff.leaves.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('staff.leaves.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.leaves.*') ? 'bg-orange-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-calendar-check text-lg {{ request()->routeIs('staff.leaves.*') ? 'text-orange-400' : '' }}'></i>
+                        class="{{ $navBase }} {{ request()->routeIs('staff.leaves.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.leaves.*') ? 'bg-orange-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-calendar-check text-lg {{ request()->routeIs('staff.leaves.*') ? 'text-orange-400' : '' }}'></i>
                         </div>
                         <span>Leave</span>
                     </a>
 
                     <!-- Payslips -->
                     <a href="{{ route('staff.payslips.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('staff.payslips.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.payslips.*') ? 'bg-teal-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-receipt text-lg {{ request()->routeIs('staff.payslips.*') ? 'text-teal-400' : '' }}'></i>
+                        class="{{ $navBase }} {{ request()->routeIs('staff.payslips.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.payslips.*') ? 'bg-teal-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-receipt text-lg {{ request()->routeIs('staff.payslips.*') ? 'text-teal-400' : '' }}'></i>
                         </div>
                         <span>Payslips</span>
                     </a>
 
                     <!-- Profile -->
                     <a href="{{ route('staff.profile.show') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('staff.profile.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.profile.*') ? 'bg-indigo-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-user text-lg {{ request()->routeIs('staff.profile.*') ? 'text-indigo-400' : '' }}'></i>
+                        class="{{ $navBase }} {{ request()->routeIs('staff.profile.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.profile.*') ? 'bg-indigo-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-user text-lg {{ request()->routeIs('staff.profile.*') ? 'text-indigo-400' : '' }}'></i>
                         </div>
                         <span>My Profile</span>
                     </a>
 
                     <!-- Reports -->
                     <a href="{{ route('staff.reports.index') }}"
-                        class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1
-                        {{ request()->routeIs('staff.reports.*') ? 'active bg-white/10 text-white' : 'text-sidebar-text hover:bg-white/5 hover:text-white' }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.reports.*') ? 'bg-rose-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i class='bx bx-file text-lg {{ request()->routeIs('staff.reports.*') ? 'text-rose-400' : '' }}'></i>
+                        class="{{ $navBase }} {{ request()->routeIs('staff.reports.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.reports.*') ? 'bg-rose-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-file text-lg {{ request()->routeIs('staff.reports.*') ? 'text-rose-400' : '' }}'></i>
                         </div>
                         <span>Reports</span>
                     </a>
@@ -417,7 +401,8 @@
                 <div x-data="{ open: false }" class="relative">
                     <button @click="open = !open"
                         class="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-all">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white font-semibold text-sm">
+                        <div
+                            class="w-10 h-10 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white font-semibold text-sm">
                             {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                         </div>
                         <div class="flex-1 min-w-0 text-left">
@@ -426,12 +411,12 @@
                                 {{ Auth::user()->staff?->staff_id ?? 'Staff' }}
                             </p>
                         </div>
-                        <i class='bx bx-chevron-up text-sidebar-text transition-transform duration-200' :class="{ 'rotate-180': open }"></i>
+                        <i class='bx bx-chevron-up text-sidebar-text transition-transform duration-200'
+                            :class="{ 'rotate-180': open }"></i>
                     </button>
 
                     <!-- Dropdown -->
-                    <div x-show="open" @click.away="open = false"
-                        x-transition:enter="transition ease-out duration-100"
+                    <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-100"
                         x-transition:enter-start="opacity-0 transform scale-95"
                         x-transition:enter-end="opacity-100 transform scale-100"
                         x-transition:leave="transition ease-in duration-75"
@@ -473,7 +458,8 @@
 
                         <!-- Page Title -->
                         <div class="min-w-0">
-                            <h1 class="text-base sm:text-lg font-semibold text-gray-900 truncate">@yield('page-title', 'Dashboard')</h1>
+                            <h1 class="text-base sm:text-lg font-semibold text-gray-900 truncate">
+                                @yield('page-title', 'Dashboard')</h1>
                         </div>
                     </div>
 
@@ -483,10 +469,11 @@
                         <div class="hidden md:block w-48 lg:w-64 xl:w-80">
                             <x-search.global-search />
                         </div>
-                        
+
                         <!-- Staff Badge -->
                         @if(Auth::user()->staff)
-                            <span class="hidden sm:inline-flex items-center px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700 whitespace-nowrap">
+                            <span
+                                class="hidden sm:inline-flex items-center px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700 whitespace-nowrap">
                                 <i class='bx bx-id-card mr-1 text-xs sm:text-sm'></i>
                                 <span class="hidden lg:inline">{{ Auth::user()->staff?->staff_id ?? 'Staff' }}</span>
                             </span>
@@ -496,11 +483,14 @@
                         <div class="relative" x-data="{ open: false }">
                             <button @click="open = !open"
                                 class="flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white font-semibold text-xs sm:text-sm flex-shrink-0">
+                                <div
+                                    class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white font-semibold text-xs sm:text-sm flex-shrink-0">
                                     {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                                 </div>
-                                <span class="hidden lg:block text-xs sm:text-sm font-medium text-gray-700 truncate max-w-[100px]">{{ Auth::user()->name }}</span>
-                                <i class='bx bx-chevron-down text-gray-400 transition-transform duration-200 text-sm sm:text-base flex-shrink-0' :class="{ 'rotate-180': open }"></i>
+                                <span
+                                    class="hidden lg:block text-xs sm:text-sm font-medium text-gray-700 truncate max-w-[100px]">{{ Auth::user()->name }}</span>
+                                <i class='bx bx-chevron-down text-gray-400 transition-transform duration-200 text-sm sm:text-base flex-shrink-0'
+                                    :class="{ 'rotate-180': open }"></i>
                             </button>
 
                             <!-- Dropdown Menu -->
@@ -546,7 +536,7 @@
     </div>
 
     @stack('scripts')
-    
+
     <!-- UI Enhancement Scripts -->
     <script src="{{ asset('js/skeleton.js') }}"></script>
     <script src="{{ asset('js/validation.js') }}"></script>
@@ -639,57 +629,104 @@
                 const formElement = this;
 
                 @if($hasActiveAttendance)
-                // Staff is clocked in - show options
-                Swal.fire({
-                    title: 'Before you go...',
-                    html: `
-                        <div class="text-left py-2">
-                            <p class="text-gray-600 mb-4">You are still clocked in. What would you like to do?</p>
-                            <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-3">
-                                <div class="flex items-center gap-2 text-amber-700">
-                                    <i class='bx bx-time text-xl'></i>
-                                    <span class="font-medium">You haven't clocked out yet</span>
+                    // Staff is clocked in - show options
+                    Swal.fire({
+                        title: 'Before you go...',
+                        html: `
+                            <div class="text-left py-2">
+                                <p class="text-gray-600 mb-4">You are still clocked in. What would you like to do?</p>
+                                <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-3">
+                                    <div class="flex items-center gap-2 text-amber-700">
+                                        <i class='bx bx-time text-xl'></i>
+                                        <span class="font-medium">You haven't clocked out yet</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    `,
-                    icon: 'warning',
-                    iconColor: '#f59e0b',
-                    showDenyButton: true,
-                    showCancelButton: true,
-                    confirmButtonText: '<i class="bx bx-log-out mr-1"></i> Clock Out & Logout',
-                    denyButtonText: '<i class="bx bx-log-out mr-1"></i> Just Logout',
-                    cancelButtonText: 'Cancel',
-                    confirmButtonColor: '#10b981',
-                    denyButtonColor: '#ef4444',
-                    cancelButtonColor: '#6b7280',
-                    reverseButtons: true,
-                    customClass: {
-                        popup: 'rounded-2xl',
-                        confirmButton: 'rounded-xl px-4 py-2',
-                        denyButton: 'rounded-xl px-4 py-2',
-                        cancelButton: 'rounded-xl px-4 py-2'
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Clock out first, then logout
-                        Swal.fire({
-                            title: 'Clocking Out...',
-                            html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-green-500"></i><span>Recording your clock out time...</span></div>',
-                            allowOutsideClick: false,
-                            showConfirmButton: false
-                        });
+                        `,
+                        icon: 'warning',
+                        iconColor: '#f59e0b',
+                        showDenyButton: true,
+                        showCancelButton: true,
+                        confirmButtonText: '<i class="bx bx-log-out mr-1"></i> Clock Out & Logout',
+                        denyButtonText: '<i class="bx bx-log-out mr-1"></i> Just Logout',
+                        cancelButtonText: 'Cancel',
+                        confirmButtonColor: '#10b981',
+                        denyButtonColor: '#ef4444',
+                        cancelButtonColor: '#6b7280',
+                        reverseButtons: true,
+                        customClass: {
+                            popup: 'rounded-2xl',
+                            confirmButton: 'rounded-xl px-4 py-2',
+                            denyButton: 'rounded-xl px-4 py-2',
+                            cancelButton: 'rounded-xl px-4 py-2'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Clock out first, then logout
+                            Swal.fire({
+                                title: 'Clocking Out...',
+                                html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-green-500"></i><span>Recording your clock out time...</span></div>',
+                                allowOutsideClick: false,
+                                showConfirmButton: false
+                            });
 
-                        // Submit clock out via AJAX
-                        fetch('{{ route("staff.attendance.clock-out") }}', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                                'Accept': 'application/json'
-                            }
-                        }).then(response => {
-                            // Now logout
+                            // Submit clock out via AJAX
+                            fetch('{{ route("staff.attendance.clock-out") }}', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    'Accept': 'application/json'
+                                }
+                            }).then(response => {
+                                // Now logout
+                                Swal.fire({
+                                    title: 'Logging out...',
+                                    html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-amber-500"></i><span>Goodbye!</span></div>',
+                                    allowOutsideClick: false,
+                                    showConfirmButton: false
+                                });
+                                setTimeout(() => {
+                                    formElement.submit();
+                                }, 1500);
+                            }).catch(error => {
+                                console.error('Clock out error:', error);
+                                // Still logout even if clock out fails
+                                formElement.submit();
+                            });
+                        } else if (result.isDenied) {
+                            // Just logout without clocking out
+                            Swal.fire({
+                                title: 'Logging out...',
+                                html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-red-500"></i><span>Goodbye!</span></div>',
+                                allowOutsideClick: false,
+                                showConfirmButton: false
+                            });
+                            setTimeout(() => {
+                                formElement.submit();
+                            }, 1500);
+                        }
+                    });
+                @else
+                    // Staff not clocked in or already clocked out - simple logout
+                    Swal.fire({
+                        title: 'Logout?',
+                        text: 'Are you sure you want to logout?',
+                        icon: 'question',
+                        iconColor: '#f59e0b',
+                        showCancelButton: true,
+                        confirmButtonColor: '#ef4444',
+                        cancelButtonColor: '#6b7280',
+                        confirmButtonText: '<i class="bx bx-log-out mr-1"></i> Yes, Logout',
+                        cancelButtonText: 'Cancel',
+                        reverseButtons: true,
+                        customClass: {
+                            popup: 'rounded-2xl',
+                            confirmButton: 'rounded-xl px-4 py-2',
+                            cancelButton: 'rounded-xl px-4 py-2'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
                             Swal.fire({
                                 title: 'Logging out...',
                                 html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-amber-500"></i><span>Goodbye!</span></div>',
@@ -699,55 +736,8 @@
                             setTimeout(() => {
                                 formElement.submit();
                             }, 1500);
-                        }).catch(error => {
-                            console.error('Clock out error:', error);
-                            // Still logout even if clock out fails
-                            formElement.submit();
-                        });
-                    } else if (result.isDenied) {
-                        // Just logout without clocking out
-                        Swal.fire({
-                            title: 'Logging out...',
-                            html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-red-500"></i><span>Goodbye!</span></div>',
-                            allowOutsideClick: false,
-                            showConfirmButton: false
-                        });
-                        setTimeout(() => {
-                            formElement.submit();
-                        }, 1500);
-                    }
-                });
-                @else
-                // Staff not clocked in or already clocked out - simple logout
-                Swal.fire({
-                    title: 'Logout?',
-                    text: 'Are you sure you want to logout?',
-                    icon: 'question',
-                    iconColor: '#f59e0b',
-                    showCancelButton: true,
-                    confirmButtonColor: '#ef4444',
-                    cancelButtonColor: '#6b7280',
-                    confirmButtonText: '<i class="bx bx-log-out mr-1"></i> Yes, Logout',
-                    cancelButtonText: 'Cancel',
-                    reverseButtons: true,
-                    customClass: {
-                        popup: 'rounded-2xl',
-                        confirmButton: 'rounded-xl px-4 py-2',
-                        cancelButton: 'rounded-xl px-4 py-2'
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire({
-                            title: 'Logging out...',
-                            html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-amber-500"></i><span>Goodbye!</span></div>',
-                            allowOutsideClick: false,
-                            showConfirmButton: false
-                        });
-                        setTimeout(() => {
-                            formElement.submit();
-                        }, 1500);
-                    }
-                });
+                        }
+                    });
                 @endif
             });
         });

@@ -1,175 +1,140 @@
-@props([
-    'items' => []
-])
+@php
+    $servicesPage = \App\Models\Page::where('type', 'services')->first();
+    $teamPage = \App\Models\Page::where('type', 'team')->first();
+    $packagesPage = \App\Models\Page::where('type', 'packages')->first();
+    $aboutPage = \App\Models\Page::where('type', 'about')->first();
+@endphp
 
-<div 
-    x-data="{ 
-        open: false,
-        init() {
-            // Close menu when page loads (in case it was open)
-            this.open = false;
-            
-            // Close menu when navigating away
-            window.addEventListener('popstate', () => {
-                this.open = false;
-            });
-            
-            // Close menu when clicking on any link
-            document.addEventListener('click', (e) => {
-                const link = e.target.closest('a[href]');
-                if (link && !link.closest('[x-data]')) {
-                    this.open = false;
-                }
-            });
-            
-            // Watch for menu state changes and manage body scroll
-            this.$watch('open', (value) => {
-                if (value) {
-                    document.body.classList.add('menu-open');
-                    document.body.style.overflow = 'hidden';
+<div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-300"
+    x-transition:enter-start="opacity-0 -translate-y-full" x-transition:enter-end="opacity-100 translate-y-0"
+    x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0"
+    x-transition:leave-end="opacity-0 -translate-y-full"
+    class="fixed inset-0 z-50 bg-white lg:hidden flex flex-col h-[100dvh]" x-cloak>
+    <!-- Header -->
+    <div class="flex items-center justify-between px-4 h-16 border-b border-gray-100 shrink-0">
+        <div class="flex items-center space-x-3">
+            @php
+                $logoPath = get_setting('clinic_logo');
+                if ($logoPath && str_starts_with($logoPath, 'data:')) {
+                    $logoUrl = $logoPath;
+                } elseif ($logoPath) {
+                    $logoUrl = asset('storage/' . $logoPath);
                 } else {
-                    document.body.classList.remove('menu-open');
-                    document.body.style.overflow = '';
+                    $logoUrl = null;
                 }
-            });
-        }
-    }"
-    class="lg:hidden"
-    x-cloak
->
-    <!-- Note: This menu is now used for both mobile AND tablet views (< 1024px) -->
-    <!-- Mobile Menu Button -->
-    <button 
-        @click="open = !open"
-        class="p-2.5 rounded-lg text-gray-600 hover:bg-gray-100 active:bg-gray-200 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
-        aria-label="Toggle menu"
-        aria-expanded="false"
-        :aria-expanded="open"
-    >
-        <i class='bx bx-menu text-2xl' x-show="!open"></i>
-        <i class='bx bx-x text-2xl' x-show="open" style="display: none;"></i>
-    </button>
-    
-    <!-- Mobile Menu Overlay -->
-    <div 
-        x-show="open"
-        x-transition:enter="transition ease-out duration-200"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in duration-150"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
-        @click="open = false"
-        @keydown.escape.window="open = false"
-        class="mobile-menu-overlay"
-        style="position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important; width: 100vw !important; height: 100vh !important; background-color: rgba(0, 0, 0, 0.6) !important; backdrop-filter: blur(4px) !important; z-index: 99998 !important; display: none;"
-        x-cloak
-    ></div>
-    
-    <!-- Mobile Menu Panel -->
-    <div 
-        x-show="open"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="transform translate-x-full"
-        x-transition:enter-end="transform translate-x-0"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="transform translate-x-0"
-        x-transition:leave-end="transform translate-x-full"
-        @click.away="open = false"
-        class="mobile-menu-panel"
-        style="position: fixed !important; top: 0 !important; right: 0 !important; bottom: 0 !important; width: 260px !important; height: 100vh !important; background-color: white !important; box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15) !important; overflow-y: auto !important; z-index: 99999 !important; display: none;"
-        x-cloak
-    >
-        <!-- Header Section -->
-        <div class="sticky top-0 bg-white border-b border-gray-200 px-3 py-2 z-20">
-            <div class="flex justify-between items-center">
-                <h2 class="text-sm font-semibold text-gray-900">Menu</h2>
-                <button 
-                    @click="open = false"
-                    class="p-1.5 rounded text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center"
-                    aria-label="Close menu"
-                >
-                    <i class='bx bx-x text-lg'></i>
-                </button>
-            </div>
+            @endphp
+            @if($logoUrl)
+                <img src="{{ $logoUrl }}" alt="Logo" class="h-8 w-auto">
+            @else
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                    <i class='bx bx-clinic text-white text-xl'></i>
+                </div>
+            @endif
+            <span class="text-xl font-bold text-gray-900">Menu</span>
         </div>
-        
-        <div class="p-3">
-            <!-- Navigation Items -->
-            <nav class="space-y-1">
-                @foreach($items as $item)
-                    @php
-                        $isActive = request()->url() === ($item['url'] ?? '#');
-                        $iconClass = isset($item['icon']) ? (str_starts_with($item['icon'], 'bx ') ? $item['icon'] : 'bx ' . $item['icon']) : 'bx bx-circle';
-                    @endphp
-                    <a 
-                        href="{{ $item['url'] ?? '#' }}"
-                        class="flex flex-row items-center gap-3 px-3 rounded-lg transition-colors {{ $isActive ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50' }}"
-                        style="height: 44px; display: flex !important; flex-direction: row !important; align-items: center !important;"
-                        @click="open = false"
-                    >
-                        <i class='{{ $iconClass }} {{ $isActive ? 'text-blue-600' : 'text-gray-400' }}' style="font-size: 18px; line-height: 1; flex-shrink: 0; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;"></i>
-                        <span class="text-sm" style="line-height: 1; display: flex; align-items: center;">{{ $item['label'] ?? '' }}</span>
-                    </a>
-                @endforeach
-            </nav>
-            
-            <!-- Auth Section -->
-            <div class="mt-2 pt-2 border-t border-gray-200">
-                @auth
-                    <!-- User Info -->
-                    <div class="flex items-center gap-2 px-2 py-1.5 bg-gray-50 rounded mb-1">
-                        <div class="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold text-[10px] flex-shrink-0">
-                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <p class="text-[11px] font-semibold text-gray-900 truncate">{{ Auth::user()->name }}</p>
-                            <p class="text-[10px] text-gray-500 truncate">{{ Auth::user()->email }}</p>
-                        </div>
+        <button @click="mobileMenuOpen = false"
+            class="p-2 -mr-2 text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 rounded-lg">
+            <span class="sr-only">Close menu</span>
+            <i class='bx bx-x text-3xl'></i>
+        </button>
+    </div>
+
+    <!-- Scrollable Content -->
+    <div class="flex-1 overflow-y-auto py-6 px-4 space-y-8">
+        <!-- Navigation -->
+        <nav class="flex flex-col space-y-4">
+            @if(!$servicesPage || $servicesPage->is_published)
+                <a href="{{ route('services.index') }}"
+                    class="flex items-center space-x-3 text-lg font-medium text-gray-900 hover:text-blue-600 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                    <i class='bx bx-plus-medical text-xl text-gray-400'></i>
+                    <span>Services</span>
+                </a>
+            @endif
+
+            @if(!$aboutPage || $aboutPage->is_published)
+                <a href="{{ route('about') }}"
+                    class="flex items-center space-x-3 text-lg font-medium text-gray-900 hover:text-blue-600 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                    <i class='bx bx-info-circle text-xl text-gray-400'></i>
+                    <span>About</span>
+                </a>
+            @endif
+
+            @if(!$teamPage || $teamPage->is_published)
+                <a href="{{ route('team.index') }}"
+                    class="flex items-center space-x-3 text-lg font-medium text-gray-900 hover:text-blue-600 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                    <i class='bx bx-user-voice text-xl text-gray-400'></i>
+                    <span>Team</span>
+                </a>
+            @endif
+
+            @if(!$packagesPage || $packagesPage->is_published)
+                <a href="{{ route('packages.index') }}"
+                    class="flex items-center space-x-3 text-lg font-medium text-gray-900 hover:text-blue-600 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                    <i class='bx bx-package text-xl text-gray-400'></i>
+                    <span>Packages</span>
+                </a>
+            @endif
+        </nav>
+
+        <!-- Divider -->
+        <div class="border-t border-gray-100"></div>
+
+        <!-- Auth Actions -->
+        <div class="space-y-4">
+            @auth
+                <div class="flex items-center space-x-3 p-2 rounded-lg bg-gray-50">
+                    <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold">
+                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                     </div>
-                    
-                    <a 
-                        href="{{ route('patient.dashboard') }}"
-                        class="flex items-center gap-2 px-3 py-2 text-gray-700 hover:bg-gray-50 transition-colors min-h-[40px]"
-                        @click="open = false"
-                    >
-                        <i class='bx bx-home-alt text-base text-gray-400'></i>
-                        <span class="text-sm">Dashboard</span>
-                    </a>
-                    
+                    <div>
+                        <p class="font-medium text-gray-900">{{ Auth::user()->name }}</p>
+                        <p class="text-sm text-gray-500">{{ Auth::user()->email }}</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 gap-3">
+                    @if(Auth::user()->role === 'admin')
+                        <a href="{{ route('admin.dashboard') }}"
+                            class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                            Dashboard
+                        </a>
+                    @elseif(Auth::user()->role === 'doctor')
+                        <a href="{{ route('doctor.dashboard') }}"
+                            class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                            Dashboard
+                        </a>
+                    @elseif(Auth::user()->role === 'staff')
+                        <a href="{{ route('staff.dashboard') }}"
+                            class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                            Dashboard
+                        </a>
+                    @else
+                        <a href="{{ route('patient.dashboard') }}"
+                            class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                            Dashboard
+                        </a>
+                    @endif
+
                     <form method="POST" action="{{ route('logout') }}" class="logout-form">
                         @csrf
-                        <button 
-                            type="submit"
-                            class="flex items-center gap-2 w-full px-3 py-2 text-red-600 hover:bg-red-50 transition-colors min-h-[40px]"
-                            @click="open = false"
-                        >
-                            <i class='bx bx-log-out text-base'></i>
-                            <span class="text-sm">Logout</span>
+                        <button type="submit"
+                            class="w-full flex items-center justify-center px-4 py-3 border border-red-200 text-red-600 font-medium rounded-lg hover:bg-red-50 transition-colors">
+                            Logout
                         </button>
                     </form>
-                @else
-                    <div class="space-y-1.5 px-2">
-                        <a 
-                            href="{{ route('login') }}"
-                            class="flex items-center justify-center gap-1.5 w-full px-3 py-1.5 border border-gray-300 text-gray-700 rounded text-xs hover:bg-gray-50 transition-colors min-h-[36px]"
-                            @click="open = false"
-                        >
-                            <i class='bx bx-log-in text-sm'></i>
-                            <span>Login</span>
-                        </a>
-                        <a 
-                            href="{{ route('register') }}"
-                            class="flex items-center justify-center gap-1.5 w-full px-3 py-1.5 bg-blue-600 text-white rounded text-xs hover:bg-blue-700 transition-colors min-h-[36px]"
-                            @click="open = false"
-                        >
-                            <i class='bx bx-user-plus text-sm'></i>
-                            <span>Get Started</span>
-                        </a>
-                    </div>
-                @endauth
-            </div>
+                </div>
+            @else
+                <div class="grid grid-cols-1 gap-3">
+                    <a href="{{ route('login') }}"
+                        class="flex items-center justify-center px-4 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+                        Login
+                    </a>
+                    <a href="{{ route('register') }}"
+                        class="flex items-center justify-center px-4 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+                        Get Started
+                    </a>
+                </div>
+            @endauth
         </div>
     </div>
 </div>
-
