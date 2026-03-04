@@ -25,6 +25,10 @@
                         class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur text-white font-semibold rounded-xl hover:bg-white/30 transition">
                         <i class='bx bx-receipt mr-2'></i> Invoice
                     </a>
+                    <a href="{{ route('doctor.referral-letters.create', ['appointment_id' => $appointment->id]) }}"
+                        class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur text-white font-semibold rounded-xl hover:bg-white/30 transition">
+                        <i class='bx bx-transfer mr-2'></i> Referral Letter
+                    </a>
                     <a href="{{ route('doctor.appointments.edit', $appointment->id) }}"
                         class="inline-flex items-center px-4 py-2 bg-white text-emerald-600 font-semibold rounded-xl hover:bg-emerald-50 transition shadow-lg">
                         <i class='bx bx-edit mr-2'></i> Edit
@@ -162,6 +166,59 @@
             </div>
         </div>
 
+        <!-- Record Approval Card -->
+        @if($appointment->status === 'completed')
+        <div class="bg-white rounded-2xl shadow-sm border {{ $appointment->record_approved_at ? 'border-emerald-100' : 'border-amber-100' }} overflow-hidden">
+            <div class="px-6 py-4 border-b {{ $appointment->record_approved_at ? 'border-emerald-100 bg-emerald-50/50' : 'border-amber-100 bg-amber-50/50' }}">
+                <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
+                    <i class='bx {{ $appointment->record_approved_at ? "bx-check-shield text-emerald-500" : "bx-shield-quarter text-amber-500" }}'></i>
+                    Medical Record Approval
+                </h3>
+            </div>
+            <div class="p-6">
+                @if($appointment->record_approved_at)
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
+                                <i class='bx bx-check-double text-emerald-600 text-xl'></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-emerald-700">Record Approved</p>
+                                <p class="text-sm text-gray-500">
+                                    Approved by <strong>Dr. {{ $appointment->recordApprovedBy->name ?? 'Unknown' }}</strong>
+                                    on {{ $appointment->record_approved_at->format('d M Y, h:i A') }}
+                                </p>
+                            </div>
+                        </div>
+                        <span class="inline-flex items-center gap-1 px-4 py-1.5 bg-emerald-100 text-emerald-700 text-sm font-semibold rounded-full">
+                            <i class='bx bx-check-circle'></i> Approved
+                        </span>
+                    </div>
+                @else
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center">
+                                <i class='bx bx-time-five text-amber-600 text-xl'></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-amber-700">Approval Pending</p>
+                                <p class="text-sm text-gray-500">This completed appointment's medical record has not yet been approved. Please review the diagnosis, prescription, and notes below, then approve.</p>
+                            </div>
+                        </div>
+                        <form id="approveRecordForm" action="{{ route('doctor.appointments.approve-record', $appointment->id) }}" method="POST" class="flex-shrink-0">
+                            @csrf
+                            <button type="button" id="approveRecordBtn"
+                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 active:scale-95 transition-all shadow-lg shadow-emerald-500/30">
+                                <i class='bx bx-check-shield text-lg'></i>
+                                Approve Record
+                            </button>
+                        </form>
+                    </div>
+                @endif
+            </div>
+        </div>
+        @endif
+
         <!-- Medical Information -->
         @if($appointment->diagnosis || $appointment->prescription || $appointment->notes)
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -200,3 +257,37 @@
         @endif
     </div>
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const approveBtn = document.getElementById('approveRecordBtn');
+    if (!approveBtn) return;
+
+    approveBtn.addEventListener('click', function () {
+        Swal.fire({
+            title: 'Approve Medical Record?',
+            html: 'This confirms that the <strong>diagnosis</strong>, <strong>prescription</strong>, and <strong>notes</strong> are accurate and finalised.<br><br>This action cannot be undone once saved.',
+            icon: 'question',
+            iconColor: '#059669',
+            showCancelButton: true,
+            confirmButtonText: '<i class="bx bx-check-shield"></i> Yes, Approve',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: '#059669',
+            cancelButtonColor: '#6b7280',
+            reverseButtons: true,
+            focusConfirm: false,
+            customClass: {
+                popup: 'rounded-2xl',
+                confirmButton: 'rounded-xl px-5 py-2.5 font-semibold',
+                cancelButton: 'rounded-xl px-5 py-2.5 font-semibold',
+            }
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                document.getElementById('approveRecordForm').submit();
+            }
+        });
+    });
+});
+</script>
+@endpush

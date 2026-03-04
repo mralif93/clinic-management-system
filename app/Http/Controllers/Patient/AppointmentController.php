@@ -45,7 +45,7 @@ class AppointmentController extends Controller
             'service_id' => 'required|exists:services,id',
             'appointment_date' => 'required|date|after:today',
             'appointment_time' => 'required',
-            'notes' => 'nullable|string|max:500'
+            'notes' => 'nullable|string|max:500',
         ]);
 
         $patientId = Auth::id();
@@ -63,11 +63,12 @@ class AppointmentController extends Controller
             'appointment_date' => $validated['appointment_date'],
             'appointment_time' => $validated['appointment_time'],
             'notes' => $validated['notes'] ?? null,
-            'status' => 'pending'
+            'status' => 'pending',
+            'confirmation_token' => Appointment::generateConfirmationToken(),
         ]);
 
-        return redirect()->route('patient.appointments.show', $appointment->id)
-            ->with('success', 'Appointment booked successfully!');
+        return redirect()->route('patient.appointments.pending', $appointment->id)
+            ->with('success', 'Appointment submitted successfully!');
     }
 
     /**
@@ -81,7 +82,26 @@ class AppointmentController extends Controller
 
         $this->authorize('view', $appointment);
 
+        if ($appointment->status === 'pending') {
+            return redirect()->route('patient.appointments.pending', $appointment->id);
+        }
+
         return view('patient.appointments.show', compact('appointment'));
+    }
+
+    public function pending($id)
+    {
+        $appointment = Appointment::where('patient_id', Auth::id())
+            ->with(['doctor.user', 'service'])
+            ->findOrFail($id);
+
+        $this->authorize('view', $appointment);
+
+        if ($appointment->status !== 'pending') {
+            return redirect()->route('patient.appointments.show', $appointment->id);
+        }
+
+        return view('patient.appointments.pending', compact('appointment'));
     }
 
     /**
@@ -95,7 +115,7 @@ class AppointmentController extends Controller
         $this->authorize('cancel', $appointment);
 
         // Check if appointment is cancelable (more than 24 hours away)
-        $appointmentTime = \Carbon\Carbon::parse($appointment->appointment_date . ' ' . $appointment->appointment_time);
+        $appointmentTime = \Carbon\Carbon::parse($appointment->appointment_date.' '.$appointment->appointment_time);
 
         if ($appointmentTime->diffInHours(now(), false) > -24) {
             return back()->with('error', 'Appointments can only be cancelled at least 24 hours in advance.');
@@ -111,7 +131,7 @@ class AppointmentController extends Controller
 
         $appointment->update([
             'status' => 'cancelled',
-            'notes' => $appointment->notes . "\n[Cancelled by Patient at " . now()->format('Y-m-d H:i') . "]"
+            'notes' => $appointment->notes."\n[Cancelled by Patient at ".now()->format('Y-m-d H:i').']',
         ]);
 
         return redirect()->route('patient.appointments.index')

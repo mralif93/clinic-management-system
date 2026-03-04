@@ -34,7 +34,7 @@ class AppointmentController extends Controller
             $query->whereDate('appointment_date', $request->date);
         }
 
-        // Search by patient name
+        // Filter by search
         if ($request->has('search') && $request->search) {
             $search = $request->search;
             $query->whereHas('patient', function ($q) use ($search) {
@@ -43,11 +43,19 @@ class AppointmentController extends Controller
             });
         }
 
+        // Filter by pending approval (approved=0 means not yet approved)
+        if ($request->get('approved') === '0') {
+            $query->whereNull('record_approved_at');
+        }
+
         $appointments = $query->orderBy('appointment_date', 'desc')
             ->orderBy('appointment_time', 'desc')
             ->paginate(15);
 
-        return view('doctor.appointments.index', compact('appointments'));
+        // Track active filter for UI
+        $filterApproved = $request->get('approved');
+
+        return view('doctor.appointments.index', compact('appointments', 'filterApproved'));
     }
 
     /**
@@ -62,7 +70,7 @@ class AppointmentController extends Controller
                 ->with('error', 'Doctor profile not found. Please contact administrator.');
         }
 
-        $appointment = Appointment::with(['patient', 'service', 'user'])
+        $appointment = Appointment::with(['patient', 'service', 'user', 'recordApprovedBy'])
             ->where('doctor_id', $doctor->id)
             ->findOrFail($id);
 
@@ -110,15 +118,55 @@ class AppointmentController extends Controller
             'notes' => 'nullable|string',
         ]);
 
-        $appointment->update([
+        $updates = [
             'status' => $request->status,
             'diagnosis' => $request->diagnosis,
             'prescription' => $request->prescription,
             'notes' => $request->notes,
-        ]);
+        ];
+
+        $recordDataChanged = $appointment->diagnosis !== $request->diagnosis
+            || $appointment->prescription !== $request->prescription
+            || $appointment->notes !== $request->notes;
+
+        if ($recordDataChanged) {
+            $updates['record_approved_by'] = null;
+            $updates['record_approved_at'] = null;
+        }
+
+        $appointment->update($updates);
 
         return redirect()->route('doctor.appointments.show', $appointment->id)
             ->with('success', 'Appointment updated successfully!');
+    }
+
+    /**
+     * Approve the medical record for a completed appointment.
+     */
+    public function approveRecord($id)
+    {
+        $doctor = Auth::user()->doctor;
+
+        if (!$doctor) {
+            return redirect()->route('doctor.dashboard')
+                ->with('error', 'Doctor profile not found. Please contact administrator.');
+        }
+
+        $appointment = Appointment::where('doctor_id', $doctor->id)
+            ->findOrFail($id);
+
+        if ($appointment->status !== Appointment::STATUS_COMPLETED) {
+            return redirect()->back()
+                ->with('error', 'Only completed appointments can be approved as medical records.');
+        }
+
+        $appointment->update([
+            'record_approved_by' => Auth::id(),
+            'record_approved_at' => now(),
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'Medical record approved successfully.');
     }
 
     /**
@@ -140,4 +188,3 @@ class AppointmentController extends Controller
         return view('doctor.appointments.invoice', compact('appointment'));
     }
 }
-

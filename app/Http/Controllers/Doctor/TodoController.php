@@ -61,4 +61,3 @@ class TodoController extends Controller
             ->with('success', 'Task status updated successfully!');
     }
 }
-

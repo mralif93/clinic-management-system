@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Patient;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
@@ -40,5 +39,9 @@ class DashboardController extends Controller
             'recentAppointments'
         ));
     }
-}
 
+    public function guide()
+    {
+        return view('patient.guide');
+    }
+}

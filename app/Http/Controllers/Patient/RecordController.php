@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Patient;
 
-use App\Models\Appointment;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
 
 class RecordController extends Controller
@@ -14,11 +13,19 @@ class RecordController extends Controller
      */
     public function index()
     {
-        // Get all completed appointments as medical records
-        $records = Appointment::where('patient_id', Auth::id())
+        $patient = Auth::user()?->patient;
+
+        if (! $patient) {
+            abort(404, 'Patient profile not found.');
+        }
+
+        // Get completed and doctor-approved appointments as medical records
+        $records = Appointment::where('patient_id', $patient->id)
             ->where('status', 'completed')
-            ->with(['doctor.user', 'service'])
+            ->whereNotNull('record_approved_at')
+            ->with(['doctor.user', 'service', 'recordApprovedBy'])
             ->orderBy('appointment_date', 'desc')
+            ->orderBy('appointment_time', 'desc')
             ->paginate(15);
 
         return view('patient.records.index', compact('records'));

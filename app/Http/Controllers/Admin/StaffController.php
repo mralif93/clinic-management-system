@@ -19,14 +19,14 @@ class StaffController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%")
-                  ->orWhere('position', 'like', "%{$search}%")
-                  ->orWhere('department', 'like', "%{$search}%")
-                  ->orWhereHas('user', function($userQuery) use ($search) {
-                      $userQuery->where('email', 'like', "%{$search}%");
-                  });
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('position', 'like', "%{$search}%")
+                    ->orWhere('department', 'like', "%{$search}%")
+                    ->orWhereHas('user', function ($userQuery) use ($search) {
+                        $userQuery->where('email', 'like', "%{$search}%");
+                    });
             });
         }
 
@@ -97,9 +97,10 @@ class StaffController extends Controller
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
                         'success' => false,
-                        'message' => $message
+                        'message' => $message,
                     ], 422);
                 }
+
                 return redirect()->back()
                     ->withInput()
                     ->with('error', $message);
@@ -118,7 +119,7 @@ class StaffController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Staff created successfully!',
-                    'staff' => $staff
+                    'staff' => $staff,
                 ]);
             }
 
@@ -129,7 +130,7 @@ class StaffController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Validation failed',
-                    'errors' => $e->errors()
+                    'errors' => $e->errors(),
                 ], 422);
             }
             throw $e;
@@ -137,12 +138,13 @@ class StaffController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to create staff: ' . $e->getMessage()
+                    'message' => 'Failed to create staff: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to create staff: ' . $e->getMessage());
+                ->with('error', 'Failed to create staff: '.$e->getMessage());
         }
     }
 
@@ -152,6 +154,7 @@ class StaffController extends Controller
     public function show($id)
     {
         $staff = Staff::withTrashed()->with('user')->findOrFail($id);
+
         return view('admin.staff.show', compact('staff'));
     }
 
@@ -161,12 +164,12 @@ class StaffController extends Controller
     public function edit($id)
     {
         $staff = Staff::withTrashed()->with('user')->findOrFail($id);
-        
+
         if ($staff->trashed()) {
             return redirect()->route('admin.staff.index')
                 ->with('error', 'Cannot edit a deleted staff. Please restore it first.');
         }
-        
+
         return view('admin.staff.edit', compact('staff'));
     }
 
@@ -177,19 +180,20 @@ class StaffController extends Controller
     {
         try {
             $staff = Staff::withTrashed()->findOrFail($id);
-            
+
             if ($staff->trashed()) {
                 $message = 'Cannot update a deleted staff. Please restore it first.';
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
                         'success' => false,
-                        'message' => $message
+                        'message' => $message,
                     ], 422);
                 }
+
                 return redirect()->route('admin.staff.index')
                     ->with('error', $message);
             }
-            
+
             $validated = $request->validate([
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
@@ -224,7 +228,7 @@ class StaffController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Staff updated successfully!',
-                    'staff' => $staff
+                    'staff' => $staff,
                 ]);
             }
 
@@ -235,7 +239,7 @@ class StaffController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Validation failed',
-                    'errors' => $e->errors()
+                    'errors' => $e->errors(),
                 ], 422);
             }
             throw $e;
@@ -243,12 +247,13 @@ class StaffController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to update staff: ' . $e->getMessage()
+                    'message' => 'Failed to update staff: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to update staff: ' . $e->getMessage());
+                ->with('error', 'Failed to update staff: '.$e->getMessage());
         }
     }
 
@@ -264,7 +269,7 @@ class StaffController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Staff deleted successfully!'
+                    'message' => 'Staff deleted successfully!',
                 ]);
             }
 
@@ -274,11 +279,12 @@ class StaffController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to delete staff: ' . $e->getMessage()
+                    'message' => 'Failed to delete staff: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->route('admin.staff.index')
-                ->with('error', 'Failed to delete staff: ' . $e->getMessage());
+                ->with('error', 'Failed to delete staff: '.$e->getMessage());
         }
     }
 
@@ -289,25 +295,26 @@ class StaffController extends Controller
     {
         try {
             $staff = Staff::withTrashed()->findOrFail($id);
-            
-            if (!$staff->trashed()) {
+
+            if (! $staff->trashed()) {
                 $message = 'This staff is not deleted.';
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
                         'success' => false,
-                        'message' => $message
+                        'message' => $message,
                     ], 422);
                 }
+
                 return redirect()->route('admin.staff.index')
                     ->with('info', $message);
             }
-            
+
             $staff->restore();
 
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Staff restored successfully!'
+                    'message' => 'Staff restored successfully!',
                 ]);
             }
 
@@ -317,11 +324,12 @@ class StaffController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to restore staff: ' . $e->getMessage()
+                    'message' => 'Failed to restore staff: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->route('admin.staff.index')
-                ->with('error', 'Failed to restore staff: ' . $e->getMessage());
+                ->with('error', 'Failed to restore staff: '.$e->getMessage());
         }
     }
 
@@ -337,7 +345,7 @@ class StaffController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Staff permanently deleted!'
+                    'message' => 'Staff permanently deleted!',
                 ]);
             }
 
@@ -347,12 +355,12 @@ class StaffController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to permanently delete staff: ' . $e->getMessage()
+                    'message' => 'Failed to permanently delete staff: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->route('admin.staff.index')
-                ->with('error', 'Failed to permanently delete staff: ' . $e->getMessage());
+                ->with('error', 'Failed to permanently delete staff: '.$e->getMessage());
         }
     }
 }
-

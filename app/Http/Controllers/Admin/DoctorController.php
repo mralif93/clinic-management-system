@@ -20,11 +20,11 @@ class DoctorController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('specialization', 'like', "%{$search}%");
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('specialization', 'like', "%{$search}%");
             });
         }
 
@@ -55,7 +55,7 @@ class DoctorController extends Controller
             ->whereDoesntHave('doctor')
             ->orderBy('name')
             ->get();
-        
+
         return view('admin.doctors.create', compact('availableUsers'));
     }
 
@@ -99,9 +99,10 @@ class DoctorController extends Controller
                     if ($request->ajax() || $request->wantsJson()) {
                         return response()->json([
                             'success' => false,
-                            'message' => $message
+                            'message' => $message,
                         ], 422);
                     }
+
                     return redirect()->back()
                         ->withInput()
                         ->with('error', $message);
@@ -124,7 +125,7 @@ class DoctorController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Doctor created successfully!',
-                    'doctor' => $doctor
+                    'doctor' => $doctor,
                 ]);
             }
 
@@ -135,7 +136,7 @@ class DoctorController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Validation failed',
-                    'errors' => $e->errors()
+                    'errors' => $e->errors(),
                 ], 422);
             }
             throw $e;
@@ -143,12 +144,13 @@ class DoctorController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to create doctor: ' . $e->getMessage()
+                    'message' => 'Failed to create doctor: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to create doctor: ' . $e->getMessage());
+                ->with('error', 'Failed to create doctor: '.$e->getMessage());
         }
     }
 
@@ -158,6 +160,7 @@ class DoctorController extends Controller
     public function show($id)
     {
         $doctor = Doctor::withTrashed()->with('user')->findOrFail($id);
+
         return view('admin.doctors.show', compact('doctor'));
     }
 
@@ -167,21 +170,21 @@ class DoctorController extends Controller
     public function edit($id)
     {
         $doctor = Doctor::withTrashed()->with('user')->findOrFail($id);
-        
+
         if ($doctor->trashed()) {
             return redirect()->route('admin.doctors.index')
                 ->with('error', 'Cannot edit a deleted doctor. Please restore it first.');
         }
-        
+
         // Get users with doctor role who don't have a doctor profile yet, or the current user
         $availableUsers = User::where('role', 'doctor')
-            ->where(function($query) use ($doctor) {
+            ->where(function ($query) use ($doctor) {
                 $query->whereDoesntHave('doctor')
-                      ->orWhere('id', $doctor->user_id);
+                    ->orWhere('id', $doctor->user_id);
             })
             ->orderBy('name')
             ->get();
-        
+
         return view('admin.doctors.edit', compact('doctor', 'availableUsers'));
     }
 
@@ -192,19 +195,20 @@ class DoctorController extends Controller
     {
         try {
             $doctor = Doctor::withTrashed()->findOrFail($id);
-            
+
             if ($doctor->trashed()) {
                 $message = 'Cannot update a deleted doctor. Please restore it first.';
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
                         'success' => false,
-                        'message' => $message
+                        'message' => $message,
                     ], 422);
                 }
+
                 return redirect()->route('admin.doctors.index')
                     ->with('error', $message);
             }
-            
+
             $validated = $request->validate([
                 'user_id' => ['nullable', 'exists:users,id', Rule::unique('doctors')->ignore($doctor->id)],
                 'first_name' => 'required|string|max:255',
@@ -239,9 +243,10 @@ class DoctorController extends Controller
                     if ($request->ajax() || $request->wantsJson()) {
                         return response()->json([
                             'success' => false,
-                            'message' => $message
+                            'message' => $message,
                         ], 422);
                     }
+
                     return redirect()->back()
                         ->withInput()
                         ->with('error', $message);
@@ -264,7 +269,7 @@ class DoctorController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Doctor updated successfully!',
-                    'doctor' => $doctor
+                    'doctor' => $doctor,
                 ]);
             }
 
@@ -275,7 +280,7 @@ class DoctorController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Validation failed',
-                    'errors' => $e->errors()
+                    'errors' => $e->errors(),
                 ], 422);
             }
             throw $e;
@@ -283,12 +288,13 @@ class DoctorController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to update doctor: ' . $e->getMessage()
+                    'message' => 'Failed to update doctor: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to update doctor: ' . $e->getMessage());
+                ->with('error', 'Failed to update doctor: '.$e->getMessage());
         }
     }
 
@@ -304,7 +310,7 @@ class DoctorController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Doctor deleted successfully!'
+                    'message' => 'Doctor deleted successfully!',
                 ]);
             }
 
@@ -314,11 +320,12 @@ class DoctorController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to delete doctor: ' . $e->getMessage()
+                    'message' => 'Failed to delete doctor: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->route('admin.doctors.index')
-                ->with('error', 'Failed to delete doctor: ' . $e->getMessage());
+                ->with('error', 'Failed to delete doctor: '.$e->getMessage());
         }
     }
 
@@ -329,25 +336,26 @@ class DoctorController extends Controller
     {
         try {
             $doctor = Doctor::withTrashed()->findOrFail($id);
-            
-            if (!$doctor->trashed()) {
+
+            if (! $doctor->trashed()) {
                 $message = 'This doctor is not deleted.';
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
                         'success' => false,
-                        'message' => $message
+                        'message' => $message,
                     ], 422);
                 }
+
                 return redirect()->route('admin.doctors.index')
                     ->with('info', $message);
             }
-            
+
             $doctor->restore();
 
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Doctor restored successfully!'
+                    'message' => 'Doctor restored successfully!',
                 ]);
             }
 
@@ -357,11 +365,12 @@ class DoctorController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to restore doctor: ' . $e->getMessage()
+                    'message' => 'Failed to restore doctor: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->route('admin.doctors.index')
-                ->with('error', 'Failed to restore doctor: ' . $e->getMessage());
+                ->with('error', 'Failed to restore doctor: '.$e->getMessage());
         }
     }
 
@@ -377,7 +386,7 @@ class DoctorController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Doctor permanently deleted!'
+                    'message' => 'Doctor permanently deleted!',
                 ]);
             }
 
@@ -387,12 +396,12 @@ class DoctorController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to permanently delete doctor: ' . $e->getMessage()
+                    'message' => 'Failed to permanently delete doctor: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->route('admin.doctors.index')
-                ->with('error', 'Failed to permanently delete doctor: ' . $e->getMessage());
+                ->with('error', 'Failed to permanently delete doctor: '.$e->getMessage());
         }
     }
 }
-

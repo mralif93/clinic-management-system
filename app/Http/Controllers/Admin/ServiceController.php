@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Service;
 use App\Models\Page;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
 class ServiceController extends Controller
 {
@@ -21,9 +20,9 @@ class ServiceController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -77,12 +76,12 @@ class ServiceController extends Controller
 
         // Generate slug from name
         $validated['slug'] = Str::slug($validated['name']);
-        
+
         // Ensure slug is unique
         $originalSlug = $validated['slug'];
         $counter = 1;
         while (Service::withTrashed()->where('slug', $validated['slug'])->exists()) {
-            $validated['slug'] = $originalSlug . '-' . $counter;
+            $validated['slug'] = $originalSlug.'-'.$counter;
             $counter++;
         }
 
@@ -100,6 +99,7 @@ class ServiceController extends Controller
     public function show($id)
     {
         $service = Service::withTrashed()->findOrFail($id);
+
         return view('admin.services.show', compact('service'));
     }
 
@@ -109,12 +109,12 @@ class ServiceController extends Controller
     public function edit($id)
     {
         $service = Service::withTrashed()->findOrFail($id);
-        
+
         if ($service->trashed()) {
             return redirect()->route('admin.services.index')
                 ->with('error', 'Cannot edit a deleted service. Please restore it first.');
         }
-        
+
         return view('admin.services.edit', compact('service'));
     }
 
@@ -124,12 +124,12 @@ class ServiceController extends Controller
     public function update(Request $request, $id)
     {
         $service = Service::withTrashed()->findOrFail($id);
-        
+
         if ($service->trashed()) {
             return redirect()->route('admin.services.index')
                 ->with('error', 'Cannot update a deleted service. Please restore it first.');
         }
-        
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -142,15 +142,15 @@ class ServiceController extends Controller
         // Update slug if name changed
         if ($service->name !== $validated['name']) {
             $newSlug = Str::slug($validated['name']);
-            
+
             // Ensure slug is unique (excluding current service)
             $originalSlug = $newSlug;
             $counter = 1;
             while (Service::withTrashed()->where('slug', $newSlug)->where('id', '!=', $service->id)->exists()) {
-                $newSlug = $originalSlug . '-' . $counter;
+                $newSlug = $originalSlug.'-'.$counter;
                 $counter++;
             }
-            
+
             $validated['slug'] = $newSlug;
         }
 
@@ -204,8 +204,8 @@ class ServiceController extends Controller
     public function toggleModuleVisibility()
     {
         $page = Page::where('type', 'services')->first();
-        
-        if (!$page) {
+
+        if (! $page) {
             return redirect()->route('admin.services.index')
                 ->with('error', 'Services page not found.');
         }
@@ -232,8 +232,8 @@ class ServiceController extends Controller
         ]);
 
         $page = Page::where('type', 'services')->first();
-        
-        if (!$page) {
+
+        if (! $page) {
             return redirect()->route('admin.services.index')
                 ->with('error', 'Services page not found.');
         }
@@ -244,4 +244,3 @@ class ServiceController extends Controller
             ->with('success', 'Services module order updated successfully!');
     }
 }
-

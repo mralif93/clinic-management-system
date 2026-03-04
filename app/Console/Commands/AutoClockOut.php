@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Models\Attendance;
 use Carbon\Carbon;
+use Illuminate\Console\Command;
 
 class AutoClockOut extends Command
 {
@@ -38,12 +38,12 @@ class AutoClockOut extends Command
 
         foreach ($attendances as $attendance) {
             // Set clock out time to 11:59 PM of that day
-            $clockOutTime = Carbon::parse($attendance->date->format('Y-m-d') . ' 23:59:59');
+            $clockOutTime = Carbon::parse($attendance->date->format('Y-m-d').' 23:59:59');
 
             $attendance->update([
                 'clock_out_time' => $clockOutTime,
-                'notes' => $attendance->notes . "\n[System] Auto clocked out at midnight.",
-                'status' => 'half_day' // Mark as half day or flag for review? Let's keep it simple.
+                'notes' => $attendance->notes."\n[System] Auto clocked out at midnight.",
+                'status' => 'half_day', // Mark as half day or flag for review? Let's keep it simple.
             ]);
 
             $attendance->updateTotalHours();

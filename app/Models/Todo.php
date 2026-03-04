@@ -40,14 +40,18 @@ class Todo extends Model
      * Status constants
      */
     const STATUS_PENDING = 'pending';
+
     const STATUS_IN_PROGRESS = 'in_progress';
+
     const STATUS_COMPLETED = 'completed';
 
     /**
      * Priority constants
      */
     const PRIORITY_LOW = 'low';
+
     const PRIORITY_MEDIUM = 'medium';
+
     const PRIORITY_HIGH = 'high';
 
     /**

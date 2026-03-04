@@ -389,6 +389,6 @@ class AnnouncementSeeder extends Seeder
             ]));
         }
 
-        $this->command->info('Created ' . count($announcements) . ' announcements successfully.');
+        $this->command->info('Created '.count($announcements).' announcements successfully.');
     }
 }

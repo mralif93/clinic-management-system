@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TeamMember;
 use App\Models\Page;
-use Illuminate\Http\Request;
+use App\Models\TeamMember;
 
 class TeamController extends Controller
 {
@@ -14,7 +13,7 @@ class TeamController extends Controller
     public function index()
     {
         // Check if team module is visible
-        if (!Page::isModuleVisible('team')) {
+        if (! Page::isModuleVisible('team')) {
             abort(404);
         }
 

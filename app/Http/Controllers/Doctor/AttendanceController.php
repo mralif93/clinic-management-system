@@ -7,7 +7,6 @@ use App\Models\Attendance;
 use App\Models\AttendanceBreak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 
 class AttendanceController extends Controller
 {
@@ -89,7 +88,7 @@ class AttendanceController extends Controller
             ->whereDate('date', today())
             ->first();
 
-        if (!$attendance) {
+        if (! $attendance) {
             return back()->with('error', 'You haven\'t clocked in today!');
         }
 
@@ -111,7 +110,7 @@ class AttendanceController extends Controller
         $attendance->updateTotalHours();
         $attendance->save();
 
-        return back()->with('success', 'Clocked out successfully! Total hours: ' . $attendance->total_hours);
+        return back()->with('success', 'Clocked out successfully! Total hours: '.$attendance->total_hours);
     }
 
     /**
@@ -125,7 +124,7 @@ class AttendanceController extends Controller
             ->whereDate('date', today())
             ->first();
 
-        if (!$attendance || !$attendance->isClockedIn()) {
+        if (! $attendance || ! $attendance->isClockedIn()) {
             return back()->with('error', 'You must be clocked in to take a break!');
         }
 
@@ -153,13 +152,13 @@ class AttendanceController extends Controller
             ->whereDate('date', today())
             ->first();
 
-        if (!$attendance) {
+        if (! $attendance) {
             return back()->with('error', 'No attendance record found!');
         }
 
         $activeBreak = $attendance->getCurrentBreak();
 
-        if (!$activeBreak) {
+        if (! $activeBreak) {
             return back()->with('error', 'You are not on a break!');
         }
 
@@ -170,6 +169,6 @@ class AttendanceController extends Controller
         $attendance->break_duration += $activeBreak->getDuration();
         $attendance->save();
 
-        return back()->with('success', 'Break ended! Duration: ' . $activeBreak->getDurationFormatted());
+        return back()->with('success', 'Break ended! Duration: '.$activeBreak->getDurationFormatted());
     }
 }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Announcement;
 use App\Models\Page;
 use App\Models\Service;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -14,13 +13,14 @@ class HomeController extends Controller
      */
     private function decodeSettingArray(?string $json, array $default): array
     {
-        if (!$json) {
+        if (! $json) {
             return $default;
         }
 
         try {
             $decoded = json_decode($json, true);
-            return is_array($decoded) && !empty($decoded) ? $decoded : $default;
+
+            return is_array($decoded) && ! empty($decoded) ? $decoded : $default;
         } catch (\Throwable $th) {
             return $default;
         }
@@ -107,6 +107,14 @@ class HomeController extends Controller
     }
 
     /**
+     * Show How It Works page
+     */
+    public function howItWorks()
+    {
+        return view('public.how-it-works');
+    }
+
+    /**
      * Show Our Team page highlighting clinicians and staff
      * Redirects to the new TeamController
      */
@@ -170,4 +178,3 @@ class HomeController extends Controller
         return view('announcements.show', compact('announcement', 'relatedAnnouncements'));
     }
 }
-

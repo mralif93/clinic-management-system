@@ -7,8 +7,8 @@ use App\Models\Leave;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class LeaveController extends Controller
 {
@@ -23,8 +23,8 @@ class LeaveController extends Controller
             $yearExpr = "strftime('%Y', start_date)";
             $monthExpr = "strftime('%m', start_date)";
         } else {
-            $yearExpr = "YEAR(start_date)";
-            $monthExpr = "MONTH(start_date)";
+            $yearExpr = 'YEAR(start_date)';
+            $monthExpr = 'MONTH(start_date)';
         }
 
         $months = Leave::select(
@@ -103,6 +103,7 @@ class LeaveController extends Controller
     public function create()
     {
         $users = User::whereIn('role', ['doctor', 'staff'])->get();
+
         return view('admin.leaves.create', compact('users'));
     }
 
@@ -157,6 +158,7 @@ class LeaveController extends Controller
     public function show(Leave $leave)
     {
         $leave->load(['user', 'reviewer']);
+
         return view('admin.leaves.show', compact('leave'));
     }
 
@@ -166,6 +168,7 @@ class LeaveController extends Controller
     public function edit(Leave $leave)
     {
         $users = User::whereIn('role', ['doctor', 'staff'])->get();
+
         return view('admin.leaves.edit', compact('leave', 'users'));
     }
 
@@ -216,7 +219,7 @@ class LeaveController extends Controller
 
         return redirect()->route('admin.leaves.by-month', [
             'year' => \Carbon\Carbon::parse($validated['start_date'])->year,
-            'month' => \Carbon\Carbon::parse($validated['start_date'])->month
+            'month' => \Carbon\Carbon::parse($validated['start_date'])->month,
         ])->with('success', 'Leave updated successfully!');
     }
 

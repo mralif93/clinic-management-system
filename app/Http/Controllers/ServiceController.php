@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Service;
 use App\Models\Page;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -14,7 +14,7 @@ class ServiceController extends Controller
     public function index(Request $request)
     {
         // Check if services module is visible
-        if (!Page::isModuleVisible('services')) {
+        if (! Page::isModuleVisible('services')) {
             abort(404);
         }
 
@@ -26,7 +26,7 @@ class ServiceController extends Controller
         }
 
         $services = $query->orderBy('type')->orderBy('name')->get();
-        
+
         // Group by type
         $groupedServices = $services->groupBy('type');
 
@@ -39,18 +39,17 @@ class ServiceController extends Controller
     public function show($slug)
     {
         // Check if services module is visible
-        if (!Page::isModuleVisible('services')) {
+        if (! Page::isModuleVisible('services')) {
             abort(404);
         }
 
         $service = Service::where('slug', $slug)->firstOrFail();
-        
+
         // Only show active services
-        if (!$service->is_active) {
+        if (! $service->is_active) {
             abort(404);
         }
-        
+
         return view('services.show', compact('service'));
     }
 }
-

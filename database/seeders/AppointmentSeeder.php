@@ -22,6 +22,7 @@ class AppointmentSeeder extends Seeder
 
         if ($doctors->isEmpty() || $patients->isEmpty() || $services->isEmpty()) {
             $this->command->info('Skipping AppointmentSeeder: Missing doctors, patients, or services.');
+
             return;
         }
 

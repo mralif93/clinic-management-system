@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Patient;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class PatientController extends Controller
 {
@@ -19,12 +18,12 @@ class PatientController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('patient_id', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%");
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('patient_id', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%");
             });
         }
 
@@ -44,8 +43,10 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        $patient = Patient::with(['user', 'appointments' => function($q) {
-            $q->orderBy('appointment_date', 'desc');
+        $patient = Patient::with(['user', 'appointments' => function ($q) {
+            $q->with(['service', 'doctor.user', 'recordApprovedBy'])
+                ->orderBy('appointment_date', 'desc')
+                ->orderBy('appointment_time', 'desc');
         }])->findOrFail($id);
 
         // Get appointment statistics
@@ -65,4 +66,3 @@ class PatientController extends Controller
         ));
     }
 }
-

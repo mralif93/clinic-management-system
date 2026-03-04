@@ -60,65 +60,82 @@
         </div>
 
         <!-- Stats Overview -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            <!-- Scheduled -->
-            <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-calendar text-slate-600 text-2xl'></i>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+            <!-- Pending -->
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-xl flex items-center justify-center">
+                        <i class='bx bx-time text-yellow-600 text-xl'></i>
                     </div>
-                    <span class="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-1 rounded-full">WAITING</span>
                 </div>
-                <p class="text-3xl font-bold text-gray-900" id="stat-scheduled">{{ $stats['scheduled'] }}</p>
-                <p class="text-sm text-gray-500 mt-1">Scheduled</p>
+                <p class="text-2xl font-bold text-gray-900" id="stat-pending">{{ $stats['pending'] }}</p>
+                <p class="text-xs text-gray-500">Pending</p>
+            </div>
+
+            <!-- Scheduled -->
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl flex items-center justify-center">
+                        <i class='bx bx-calendar text-slate-600 text-xl'></i>
+                    </div>
+                </div>
+                <p class="text-2xl font-bold text-gray-900" id="stat-scheduled">{{ $stats['scheduled'] }}</p>
+                <p class="text-xs text-gray-500">Scheduled</p>
+            </div>
+
+            <!-- Arrived -->
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center">
+                        <i class='bx bx-qr text-orange-600 text-xl'></i>
+                    </div>
+                </div>
+                <p class="text-2xl font-bold text-gray-900" id="stat-arrived">{{ $stats['arrived'] }}</p>
+                <p class="text-xs text-gray-500">Arrived</p>
             </div>
 
             <!-- Checked In -->
-            <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-user-check text-blue-600 text-2xl'></i>
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
+                        <i class='bx bx-user-check text-blue-600 text-xl'></i>
                     </div>
-                    <span class="text-xs font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded-full">ARRIVED</span>
                 </div>
-                <p class="text-3xl font-bold text-gray-900" id="stat-checked-in">{{ $stats['checked_in'] }}</p>
-                <p class="text-sm text-gray-500 mt-1">Checked In</p>
+                <p class="text-2xl font-bold text-gray-900" id="stat-checked-in">{{ $stats['checked_in'] }}</p>
+                <p class="text-xs text-gray-500">With Doctor</p>
             </div>
 
             <!-- In Consultation -->
-            <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-amber-100 to-amber-200 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-user-voice text-amber-600 text-2xl'></i>
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-amber-100 to-amber-200 rounded-xl flex items-center justify-center">
+                        <i class='bx bx-user-voice text-amber-600 text-xl'></i>
                     </div>
-                    <span class="text-xs font-medium text-amber-600 bg-amber-100 px-2 py-1 rounded-full pulse-dot">ACTIVE</span>
                 </div>
-                <p class="text-3xl font-bold text-gray-900" id="stat-in-consultation">{{ $stats['in_consultation'] }}</p>
-                <p class="text-sm text-gray-500 mt-1">In Consultation</p>
+                <p class="text-2xl font-bold text-gray-900" id="stat-in-consultation">{{ $stats['in_consultation'] }}</p>
+                <p class="text-xs text-gray-500">Consulting</p>
             </div>
 
             <!-- Completed -->
-            <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-receipt text-purple-600 text-2xl'></i>
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center">
+                        <i class='bx bx-receipt text-purple-600 text-xl'></i>
                     </div>
-                    <span class="text-xs font-medium text-purple-600 bg-purple-100 px-2 py-1 rounded-full">BILLING</span>
                 </div>
-                <p class="text-3xl font-bold text-gray-900" id="stat-completed">{{ $stats['completed'] }}</p>
-                <p class="text-sm text-gray-500 mt-1">Pending Payment</p>
+                <p class="text-2xl font-bold text-gray-900" id="stat-completed">{{ $stats['completed'] }}</p>
+                <p class="text-xs text-gray-500">Payment</p>
             </div>
 
             <!-- Paid -->
-            <div class="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                <div class="flex items-center justify-between mb-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-check-circle text-green-600 text-2xl'></i>
+            <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center">
+                        <i class='bx bx-check-circle text-green-600 text-xl'></i>
                     </div>
-                    <span class="text-xs font-medium text-green-600 bg-green-100 px-2 py-1 rounded-full">DONE</span>
                 </div>
-                <p class="text-3xl font-bold text-gray-900" id="stat-paid">{{ $stats['paid'] }}</p>
-                <p class="text-sm text-gray-500 mt-1">Paid & Complete</p>
+                <p class="text-2xl font-bold text-gray-900" id="stat-paid">{{ $stats['paid'] }}</p>
+                <p class="text-xs text-gray-500">Completed</p>
             </div>
 
             <!-- Total -->
@@ -176,7 +193,16 @@
 
         <!-- Flow Progress Indicator -->
         <div class="hidden lg:block bg-white rounded-2xl border border-gray-100 shadow-sm p-4">
-            <div class="flex items-center justify-between px-8">
+            <div class="flex items-center justify-between px-4">
+                <div class="flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600">
+                        <i class='bx bx-time text-xl'></i>
+                    </div>
+                    <span class="text-xs text-gray-500 mt-2">Pending</span>
+                </div>
+                <div class="flex-1 h-1 bg-gray-200 mx-2 rounded relative">
+                    <i class='bx bx-chevron-right absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                </div>
                 <div class="flex flex-col items-center">
                     <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600">
                         <i class='bx bx-calendar text-xl'></i>
@@ -223,9 +249,11 @@
         </div>
 
         <!-- Kanban Board -->
-        <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 overflow-x-auto pb-4">
-            @include('staff.partials.flow-column', ['title' => 'Scheduled', 'subtitle' => 'Waiting to arrive', 'icon' => 'bx-calendar', 'color' => 'slate', 'appointments' => $scheduled, 'stage' => 'scheduled', 'nextAction' => 'check_in', 'nextLabel' => 'Check In', 'nextIcon' => 'bx-log-in-circle'])
-            @include('staff.partials.flow-column', ['title' => 'Checked In', 'subtitle' => 'In waiting room', 'icon' => 'bx-user-check', 'color' => 'blue', 'appointments' => $checkedIn, 'stage' => 'checked_in', 'nextAction' => 'start_consultation', 'nextLabel' => 'Start Consult', 'nextIcon' => 'bx-play-circle'])
+        <div class="grid grid-cols-1 lg:grid-cols-7 gap-4 overflow-x-auto pb-4">
+            @include('staff.partials.flow-column', ['title' => 'Pending', 'subtitle' => 'Awaiting confirmation', 'icon' => 'bx-time', 'color' => 'yellow', 'appointments' => $pending, 'stage' => 'pending', 'nextAction' => 'confirm', 'nextLabel' => 'Confirm', 'nextIcon' => 'bx-check'])
+            @include('staff.partials.flow-column', ['title' => 'Scheduled', 'subtitle' => 'Waiting to arrive', 'icon' => 'bx-calendar', 'color' => 'slate', 'appointments' => $scheduled, 'stage' => 'scheduled', 'nextAction' => null, 'nextLabel' => null, 'nextIcon' => null])
+            @include('staff.partials.flow-column', ['title' => 'Arrived', 'subtitle' => 'QR scanned', 'icon' => 'bx-qr', 'color' => 'orange', 'appointments' => $arrived, 'stage' => 'arrived', 'nextAction' => null, 'nextLabel' => null, 'nextIcon' => null])
+            @include('staff.partials.flow-column', ['title' => 'With Doctor', 'subtitle' => 'Accepted', 'icon' => 'bx-user-check', 'color' => 'blue', 'appointments' => $checkedIn, 'stage' => 'checked_in', 'nextAction' => 'start_consultation', 'nextLabel' => 'Start Consult', 'nextIcon' => 'bx-play-circle'])
             @include('staff.partials.flow-column', ['title' => 'In Consultation', 'subtitle' => 'With doctor', 'icon' => 'bx-user-voice', 'color' => 'amber', 'appointments' => $inConsultation, 'stage' => 'in_consultation', 'nextAction' => 'complete', 'nextLabel' => 'Complete', 'nextIcon' => 'bx-check'])
             @include('staff.partials.flow-column', ['title' => 'Pending Payment', 'subtitle' => 'Ready to pay', 'icon' => 'bx-receipt', 'color' => 'purple', 'appointments' => $completed, 'stage' => 'completed', 'nextAction' => 'mark_paid', 'nextLabel' => 'Process Payment', 'nextIcon' => 'bx-credit-card'])
             @include('staff.partials.flow-column', ['title' => 'Completed', 'subtitle' => 'Paid & done', 'icon' => 'bx-check-circle', 'color' => 'green', 'appointments' => $paid, 'stage' => 'paid', 'nextAction' => null, 'nextLabel' => null, 'nextIcon' => null])
@@ -341,6 +369,8 @@
         .then(response => response.json())
         .then(data => {
             // Update stats
+            document.getElementById('stat-pending').textContent = data.stats.pending;
+            document.getElementById('stat-arrived').textContent = data.stats.arrived;
             document.getElementById('stat-scheduled').textContent = data.stats.scheduled;
             document.getElementById('stat-checked-in').textContent = data.stats.checked_in;
             document.getElementById('stat-in-consultation').textContent = data.stats.in_consultation;
@@ -371,6 +401,14 @@
     function getConfirmationConfig(action) {
         const configs = {
             // Forward actions
+            'confirm': {
+                title: 'Confirm Appointment?',
+                text: 'This will confirm the appointment and generate a QR code for the patient.',
+                icon: 'question',
+                confirmButtonText: '<i class="bx bx-check mr-1"></i> Yes, Confirm',
+                confirmButtonColor: '#eab308',
+                iconColor: '#eab308'
+            },
             'check_in': {
                 title: 'Check In Patient?',
                 text: 'Confirm that the patient has arrived at the clinic.',
@@ -427,6 +465,22 @@
                 confirmButtonText: '<i class="bx bx-undo mr-1"></i> Yes, Revert Payment',
                 confirmButtonColor: '#8b5cf6',
                 iconColor: '#ef4444'
+            },
+            'revert_to_pending': {
+                title: 'Revert to Pending?',
+                text: 'The appointment will be moved back to "Pending" status. Patient will need to wait for confirmation again.',
+                icon: 'warning',
+                confirmButtonText: '<i class="bx bx-undo mr-1"></i> Yes, Revert',
+                confirmButtonColor: '#eab308',
+                iconColor: '#f59e0b'
+            },
+            'revert_to_arrived': {
+                title: 'Revert to Arrived?',
+                text: 'The patient will be moved back to "Arrived" status. They will need to wait for doctor to accept again.',
+                icon: 'warning',
+                confirmButtonText: '<i class="bx bx-undo mr-1"></i> Yes, Revert',
+                confirmButtonColor: '#f97316',
+                iconColor: '#f59e0b'
             }
         };
         return configs[action] || {

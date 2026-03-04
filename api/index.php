@@ -47,7 +47,7 @@ try {
 
     // Check if vendor directory exists
     $vendorPath = __DIR__.'/../vendor/autoload.php';
-    if (!file_exists($vendorPath)) {
+    if (! file_exists($vendorPath)) {
         throw new Exception('vendor/autoload.php not found. Please ensure composer install runs during build.');
     }
 
@@ -65,8 +65,8 @@ try {
     */
 
     $app = require_once __DIR__.'/../bootstrap/app.php';
-    
-    if (!$app) {
+
+    if (! $app) {
         throw new Exception('Failed to bootstrap Laravel application. bootstrap/app.php returned null.');
     }
 
@@ -81,24 +81,24 @@ try {
 } catch (Throwable $e) {
     // Log to stderr (visible in Vercel function logs)
     error_log('=== Laravel Error ===');
-    error_log('Message: ' . $e->getMessage());
-    error_log('File: ' . $e->getFile() . ':' . $e->getLine());
-    error_log('Trace: ' . $e->getTraceAsString());
-    
+    error_log('Message: '.$e->getMessage());
+    error_log('File: '.$e->getFile().':'.$e->getLine());
+    error_log('Trace: '.$e->getTraceAsString());
+
     // Check if APP_DEBUG is enabled
     $appDebug = getenv('APP_DEBUG') === 'true' || getenv('APP_DEBUG') === '1';
-    
+
     http_response_code(500);
     header('Content-Type: text/html; charset=utf-8');
-    
+
     if ($appDebug) {
         echo '<!DOCTYPE html><html><head><title>500 Server Error</title><style>body{font-family:Arial,sans-serif;padding:20px;background:#f5f5f5;}h1{color:#dc2626;}pre{background:#fff;padding:15px;border-radius:5px;overflow:auto;}</style></head><body>';
         echo '<h1>500 Internal Server Error</h1>';
         echo '<h2>Error Details:</h2>';
-        echo '<p><strong>Message:</strong> ' . htmlspecialchars($e->getMessage()) . '</p>';
-        echo '<p><strong>File:</strong> ' . htmlspecialchars($e->getFile()) . ':' . $e->getLine() . '</p>';
+        echo '<p><strong>Message:</strong> '.htmlspecialchars($e->getMessage()).'</p>';
+        echo '<p><strong>File:</strong> '.htmlspecialchars($e->getFile()).':'.$e->getLine().'</p>';
         echo '<h3>Stack Trace:</h3>';
-        echo '<pre>' . htmlspecialchars($e->getTraceAsString()) . '</pre>';
+        echo '<pre>'.htmlspecialchars($e->getTraceAsString()).'</pre>';
         echo '</body></html>';
     } else {
         echo '<!DOCTYPE html><html><head><title>500 Server Error</title></head><body>';
@@ -106,7 +106,6 @@ try {
         echo '<p>An error occurred. Please check the server logs or enable APP_DEBUG=true for details.</p>';
         echo '</body></html>';
     }
-    
+
     exit(1);
 }
-

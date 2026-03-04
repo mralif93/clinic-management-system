@@ -18,6 +18,7 @@ class TodoSeeder extends Seeder
 
         if ($users->isEmpty()) {
             $this->command->info('Skipping TodoSeeder: No staff or doctors found.');
+
             return;
         }
 
@@ -30,7 +31,7 @@ class TodoSeeder extends Seeder
                 $priority = array_rand(Todo::getPriorities());
 
                 Todo::create([
-                    'title' => 'Task ' . ($i + 1) . ' for ' . $user->name,
+                    'title' => 'Task '.($i + 1).' for '.$user->name,
                     'description' => 'This is a generated task description.',
                     'status' => $status,
                     'priority' => $priority,

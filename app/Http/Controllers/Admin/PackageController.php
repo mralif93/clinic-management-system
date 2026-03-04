@@ -7,7 +7,6 @@ use App\Models\Package;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
 class PackageController extends Controller
 {
@@ -21,9 +20,9 @@ class PackageController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -74,12 +73,12 @@ class PackageController extends Controller
 
         // Generate slug from name
         $validated['slug'] = Str::slug($validated['name']);
-        
+
         // Ensure slug is unique
         $originalSlug = $validated['slug'];
         $counter = 1;
         while (Package::withTrashed()->where('slug', $validated['slug'])->exists()) {
-            $validated['slug'] = $originalSlug . '-' . $counter;
+            $validated['slug'] = $originalSlug.'-'.$counter;
             $counter++;
         }
 
@@ -97,6 +96,7 @@ class PackageController extends Controller
     public function show($id)
     {
         $package = Package::withTrashed()->findOrFail($id);
+
         return view('admin.packages.show', compact('package'));
     }
 
@@ -106,12 +106,12 @@ class PackageController extends Controller
     public function edit($id)
     {
         $package = Package::withTrashed()->findOrFail($id);
-        
+
         if ($package->trashed()) {
             return redirect()->route('admin.packages.index')
                 ->with('error', 'Cannot edit a deleted package. Please restore it first.');
         }
-        
+
         return view('admin.packages.edit', compact('package'));
     }
 
@@ -121,12 +121,12 @@ class PackageController extends Controller
     public function update(Request $request, $id)
     {
         $package = Package::withTrashed()->findOrFail($id);
-        
+
         if ($package->trashed()) {
             return redirect()->route('admin.packages.index')
                 ->with('error', 'Cannot update a deleted package. Please restore it first.');
         }
-        
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -141,15 +141,15 @@ class PackageController extends Controller
         // Update slug if name changed
         if ($package->name !== $validated['name']) {
             $newSlug = Str::slug($validated['name']);
-            
+
             // Ensure slug is unique (excluding current package)
             $originalSlug = $newSlug;
             $counter = 1;
             while (Package::withTrashed()->where('slug', $newSlug)->where('id', '!=', $package->id)->exists()) {
-                $newSlug = $originalSlug . '-' . $counter;
+                $newSlug = $originalSlug.'-'.$counter;
                 $counter++;
             }
-            
+
             $validated['slug'] = $newSlug;
         }
 
@@ -203,8 +203,8 @@ class PackageController extends Controller
     public function toggleModuleVisibility()
     {
         $page = Page::where('type', 'packages')->first();
-        
-        if (!$page) {
+
+        if (! $page) {
             return redirect()->route('admin.packages.index')
                 ->with('error', 'Packages page not found.');
         }
@@ -231,8 +231,8 @@ class PackageController extends Controller
         ]);
 
         $page = Page::where('type', 'packages')->first();
-        
-        if (!$page) {
+
+        if (! $page) {
             return redirect()->route('admin.packages.index')
                 ->with('error', 'Packages page not found.');
         }

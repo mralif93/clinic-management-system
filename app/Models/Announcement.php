@@ -83,9 +83,9 @@ class Announcement extends Model
      */
     public function scopeActive($query)
     {
-        return $query->where(function($q) {
+        return $query->where(function ($q) {
             $q->whereNull('expires_at')
-              ->orWhere('expires_at', '>', now());
+                ->orWhere('expires_at', '>', now());
         });
     }
 
@@ -118,7 +118,7 @@ class Announcement extends Model
      */
     public function getImageUrlAttribute()
     {
-        if (!$this->image) {
+        if (! $this->image) {
             return null;
         }
 
@@ -127,7 +127,7 @@ class Announcement extends Model
             return $this->image; // Base64 data URI
         }
 
-        return asset('storage/' . $this->image); // File path
+        return asset('storage/'.$this->image); // File path
     }
 
     /**
@@ -136,6 +136,7 @@ class Announcement extends Model
     public function publish()
     {
         $this->update(['is_published' => true]);
+
         return $this;
     }
 
@@ -145,6 +146,7 @@ class Announcement extends Model
     public function unpublish()
     {
         $this->update(['is_published' => false]);
+
         return $this;
     }
 
@@ -153,7 +155,8 @@ class Announcement extends Model
      */
     public function toggleFeatured()
     {
-        $this->update(['is_featured' => !$this->is_featured]);
+        $this->update(['is_featured' => ! $this->is_featured]);
+
         return $this;
     }
 

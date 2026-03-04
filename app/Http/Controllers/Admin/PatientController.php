@@ -19,11 +19,11 @@ class PatientController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%");
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%");
             });
         }
 
@@ -54,7 +54,7 @@ class PatientController extends Controller
             ->whereDoesntHave('patient')
             ->orderBy('name')
             ->get();
-        
+
         return view('admin.patients.create', compact('availableUsers'));
     }
 
@@ -92,9 +92,10 @@ class PatientController extends Controller
                     if ($request->ajax() || $request->wantsJson()) {
                         return response()->json([
                             'success' => false,
-                            'message' => $message
+                            'message' => $message,
                         ], 422);
                     }
+
                     return redirect()->back()
                         ->withInput()
                         ->with('error', $message);
@@ -107,7 +108,7 @@ class PatientController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Patient created successfully!',
-                    'patient' => $patient
+                    'patient' => $patient,
                 ]);
             }
 
@@ -118,7 +119,7 @@ class PatientController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Validation failed',
-                    'errors' => $e->errors()
+                    'errors' => $e->errors(),
                 ], 422);
             }
             throw $e;
@@ -126,12 +127,13 @@ class PatientController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to create patient: ' . $e->getMessage()
+                    'message' => 'Failed to create patient: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to create patient: ' . $e->getMessage());
+                ->with('error', 'Failed to create patient: '.$e->getMessage());
         }
     }
 
@@ -141,6 +143,7 @@ class PatientController extends Controller
     public function show($id)
     {
         $patient = Patient::withTrashed()->with('user')->findOrFail($id);
+
         return view('admin.patients.show', compact('patient'));
     }
 
@@ -150,21 +153,21 @@ class PatientController extends Controller
     public function edit($id)
     {
         $patient = Patient::withTrashed()->with('user')->findOrFail($id);
-        
+
         if ($patient->trashed()) {
             return redirect()->route('admin.patients.index')
                 ->with('error', 'Cannot edit a deleted patient. Please restore it first.');
         }
-        
+
         // Get users with patient role who don't have a patient profile yet, or the current user
         $availableUsers = User::where('role', 'patient')
-            ->where(function($query) use ($patient) {
+            ->where(function ($query) use ($patient) {
                 $query->whereDoesntHave('patient')
-                      ->orWhere('id', $patient->user_id);
+                    ->orWhere('id', $patient->user_id);
             })
             ->orderBy('name')
             ->get();
-        
+
         return view('admin.patients.edit', compact('patient', 'availableUsers'));
     }
 
@@ -175,19 +178,20 @@ class PatientController extends Controller
     {
         try {
             $patient = Patient::withTrashed()->findOrFail($id);
-            
+
             if ($patient->trashed()) {
                 $message = 'Cannot update a deleted patient. Please restore it first.';
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
                         'success' => false,
-                        'message' => $message
+                        'message' => $message,
                     ], 422);
                 }
+
                 return redirect()->route('admin.patients.index')
                     ->with('error', $message);
             }
-            
+
             $validated = $request->validate([
                 'user_id' => ['nullable', 'exists:users,id', \Illuminate\Validation\Rule::unique('patients')->ignore($patient->id)],
                 'first_name' => 'required|string|max:255',
@@ -216,9 +220,10 @@ class PatientController extends Controller
                     if ($request->ajax() || $request->wantsJson()) {
                         return response()->json([
                             'success' => false,
-                            'message' => $message
+                            'message' => $message,
                         ], 422);
                     }
+
                     return redirect()->back()
                         ->withInput()
                         ->with('error', $message);
@@ -231,7 +236,7 @@ class PatientController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Patient updated successfully!',
-                    'patient' => $patient
+                    'patient' => $patient,
                 ]);
             }
 
@@ -242,7 +247,7 @@ class PatientController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Validation failed',
-                    'errors' => $e->errors()
+                    'errors' => $e->errors(),
                 ], 422);
             }
             throw $e;
@@ -250,12 +255,13 @@ class PatientController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to update patient: ' . $e->getMessage()
+                    'message' => 'Failed to update patient: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to update patient: ' . $e->getMessage());
+                ->with('error', 'Failed to update patient: '.$e->getMessage());
         }
     }
 
@@ -271,7 +277,7 @@ class PatientController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Patient deleted successfully!'
+                    'message' => 'Patient deleted successfully!',
                 ]);
             }
 
@@ -281,11 +287,12 @@ class PatientController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to delete patient: ' . $e->getMessage()
+                    'message' => 'Failed to delete patient: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->route('admin.patients.index')
-                ->with('error', 'Failed to delete patient: ' . $e->getMessage());
+                ->with('error', 'Failed to delete patient: '.$e->getMessage());
         }
     }
 
@@ -296,25 +303,26 @@ class PatientController extends Controller
     {
         try {
             $patient = Patient::withTrashed()->findOrFail($id);
-            
-            if (!$patient->trashed()) {
+
+            if (! $patient->trashed()) {
                 $message = 'This patient is not deleted.';
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
                         'success' => false,
-                        'message' => $message
+                        'message' => $message,
                     ], 422);
                 }
+
                 return redirect()->route('admin.patients.index')
                     ->with('info', $message);
             }
-            
+
             $patient->restore();
 
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Patient restored successfully!'
+                    'message' => 'Patient restored successfully!',
                 ]);
             }
 
@@ -324,11 +332,12 @@ class PatientController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to restore patient: ' . $e->getMessage()
+                    'message' => 'Failed to restore patient: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->route('admin.patients.index')
-                ->with('error', 'Failed to restore patient: ' . $e->getMessage());
+                ->with('error', 'Failed to restore patient: '.$e->getMessage());
         }
     }
 
@@ -344,7 +353,7 @@ class PatientController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Patient permanently deleted!'
+                    'message' => 'Patient permanently deleted!',
                 ]);
             }
 
@@ -354,12 +363,12 @@ class PatientController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to permanently delete patient: ' . $e->getMessage()
+                    'message' => 'Failed to permanently delete patient: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->route('admin.patients.index')
-                ->with('error', 'Failed to permanently delete patient: ' . $e->getMessage());
+                ->with('error', 'Failed to permanently delete patient: '.$e->getMessage());
         }
     }
 }
-

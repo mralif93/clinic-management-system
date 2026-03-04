@@ -112,10 +112,10 @@ class UserSeeder extends Seeder
             Patient::updateOrCreate(
                 ['user_id' => $pUser->id],
                 [
-                    'first_name' => "Patient",
+                    'first_name' => 'Patient',
                     'last_name' => "{$i}",
                     'email' => $pUser->email,
-                    'phone' => "111-222-333" . $i,
+                    'phone' => '111-222-333'.$i,
                     'date_of_birth' => now()->subYears(20 + $i)->format('Y-m-d'),
                     'gender' => $i % 2 == 0 ? 'female' : 'male',
                 ]
@@ -137,10 +137,10 @@ class UserSeeder extends Seeder
             Doctor::updateOrCreate(
                 ['user_id' => $dUser->id],
                 [
-                    'first_name' => "Doctor",
+                    'first_name' => 'Doctor',
                     'last_name' => "{$i}",
                     'email' => $dUser->email,
-                    'phone' => "444-555-666" . $i,
+                    'phone' => '444-555-666'.$i,
                     'specialization' => $i % 2 == 0 ? 'Psychology' : 'Homeopathy',
                     'qualification' => 'MD',
                     'type' => $i % 2 == 0 ? 'psychology' : 'homeopathy',
@@ -163,9 +163,9 @@ class UserSeeder extends Seeder
             Staff::updateOrCreate(
                 ['user_id' => $sUser->id],
                 [
-                    'first_name' => "Staff",
+                    'first_name' => 'Staff',
                     'last_name' => "{$i}",
-                    'phone' => "777-888-999" . $i,
+                    'phone' => '777-888-999'.$i,
                     'position' => $i % 2 == 0 ? 'Nurse' : 'Administrator',
                     'department' => $i % 2 == 0 ? 'Medical' : 'Admin',
                     'hire_date' => now()->subMonths($i)->format('Y-m-d'),
@@ -175,4 +175,3 @@ class UserSeeder extends Seeder
         $this->command->info('Additional test staff created (staff1@clinic.com to staff2@clinic.com)');
     }
 }
-

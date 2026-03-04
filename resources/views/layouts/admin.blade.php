@@ -372,6 +372,45 @@
                         </div>
                     </div>
 
+                    <!-- Appointments -->
+                    <a href="{{ route('admin.appointments.index') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('admin.appointments.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.appointments.*') ? 'bg-green-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-calendar-check text-lg {{ request()->routeIs('admin.appointments.*') ? 'text-green-400' : '' }}'></i>
+                        </div>
+                        <span>Appointments</span>
+                    </a>
+
+                    <!-- Schedules -->
+                    <a href="{{ route('admin.schedules.index') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('admin.schedules.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.schedules.*') ? 'bg-teal-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-calendar text-lg {{ request()->routeIs('admin.schedules.*') ? 'text-teal-400' : '' }}'></i>
+                        </div>
+                        <span>Schedules</span>
+                    </a>
+
+                    <!-- Referral Letters -->
+                    <a href="{{ route('admin.referral-letters.index') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('admin.referral-letters.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.referral-letters.*') ? 'bg-violet-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-transfer text-lg {{ request()->routeIs('admin.referral-letters.*') ? 'text-violet-400' : '' }}'></i>
+                        </div>
+                        <span>Referral Letters</span>
+                    </a>
+                </div>
+
+                <!-- Website Section -->
+                <div class="mb-6">
+                    <p class="px-3 mb-2 text-xs font-semibold text-sidebar-text uppercase tracking-wider">Website
+                    </p>
+
                     <!-- Pages -->
                     <a href="{{ route('admin.pages.index') }}"
                         class="{{ $navBase }} {{ (request()->routeIs('admin.pages.*')) || (request()->routeIs('admin.settings.*') && request('tab') === 'pages') ? $navActive : $navInactive }}">
@@ -425,28 +464,6 @@
                                 class='bx bx-news text-lg {{ request()->routeIs('admin.announcements.*') ? 'text-blue-400' : '' }}'></i>
                         </div>
                         <span>Announcements</span>
-                    </a>
-
-                    <!-- Appointments -->
-                    <a href="{{ route('admin.appointments.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('admin.appointments.*') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.appointments.*') ? 'bg-green-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i
-                                class='bx bx-calendar-check text-lg {{ request()->routeIs('admin.appointments.*') ? 'text-green-400' : '' }}'></i>
-                        </div>
-                        <span>Appointments</span>
-                    </a>
-
-                    <!-- Schedules -->
-                    <a href="{{ route('admin.schedules.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('admin.schedules.*') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.schedules.*') ? 'bg-teal-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                            <i
-                                class='bx bx-calendar text-lg {{ request()->routeIs('admin.schedules.*') ? 'text-teal-400' : '' }}'></i>
-                        </div>
-                        <span>Schedules</span>
                     </a>
                 </div>
 
@@ -514,33 +531,32 @@
                         </div>
                         <span>Reports</span>
                     </a>
+
+                    <!-- Settings -->
+                    <a href="{{ route('admin.settings.index') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('admin.settings.*') && request('tab') !== 'pages' ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.settings.*') && request('tab') !== 'pages' ? 'bg-slate-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-cog text-lg {{ request()->routeIs('admin.settings.*') && request('tab') !== 'pages' ? 'text-slate-400' : '' }}'></i>
+                        </div>
+                        <span>Settings</span>
+                    </a>
                 </div>
             </nav>
 
             <!-- Footer Section -->
             <div class="flex-shrink-0 border-t border-white/10 p-3">
-                <!-- Settings -->
-                <a href="{{ route('admin.settings.index') }}"
-                    class="{{ $navBase }} {{ request()->routeIs('admin.settings.*') && request('tab') !== 'pages' ? $navActive : $navInactive }}">
+                <!-- User Guide -->
+                <a href="{{ route('user-guide') }}"
+                    class="{{ $navBase }} {{ request()->routeIs('user-guide') ? $navActive : $navInactive }}">
                     <div
-                        class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.settings.*') && request('tab') !== 'pages' ? 'bg-slate-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                        class="w-8 h-8 rounded-lg {{ request()->routeIs('user-guide') ? 'bg-blue-500/20' : 'bg-white/5' }} flex items-center justify-center">
                         <i
-                            class='bx bx-cog text-lg {{ request()->routeIs('admin.settings.*') && request('tab') !== 'pages' ? 'text-slate-400' : '' }}'></i>
+                            class='bx bx-book-reader text-lg {{ request()->routeIs('user-guide') ? 'text-blue-400' : '' }}'></i>
                     </div>
-                    <span>Settings</span>
+                    <span>User Guide</span>
                 </a>
-
-                <!-- User Profile Section -->
-                <div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-white/5">
-                    <div
-                        class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white text-sm font-bold">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-white truncate">{{ Auth::user()->name }}</p>
-                        <p class="text-xs text-sidebar-text truncate">{{ ucfirst(Auth::user()->role) }}</p>
-                    </div>
-                </div>
             </div>
         </aside>
 
@@ -609,15 +625,10 @@
 
                                 <!-- Menu Items -->
                                 <div class="py-1">
-                                    <a href="{{ route('admin.settings.index') }}"
+                                    <a href="{{ route('admin.profile.show') }}"
                                         class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                        <i class='bx bx-cog text-lg text-gray-400'></i>
-                                        <span>Settings</span>
-                                    </a>
-                                    <a href="{{ route('admin.pages.index') }}"
-                                        class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                        <i class='bx bx-file text-lg text-gray-400'></i>
-                                        <span>Pages</span>
+                                        <i class='bx bx-user-circle text-lg text-gray-400'></i>
+                                        <span>My Profile</span>
                                     </a>
                                 </div>
 

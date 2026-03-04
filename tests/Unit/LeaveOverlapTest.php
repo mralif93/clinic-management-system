@@ -34,4 +34,3 @@ class LeaveOverlapTest extends TestCase
         $this->assertFalse(Leave::hasOverlap($user->id, '2025-01-15', '2025-01-16'));
     }
 }
-

@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Models\Todo;
 use Carbon\Carbon;
+use Illuminate\Console\Command;
 
 class GenerateRecurringTasks extends Command
 {
@@ -40,19 +40,19 @@ class GenerateRecurringTasks extends Command
             switch ($task->recurrence_type) {
                 case 'daily':
                     // Generate if last_generated_date is null or not today
-                    $shouldGenerate = !$task->last_generated_date ||
-                        !$task->last_generated_date->isToday();
+                    $shouldGenerate = ! $task->last_generated_date ||
+                        ! $task->last_generated_date->isToday();
                     break;
 
                 case 'weekly':
                     // Generate if last_generated_date is null or more than 7 days ago
-                    $shouldGenerate = !$task->last_generated_date ||
+                    $shouldGenerate = ! $task->last_generated_date ||
                         $task->last_generated_date->diffInDays($today) >= 7;
                     break;
 
                 case 'monthly':
                     // Generate if last_generated_date is null or different month
-                    $shouldGenerate = !$task->last_generated_date ||
+                    $shouldGenerate = ! $task->last_generated_date ||
                         $task->last_generated_date->month != $today->month;
                     break;
             }

@@ -20,9 +20,9 @@ class UserController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%");
+                    ->orWhere('email', 'like', "%{$search}%");
             });
         }
 
@@ -37,8 +37,8 @@ class UserController extends Controller
                 $query->onlyTrashed();
             } elseif ($request->status === 'locked') {
                 $query->whereNotNull('locked_until')
-                      ->where('locked_until', '>', now())
-                      ->whereNull('deleted_at');
+                    ->where('locked_until', '>', now())
+                    ->whereNull('deleted_at');
             } else {
                 $query->whereNull('deleted_at');
             }
@@ -93,7 +93,7 @@ class UserController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'User created successfully!',
-                    'user' => $user
+                    'user' => $user,
                 ]);
             }
 
@@ -104,7 +104,7 @@ class UserController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Validation failed',
-                    'errors' => $e->errors()
+                    'errors' => $e->errors(),
                 ], 422);
             }
             throw $e;
@@ -112,12 +112,13 @@ class UserController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to create user: ' . $e->getMessage()
+                    'message' => 'Failed to create user: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to create user: ' . $e->getMessage());
+                ->with('error', 'Failed to create user: '.$e->getMessage());
         }
     }
 
@@ -127,6 +128,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::withTrashed()->findOrFail($id);
+
         return view('admin.users.show', compact('user'));
     }
 
@@ -136,13 +138,13 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::withTrashed()->findOrFail($id);
-        
+
         // Prevent editing deleted users
         if ($user->trashed()) {
             return redirect()->route('admin.users.index')
                 ->with('error', 'Cannot edit a deleted user. Please restore it first.');
         }
-        
+
         return view('admin.users.edit', compact('user'));
     }
 
@@ -153,20 +155,21 @@ class UserController extends Controller
     {
         try {
             $user = User::withTrashed()->findOrFail($id);
-            
+
             // Prevent updating deleted users
             if ($user->trashed()) {
                 $message = 'Cannot update a deleted user. Please restore it first.';
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
                         'success' => false,
-                        'message' => $message
+                        'message' => $message,
                     ], 422);
                 }
+
                 return redirect()->route('admin.users.index')
                     ->with('error', $message);
             }
-            
+
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
@@ -196,7 +199,7 @@ class UserController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'User updated successfully!',
-                    'user' => $user
+                    'user' => $user,
                 ]);
             }
 
@@ -207,7 +210,7 @@ class UserController extends Controller
                 return response()->json([
                     'success' => false,
                     'message' => 'Validation failed',
-                    'errors' => $e->errors()
+                    'errors' => $e->errors(),
                 ], 422);
             }
             throw $e;
@@ -215,12 +218,13 @@ class UserController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to update user: ' . $e->getMessage()
+                    'message' => 'Failed to update user: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to update user: ' . $e->getMessage());
+                ->with('error', 'Failed to update user: '.$e->getMessage());
         }
     }
 
@@ -231,16 +235,17 @@ class UserController extends Controller
     {
         try {
             $user = User::findOrFail($id);
-            
+
             // Prevent admin from deleting themselves
             if ($user->id === auth()->id()) {
                 $message = 'You cannot delete your own account!';
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
                         'success' => false,
-                        'message' => $message
+                        'message' => $message,
                     ], 422);
                 }
+
                 return redirect()->route('admin.users.index')
                     ->with('error', $message);
             }
@@ -250,7 +255,7 @@ class UserController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'User deleted successfully!'
+                    'message' => 'User deleted successfully!',
                 ]);
             }
 
@@ -260,11 +265,12 @@ class UserController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to delete user: ' . $e->getMessage()
+                    'message' => 'Failed to delete user: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->route('admin.users.index')
-                ->with('error', 'Failed to delete user: ' . $e->getMessage());
+                ->with('error', 'Failed to delete user: '.$e->getMessage());
         }
     }
 
@@ -275,25 +281,26 @@ class UserController extends Controller
     {
         try {
             $user = User::withTrashed()->findOrFail($id);
-            
-            if (!$user->trashed()) {
+
+            if (! $user->trashed()) {
                 $message = 'This user is not deleted.';
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
                         'success' => false,
-                        'message' => $message
+                        'message' => $message,
                     ], 422);
                 }
+
                 return redirect()->route('admin.users.index')
                     ->with('info', $message);
             }
-            
+
             $user->restore();
 
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'User restored successfully!'
+                    'message' => 'User restored successfully!',
                 ]);
             }
 
@@ -303,11 +310,12 @@ class UserController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to restore user: ' . $e->getMessage()
+                    'message' => 'Failed to restore user: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->route('admin.users.index')
-                ->with('error', 'Failed to restore user: ' . $e->getMessage());
+                ->with('error', 'Failed to restore user: '.$e->getMessage());
         }
     }
 
@@ -325,9 +333,10 @@ class UserController extends Controller
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
                         'success' => false,
-                        'message' => $message
+                        'message' => $message,
                     ], 422);
                 }
+
                 return redirect()->route('admin.users.index')
                     ->with('error', $message);
             }
@@ -337,7 +346,7 @@ class UserController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'User permanently deleted!'
+                    'message' => 'User permanently deleted!',
                 ]);
             }
 
@@ -347,11 +356,12 @@ class UserController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to permanently delete user: ' . $e->getMessage()
+                    'message' => 'Failed to permanently delete user: '.$e->getMessage(),
                 ], 500);
             }
+
             return redirect()->route('admin.users.index')
-                ->with('error', 'Failed to permanently delete user: ' . $e->getMessage());
+                ->with('error', 'Failed to permanently delete user: '.$e->getMessage());
         }
     }
 
@@ -361,8 +371,8 @@ class UserController extends Controller
     public function unlock($id)
     {
         $user = User::withTrashed()->findOrFail($id);
-        
-        if (!$user->isLocked()) {
+
+        if (! $user->isLocked()) {
             return redirect()->route('admin.users.show', $user->id)
                 ->with('info', 'This account is not locked.');
         }
@@ -379,11 +389,10 @@ class UserController extends Controller
     public function resetAttempts($id)
     {
         $user = User::withTrashed()->findOrFail($id);
-        
+
         $user->resetFailedAttempts();
 
         return redirect()->route('admin.users.show', $user->id)
             ->with('success', 'Failed login attempts reset successfully!');
     }
 }
-

@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         // Only run if pages table exists and is empty
-        if (!Schema::hasTable('pages')) {
+        if (! Schema::hasTable('pages')) {
             return;
         }
 

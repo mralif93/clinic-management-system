@@ -34,6 +34,7 @@ class Staff extends Model
         $firstName = $this->first_name ?? '';
         $lastName = $this->last_name ?? '';
         $fullName = trim("{$firstName} {$lastName}");
+
         return $fullName ?: 'N/A';
     }
 
@@ -65,15 +66,15 @@ class Staff extends Model
     protected static function generateStaffId()
     {
         $lastStaff = static::withTrashed()->whereNotNull('staff_id')->orderBy('id', 'desc')->first();
-        
+
         if ($lastStaff && preg_match('/STF-(\d+)/', $lastStaff->staff_id, $matches)) {
             $number = (int) $matches[1] + 1;
         } else {
             $number = 1;
         }
-        
+
         do {
-            $staffId = 'STF-' . str_pad($number, 6, '0', STR_PAD_LEFT);
+            $staffId = 'STF-'.str_pad($number, 6, '0', STR_PAD_LEFT);
             $exists = static::withTrashed()->where('staff_id', $staffId)->exists();
             $number++;
         } while ($exists);
@@ -81,4 +82,3 @@ class Staff extends Model
         return $staffId;
     }
 }
-

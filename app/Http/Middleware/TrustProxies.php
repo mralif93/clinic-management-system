@@ -9,7 +9,7 @@ class TrustProxies extends Middleware
 {
     /**
      * The trusted proxies for this application.
-     * 
+     *
      * For Vercel, we trust all proxies since Vercel acts as a reverse proxy.
      * In production, this is safe as Vercel handles SSL termination.
      *
@@ -29,4 +29,3 @@ class TrustProxies extends Middleware
         Request::HEADER_X_FORWARDED_PROTO |
         Request::HEADER_X_FORWARDED_AWS_ELB;
 }
-

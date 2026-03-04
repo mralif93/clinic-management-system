@@ -1,5 +1,23 @@
 @php
     $colorClasses = [
+        'yellow' => [
+            'bg' => 'bg-yellow-100',
+            'text' => 'text-yellow-600',
+            'border' => 'border-yellow-200',
+            'header' => 'bg-gradient-to-r from-yellow-50 to-yellow-100',
+            'gradient' => 'from-yellow-500 to-amber-500',
+            'light' => 'bg-yellow-50',
+            'ring' => 'ring-yellow-200'
+        ],
+        'orange' => [
+            'bg' => 'bg-orange-100',
+            'text' => 'text-orange-600',
+            'border' => 'border-orange-200',
+            'header' => 'bg-gradient-to-r from-orange-50 to-orange-100',
+            'gradient' => 'from-orange-500 to-red-500',
+            'light' => 'bg-orange-50',
+            'ring' => 'ring-orange-200'
+        ],
         'slate' => [
             'bg' => 'bg-slate-100',
             'text' => 'text-slate-600',
@@ -169,7 +187,9 @@
                         <!-- Forward Action Button -->
                         <button onclick="event.stopPropagation(); @if($nextAction === 'mark_paid') openPaymentModal({{ $appointment->id }}, {{ $paymentAmount }}); @else updateStatus({{ $appointment->id }}, '{{ $nextAction }}'); @endif"
                             class="w-full py-2.5 text-sm font-semibold rounded-xl transition-all flex items-center justify-center gap-2
-                            @if($stage === 'completed')
+                            @if($stage === 'pending')
+                                bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white shadow-sm hover:shadow-md
+                            @elseif($stage === 'completed')
                                 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-sm hover:shadow-md
                             @elseif($stage === 'scheduled')
                                 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm hover:shadow-md
@@ -196,12 +216,21 @@
                     @php
                         $revertAction = null;
                         $revertLabel = null;
-                        if ($stage === 'checked_in') {
-                            $revertAction = 'revert_to_scheduled';
-                            $revertLabel = 'Back to Scheduled';
+                        if ($stage === 'pending') {
+                            $revertAction = null;
+                            $revertLabel = null;
+                        } elseif ($stage === 'scheduled') {
+                            $revertAction = 'revert_to_pending';
+                            $revertLabel = 'Back to Pending';
+                        } elseif ($stage === 'arrived') {
+                            $revertAction = null;
+                            $revertLabel = null;
+                        } elseif ($stage === 'checked_in') {
+                            $revertAction = 'revert_to_arrived';
+                            $revertLabel = 'Back to Arrived';
                         } elseif ($stage === 'in_consultation') {
                             $revertAction = 'revert_to_checked_in';
-                            $revertLabel = 'Back to Checked In';
+                            $revertLabel = 'Back to With Doctor';
                         } elseif ($stage === 'completed') {
                             $revertAction = 'revert_to_in_consultation';
                             $revertLabel = 'Back to Consultation';

@@ -20,4 +20,3 @@ return [
     'same_site' => 'lax',
     'partitioned' => false,
 ];
-

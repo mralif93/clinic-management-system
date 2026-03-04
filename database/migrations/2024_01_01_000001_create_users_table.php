@@ -24,7 +24,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        
+
         // Add unique constraint separately for PostgreSQL compatibility
         Schema::table('users', function (Blueprint $table) {
             $table->unique('email', 'users_email_unique');
@@ -39,4 +39,3 @@ return new class extends Migration
         Schema::dropIfExists('users');
     }
 };
-

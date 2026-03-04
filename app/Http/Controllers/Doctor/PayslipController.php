@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Payroll;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class PayslipController extends Controller
 {
@@ -39,7 +38,7 @@ class PayslipController extends Controller
             ->whereIn('status', ['approved', 'paid'])
             ->whereNotNull('pay_period_start')
             ->pluck('pay_period_start')
-            ->map(fn($date) => Carbon::parse($date)->year)
+            ->map(fn ($date) => Carbon::parse($date)->year)
             ->unique()
             ->sortDesc()
             ->values();
@@ -59,4 +58,3 @@ class PayslipController extends Controller
         return view('doctor.payslips.show', compact('payroll'));
     }
 }
-

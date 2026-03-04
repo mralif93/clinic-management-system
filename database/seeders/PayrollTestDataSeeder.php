@@ -2,15 +2,15 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\Doctor;
-use App\Models\Staff;
-use App\Models\Attendance;
 use App\Models\Appointment;
+use App\Models\Attendance;
+use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\Service;
+use App\Models\Staff;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class PayrollTestDataSeeder extends Seeder
@@ -160,7 +160,7 @@ class PayrollTestDataSeeder extends Seeder
 
         // 6. Get or create a service
         $service = Service::first();
-        if (!$service) {
+        if (! $service) {
             $service = Service::create([
                 'name' => 'General Consultation',
                 'description' => 'General medical consultation',
@@ -195,19 +195,18 @@ class PayrollTestDataSeeder extends Seeder
         $this->command->info("✅ Created {$appointmentCount} completed appointments for Dr. Mike Locum (Total fees: RM {$totalFees})");
 
         $this->command->info("\n📊 Test Data Summary:");
-        $this->command->info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-        $this->command->info("1. Full-Time Staff: John Fulltime");
-        $this->command->info("   Email: john.fulltime@test.com | Password: password");
-        $this->command->info("   Expected Salary: RM 3,000.00");
-        $this->command->info("");
-        $this->command->info("2. Part-Time Staff: Jane Parttime");
-        $this->command->info("   Email: jane.parttime@test.com | Password: password");
-        $this->command->info("   Expected Salary: {$totalHours} hours × RM 8 = RM " . number_format($totalHours * 8, 2));
-        $this->command->info("");
-        $this->command->info("3. Locum Doctor: Dr. Mike Locum");
-        $this->command->info("   Email: mike.locum@test.com | Password: password");
-        $this->command->info("   Expected Salary: RM {$totalFees} × 60% = RM " . number_format($totalFees * 0.6, 2));
-        $this->command->info("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        $this->command->info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+        $this->command->info('1. Full-Time Staff: John Fulltime');
+        $this->command->info('   Email: john.fulltime@test.com | Password: password');
+        $this->command->info('   Expected Salary: RM 3,000.00');
+        $this->command->info('');
+        $this->command->info('2. Part-Time Staff: Jane Parttime');
+        $this->command->info('   Email: jane.parttime@test.com | Password: password');
+        $this->command->info("   Expected Salary: {$totalHours} hours × RM 8 = RM ".number_format($totalHours * 8, 2));
+        $this->command->info('');
+        $this->command->info('3. Locum Doctor: Dr. Mike Locum');
+        $this->command->info('   Email: mike.locum@test.com | Password: password');
+        $this->command->info("   Expected Salary: RM {$totalFees} × 60% = RM ".number_format($totalFees * 0.6, 2));
+        $this->command->info('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     }
 }
-

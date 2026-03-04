@@ -2,17 +2,16 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\Doctor;
-use App\Models\Patient;
-use App\Models\Service;
 use App\Models\Appointment;
 use App\Models\Attendance;
+use App\Models\Doctor;
 use App\Models\Leave;
+use App\Models\Patient;
 use App\Models\Payroll;
+use App\Models\Service;
 use App\Models\Todo;
-use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class DoctorTestDataSeeder extends Seeder
 {
@@ -23,16 +22,18 @@ class DoctorTestDataSeeder extends Seeder
     {
         // Get doctor1 user
         $doctorUser = User::where('email', 'doctor1@clinic.com')->first();
-        
-        if (!$doctorUser) {
+
+        if (! $doctorUser) {
             $this->command->error('Doctor user not found. Please run UserSeeder first.');
+
             return;
         }
 
         $doctor = Doctor::where('user_id', $doctorUser->id)->first();
-        
-        if (!$doctor) {
+
+        if (! $doctor) {
             $this->command->error('Doctor profile not found.');
+
             return;
         }
 
@@ -44,6 +45,7 @@ class DoctorTestDataSeeder extends Seeder
 
         if ($patients->isEmpty() || $services->isEmpty()) {
             $this->command->error('Please run UserSeeder and ServiceSeeder first.');
+
             return;
         }
 
@@ -51,12 +53,12 @@ class DoctorTestDataSeeder extends Seeder
         $this->command->info('Creating today\'s appointments...');
         $times = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '14:00', '14:30', '15:00', '15:30', '16:00'];
         $statuses = ['scheduled', 'confirmed', 'in_progress', 'completed', 'scheduled', 'scheduled'];
-        
+
         foreach ($times as $index => $time) {
             $patient = $patients->random();
             $service = $services->random();
             $status = $statuses[$index % count($statuses)];
-            
+
             Appointment::updateOrCreate(
                 [
                     'doctor_id' => $doctor->id,
@@ -86,7 +88,7 @@ class DoctorTestDataSeeder extends Seeder
             for ($i = 0; $i < $appointmentCount; $i++) {
                 $hour = rand(9, 16);
                 $minute = rand(0, 1) ? '00' : '30';
-                
+
                 Appointment::create([
                     'doctor_id' => $doctor->id,
                     'patient_id' => $patients->random()->id,
@@ -108,7 +110,7 @@ class DoctorTestDataSeeder extends Seeder
                 $hour = rand(9, 16);
                 $minute = rand(0, 1) ? '00' : '30';
                 $service = $services->random();
-                
+
                 Appointment::create([
                     'doctor_id' => $doctor->id,
                     'patient_id' => $patients->random()->id,
@@ -160,7 +162,9 @@ class DoctorTestDataSeeder extends Seeder
             $dateStr = $date->format('Y-m-d');
 
             // Skip weekends
-            if ($date->isWeekend()) continue;
+            if ($date->isWeekend()) {
+                continue;
+            }
 
             // Check if record exists (including soft-deleted)
             $existing = Attendance::withTrashed()
@@ -170,6 +174,7 @@ class DoctorTestDataSeeder extends Seeder
 
             if ($existing) {
                 $skipped++;
+
                 continue;
             }
 
@@ -227,7 +232,7 @@ class DoctorTestDataSeeder extends Seeder
         foreach ($tasks as $index => $task) {
             Todo::create([
                 'title' => $task['title'],
-                'description' => 'Task description for: ' . $task['title'],
+                'description' => 'Task description for: '.$task['title'],
                 'status' => $task['status'],
                 'priority' => $task['priority'],
                 'due_date' => today()->addDays(rand(-3, 10))->format('Y-m-d'),
@@ -347,4 +352,3 @@ class DoctorTestDataSeeder extends Seeder
         }
     }
 }
-

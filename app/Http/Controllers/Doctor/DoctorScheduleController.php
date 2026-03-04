@@ -17,7 +17,7 @@ class DoctorScheduleController extends Controller
     {
         $doctor = Auth::user()->doctor;
 
-        if (!$doctor) {
+        if (! $doctor) {
             return redirect()->route('doctor.dashboard')
                 ->with('error', 'Doctor profile not found. Please contact administrator.');
         }
@@ -55,7 +55,7 @@ class DoctorScheduleController extends Controller
     {
         $doctor = Auth::user()->doctor;
 
-        if (!$doctor) {
+        if (! $doctor) {
             return redirect()->route('doctor.dashboard')
                 ->with('error', 'Doctor profile not found. Please contact administrator.');
         }
@@ -87,7 +87,7 @@ class DoctorScheduleController extends Controller
                         'day_of_week' => $scheduleData['day_of_week'],
                     ],
                     [
-                        'is_active' => (bool)($scheduleData['is_active'] ?? false),
+                        'is_active' => (bool) ($scheduleData['is_active'] ?? false),
                         'start_time' => $scheduleData['start_time'] ?? null,
                         'break_start' => $scheduleData['break_start'] ?? null,
                         'break_end' => $scheduleData['break_end'] ?? null,
@@ -103,10 +103,10 @@ class DoctorScheduleController extends Controller
                 ->with('success', 'Schedule settings saved successfully!');
         } catch (\Exception $e) {
             DB::rollBack();
-            
+
             // Log the error for debugging
-            \Log::error('Failed to save doctor schedule: ' . $e->getMessage());
-            \Log::error('Exception: ' . $e->getTraceAsString());
+            \Log::error('Failed to save doctor schedule: '.$e->getMessage());
+            \Log::error('Exception: '.$e->getTraceAsString());
 
             return redirect()->route('doctor.schedule.settings')
                 ->with('error', 'Failed to save schedule settings. Please try again.');

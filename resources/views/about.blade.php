@@ -8,6 +8,9 @@
         <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <div class="text-center mb-8 md:mb-12">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
+                <i class='bx bx-info-circle text-blue-600 text-3xl'></i>
+            </div>
             <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">{{ $aboutHeroTitle ?: 'About Us' }}</h1>
             <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
                 {{ $aboutHeroSubtitle ?: 'Learn more about our clinic and our commitment to your health and well-being.' }}

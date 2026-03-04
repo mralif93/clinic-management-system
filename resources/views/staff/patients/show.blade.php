@@ -112,29 +112,73 @@
                                     ];
                                     $statusColor = $statusColors[$appointment->status] ?? $statusColors['scheduled'];
                                 @endphp
-                                <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition">
-                                    <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl flex flex-col items-center justify-center text-white">
-                                        <span class="text-xs font-medium">{{ $appointment->appointment_date->format('M') }}</span>
-                                        <span class="text-lg font-bold leading-none">{{ $appointment->appointment_date->format('d') }}</span>
+                                <div class="p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition space-y-3">
+                                    <div class="flex items-start gap-4">
+                                        <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl flex flex-col items-center justify-center text-white">
+                                            <span class="text-xs font-medium">{{ $appointment->appointment_date->format('M') }}</span>
+                                            <span class="text-lg font-bold leading-none">{{ $appointment->appointment_date->format('d') }}</span>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <h4 class="font-semibold text-gray-900 truncate">{{ $appointment->service->name ?? 'N/A' }}</h4>
+                                            <p class="text-sm text-gray-500 flex items-center gap-2 flex-wrap">
+                                                <i class='bx bx-time'></i>
+                                                {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
+                                                @if($appointment->doctor)
+                                                    <span class="text-gray-300">•</span>
+                                                    Dr. {{ $appointment->doctor->user->name ?? 'N/A' }}
+                                                @endif
+                                            </p>
+                                        </div>
+                                        <a href="{{ route('staff.appointments.show', $appointment->id) }}"
+                                            class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-200 transition">
+                                            <i class='bx bx-show'></i>
+                                        </a>
                                     </div>
-                                    <div class="flex-1 min-w-0">
-                                        <h4 class="font-semibold text-gray-900 truncate">{{ $appointment->service->name ?? 'N/A' }}</h4>
-                                        <p class="text-sm text-gray-500 flex items-center gap-2">
-                                            <i class='bx bx-time'></i>
-                                            {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
-                                            @if($appointment->doctor)
-                                                <span class="text-gray-300">•</span>
-                                                Dr. {{ $appointment->doctor->full_name }}
+
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <span class="px-3 py-1 text-xs font-semibold rounded-full {{ $statusColor['bg'] }} {{ $statusColor['text'] }}">
+                                            {{ ucfirst(str_replace('_', ' ', $appointment->status)) }}
+                                        </span>
+                                        @if($appointment->status === 'completed')
+                                            @if($appointment->record_approved_at)
+                                                <div class="flex items-center gap-2 flex-wrap">
+                                                    <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700 flex items-center gap-1">
+                                                        <i class='bx bx-check-shield'></i> Doctor Approved
+                                                    </span>
+                                                    <span class="text-xs text-gray-500">
+                                                        Dr. {{ $appointment->recordApprovedBy->name ?? '' }} &bull; {{ $appointment->record_approved_at->format('M d, Y h:i A') }}
+                                                    </span>
+                                                </div>
+                                            @else
+                                                <span class="px-3 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-700 flex items-center gap-1">
+                                                    <i class='bx bx-time-five'></i> Waiting Doctor Approval
+                                                </span>
                                             @endif
-                                        </p>
+                                        @endif
                                     </div>
-                                    <span class="px-3 py-1 text-xs font-semibold rounded-full {{ $statusColor['bg'] }} {{ $statusColor['text'] }}">
-                                        {{ ucfirst(str_replace('_', ' ', $appointment->status)) }}
-                                    </span>
-                                    <a href="{{ route('staff.appointments.show', $appointment->id) }}"
-                                        class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-200 transition">
-                                        <i class='bx bx-show'></i>
-                                    </a>
+
+                                    @if($appointment->diagnosis || $appointment->prescription || $appointment->notes)
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                            @if($appointment->diagnosis)
+                                                <div class="bg-blue-50 border-l-4 border-blue-400 rounded-r-lg p-3">
+                                                    <p class="text-xs uppercase tracking-wide text-blue-600 font-semibold mb-1">Diagnosis</p>
+                                                    <div class="text-sm text-gray-700">{!! $appointment->diagnosis !!}</div>
+                                                </div>
+                                            @endif
+                                            @if($appointment->prescription)
+                                                <div class="bg-emerald-50 border-l-4 border-emerald-400 rounded-r-lg p-3">
+                                                    <p class="text-xs uppercase tracking-wide text-emerald-600 font-semibold mb-1">Prescription</p>
+                                                    <div class="text-sm text-gray-700">{!! $appointment->prescription !!}</div>
+                                                </div>
+                                            @endif
+                                            @if($appointment->notes)
+                                                <div class="bg-amber-50 border-l-4 border-amber-400 rounded-r-lg p-3">
+                                                    <p class="text-xs uppercase tracking-wide text-amber-600 font-semibold mb-1">Notes</p>
+                                                    <div class="text-sm text-gray-700">{!! $appointment->notes !!}</div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @endif
                                 </div>
                             @endforeach
                         </div>

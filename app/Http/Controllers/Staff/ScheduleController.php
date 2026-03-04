@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Staff;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Doctor;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 use App\Models\DoctorSchedule;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
 {
@@ -131,4 +130,3 @@ class ScheduleController extends Controller
         return view('staff.schedule.list-doctors', compact('doctors', 'specializations'));
     }
 }
-

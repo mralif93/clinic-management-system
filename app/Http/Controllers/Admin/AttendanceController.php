@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
@@ -22,8 +22,8 @@ class AttendanceController extends Controller
             $yearExpr = "strftime('%Y', date)";
             $monthExpr = "strftime('%m', date)";
         } else {
-            $yearExpr = "YEAR(date)";
-            $monthExpr = "MONTH(date)";
+            $yearExpr = 'YEAR(date)';
+            $monthExpr = 'MONTH(date)';
         }
 
         $months = Attendance::select(
@@ -138,9 +138,9 @@ class AttendanceController extends Controller
         ]);
 
         // Combine date and time
-        $clockInTime = Carbon::parse($validated['date'] . ' ' . $validated['clock_in_time']);
+        $clockInTime = Carbon::parse($validated['date'].' '.$validated['clock_in_time']);
         $clockOutTime = $validated['clock_out_time']
-            ? Carbon::parse($validated['date'] . ' ' . $validated['clock_out_time'])
+            ? Carbon::parse($validated['date'].' '.$validated['clock_out_time'])
             : null;
 
         $attendance = Attendance::create([
@@ -160,9 +160,10 @@ class AttendanceController extends Controller
         }
 
         // Redirect back to month view if date is set, or index
-        if(isset($validated['date'])) {
-             $date = Carbon::parse($validated['date']);
-             return redirect()->route('admin.attendance.by-month', ['year' => $date->year, 'month' => $date->month])
+        if (isset($validated['date'])) {
+            $date = Carbon::parse($validated['date']);
+
+            return redirect()->route('admin.attendance.by-month', ['year' => $date->year, 'month' => $date->month])
                 ->with('success', 'Attendance entry created successfully!');
         }
 
@@ -182,9 +183,9 @@ class AttendanceController extends Controller
             'notes' => 'nullable|string',
         ]);
 
-        $clockInTime = Carbon::parse($attendance->date->format('Y-m-d') . ' ' . $validated['clock_in_time']);
+        $clockInTime = Carbon::parse($attendance->date->format('Y-m-d').' '.$validated['clock_in_time']);
         $clockOutTime = $validated['clock_out_time']
-            ? Carbon::parse($attendance->date->format('Y-m-d') . ' ' . $validated['clock_out_time'])
+            ? Carbon::parse($attendance->date->format('Y-m-d').' '.$validated['clock_out_time'])
             : null;
 
         $attendance->update([
@@ -222,6 +223,7 @@ class AttendanceController extends Controller
     public function destroy(Attendance $attendance)
     {
         $attendance->delete();
+
         return back()->with('success', 'Attendance deleted!');
     }
 
@@ -250,6 +252,7 @@ class AttendanceController extends Controller
 
         return view('admin.attendance.reports', compact('summary', 'startDate', 'endDate'));
     }
+
     /**
      * Export attendance report to CSV
      */
@@ -266,11 +269,11 @@ class AttendanceController extends Controller
         $filename = "attendance_report_{$startDate}_to_{$endDate}.csv";
 
         $headers = [
-            "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=$filename",
-            "Pragma" => "no-cache",
-            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-            "Expires" => "0"
+            'Content-type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=$filename",
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
         ];
 
         $columns = ['Date', 'User', 'Role', 'Clock In', 'Clock Out', 'Total Hours', 'Status', 'Notes'];
@@ -288,7 +291,7 @@ class AttendanceController extends Controller
                     $attendance->clock_out_time ? $attendance->clock_out_time->format('H:i') : '-',
                     $attendance->total_hours ?? '0',
                     ucfirst(str_replace('_', ' ', $attendance->status)),
-                    $attendance->notes
+                    $attendance->notes,
                 ];
 
                 fputcsv($file, $row);
@@ -299,6 +302,7 @@ class AttendanceController extends Controller
 
         return response()->stream($callback, 200, $headers);
     }
+
     /**
      * List pending corrections
      */
@@ -322,7 +326,7 @@ class AttendanceController extends Controller
         $attendance->update([
             'clock_in_time' => $correction->clock_in_time,
             'clock_out_time' => $correction->clock_out_time,
-            'notes' => $attendance->notes . "\n[Correction Approved] " . $correction->reason,
+            'notes' => $attendance->notes."\n[Correction Approved] ".$correction->reason,
         ]);
 
         if ($correction->clock_out_time) {

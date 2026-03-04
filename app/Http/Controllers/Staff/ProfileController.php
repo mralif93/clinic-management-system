@@ -16,8 +16,8 @@ class ProfileController extends Controller
     public function show()
     {
         $staff = Auth::user()->staff;
-        
-        if (!$staff) {
+
+        if (! $staff) {
             return redirect()->route('staff.dashboard')
                 ->with('error', 'Staff profile not found. Please contact administrator.');
         }
@@ -31,8 +31,8 @@ class ProfileController extends Controller
     public function edit()
     {
         $staff = Auth::user()->staff;
-        
-        if (!$staff) {
+
+        if (! $staff) {
             return redirect()->route('staff.dashboard')
                 ->with('error', 'Staff profile not found. Please contact administrator.');
         }
@@ -46,8 +46,8 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $staff = Auth::user()->staff;
-        
-        if (!$staff) {
+
+        if (! $staff) {
             return redirect()->route('staff.dashboard')
                 ->with('error', 'Staff profile not found. Please contact administrator.');
         }
@@ -65,7 +65,7 @@ class ProfileController extends Controller
         // Update user name if changed
         if ($staff->user) {
             $staff->user->update([
-                'name' => $validated['first_name'] . ' ' . $validated['last_name']
+                'name' => $validated['first_name'].' '.$validated['last_name'],
             ]);
         }
 
@@ -87,16 +87,15 @@ class ProfileController extends Controller
 
         $user = Auth::user();
 
-        if (!Hash::check($request->current_password, $user->password)) {
+        if (! Hash::check($request->current_password, $user->password)) {
             return back()->withErrors(['current_password' => 'Current password is incorrect.']);
         }
 
         $user->update([
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
 
         return redirect()->route('staff.profile.show')
             ->with('success', 'Password updated successfully!');
     }
 }
-

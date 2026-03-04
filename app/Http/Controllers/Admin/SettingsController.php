@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Setting;
 use App\Models\Page;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -39,7 +39,7 @@ class SettingsController extends Controller
     {
         // Get the About module page for visibility and order management
         $modulePage = Page::where('type', 'about')->first();
-        
+
         return view('admin.pages.edit', ['mode' => 'about', 'modulePage' => $modulePage]);
     }
 
@@ -49,8 +49,8 @@ class SettingsController extends Controller
     public function toggleAboutVisibility()
     {
         $page = Page::where('type', 'about')->first();
-        
-        if (!$page) {
+
+        if (! $page) {
             return redirect()->route('admin.pages.about')
                 ->with('error', 'About page not found.');
         }
@@ -77,8 +77,8 @@ class SettingsController extends Controller
         ]);
 
         $page = Page::where('type', 'about')->first();
-        
-        if (!$page) {
+
+        if (! $page) {
             return redirect()->route('admin.pages.about')
                 ->with('error', 'About page not found.');
         }
@@ -114,7 +114,7 @@ class SettingsController extends Controller
                     $base64 = base64_encode($imageData);
                     $mimeType = $file->getMimeType();
                     $extension = $file->getClientOriginalExtension();
-                    $logoData = 'data:' . $mimeType . ';base64,' . $base64;
+                    $logoData = 'data:'.$mimeType.';base64,'.$base64;
 
                     // Delete old logo if exists
                     $oldLogo = Setting::get('clinic_logo');
@@ -127,7 +127,7 @@ class SettingsController extends Controller
                 } else {
                     // Local development - use file storage
                     $oldLogo = Setting::get('clinic_logo');
-                    if ($oldLogo && !str_starts_with($oldLogo, 'data:') && Storage::disk('public')->exists($oldLogo)) {
+                    if ($oldLogo && ! str_starts_with($oldLogo, 'data:') && Storage::disk('public')->exists($oldLogo)) {
                         Storage::disk('public')->delete($oldLogo);
                     }
 
@@ -136,12 +136,12 @@ class SettingsController extends Controller
                 }
             } catch (\Exception $e) {
                 return redirect()->route('admin.settings.index')
-                    ->with('error', 'Failed to upload logo: ' . $e->getMessage());
+                    ->with('error', 'Failed to upload logo: '.$e->getMessage());
             }
         }
 
         // Update other settings
-        if (!empty($validated['settings'])) {
+        if (! empty($validated['settings'])) {
             foreach ($validated['settings'] as $key => $value) {
                 Setting::set($key, $value);
             }
@@ -160,7 +160,7 @@ class SettingsController extends Controller
             $oldLogo = Setting::get('clinic_logo');
 
             // Delete file if it's a file path (local development)
-            if ($oldLogo && !str_starts_with($oldLogo, 'data:')) {
+            if ($oldLogo && ! str_starts_with($oldLogo, 'data:')) {
                 if (Storage::disk('public')->exists($oldLogo)) {
                     Storage::disk('public')->delete($oldLogo);
                 }
@@ -173,7 +173,7 @@ class SettingsController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => true,
-                    'message' => 'Logo removed successfully!'
+                    'message' => 'Logo removed successfully!',
                 ]);
             }
 
@@ -184,12 +184,12 @@ class SettingsController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to remove logo: ' . $e->getMessage()
+                    'message' => 'Failed to remove logo: '.$e->getMessage(),
                 ], 500);
             }
 
             return redirect()->route('admin.settings.index')
-                ->with('error', 'Failed to remove logo: ' . $e->getMessage());
+                ->with('error', 'Failed to remove logo: '.$e->getMessage());
         }
     }
 
@@ -214,7 +214,7 @@ class SettingsController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Failed to save setting: ' . $e->getMessage(),
+                'message' => 'Failed to save setting: '.$e->getMessage(),
             ], 500);
         }
     }

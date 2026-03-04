@@ -57,4 +57,3 @@ class AppointmentConflictTest extends TestCase
         $this->assertFalse(Appointment::hasConflict($doctor->id, null, '2025-01-01', '11:00:00'));
     }
 }
-

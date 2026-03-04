@@ -1,14 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Patient\DashboardController as PatientDashboardController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/how-it-works', [HomeController::class, 'howItWorks'])->name('how-it-works');
 
 // Team Routes
 Route::get('/team', [App\Http\Controllers\TeamController::class, 'index'])->name('team.index');
@@ -47,6 +48,9 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    // User Guide (Accessible to all authenticated users)
+    Route::get('/user-guide', [\App\Http\Controllers\UserGuideController::class, 'index'])->name('user-guide');
+
     // Patient Routes (using public layout)
     Route::prefix('patient')->name('patient.')->group(function () {
         Route::get('/dashboard', [PatientDashboardController::class, 'index'])->name('dashboard');
@@ -55,8 +59,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/appointments', [App\Http\Controllers\Patient\AppointmentController::class, 'index'])->name('appointments.index');
         Route::get('/appointments/create', [App\Http\Controllers\Patient\AppointmentController::class, 'create'])->name('appointments.create');
         Route::post('/appointments', [App\Http\Controllers\Patient\AppointmentController::class, 'store'])->name('appointments.store');
+        Route::get('/appointments/{id}/pending', [App\Http\Controllers\Patient\AppointmentController::class, 'pending'])->name('appointments.pending');
         Route::post('/appointments/{id}/cancel', [App\Http\Controllers\Patient\AppointmentController::class, 'cancel'])->name('appointments.cancel');
         Route::get('/appointments/{id}', [App\Http\Controllers\Patient\AppointmentController::class, 'show'])->name('appointments.show');
+
+        // Guide
+        Route::get('/guide', [PatientDashboardController::class, 'guide'])->name('guide');
 
         // Profile
         Route::get('/profile', [App\Http\Controllers\Patient\ProfileController::class, 'show'])->name('profile.show');
@@ -65,6 +73,9 @@ Route::middleware('auth')->group(function () {
 
         // Records
         Route::get('/records', [App\Http\Controllers\Patient\RecordController::class, 'index'])->name('records.index');
+
+        // Guide
+        Route::get('/guide', [PatientDashboardController::class, 'guide'])->name('guide');
     });
 
     // Doctor Routes
@@ -81,12 +92,31 @@ Route::middleware('auth')->group(function () {
         Route::middleware('doctor.checkin')->group(function () {
             Route::get('/dashboard', [App\Http\Controllers\Doctor\DashboardController::class, 'index'])->name('dashboard');
 
+            // Waiting Patients (for accept/reject)
+            Route::get('/waiting-patients', [App\Http\Controllers\Doctor\DashboardController::class, 'waitingPatients'])->name('waiting-patients');
+            Route::post('/waiting-patients/{id}/accept', [App\Http\Controllers\Doctor\DashboardController::class, 'acceptPatient'])->name('waiting-patients.accept');
+            Route::post('/waiting-patients/{id}/reject', [App\Http\Controllers\Doctor\DashboardController::class, 'rejectPatient'])->name('waiting-patients.reject');
+
             // Appointments
             Route::get('/appointments', [App\Http\Controllers\Doctor\AppointmentController::class, 'index'])->name('appointments.index');
             Route::get('/appointments/{id}', [App\Http\Controllers\Doctor\AppointmentController::class, 'show'])->name('appointments.show');
             Route::get('/appointments/{id}/edit', [App\Http\Controllers\Doctor\AppointmentController::class, 'edit'])->name('appointments.edit');
             Route::put('/appointments/{id}', [App\Http\Controllers\Doctor\AppointmentController::class, 'update'])->name('appointments.update');
+            Route::post('/appointments/{id}/approve-record', [App\Http\Controllers\Doctor\AppointmentController::class, 'approveRecord'])->name('appointments.approve-record');
             Route::get('/appointments/{id}/invoice', [App\Http\Controllers\Doctor\AppointmentController::class, 'invoice'])->name('appointments.invoice');
+
+            // Referral Letters
+            Route::resource('/referral-letters', App\Http\Controllers\Doctor\ReferralLetterController::class)
+                ->names([
+                    'index' => 'referral-letters.index',
+                    'create' => 'referral-letters.create',
+                    'store' => 'referral-letters.store',
+                    'show' => 'referral-letters.show',
+                    'edit' => 'referral-letters.edit',
+                    'update' => 'referral-letters.update',
+                    'destroy' => 'referral-letters.destroy',
+                ]);
+            Route::post('/referral-letters/{id}/issue', [App\Http\Controllers\Doctor\ReferralLetterController::class, 'issue'])->name('referral-letters.issue');
 
             // Profile
             Route::get('/profile', [App\Http\Controllers\Doctor\ProfileController::class, 'show'])->name('profile.show');
@@ -136,6 +166,12 @@ Route::middleware('auth')->group(function () {
             Route::get('/patient-flow', [App\Http\Controllers\Staff\DashboardController::class, 'patientFlow'])->name('patient-flow');
             Route::post('/patient-flow/{id}/update-status', [App\Http\Controllers\Staff\DashboardController::class, 'updateFlowStatus'])->name('patient-flow.update-status');
             Route::get('/patient-flow/data', [App\Http\Controllers\Staff\DashboardController::class, 'getFlowData'])->name('patient-flow.data');
+
+            // QR Scanner
+            Route::get('/qr-scanner', [App\Http\Controllers\Staff\QrScannerController::class, 'index'])->name('qr-scanner');
+            Route::post('/qr-scanner/verify', [App\Http\Controllers\Staff\QrScannerController::class, 'verify'])->name('qr-scanner.verify');
+            Route::post('/qr-scanner/check-in', [App\Http\Controllers\Staff\QrScannerController::class, 'checkIn'])->name('qr-scanner.check-in');
+            Route::get('/qr-scanner/waiting', [App\Http\Controllers\Staff\QrScannerController::class, 'waiting'])->name('qr-scanner.waiting');
 
             // Appointments
             Route::get('/appointments', [App\Http\Controllers\Staff\AppointmentController::class, 'index'])->name('appointments.index');
@@ -224,6 +260,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/appointments/{year}/{month}', [App\Http\Controllers\Admin\AppointmentController::class, 'byMonth'])->name('appointments.by-month')->where(['year' => '[0-9]{4}', 'month' => '[0-9]{1,2}']);
         Route::resource('appointments', App\Http\Controllers\Admin\AppointmentController::class);
 
+        // Referral Letters (read-only + delete)
+        Route::get('/referral-letters', [App\Http\Controllers\Admin\ReferralLetterController::class, 'index'])->name('referral-letters.index');
+        Route::get('/referral-letters/{id}', [App\Http\Controllers\Admin\ReferralLetterController::class, 'show'])->name('referral-letters.show');
+        Route::delete('/referral-letters/{id}', [App\Http\Controllers\Admin\ReferralLetterController::class, 'destroy'])->name('referral-letters.destroy');
+
+
         // Service Management
         Route::post('/services/toggle-visibility', [App\Http\Controllers\Admin\ServiceController::class, 'toggleModuleVisibility'])->name('services.toggle-visibility');
         Route::post('/services/update-order', [App\Http\Controllers\Admin\ServiceController::class, 'updateModuleOrder'])->name('services.update-order');
@@ -251,6 +293,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/announcements/{id}/toggle-featured', [App\Http\Controllers\Admin\AnnouncementController::class, 'toggleFeatured'])->name('announcements.toggle-featured');
         Route::post('/announcements/{id}/restore', [App\Http\Controllers\Admin\AnnouncementController::class, 'restore'])->name('announcements.restore');
         Route::delete('/announcements/{id}/force-delete', [App\Http\Controllers\Admin\AnnouncementController::class, 'forceDelete'])->name('announcements.force-delete');
+
+        // Admin Profile
+        Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'show'])->name('profile.show');
+        Route::put('/profile/details', [App\Http\Controllers\Admin\ProfileController::class, 'updateDetails'])->name('profile.update-details');
+        Route::put('/profile/password', [App\Http\Controllers\Admin\ProfileController::class, 'updatePassword'])->name('profile.update-password');
 
         // Reports
         Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('reports.index');
@@ -335,4 +382,3 @@ Route::middleware('auth')->group(function () {
     Route::get('/search', [App\Http\Controllers\SearchController::class, 'search'])->name('search');
     Route::get('/search/autocomplete', [App\Http\Controllers\SearchController::class, 'autocomplete'])->name('search.autocomplete');
 });
-

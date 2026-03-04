@@ -48,14 +48,18 @@ class Payroll extends Model
      * Status constants
      */
     const STATUS_DRAFT = 'draft';
+
     const STATUS_APPROVED = 'approved';
+
     const STATUS_PAID = 'paid';
 
     /**
      * Payment method constants
      */
     const PAYMENT_BANK_TRANSFER = 'bank_transfer';
+
     const PAYMENT_CASH = 'cash';
+
     const PAYMENT_CHEQUE = 'cheque';
 
     /**
@@ -124,10 +128,11 @@ class Payroll extends Model
      */
     public function getPayPeriodAttribute()
     {
-        if (!$this->pay_period_start || !$this->pay_period_end) {
+        if (! $this->pay_period_start || ! $this->pay_period_end) {
             return 'N/A';
         }
-        return $this->pay_period_start->format('M d, Y') . ' - ' . $this->pay_period_end->format('M d, Y');
+
+        return $this->pay_period_start->format('M d, Y').' - '.$this->pay_period_end->format('M d, Y');
     }
 
     /**
@@ -135,9 +140,10 @@ class Payroll extends Model
      */
     public function getTotalAllowancesAttribute()
     {
-        if (!$this->allowances) {
+        if (! $this->allowances) {
             return 0;
         }
+
         return array_sum($this->allowances);
     }
 
@@ -146,9 +152,10 @@ class Payroll extends Model
      */
     public function getTotalDeductionsAttribute()
     {
-        if (!$this->deductions) {
+        if (! $this->deductions) {
             return 0;
         }
+
         return array_sum($this->deductions);
     }
 

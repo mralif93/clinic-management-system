@@ -44,7 +44,7 @@ class PageController extends Controller
                 'admin_route' => 'admin.pages.about',
             ],
         ];
-        
+
         // Fetch module pages and combine with configs
         $modules = [];
         foreach ($moduleConfigs as $type => $config) {
@@ -56,12 +56,12 @@ class PageController extends Controller
                 'order' => $page ? ($page->order ?? 999) : 999, // Default to 999 if no page or order
             ];
         }
-        
+
         // Sort by order (ascending)
-        usort($modules, function($a, $b) {
+        usort($modules, function ($a, $b) {
             return $a['order'] <=> $b['order'];
         });
-        
+
         return view('admin.pages.index', compact('modules'));
     }
 
@@ -71,7 +71,7 @@ class PageController extends Controller
     public function toggleStatus($id)
     {
         $page = Page::findOrFail($id);
-        
+
         // Allow toggling for all pages including system pages (services, packages, team)
         if ($page->is_published) {
             $page->unpublish();
@@ -95,7 +95,7 @@ class PageController extends Controller
         ]);
 
         $page = Page::findOrFail($id);
-        
+
         $page->update(['order' => $validated['order']]);
 
         return redirect()->route('admin.pages.index')

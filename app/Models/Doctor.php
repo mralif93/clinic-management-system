@@ -37,6 +37,7 @@ class Doctor extends Model
         $firstName = $this->first_name ?? '';
         $lastName = $this->last_name ?? '';
         $fullName = trim("{$firstName} {$lastName}");
+
         return $fullName ?: 'N/A';
     }
 
@@ -108,7 +109,7 @@ class Doctor extends Model
         }
 
         do {
-            $doctorId = 'DOC-' . str_pad($number, 6, '0', STR_PAD_LEFT);
+            $doctorId = 'DOC-'.str_pad($number, 6, '0', STR_PAD_LEFT);
             $exists = static::withTrashed()->where('doctor_id', $doctorId)->exists();
             $number++;
         } while ($exists);
@@ -116,4 +117,3 @@ class Doctor extends Model
         return $doctorId;
     }
 }
-

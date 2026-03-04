@@ -37,9 +37,9 @@ class AppointmentController extends Controller
         // Search by patient name
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->whereHas('patient', function($q) use ($search) {
+            $query->whereHas('patient', function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%");
+                    ->orWhere('last_name', 'like', "%{$search}%");
             });
         }
 
@@ -186,4 +186,3 @@ class AppointmentController extends Controller
         return view('staff.appointments.invoice', compact('appointment'));
     }
 }
-

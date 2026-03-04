@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
@@ -16,15 +16,15 @@ class ScheduleController extends Controller
     public function index(Request $request)
     {
         $doctor = Auth::user()->doctor;
-        
-        if (!$doctor) {
+
+        if (! $doctor) {
             return redirect()->route('doctor.dashboard')
                 ->with('error', 'Doctor profile not found. Please contact administrator.');
         }
 
         // Get selected date or default to today
         $selectedDate = $request->has('date') ? Carbon::parse($request->date) : Carbon::today();
-        
+
         // Get appointments for the selected date
         $appointments = Appointment::where('doctor_id', $doctor->id)
             ->whereDate('appointment_date', $selectedDate)
@@ -35,14 +35,14 @@ class ScheduleController extends Controller
         // Get appointments for the week
         $weekStart = $selectedDate->copy()->startOfWeek();
         $weekEnd = $selectedDate->copy()->endOfWeek();
-        
+
         $weekAppointments = Appointment::where('doctor_id', $doctor->id)
             ->whereBetween('appointment_date', [$weekStart, $weekEnd])
             ->with(['patient', 'service'])
             ->orderBy('appointment_date', 'asc')
             ->orderBy('appointment_time', 'asc')
             ->get()
-            ->groupBy(function($appointment) {
+            ->groupBy(function ($appointment) {
                 return $appointment->appointment_date->format('Y-m-d');
             });
 
@@ -50,11 +50,11 @@ class ScheduleController extends Controller
         $todayCount = Appointment::where('doctor_id', $doctor->id)
             ->whereDate('appointment_date', Carbon::today())
             ->count();
-        
+
         $weekCount = Appointment::where('doctor_id', $doctor->id)
             ->whereBetween('appointment_date', [$weekStart, $weekEnd])
             ->count();
-        
+
         $upcomingCount = Appointment::where('doctor_id', $doctor->id)
             ->where('appointment_date', '>=', Carbon::today())
             ->where('status', '!=', 'completed')
@@ -73,4 +73,3 @@ class ScheduleController extends Controller
         ));
     }
 }
-

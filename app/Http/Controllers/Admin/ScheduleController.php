@@ -105,8 +105,8 @@ class ScheduleController extends Controller
             DB::rollBack();
 
             // Log the error for debugging
-            \Log::error('Failed to save doctor schedule (admin): ' . $e->getMessage());
-            \Log::error('Exception: ' . $e->getTraceAsString());
+            \Log::error('Failed to save doctor schedule (admin): '.$e->getMessage());
+            \Log::error('Exception: '.$e->getTraceAsString());
 
             return redirect()->route('admin.schedules.manage', $doctorId)
                 ->with('error', 'Failed to save schedule settings. Please try again.');

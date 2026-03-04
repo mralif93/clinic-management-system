@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\TeamMember;
 use App\Models\Setting;
+use App\Models\TeamMember;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         // Only run if team_members table exists
-        if (!Schema::hasTable('team_members')) {
+        if (! Schema::hasTable('team_members')) {
             return;
         }
 
@@ -24,15 +24,15 @@ return new class extends Migration
 
         // Get team_members from Settings
         $teamMembersJson = Setting::get('team_members');
-        
-        if (!$teamMembersJson) {
+
+        if (! $teamMembersJson) {
             return;
         }
 
         // Decode JSON
         $teamMembers = json_decode($teamMembersJson, true);
-        
-        if (!is_array($teamMembers) || empty($teamMembers)) {
+
+        if (! is_array($teamMembers) || empty($teamMembers)) {
             return;
         }
 
@@ -40,7 +40,7 @@ return new class extends Migration
         foreach ($teamMembers as $index => $memberData) {
             try {
                 TeamMember::create([
-                    'name' => $memberData['name'] ?? 'Team Member ' . ($index + 1),
+                    'name' => $memberData['name'] ?? 'Team Member '.($index + 1),
                     'title' => $memberData['title'] ?? null,
                     'bio' => $memberData['bio'] ?? null,
                     'photo' => $memberData['photo'] ?? null,
@@ -49,7 +49,8 @@ return new class extends Migration
                 ]);
             } catch (\Exception $e) {
                 // Log error but continue with other members
-                \Log::warning("Failed to migrate team member: " . $e->getMessage());
+                \Log::warning('Failed to migrate team member: '.$e->getMessage());
+
                 continue;
             }
         }

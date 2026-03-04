@@ -2,10 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Attendance;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Attendance;
 use Symfony\Component\HttpFoundation\Response;
 
 class StaffCheckInMiddleware
@@ -26,7 +26,7 @@ class StaffCheckInMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         // Only apply to staff users
-        if (!Auth::check() || Auth::user()->role !== 'staff') {
+        if (! Auth::check() || Auth::user()->role !== 'staff') {
             return $next($request);
         }
 
@@ -42,7 +42,7 @@ class StaffCheckInMiddleware
             ->first();
 
         // If not clocked in, redirect to check-in page
-        if (!$todayAttendance) {
+        if (! $todayAttendance) {
             return redirect()->route('staff.check-in')
                 ->with('warning', 'Please check in before accessing the system.');
         }
@@ -50,4 +50,3 @@ class StaffCheckInMiddleware
         return $next($request);
     }
 }
-

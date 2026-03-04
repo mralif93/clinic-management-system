@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\TeamMember;
 use App\Models\Page;
+use App\Models\TeamMember;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -19,10 +19,10 @@ class TeamController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('title', 'like', "%{$search}%")
-                  ->orWhere('bio', 'like', "%{$search}%");
+                    ->orWhere('title', 'like', "%{$search}%")
+                    ->orWhere('bio', 'like', "%{$search}%");
             });
         }
 
@@ -70,7 +70,7 @@ class TeamController extends Controller
         ]);
 
         // Set default order if not provided
-        if (!isset($validated['order'])) {
+        if (! isset($validated['order'])) {
             $maxOrder = TeamMember::max('order') ?? 0;
             $validated['order'] = $maxOrder + 1;
         }
@@ -89,6 +89,7 @@ class TeamController extends Controller
     public function show($id)
     {
         $teamMember = TeamMember::withTrashed()->findOrFail($id);
+
         return view('admin.team.show', compact('teamMember'));
     }
 
@@ -98,12 +99,12 @@ class TeamController extends Controller
     public function edit($id)
     {
         $teamMember = TeamMember::withTrashed()->findOrFail($id);
-        
+
         if ($teamMember->trashed()) {
             return redirect()->route('admin.team.index')
                 ->with('error', 'Cannot edit a deleted team member. Please restore it first.');
         }
-        
+
         return view('admin.team.edit', compact('teamMember'));
     }
 
@@ -113,12 +114,12 @@ class TeamController extends Controller
     public function update(Request $request, $id)
     {
         $teamMember = TeamMember::withTrashed()->findOrFail($id);
-        
+
         if ($teamMember->trashed()) {
             return redirect()->route('admin.team.index')
                 ->with('error', 'Cannot update a deleted team member. Please restore it first.');
         }
-        
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'title' => 'nullable|string|max:255',
@@ -178,8 +179,8 @@ class TeamController extends Controller
     public function toggleModuleVisibility()
     {
         $page = Page::where('type', 'team')->first();
-        
-        if (!$page) {
+
+        if (! $page) {
             return redirect()->route('admin.team.index')
                 ->with('error', 'Team page not found.');
         }
@@ -206,8 +207,8 @@ class TeamController extends Controller
         ]);
 
         $page = Page::where('type', 'team')->first();
-        
-        if (!$page) {
+
+        if (! $page) {
             return redirect()->route('admin.team.index')
                 ->with('error', 'Team page not found.');
         }

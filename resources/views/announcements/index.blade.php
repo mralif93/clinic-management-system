@@ -7,10 +7,13 @@
     <div class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <!-- Page Header -->
         <div class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
+                <i class='bx bx-megaphone text-blue-600 text-3xl'></i>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
                 News & Announcements
             </h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
                 Stay updated with our latest news, announcements, and important information
             </p>
         </div>

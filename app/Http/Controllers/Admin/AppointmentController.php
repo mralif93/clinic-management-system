@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
-use App\Models\Patient;
 use App\Models\Doctor;
+use App\Models\Patient;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,8 +24,8 @@ class AppointmentController extends Controller
             $yearExpr = "strftime('%Y', appointment_date)";
             $monthExpr = "strftime('%m', appointment_date)";
         } else {
-            $yearExpr = "YEAR(appointment_date)";
-            $monthExpr = "MONTH(appointment_date)";
+            $yearExpr = 'YEAR(appointment_date)';
+            $monthExpr = 'MONTH(appointment_date)';
         }
 
         $months = Appointment::select(
@@ -161,6 +161,7 @@ class AppointmentController extends Controller
             ->findOrFail($id);
 
         $this->authorize('view', $appointment);
+
         return view('admin.appointments.show', compact('appointment'));
     }
 
@@ -224,7 +225,7 @@ class AppointmentController extends Controller
 
         return redirect()->route('admin.appointments.by-month', [
             'year' => \Carbon\Carbon::parse($validated['appointment_date'])->year,
-            'month' => \Carbon\Carbon::parse($validated['appointment_date'])->month
+            'month' => \Carbon\Carbon::parse($validated['appointment_date'])->month,
         ])->with('success', 'Appointment updated successfully!');
     }
 

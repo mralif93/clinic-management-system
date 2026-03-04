@@ -12,4 +12,3 @@ class ApplicationBootsTest extends TestCase
         $this->assertNotEmpty(config('app.name'));
     }
 }
-

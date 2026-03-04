@@ -58,6 +58,7 @@ class TodoController extends Controller
     public function create()
     {
         $users = User::where('role', 'staff')->get();
+
         return view('admin.todos.create', compact('users'));
     }
 
@@ -91,6 +92,7 @@ class TodoController extends Controller
     public function show(Todo $todo)
     {
         $todo->load(['creator', 'assignedUser']);
+
         return view('admin.todos.show', compact('todo'));
     }
 
@@ -100,6 +102,7 @@ class TodoController extends Controller
     public function edit(Todo $todo)
     {
         $users = User::where('role', 'staff')->get();
+
         return view('admin.todos.edit', compact('todo', 'users'));
     }
 

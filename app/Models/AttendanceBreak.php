@@ -25,7 +25,9 @@ class AttendanceBreak extends Model
      * Break type constants
      */
     const TYPE_LUNCH = 'lunch';
+
     const TYPE_TEA = 'tea';
+
     const TYPE_PERSONAL = 'personal';
 
     /**
@@ -41,12 +43,12 @@ class AttendanceBreak extends Model
      */
     public function isActive()
     {
-        return $this->break_start && !$this->break_end;
+        return $this->break_start && ! $this->break_end;
     }
 
     public function getDuration()
     {
-        if (!$this->break_end) {
+        if (! $this->break_end) {
             return null;
         }
 
@@ -57,7 +59,7 @@ class AttendanceBreak extends Model
     {
         $minutes = $this->getDuration();
 
-        if (!$minutes) {
+        if (! $minutes) {
             return 'Ongoing';
         }
 

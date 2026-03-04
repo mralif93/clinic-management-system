@@ -22,6 +22,12 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'phone',
+        'position',
+        'date_of_birth',
+        'gender',
+        'address',
+        'bio',
         'employment_type',
         'basic_salary',
         'hourly_rate',
@@ -48,6 +54,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'locked_until' => 'datetime',
+        'date_of_birth' => 'date',
         'basic_salary' => 'decimal:2',
         'hourly_rate' => 'decimal:2',
     ];
@@ -127,6 +134,7 @@ class User extends Authenticatable
         }
 
         $minutes = now()->diffInMinutes($this->locked_until, false);
+
         return max(0, (int) round($minutes));
     }
 
@@ -154,4 +162,3 @@ class User extends Authenticatable
         return $this->hasOne(Staff::class);
     }
 }
-

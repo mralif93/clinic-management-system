@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
-use App\Models\Patient;
 use App\Models\Doctor;
+use App\Models\Patient;
 use App\Models\Service;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
@@ -65,4 +64,3 @@ class ReportController extends Controller
         ));
     }
 }
-

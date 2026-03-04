@@ -12,7 +12,6 @@ use App\Models\Staff;
 use App\Models\Todo;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -32,10 +31,10 @@ class DashboardController extends Controller
             $totalStaff = Staff::count();
             $totalUsers = User::count();
             $totalAppointments = Appointment::count();
-            
+
             // Simplified today's appointments
             $todayAppointments = Appointment::whereDate('appointment_date', $today)->count();
-            
+
             // Simplified today's appointments by status (single query)
             $todayAppointmentsByStatus = [
                 'scheduled' => 0,
@@ -43,14 +42,14 @@ class DashboardController extends Controller
                 'completed' => 0,
                 'cancelled' => 0,
             ];
-            
+
             try {
                 $todayStatusCounts = Appointment::whereDate('appointment_date', $today)
                     ->selectRaw('status, COUNT(*) as count')
                     ->groupBy('status')
                     ->pluck('count', 'status')
                     ->toArray();
-                
+
                 foreach ($todayStatusCounts as $status => $count) {
                     if (isset($todayAppointmentsByStatus[$status])) {
                         $todayAppointmentsByStatus[$status] = $count;
@@ -68,14 +67,14 @@ class DashboardController extends Controller
                 'on_leave' => 0,
                 'not_checked_in' => 0,
             ];
-            
+
             try {
                 $attendanceCounts = Attendance::whereDate('date', $today)
                     ->selectRaw('status, COUNT(*) as count')
                     ->groupBy('status')
                     ->pluck('count', 'status')
                     ->toArray();
-                
+
                 foreach ($attendanceCounts as $status => $count) {
                     if (isset($todayAttendance[$status])) {
                         $todayAttendance[$status] = $count;
@@ -89,7 +88,7 @@ class DashboardController extends Controller
             $todayRevenue = 0;
             $monthlyRevenue = 0;
             $pendingPayments = 0;
-            
+
             try {
                 $todayRevenue = (float) (Appointment::whereDate('appointment_date', $today)
                     ->where('payment_status', 'paid')
@@ -139,13 +138,13 @@ class DashboardController extends Controller
                 'completed' => 0,
                 'cancelled' => 0,
             ];
-            
+
             try {
                 $statusCounts = Appointment::selectRaw('status, COUNT(*) as count')
                     ->groupBy('status')
                     ->pluck('count', 'status')
                     ->toArray();
-                
+
                 foreach ($statusCounts as $status => $count) {
                     if (isset($appointmentsByStatus[$status])) {
                         $appointmentsByStatus[$status] = $count;
@@ -159,7 +158,7 @@ class DashboardController extends Controller
             $pendingLeaves = collect();
             $pendingTodos = collect();
             $overdueTodos = 0;
-            
+
             try {
                 $pendingLeaves = Leave::where('status', 'pending')
                     ->with('user:id,name')
@@ -214,14 +213,15 @@ class DashboardController extends Controller
                     ->take(3)
                     ->get()
                     ->map(function ($apt) {
-                        $patientName = ($apt->patient) ? trim(($apt->patient->first_name ?? '') . ' ' . ($apt->patient->last_name ?? '')) : 'Patient';
-                        $doctorName = ($apt->doctor) ? trim(($apt->doctor->first_name ?? '') . ' ' . ($apt->doctor->last_name ?? '')) : 'Doctor';
+                        $patientName = ($apt->patient) ? trim(($apt->patient->first_name ?? '').' '.($apt->patient->last_name ?? '')) : 'Patient';
+                        $doctorName = ($apt->doctor) ? trim(($apt->doctor->first_name ?? '').' '.($apt->doctor->last_name ?? '')) : 'Doctor';
+
                         return [
                             'type' => 'appointment',
                             'icon' => 'bx-calendar',
                             'color' => 'blue',
                             'title' => 'New Appointment',
-                            'description' => ($patientName ?: 'Patient') . ' with Dr. ' . ($doctorName ?: 'Doctor'),
+                            'description' => ($patientName ?: 'Patient').' with Dr. '.($doctorName ?: 'Doctor'),
                             'time' => $apt->created_at,
                         ];
                     });
@@ -232,12 +232,13 @@ class DashboardController extends Controller
                     ->get()
                     ->map(function ($leave) {
                         $userName = ($leave->user && $leave->user->name) ? $leave->user->name : 'User';
+
                         return [
                             'type' => 'leave',
                             'icon' => 'bx-calendar-check',
                             'color' => 'purple',
                             'title' => 'Leave Request',
-                            'description' => $userName . ' - ' . ucfirst($leave->leave_type ?? 'leave'),
+                            'description' => $userName.' - '.ucfirst($leave->leave_type ?? 'leave'),
                             'time' => $leave->created_at,
                         ];
                     });
@@ -257,7 +258,7 @@ class DashboardController extends Controller
             $availableDoctors = 0;
             $monthlyAppointments = 0;
             $totalStaffExpected = 0;
-            
+
             try {
                 $newPatientsThisMonth = Patient::where('created_at', '>=', $startOfMonth)->count();
                 $availableDoctors = Doctor::where('is_available', true)->count();
@@ -293,12 +294,12 @@ class DashboardController extends Controller
                 'recentActivity'
             ));
         } catch (\Exception $e) {
-            \Log::error('Admin Dashboard Error: ' . $e->getMessage(), [
+            \Log::error('Admin Dashboard Error: '.$e->getMessage(), [
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
-                'trace' => $e->getTraceAsString()
+                'trace' => $e->getTraceAsString(),
             ]);
-            
+
             // Return minimal dashboard on error
             return view('admin.dashboard', [
                 'totalPatients' => 0,

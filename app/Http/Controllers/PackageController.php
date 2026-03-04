@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Package;
 use App\Models\Page;
-use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
@@ -14,7 +13,7 @@ class PackageController extends Controller
     public function index()
     {
         // Check if packages module is visible
-        if (!Page::isModuleVisible('packages')) {
+        if (! Page::isModuleVisible('packages')) {
             abort(404);
         }
 
@@ -31,17 +30,17 @@ class PackageController extends Controller
     public function show($slug)
     {
         // Check if packages module is visible
-        if (!Page::isModuleVisible('packages')) {
+        if (! Page::isModuleVisible('packages')) {
             abort(404);
         }
 
         $package = Package::where('slug', $slug)->firstOrFail();
-        
+
         // Only show active packages
-        if (!$package->is_active) {
+        if (! $package->is_active) {
             abort(404);
         }
-        
+
         return view('packages.show', compact('package'));
     }
 }

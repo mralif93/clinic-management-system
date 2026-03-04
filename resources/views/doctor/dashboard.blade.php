@@ -37,7 +37,7 @@
         </div>
 
         <!-- Quick Stats Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
             <!-- Total Appointments -->
             <div class="group bg-white border border-gray-100 rounded-xl shadow-sm p-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1">
                 <div class="flex items-center justify-between">
@@ -89,6 +89,25 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Pending Approvals -->
+            <a href="{{ route('doctor.appointments.index', ['status' => 'completed', 'approved' => '0']) }}"
+               class="group bg-white border {{ $pendingApprovalCount > 0 ? 'border-amber-200 ring-2 ring-amber-300/50' : 'border-gray-100' }} rounded-xl shadow-sm p-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1 block">
+                <div class="flex items-center justify-between">
+                    <div class="space-y-1">
+                        <p class="text-xs font-semibold uppercase tracking-wider {{ $pendingApprovalCount > 0 ? 'text-amber-600' : 'text-gray-500' }}">Pending Approvals</p>
+                        <p class="text-3xl font-bold {{ $pendingApprovalCount > 0 ? 'text-amber-600' : 'text-gray-900' }}">{{ number_format($pendingApprovalCount) }}</p>
+                        @if($pendingApprovalCount > 0)
+                            <p class="text-xs text-amber-500 font-medium">Records need review</p>
+                        @else
+                            <p class="text-xs text-gray-400">All records up to date</p>
+                        @endif
+                    </div>
+                    <div class="relative w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform {{ $pendingApprovalCount > 0 ? 'animate-pulse' : '' }}">
+                        <i class='bx bx-shield-quarter text-xl'></i>
+                    </div>
+                </div>
+            </a>
         </div>
 
         <!-- Attendance & Tasks Side by Side -->

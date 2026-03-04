@@ -18,6 +18,7 @@ class PayrollSeeder extends Seeder
 
         if ($users->isEmpty()) {
             $this->command->info('Skipping PayrollSeeder: No staff or doctors found.');
+
             return;
         }
 

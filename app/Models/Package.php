@@ -59,7 +59,7 @@ class Package extends Model
                 return $query->where('id', '!=', $id);
             })
             ->exists()) {
-            $slug = $originalSlug . '-' . $counter;
+            $slug = $originalSlug.'-'.$counter;
             $counter++;
         }
 
@@ -82,6 +82,7 @@ class Package extends Model
         if ($this->original_price && $this->price && $this->original_price > $this->price) {
             return round((($this->original_price - $this->price) / $this->original_price) * 100);
         }
+
         return null;
     }
 }

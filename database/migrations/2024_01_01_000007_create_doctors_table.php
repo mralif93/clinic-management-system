@@ -27,7 +27,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        
+
         // Add unique constraints separately for PostgreSQL compatibility
         Schema::table('doctors', function (Blueprint $table) {
             $table->unique('doctor_id', 'doctors_doctor_id_unique');
@@ -43,4 +43,3 @@ return new class extends Migration
         Schema::dropIfExists('doctors');
     }
 };
-

@@ -38,6 +38,7 @@ class Patient extends Model
         $firstName = $this->first_name ?? '';
         $lastName = $this->last_name ?? '';
         $fullName = trim("{$firstName} {$lastName}");
+
         return $fullName ?: 'N/A';
     }
 
@@ -77,15 +78,15 @@ class Patient extends Model
     protected static function generatePatientId()
     {
         $lastPatient = static::withTrashed()->whereNotNull('patient_id')->orderBy('id', 'desc')->first();
-        
+
         if ($lastPatient && preg_match('/PAT-(\d+)/', $lastPatient->patient_id, $matches)) {
             $number = (int) $matches[1] + 1;
         } else {
             $number = 1;
         }
-        
+
         do {
-            $patientId = 'PAT-' . str_pad($number, 6, '0', STR_PAD_LEFT);
+            $patientId = 'PAT-'.str_pad($number, 6, '0', STR_PAD_LEFT);
             $exists = static::withTrashed()->where('patient_id', $patientId)->exists();
             $number++;
         } while ($exists);
@@ -93,4 +94,3 @@ class Patient extends Model
         return $patientId;
     }
 }
-

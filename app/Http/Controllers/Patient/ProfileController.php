@@ -15,6 +15,7 @@ class ProfileController extends Controller
     public function show()
     {
         $user = Auth::user();
+
         return view('patient.profile.show', compact('user'));
     }
 
@@ -24,6 +25,7 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = Auth::user();
+
         return view('patient.profile.edit', compact('user'));
     }
 
@@ -36,13 +38,13 @@ class ProfileController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
+            'email' => 'required|email|unique:users,email,'.$user->id,
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:500',
             'date_of_birth' => 'nullable|date',
             'gender' => 'nullable|in:male,female,other',
             'current_password' => 'nullable|required_with:new_password',
-            'new_password' => 'nullable|min:8|confirmed'
+            'new_password' => 'nullable|min:8|confirmed',
         ]);
 
         // Update basic info
@@ -55,7 +57,7 @@ class ProfileController extends Controller
 
         // Update password if provided
         if ($request->filled('new_password')) {
-            if (!Hash::check($request->current_password, $user->password)) {
+            if (! Hash::check($request->current_password, $user->password)) {
                 return back()->withErrors(['current_password' => 'Current password is incorrect']);
             }
             $user->password = Hash::make($request->new_password);

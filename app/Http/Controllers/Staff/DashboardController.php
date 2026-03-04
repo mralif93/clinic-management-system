@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Appointment;
-use App\Models\Patient;
-use App\Models\User;
-use App\Models\Todo;
 use App\Models\Attendance;
 use App\Models\Doctor;
-use Carbon\Carbon;
+use App\Models\Patient;
+use App\Models\Todo;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -73,14 +72,18 @@ class DashboardController extends Controller
             ->get();
 
         // Group appointments by flow stage
-        $scheduled = $appointments->filter(fn($a) => $a->status === 'scheduled' && $a->payment_status !== 'paid');
-        $checkedIn = $appointments->filter(fn($a) => $a->status === 'confirmed' && $a->payment_status !== 'paid');
-        $inConsultation = $appointments->filter(fn($a) => $a->status === 'in_progress');
-        $completed = $appointments->filter(fn($a) => $a->status === 'completed' && $a->payment_status !== 'paid');
-        $paid = $appointments->filter(fn($a) => $a->payment_status === 'paid');
+        $pending = $appointments->filter(fn ($a) => $a->status === 'pending');
+        $arrived = $appointments->filter(fn ($a) => $a->status === 'arrived');
+        $scheduled = $appointments->filter(fn ($a) => $a->status === 'scheduled' && $a->payment_status !== 'paid');
+        $checkedIn = $appointments->filter(fn ($a) => $a->status === 'confirmed' && $a->payment_status !== 'paid');
+        $inConsultation = $appointments->filter(fn ($a) => $a->status === 'in_progress');
+        $completed = $appointments->filter(fn ($a) => $a->status === 'completed' && $a->payment_status !== 'paid');
+        $paid = $appointments->filter(fn ($a) => $a->payment_status === 'paid');
 
         // Stats
         $stats = [
+            'pending' => $pending->count(),
+            'arrived' => $arrived->count(),
             'scheduled' => $scheduled->count(),
             'checked_in' => $checkedIn->count(),
             'in_consultation' => $inConsultation->count(),
@@ -92,7 +95,7 @@ class DashboardController extends Controller
 
         // Get doctors with their current status
         $doctors = Doctor::with('user')
-            ->whereHas('user', fn($q) => $q->where('is_active', true))
+            ->whereHas('user', fn ($q) => $q->where('is_active', true))
             ->get()
             ->map(function ($doctor) use ($today) {
                 $currentAppointment = Appointment::where('doctor_id', $doctor->id)
@@ -103,7 +106,7 @@ class DashboardController extends Controller
 
                 $upcomingCount = Appointment::where('doctor_id', $doctor->id)
                     ->whereDate('appointment_date', $today)
-                    ->whereIn('status', ['scheduled', 'confirmed'])
+                    ->whereIn('status', ['pending', 'scheduled', 'confirmed', 'arrived'])
                     ->count();
 
                 $completedCount = Appointment::where('doctor_id', $doctor->id)
@@ -123,6 +126,8 @@ class DashboardController extends Controller
             });
 
         return view('staff.patient-flow', compact(
+            'pending',
+            'arrived',
             'scheduled',
             'checkedIn',
             'inConsultation',
@@ -139,7 +144,7 @@ class DashboardController extends Controller
     public function updateFlowStatus(Request $request, $id)
     {
         $request->validate([
-            'action' => 'required|in:check_in,start_consultation,complete,mark_paid,revert_to_scheduled,revert_to_checked_in,revert_to_in_consultation,revert_to_completed',
+            'action' => 'required|in:confirm,check_in,start_consultation,complete,mark_paid,revert_to_pending,revert_to_scheduled,revert_to_arrived,revert_to_checked_in,revert_to_in_consultation,revert_to_completed',
             'payment_method' => 'nullable|in:cash,card,online,insurance',
         ]);
 
@@ -147,7 +152,14 @@ class DashboardController extends Controller
         $action = $request->action;
 
         switch ($action) {
-            // Forward actions
+            case 'confirm':
+                $appointment->update([
+                    'status' => 'scheduled',
+                    'confirmed_at' => now(),
+                ]);
+                $message = 'Appointment confirmed successfully!';
+                break;
+
             case 'check_in':
                 $appointment->update(['status' => 'confirmed']);
                 $message = 'Patient checked in successfully!';
@@ -171,7 +183,7 @@ class DashboardController extends Controller
                 $message = 'Payment recorded successfully!';
                 break;
 
-            // Revert actions
+                // Revert actions
             case 'revert_to_scheduled':
                 $appointment->update(['status' => 'scheduled']);
                 $message = 'Reverted to Scheduled status.';
@@ -194,6 +206,24 @@ class DashboardController extends Controller
                     'payment_method' => null,
                 ]);
                 $message = 'Reverted to Pending Payment status.';
+                break;
+
+            case 'revert_to_pending':
+                $appointment->update([
+                    'status' => 'pending',
+                    'confirmed_at' => null,
+                ]);
+                $message = 'Reverted to Pending status.';
+                break;
+
+            case 'revert_to_arrived':
+                $appointment->update([
+                    'status' => 'arrived',
+                    'accepted_by' => null,
+                    'accepted_at' => null,
+                    'room_number' => null,
+                ]);
+                $message = 'Reverted to Arrived status.';
                 break;
 
             default:
@@ -221,17 +251,21 @@ class DashboardController extends Controller
             ->get();
 
         $data = [
-            'scheduled' => $appointments->filter(fn($a) => $a->status === 'scheduled' && $a->payment_status !== 'paid')->values(),
-            'checked_in' => $appointments->filter(fn($a) => $a->status === 'confirmed' && $a->payment_status !== 'paid')->values(),
-            'in_consultation' => $appointments->filter(fn($a) => $a->status === 'in_progress')->values(),
-            'completed' => $appointments->filter(fn($a) => $a->status === 'completed' && $a->payment_status !== 'paid')->values(),
-            'paid' => $appointments->filter(fn($a) => $a->payment_status === 'paid')->values(),
+            'pending' => $appointments->filter(fn ($a) => $a->status === 'pending')->values(),
+            'arrived' => $appointments->filter(fn ($a) => $a->status === 'arrived')->values(),
+            'scheduled' => $appointments->filter(fn ($a) => $a->status === 'scheduled' && $a->payment_status !== 'paid')->values(),
+            'checked_in' => $appointments->filter(fn ($a) => $a->status === 'confirmed' && $a->payment_status !== 'paid')->values(),
+            'in_consultation' => $appointments->filter(fn ($a) => $a->status === 'in_progress')->values(),
+            'completed' => $appointments->filter(fn ($a) => $a->status === 'completed' && $a->payment_status !== 'paid')->values(),
+            'paid' => $appointments->filter(fn ($a) => $a->payment_status === 'paid')->values(),
             'stats' => [
-                'scheduled' => $appointments->filter(fn($a) => $a->status === 'scheduled' && $a->payment_status !== 'paid')->count(),
-                'checked_in' => $appointments->filter(fn($a) => $a->status === 'confirmed' && $a->payment_status !== 'paid')->count(),
-                'in_consultation' => $appointments->filter(fn($a) => $a->status === 'in_progress')->count(),
-                'completed' => $appointments->filter(fn($a) => $a->status === 'completed' && $a->payment_status !== 'paid')->count(),
-                'paid' => $appointments->filter(fn($a) => $a->payment_status === 'paid')->count(),
+                'pending' => $appointments->filter(fn ($a) => $a->status === 'pending')->count(),
+                'arrived' => $appointments->filter(fn ($a) => $a->status === 'arrived')->count(),
+                'scheduled' => $appointments->filter(fn ($a) => $a->status === 'scheduled' && $a->payment_status !== 'paid')->count(),
+                'checked_in' => $appointments->filter(fn ($a) => $a->status === 'confirmed' && $a->payment_status !== 'paid')->count(),
+                'in_consultation' => $appointments->filter(fn ($a) => $a->status === 'in_progress')->count(),
+                'completed' => $appointments->filter(fn ($a) => $a->status === 'completed' && $a->payment_status !== 'paid')->count(),
+                'paid' => $appointments->filter(fn ($a) => $a->payment_status === 'paid')->count(),
                 'total' => $appointments->count(),
             ],
         ];
@@ -296,6 +330,6 @@ class DashboardController extends Controller
         }
 
         return redirect()->route('staff.dashboard')
-            ->with('success', 'Welcome! You have successfully checked in at ' . now()->format('h:i A'));
+            ->with('success', 'Welcome! You have successfully checked in at '.now()->format('h:i A'));
     }
 }

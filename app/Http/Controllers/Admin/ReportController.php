@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
-use App\Models\Patient;
 use App\Models\Doctor;
+use App\Models\Patient;
 use App\Models\Service;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
@@ -21,7 +21,7 @@ class ReportController extends Controller
         // Date range filters (default to last 30 days)
         $startDate = $request->get('start_date', Carbon::now()->subDays(30)->format('Y-m-d'));
         $endDate = $request->get('end_date', Carbon::now()->format('Y-m-d'));
-        
+
         $startDateCarbon = Carbon::parse($startDate)->startOfDay();
         $endDateCarbon = Carbon::parse($endDate)->endOfDay();
 
@@ -34,7 +34,7 @@ class ReportController extends Controller
 
         // Appointments Statistics
         $appointmentsInRange = Appointment::whereBetween('appointment_date', [$startDateCarbon, $endDateCarbon])->get();
-        
+
         $appointmentsByStatus = Appointment::selectRaw('status, COUNT(*) as count')
             ->whereBetween('appointment_date', [$startDateCarbon, $endDateCarbon])
             ->groupBy('status')
@@ -105,11 +105,11 @@ class ReportController extends Controller
             $month = Carbon::now()->subMonths($i);
             $monthStart = $month->copy()->startOfMonth();
             $monthEnd = $month->copy()->endOfMonth();
-            
+
             $revenue = Appointment::whereBetween('appointment_date', [$monthStart, $monthEnd])
                 ->whereNotNull('fee')
                 ->sum('fee');
-            
+
             $monthlyRevenue->put($month->format('M Y'), $revenue);
         }
 
@@ -119,9 +119,9 @@ class ReportController extends Controller
             $day = Carbon::now()->subDays($i);
             $dayStart = $day->copy()->startOfDay();
             $dayEnd = $day->copy()->endOfDay();
-            
+
             $count = Appointment::whereBetween('appointment_date', [$dayStart, $dayEnd])->count();
-            
+
             $dailyAppointments->put($day->format('M d'), $count);
         }
 
@@ -153,4 +153,3 @@ class ReportController extends Controller
         ));
     }
 }
-

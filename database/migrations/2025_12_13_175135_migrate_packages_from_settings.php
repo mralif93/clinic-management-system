@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         // Only run if packages table exists
-        if (!Schema::hasTable('packages')) {
+        if (! Schema::hasTable('packages')) {
             return;
         }
 
@@ -24,15 +24,15 @@ return new class extends Migration
 
         // Get packages from Settings
         $packagesJson = Setting::get('packages');
-        
-        if (!$packagesJson) {
+
+        if (! $packagesJson) {
             return;
         }
 
         // Decode JSON
         $packages = json_decode($packagesJson, true);
-        
-        if (!is_array($packages) || empty($packages)) {
+
+        if (! is_array($packages) || empty($packages)) {
             return;
         }
 
@@ -40,7 +40,7 @@ return new class extends Migration
         foreach ($packages as $index => $packageData) {
             try {
                 Package::create([
-                    'name' => $packageData['name'] ?? 'Package ' . ($index + 1),
+                    'name' => $packageData['name'] ?? 'Package '.($index + 1),
                     'description' => $packageData['description'] ?? null,
                     'original_price' => isset($packageData['original_price']) ? (float) $packageData['original_price'] : null,
                     'price' => isset($packageData['price']) ? (float) $packageData['price'] : 0,
@@ -51,7 +51,8 @@ return new class extends Migration
                 ]);
             } catch (\Exception $e) {
                 // Log error but continue with other packages
-                \Log::warning("Failed to migrate package: " . $e->getMessage());
+                \Log::warning('Failed to migrate package: '.$e->getMessage());
+
                 continue;
             }
         }

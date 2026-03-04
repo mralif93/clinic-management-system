@@ -65,7 +65,7 @@ class AuthController extends Controller
         // Increment failed login attempts if user exists
         if ($user) {
             $user->incrementFailedAttempts();
-            
+
             // Check if account was just locked
             $user->refresh();
             if ($user->isLocked()) {
@@ -73,7 +73,7 @@ class AuthController extends Controller
                     'email' => ['Your account has been locked due to 5 failed login attempts. Please try again in 30 minutes.'],
                 ]);
             }
-            
+
             // Show remaining attempts
             $remainingAttempts = 5 - $user->failed_login_attempts;
             if ($remainingAttempts > 0) {
@@ -191,4 +191,3 @@ class AuthController extends Controller
         return back()->with('status', 'Email hosting is not yet configured. Please contact the administrator to reset your password.');
     }
 }
-

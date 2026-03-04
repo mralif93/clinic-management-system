@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
 
 class Attendance extends Model
 {
@@ -40,9 +40,13 @@ class Attendance extends Model
      * Status constants
      */
     const STATUS_PRESENT = 'present';
+
     const STATUS_LATE = 'late';
+
     const STATUS_HALF_DAY = 'half_day';
+
     const STATUS_ABSENT = 'absent';
+
     const STATUS_ON_LEAVE = 'on_leave';
 
     /**
@@ -103,7 +107,7 @@ class Attendance extends Model
      */
     public function isClockedIn()
     {
-        return $this->clock_in_time && !$this->clock_out_time;
+        return $this->clock_in_time && ! $this->clock_out_time;
     }
 
     public function isClockedOut()
@@ -114,13 +118,14 @@ class Attendance extends Model
     public function isLate()
     {
         // Assuming work starts at 9:00 AM
-        $scheduledTime = Carbon::parse($this->date->format('Y-m-d') . ' 09:00:00');
+        $scheduledTime = Carbon::parse($this->date->format('Y-m-d').' 09:00:00');
+
         return $this->clock_in_time->gt($scheduledTime->addMinutes(15)); // 15 min grace period
     }
 
     public function calculateTotalHours()
     {
-        if (!$this->clock_out_time) {
+        if (! $this->clock_out_time) {
             return null;
         }
 
@@ -148,7 +153,7 @@ class Attendance extends Model
 
     public function getWorkDuration()
     {
-        if (!$this->clock_in_time) {
+        if (! $this->clock_in_time) {
             return '0h 0m';
         }
 

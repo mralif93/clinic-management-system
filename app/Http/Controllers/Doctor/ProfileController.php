@@ -16,8 +16,8 @@ class ProfileController extends Controller
     public function show()
     {
         $doctor = Auth::user()->doctor;
-        
-        if (!$doctor) {
+
+        if (! $doctor) {
             return redirect()->route('doctor.dashboard')
                 ->with('error', 'Doctor profile not found. Please contact administrator.');
         }
@@ -31,8 +31,8 @@ class ProfileController extends Controller
     public function edit()
     {
         $doctor = Auth::user()->doctor;
-        
-        if (!$doctor) {
+
+        if (! $doctor) {
             return redirect()->route('doctor.dashboard')
                 ->with('error', 'Doctor profile not found. Please contact administrator.');
         }
@@ -46,8 +46,8 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $doctor = Auth::user()->doctor;
-        
-        if (!$doctor) {
+
+        if (! $doctor) {
             return redirect()->route('doctor.dashboard')
                 ->with('error', 'Doctor profile not found. Please contact administrator.');
         }
@@ -55,7 +55,7 @@ class ProfileController extends Controller
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:doctors,email,' . $doctor->id,
+            'email' => 'required|email|unique:doctors,email,'.$doctor->id,
             'phone' => 'nullable|string|max:255',
             'specialization' => 'nullable|string|max:255',
             'qualification' => 'nullable|string|max:255',
@@ -67,7 +67,7 @@ class ProfileController extends Controller
         // Update user name if changed
         if ($doctor->user) {
             $doctor->user->update([
-                'name' => $validated['first_name'] . ' ' . $validated['last_name']
+                'name' => $validated['first_name'].' '.$validated['last_name'],
             ]);
         }
 
@@ -89,16 +89,15 @@ class ProfileController extends Controller
 
         $user = Auth::user();
 
-        if (!Hash::check($request->current_password, $user->password)) {
+        if (! Hash::check($request->current_password, $user->password)) {
             return back()->withErrors(['current_password' => 'Current password is incorrect.']);
         }
 
         $user->update([
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
         ]);
 
         return redirect()->route('doctor.profile.show')
             ->with('success', 'Password updated successfully!');
     }
 }
-

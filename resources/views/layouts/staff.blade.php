@@ -269,6 +269,17 @@
                         <span>Patient Flow</span>
                     </a>
 
+                    <!-- QR Scanner -->
+                    <a href="{{ route('staff.qr-scanner') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('staff.qr-scanner*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.qr-scanner*') ? 'bg-blue-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-qr-scan text-lg {{ request()->routeIs('staff.qr-scanner*') ? 'text-blue-400' : '' }}'></i>
+                        </div>
+                        <span>QR Scanner</span>
+                    </a>
+
                     <!-- Tasks -->
                     <a href="{{ route('staff.todos.index') }}"
                         class="{{ $navBase }} {{ request()->routeIs('staff.todos.*') ? $navActive : $navInactive }}">
@@ -392,6 +403,17 @@
                                 class='bx bx-file text-lg {{ request()->routeIs('staff.reports.*') ? 'text-rose-400' : '' }}'></i>
                         </div>
                         <span>Reports</span>
+                    </a>
+
+                    <!-- User Guide -->
+                    <a href="{{ route('user-guide') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('user-guide') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('user-guide') ? 'bg-blue-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-book-reader text-lg {{ request()->routeIs('user-guide') ? 'text-blue-400' : '' }}'></i>
+                        </div>
+                        <span>User Guide</span>
                     </a>
                 </div>
             </nav>

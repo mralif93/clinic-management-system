@@ -23,8 +23,8 @@ class PayrollController extends Controller
             $yearExpr = "strftime('%Y', pay_period_end)";
             $monthExpr = "strftime('%m', pay_period_end)";
         } else {
-            $yearExpr = "YEAR(pay_period_end)";
-            $monthExpr = "MONTH(pay_period_end)";
+            $yearExpr = 'YEAR(pay_period_end)';
+            $monthExpr = 'MONTH(pay_period_end)';
         }
 
         $months = Payroll::select(
@@ -121,7 +121,7 @@ class PayrollController extends Controller
     {
         $user = User::with('doctor')->find($userId);
 
-        if (!$user) {
+        if (! $user) {
             return 0;
         }
 
@@ -144,7 +144,7 @@ class PayrollController extends Controller
 
             case 'locum':
                 // Locum: Calculate based on appointments with commission rate (60% by default)
-                if (!$user->doctor) {
+                if (! $user->doctor) {
                     return 0;
                 }
 
@@ -192,7 +192,7 @@ class PayrollController extends Controller
         $totalAllowances = 0;
         if ($request->has('allowance_names') && $request->has('allowance_amounts')) {
             foreach ($request->allowance_names as $index => $name) {
-                if (!empty($name) && isset($request->allowance_amounts[$index])) {
+                if (! empty($name) && isset($request->allowance_amounts[$index])) {
                     $amount = (float) $request->allowance_amounts[$index];
                     if ($amount > 0) {
                         $allowances[$name] = $amount;
@@ -207,7 +207,7 @@ class PayrollController extends Controller
         $totalDeductions = 0;
         if ($request->has('deduction_names') && $request->has('deduction_amounts')) {
             foreach ($request->deduction_names as $index => $name) {
-                if (!empty($name) && isset($request->deduction_amounts[$index])) {
+                if (! empty($name) && isset($request->deduction_amounts[$index])) {
                     $amount = (float) $request->deduction_amounts[$index];
                     if ($amount > 0) {
                         $deductions[$name] = $amount;
@@ -253,6 +253,7 @@ class PayrollController extends Controller
     public function show(Payroll $payroll)
     {
         $payroll->load(['user', 'generatedBy', 'approvedBy']);
+
         return view('admin.payrolls.show', compact('payroll'));
     }
 
@@ -321,7 +322,7 @@ class PayrollController extends Controller
         $totalAllowances = 0;
         if ($request->has('allowance_names') && $request->has('allowance_amounts')) {
             foreach ($request->allowance_names as $index => $name) {
-                if (!empty($name) && isset($request->allowance_amounts[$index])) {
+                if (! empty($name) && isset($request->allowance_amounts[$index])) {
                     $amount = (float) $request->allowance_amounts[$index];
                     if ($amount > 0) {
                         $allowances[$name] = $amount;
@@ -336,7 +337,7 @@ class PayrollController extends Controller
         $totalDeductions = 0;
         if ($request->has('deduction_names') && $request->has('deduction_amounts')) {
             foreach ($request->deduction_names as $index => $name) {
-                if (!empty($name) && isset($request->deduction_amounts[$index])) {
+                if (! empty($name) && isset($request->deduction_amounts[$index])) {
                     $amount = (float) $request->deduction_amounts[$index];
                     if ($amount > 0) {
                         $deductions[$name] = $amount;
@@ -372,7 +373,7 @@ class PayrollController extends Controller
 
         return redirect()->route('admin.payrolls.by-month', [
             'year' => \Carbon\Carbon::parse($validated['pay_period_end'])->year,
-            'month' => \Carbon\Carbon::parse($validated['pay_period_end'])->month
+            'month' => \Carbon\Carbon::parse($validated['pay_period_end'])->month,
         ])->with('success', 'Payroll updated successfully!');
     }
 
@@ -469,7 +470,7 @@ class PayrollController extends Controller
                 ];
 
             case 'locum':
-                if (!$user->doctor) {
+                if (! $user->doctor) {
                     return [
                         'type' => 'Locum',
                         'description' => 'No doctor profile found',

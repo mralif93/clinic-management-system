@@ -223,6 +223,10 @@
                             Packages
                         </a>
                     @endif
+
+                    <a href="{{ route('how-it-works') }}" class="text-gray-700 hover:text-blue-600 font-medium">
+                        How It Works
+                    </a>
                 </nav>
 
                 <!-- Actions -->
@@ -280,6 +284,11 @@
                                             Dashboard
                                         </a>
                                     @endif
+
+                                    <a href="{{ route('user-guide') }}"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2">
+                                        <i class='bx bx-book-reader'></i> User Guide
+                                    </a>
 
                                     <div class="border-t border-gray-100">
                                         <form method="POST" action="{{ route('logout') }}" class="logout-form">
@@ -422,7 +431,7 @@
                     }
                 });
             });
-    });
+        });
     </script>
 </body>
 

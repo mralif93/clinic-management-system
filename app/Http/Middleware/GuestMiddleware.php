@@ -32,4 +32,3 @@ class GuestMiddleware
         return $next($request);
     }
 }
-

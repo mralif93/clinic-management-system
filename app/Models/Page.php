@@ -66,7 +66,7 @@ class Page extends Model
                 return $query->where('id', '!=', $id);
             })
             ->exists()) {
-            $slug = $originalSlug . '-' . $counter;
+            $slug = $originalSlug.'-'.$counter;
             $counter++;
         }
 
@@ -95,6 +95,7 @@ class Page extends Model
         } elseif ($this->type === 'services') {
             return route('services.index');
         }
+
         return route('page.show', $this->slug);
     }
 
@@ -112,6 +113,7 @@ class Page extends Model
     public function publish()
     {
         $this->update(['is_published' => true]);
+
         return $this;
     }
 
@@ -121,6 +123,7 @@ class Page extends Model
     public function unpublish()
     {
         $this->update(['is_published' => false]);
+
         return $this;
     }
 
@@ -178,6 +181,7 @@ class Page extends Model
     public static function isModuleVisible($moduleType)
     {
         $page = static::where('type', $moduleType)->first();
+
         return $page && $page->is_published;
     }
 

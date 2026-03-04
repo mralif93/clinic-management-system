@@ -8,6 +8,9 @@
         <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <div class="text-center mb-8 md:mb-12">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 mb-4">
+                <i class='bx bx-package text-purple-600 text-3xl'></i>
+            </div>
             <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">Special Packages</h1>
             <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
                 Choose from our specially curated packages designed to meet your wellness needs.

@@ -18,6 +18,7 @@ class LeaveSeeder extends Seeder
 
         if ($users->isEmpty()) {
             $this->command->info('Skipping LeaveSeeder: No staff or doctors found.');
+
             return;
         }
 

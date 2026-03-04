@@ -99,6 +99,7 @@ class LeaveController extends Controller
         }
 
         $leave->load(['reviewer']);
+
         return view('doctor.leaves.show', compact('leave'));
     }
 

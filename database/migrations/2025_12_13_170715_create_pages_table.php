@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamps();
             $table->softDeletes();
-            
+
             // Indexes
             $table->index('type');
             $table->index('is_published');

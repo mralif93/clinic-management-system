@@ -33,17 +33,24 @@ class Leave extends Model
      * Leave type constants
      */
     const TYPE_SICK = 'sick';
+
     const TYPE_ANNUAL = 'annual';
+
     const TYPE_EMERGENCY = 'emergency';
+
     const TYPE_UNPAID = 'unpaid';
+
     const TYPE_MATERNITY = 'maternity';
+
     const TYPE_PATERNITY = 'paternity';
 
     /**
      * Status constants
      */
     const STATUS_PENDING = 'pending';
+
     const STATUS_APPROVED = 'approved';
+
     const STATUS_REJECTED = 'rejected';
 
     /**

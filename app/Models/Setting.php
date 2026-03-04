@@ -24,6 +24,7 @@ class Setting extends Model
     {
         try {
             $setting = self::where('key', $key)->first();
+
             return $setting ? $setting->value : $default;
         } catch (\Exception $e) {
             // If database query fails, return default
@@ -50,4 +51,3 @@ class Setting extends Model
         return $query->where('group', $group);
     }
 }
-

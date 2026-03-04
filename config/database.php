@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Str;
-
 return [
     'default' => env('DB_CONNECTION', 'sqlite'),
     'connections' => [
@@ -57,4 +55,3 @@ return [
         'update_date_on_publish' => true,
     ],
 ];
-

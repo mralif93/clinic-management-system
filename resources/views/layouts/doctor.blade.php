@@ -332,6 +332,17 @@
                         </div>
                         <span>Patients</span>
                     </a>
+
+                    <!-- Referral Letters -->
+                    <a href="{{ route('doctor.referral-letters.index') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('doctor.referral-letters.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.referral-letters.*') ? 'bg-violet-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-transfer text-lg {{ request()->routeIs('doctor.referral-letters.*') ? 'text-violet-400' : '' }}'></i>
+                        </div>
+                        <span>Referral Letters</span>
+                    </a>
                 </div>
 
                 <!-- HR Section -->
@@ -369,6 +380,17 @@
                                 class='bx bx-wallet text-lg {{ request()->routeIs('doctor.payslips.*') ? 'text-cyan-400' : '' }}'></i>
                         </div>
                         <span>Payslips</span>
+                    </a>
+
+                    <!-- User Guide -->
+                    <a href="{{ route('user-guide') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('user-guide') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('user-guide') ? 'bg-blue-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            <i
+                                class='bx bx-book-reader text-lg {{ request()->routeIs('user-guide') ? 'text-blue-400' : '' }}'></i>
+                        </div>
+                        <span>User Guide</span>
                     </a>
                 </div>
             </nav>

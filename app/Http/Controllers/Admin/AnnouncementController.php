@@ -19,9 +19,9 @@ class AnnouncementController extends Controller
         // Search functionality
         if ($request->has('search') && $request->search) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('title', 'like', "%{$search}%")
-                  ->orWhere('description', 'like', "%{$search}%");
+                    ->orWhere('description', 'like', "%{$search}%");
             });
         }
 
@@ -101,7 +101,7 @@ class AnnouncementController extends Controller
                     $imageData = file_get_contents($file->getRealPath());
                     $base64 = base64_encode($imageData);
                     $mimeType = $file->getMimeType();
-                    $validated['image'] = 'data:' . $mimeType . ';base64,' . $base64;
+                    $validated['image'] = 'data:'.$mimeType.';base64,'.$base64;
                 } else {
                     // Local development - use file storage
                     $imagePath = $file->store('announcements', 'public');
@@ -109,7 +109,7 @@ class AnnouncementController extends Controller
                 }
             } catch (\Exception $e) {
                 return redirect()->route('admin.announcements.create')
-                    ->with('error', 'Failed to upload image: ' . $e->getMessage())
+                    ->with('error', 'Failed to upload image: '.$e->getMessage())
                     ->withInput();
             }
         }
@@ -130,6 +130,7 @@ class AnnouncementController extends Controller
     public function show($id)
     {
         $announcement = Announcement::withTrashed()->with('creator')->findOrFail($id);
+
         return view('admin.announcements.show', compact('announcement'));
     }
 
@@ -139,12 +140,12 @@ class AnnouncementController extends Controller
     public function edit($id)
     {
         $announcement = Announcement::withTrashed()->findOrFail($id);
-        
+
         if ($announcement->trashed()) {
             return redirect()->route('admin.announcements.index')
                 ->with('error', 'Cannot edit a deleted announcement. Please restore it first.');
         }
-        
+
         return view('admin.announcements.edit', compact('announcement'));
     }
 
@@ -154,12 +155,12 @@ class AnnouncementController extends Controller
     public function update(Request $request, $id)
     {
         $announcement = Announcement::withTrashed()->findOrFail($id);
-        
+
         if ($announcement->trashed()) {
             return redirect()->route('admin.announcements.index')
                 ->with('error', 'Cannot update a deleted announcement. Please restore it first.');
         }
-        
+
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'subtitle' => 'nullable|string|max:255',
@@ -178,7 +179,7 @@ class AnnouncementController extends Controller
         // Handle image removal
         if ($request->has('remove_image') && $request->remove_image) {
             $oldImage = $announcement->image;
-            if ($oldImage && !str_starts_with($oldImage, 'data:')) {
+            if ($oldImage && ! str_starts_with($oldImage, 'data:')) {
                 if (Storage::disk('public')->exists($oldImage)) {
                     Storage::disk('public')->delete($oldImage);
                 }
@@ -193,7 +194,7 @@ class AnnouncementController extends Controller
             try {
                 // Delete old image if exists
                 $oldImage = $announcement->image;
-                if ($oldImage && !str_starts_with($oldImage, 'data:')) {
+                if ($oldImage && ! str_starts_with($oldImage, 'data:')) {
                     if (Storage::disk('public')->exists($oldImage)) {
                         Storage::disk('public')->delete($oldImage);
                     }
@@ -207,7 +208,7 @@ class AnnouncementController extends Controller
                     $imageData = file_get_contents($file->getRealPath());
                     $base64 = base64_encode($imageData);
                     $mimeType = $file->getMimeType();
-                    $validated['image'] = 'data:' . $mimeType . ';base64,' . $base64;
+                    $validated['image'] = 'data:'.$mimeType.';base64,'.$base64;
                 } else {
                     // Local development - use file storage
                     $imagePath = $file->store('announcements', 'public');
@@ -215,7 +216,7 @@ class AnnouncementController extends Controller
                 }
             } catch (\Exception $e) {
                 return redirect()->route('admin.announcements.edit', $announcement->id)
-                    ->with('error', 'Failed to upload image: ' . $e->getMessage())
+                    ->with('error', 'Failed to upload image: '.$e->getMessage())
                     ->withInput();
             }
         } else {
@@ -263,15 +264,15 @@ class AnnouncementController extends Controller
     public function forceDelete($id)
     {
         $announcement = Announcement::withTrashed()->findOrFail($id);
-        
+
         // Delete image if exists
         $oldImage = $announcement->image;
-        if ($oldImage && !str_starts_with($oldImage, 'data:')) {
+        if ($oldImage && ! str_starts_with($oldImage, 'data:')) {
             if (Storage::disk('public')->exists($oldImage)) {
                 Storage::disk('public')->delete($oldImage);
             }
         }
-        
+
         $announcement->forceDelete();
 
         return redirect()->route('admin.announcements.index')
@@ -284,7 +285,7 @@ class AnnouncementController extends Controller
     public function togglePublish($id)
     {
         $announcement = Announcement::findOrFail($id);
-        
+
         if ($announcement->is_published) {
             $announcement->unpublish();
             $message = 'Announcement unpublished successfully!';
@@ -305,8 +306,8 @@ class AnnouncementController extends Controller
         $announcement = Announcement::findOrFail($id);
         $announcement->toggleFeatured();
 
-        $message = $announcement->is_featured 
-            ? 'Announcement marked as featured!' 
+        $message = $announcement->is_featured
+            ? 'Announcement marked as featured!'
             : 'Announcement unmarked as featured!';
 
         return redirect()->route('admin.announcements.index')
