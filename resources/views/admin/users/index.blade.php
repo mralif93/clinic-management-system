@@ -69,11 +69,11 @@
                         <label for="search" class="block text-sm font-medium text-gray-600 mb-2">Search</label>
                         <div class="relative">
                             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                                <i class='bx bx-search'></i>
+                                <i class='hgi hgi-stroke hgi-search-01'></i>
                             </span>
                             <input type="text" id="search" name="search" value="{{ request('search') }}"
                                 placeholder="Search by name or email..."
-                                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all text-sm">
+                                class="w-full !pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 transition-all text-sm">
                         </div>
                     </div>
                     

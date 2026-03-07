@@ -34,8 +34,24 @@
         tailwind.config = {
             theme: {
                 extend: {
+
+                    colors: {
+                        primary: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+                            400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8',
+                            800: '#1e40af', 900: '#1e3a8a',
+                        },
+                    },
                     fontFamily: {
                         'sans': ['Poppins', 'sans-serif'],
+                    },
+                    keyframes: {
+                        'fadeIn': { from: { opacity: '0' }, to: { opacity: '1' } },
+                        'slideInUp': { from: { transform: 'translateY(20px)', opacity: '0' }, to: { transform: 'translateY(0)', opacity: '1' } },
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.2s ease-in-out',
+                        'slide-in-up': 'slideInUp 0.3s ease-out',
                     }
                 }
             }
@@ -45,113 +61,25 @@
     <!-- Alpine.js CDN for dropdown functionality -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <!-- Boxicons CDN -->
+    <!-- Boxicons CDN for icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <!-- Splide.js CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <!-- Hugeicons CDN -->
+    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css" />
 
-    <!-- Global Button Styles -->
-    <link href="{{ asset('css/buttons.css') }}" rel="stylesheet">
+    <style>
+        /* Global Bold Icon Style */
+        .hgi {
+            -webkit-text-stroke: 0.5px currentColor;
+            paint-order: stroke fill;
+        }
+    </style>
 
-    <!-- Design Tokens -->
-    <link href="{{ asset('css/design-tokens.css') }}" rel="stylesheet">
-
-    <!-- Focus Styles -->
-    <link href="{{ asset('css/focus.css') }}" rel="stylesheet">
-
-    <!-- Accessibility Styles -->
-    <link href="{{ asset('css/accessibility.css') }}" rel="stylesheet">
-
-    <!-- Animations -->
-    <link href="{{ asset('css/animations.css') }}" rel="stylesheet">
+    <!-- Animate.css CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <style>
-        /* Alpine.js - Hide elements until initialized */
-        [x-cloak] {
-            display: none !important;
-        }
-
-        /* Prevent body scroll when menu is open */
-        body.menu-open {
-            overflow: hidden;
-        }
-
-        /* Rich content styles for WYSIWYG editor output */
-        .rich-content p {
-            margin-bottom: 0.5rem;
-        }
-
-        .rich-content p:last-child {
-            margin-bottom: 0;
-        }
-
-        .rich-content ul {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-            margin: 0.5rem 0;
-        }
-
-        .rich-content ol {
-            list-style-type: decimal;
-            padding-left: 1.5rem;
-            margin: 0.5rem 0;
-        }
-
-        .rich-content li {
-            margin-bottom: 0.25rem;
-        }
-
-        .rich-content strong,
-        .rich-content b {
-            font-weight: 600;
-        }
-
-        .rich-content em,
-        .rich-content i:not([class]) {
-            font-style: italic;
-        }
-
-        .rich-content u {
-            text-decoration: underline;
-        }
-
-        .rich-content s {
-            text-decoration: line-through;
-        }
-
-        .rich-content blockquote {
-            border-left: 3px solid #d1d5db;
-            padding-left: 1rem;
-            margin: 0.5rem 0;
-            color: #6b7280;
-        }
-
-        .rich-content pre {
-            background: #1f2937;
-            color: #f9fafb;
-            padding: 0.75rem;
-            border-radius: 0.375rem;
-            overflow-x: auto;
-            margin: 0.5rem 0;
-        }
-
-        .rich-content code {
-            background: #f3f4f6;
-            padding: 0.125rem 0.25rem;
-            border-radius: 0.25rem;
-            font-family: monospace;
-            font-size: 0.875em;
-        }
-
-        .rich-content pre code {
-            background: none;
-            padding: 0;
-        }
-    </style>
 
     @stack('styles')
 </head>

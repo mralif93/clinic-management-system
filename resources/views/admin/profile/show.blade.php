@@ -31,12 +31,12 @@
             <h3 class="text-sm font-semibold text-gray-900">Personal Information</h3>
         </div>
         <div class="p-6">
-            <form action="{{ route('admin.profile.update-details') }}" method="POST" class="space-y-5">
+            <form action="{{ route('admin.profile.update-details') }}" method="POST" class="space-y-4">
                 @csrf
                 @method('PUT')
 
                 {{-- Row 1: Name + Email --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
                             Full Name <span class="text-red-500">*</span>
@@ -56,7 +56,7 @@
                 </div>
 
                 {{-- Row 2: Phone + Position --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">Phone</label>
                         <input type="text" name="phone" value="{{ old('phone', $user->phone) }}"
@@ -74,7 +74,7 @@
                 </div>
 
                 {{-- Row 3: Date of Birth + Gender --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">Date of Birth</label>
                         <input type="date" name="date_of_birth"
@@ -129,8 +129,8 @@
             <i class='bx bx-lock-alt text-red-500'></i>
             <h3 class="text-sm font-semibold text-gray-900">Change Password</h3>
         </div>
-        <div class="p-6 space-y-5">
-            <form action="{{ route('admin.profile.update-password') }}" method="POST" class="space-y-5">
+        <div class="p-6 space-y-4">
+            <form action="{{ route('admin.profile.update-password') }}" method="POST" class="space-y-4">
                 @csrf
                 @method('PUT')
 
@@ -143,7 +143,7 @@
                     @error('current_password')<p class="text-red-500 text-xs mt-1">{{ $message }}</p>@enderror
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">
                             New Password <span class="text-red-500">*</span>
@@ -185,7 +185,7 @@
             <h3 class="text-sm font-semibold text-gray-900">Account Information</h3>
         </div>
         <div class="p-6">
-            <dl class="grid grid-cols-2 md:grid-cols-4 gap-5 text-sm">
+            <dl class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                 <div>
                     <dt class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">Role</dt>
                     <dd>

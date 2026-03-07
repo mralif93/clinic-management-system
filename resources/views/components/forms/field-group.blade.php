@@ -2,9 +2,8 @@
     'columns' => 2, // 1, 2, 3, 4
     'class' => ''
 ])
-
 @php
-    $gridClasses = match($columns) {
+    $gridClasses = match ($columns) {
         1 => 'grid-cols-1',
         2 => 'grid-cols-1 md:grid-cols-2',
         3 => 'grid-cols-1 md:grid-cols-3',
@@ -13,7 +12,7 @@
     };
 @endphp
 
-<div class="grid {{ $gridClasses }} gap-6 {{ $class }}">
+<div class="grid {{ $gridClasses }} gap-4 {{ $class }}">
     {{ $slot }}
 </div>
 

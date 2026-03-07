@@ -33,6 +33,17 @@
         tailwind.config = {
             theme: {
                 extend: {
+                    fontSize: {
+                        'xs': '10px',
+                        'sm': '11px',
+                        'base': '12px',
+                        'lg': '14px',
+                        'xl': '16px',
+                        '2xl': '20px',
+                        '3xl': '24px',
+                        '4xl': '30px',
+                        '5xl': '36px',
+                    },
                     colors: {
                         primary: {
                             50: '#ecfdf5',
@@ -48,40 +59,101 @@
                         },
                         success: {
                             50: '#f0fdf4',
-                            100: '#dcfce7',
-                            500: '#22c55e',
-                            600: '#16a34a',
-                            700: '#15803d'
+                            50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac',
+                            400: '#4ade80', 500: '#22c55e', 600: '#16a34a', 700: '#15803d',
+                            800: '#166534', 900: '#14532d',
                         },
-                        warning: {
-                            50: '#fffbeb',
-                            100: '#fef3c7',
-                            500: '#f59e0b',
-                            600: '#d97706'
-                        },
-                        danger: {
-                            50: '#fef2f2',
-                            100: '#fee2e2',
-                            500: '#ef4444',
-                            600: '#dc2626'
-                        },
-                        sidebar: {
-                            dark: '#064e3b',
-                            darker: '#053b2c',
-                            light: '#065f46',
-                            text: '#a7f3d0',
-                            hover: '#047857'
-                        }
+                        'sidebar-dark': '#064e3b',
+                        'sidebar-text': '#a7f3d0',
                     },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    spacing: {
+                        '1.25': '0.3125rem',
+                        '1.5': '0.375rem',
+                        '2.5': '0.625rem',
+                    },
+                    fontSize: {
+                        'xs': ['0.625rem', { lineHeight: '0.875rem' }],
+                        'sm': ['0.75rem', { lineHeight: '1rem' }],
+                        'base': ['0.875rem', { lineHeight: '1.25rem' }],
+                        'lg': ['1rem', { lineHeight: '1.5rem' }],
+                        'xl': ['1.125rem', { lineHeight: '1.75rem' }],
+                    },
+                    borderRadius: {
+                        'xs': '0.125rem',
+                        'sm': '0.25rem',
+                        'md': '0.375rem',
+                        'lg': '0.5rem',
+                        'xl': '0.75rem',
                     },
                     boxShadow: {
                         card: '0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08)',
                         sidebar: '4px 0 6px -1px rgb(0 0 0 / 0.1)'
+                    },
+                    keyframes: {
+                        'fadeIn': { from: { opacity: '0' }, to: { opacity: '1' } },
+                        'slideInUp': { from: { transform: 'translateY(20px)', opacity: '0' }, to: { transform: 'translateY(0)', opacity: '1' } },
+                        'shimmer': { '0%': { backgroundPosition: '-1000px 0' }, '100%': { backgroundPosition: '1000px 0' } }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.2s ease-in-out',
+                        'slide-in-up': 'slideInUp 0.3s ease-out',
+                        'shimmer': 'shimmer 2s infinite',
                     }
                 }
-            }
+            },
+            plugins: [
+                function ({ addBase, addComponents, addUtilities, theme }) {
+                    addBase({
+                        'input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"], input[type="time"], input[type="datetime-local"], input[type="tel"], input[type="url"], input[type="search"], input[type="file"], select, textarea': {
+                            paddingTop: theme('spacing[1.5]'),
+                            paddingBottom: theme('spacing[1.5]'),
+                            paddingLeft: theme('spacing[2.5]'),
+                            paddingRight: theme('spacing[2.5]'),
+                            borderRadius: theme('borderRadius.md'),
+                            lineHeight: theme('lineHeight.5'),
+                        },
+                        'input[type="checkbox"], input[type="radio"]': {
+                            width: '0.625rem',
+                            height: '0.625rem',
+                        },
+                        'label': {
+                            marginBottom: theme('spacing[1]'),
+                            display: 'block',
+                            fontWeight: '500',
+                        },
+                        '*:focus-visible': {
+                            outline: `2px solid ${theme('colors.emerald.600')}`,
+                            outlineOffset: '2px',
+                            borderRadius: theme('borderRadius.sm'),
+                        }
+                    });
+                    addComponents({
+                        '.btn': {
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontWeight: '500',
+                            borderRadius: theme('borderRadius.md'),
+                            transition: 'all 0.2s ease-in-out',
+                            paddingTop: theme('spacing[1.5]'),
+                            paddingBottom: theme('spacing[1.5]'),
+                            paddingLeft: theme('spacing[4]'),
+                            paddingRight: theme('spacing[4]'),
+                            fontSize: theme('fontSize.sm'),
+                            lineHeight: theme('lineHeight.5'),
+                        },
+                        '.btn-primary': { backgroundColor: theme('colors.emerald.600'), color: 'white', '&:hover': { backgroundColor: theme('colors.emerald.700') } },
+                        '.rich-content p': { marginBottom: theme('spacing[2]') },
+                        '.rich-content ul': { listStyleType: 'disc', paddingLeft: theme('spacing[6]'), margin: `${theme('spacing[2]')} 0` },
+                        '.rich-content ol': { listStyleType: 'decimal', paddingLeft: theme('spacing[6]'), margin: `${theme('spacing[2]')} 0` },
+                        '.rich-content blockquote': { borderLeft: `3px solid ${theme('colors.emerald.300')}`, paddingLeft: theme('spacing[4]'), color: theme('colors.emerald.500') },
+                    });
+                    addUtilities({
+                        '.sr-only': { position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', borderWidth: '0' },
+                        '.skip-link': { position: 'absolute', top: '-40px', left: '0', background: theme('colors.emerald.600'), color: 'white', padding: '8px 16px', zIndex: '100', '&:focus': { top: '0' } },
+                    });
+                }
+            ]
         }
     </script>
 
@@ -91,126 +163,14 @@
     <!-- Boxicons CDN -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <!-- Global Button Styles -->
-    <link href="{{ asset('css/buttons.css') }}" rel="stylesheet">
+    <!-- Hugeicons CDN -->
+    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css" />
 
-    <!-- Design Tokens -->
-    <link href="{{ asset('css/design-tokens.css') }}" rel="stylesheet">
-
-    <!-- Focus Styles -->
-    <link href="{{ asset('css/focus.css') }}" rel="stylesheet">
-
-    <!-- Accessibility Styles -->
-    <link href="{{ asset('css/accessibility.css') }}" rel="stylesheet">
-
-    <!-- Animations -->
-    <link href="{{ asset('css/animations.css') }}" rel="stylesheet">
+    <!-- Animate.css CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <!-- SweetAlert2 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <style>
-        /* Global Input Sizing */
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="number"],
-        input[type="date"],
-        input[type="time"],
-        input[type="datetime-local"],
-        input[type="tel"],
-        input[type="url"],
-        input[type="search"],
-        input[type="file"],
-        select,
-        textarea {
-            font-size: 0.875rem !important;
-            line-height: 1.25rem !important;
-        }
-
-        button,
-        .btn,
-        a.btn {
-            font-size: 0.875rem !important;
-            line-height: 1.25rem !important;
-        }
-
-        label {
-            font-size: 0.875rem !important;
-        }
-
-        /* Rich content styles for WYSIWYG editor output */
-        .rich-content p {
-            margin-bottom: 0.5rem;
-        }
-
-        .rich-content p:last-child {
-            margin-bottom: 0;
-        }
-
-        .rich-content ul {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-            margin: 0.5rem 0;
-        }
-
-        .rich-content ol {
-            list-style-type: decimal;
-            padding-left: 1.5rem;
-            margin: 0.5rem 0;
-        }
-
-        .rich-content li {
-            margin-bottom: 0.25rem;
-        }
-
-        .rich-content strong,
-        .rich-content b {
-            font-weight: 600;
-        }
-
-        .rich-content em,
-        .rich-content i:not([class]) {
-            font-style: italic;
-        }
-
-        .rich-content u {
-            text-decoration: underline;
-        }
-
-        .rich-content s {
-            text-decoration: line-through;
-        }
-
-        .rich-content blockquote {
-            border-left: 3px solid #d1d5db;
-            padding-left: 1rem;
-            margin: 0.5rem 0;
-            color: #6b7280;
-        }
-
-        .rich-content pre {
-            background: #1f2937;
-            color: #f9fafb;
-            padding: 0.75rem;
-            border-radius: 0.375rem;
-            overflow-x: auto;
-            margin: 0.5rem 0;
-        }
-
-        .rich-content code {
-            background: #f3f4f6;
-            padding: 0.125rem 0.25rem;
-            border-radius: 0.25rem;
-            font-family: monospace;
-            font-size: 0.875em;
-        }
-
-        .rich-content pre code {
-            background: none;
-            padding: 0;
-        }
-    </style>
 
     @stack('styles')
 </head>

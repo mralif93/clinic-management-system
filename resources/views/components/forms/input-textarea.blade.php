@@ -22,7 +22,7 @@
     $currentValue = old($name, $value);
     $currentLength = mb_strlen($currentValue ?? '');
     
-    $inputClasses = 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors resize-y ' .
+    $inputClasses = 'w-full px-2.5 py-1.5 border rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors resize-y ' .
                    ($hasError ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500 focus:border-blue-500') .
                    ($disabled || $readonly ? ' bg-gray-100 cursor-not-allowed' : ' bg-white') .
                    ' ' . $inputClass;
@@ -30,7 +30,7 @@
 
 <div class="{{ $class }}" x-data="{ length: {{ $currentLength }} }">
     @if($label)
-        <label for="{{ $inputId }}" class="block text-sm font-medium text-gray-700 mb-2">
+        <label for="{{ $inputId }}" class="block text-sm font-medium text-gray-700 mb-1">
             {{ $label }}
             @if($required)
                 <span class="text-red-500">*</span>

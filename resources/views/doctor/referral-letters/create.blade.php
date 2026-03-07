@@ -28,7 +28,7 @@
     </div>
     @endif
 
-    <form action="{{ route('doctor.referral-letters.store') }}" method="POST" class="space-y-6">
+    <form action="{{ route('doctor.referral-letters.store') }}" method="POST" class="space-y-4">
         @csrf
 
         {{-- ── Patient & Appointment ── --}}
@@ -39,7 +39,7 @@
                 </h3>
             </div>
             <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-2">Patient <span class="text-red-500">*</span></label>
                         <select name="patient_id" required
@@ -73,7 +73,7 @@
                 </h3>
             </div>
             <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-2">Doctor / Specialist Name <span class="text-red-500">*</span></label>
                         <input type="text" name="referred_to_name" value="{{ old('referred_to_name') }}"
@@ -109,7 +109,7 @@
                     <i class='bx bx-notepad text-purple-500'></i> Clinical Details
                 </h3>
             </div>
-            <div class="p-6 space-y-5">
+            <div class="p-6 space-y-4">
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-2">Reason for Referral <span class="text-red-500">*</span></label>
                     <textarea name="reason" rows="5" required placeholder="Provide a clear clinical reason for the referral…"
@@ -132,7 +132,7 @@
                 </h3>
             </div>
             <div class="p-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3">Urgency Level <span class="text-red-500">*</span></label>
                         <div class="flex gap-3 flex-wrap">
