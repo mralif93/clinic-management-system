@@ -4,20 +4,26 @@
     <div class="space-y-6">
         <!-- Header -->
         <div
-            class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-700 p-8 text-white shadow-lg">
-            <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                <div class="space-y-2">
-                    <div class="flex items-center gap-3">
-                        <div class="rounded-xl bg-white/20 p-2 backdrop-blur-sm border border-white/20">
-                            <i class='hgi-stroke hgi-credit-card text-2xl text-white'></i>
-                        </div>
-                        <h1 class="text-3xl font-bold text-white">Payroll Management</h1>
+            class="bg-gradient-to-r from-indigo-600 to-violet-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-credit-card text-2xl'></i>
                     </div>
-                    <p class="text-indigo-100 max-w-xl">Select a month to view payslips.</p>
+                    <div>
+                        <h2 class="text-2xl font-bold">Payroll Management</h2>
+                        <p class="text-indigo-100 text-sm mt-1">Select a month to view payslips</p>
+                    </div>
                 </div>
-                <div class="flex gap-3">
+
+                <div class="flex items-center gap-3">
                     <a href="{{ route('admin.payrolls.trash') }}"
-                        class="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all backdrop-blur-sm font-medium">
+                        class="bg-white/10 hover:bg-white/20 border border-white/10 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all backdrop-blur-sm font-medium">
                         <i class='hgi-stroke hgi-delete-01 text-xl'></i>
                         Trash
                     </a>
@@ -27,14 +33,6 @@
                         Generate Payslip
                     </a>
                 </div>
-            </div>
-
-            <!-- Decorative Background -->
-            <div
-                class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none">
-            </div>
-            <div
-                class="absolute bottom-0 left-0 -mb-10 -ml-10 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none">
             </div>
         </div>
 
@@ -66,7 +64,8 @@
                                 </div>
 
                                 <h3 class="text-xl font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition-colors">
-                                    {{ $monthName }}</h3>
+                                    {{ $monthName }}
+                                </h3>
                                 <p class="text-sm text-gray-500 mb-4">{{ $month->total_payrolls }} Payslips</p>
 
                                 <div class="flex items-center justify-between text-sm border-t border-gray-100 pt-4">

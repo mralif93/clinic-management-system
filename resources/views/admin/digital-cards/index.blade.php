@@ -20,35 +20,37 @@
                         <p class="text-indigo-100 text-sm mt-1">View and manage all staff and doctor identity cards</p>
                     </div>
                 </div>
-                <a href="{{ route('admin.digital-card.self') }}"
-                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all shadow-lg shadow-indigo-900/20">
-                    <i class='hgi-stroke hgi-user-circle text-xl'></i>
-                    My Card
-                </a>
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('admin.digital-card.self') }}"
+                        class="bg-white/10 hover:bg-white/20 border border-white/10 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all backdrop-blur-sm font-medium shadow-sm">
+                        <i class='hgi-stroke hgi-user-circle text-xl'></i>
+                        My Card
+                    </a>
+                </div>
             </div>
+        </div>
 
-            {{-- Quick Stats --}}
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-5">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
-                    <p class="text-2xl font-bold text-gray-900">{{ $doctors->count() }}</p>
-                    <p class="text-sm text-gray-500 font-medium mt-1">Doctors</p>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
-                    <p class="text-2xl font-bold text-gray-900">{{ $staff->count() }}</p>
-                    <p class="text-sm text-gray-500 font-medium mt-1">Staff</p>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
-                    <p class="text-2xl font-bold text-gray-900">{{ $doctors->count() + $staff->count() }}</p>
-                    <p class="text-sm text-gray-500 font-medium mt-1">Total Cards</p>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
-                    @php
-                        $expiredDoctors = $doctors->filter(fn($d) => $d->card_expiry_at && $d->card_expiry_at->isPast())->count();
-                        $expiredStaff = $staff->filter(fn($s) => $s->card_expiry_at && $s->card_expiry_at->isPast())->count();
-                    @endphp
-                    <p class="text-2xl font-bold text-gray-900">{{ $expiredDoctors + $expiredStaff }}</p>
-                    <p class="text-sm text-gray-500 font-medium mt-1">Expired</p>
-                </div>
+        {{-- Quick Stats --}}
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $doctors->count() }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Doctors</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $staff->count() }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Staff</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $doctors->count() + $staff->count() }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Total Cards</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                @php
+                    $expiredDoctors = $doctors->filter(fn($d) => $d->card_expiry_at && $d->card_expiry_at->isPast())->count();
+                    $expiredStaff = $staff->filter(fn($s) => $s->card_expiry_at && $s->card_expiry_at->isPast())->count();
+                @endphp
+                <p class="text-2xl font-bold text-gray-900">{{ $expiredDoctors + $expiredStaff }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Expired</p>
             </div>
         </div>
 
