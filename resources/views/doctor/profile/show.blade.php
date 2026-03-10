@@ -85,7 +85,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='hgi-stroke hgi-phone text-blue-500'></i> Contact Information
+                        <i class='hgi-stroke hgi-call text-blue-500'></i> Contact Information
                     </h3>
                 </div>
                 <div class="p-6">
@@ -142,7 +142,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='hgi-stroke hgi-lock-01 text-red-500'></i> Change Password
+                    <i class='hgi-stroke hgi-lock text-red-500'></i> Change Password
                 </h3>
             </div>
             <div class="p-6">
@@ -174,7 +174,7 @@
                     <div class="mt-6">
                         <button type="submit"
                             class="inline-flex items-center px-5 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 transition shadow-sm">
-                            <i class='hgi-stroke hgi-lock-02 mr-2'></i> Update Password
+                            <i class='hgi-stroke hgi-lock mr-2'></i> Update Password
                         </button>
                     </div>
                 </form>

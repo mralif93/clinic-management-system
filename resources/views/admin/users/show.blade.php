@@ -25,8 +25,8 @@
                         <div class="flex flex-wrap gap-2 mt-2">
                             @php
                                 $roleConfig = [
-                                    'admin' => ['icon' => 'hgi-shield-half-01'],
-                                    'doctor' => ['icon' => 'bx-plus-circle'],
+                                    'admin' => ['icon' => 'hgi-shield-01'],
+                                    'doctor' => ['icon' => 'hgi-add-circle'],
                                     'staff' => ['icon' => 'hgi-user'],
                                     'patient' => ['icon' => 'hgi-user-circle'],
                                 ];
@@ -149,7 +149,7 @@
                                 <div class="text-right">
                                     <span
                                         class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-red-50 text-red-700 border border-red-200">
-                                        <i class='hgi-stroke hgi-lock-02 mr-1'></i> Locked
+                                        <i class='hgi-stroke hgi-lock mr-1'></i> Locked
                                     </span>
                                     <p class="text-xs text-gray-500 mt-1">Unlocks in
                                         {{ round($user->getRemainingLockoutMinutes()) }} min</p>
@@ -178,7 +178,7 @@
                                 @if($user->isLocked())
                                     <button onclick="unlockUser({{ $user->id }}, '{{ $user->name }}')"
                                         class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-xl font-medium hover:bg-green-700 transition-all text-sm">
-                                        <i class='hgi-stroke hgi-lock-open-01'></i>
+                                        <i class='hgi-stroke hgi-circle-unlock-01'></i>
                                         Unlock Account
                                     </button>
                                 @endif

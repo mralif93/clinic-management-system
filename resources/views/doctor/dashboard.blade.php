@@ -46,7 +46,7 @@
                         <div class="absolute inset-0 bg-primary-500/20 blur-2xl rounded-full"></div>
                         <a href="{{ route('doctor.appointments.index') }}"
                             class="relative w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                            <i class='hgi-stroke hgi-calendar-03-check text-5xl md:text-6xl text-white opacity-90'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-5xl md:text-6xl text-white opacity-90'></i>
                         </a>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                 <div class="flex items-start justify-between">
                     <div class="space-y-3">
                         <div class="p-2.5 rounded-2xl bg-primary-50 text-primary-600 inline-flex shadow-sm">
-                            <i class='hgi-stroke hgi-calendar-03-check text-2xl'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-2xl'></i>
                         </div>
                         <div>
                             <p class="text-xs font-extrabold uppercase tracking-[0.1em] text-gray-400 mb-1">Upcoming</p>
@@ -145,7 +145,7 @@
                 <div class="flex items-start justify-between">
                     <div class="space-y-3">
                         <div class="p-2.5 rounded-2xl bg-amber-50 text-amber-600 inline-flex shadow-sm">
-                            <i class='hgi-stroke hgi-shield-half-01 text-2xl'></i>
+                            <i class='hgi-stroke hgi-shield-02 text-2xl'></i>
                         </div>
                         <div>
                             <p class="text-xs font-extrabold uppercase tracking-[0.1em] {{ $pendingApprovalCount > 0 ? 'text-amber-600' : 'text-gray-400' }}">Pending Approvals</p>
@@ -159,7 +159,7 @@
                     </div>
                     <div
                         class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-amber-50 transition-colors {{ $pendingApprovalCount > 0 ? 'animate-pulse' : '' }}">
-                        <i class='hgi-stroke hgi-shield-half-01 text-xl text-gray-300 group-hover:text-amber-400 transition-colors'></i>
+                        <i class='hgi-stroke hgi-shield-01 text-xl text-gray-300 group-hover:text-amber-400 transition-colors'></i>
                     </div>
                 </div>
             </a>
@@ -326,7 +326,7 @@
         <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-premium transition-all">
             <div class="p-6 border-b border-primary-100/60 bg-gradient-to-br from-primary-50/80 to-primary-100/30">
                 <h3 class="text-sm font-black text-gray-900 uppercase tracking-wider flex items-center gap-2">
-                    <i class='hgi-stroke hgi-calendar-03-event text-primary-500'></i>Today's Appointments
+                    <i class='hgi-stroke hgi-calendar-03 text-primary-500'></i>Today's Appointments
                 </h3>
             </div>
             <div class="p-6">
@@ -343,7 +343,7 @@
                                             <h4 class="font-semibold text-gray-900">{{ $appointment->patient->name ?? 'N/A' }}</h4>
                                             <p class="text-sm text-gray-600">{{ $appointment->service->name ?? 'N/A' }}</p>
                                             <p class="text-xs text-gray-500 mt-1">
-                                                <i class='hgi-stroke hgi-clock-02 mr-1'></i>{{ $appointment->appointment_time }}
+                                                <i class='hgi-stroke hgi-clock-01 mr-1'></i>{{ $appointment->appointment_time }}
                                             </p>
                                         </div>
                                     </div>
@@ -369,7 +369,7 @@
                 @else
                     <div class="text-center py-8">
                         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-                            <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-3xl text-gray-400'></i>
                         </div>
                         <p class="text-gray-500 font-medium">No appointments scheduled for today</p>
                         <p class="text-gray-400 text-sm mt-1">Enjoy your free time!</p>
@@ -411,7 +411,7 @@
                     <a href="{{ route('doctor.appointments.index') }}"
                         class="group flex flex-col items-center p-5 bg-gradient-to-br from-primary-50 to-primary-100 border border-primary-100 rounded-xl hover:shadow-md hover:-translate-y-1 transition-all duration-300">
                         <div class="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mb-3 shadow-lg shadow-primary-500/30 group-hover:scale-110 transition-transform">
-                            <i class='hgi-stroke hgi-calendar-03-check text-2xl text-white'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-2xl text-white'></i>
                         </div>
                         <span class="text-sm font-semibold text-gray-700">Appointments</span>
                     </a>

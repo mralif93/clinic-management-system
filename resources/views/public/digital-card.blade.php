@@ -62,7 +62,7 @@
         @else
             <div
                 class="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-700 rounded-full font-bold text-sm shadow-sm ring-1 ring-green-200">
-                <i class='hgi-stroke hgi-tick-double'></i> Verified Official Identity
+                <i class='hgi-stroke hgi-tick-double-01'></i> Verified Official Identity
             </div>
         @endif
         <p class="text-xs text-gray-500 mt-3 font-medium flex items-center justify-center gap-1.5">
@@ -139,7 +139,7 @@
                     @if($location)
                         <p
                             class="text-white/90 text-xs md:text-sm mt-1 flex items-center justify-center md:justify-start gap-1">
-                    <i class='hgi-stroke hgi-location-pin-01 text-[14px]'></i> {{ $location }}</p>@endif
+                    <i class='hgi-stroke hgi-location-01 text-[14px]'></i> {{ $location }}</p>@endif
                 </div>
             </div>
 

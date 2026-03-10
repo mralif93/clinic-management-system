@@ -14,7 +14,7 @@
                 </a>
                 <h1 class="text-2xl font-bold flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='hgi-stroke hgi-calendar-03-plus text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-xl'></i>
                     </div>
                     Apply for Leave
                 </h1>

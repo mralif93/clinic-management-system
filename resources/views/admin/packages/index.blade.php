@@ -164,7 +164,7 @@
                     <div class="space-y-2 mb-4">
                         @if($package->sessions)
                             <div class="flex items-center text-gray-600 text-sm">
-                                <i class='hgi-stroke hgi-calendar-03-check text-purple-600 mr-2'></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-purple-600 mr-2'></i>
                                 <span>{{ $package->sessions }}</span>
                             </div>
                         @endif
@@ -193,7 +193,7 @@
                             @csrf
                             <button type="submit" onclick="return confirm('Restore this package?')"
                                 class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-200 hover:scale-110 transition-all" title="Restore">
-                                <i class='hgi-stroke hgi-undo text-lg'></i>
+                                <i class='hgi-stroke hgi-rotate-left-01 text-lg'></i>
                             </button>
                         </form>
                         <form action="{{ route('admin.packages.force-delete', $package->id) }}" method="POST" class="inline">

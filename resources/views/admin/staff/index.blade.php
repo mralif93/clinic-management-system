@@ -224,7 +224,7 @@
                                                 onclick="restoreStaff({{ $staffMember->id }}, '{{ addslashes($staffMember->full_name ?? ($staffMember->first_name . ' ' . $staffMember->last_name)) }}')"
                                                 class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-200 hover:scale-110 transition-all"
                                                 title="Restore">
-                                                <i class='hgi-stroke hgi-undo text-lg'></i>
+                                                <i class='hgi-stroke hgi-rotate-left-01 text-lg'></i>
                                             </button>
                                             <button
                                                 onclick="forceDeleteStaff({{ $staffMember->id }}, '{{ addslashes($staffMember->full_name ?? ($staffMember->first_name . ' ' . $staffMember->last_name)) }}')"
@@ -322,7 +322,7 @@
                     showCancelButton: true,
                     confirmButtonColor: '#10b981',
                     cancelButtonColor: '#6b7280',
-                    confirmButtonText: '<i class="hgi-stroke hgi-undo mr-1"></i> Restore',
+                    confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Restore',
                     cancelButtonText: 'Cancel'
                 }).then((result) => {
                     if (result.isConfirmed) {

@@ -31,9 +31,6 @@
     <script defer src="{{ asset('js/collapse.min.js') }}"></script>
     <script defer src="{{ asset('js/alpine.min.js') }}"></script>
 
-    <!-- Boxicons -->
-    <link href='{{ asset("css/boxicons.min.css") }}' rel='stylesheet'>
-
     <!-- Hugeicons -->
     <link href='{{ asset("css/hugeicons.css") }}' rel='stylesheet'>
 
@@ -127,7 +124,7 @@
                             <div
                                 class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.reports.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                                 <i
-                                    class='hgi-stroke hgi-chart-line-up-01 text-lg {{ request()->routeIs('admin.reports.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
+                                    class='hgi-stroke hgi-chart-increase text-lg {{ request()->routeIs('admin.reports.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
                             </div>
                             <span>Analytics</span>
                         </a>
@@ -156,7 +153,7 @@
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.appointments.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                             <i
-                                class='hgi-stroke hgi-calendar-01 text-lg {{ request()->routeIs('admin.appointments.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
+                                class='hgi-stroke hgi-calendar-03 text-lg {{ request()->routeIs('admin.appointments.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
                         </div>
                         <span>Appointments</span>
                     </a>
@@ -325,7 +322,8 @@
                 <!-- Public Interface -->
                 @if(in_array(Auth::user()->role, ['super admin', 'admin']))
                     <div class="mb-6">
-                        <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">System Config</p>
+                        <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">System
+                            Config</p>
 
                         <a href="{{ route('admin.settings.index') }}"
                             class="{{ $navBase }} {{ request()->routeIs('admin.settings.*') ? $navActive : $navInactive }}">

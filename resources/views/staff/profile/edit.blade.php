@@ -80,7 +80,7 @@
                                 Phone Number
                             </label>
                             <div class="relative">
-                                <i class='hgi-stroke hgi-phone absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                <i class='hgi-stroke hgi-call absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                 <input type="text" name="phone" value="{{ old('phone', $staff->phone) }}"
                                     class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 @error('phone') border-red-300 bg-red-50 @enderror"
                                     placeholder="e.g., 012-345 6789">

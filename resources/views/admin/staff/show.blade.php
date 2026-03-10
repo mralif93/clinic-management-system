@@ -99,7 +99,7 @@
                                 <span class="text-sm text-gray-500">User Account</span>
                                 <a href="{{ route('admin.users.show', $staff->user->id) }}"
                                     class="text-sm font-medium text-cyan-600 hover:text-cyan-700">
-                                    {{ $staff->user->email }} <i class='hgi-stroke hgi-link-external-01 ml-1'></i>
+                                    {{ $staff->user->email }} <i class='hgi-stroke hgi-link-01 ml-1'></i>
                                 </a>
                             </div>
                         @endif

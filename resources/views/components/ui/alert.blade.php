@@ -10,14 +10,14 @@
             'bg' => 'bg-green-50',
             'border' => 'border-green-200',
             'text' => 'text-green-800',
-            'icon' => 'bx-check-circle',
+            'icon' => 'hgi-checkmark-circle-01',
             'iconColor' => 'text-green-600'
         ],
         'warning' => [
             'bg' => 'bg-yellow-50',
             'border' => 'border-yellow-200',
             'text' => 'text-yellow-800',
-            'icon' => 'bx-error',
+            'icon' => 'hgi-alert-01',
             'iconColor' => 'text-yellow-600'
         ],
         'danger' => [

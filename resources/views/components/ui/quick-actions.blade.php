@@ -27,7 +27,7 @@
             @foreach($actions as $action)
                 <a href="{{ $action['url'] ?? '#' }}" 
                    class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                    <i class='{{ $action['icon'] ?? 'bx-link' }} text-lg text-gray-400'></i>
+                    <i class='{{ $action['icon'] ?? 'hgi-link-01' }} text-lg text-gray-400'></i>
                     <span>{{ $action['label'] ?? '' }}</span>
                 </a>
             @endforeach

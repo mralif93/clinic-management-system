@@ -56,7 +56,7 @@
                                 Sign In
                             </span>
                             <span id="loginButtonLoader" class="hidden flex items-center">
-                                <i class='hgi hgi-stroke hgi-loading bx-spin mr-2'></i>
+                                <i class='hgi hgi-stroke hgi-loading-01 bx-spin mr-2'></i>
                                 Signing in...
                             </span>
                         </button>

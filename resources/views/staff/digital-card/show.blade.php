@@ -87,7 +87,7 @@
                 <div class="flex items-center gap-3">
                     <button onclick="document.getElementById('card-inner').classList.toggle('flipped')"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white font-medium rounded-xl hover:bg-white/30 transition text-sm">
-                        <i class='hgi-stroke hgi-rotate-left'></i> Flip Card
+                        <i class='hgi-stroke hgi-rotate-left-01'></i> Flip Card
                     </button>
                     <button onclick="window.print()"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-amber-700 font-semibold rounded-xl hover:bg-amber-50 transition text-sm shadow">
@@ -314,7 +314,7 @@
 
                             <button type="submit"
                                 class="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-amber-500 text-white font-semibold rounded-xl hover:bg-amber-600 transition shadow-sm">
-                                <i class='hgi-stroke hgi-save-02'></i> Save Card Details
+                                <i class='hgi-stroke hgi-floppy-disk'></i> Save Card Details
                             </button>
                         </form>
                     </div>
@@ -335,7 +335,7 @@
             </div>
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 flex items-center gap-4">
                 <div class="w-11 h-11 rounded-xl bg-red-100 flex items-center justify-center flex-shrink-0">
-                    <i class='hgi-stroke hgi-heart-beat text-red-500 text-xl'></i>
+                    <i class='hgi-stroke hgi-pulse-01 text-red-500 text-xl'></i>
                 </div>
                 <div>
                     <p class="text-xs text-gray-500">Blood Type</p>
@@ -354,7 +354,7 @@
             </div>
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 flex items-center gap-4">
                 <div class="w-11 h-11 rounded-xl bg-teal-100 flex items-center justify-center flex-shrink-0">
-                    <i class='hgi-stroke hgi-calendar-setting text-teal-600 text-xl'></i>
+                    <i class='hgi-stroke hgi-calendar-03 text-teal-600 text-xl'></i>
                 </div>
                 <div>
                     <p class="text-xs text-gray-500">Hire Date</p>

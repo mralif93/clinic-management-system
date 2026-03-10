@@ -74,7 +74,7 @@
                             <a href="{{ $announcement->link_url }}" target="_blank" rel="noopener noreferrer"
                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all">
                                 {{ $announcement->link_text ?: 'Learn More' }}
-                                <i class='hgi-stroke hgi-link-external-01'></i>
+                                <i class='hgi-stroke hgi-link-01'></i>
                             </a>
                         </div>
                     @endif

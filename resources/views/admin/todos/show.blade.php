@@ -75,7 +75,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
-                        <i class='hgi-stroke hgi-trophy text-2xl text-blue-600'></i>
+                        <i class='hgi-stroke hgi-award-01 text-2xl text-blue-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Priority</p>
@@ -172,7 +172,7 @@
                             </div>
                             @if($todo->last_generated_date)
                                 <p class="text-sm text-indigo-600 mb-2">
-                                    <i class='hgi-stroke hgi-calendar-03-check mr-1'></i>
+                                    <i class='hgi-stroke hgi-calendar-03 mr-1'></i>
                                     Last generated: {{ $todo->last_generated_date->format('M d, Y') }}
                                 </p>
                             @endif
@@ -184,7 +184,7 @@
                     @else
                         <div class="text-center py-8">
                             <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                                <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-3xl text-gray-400'></i>
                             </div>
                             <p class="text-gray-500">This is not a recurring task</p>
                         </div>

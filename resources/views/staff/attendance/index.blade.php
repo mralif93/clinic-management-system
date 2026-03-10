@@ -32,7 +32,7 @@
         <!-- Today's Status Card -->
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
             <div class="flex items-center gap-2 mb-4">
-                <i class='hgi-stroke hgi-calendar-03-check text-blue-500 text-xl'></i>
+                <i class='hgi-stroke hgi-calendar-03 text-blue-500 text-xl'></i>
                 <h3 class="font-semibold text-gray-800">Today's Attendance</h3>
                 <span class="ml-auto text-sm text-gray-500">{{ now()->format('l, M d, Y') }}</span>
             </div>
@@ -75,7 +75,7 @@
             @else
                 <div class="text-center py-8">
                     <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <i class='hgi-stroke hgi-calendar-03-minus text-2xl text-gray-400'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-2xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500">No attendance record for today</p>
                 </div>
@@ -124,7 +124,7 @@
                 <div class="flex items-center gap-3">
                     <div
                         class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                        <i class='hgi-stroke hgi-clock-02r text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ number_format($stats['total_hours'], 1) }}h</p>
@@ -209,12 +209,12 @@
                                 <td class="px-6 py-4">
                                     @php
                                         $statusConfig = [
-                                            'present' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'bx-check-circle'],
+                                            'present' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'hgi-checkmark-circle-01'],
                                             'late' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'hgi-clock-01'],
-                                            'absent' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-x-circle'],
-                                            'half_day' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'icon' => 'bx-adjust'],
+                                            'absent' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'hgi-cancel-circle'],
+                                            'half_day' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'icon' => 'hgi-moon-01'],
                                         ];
-                                        $sConfig = $statusConfig[$attendance->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-help-circle'];
+                                        $sConfig = $statusConfig[$attendance->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-help-circle'];
                                     @endphp
                                     <span
                                         class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $sConfig['bg'] }} {{ $sConfig['text'] }}">
@@ -251,7 +251,7 @@
                                 <td colspan="6" class="px-6 py-16 text-center">
                                     <div class="flex flex-col items-center">
                                         <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                                            <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
+                                            <i class='hgi-stroke hgi-calendar-03 text-3xl text-gray-400'></i>
                                         </div>
                                         <p class="text-gray-500 font-medium">No attendance records found</p>
                                         <p class="text-gray-400 text-sm mt-1">Your attendance history will appear here</p>

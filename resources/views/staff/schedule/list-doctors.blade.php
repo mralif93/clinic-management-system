@@ -45,7 +45,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                        <i class='hgi-stroke hgi-grid-01 text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-grid text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ count($specializations) }}</p>
@@ -163,7 +163,7 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">
-                                        <i class='hgi-stroke hgi-briefcase-01-alt-2'></i>
+                                        <i class='hgi-stroke hgi-briefcase-02'></i>
                                         {{ $doctor->specialization }}
                                     </span>
                                 </td>
@@ -173,7 +173,7 @@
                                         {{ $doctor->user->email ?? 'N/A' }}
                                     </div>
                                     <div class="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
-                                        <i class='hgi-stroke hgi-phone text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-call text-gray-400'></i>
                                         {{ $doctor->phone ?? 'N/A' }}
                                     </div>
                                 </td>
@@ -197,7 +197,7 @@
                                 <td colspan="5" class="px-6 py-16 text-center">
                                     <div class="flex flex-col items-center">
                                         <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                                            <i class='hgi-stroke hgi-user-x text-3xl text-gray-400'></i>
+                                            <i class='hgi-stroke hgi-user-block-01 text-3xl text-gray-400'></i>
                                         </div>
                                         <p class="text-gray-500 font-medium">No doctors found</p>
                                         <p class="text-gray-400 text-sm mt-1">Try adjusting your search filters</p>

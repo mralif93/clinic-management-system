@@ -60,7 +60,7 @@
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class='hgi-stroke hgi-lock-02 text-gray-400'></i>
+                            <i class='hgi-stroke hgi-lock text-gray-400'></i>
                         </div>
                         <input 
                             id="password" 
@@ -84,7 +84,7 @@
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class='hgi-stroke hgi-lock-01 text-gray-400'></i>
+                            <i class='hgi-stroke hgi-lock text-gray-400'></i>
                         </div>
                         <input 
                             id="password_confirmation" 

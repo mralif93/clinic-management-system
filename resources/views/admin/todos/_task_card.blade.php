@@ -53,7 +53,7 @@
         @if($todo->trashed())
             <button onclick="restoreTodo({{ $todo->id }}, '{{ addslashes($todo->title) }}')"
                 class="p-1.5 rounded text-green-600 hover:bg-green-100 transition-colors">
-                <i class='hgi-stroke hgi-undo'></i>
+                <i class='hgi-stroke hgi-rotate-left-01'></i>
             </button>
         @else
             <a href="{{ route('admin.todos.show', $todo->id) }}"

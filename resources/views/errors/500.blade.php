@@ -37,7 +37,7 @@
     </script>
 
     <!-- Boxicons CDN -->
-    <link href='{{ asset('css/boxicons.min.css') }}' rel='stylesheet'>
+    <link href='{{ asset('css/hugeicons.css') }}' rel='stylesheet'>
 </head>
 
 <body class="bg-gradient-to-br from-red-50 via-white to-orange-50 font-sans min-h-screen flex items-center justify-center px-4">
@@ -108,7 +108,7 @@
                 @endif
                 @if(get_setting('clinic_phone'))
                     <a href="tel:{{ get_setting('clinic_phone') }}" class="text-red-600 hover:text-red-800 font-medium transition">
-                        <i class='hgi-stroke hgi-phone mr-1'></i> {{ get_setting('clinic_phone') }}
+                        <i class='hgi-stroke hgi-call mr-1'></i> {{ get_setting('clinic_phone') }}
                     </a>
                 @endif
             </div>

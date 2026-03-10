@@ -18,7 +18,7 @@
                     <!-- Doctor Selection -->
                     <div class="mb-6">
                         <label for="doctor_id" class="block text-sm font-medium text-gray-700 mb-2">
-                            <i class='hgi-stroke hgi-user-plus mr-1'></i>
+                            <i class='hgi-stroke hgi-user-add-01 mr-1'></i>
                             Select Doctor
                         </label>
                         <select name="doctor_id" id="doctor_id" required

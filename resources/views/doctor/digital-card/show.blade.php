@@ -87,7 +87,7 @@
                 <div class="flex items-center gap-3">
                     <button onclick="document.getElementById('card-inner').classList.toggle('flipped')"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white font-medium rounded-xl hover:bg-white/30 transition text-sm">
-                        <i class='hgi-stroke hgi-rotate-left'></i> Flip Card
+                        <i class='hgi-stroke hgi-rotate-left-01'></i> Flip Card
                     </button>
                     <button onclick="window.print()"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-emerald-700 font-semibold rounded-xl hover:bg-emerald-50 transition text-sm shadow">
@@ -327,7 +327,7 @@
 
                             <button type="submit"
                                 class="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition shadow-sm">
-                                <i class='hgi-stroke hgi-save-02'></i> Save Card Details
+                                <i class='hgi-stroke hgi-floppy-disk'></i> Save Card Details
                             </button>
                         </form>
                     </div>
@@ -348,7 +348,7 @@
             </div>
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 flex items-center gap-4">
                 <div class="w-11 h-11 rounded-xl bg-blue-100 flex items-center justify-center flex-shrink-0">
-                    <i class='hgi-stroke hgi-certified text-blue-600 text-xl'></i>
+                    <i class='hgi-stroke hgi-certificate-01 text-blue-600 text-xl'></i>
                 </div>
                 <div class="min-w-0">
                     <p class="text-xs text-gray-500">Experience</p>
@@ -370,7 +370,7 @@
                 <div
                     class="w-11 h-11 rounded-xl {{ $doctor->license_expiry && $doctor->license_expiry->isPast() ? 'bg-red-100' : 'bg-teal-100' }} flex items-center justify-center flex-shrink-0">
                     <i
-                        class='hgi-stroke hgi-medical-certificate text-{{ $doctor->license_expiry && $doctor->license_expiry->isPast() ? "red" : "teal" }}-600 text-xl'></i>
+                        class='hgi-stroke hgi-certificate-01 text-{{ $doctor->license_expiry && $doctor->license_expiry->isPast() ? "red" : "teal" }}-600 text-xl'></i>
                 </div>
                 <div class="min-w-0">
                     <p class="text-xs text-gray-500">Licence Status</p>

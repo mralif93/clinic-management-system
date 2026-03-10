@@ -31,7 +31,7 @@
 
                                         <div class="space-y-2">
                                             <p class="text-gray-600">
-                                                <i class='hgi-stroke hgi-user-plus mr-1'></i>
+                                                <i class='hgi-stroke hgi-user-add-01 mr-1'></i>
                                                 Dr. {{ $record->doctor->user->name ?? 'N/A' }}
                                                 @if($record->doctor->specialization)
                                                     <span class="text-gray-500">- {{ $record->doctor->specialization }}</span>
@@ -51,7 +51,7 @@
 
                                             @if($record->record_approved_at)
                                                 <p class="text-xs text-emerald-700 mt-2">
-                                                    <i class='hgi-stroke hgi-checkmark-circle-02-shield mr-1'></i>
+                                                    <i class='hgi-stroke hgi-checkmark-circle-02 mr-1'></i>
                                                     Approved on {{ $record->record_approved_at->format('M d, Y h:i A') }}
                                                     @if($record->recordApprovedBy)
                                                         by Dr. {{ $record->recordApprovedBy->name }}
@@ -91,7 +91,7 @@
                     <p class="text-gray-600 mb-6">Your records will appear once a doctor completes and approves them.</p>
                     <a href="{{ route('patient.appointments.create') }}"
                         class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg">
-                        <i class='hgi-stroke hgi-calendar-03-plus mr-2 text-lg'></i>
+                        <i class='hgi-stroke hgi-calendar-03 mr-2 text-lg'></i>
                         Book an Appointment
                     </a>
                 </div>

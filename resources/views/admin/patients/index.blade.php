@@ -198,8 +198,8 @@
                                                 'other' => 'bg-gray-50 text-gray-700',
                                             ];
                                             $genderIcons = [
-                                                'male' => 'hgi-male',
-                                                'female' => 'hgi-female',
+                                                'male' => 'hgi-graduate-male',
+                                                'female' => 'hgi-graduate-female',
                                                 'other' => 'hgi-user',
                                             ];
                                         @endphp
@@ -242,7 +242,7 @@
                                                 onclick="restorePatient({{ $patient->id }}, '{{ addslashes($patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name)) }}')"
                                                 class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-200 hover:scale-110 transition-all"
                                                 title="Restore">
-                                                <i class='hgi-stroke hgi-undo text-lg'></i>
+                                                <i class='hgi-stroke hgi-rotate-left-01 text-lg'></i>
                                             </button>
                                             <button
                                                 onclick="forceDeletePatient({{ $patient->id }}, '{{ addslashes($patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name)) }}')"
@@ -276,7 +276,7 @@
                                 <td colspan="6" class="px-6 py-16 text-center">
                                     <div class="flex flex-col items-center">
                                         <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                            <i class='hgi-stroke hgi-user-x text-4xl text-gray-400'></i>
+                                            <i class='hgi-stroke hgi-user-block-01 text-4xl text-gray-400'></i>
                                         </div>
                                         <p class="text-gray-500 font-medium">No patients found</p>
                                         <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or add a new patient
@@ -339,7 +339,7 @@
                         showCancelButton: true,
                         confirmButtonColor: '#10b981',
                         cancelButtonColor: '#6b7280',
-                        confirmButtonText: '<i class="hgi-stroke hgi-undo mr-1"></i> Restore',
+                        confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Restore',
                         cancelButtonText: 'Cancel'
                     }).then((result) => {
                         if (result.isConfirmed) {

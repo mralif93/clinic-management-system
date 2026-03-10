@@ -1,5 +1,5 @@
 @props([
-    'icon' => 'bx-plus',
+    'icon' => 'hgi-add-01',
     'label' => null,
     'position' => 'bottom-right', // bottom-right, bottom-left, top-right, top-left
     'actions' => [],
@@ -35,7 +35,7 @@
                 <a href="{{ $action['url'] ?? '#' }}" 
                    class="flex items-center gap-3 px-4 py-3 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all group">
                     <div class="w-10 h-10 bg-{{ $action['color'] ?? 'blue' }}-100 rounded-lg flex items-center justify-center group-hover:bg-{{ $action['color'] ?? 'blue' }}-200 transition-colors">
-                        <i class='{{ $action['icon'] ?? 'bx-link' }} text-{{ $action['color'] ?? 'blue' }}-600 text-xl'></i>
+                        <i class='{{ $action['icon'] ?? 'hgi-link-01' }} text-{{ $action['color'] ?? 'blue' }}-600 text-xl'></i>
                     </div>
                     <span class="text-sm font-medium text-gray-700 whitespace-nowrap">{{ $action['label'] ?? '' }}</span>
                 </a>

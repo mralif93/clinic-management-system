@@ -124,7 +124,7 @@
                 <!-- Assignment Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='hgi-stroke hgi-user-check text-amber-600'></i>
+                        <i class='hgi-stroke hgi-user-check-01 text-amber-600'></i>
                         Assignment
                     </h3>
                 </div>

@@ -15,7 +15,7 @@
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center">
                         <div class="bg-{{ $service->type == 'psychology' ? 'blue' : 'green' }}-100 p-4 rounded-full mr-4">
-                            <i class='hgi-stroke {{ $service->type == 'psychology' ? 'bx-brain' : 'bx-leaf' }} text-4xl text-{{ $service->type == 'psychology' ? 'blue' : 'green' }}-600'></i>
+                            <i class='hgi-stroke {{ $service->type == 'psychology' ? 'hgi-brain' : 'hgi-leaf-01' }} text-4xl text-{{ $service->type == 'psychology' ? 'blue' : 'green' }}-600'></i>
                         </div>
                         <div>
                             <span class="bg-{{ $service->type == 'psychology' ? 'blue' : 'green' }}-100 text-{{ $service->type == 'psychology' ? 'blue' : 'green' }}-800 text-sm font-semibold px-3 py-1 rounded-full">

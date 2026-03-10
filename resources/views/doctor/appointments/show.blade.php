@@ -18,7 +18,7 @@
                     </a>
                     <h1 class="text-2xl font-bold flex items-center gap-3">
                         <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                            <i class='hgi-stroke hgi-calendar-03-check text-xl'></i>
+                            <i class='hgi-stroke hgi-calendar-download-02 text-xl'></i>
                         </div>
                         Appointment Details
                     </h1>
@@ -30,7 +30,7 @@
                     </a>
                     <a href="{{ route('doctor.referral-letters.create', ['appointment_id' => $appointment->id]) }}"
                         class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur text-white font-semibold rounded-xl hover:bg-white/30 transition">
-                        <i class='hgi-stroke hgi-transfer-horizontal mr-2'></i> Referral Letter
+                        <i class='hgi-stroke hgi-arrow-data-transfer-horizontal mr-2'></i> Referral Letter
                     </a>
                     <a href="{{ route('doctor.appointments.edit', $appointment->id) }}"
                         class="inline-flex items-center px-4 py-2 bg-white text-emerald-600 font-semibold rounded-xl hover:bg-emerald-50 transition shadow-lg">
@@ -174,7 +174,7 @@
         <div class="bg-white rounded-2xl shadow-sm border {{ $appointment->record_approved_at ? 'border-emerald-100' : 'border-amber-100' }} overflow-hidden">
             <div class="px-6 py-4 border-b {{ $appointment->record_approved_at ? 'border-emerald-100 bg-emerald-50/50' : 'border-amber-100 bg-amber-50/50' }}">
                 <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='hgi-stroke {{ $appointment->record_approved_at ? "hgi-shield-check text-emerald-500" : "hgi-shield-half-01 text-amber-500" }}'></i>
+                    <i class='hgi-stroke {{ $appointment->record_approved_at ? "hgi-shield-01 text-emerald-500" : "hgi-shield-01 text-amber-500" }}'></i>
                     Medical Record Approval
                 </h3>
             </div>
@@ -183,7 +183,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
-                                <i class='hgi-stroke hgi-checkmark-circle-02-double text-emerald-600 text-xl'></i>
+                                <i class='hgi-stroke hgi-tick-double-01 text-emerald-600 text-xl'></i>
                             </div>
                             <div>
                                 <p class="font-semibold text-emerald-700">Record Approved</p>
@@ -212,7 +212,7 @@
                             @csrf
                             <button type="button" id="approveRecordBtn"
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 active:scale-95 transition-all shadow-lg shadow-emerald-500/30">
-                                <i class='hgi-stroke hgi-checkmark-circle-02-shield text-lg'></i>
+                                <i class='hgi-stroke hgi-checkmark-circle-02 text-lg'></i>
                                 Approve Record
                             </button>
                         </form>
@@ -234,7 +234,7 @@
                     @if($appointment->diagnosis)
                         <div>
                             <label class="text-sm font-semibold text-gray-700 flex items-center gap-2 mb-2">
-                                <i class='hgi-stroke hgi-search-01-alt text-gray-400'></i> Diagnosis
+                                <i class='hgi-stroke hgi-search-01 text-gray-400'></i> Diagnosis
                             </label>
                             <div class="text-gray-900 bg-gray-50 p-4 rounded-xl rich-content">{!! $appointment->diagnosis !!}</div>
                         </div>
@@ -242,7 +242,7 @@
                     @if($appointment->prescription)
                         <div>
                             <label class="text-sm font-semibold text-gray-700 flex items-center gap-2 mb-2">
-                                <i class='hgi-stroke hgi-capsule text-gray-400'></i> Prescription
+                                <i class='hgi-stroke hgi-medicine-01 text-gray-400'></i> Prescription
                             </label>
                             <div class="text-gray-900 bg-gray-50 p-4 rounded-xl rich-content">{!! $appointment->prescription !!}</div>
                         </div>
@@ -274,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
             icon: 'question',
             iconColor: '#059669',
             showCancelButton: true,
-            confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02-shield"></i> Yes, Approve',
+            confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02"></i> Yes, Approve',
             cancelButtonText: 'Cancel',
             confirmButtonColor: '#059669',
             cancelButtonColor: '#6b7280',

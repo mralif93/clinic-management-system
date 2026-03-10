@@ -100,7 +100,7 @@
                                                     @elseif($setting->key === 'clinic_email')
                                                         <i class='hgi-stroke hgi-mail-01 text-blue-500'></i>
                                                     @elseif($setting->key === 'clinic_phone')
-                                                        <i class='hgi-stroke hgi-phone text-blue-500'></i>
+                                                        <i class='hgi-stroke hgi-call text-blue-500'></i>
                                                     @elseif($setting->key === 'clinic_address')
                                                         <i class='hgi-stroke hgi-maps-location-01 text-blue-500'></i>
                                                     @else

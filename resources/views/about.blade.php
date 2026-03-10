@@ -100,7 +100,7 @@
         <div class="mb-8 md:mb-12">
             <div class="flex items-center mb-4 md:mb-6">
                 <div class="bg-indigo-100 p-2 md:p-3 rounded-full mr-3 md:mr-4">
-                    <i class='hgi-stroke hgi-heart text-2xl md:text-3xl text-indigo-600'></i>
+                    <i class='hgi-stroke hgi-favourite text-2xl md:text-3xl text-indigo-600'></i>
                 </div>
                 <div>
                     <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Our Values</h2>
@@ -120,7 +120,7 @@
                         <div class="p-6">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="{{ $value['accent'] ?? 'bg-indigo-100' }} p-3 rounded-full">
-                                    <i class='hgi-stroke {{ $value['icon'] ?? 'hgi-heart' }} text-2xl {{ str_contains($value['accent'] ?? '', 'blue') ? 'text-blue-600' : (str_contains($value['accent'] ?? '', 'green') ? 'text-green-600' : 'text-indigo-600') }}'></i>
+                                    <i class='hgi-stroke {{ $value['icon'] ?? 'hgi-favourite' }} text-2xl {{ str_contains($value['accent'] ?? '', 'blue') ? 'text-blue-600' : (str_contains($value['accent'] ?? '', 'green') ? 'text-green-600' : 'text-indigo-600') }}'></i>
                                 </div>
                                 <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full">Value</span>
                             </div>

@@ -64,7 +64,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
-                        <i class='hgi-stroke hgi-calendar-03-check text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-900">{{ $staff->hire_date ? $staff->hire_date->format('M Y') : 'N/A' }}</p>
@@ -126,7 +126,7 @@
                             </div>
                             <div class="flex items-start gap-3">
                                 <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class='hgi-stroke hgi-phone text-green-600'></i>
+                                    <i class='hgi-stroke hgi-call text-green-600'></i>
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-500 uppercase tracking-wide">Phone</p>
@@ -164,7 +164,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                         <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                            <i class='hgi-stroke hgi-lock-01 text-violet-500'></i>
+                            <i class='hgi-stroke hgi-lock text-violet-500'></i>
                             Change Password
                         </h3>
                     </div>
@@ -175,7 +175,7 @@
                                 <div>
                                     <label class="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Current Password</label>
                                     <div class="relative">
-                                        <i class='hgi-stroke hgi-lock-02 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                         <input type="password" name="current_password" required
                                             class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
                                             placeholder="••••••••">
@@ -187,7 +187,7 @@
                                 <div>
                                     <label class="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">New Password</label>
                                     <div class="relative">
-                                        <i class='hgi-stroke hgi-lock-01 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                         <input type="password" name="password" required
                                             class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
                                             placeholder="••••••••">
@@ -199,7 +199,7 @@
                                 <div>
                                     <label class="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Confirm Password</label>
                                     <div class="relative">
-                                        <i class='hgi-stroke hgi-checkmark-circle-02-shield absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-checkmark-circle-02 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                         <input type="password" name="password_confirmation" required
                                             class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
                                             placeholder="••••••••">
@@ -209,7 +209,7 @@
                             <div class="mt-4 flex justify-end">
                                 <button type="submit"
                                     class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-violet-500 to-purple-600 text-white font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition shadow-sm hover:shadow">
-                                    <i class='hgi-stroke hgi-lock-02 mr-2'></i> Update Password
+                                    <i class='hgi-stroke hgi-lock mr-2'></i> Update Password
                                 </button>
                             </div>
                         </form>
@@ -223,7 +223,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                         <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                            <i class='hgi-stroke hgi-shield-half-01 text-violet-500'></i>
+                            <i class='hgi-stroke hgi-shield-01 text-violet-500'></i>
                             Account Status
                         </h3>
                     </div>
@@ -274,7 +274,7 @@
                         </a>
                         <a href="{{ route('staff.leaves.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-amber-50 transition group">
                             <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center group-hover:bg-amber-200 transition">
-                                <i class='hgi-stroke hgi-calendar-03-event text-amber-600'></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-amber-600'></i>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-900">My Leaves</p>

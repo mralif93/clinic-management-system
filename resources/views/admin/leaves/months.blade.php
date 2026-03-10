@@ -51,7 +51,7 @@
                                     <div
                                         class="bg-purple-100 p-3 rounded-full group-hover:bg-purple-600 transition-colors duration-300">
                                         <i
-                                            class='hgi-stroke hgi-calendar-01 text-2xl text-purple-600 group-hover:text-white transition-colors duration-300'></i>
+                                            class='hgi-stroke hgi-calendar-03 text-2xl text-purple-600 group-hover:text-white transition-colors duration-300'></i>
                                     </div>
                                     @if($isCurrentMonth)
                                         <span

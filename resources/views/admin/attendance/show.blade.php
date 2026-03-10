@@ -25,11 +25,11 @@
                         <div class="flex flex-wrap gap-2 mt-2">
                             @php
                                 $statusConfig = [
-                                    'present' => ['color' => 'bg-green-400/30', 'icon' => 'bx-check-circle'],
+                                    'present' => ['color' => 'bg-green-400/30', 'icon' => 'hgi-checkmark-circle-01'],
                                     'late' => ['color' => 'bg-yellow-400/30', 'icon' => 'hgi-clock-01'],
                                     'half_day' => ['color' => 'bg-orange-400/30', 'icon' => 'hgi-clock-01'],
-                                    'absent' => ['color' => 'bg-red-400/30', 'icon' => 'bx-x-circle'],
-                                    'on_leave' => ['color' => 'bg-purple-400/30', 'icon' => 'hgi-calendar-03-exclamation'],
+                                    'absent' => ['color' => 'bg-red-400/30', 'icon' => 'hgi-cancel-circle'],
+                                    'on_leave' => ['color' => 'bg-purple-400/30', 'icon' => 'hgi-calendar-03'],
                                 ];
                                 $config = $statusConfig[$attendance->status] ?? ['color' => 'bg-gray-400/30', 'icon' => 'bx-question-mark'];
                             @endphp
@@ -275,7 +275,7 @@
                                 'absent' => ['bg' => 'bg-red-100', 'text' => 'text-red-600', 'icon' => 'hgi-cancel-circle'],
                                 'on_leave' => ['bg' => 'bg-purple-100', 'text' => 'text-purple-600', 'icon' => 'hgi-information-circle'],
                             ];
-                            $style = $statusStyle[$attendance->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-600', 'icon' => 'hgi-question-mark-circle-03'];
+                            $style = $statusStyle[$attendance->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-600', 'icon' => 'hgi-question'];
                         @endphp
                         <div class="inline-flex items-center justify-center w-16 h-16 {{ $style['bg'] }} rounded-full mb-3">
                             <i class='hgi-stroke {{ $style['icon'] }} text-4xl {{ $style['text'] }}'></i>

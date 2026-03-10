@@ -37,7 +37,7 @@
     </script>
 
     <!-- Boxicons CDN -->
-    <link href='{{ asset('css/boxicons.min.css') }}' rel='stylesheet'>
+    <link href='{{ asset('css/hugeicons.css') }}' rel='stylesheet'>
 </head>
 
 <body class="bg-gradient-to-br from-amber-50 via-white to-yellow-50 font-sans min-h-screen flex items-center justify-center px-4">
@@ -79,7 +79,7 @@
         <!-- Icon -->
         <div class="mb-8 flex justify-center">
             <div class="w-24 h-24 rounded-full bg-amber-100 flex items-center justify-center">
-                <i class='hgi-stroke hgi-lock-01 text-5xl text-amber-600'></i>
+                <i class='hgi-stroke hgi-lock text-5xl text-amber-600'></i>
             </div>
         </div>
 

@@ -251,7 +251,7 @@
                     @if($revertAction)
                         <button onclick="event.stopPropagation(); updateStatus({{ $appointment->id }}, '{{ $revertAction }}')"
                             class="w-full py-2 text-xs font-medium rounded-lg transition-all flex items-center justify-center gap-1.5 border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-700 hover:border-gray-300">
-                            <i class='hgi-stroke hgi-undo'></i>
+                            <i class='hgi-stroke hgi-rotate-left-01'></i>
                             {{ $revertLabel }}
                         </button>
                     @endif
@@ -260,7 +260,7 @@
                 <!-- Quick View Link -->
                 <a href="{{ route('staff.appointments.show', $appointment->id) }}"
                     class="block text-center text-xs text-gray-400 hover:text-amber-500 mt-3 transition-colors">
-                    <i class='hgi-stroke hgi-link-external-01 mr-1'></i>View Full Details
+                    <i class='hgi-stroke hgi-link-01 mr-1'></i>View Full Details
                 </a>
             </div>
         @empty

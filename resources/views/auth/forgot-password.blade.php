@@ -9,7 +9,7 @@
             <!-- Logo/Header -->
             <div class="text-center mb-8">
                 <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 mb-4">
-                    <i class='hgi-stroke hgi-lock-02 text-4xl text-blue-600'></i>
+                    <i class='hgi-stroke hgi-lock text-4xl text-blue-600'></i>
                 </div>
                 <h2 class="text-3xl font-bold text-gray-900">Forgot Password</h2>
                 <p class="mt-2 text-sm text-gray-600">Enter your email address and we'll send you a link to reset your password</p>

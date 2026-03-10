@@ -13,7 +13,7 @@
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
     <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-        <i class='hgi-stroke hgi-user-plus text-2xl'></i>
+        <i class='hgi-stroke hgi-user-add-01 text-2xl'></i>
     </div>
     <div>
         <h2 class="text-2xl font-bold">Create New User</h2>
@@ -95,7 +95,7 @@
                 <!-- Security Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='hgi-stroke hgi-lock-01 text-blue-600'></i>
+                        <i class='hgi-stroke hgi-lock text-blue-600'></i>
                         Security
                     </h3>
                 </div>

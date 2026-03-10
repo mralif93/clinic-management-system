@@ -30,7 +30,7 @@
                 <div class="flex items-center gap-2 flex-wrap">
                     <a href="{{ route('doctor.referral-letters.create', ['patient_id' => $patient->id]) }}"
                         class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur text-white font-semibold rounded-xl hover:bg-white/30 transition text-sm">
-                        <i class='hgi-stroke hgi-transfer-horizontal'></i> New Referral Letter
+                        <i class='hgi-stroke hgi-arrow-data-transfer-horizontal'></i> New Referral Letter
                     </a>
                 </div>
             </div>
@@ -117,7 +117,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='hgi-stroke hgi-phone text-emerald-500'></i> Contact Information
+                        <i class='hgi-stroke hgi-call text-emerald-500'></i> Contact Information
                     </h3>
                 </div>
                 <div class="p-6">
@@ -206,7 +206,7 @@
                 @if($pendingApprovalAppointments->count() > 0)
                     <div class="mb-5 p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-3">
                         <div class="w-8 h-8 rounded-lg bg-amber-400 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <i class='hgi-stroke hgi-shield-half-01 text-white'></i>
+                            <i class='hgi-stroke hgi-shield-01 text-white'></i>
                         </div>
                         <div>
                             <p class="font-semibold text-amber-800 text-sm">{{ $pendingApprovalAppointments->count() }}
@@ -283,7 +283,7 @@
                                                 <div class="flex flex-col items-end">
                                                     <span
                                                         class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-emerald-100 text-emerald-700 flex items-center gap-1">
-                                                        <i class='hgi-stroke hgi-checkmark-circle-02-shield'></i> Record Approved
+                                                        <i class='hgi-stroke hgi-checkmark-circle-02'></i> Record Approved
                                                     </span>
                                                     <p class="text-[11px] text-gray-500 text-right mt-1">
                                                         Dr. {{ $appointment->recordApprovedBy->name ?? '' }}<br>
@@ -302,7 +302,7 @@
                                                         @csrf
                                                         <button type="button"
                                                             class="approve-record-btn inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition">
-                                                            <i class='hgi-stroke hgi-checkmark-circle-02-shield mr-1'></i>
+                                                            <i class='hgi-stroke hgi-checkmark-circle-02 mr-1'></i>
                                                             Approve Record
                                                         </button>
                                                     </form>
@@ -322,7 +322,7 @@
                 @else
                     <div class="flex flex-col items-center py-12">
                         <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                            <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-3xl text-gray-400'></i>
                         </div>
                         <p class="text-gray-500 font-medium">No appointment history found</p>
                     </div>
@@ -348,7 +348,7 @@
                     icon: 'question',
                     iconColor: '#059669',
                     showCancelButton: true,
-                    confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02-shield"></i> Yes, Approve',
+                    confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02"></i> Yes, Approve',
                     cancelButtonText: 'Cancel',
                     confirmButtonColor: '#059669',
                     cancelButtonColor: '#6b7280',

@@ -91,7 +91,7 @@
                     </a>
                     <button onclick="document.getElementById('card-inner').classList.toggle('flipped')"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white font-medium rounded-xl hover:bg-white/30 transition text-sm">
-                        <i class='hgi-stroke hgi-rotate-left'></i> Flip
+                        <i class='hgi-stroke hgi-rotate-left-01'></i> Flip
                     </button>
                     <button onclick="window.print()"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-indigo-700 font-semibold rounded-xl hover:bg-indigo-50 transition text-sm shadow">
@@ -298,7 +298,7 @@
 
                             <button type="submit"
                                 class="w-full inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition shadow-sm">
-                                <i class='hgi-stroke hgi-save-02'></i> Save Card Details
+                                <i class='hgi-stroke hgi-floppy-disk'></i> Save Card Details
                             </button>
                         </form>
                     </div>

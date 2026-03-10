@@ -51,7 +51,7 @@
                     </button>
                     <a href="{{ route('doctor.todos.index') }}"
                         class="inline-flex items-center px-4 py-2.5 border border-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition">
-                        <i class='hgi-stroke hgi-reset'></i>
+                        <i class='hgi-stroke hgi-rotate-left-01'></i>
                     </a>
                 </div>
             </form>

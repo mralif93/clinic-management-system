@@ -19,7 +19,7 @@
                 <div class="flex items-center gap-4">
                     <div
                         class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30">
-                        <i class='hgi-stroke hgi-calendar-03-check text-4xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-4xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">Appointment #{{ $appointment->id }}</h1>
@@ -367,7 +367,7 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                                <i class='hgi-stroke hgi-search-01-alt text-indigo-600'></i>
+                                <i class='hgi-stroke hgi-search-01 text-indigo-600'></i>
                                 Diagnosis
                             </h3>
                         </div>
@@ -381,7 +381,7 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                                <i class='hgi-stroke hgi-capsule text-indigo-600'></i>
+                                <i class='hgi-stroke hgi-medicine-01 text-indigo-600'></i>
                                 Prescription
                             </h3>
                         </div>

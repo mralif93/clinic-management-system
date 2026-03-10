@@ -112,7 +112,7 @@
                     </button>
                     <a href="{{ route('doctor.leaves.index') }}"
                         class="inline-flex items-center px-5 py-2.5 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition">
-                        <i class='hgi-stroke hgi-reset mr-1'></i> Reset
+                        <i class='hgi-stroke hgi-rotate-left-01 mr-1'></i> Reset
                     </a>
                 </div>
             </form>
@@ -173,7 +173,7 @@
                                                 <a href="{{ route('doctor.leaves.edit', $leave->id) }}"
                                                     class="w-8 h-8 flex items-center justify-center bg-amber-100 text-amber-600 hover:bg-amber-200 rounded-lg transition"
                                                     title="Edit">
-                                                    <i class='hgi-stroke hgi-pencil-01 text-base'></i>
+                                                    <i class='hgi-stroke hgi-pencil-edit-01 text-base'></i>
                                                 </a>
                                                 <form action="{{ route('doctor.leaves.destroy', $leave->id) }}" method="POST"
                                                     class="inline delete-form">
@@ -201,7 +201,7 @@
             @else
                 <div class="text-center py-16">
                     <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                        <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-3xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No leave requests found</p>
                     <p class="text-gray-400 text-sm mt-1">Apply for a leave to get started</p>

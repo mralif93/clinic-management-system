@@ -31,7 +31,7 @@
                 <div class="flex flex-wrap items-center gap-4 sm:gap-6 mb-6 text-gray-600">
                     @if($package->sessions)
                         <div class="flex items-center">
-                            <i class='hgi-stroke hgi-calendar-03-check mr-2'></i>
+                            <i class='hgi-stroke hgi-calendar-03 mr-2'></i>
                             <span>{{ $package->sessions }}</span>
                         </div>
                     @endif

@@ -22,7 +22,7 @@
                         <div class="text-white">
                             <h1 class="text-2xl font-bold">Dr. {{ $doctor->user->name }}</h1>
                             <p class="text-cyan-100 text-sm mt-1 flex items-center gap-2">
-                                <i class='hgi-stroke hgi-briefcase-01-alt'></i>
+                                <i class='hgi-stroke hgi-briefcase-01'></i>
                                 {{ $doctor->specialization ?? 'General Practitioner' }}
                             </p>
                         </div>
@@ -100,7 +100,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                         <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                            <i class='hgi-stroke hgi-calendar-03-check text-cyan-500'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-cyan-500'></i>
                             Recent Appointments
                         </h3>
                     </div>
@@ -147,7 +147,7 @@
                         @else
                             <div class="text-center py-8">
                                 <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <i class='hgi-stroke hgi-calendar-03-minus text-gray-400 text-3xl'></i>
+                                    <i class='hgi-stroke hgi-calendar-03 text-gray-400 text-3xl'></i>
                                 </div>
                                 <p class="text-gray-500">No recent appointments found</p>
                             </div>
@@ -175,14 +175,14 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                            <i class='hgi-stroke hgi-hashtag-01 text-gray-400'></i>
+                            <i class='hgi-stroke hgi-text-number-sign text-gray-400'></i>
                             <div>
                                 <p class="text-xs text-gray-500">Doctor ID</p>
                                 <p class="text-sm font-medium text-gray-900">{{ $doctor->doctor_id ?? 'N/A' }}</p>
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                            <i class='hgi-stroke hgi-briefcase-01-alt text-gray-400'></i>
+                            <i class='hgi-stroke hgi-briefcase-01 text-gray-400'></i>
                             <div>
                                 <p class="text-xs text-gray-500">Specialization</p>
                                 <p class="text-sm font-medium text-gray-900">{{ $doctor->specialization ?? 'N/A' }}</p>
@@ -202,7 +202,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                         <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                            <i class='hgi-stroke hgi-phone text-cyan-500'></i>
+                            <i class='hgi-stroke hgi-call text-cyan-500'></i>
                             Contact Information
                         </h3>
                     </div>
@@ -215,7 +215,7 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                            <i class='hgi-stroke hgi-phone text-gray-400'></i>
+                            <i class='hgi-stroke hgi-call text-gray-400'></i>
                             <div>
                                 <p class="text-xs text-gray-500">Phone</p>
                                 <p class="text-sm font-medium text-gray-900">{{ $doctor->phone ?? 'N/A' }}</p>

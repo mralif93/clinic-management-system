@@ -102,7 +102,7 @@
         </div>
         <div class="bg-gray-50 rounded-lg p-3">
             <h3 class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-2 flex items-center gap-1">
-                <i class='hgi-stroke hgi-calendar-03-check text-xs'></i> Appointment Details
+                <i class='hgi-stroke hgi-calendar-03 text-xs'></i> Appointment Details
             </h3>
             <table class="w-full text-xs">
                 <tr>

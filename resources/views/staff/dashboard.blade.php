@@ -109,7 +109,7 @@
                 <div class="flex items-start justify-between">
                     <div class="space-y-3">
                         <div class="p-2.5 rounded-2xl bg-primary-50 text-primary-600 inline-flex shadow-sm">
-                            <i class='hgi-stroke hgi-calendar-03-check text-2xl'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-2xl'></i>
                         </div>
                         <div>
                             <p class="text-xs font-extrabold uppercase tracking-[0.1em] text-gray-400 mb-1">Upcoming</p>
@@ -377,7 +377,7 @@
                     <a href="{{ route('staff.appointments.index') }}"
                         class="group flex flex-col items-center p-5 bg-gradient-to-br from-primary-50 to-primary-100 border border-primary-100 rounded-xl hover:shadow-md hover:-translate-y-1 transition-all duration-200">
                         <div class="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mb-3 text-white shadow-lg shadow-primary-500/30 group-hover:scale-110 transition-transform">
-                            <i class='hgi-stroke hgi-calendar-03-plus text-2xl'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-2xl'></i>
                         </div>
                         <span class="text-sm font-medium text-gray-700">Appointments</span>
                     </a>

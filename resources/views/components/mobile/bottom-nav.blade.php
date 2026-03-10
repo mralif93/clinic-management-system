@@ -9,7 +9,7 @@
             class="bottom-nav-item {{ request()->url() === ($item['url'] ?? '#') ? 'active' : '' }}"
             aria-label="{{ $item['label'] ?? '' }}"
         >
-            <i class='{{ $item['icon'] ?? 'bx-link' }}'></i>
+            <i class='{{ $item['icon'] ?? 'hgi-link-01' }}'></i>
             <span>{{ $item['label'] ?? '' }}</span>
         </a>
     @endforeach

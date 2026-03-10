@@ -26,7 +26,7 @@
                             <h3 class="font-semibold text-gray-900">Register & Book</h3>
                             <p class="text-gray-600 text-sm">Create an account, select your preferred doctor, choose a service, and pick your preferred date & time.</p>
                         </div>
-                        <i class='hgi-stroke hgi-calendar-03-plus text-gray-300 text-2xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-gray-300 text-2xl'></i>
                     </div>
                 </div>
 
@@ -68,7 +68,7 @@
                             <h3 class="font-semibold text-gray-900">Arrive & Check In</h3>
                             <p class="text-gray-600 text-sm">Show your QR code at the reception. Staff will scan it to check you in.</p>
                         </div>
-                        <i class='hgi-stroke hgi-scan text-gray-300 text-2xl'></i>
+                        <i class='hgi-stroke hgi-searching text-gray-300 text-2xl'></i>
                     </div>
                 </div>
 
@@ -82,7 +82,7 @@
                             <h3 class="font-semibold text-gray-900">See the Doctor</h3>
                             <p class="text-gray-600 text-sm">Doctor will accept you when ready. Staff will call you to the consultation room.</p>
                         </div>
-                        <i class='hgi-stroke hgi-user-check text-gray-300 text-2xl'></i>
+                        <i class='hgi-stroke hgi-user-check-01 text-gray-300 text-2xl'></i>
                     </div>
                 </div>
 
@@ -110,7 +110,7 @@
                 <p class="text-blue-100 mb-4">Book your first appointment today!</p>
                 <div class="flex flex-col sm:flex-row gap-3 justify-center">
                     <a href="{{ route('register') }}" class="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition">
-                        <i class='hgi-stroke hgi-user-plus mr-2'></i>Register
+                        <i class='hgi-stroke hgi-user-add-01 mr-2'></i>Register
                     </a>
                     <a href="{{ route('login') }}" class="px-6 py-3 bg-blue-700 text-white font-semibold rounded-lg hover:bg-blue-800 transition">
                         <i class='hgi-stroke hgi-login-01 mr-2'></i>Login

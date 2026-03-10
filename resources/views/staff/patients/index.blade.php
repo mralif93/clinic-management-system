@@ -54,7 +54,7 @@
                 <div class="flex items-center gap-3">
                     <div
                         class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
-                        <i class='hgi-stroke hgi-male text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-graduate-male text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $maleCount }}</p>
@@ -66,7 +66,7 @@
                 <div class="flex items-center gap-3">
                     <div
                         class="w-10 h-10 bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg flex items-center justify-center">
-                        <i class='hgi-stroke hgi-female text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-graduate-female text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $femaleCount }}</p>
@@ -78,7 +78,7 @@
                 <div class="flex items-center gap-3">
                     <div
                         class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                        <i class='hgi-stroke hgi-user-plus text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-user-add-01 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $newThisMonth }}</p>
@@ -195,7 +195,7 @@
                                         @endif
                                         @if($patient->phone)
                                             <div class="flex items-center gap-1.5 text-sm text-gray-500">
-                                                <i class='hgi-stroke hgi-phone text-gray-400'></i>
+                                                <i class='hgi-stroke hgi-call text-gray-400'></i>
                                                 {{ $patient->phone }}
                                             </div>
                                         @endif
@@ -208,8 +208,8 @@
                                     @if($patient->gender)
                                                             @php
                                                                 $genderConfig = [
-                                                                    'male' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'icon' => 'hgi-male'],
-                                                                    'female' => ['bg' => 'bg-pink-100', 'text' => 'text-pink-700', 'icon' => 'hgi-female'],
+                                                                    'male' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'icon' => 'hgi-graduate-male'],
+                                                                    'female' => ['bg' => 'bg-pink-100', 'text' => 'text-pink-700', 'icon' => 'hgi-graduate-female'],
                                                                     'other' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-user'],
                                                                 ];
                                                                 $config = $genderConfig[$patient->gender] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-user'];
@@ -250,7 +250,7 @@
                                 <td colspan="6" class="px-6 py-16 text-center">
                                     <div class="flex flex-col items-center">
                                         <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                                            <i class='hgi-stroke hgi-user-x text-3xl text-gray-400'></i>
+                                            <i class='hgi-stroke hgi-user-block-01 text-3xl text-gray-400'></i>
                                         </div>
                                         <p class="text-gray-500 font-medium">No patients found</p>
                                         <p class="text-gray-400 text-sm mt-1">Try adjusting your search filters</p>

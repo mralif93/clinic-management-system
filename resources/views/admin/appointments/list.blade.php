@@ -159,7 +159,7 @@
                                         <p class="text-xs text-gray-500">{{ $appointment->doctor->specialization ?? 'N/A' }}</p>
                                         @if($appointment->is_locum_doctor)
                                             <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-blue-50 text-blue-700 mt-1">
-                                                <i class='hgi-stroke hgi-briefcase-01-alt'></i> Locum
+                                                <i class='hgi-stroke hgi-briefcase-01'></i> Locum
                                             </span>
                                         @endif
                                     </div>
@@ -204,11 +204,11 @@
                                     ];
                                     $statusIcons = [
                                         'scheduled' => 'hgi-clock-01',
-                                        'confirmed' => 'bx-log-in',
-                                        'in_progress' => 'hgi-user-voice',
-                                        'completed' => 'bx-check-double',
-                                        'cancelled' => 'bx-x',
-                                        'no_show' => 'bx-error',
+                                        'confirmed' => 'hgi-login-01',
+                                        'in_progress' => 'hgi-voice',
+                                        'completed' => 'hgi-tick-double-01',
+                                        'cancelled' => 'hgi-cancel-01',
+                                        'no_show' => 'hgi-alert-01',
                                     ];
                                     $statusLabels = [
                                         'scheduled' => 'Scheduled',
@@ -244,7 +244,7 @@
                                     @if($appointment->trashed())
                                         <button onclick="restoreAppointment({{ $appointment->id }}, '{{ addslashes($appointment->patient->name ?? 'Unknown') }}')"
                                             class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-200 hover:scale-110 transition-all" title="Restore">
-                                            <i class='hgi-stroke hgi-undo text-lg'></i>
+                                            <i class='hgi-stroke hgi-rotate-left-01 text-lg'></i>
                                         </button>
                                         <button onclick="forceDeleteAppointment({{ $appointment->id }}, '{{ addslashes($appointment->patient->name ?? 'Unknown') }}')"
                                             class="w-9 h-9 flex items-center justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-200 hover:scale-110 transition-all" title="Delete Permanently">
@@ -276,7 +276,7 @@
                             <td colspan="7" class="px-6 py-16 text-center">
                                 <div class="flex flex-col items-center">
                                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                        <i class='hgi-stroke hgi-calendar-03-minus text-4xl text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-calendar-03 text-4xl text-gray-400'></i>
                                     </div>
                                     <p class="text-gray-500 font-medium">No appointments found</p>
                                     <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or schedule a new appointment</p>
@@ -334,7 +334,7 @@
             showCancelButton: true,
             confirmButtonColor: '#10b981',
             cancelButtonColor: '#6b7280',
-            confirmButtonText: '<i class="hgi-stroke hgi-undo mr-1"></i> Restore',
+            confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Restore',
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {

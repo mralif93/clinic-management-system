@@ -46,7 +46,7 @@
     </div>
 
     <script src="{{ asset('js/html2pdf.min.js') }}"></script>
-    <link href="{{ asset('css/boxicons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/hugeicons.css') }}" rel="stylesheet">
     <script>
         function getPdfOptions(filename) {
             return {

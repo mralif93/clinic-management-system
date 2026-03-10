@@ -124,7 +124,7 @@
                 <!-- No Results Message -->
                 <div id="noResults" class="hidden p-12 text-center">
                     <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                        <i class='hgi-stroke hgi-search-01-alt text-3xl text-gray-400'></i>
+                        <i class='hgi-stroke hgi-search-01 text-3xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No payslips found matching your search.</p>
                 </div>

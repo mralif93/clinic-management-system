@@ -129,7 +129,7 @@
     {{-- Change Password --}}
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50 flex items-center gap-2">
-            <i class='hgi-stroke hgi-lock-01 text-red-500'></i>
+            <i class='hgi-stroke hgi-lock text-red-500'></i>
             <h3 class="text-sm font-semibold text-gray-900">Change Password</h3>
         </div>
         <div class="p-6 space-y-4">
@@ -174,7 +174,7 @@
                 <div class="flex justify-end">
                     <button type="submit"
                         class="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white text-sm font-semibold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-500/25">
-                        <i class='hgi-stroke hgi-lock-open-01'></i> Update Password
+                        <i class='hgi-stroke hgi-circle-unlock-01'></i> Update Password
                     </button>
                 </div>
             </form>

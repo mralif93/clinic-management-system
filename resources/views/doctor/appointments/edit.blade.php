@@ -86,7 +86,7 @@
                 <!-- Diagnosis -->
                 <div class="mb-6">
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                        <i class='hgi-stroke hgi-search-01-alt text-gray-400 mr-1'></i> Diagnosis
+                        <i class='hgi-stroke hgi-search-01 text-gray-400 mr-1'></i> Diagnosis
                     </label>
                     <input type="hidden" name="diagnosis" id="diagnosis-input" value="{{ old('diagnosis', $appointment->diagnosis) }}">
                     <div id="diagnosis-editor" class="quill-editor"></div>
@@ -98,7 +98,7 @@
                 <!-- Prescription -->
                 <div class="mb-6">
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                        <i class='hgi-stroke hgi-capsule text-gray-400 mr-1'></i> Prescription
+                        <i class='hgi-stroke hgi-medicine-01 text-gray-400 mr-1'></i> Prescription
                     </label>
                     <input type="hidden" name="prescription" id="prescription-input" value="{{ old('prescription', $appointment->prescription) }}">
                     <div id="prescription-editor" class="quill-editor"></div>

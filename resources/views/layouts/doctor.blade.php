@@ -31,9 +31,6 @@
     <script defer src="{{ asset('js/collapse.min.js') }}"></script>
     <script defer src="{{ asset('js/alpine.min.js') }}"></script>
 
-    <!-- Boxicons -->
-    <link href='{{ asset("css/boxicons.min.css") }}' rel='stylesheet'>
-
     <!-- Hugeicons -->
     <link href='{{ asset("css/hugeicons.css") }}' rel='stylesheet'>
 
@@ -140,7 +137,7 @@
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.appointments.index.*') || request()->routeIs('doctor.appointments.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                             <i
-                                class='hgi-stroke hgi-calendar-01 text-lg {{ request()->routeIs('doctor.appointments.index.*') || request()->routeIs('doctor.appointments.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
+                                class='hgi-stroke hgi-calendar-03 text-lg {{ request()->routeIs('doctor.appointments.index.*') || request()->routeIs('doctor.appointments.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
                         </div>
                         <span>Appointments</span>
                     </a>

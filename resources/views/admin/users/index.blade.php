@@ -227,7 +227,7 @@
                                         'patient' => 'bg-blue-50 text-blue-700 ring-blue-500/20',
                                     ];
                                     $roleIcons = [
-                                        'admin' => 'hgi-shield-half-01',
+                                        'admin' => 'hgi-shield-01',
                                         'doctor' => 'hgi-stethoscope',
                                         'staff' => 'hgi-identity-card',
                                         'patient' => 'hgi-user',
@@ -258,7 +258,7 @@
                                 @if($user->isLocked())
                                     <div class="space-y-1">
                                         <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-red-50 text-red-700">
-                                            <i class='hgi-stroke hgi-lock-01'></i> Locked
+                                            <i class='hgi-stroke hgi-lock'></i> Locked
                                         </span>
                                         <p class="text-xs text-gray-500">{{ round($user->getRemainingLockoutMinutes()) }}m left</p>
                                     </div>
@@ -268,7 +268,7 @@
                                     </span>
                                 @else
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold bg-green-50 text-green-700">
-                                        <i class='hgi-stroke hgi-shield-check'></i> Secure
+                                        <i class='hgi-stroke hgi-shield-01'></i> Secure
                                     </span>
                                 @endif
                             </td>
@@ -285,7 +285,7 @@
                                     @if($user->trashed())
                                         <button onclick="restoreUser({{ $user->id }}, '{{ $user->name }}')"
                                             class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-200 hover:scale-110 transition-all" title="Restore">
-                                            <i class='hgi-stroke hgi-undo text-lg'></i>
+                                            <i class='hgi-stroke hgi-rotate-left-01 text-lg'></i>
                                         </button>
                                         <button onclick="forceDeleteUser({{ $user->id }}, '{{ $user->name }}')"
                                             class="w-9 h-9 flex items-center justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-200 hover:scale-110 transition-all" title="Delete Permanently">
@@ -315,7 +315,7 @@
                             <td colspan="7" class="px-6 py-16 text-center">
                                 <div class="flex flex-col items-center">
                                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                        <i class='hgi-stroke hgi-user-x text-4xl text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-user-block-01 text-4xl text-gray-400'></i>
                                     </div>
                                     <p class="text-gray-500 font-medium">No users found</p>
                                     <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or add a new user</p>
@@ -375,7 +375,7 @@
             showCancelButton: true,
             confirmButtonColor: '#10b981',
             cancelButtonColor: '#6b7280',
-            confirmButtonText: '<i class="hgi-stroke hgi-undo mr-1"></i> Restore',
+            confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Restore',
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {

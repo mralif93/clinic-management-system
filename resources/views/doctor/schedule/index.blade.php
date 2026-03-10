@@ -41,7 +41,7 @@
                     </div>
                     <div
                         class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
-                        <i class='hgi-stroke hgi-calendar-03-check text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-check-in-02 text-xl'></i>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
             <form method="GET" action="{{ route('doctor.schedule.index') }}">
                 <div class="flex flex-wrap items-center gap-3">
                     <span class="text-sm font-medium text-emerald-700 flex items-center gap-1.5">
-                        <i class='hgi-stroke hgi-calendar-03-event'></i> Select Date:
+                        <i class='hgi-stroke hgi-calendar-03'></i> Select Date:
                     </span>
 
                     <input type="date" name="date" value="{{ $selectedDate->format('Y-m-d') }}"
@@ -90,7 +90,7 @@
                     <div class="flex items-center gap-2 ml-auto">
                         <a href="{{ route('doctor.schedule.index') }}"
                             class="inline-flex items-center px-4 py-2 bg-white text-gray-600 text-sm font-medium rounded-lg shadow-sm hover:bg-gray-50 transition">
-                            <i class='hgi-stroke hgi-calendar-03-check mr-1'></i> Today
+                            <i class='hgi-stroke hgi-calendar-03 mr-1'></i> Today
                         </a>
                         <button type="submit"
                             class="inline-flex items-center px-5 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-lg hover:from-emerald-600 hover:to-teal-600 transition-all">
@@ -114,7 +114,7 @@
                     </h3>
                     <span
                         class="inline-flex items-center px-3 py-1 bg-emerald-100 text-emerald-700 text-sm font-semibold rounded-full">
-                        <i class='hgi-stroke hgi-calendar-03-check mr-1'></i>
+                        <i class='hgi-stroke hgi-calendar-03 mr-1'></i>
                         {{ $appointments->count() }} {{ Str::plural('appointment', $appointments->count()) }}
                     </span>
                 </div>
@@ -126,13 +126,13 @@
                             @php
                                 $statusConfig = [
                                     'scheduled' => ['bg' => 'bg-blue-50/50', 'border' => 'border-blue-100', 'badge_bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-calendar-03', 'time_bg' => 'bg-blue-500', 'time_text' => 'text-blue-600'],
-                                    'confirmed' => ['bg' => 'bg-emerald-50/50', 'border' => 'border-emerald-100', 'badge_bg' => 'bg-emerald-100', 'text' => 'text-emerald-700', 'icon' => 'bx-check', 'time_bg' => 'bg-emerald-500', 'time_text' => 'text-emerald-600'],
-                                    'in_progress' => ['bg' => 'bg-amber-50/50', 'border' => 'border-amber-100', 'badge_bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'bx-loader-alt', 'time_bg' => 'bg-amber-500', 'time_text' => 'text-amber-600'],
-                                    'completed' => ['bg' => 'bg-purple-50/50', 'border' => 'border-purple-100', 'badge_bg' => 'bg-purple-100', 'text' => 'text-purple-700', 'icon' => 'bx-check-double', 'time_bg' => 'bg-purple-500', 'time_text' => 'text-purple-600'],
-                                    'cancelled' => ['bg' => 'bg-red-50/50', 'border' => 'border-red-100', 'badge_bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-x', 'time_bg' => 'bg-red-500', 'time_text' => 'text-red-600'],
-                                    'no_show' => ['bg' => 'bg-gray-50/50', 'border' => 'border-gray-100', 'badge_bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-error', 'time_bg' => 'bg-gray-500', 'time_text' => 'text-gray-600'],
+                                    'confirmed' => ['bg' => 'bg-emerald-50/50', 'border' => 'border-emerald-100', 'badge_bg' => 'bg-emerald-100', 'text' => 'text-emerald-700', 'icon' => 'hgi-checkmark-circle-01', 'time_bg' => 'bg-emerald-500', 'time_text' => 'text-emerald-600'],
+                                    'in_progress' => ['bg' => 'bg-amber-50/50', 'border' => 'border-amber-100', 'badge_bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'hgi-loading-02', 'time_bg' => 'bg-amber-500', 'time_text' => 'text-amber-600'],
+                                    'completed' => ['bg' => 'bg-purple-50/50', 'border' => 'border-purple-100', 'badge_bg' => 'bg-purple-100', 'text' => 'text-purple-700', 'icon' => 'hgi-tick-double-01', 'time_bg' => 'bg-purple-500', 'time_text' => 'text-purple-600'],
+                                    'cancelled' => ['bg' => 'bg-red-50/50', 'border' => 'border-red-100', 'badge_bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'hgi-cancel-01', 'time_bg' => 'bg-red-500', 'time_text' => 'text-red-600'],
+                                    'no_show' => ['bg' => 'bg-gray-50/50', 'border' => 'border-gray-100', 'badge_bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-alert-01', 'time_bg' => 'bg-gray-500', 'time_text' => 'text-gray-600'],
                                 ];
-                                $sConfig = $statusConfig[$appointment->status] ?? ['bg' => 'bg-gray-50/50', 'border' => 'border-gray-100', 'badge_bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-help-circle', 'time_bg' => 'bg-gray-500', 'time_text' => 'text-gray-600'];
+                                $sConfig = $statusConfig[$appointment->status] ?? ['bg' => 'bg-gray-50/50', 'border' => 'border-gray-100', 'badge_bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-help-circle', 'time_bg' => 'bg-gray-500', 'time_text' => 'text-gray-600'];
                             @endphp
                             <div
                                 class="group {{ $sConfig['bg'] }} border {{ $sConfig['border'] }} rounded-xl p-4 hover:shadow-md transition-all duration-200">
@@ -162,7 +162,7 @@
                                         <h4 class="font-semibold text-gray-900">{{ $appointment->patient->full_name }}</h4>
                                         <div class="flex flex-wrap items-center gap-2 mt-1 text-sm text-gray-500">
                                             <span class="inline-flex items-center gap-1">
-                                                <i class='hgi-stroke hgi-briefcase-01-alt-2 text-emerald-500'></i>
+                                                <i class='hgi-stroke hgi-briefcase-02 text-emerald-500'></i>
                                                 {{ $appointment->service->name ?? 'N/A' }}
                                             </span>
                                             <span class="text-gray-300">•</span>
@@ -203,7 +203,7 @@
                     <div class="text-center py-16">
                         <div
                             class="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                            <i class='hgi-stroke hgi-calendar-03-minus text-4xl text-gray-400'></i>
+                            <i class='hgi-stroke hgi-calendar-minus-02 text-4xl text-gray-400'></i>
                         </div>
                         <p class="text-gray-600 font-semibold text-lg">No appointments scheduled</p>
                         <p class="text-gray-400 text-sm mt-1">Select another date to view your appointments</p>
@@ -218,7 +218,7 @@
                 <h3 class="font-semibold text-gray-800 flex items-center gap-2">
                     <div
                         class="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
-                        <i class='hgi-stroke hgi-calendar-03-week text-white text-lg'></i>
+                        <i class='hgi-stroke hgi-calendar-02 text-white text-lg'></i>
                     </div>
                     Week View
                     <span class="text-sm font-normal text-gray-500 ml-2">{{ $weekStart->format('M d') }} -

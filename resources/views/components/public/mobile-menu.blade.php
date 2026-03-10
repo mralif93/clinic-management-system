@@ -46,7 +46,7 @@
             @if(!$servicesPage || $servicesPage->is_published)
                 <a href="{{ route('services.index') }}"
                     class="flex items-center space-x-3 text-lg font-medium text-gray-900 hover:text-blue-600 p-2 rounded-lg hover:bg-gray-50 transition-colors">
-                    <i class='hgi-stroke hgi-plus-sign-medical text-xl text-gray-400'></i>
+                    <i class='hgi-stroke hgi-plus-sign text-xl text-gray-400'></i>
                     <span>Services</span>
                 </a>
             @endif
@@ -62,7 +62,7 @@
             @if(!$teamPage || $teamPage->is_published)
                 <a href="{{ route('team.index') }}"
                     class="flex items-center space-x-3 text-lg font-medium text-gray-900 hover:text-blue-600 p-2 rounded-lg hover:bg-gray-50 transition-colors">
-                    <i class='hgi-stroke hgi-user-voice text-xl text-gray-400'></i>
+                    <i class='hgi-stroke hgi-voice text-xl text-gray-400'></i>
                     <span>Team</span>
                 </a>
             @endif

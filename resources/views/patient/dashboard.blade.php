@@ -80,7 +80,7 @@
                             <a href="{{ route('patient.appointments.create') }}"
                                 class="flex flex-col items-center p-6 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 hover:shadow-md transition-all duration-200">
                                 <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-3">
-                                    <i class='hgi-stroke hgi-calendar-03-plus text-3xl text-blue-600'></i>
+                                    <i class='hgi-stroke hgi-calendar-03 text-3xl text-blue-600'></i>
                                 </div>
                                 <span class="text-sm font-semibold text-gray-700">Book Appointment</span>
                             </a>

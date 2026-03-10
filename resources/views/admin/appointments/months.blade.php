@@ -84,7 +84,7 @@
                                         <span
                                             class="flex items-center gap-1 text-xs text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full"
                                             title="Completed">
-                                            <i class='hgi-stroke hgi-checkmark-circle-02-double'></i> {{ $month->completed_count }}
+                                            <i class='hgi-stroke hgi-tick-double-01'></i> {{ $month->completed_count }}
                                         </span>
                                     </div>
                                 </div>
@@ -96,7 +96,7 @@
         @else
             <div class="text-center py-12 bg-white rounded-xl shadow-md">
                 <div class="bg-gray-50 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                    <i class='hgi-stroke hgi-calendar-03-minus text-4xl text-gray-400'></i>
+                    <i class='hgi-stroke hgi-calendar-03 text-4xl text-gray-400'></i>
                 </div>
                 <h3 class="text-xl font-medium text-gray-900">No Appointments</h3>
                 <p class="text-gray-500 mt-2 mb-6">No appointments scheduled yet.</p>

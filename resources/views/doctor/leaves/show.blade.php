@@ -15,7 +15,7 @@
                     </a>
                     <h1 class="text-2xl font-bold flex items-center gap-3">
                         <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                            <i class='hgi-stroke hgi-calendar-03-check text-xl'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-xl'></i>
                         </div>
                         Leave Details
                     </h1>
@@ -168,7 +168,7 @@
                                     @if(in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))
                                         <i class='hgi-stroke hgi-image-01 text-2xl text-blue-600'></i>
                                     @else
-                                        <i class='hgi-stroke hgi-file-01-pdf text-2xl text-red-600'></i>
+                                        <i class='hgi-stroke hgi-file-01 text-2xl text-red-600'></i>
                                     @endif
                                 </div>
 
@@ -181,7 +181,7 @@
                         @else
                             <div class="text-center py-8">
                                 <div class="w-14 h-14 rounded-xl bg-gray-100 flex items-center justify-center mx-auto mb-3">
-                                    <i class='hgi-stroke hgi-file-01-blank text-2xl text-gray-400'></i>
+                                    <i class='hgi-stroke hgi-file-01 text-2xl text-gray-400'></i>
                                 </div>
                                 <p class="text-gray-500 text-sm">No attachment provided</p>
                             </div>

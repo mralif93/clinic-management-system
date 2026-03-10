@@ -237,7 +237,7 @@
                                         'low' => 'bx-chevrons-down',
                                         'medium' => 'hgi-minus-sign',
                                         'high' => 'bx-chevrons-up',
-                                        'urgent' => 'bx-error',
+                                        'urgent' => 'hgi-alert-01',
                                     ];
                                 @endphp
                                 <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold {{ $priorityStyles[$todo->priority] ?? $priorityStyles['medium'] }}">
@@ -274,7 +274,7 @@
                                     @if($todo->trashed())
                                         <button onclick="restoreTodo({{ $todo->id }}, '{{ addslashes($todo->title) }}')"
                                             class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-200 hover:scale-110 transition-all" title="Restore">
-                                            <i class='hgi-stroke hgi-undo text-lg'></i>
+                                            <i class='hgi-stroke hgi-rotate-left-01 text-lg'></i>
                                         </button>
                                         <button onclick="forceDeleteTodo({{ $todo->id }}, '{{ addslashes($todo->title) }}')"
                                             class="w-9 h-9 flex items-center justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-200 hover:scale-110 transition-all" title="Delete Permanently">
@@ -355,7 +355,7 @@
             showCancelButton: true,
             confirmButtonColor: '#10b981',
             cancelButtonColor: '#6b7280',
-            confirmButtonText: '<i class="hgi-stroke hgi-undo mr-1"></i> Restore',
+            confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Restore',
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {

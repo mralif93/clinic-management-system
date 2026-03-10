@@ -41,7 +41,7 @@
                         <div class="absolute inset-0 bg-primary-500/20 blur-2xl rounded-full"></div>
                         <div
                             class="relative w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                            <i class='hgi-stroke hgi-hospital text-5xl md:text-6xl text-white opacity-90'></i>
+                            <i class='hgi-stroke hgi-hospital-01 text-5xl md:text-6xl text-white opacity-90'></i>
                         </div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                 <div class="flex items-start justify-between">
                     <div class="space-y-3">
                         <div class="p-2.5 rounded-2xl bg-indigo-50 text-indigo-600 inline-flex shadow-sm">
-                            <i class='hgi-stroke hgi-calendar-01 text-2xl'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-2xl'></i>
                         </div>
                         <div>
                             <p class="text-xs font-extrabold uppercase tracking-[0.1em] text-gray-400 mb-1">Total Bookings
@@ -281,7 +281,7 @@
                         <div class="space-y-4">
                             <div class="flex items-center justify-between">
                                 <span class="text-xs font-bold text-gray-500 flex items-center gap-2">
-                                    <i class='hgi-stroke hgi-calendar-01 text-amber-500'></i>
+                                    <i class='hgi-stroke hgi-calendar-03 text-amber-500'></i>
                                     Pending Leave
                                 </span>
                                 <span class="text-xs font-black text-gray-900 bg-gray-50 px-2 py-1 rounded-lg">{{ $pendingLeaves->count() }}</span>
@@ -396,7 +396,7 @@
                     <div class="p-4 border-b border-gray-100">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                                <i class='hgi-stroke hgi-chart-line-up-01 text-green-600'></i>
+                                <i class='hgi-stroke hgi-chart-increase text-green-600'></i>
                                 Revenue (Last 7 Days)
                             </h3>
                             <span
@@ -442,7 +442,7 @@
                     <div class="p-4 border-b border-gray-100">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                                <i class='hgi-stroke hgi-calendar-03-event text-blue-600'></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-blue-600'></i>
                                 Upcoming Appointments
                             </h3>
                             <a href="{{ route('admin.appointments.index') }}"
@@ -492,7 +492,7 @@
                             </table>
                         @else
                             <div class="p-8 text-center">
-                                <i class='hgi-stroke hgi-calendar-03-minus text-4xl text-gray-300 mb-2'></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-4xl text-gray-300 mb-2'></i>
                                 <p class="text-sm text-gray-500">No upcoming appointments</p>
                             </div>
                         @endif
@@ -504,7 +504,7 @@
                     <div class="p-4 border-b border-gray-100">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                                <i class='hgi-stroke hgi-calendar-03-check text-amber-600'></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-amber-600'></i>
                                 Pending Leave Requests
                             </h3>
                             <a href="{{ route('admin.leaves.index') }}"

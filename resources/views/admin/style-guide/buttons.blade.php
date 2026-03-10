@@ -67,7 +67,7 @@
             <h2 class="text-lg font-semibold mb-4">Icon Buttons</h2>
             <div class="flex flex-wrap gap-4 mb-6">
                 <button class="btn btn-primary btn-icon" title="Edit">
-                    <i class='hgi-stroke hgi-pencil-01'></i>
+                    <i class='hgi-stroke hgi-pencil-edit-01'></i>
                 </button>
                 <button class="btn btn-danger btn-icon" title="Delete">
                     <i class='hgi-stroke hgi-delete-01'></i>

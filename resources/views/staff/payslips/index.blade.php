@@ -72,7 +72,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
-                        <i class='hgi-stroke hgi-calendar-03-check text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-sm font-bold text-gray-900">{{ $latestPayslip ? $latestPayslip->pay_period : 'N/A' }}</p>
@@ -176,11 +176,11 @@
                                     <td class="px-6 py-4">
                                         @php
                                             $statusConfig = [
-                                                'draft' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-edit'],
-                                                'approved' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'bx-check'],
-                                                'paid' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'bx-check-double'],
+                                                'draft' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-pencil-edit-01'],
+                                                'approved' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-checkmark-circle-01'],
+                                                'paid' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'hgi-tick-double-01'],
                                             ];
-                                            $sConfig = $statusConfig[$payslip->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-help-circle'];
+                                            $sConfig = $statusConfig[$payslip->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-help-circle'];
                                         @endphp
                                         <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $sConfig['bg'] }} {{ $sConfig['text'] }}">
                                             <i class='hgi-stroke {{ $sConfig['icon'] }}'></i>
@@ -211,7 +211,7 @@
 
                 <div id="noResults" class="hidden p-8 text-center">
                     <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class='hgi-stroke hgi-search-01-alt text-3xl text-gray-400'></i>
+                        <i class='hgi-stroke hgi-search-01 text-3xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No payslips found matching your search</p>
                 </div>

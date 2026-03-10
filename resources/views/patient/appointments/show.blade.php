@@ -69,7 +69,7 @@
                             <!-- Doctor Information -->
                             <div class="flex items-start space-x-4">
                                 <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                                    <i class='hgi-stroke hgi-user-plus text-blue-600 text-2xl'></i>
+                                    <i class='hgi-stroke hgi-user-add-01 text-blue-600 text-2xl'></i>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-600">Doctor</p>
@@ -166,7 +166,7 @@
                         <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden sticky top-4">
                             <div class="px-6 py-4 bg-orange-50 border-b border-orange-100">
                                 <div class="flex items-center">
-                                    <i class='hgi-stroke hgi-user-check text-orange-600 text-xl mr-2'></i>
+                                    <i class='hgi-stroke hgi-user-check-01 text-orange-600 text-xl mr-2'></i>
                                     <h3 class="font-semibold text-orange-800">Checked In!</h3>
                                 </div>
                                 <p class="text-sm text-orange-600 mt-1">Waiting for doctor to accept</p>

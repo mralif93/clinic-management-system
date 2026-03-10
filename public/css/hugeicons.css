@@ -16527,3 +16527,28 @@
 }
 
 /*# sourceMappingURL=hgi-stroke-rounded.css.map */
+/* Boxicons Compatibility */
+.bx-spin {
+    -webkit-animation: hgi-spin 2s linear infinite;
+    animation: hgi-spin 2s linear infinite;
+}
+
+@-webkit-keyframes hgi-spin {
+    0% { -webkit-transform: rotate(0); transform: rotate(0); }
+    100% { -webkit-transform: rotate(359deg); transform: rotate(359deg); }
+}
+
+@keyframes hgi-spin {
+    0% { -webkit-transform: rotate(0); transform: rotate(0); }
+    100% { -webkit-transform: rotate(359deg); transform: rotate(359deg); }
+}
+
+.bx-xs { font-size: 1rem !important; }
+.bx-sm { font-size: 1.55rem !important; }
+.bx-md { font-size: 2.25rem !important; }
+.bx-lg { font-size: 3.0rem !important; }
+
+.bx-fw {
+    width: 1.2857142857em;
+    text-align: center;
+}

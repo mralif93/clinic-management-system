@@ -32,9 +32,6 @@
     <script defer src="{{ asset('js/collapse.min.js') }}"></script>
     <script defer src="{{ asset('js/alpine.min.js') }}"></script>
 
-    <!-- Boxicons for icons -->
-    <link href='{{ asset("css/boxicons.min.css") }}' rel='stylesheet'>
-
     <!-- Hugeicons -->
     <link href='{{ asset("css/hugeicons.css") }}' rel='stylesheet'>
 

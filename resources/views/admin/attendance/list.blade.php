@@ -109,7 +109,7 @@
                         </button>
                         <a href="{{ route('admin.attendance.by-month', ['year' => $year, 'month' => $month]) }}" 
                            class="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-all text-sm">
-                            <i class='hgi-stroke hgi-reset'></i>
+                            <i class='hgi-stroke hgi-rotate-left-01'></i>
                         </a>
                     </div>
                 </div>
@@ -237,7 +237,7 @@
                             <td colspan="7" class="px-6 py-16 text-center">
                                 <div class="flex flex-col items-center">
                                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                        <i class='hgi-stroke hgi-calendar-03-minus text-4xl text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-calendar-03 text-4xl text-gray-400'></i>
                                     </div>
                                     <p class="text-gray-500 font-medium">No attendance records found</p>
                                     <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or add a new entry</p>

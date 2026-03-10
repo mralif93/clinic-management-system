@@ -171,10 +171,10 @@
                                     @php
                                         $statusConfig = [
                                             'pending' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'hgi-clock-01'],
-                                            'in_progress' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'icon' => 'bx-loader-circle'],
-                                            'completed' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'bx-check-circle'],
+                                            'in_progress' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'icon' => 'hgi-loading-01'],
+                                            'completed' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'hgi-checkmark-circle-01'],
                                         ];
-                                        $sConfig = $statusConfig[$todo->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-help-circle'];
+                                        $sConfig = $statusConfig[$todo->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-help-circle'];
                                     @endphp
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $sConfig['bg'] }} {{ $sConfig['text'] }}">
                                         <i class='hgi-stroke {{ $sConfig['icon'] }}'></i>
@@ -187,7 +187,7 @@
                                             'low' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-down-arrow-alt'],
                                             'medium' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-minus-sign'],
                                             'high' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'icon' => 'bx-up-arrow-alt'],
-                                            'urgent' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-error'],
+                                            'urgent' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'hgi-alert-01'],
                                         ];
                                         $pConfig = $priorityConfig[$todo->priority] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-minus-sign'];
                                     @endphp
@@ -226,7 +226,7 @@
                                             </button>
                                         @else
                                             <span class="w-8 h-8 flex items-center justify-center bg-gray-200 text-gray-400 rounded-full">
-                                                <i class='hgi-stroke hgi-checkmark-circle-02-double text-sm'></i>
+                                                <i class='hgi-stroke hgi-tick-double-01 text-sm'></i>
                                             </span>
                                         @endif
                                     </div>

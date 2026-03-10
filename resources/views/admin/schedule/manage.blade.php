@@ -48,7 +48,7 @@
                         <!-- Card Header -->
                         <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
                             <h3 class="font-bold text-gray-900 flex items-center gap-2">
-                                <i class='hgi-stroke hgi-calendar-03-event text-indigo-500'></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-indigo-500'></i>
                                 {{ $dayName }}
                             </h3>
                             
@@ -116,7 +116,7 @@
                                 <!-- Slot Duration -->
                                 <div class="space-y-2">
                                     <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                                        <i class='hgi-stroke hgi-clock-02r'></i> Slot Duration
+                                        <i class='hgi-stroke hgi-clock-02'></i> Slot Duration
                                     </label>
                                     <select name="schedules[{{ $dayIndex }}][slot_duration]" 
                                         class="w-full rounded-xl border-gray-200 bg-gray-50 text-sm focus:border-indigo-500 focus:ring-indigo-500 transition-colors">

@@ -61,7 +61,7 @@
                         @csrf
                         <button type="button" id="issueBtn"
                             class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition shadow-sm shadow-emerald-500/30">
-                            <i class='hgi-stroke hgi-checkmark-circle-02-shield'></i> Issue Letter
+                            <i class='hgi-stroke hgi-checkmark-circle-02'></i> Issue Letter
                         </button>
                     </form>
 
@@ -137,7 +137,7 @@
                     icon: 'question',
                     iconColor: '#059669',
                     showCancelButton: true,
-                    confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02-shield"></i> Yes, Issue',
+                    confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02"></i> Yes, Issue',
                     cancelButtonText: 'Cancel',
                     confirmButtonColor: '#059669',
                     cancelButtonColor: '#6b7280',

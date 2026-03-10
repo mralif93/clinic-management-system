@@ -11,8 +11,8 @@
     ];
     $statusColors = [
         'pending' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-clock-01'],
-        'in_progress' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'bx-loader-circle'],
-        'completed' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'bx-check-circle'],
+        'in_progress' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-loading-01'],
+        'completed' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'hgi-checkmark-circle-01'],
     ];
     $currentPriority = $priorityColors[$todo->priority] ?? $priorityColors['medium'];
     $currentStatus = $statusColors[$todo->status] ?? $statusColors['pending'];
@@ -176,7 +176,7 @@
                     </div>
                     <div class="p-4 space-y-4">
                         <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                            <i class='hgi-stroke hgi-calendar-03-plus text-gray-400'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-gray-400'></i>
                             <div>
                                 <p class="text-xs text-gray-500">Created</p>
                                 <p class="text-sm font-medium text-gray-900">{{ $todo->created_at->format('M d, Y h:i A') }}</p>

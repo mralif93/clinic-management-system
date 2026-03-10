@@ -185,9 +185,9 @@
                                     ];
                                     $statusIcons = [
                                         'draft' => 'hgi-file-01',
-                                        'approved' => 'bx-check-circle',
-                                        'paid' => 'bx-badge-check',
-                                        'cancelled' => 'bx-x-circle',
+                                        'approved' => 'hgi-checkmark-circle-01',
+                                        'paid' => 'hgi-checkmark-badge-01',
+                                        'cancelled' => 'hgi-cancel-circle',
                                     ];
                                 @endphp
                                 <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold ring-1 ring-inset {{ $statusStyles[$payroll->status] ?? $statusStyles['draft'] }}">

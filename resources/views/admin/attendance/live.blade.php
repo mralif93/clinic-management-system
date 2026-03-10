@@ -29,7 +29,7 @@
                         <p class="text-4xl font-bold text-green-600 mt-2">{{ $clockedIn->count() }}</p>
                     </div>
                     <div class="bg-green-100 p-4 rounded-full">
-                        <i class='hgi-stroke hgi-user-check text-4xl text-green-600'></i>
+                        <i class='hgi-stroke hgi-user-check-01 text-4xl text-green-600'></i>
                     </div>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                         @empty
                             <tr>
                                 <td colspan="5" class="px-6 py-8 text-center text-gray-500">
-                                    <i class='hgi-stroke hgi-user-x text-4xl mb-2'></i>
+                                    <i class='hgi-stroke hgi-user-block-01 text-4xl mb-2'></i>
                                     <p>No one is currently clocked in</p>
                                 </td>
                             </tr>

@@ -83,7 +83,7 @@
             <div class="w-full flex justify-center gap-3">
                 <button onclick="document.getElementById('card-inner').classList.toggle('flipped')"
                     class="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-100 text-emerald-700 font-medium rounded-xl hover:bg-emerald-200 transition text-sm">
-                    <i class='hgi-stroke hgi-rotate-left'></i> Flip Card
+                    <i class='hgi-stroke hgi-rotate-left-01'></i> Flip Card
                 </button>
                 <button onclick="window.print()"
                     class="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 transition text-sm shadow">
@@ -210,12 +210,12 @@
                 <div class="divide-y divide-gray-50">
                     @foreach([
                             ['Email', $doctor->email, 'hgi-mail-01'],
-                            ['Phone', $doctor->phone ?? 'N/A', 'hgi-phone'],
+                            ['Phone', $doctor->phone ?? 'N/A', 'hgi-call'],
                             ['Specialization', $doctor->specialization ?? 'N/A', 'hgi-stethoscope'],
-                            ['Licence No.', $doctor->license_number ?? 'N/A', 'hgi-certified'],
-                            ['Experience', $doctor->years_of_experience ? $doctor->years_of_experience . ' years' : 'N/A', 'hgi-calendar-01'],
+                            ['Licence No.', $doctor->license_number ?? 'N/A', 'hgi-certificate-01'],
+                            ['Experience', $doctor->years_of_experience ? $doctor->years_of_experience . ' years' : 'N/A', 'hgi-calendar-03'],
                             ['Languages', $doctor->languages_spoken ?? 'N/A', 'hgi-translate'],
-                            ['Location', $doctor->clinic_location ?? 'N/A', 'hgi-location-pin-01'],
+                            ['Location', $doctor->clinic_location ?? 'N/A', 'hgi-location-01'],
                         ] as [$label, $value, $icon])
                         <div class="flex items-center justify-between px-5 py-3">
                             <span class="text-xs text-gray-500 flex items-center gap-1.5"><i class='hgi-stroke {{ $icon }} text-gray-400'></i>{{ $label }}</span>

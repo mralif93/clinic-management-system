@@ -44,7 +44,7 @@
                             <div class="space-y-2 mb-4">
                                 @if($package->sessions)
                                     <div class="flex items-center text-gray-600 text-sm">
-                                        <i class='hgi-stroke hgi-calendar-03-check text-purple-600 mr-2'></i>
+                                        <i class='hgi-stroke hgi-calendar-03 text-purple-600 mr-2'></i>
                                         <span>{{ $package->sessions }}</span>
                                     </div>
                                 @endif

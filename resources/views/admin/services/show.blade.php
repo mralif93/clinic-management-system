@@ -25,7 +25,7 @@
                         <div class="flex flex-wrap gap-2 mt-2">
                             <span
                                 class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-white/20 backdrop-blur">
-                                <i class='hgi-stroke hgi-grid-01 mr-1'></i> {{ ucfirst($service->type) }}
+                                <i class='hgi-stroke hgi-grid mr-1'></i> {{ ucfirst($service->type) }}
                             </span>
                             @if($service->trashed())
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-red-500/30">
@@ -39,7 +39,7 @@
                             @else
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-yellow-400/30">
-                                    <i class='hgi-stroke hgi-pause-circle mr-1'></i> Inactive
+                                    <i class='hgi-stroke hgi-pause mr-1'></i> Inactive
                                 </span>
                             @endif
                         </div>
@@ -100,7 +100,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center">
-                        <i class='hgi-stroke hgi-grid-01 text-2xl text-green-600'></i>
+                        <i class='hgi-stroke hgi-grid text-2xl text-green-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Type</p>
@@ -153,7 +153,7 @@
                             @else
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-yellow-50 text-yellow-700 border border-yellow-200">
-                                    <i class='hgi-stroke hgi-pause-circle mr-1'></i> Inactive
+                                    <i class='hgi-stroke hgi-pause mr-1'></i> Inactive
                                 </span>
                             @endif
                         </div>

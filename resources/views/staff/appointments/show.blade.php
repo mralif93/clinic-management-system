@@ -6,11 +6,11 @@
 @php
     $statusColors = [
         'scheduled' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'border' => 'border-blue-200', 'icon' => 'hgi-calendar-03'],
-        'confirmed' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'border' => 'border-cyan-200', 'icon' => 'bx-check'],
-        'in_progress' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'border' => 'border-amber-200', 'icon' => 'bx-loader-circle'],
-        'completed' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'border' => 'border-green-200', 'icon' => 'bx-check-double'],
-        'cancelled' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'border' => 'border-red-200', 'icon' => 'bx-x'],
-        'no_show' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'border' => 'border-gray-200', 'icon' => 'hgi-user-x'],
+        'confirmed' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'border' => 'border-cyan-200', 'icon' => 'hgi-checkmark-circle-01'],
+        'in_progress' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'border' => 'border-amber-200', 'icon' => 'hgi-loading-01'],
+        'completed' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'border' => 'border-green-200', 'icon' => 'hgi-tick-double-01'],
+        'cancelled' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'border' => 'border-red-200', 'icon' => 'hgi-cancel-01'],
+        'no_show' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'border' => 'border-gray-200', 'icon' => 'hgi-user-block-01'],
     ];
     $statusLabels = [
         'scheduled' => 'Scheduled',
@@ -140,7 +140,7 @@
                             @endif
                             @if($appointment->patient->phone)
                             <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                                <i class='hgi-stroke hgi-phone text-gray-400'></i>
+                                <i class='hgi-stroke hgi-call text-gray-400'></i>
                                 <div>
                                     <p class="text-xs text-gray-500">Phone</p>
                                     <p class="text-sm font-medium text-gray-900">{{ $appointment->patient->phone }}</p>
@@ -155,7 +155,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                         <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                            <i class='hgi-stroke hgi-calendar-03-check text-amber-500'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-amber-500'></i>
                             Appointment Details
                         </h3>
                     </div>
@@ -228,7 +228,7 @@
                         @if($appointment->prescription)
                         <div>
                             <h4 class="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                                <i class='hgi-stroke hgi-capsule text-gray-400'></i> Prescription
+                                <i class='hgi-stroke hgi-medicine-01 text-gray-400'></i> Prescription
                             </h4>
                             <div class="bg-green-50 p-4 rounded-lg text-sm text-gray-700 rich-content">{!! $appointment->prescription !!}</div>
                         </div>
@@ -270,7 +270,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                         <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                            <i class='hgi-stroke hgi-briefcase-01-alt text-amber-500'></i>
+                            <i class='hgi-stroke hgi-briefcase-01 text-amber-500'></i>
                             Service
                         </h3>
                     </div>

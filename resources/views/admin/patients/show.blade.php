@@ -132,7 +132,7 @@
                                 <span class="text-sm text-gray-500">User Account</span>
                                 <a href="{{ route('admin.users.show', $patient->user->id) }}"
                                     class="text-sm font-medium text-rose-600 hover:text-rose-700">
-                                    {{ $patient->user->email }} <i class='hgi-stroke hgi-link-external-01 ml-1'></i>
+                                    {{ $patient->user->email }} <i class='hgi-stroke hgi-link-01 ml-1'></i>
                                 </a>
                             </div>
                         @endif
@@ -144,7 +144,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='hgi-stroke hgi-heart text-rose-600'></i>
+                        <i class='hgi-stroke hgi-favourite text-rose-600'></i>
                         Medical Information
                     </h3>
                 </div>
@@ -181,7 +181,7 @@
                                     <p class="text-sm font-medium text-gray-900">{{ $patient->emergency_contact_name }}</p>
                                     @if($patient->emergency_contact_phone)
                                         <p class="text-sm text-gray-600 flex items-center gap-1 mt-1">
-                                            <i class='hgi-stroke hgi-phone'></i> {{ $patient->emergency_contact_phone }}
+                                            <i class='hgi-stroke hgi-call'></i> {{ $patient->emergency_contact_phone }}
                                         </p>
                                     @endif
                                 </div>

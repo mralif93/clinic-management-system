@@ -49,7 +49,7 @@
                     <!-- Card Header -->
                     <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
                         <h3 class="font-bold text-gray-900 flex items-center gap-2">
-                            <i class='hgi-stroke hgi-calendar-03-event text-indigo-500'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-indigo-500'></i>
                             {{ $dayName }}
                         </h3>
                         <span
@@ -97,7 +97,7 @@
                                     <div class="space-y-1">
                                         <label
                                             class="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                                            <i class='hgi-stroke hgi-clock-02r'></i> Slot
+                                            <i class='hgi-stroke hgi-clock-02'></i> Slot
                                         </label>
                                         <div class="p-2 bg-gray-50 rounded-lg border border-gray-100 text-center">
                                             <p class="text-gray-700 font-semibold text-sm">
@@ -110,7 +110,7 @@
                         @else
                             <div class="flex flex-col items-center justify-center py-8 text-gray-400">
                                 <div class="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mb-3">
-                                    <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-300'></i>
+                                    <i class='hgi-stroke hgi-calendar-03 text-3xl text-gray-300'></i>
                                 </div>
                                 <span class="text-sm font-medium">No schedule configured</span>
                             </div>

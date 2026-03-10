@@ -14,7 +14,7 @@
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
     <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-        <i class='hgi-stroke hgi-calendar-03-check text-xl'></i>
+        <i class='hgi-stroke hgi-calendar-download-02 text-xl'></i>
     </div>
     <div>
         <h2 class="text-2xl font-bold">My Appointments</h2>
@@ -139,7 +139,7 @@
                                         </a>
                                         <a href="{{ route('doctor.appointments.edit', $appointment->id) }}"
                                             class="w-8 h-8 flex items-center justify-center bg-amber-50 text-amber-600 hover:bg-amber-100 rounded-lg transition" title="Edit">
-                                            <i class='hgi-stroke hgi-pencil-01 text-lg'></i>
+                                            <i class='hgi-stroke hgi-pencil-edit-01 text-lg'></i>
                                         </a>
                                     </div>
                                 </td>
@@ -149,7 +149,7 @@
                                 <td colspan="6" class="px-6 py-12 text-center">
                                     <div class="flex flex-col items-center">
                                         <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                            <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
+                                            <i class='hgi-stroke hgi-calendar-03 text-3xl text-gray-400'></i>
                                         </div>
                                         <p class="text-gray-500 font-medium">No appointments found</p>
                                         <p class="text-gray-400 text-sm mt-1">Try adjusting your filters</p>

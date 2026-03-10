@@ -89,7 +89,7 @@
                     class="text-gray-400 hover:text-gray-600 focus:outline-none transition-colors p-1.5 rounded-full hover:bg-gray-100"
                     title="Clear field"
                 >
-                    <i class="hgi hgi-stroke hgi-cancel text-xl"></i>
+                    <i class="hgi hgi-stroke hgi-cancel-01 text-xl"></i>
                 </button>
             @endif
 

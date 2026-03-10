@@ -150,14 +150,14 @@
                             <!-- Appointment Details -->
                             <div class="space-y-3 mb-6">
                                 <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                                    <i class='hgi-stroke hgi-user-md text-blue-500 text-xl'></i>
+                                    <i class='hgi-stroke hgi-doctor-01 text-blue-500 text-xl'></i>
                                     <div>
                                         <p class="text-xs text-gray-500">Doctor</p>
                                         <p id="doctor-name" class="font-semibold text-gray-900"></p>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                                    <i class='hgi-stroke hgi-plus-sign-medical text-green-500 text-xl'></i>
+                                    <i class='hgi-stroke hgi-plus-sign text-green-500 text-xl'></i>
                                     <div>
                                         <p class="text-xs text-gray-500">Service</p>
                                         <p id="service-name" class="font-semibold text-gray-900"></p>
@@ -184,7 +184,7 @@
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50 flex items-center justify-between">
                 <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='hgi-stroke hgi-user-check text-amber-500 text-xl'></i>
+                    <i class='hgi-stroke hgi-user-check-01 text-amber-500 text-xl'></i>
                     Waiting for Doctor Acceptance
                 </h3>
                 <button onclick="refreshWaitingQueue()" class="text-blue-600 hover:text-blue-700 text-sm font-medium">

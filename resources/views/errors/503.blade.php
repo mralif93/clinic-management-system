@@ -37,7 +37,7 @@
     </script>
 
     <!-- Boxicons CDN -->
-    <link href='{{ asset('css/boxicons.min.css') }}' rel='stylesheet'>
+    <link href='{{ asset('css/hugeicons.css') }}' rel='stylesheet'>
 </head>
 
 <body class="bg-gradient-to-br from-gray-50 via-white to-slate-50 font-sans min-h-screen flex items-center justify-center px-4">

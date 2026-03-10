@@ -13,7 +13,7 @@
         <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div class="flex items-center gap-4">
     <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-        <i class='hgi-stroke hgi-grid-01 text-2xl'></i>
+        <i class='hgi-stroke hgi-grid text-2xl'></i>
     </div>
     <div>
         <h2 class="text-2xl font-bold">Services</h2>
@@ -138,13 +138,13 @@
                                     'general' => 'from-blue-500 to-cyan-600',
                                 ];
                                 $typeIcons = [
-                                    'psychology' => 'bx-brain',
-                                    'homeopathy' => 'bx-leaf',
-                                    'general' => 'bx-plus-circle',
+                                    'psychology' => 'hgi-brain',
+                                    'homeopathy' => 'hgi-leaf-01',
+                                    'general' => 'hgi-add-circle',
                                 ];
                             @endphp
                             <div class="w-12 h-12 rounded-xl bg-gradient-to-br {{ $typeColors[$service->type] ?? 'from-gray-500 to-gray-600' }} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                                <i class='hgi-stroke {{ $typeIcons[$service->type] ?? 'hgi-grid-01' }} text-2xl text-white'></i>
+                                <i class='hgi-stroke {{ $typeIcons[$service->type] ?? 'hgi-grid' }} text-2xl text-white'></i>
                             </div>
                             <div>
                                 <h3 class="font-bold text-gray-900 group-hover:text-cyan-600 transition-colors">{{ $service->name }}</h3>
@@ -188,7 +188,7 @@
                     @if($service->trashed())
                         <button onclick="restoreService({{ $service->id }}, '{{ addslashes($service->name) }}')"
                             class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-200 hover:scale-110 transition-all" title="Restore">
-                            <i class='hgi-stroke hgi-undo text-lg'></i>
+                            <i class='hgi-stroke hgi-rotate-left-01 text-lg'></i>
                         </button>
                         <button onclick="forceDeleteService({{ $service->id }}, '{{ addslashes($service->name) }}')"
                             class="w-9 h-9 flex items-center justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-200 hover:scale-110 transition-all" title="Delete Permanently">
@@ -214,7 +214,7 @@
             <div class="col-span-full">
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                        <i class='hgi-stroke hgi-grid-01 text-4xl text-gray-400'></i>
+                        <i class='hgi-stroke hgi-grid text-4xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No services found</p>
                     <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or add a new service</p>
@@ -269,7 +269,7 @@
             showCancelButton: true,
             confirmButtonColor: '#10b981',
             cancelButtonColor: '#6b7280',
-            confirmButtonText: '<i class="hgi-stroke hgi-undo mr-1"></i> Restore',
+            confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Restore',
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {

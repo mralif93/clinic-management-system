@@ -188,7 +188,7 @@
                             @csrf
                             <button type="submit" onclick="return confirm('Restore this team member?')"
                                 class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-200 hover:scale-110 transition-all" title="Restore">
-                                <i class='hgi-stroke hgi-undo text-lg'></i>
+                                <i class='hgi-stroke hgi-rotate-left-01 text-lg'></i>
                             </button>
                         </form>
                         <form action="{{ route('admin.team.force-delete', $member->id) }}" method="POST" class="inline">

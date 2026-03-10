@@ -78,7 +78,7 @@
                             class="w-full flex items-center gap-3 px-4 py-3 border rounded-xl transition-all duration-200 text-left relative overflow-hidden group">
                             <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-r-full transition-transform duration-300"
                                 :class="activeSection === 'introduction' ? 'scale-y-100' : 'scale-y-0'"></div>
-                            <i class='hgi-stroke hgi-home-smile text-xl' :class="activeSection === 'introduction' ? 'text-blue-500' : 'text-gray-400 group-hover:text-blue-400'"></i>
+                            <i class='hgi-stroke hgi-home-01 text-xl' :class="activeSection === 'introduction' ? 'text-blue-500' : 'text-gray-400 group-hover:text-blue-400'"></i>
                             Getting Started
                         </button>
 
@@ -109,7 +109,7 @@
                                 class="w-full flex items-center gap-3 px-4 py-3 border rounded-xl transition-all duration-200 text-left relative overflow-hidden group">
                                 <div class="absolute left-0 top-0 bottom-0 w-1 bg-green-500 rounded-r-full transition-transform duration-300"
                                     :class="activeSection === 'admin_appointments' ? 'scale-y-100' : 'scale-y-0'"></div>
-                                <i class='hgi-stroke hgi-calendar-03-event text-xl' :class="activeSection === 'admin_appointments' ? 'text-green-500' : 'text-gray-400 group-hover:text-green-400'"></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-xl' :class="activeSection === 'admin_appointments' ? 'text-green-500' : 'text-gray-400 group-hover:text-green-400'"></i>
                                 Appointment Management
                             </button>
                             <button @click="activeSection = 'admin_cms'"
@@ -145,7 +145,7 @@
                                 class="w-full flex items-center gap-3 px-4 py-3 border rounded-xl transition-all duration-200 text-left relative overflow-hidden group">
                                 <div class="absolute left-0 top-0 bottom-0 w-1 bg-red-500 rounded-r-full transition-transform duration-300"
                                     :class="activeSection === 'admin_reports' ? 'scale-y-100' : 'scale-y-0'"></div>
-                                <i class='hgi-stroke hgi-chart-line-up-01 text-xl' :class="activeSection === 'admin_reports' ? 'text-red-500' : 'text-gray-400 group-hover:text-red-400'"></i>
+                                <i class='hgi-stroke hgi-chart-increase text-xl' :class="activeSection === 'admin_reports' ? 'text-red-500' : 'text-gray-400 group-hover:text-red-400'"></i>
                                 Reports
                             </button>                        @endif
 
@@ -158,7 +158,7 @@
                                 class="w-full flex items-center gap-3 px-4 py-3 border rounded-xl transition-all duration-200 text-left relative overflow-hidden group">
                                 <div class="absolute left-0 top-0 bottom-0 w-1 bg-green-500 rounded-r-full transition-transform duration-300"
                                     :class="activeSection === 'doctor_appointments' ? 'scale-y-100' : 'scale-y-0'"></div>
-                                <i class='hgi-stroke hgi-calendar-03-check text-xl' :class="activeSection === 'doctor_appointments' ? 'text-green-500' : 'text-gray-400 group-hover:text-green-400'"></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-xl' :class="activeSection === 'doctor_appointments' ? 'text-green-500' : 'text-gray-400 group-hover:text-green-400'"></i>
                                 My Appointments
                             </button>
                             <button @click="activeSection = 'doctor_patients'"
@@ -265,7 +265,7 @@
                                 class="w-full flex items-center gap-3 px-4 py-3 border rounded-xl transition-all duration-200 text-left relative overflow-hidden group">
                                 <div class="absolute left-0 top-0 bottom-0 w-1 bg-green-500 rounded-r-full transition-transform duration-300"
                                     :class="activeSection === 'patient_booking' ? 'scale-y-100' : 'scale-y-0'"></div>
-                                <i class='hgi-stroke hgi-calendar-03-plus text-xl' :class="activeSection === 'patient_booking' ? 'text-green-500' : 'text-gray-400 group-hover:text-green-400'"></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-xl' :class="activeSection === 'patient_booking' ? 'text-green-500' : 'text-gray-400 group-hover:text-green-400'"></i>
                                 Booking Appointments
                             </button>
                             <button @click="activeSection = 'patient_qr'"
@@ -321,7 +321,7 @@
                     
                     <!-- Empty Search State -->
                     <div x-show="searchQuery !== '' && !document.querySelector('nav button[style*=\'display: block\']') && !document.querySelector('nav button:not([style*=\'display: none\'])')" x-cloak class="text-center py-8">
-                        <i class='hgi-stroke hgi-search-01-alt text-4xl text-gray-300 mb-2'></i>
+                        <i class='hgi-stroke hgi-search-01 text-4xl text-gray-300 mb-2'></i>
                         <p class="text-gray-500 text-sm">No topics found matching your search.</p>
                     </div>
                 </div>
@@ -347,7 +347,7 @@
                         @endif
                     </div>
                     
-                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2"><i class='hgi-stroke hgi-lightning-02 text-amber-500'></i> Quick Access</h3>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2"><i class='hgi-stroke hgi-flash text-amber-500'></i> Quick Access</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mb-8">
 
                         @if($isAdmin)
@@ -384,7 +384,7 @@
         <button @click="activeSection = 'doctor_appointments'; window.scrollTo({top: 0, behavior: 'smooth'})" 
             class="bg-white border hover:border-green-300 hover:shadow-lg transition-all p-5 rounded-2xl text-left group">
             <div class="w-12 h-12 rounded-xl bg-green-50 text-green-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                <i class='hgi-stroke hgi-calendar-03-check'></i>
+                <i class='hgi-stroke hgi-calendar-03'></i>
             </div>
             <h3 class="font-bold text-gray-800 text-lg mb-1">Consultations</h3>
             <p class="text-sm text-gray-500 line-clamp-2">Finalize patient visits.</p>
@@ -442,7 +442,7 @@
         <button @click="activeSection = 'patient_booking'; window.scrollTo({top: 0, behavior: 'smooth'})" 
             class="bg-white border hover:border-green-300 hover:shadow-lg transition-all p-5 rounded-2xl text-left group">
             <div class="w-12 h-12 rounded-xl bg-green-50 text-green-500 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">
-                <i class='hgi-stroke hgi-calendar-03-plus'></i>
+                <i class='hgi-stroke hgi-calendar-03'></i>
             </div>
             <h3 class="font-bold text-gray-800 text-lg mb-1">Book Now</h3>
             <p class="text-sm text-gray-500 line-clamp-2">Schedule a new appointment.</p>
@@ -526,7 +526,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-blue-50/30 border border-blue-200 rounded-2xl p-6 hover:border-blue-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-blue-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-blue-100 text-blue-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-blue-100 text-blue-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -578,7 +578,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-purple-50/30 border border-purple-200 rounded-2xl p-6 hover:border-purple-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-purple-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-purple-100 text-purple-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-purple-100 text-purple-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -594,7 +594,7 @@
                     <div class="border-b pb-6 mb-6">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="w-16 h-16 rounded-2xl bg-green-50 text-green-500 flex items-center justify-center text-3xl shadow-sm border border-green-100">
-                                <i class='hgi-stroke hgi-calendar-03-event'></i>
+                                <i class='hgi-stroke hgi-calendar-03'></i>
                             </div>
                             <div>
                                 <h2 class="text-3xl font-bold text-gray-900">Appointment Management</h2>
@@ -622,7 +622,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-green-50/30 border border-green-200 rounded-2xl p-6 hover:border-green-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-green-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-green-100 text-green-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-green-100 text-green-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -674,7 +674,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-indigo-50/30 border border-indigo-200 rounded-2xl p-6 hover:border-indigo-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-indigo-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-indigo-100 text-indigo-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-indigo-100 text-indigo-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -726,7 +726,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-orange-50/30 border border-orange-200 rounded-2xl p-6 hover:border-orange-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-orange-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-orange-100 text-orange-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-orange-100 text-orange-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -778,7 +778,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-teal-50/30 border border-teal-200 rounded-2xl p-6 hover:border-teal-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-teal-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-teal-100 text-teal-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-teal-100 text-teal-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -794,7 +794,7 @@
                     <div class="border-b pb-6 mb-6">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="w-16 h-16 rounded-2xl bg-red-50 text-red-500 flex items-center justify-center text-3xl shadow-sm border border-red-100">
-                                <i class='hgi-stroke hgi-chart-line-up-01'></i>
+                                <i class='hgi-stroke hgi-chart-increase'></i>
                             </div>
                             <div>
                                 <h2 class="text-3xl font-bold text-gray-900">Reports</h2>
@@ -822,7 +822,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-red-50/30 border border-red-200 rounded-2xl p-6 hover:border-red-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-red-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-red-100 text-red-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-red-100 text-red-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -840,7 +840,7 @@
                     <div class="border-b pb-6 mb-6">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="w-16 h-16 rounded-2xl bg-green-50 text-green-500 flex items-center justify-center text-3xl shadow-sm border border-green-100">
-                                <i class='hgi-stroke hgi-calendar-03-check'></i>
+                                <i class='hgi-stroke hgi-calendar-03'></i>
                             </div>
                             <div>
                                 <h2 class="text-3xl font-bold text-gray-900">My Appointments</h2>
@@ -876,7 +876,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-green-50/30 border border-green-200 rounded-2xl p-6 hover:border-green-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-green-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-green-100 text-green-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-green-100 text-green-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -920,7 +920,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-amber-50/30 border border-amber-200 rounded-2xl p-6 hover:border-amber-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-amber-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-amber-100 text-amber-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-amber-100 text-amber-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -972,7 +972,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-pink-50/30 border border-pink-200 rounded-2xl p-6 hover:border-pink-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-pink-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-pink-100 text-pink-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-pink-100 text-pink-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -1024,7 +1024,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-blue-50/30 border border-blue-200 rounded-2xl p-6 hover:border-blue-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-blue-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-blue-100 text-blue-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-blue-100 text-blue-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -1076,7 +1076,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-indigo-50/30 border border-indigo-200 rounded-2xl p-6 hover:border-indigo-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-indigo-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-indigo-100 text-indigo-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-indigo-100 text-indigo-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -1120,7 +1120,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-orange-50/30 border border-orange-200 rounded-2xl p-6 hover:border-orange-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-orange-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-orange-100 text-orange-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-orange-100 text-orange-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -1174,7 +1174,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-indigo-50/30 border border-indigo-200 rounded-2xl p-6 hover:border-indigo-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-indigo-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-indigo-100 text-indigo-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-indigo-100 text-indigo-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -1226,7 +1226,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-emerald-50/30 border border-emerald-200 rounded-2xl p-6 hover:border-emerald-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-emerald-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-emerald-100 text-emerald-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-emerald-100 text-emerald-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -1278,7 +1278,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-green-50/30 border border-green-200 rounded-2xl p-6 hover:border-green-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-green-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-green-100 text-green-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-green-100 text-green-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -1322,7 +1322,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-amber-50/30 border border-amber-200 rounded-2xl p-6 hover:border-amber-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-amber-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-amber-100 text-amber-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-amber-100 text-amber-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -1374,7 +1374,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-orange-50/30 border border-orange-200 rounded-2xl p-6 hover:border-orange-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-orange-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-orange-100 text-orange-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-orange-100 text-orange-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -1392,7 +1392,7 @@
                     <div class="border-b pb-6 mb-6">
                         <div class="flex items-center gap-4 mb-4">
                             <div class="w-16 h-16 rounded-2xl bg-green-50 text-green-500 flex items-center justify-center text-3xl shadow-sm border border-green-100">
-                                <i class='hgi-stroke hgi-calendar-03-plus'></i>
+                                <i class='hgi-stroke hgi-calendar-03'></i>
                             </div>
                             <div>
                                 <h2 class="text-3xl font-bold text-gray-900">Booking Appointments</h2>
@@ -1428,7 +1428,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-green-50/30 border border-green-200 rounded-2xl p-6 hover:border-green-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-green-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-green-100 text-green-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-green-100 text-green-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -1480,7 +1480,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-indigo-50/30 border border-indigo-200 rounded-2xl p-6 hover:border-indigo-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-indigo-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-indigo-100 text-indigo-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-indigo-100 text-indigo-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -1524,7 +1524,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-emerald-50/30 border border-emerald-200 rounded-2xl p-6 hover:border-emerald-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-emerald-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-emerald-100 text-emerald-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-emerald-100 text-emerald-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">
@@ -1576,7 +1576,7 @@
                         <div class="lg:col-span-2">
                             <div class="bg-blue-50/30 border border-blue-200 rounded-2xl p-6 hover:border-blue-300 transition-colors">
                                 <h3 class="text-lg font-bold text-gray-800 border-b border-blue-100 pb-3 mb-5 flex items-center gap-2">
-                                    <span class="bg-blue-100 text-blue-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-06'></i></span> 
+                                    <span class="bg-blue-100 text-blue-600 p-1.5 rounded-lg inline-flex"><i class='hgi-stroke hgi-hierarchy-square-06'></i></span> 
                                     Module Relationships
                                 </h3>
                                 <ul class="space-y-3 text-sm text-gray-600">

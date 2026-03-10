@@ -47,7 +47,7 @@
                                 </span>
                             @else
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-yellow-400/30">
-                                    <i class='hgi-stroke hgi-pause-circle mr-1'></i> Inactive
+                                    <i class='hgi-stroke hgi-pause mr-1'></i> Inactive
                                 </span>
                             @endif
                         </div>
@@ -129,7 +129,7 @@
         @if($teamMember->bio)
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
             <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <i class='hgi-stroke hgi-file-01-blank text-indigo-600'></i>
+                <i class='hgi-stroke hgi-file-01 text-indigo-600'></i>
                 Bio
             </h3>
             <p class="text-gray-700 leading-relaxed">{{ $teamMember->bio }}</p>

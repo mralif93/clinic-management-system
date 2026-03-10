@@ -24,7 +24,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='hgi-stroke hgi-calendar-03-check text-emerald-500'></i> Today's Attendance
+                    <i class='hgi-stroke hgi-calendar-03 text-emerald-500'></i> Today's Attendance
                 </h3>
             </div>
             <div class="p-6">
@@ -65,7 +65,7 @@
                 @else
                     <div class="text-center py-10">
                         <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                            <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-3xl text-gray-400'></i>
                         </div>
                         <p class="text-gray-500 font-medium">No attendance record for today</p>
                     </div>
@@ -126,7 +126,7 @@
                     </div>
                     <div
                         class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
-                        <i class='hgi-stroke hgi-stopwatch text-xl'></i>
+                        <i class='hgi-stroke hgi-timer-01 text-xl'></i>
                     </div>
                 </div>
             </div>
@@ -219,7 +219,7 @@
                                 <td colspan="5" class="px-6 py-12 text-center">
                                     <div
                                         class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                                        <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-calendar-03 text-3xl text-gray-400'></i>
                                     </div>
                                     <p class="text-gray-500 font-medium">No attendance records found</p>
                                 </td>

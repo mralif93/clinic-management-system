@@ -60,7 +60,7 @@
                             </div>
 
                             <div class="flex items-center gap-2 text-sm text-gray-500">
-                                <i class='hgi-stroke hgi-calendar-03-check text-lg text-emerald-500'></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-lg text-emerald-500'></i>
                                 <span>Schedule Configured</span>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                 <div class="col-span-full">
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
                         <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                            <i class='hgi-stroke hgi-user-x text-4xl text-gray-400'></i>
+                            <i class='hgi-stroke hgi-user-block-01 text-4xl text-gray-400'></i>
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 mb-1">No Doctors Found</h3>
                         <p class="text-gray-500">Add doctors to the system to manage their schedules.</p>

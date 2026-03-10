@@ -13,7 +13,7 @@
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
     <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-        <i class='hgi-stroke hgi-bar-chart-01 text-2xl'></i>
+        <i class='hgi-stroke hgi-chart-column text-2xl'></i>
     </div>
     <div>
         <h2 class="text-2xl font-bold">Reports & Analytics</h2>
@@ -53,7 +53,7 @@
                             @if(request()->hasAny(['start_date', 'end_date']))
                                 <a href="{{ route('admin.reports.index') }}"
                                     class="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-all text-sm">
-                                    <i class='hgi-stroke hgi-reset'></i>
+                                    <i class='hgi-stroke hgi-rotate-left-01'></i>
                                 </a>
                             @endif
                         </div>
@@ -93,7 +93,7 @@
                         <p class="text-2xl font-bold text-gray-900">{{ number_format($totalServices) }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center">
-                        <i class='hgi-stroke hgi-grid-01 text-2xl text-purple-600'></i>
+                        <i class='hgi-stroke hgi-grid text-2xl text-purple-600'></i>
                     </div>
                 </div>
             </div>
@@ -150,7 +150,7 @@
                         <p class="text-xs text-blue-200 mt-1">In selected period</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-                        <i class='hgi-stroke hgi-calendar-03-check text-2xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-2xl'></i>
                     </div>
                 </div>
             </div>
@@ -165,7 +165,7 @@
                         <p class="text-xs text-emerald-200 mt-1">Appointments</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-                        <i class='hgi-stroke hgi-checkmark-circle-02-double text-2xl'></i>
+                        <i class='hgi-stroke hgi-tick-double-01 text-2xl'></i>
                     </div>
                 </div>
             </div>
@@ -322,7 +322,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-5 border-b border-gray-100">
                 <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='hgi-stroke hgi-grid-01 text-gray-500'></i>
+                    <i class='hgi-stroke hgi-grid text-gray-500'></i>
                     Services Statistics
                 </h3>
             </div>
@@ -359,7 +359,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="p-5 border-b border-gray-100">
                         <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='hgi-stroke hgi-trophy text-gray-500'></i>
+                            <i class='hgi-stroke hgi-award-01 text-gray-500'></i>
                             Top Doctors by Appointments
                         </h3>
                     </div>
@@ -418,7 +418,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-5 border-b border-gray-100">
                 <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='hgi-stroke hgi-chart-line-up-01 text-gray-500'></i>
+                    <i class='hgi-stroke hgi-chart-increase text-gray-500'></i>
                     Daily Appointments (Last 7 Days)
                 </h3>
             </div>

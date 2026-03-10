@@ -20,7 +20,7 @@
     {{-- Context banner --}}
     @if($appointment)
     <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl flex items-center gap-3">
-        <i class='hgi-stroke hgi-calendar-03-check text-blue-500 text-lg'></i>
+        <i class='hgi-stroke hgi-calendar-03 text-blue-500 text-lg'></i>
         <p class="text-sm text-blue-800">
             Pre-filled from appointment on <strong>{{ $appointment->appointment_date->format('d M Y') }}</strong>
             — <strong>{{ $appointment->service->name ?? 'N/A' }}</strong>
@@ -69,7 +69,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='hgi-stroke hgi-transfer-horizontal text-blue-500'></i> Referred To
+                    <i class='hgi-stroke hgi-arrow-data-transfer-horizontal text-blue-500'></i> Referred To
                 </h3>
             </div>
             <div class="p-6">
@@ -106,7 +106,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='hgi-stroke hgi-note-01pad text-purple-500'></i> Clinical Details
+                    <i class='hgi-stroke hgi-note-01 text-purple-500'></i> Clinical Details
                 </h3>
             </div>
             <div class="p-6 space-y-4">

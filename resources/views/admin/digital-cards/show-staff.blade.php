@@ -83,7 +83,7 @@
             <div class="w-full flex justify-center gap-3">
                 <button onclick="document.getElementById('card-inner').classList.toggle('flipped')"
                     class="inline-flex items-center gap-2 px-4 py-2.5 bg-amber-100 text-amber-700 font-medium rounded-xl hover:bg-amber-200 transition text-sm">
-                    <i class='hgi-stroke hgi-rotate-left'></i> Flip Card
+                    <i class='hgi-stroke hgi-rotate-left-01'></i> Flip Card
                 </button>
                 <button onclick="window.print()"
                     class="inline-flex items-center gap-2 px-4 py-2.5 bg-amber-500 text-white font-semibold rounded-xl hover:bg-amber-600 transition text-sm shadow">
@@ -200,15 +200,15 @@
                 </div>
                 <div class="divide-y divide-gray-50">
                     @foreach([
-                            ['Phone', $staff->phone ?? 'N/A', 'hgi-phone'],
+                            ['Phone', $staff->phone ?? 'N/A', 'hgi-call'],
                             ['Position', $staff->position ?? 'N/A', 'hgi-briefcase-01'],
                             ['Department', $staff->department ?? 'N/A', 'hgi-building-01'],
                             ['IC / NRIC', $staff->nric ?? 'N/A', 'hgi-identity-card'],
-                            ['Blood Type', $staff->blood_type ?? 'N/A', 'hgi-heart-beat'],
+                            ['Blood Type', $staff->blood_type ?? 'N/A', 'hgi-pulse-01'],
                             ['Emergency Contact', $staff->emergency_contact_name ?? 'N/A', 'hgi-call'],
-                            ['Emergency Phone', $staff->emergency_contact_phone ?? 'N/A', 'hgi-phone'],
-                            ['Hire Date', $staff->hire_date ? $staff->hire_date->format('d M Y') : 'N/A', 'hgi-calendar-01'],
-                            ['Location', $staff->clinic_location ?? 'N/A', 'hgi-location-pin-01'],
+                            ['Emergency Phone', $staff->emergency_contact_phone ?? 'N/A', 'hgi-call'],
+                            ['Hire Date', $staff->hire_date ? $staff->hire_date->format('d M Y') : 'N/A', 'hgi-calendar-03'],
+                            ['Location', $staff->clinic_location ?? 'N/A', 'hgi-location-01'],
                         ] as [$label, $value, $icon])
                         <div class="flex items-center justify-between px-5 py-3">
                             <span class="text-xs text-gray-500 flex items-center gap-1.5"><i class='hgi-stroke {{ $icon }} text-gray-400'></i>{{ $label }}</span>

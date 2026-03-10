@@ -211,7 +211,7 @@
                 <!-- Notes Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='hgi-stroke hgi-file-01-blank text-cyan-600'></i>
+                        <i class='hgi-stroke hgi-file-01 text-cyan-600'></i>
                         Additional Notes
                     </h3>
                 </div>

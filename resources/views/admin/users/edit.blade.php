@@ -109,7 +109,7 @@
                 <!-- Change Password Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='hgi-stroke hgi-lock-01 text-blue-600'></i>
+                        <i class='hgi-stroke hgi-lock text-blue-600'></i>
                         Change Password
                     </h3>
                     <p class="text-sm text-gray-500 mt-1">Leave blank to keep the current password</p>

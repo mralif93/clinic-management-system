@@ -48,7 +48,7 @@
                     name="password"
                     label="Password"
                     type="password"
-                    icon="hgi-stroke hgi-lock-02"
+                    icon="hgi-stroke hgi-lock"
                     placeholder="Enter your password"
                     required
                     autocomplete="new-password"
@@ -59,7 +59,7 @@
                     name="password_confirmation"
                     label="Confirm Password"
                     type="password"
-                    icon="hgi-stroke hgi-lock-01"
+                    icon="hgi-stroke hgi-lock"
                     placeholder="Confirm your password"
                     required
                     autocomplete="new-password"
@@ -71,7 +71,7 @@
                         type="submit" 
                         class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out min-h-[44px]"
                     >
-                        <i class='hgi-stroke hgi-user-plus mr-2'></i>
+                        <i class='hgi-stroke hgi-user-add-01 mr-2'></i>
                         Create Account
                     </button>
                 </div>

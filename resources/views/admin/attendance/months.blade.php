@@ -30,7 +30,7 @@
                     </a>
                     <a href="{{ route('admin.attendance.reports') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                        <i class='hgi-stroke hgi-chart-bar-01 text-lg'></i>
+                        <i class='hgi-stroke hgi-chart-column text-lg'></i>
                         Reports
                     </a>
                 </div>

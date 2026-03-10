@@ -150,7 +150,7 @@
                                 @if(in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))
                                     <i class='hgi-stroke hgi-image-01 text-4xl text-blue-500 mb-2'></i>
                                 @else
-                                    <i class='hgi-stroke hgi-file-01-pdf text-4xl text-red-500 mb-2'></i>
+                                    <i class='hgi-stroke hgi-file-01 text-4xl text-red-500 mb-2'></i>
                                 @endif
 
                                 <p class="text-sm font-medium text-gray-700 mb-4">Proof Document</p>
@@ -161,7 +161,7 @@
                             </div>
                         @else
                             <div class="text-center py-8 text-gray-500">
-                                <i class='hgi-stroke hgi-file-01-blank text-4xl mb-2'></i>
+                                <i class='hgi-stroke hgi-file-01 text-4xl mb-2'></i>
                                 <p>No attachment provided</p>
                             </div>
                         @endif

@@ -18,9 +18,9 @@
         <div class="flex flex-wrap gap-2 mt-6">
             @php
                 $roles = [
-                    'admin' => ['icon' => 'bx-shield', 'label' => 'Admin'],
+                    'admin' => ['icon' => 'hgi-shield-01', 'label' => 'Admin'],
                     'doctor' => ['icon' => 'hgi-medicine-01', 'label' => 'Doctor'],
-                    'staff' => ['icon' => 'bx-id-card', 'label' => 'Staff'],
+                    'staff' => ['icon' => 'hgi-identity-card', 'label' => 'Staff'],
                     'patient' => ['icon' => 'hgi-user', 'label' => 'Patient']
                 ];
             @endphp

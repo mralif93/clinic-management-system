@@ -13,7 +13,7 @@
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
                     <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-                        <i class='hgi-stroke hgi-calendar-03-check text-3xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-3xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">Appointments</h1>
@@ -78,7 +78,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                        <i class='hgi-stroke hgi-checkmark-circle-02-double text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-tick-double-01 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $completedCount }}</p>
@@ -193,7 +193,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-gray-100 text-gray-700 text-xs font-medium">
-                                        <i class='hgi-stroke hgi-briefcase-01-alt mr-1'></i>
+                                        <i class='hgi-stroke hgi-briefcase-01 mr-1'></i>
                                         {{ $appointment->service->name ?? 'N/A' }}
                                     </span>
                                 </td>
@@ -208,13 +208,13 @@
                                     @php
                                         $statusConfig = [
                                             'scheduled' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-calendar-03', 'label' => 'Scheduled'],
-                                            'confirmed' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'icon' => 'bx-check-circle', 'label' => 'Checked In'],
-                                            'in_progress' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'bx-loader-circle', 'label' => 'In Consultation'],
-                                            'completed' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'bx-check-double', 'label' => 'Completed'],
-                                            'cancelled' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-x-circle', 'label' => 'Cancelled'],
-                                            'no_show' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-error', 'label' => 'No Show'],
+                                            'confirmed' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'icon' => 'hgi-checkmark-circle-01', 'label' => 'Checked In'],
+                                            'in_progress' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'hgi-loading-01', 'label' => 'In Consultation'],
+                                            'completed' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'hgi-tick-double-01', 'label' => 'Completed'],
+                                            'cancelled' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'hgi-cancel-circle', 'label' => 'Cancelled'],
+                                            'no_show' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-alert-01', 'label' => 'No Show'],
                                         ];
-                                        $config = $statusConfig[$appointment->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-help-circle', 'label' => ucfirst($appointment->status)];
+                                        $config = $statusConfig[$appointment->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-help-circle', 'label' => ucfirst($appointment->status)];
                                     @endphp
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $config['bg'] }} {{ $config['text'] }}">
                                         <i class='hgi-stroke {{ $config['icon'] }}'></i>
@@ -260,7 +260,7 @@
                                 <td colspan="7" class="px-6 py-16 text-center">
                                     <div class="flex flex-col items-center">
                                         <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                                            <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
+                                            <i class='hgi-stroke hgi-calendar-03 text-3xl text-gray-400'></i>
                                         </div>
                                         <p class="text-gray-500 font-medium">No appointments found</p>
                                         <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or create a new appointment</p>

@@ -163,12 +163,12 @@
                                     <td class="px-6 py-4">
                                         @php
                                             $typeConfig = [
-                                                'annual' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'bx-sun'],
-                                                'sick' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-plus-circle'],
-                                                'emergency' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'icon' => 'bx-error'],
-                                                'unpaid' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-wallet'],
-                                                'maternity' => ['bg' => 'bg-pink-100', 'text' => 'text-pink-700', 'icon' => 'bx-child'],
-                                                'paternity' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'icon' => 'bx-child'],
+                                                'annual' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-sun-01'],
+                                                'sick' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'hgi-add-circle'],
+                                                'emergency' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'icon' => 'hgi-alert-01'],
+                                                'unpaid' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-wallet-01'],
+                                                'maternity' => ['bg' => 'bg-pink-100', 'text' => 'text-pink-700', 'icon' => 'hgi-baby-01'],
+                                                'paternity' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'icon' => 'hgi-baby-01'],
                                             ];
                                             $tConfig = $typeConfig[$leave->leave_type] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-calendar-03'];
                                         @endphp
@@ -194,10 +194,10 @@
                                         @php
                                             $statusConfig = [
                                                 'pending' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'hgi-clock-01'],
-                                                'approved' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'bx-check-circle'],
-                                                'rejected' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-x-circle'],
+                                                'approved' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'hgi-checkmark-circle-01'],
+                                                'rejected' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'hgi-cancel-circle'],
                                             ];
-                                            $sConfig = $statusConfig[$leave->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-help-circle'];
+                                            $sConfig = $statusConfig[$leave->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-help-circle'];
                                         @endphp
                                         <span
                                             class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $sConfig['bg'] }} {{ $sConfig['text'] }}">
@@ -248,7 +248,7 @@
             @else
                 <div class="text-center py-16">
                     <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-3xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No leave requests found</p>
                     <p class="text-gray-400 text-sm mt-1">You haven't submitted any leave requests yet</p>

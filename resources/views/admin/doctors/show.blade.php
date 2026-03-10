@@ -34,7 +34,7 @@
                             @endif
                             <span
                                 class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-white/20 backdrop-blur">
-                                <i class='hgi-stroke hgi-grid-01 mr-1'></i> {{ ucfirst($doctor->type) }}
+                                <i class='hgi-stroke hgi-grid mr-1'></i> {{ ucfirst($doctor->type) }}
                             </span>
                             @if($doctor->trashed())
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-red-500/30">
@@ -129,7 +129,7 @@
                                 <span class="text-sm text-gray-500">User Account</span>
                                 <a href="{{ route('admin.users.show', $doctor->user->id) }}"
                                     class="text-sm font-medium text-green-600 hover:text-green-700">
-                                    {{ $doctor->user->email }} <i class='hgi-stroke hgi-link-external-01 ml-1'></i>
+                                    {{ $doctor->user->email }} <i class='hgi-stroke hgi-link-01 ml-1'></i>
                                 </a>
                             </div>
                         @endif
