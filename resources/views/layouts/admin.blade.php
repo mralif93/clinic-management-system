@@ -21,76 +21,31 @@
     <link rel="shortcut icon" type="image/png" href="{{ $faviconUrl }}">
     <link rel="apple-touch-icon" href="{{ $faviconUrl }}">
 
-    <!-- Google Fonts - Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <!-- Google Fonts - Poppins (Local) -->
+    <link href="{{ asset('fonts/poppins.css') }}" rel="stylesheet">
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#f5f7ff',
-                            100: '#ebf0fe',
-                            200: '#ced9fd',
-                            300: '#b1c2fb',
-                            400: '#7695f8',
-                            500: '#3b68f5',
-                            600: '#355ddd',
-                            700: '#2c4eb8',
-                            800: '#233e93',
-                            900: '#1d3378'
-                        },
-                        success: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#10b981', 600: '#059669', 700: '#047857' },
-                        warning: { 50: '#fffbeb', 100: '#fef3c7', 500: '#f59e0b', 600: '#d97706' },
-                        danger: { 50: '#fef2f2', 100: '#fee2e2', 500: '#ef4444', 600: '#dc2626' },
-                        info: { 50: '#f0f9ff', 100: '#e0f2fe', 500: '#0ea5e9', 600: '#0284c7' },
-                        neutral: {
-                            50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1',
-                            400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155',
-                            800: '#1e293b', 900: '#0f172a', 950: '#020617'
-                        },
-                        'sidebar-dark': '#020617', // Slate 950
-                        'sidebar-text': '#64748b',
-                    },
-                    boxShadow: {
-                        sidebar: '4px 0 24px -2px rgb(0 0 0 / 0.15)',
-                        premium: '0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05)',
-                        'glow-primary': '0 0 20px -5px rgba(59, 104, 245, 0.3)',
-                    },
-                    borderRadius: {
-                        '2xl': '1rem',
-                        '3xl': '1.5rem',
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Vite Assets -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Alpine.js CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine.js & Plugins -->
+    <script defer src="{{ asset('js/collapse.min.js') }}"></script>
+    <script defer src="{{ asset('js/alpine.min.js') }}"></script>
 
-    <!-- Boxicons CDN -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Boxicons -->
+    <link href='{{ asset("css/boxicons.min.css") }}' rel='stylesheet'>
 
-    <!-- Hugeicons CDN -->
-    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css" />
+    <!-- Hugeicons -->
+    <link href='{{ asset("css/hugeicons.css") }}' rel='stylesheet'>
 
-    <!-- Animate.css CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
-    <!-- SweetAlert2 CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert2 -->
+    <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 
     @stack('styles')
 </head>
 
-<body class="bg-gray-50 font-sans text-base text-gray-900" x-data="{ sidebarOpen: true, mobileSidebarOpen: false }">
+<body class="theme-admin bg-gray-50 font-sans text-base text-gray-900"
+    x-data="{ sidebarOpen: true, mobileSidebarOpen: false }">
     <x-ui.skip-nav />
     <div class="min-h-screen flex">
 
@@ -181,14 +136,18 @@
 
                 <!-- Clinical Management -->
                 <div class="mb-6">
-                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">Clinical Management</p>
+                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">Clinical
+                        Management</p>
 
                     <!-- Tasks -->
-                    <a href="{{ route('admin.todos.index') }}" class="{{ $navBase }} {{ request()->routeIs('admin.todos.*') ? $navActive : $navInactive }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.todos.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i class='hgi-stroke hgi-task-01 text-lg {{ request()->routeIs('admin.todos.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
+                    <a href="{{ route('admin.todos.index') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('admin.todos.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.todos.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <i
+                                class='hgi-stroke hgi-task-01 text-lg {{ request()->routeIs('admin.todos.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
                         </div>
-                        <span>Clinic Tasks</span>
+                        <span>To-Do List</span>
                     </a>
 
                     <!-- Appointments -->
@@ -196,7 +155,8 @@
                         class="{{ $navBase }} {{ request()->routeIs('admin.appointments.*') ? $navActive : $navInactive }}">
                         <div
                             class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.appointments.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i class='hgi-stroke hgi-calendar-01 text-lg {{ request()->routeIs('admin.appointments.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
+                            <i
+                                class='hgi-stroke hgi-calendar-01 text-lg {{ request()->routeIs('admin.appointments.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
                         </div>
                         <span>Appointments</span>
                     </a>
@@ -209,7 +169,7 @@
                             <i
                                 class='hgi-stroke hgi-calendar-03 text-lg {{ request()->routeIs('admin.schedules.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
                         </div>
-                        <span>Duty Rota</span>
+                        <span>Doctor Schedules</span>
                     </a>
 
                     <!-- Referral Letters -->
@@ -220,13 +180,14 @@
                             <i
                                 class='hgi-stroke hgi-medical-file text-lg {{ request()->routeIs('admin.referral-letters.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
                         </div>
-                        <span>Medical Referrals</span>
+                        <span>Referral Letters</span>
                     </a>
                 </div>
 
                 <!-- HR & Operations -->
                 <div class="mb-6">
-                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">HR & Operations</p>
+                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">HR &
+                        Operations</p>
 
                     <!-- User Management Dropdown -->
                     <div x-data="{ open: {{ request()->routeIs('admin.users.*') || request()->routeIs('admin.staff.*') || request()->routeIs('admin.doctors.*') || request()->routeIs('admin.patients.*') ? 'true' : 'false' }} }"
@@ -285,68 +246,93 @@
                             <i
                                 class='hgi-stroke hgi-clock-01 text-lg {{ request()->routeIs('admin.leaves.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
                         </div>
-                        <span>Leave Requests</span>
+                        <span>Leave</span>
                     </a>
 
-                    <!-- Payroll (Role Restricted) -->
-                    @if(in_array(Auth::user()->role, ['Super Admin', 'Admin']))
-                        <a href="{{ route('admin.payrolls.index') }}"
-                            class="{{ $navBase }} {{ request()->routeIs('admin.payrolls.*') ? $navActive : $navInactive }}">
-                            <div
-                                class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.payrolls.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                                <i
-                                    class='hgi-stroke hgi-bank-card-01 text-lg {{ request()->routeIs('admin.payrolls.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
-                            </div>
-                            <span>HR & Payroll</span>
-                        </a>
-                    @endif
+                    <!-- Payroll -->
+                    <a href="{{ route('admin.payrolls.index') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('admin.payrolls.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.payrolls.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <i
+                                class='hgi-stroke hgi-invoice text-lg {{ request()->routeIs('admin.payrolls.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
+                        </div>
+                        <span>Payroll</span>
+                    </a>
+
+                    <!-- Digital Cards -->
+                    <a href="{{ route('admin.digital-cards.index') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('admin.digital-cards.*') || request()->routeIs('admin.digital-card.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.digital-cards.*') || request()->routeIs('admin.digital-card.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <i
+                                class='hgi-stroke hgi-identity-card text-lg {{ request()->routeIs('admin.digital-cards.*') || request()->routeIs('admin.digital-card.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
+                        </div>
+                        <span>Digital Cards</span>
+                    </a>
                 </div>
 
                 <!-- Website Management -->
                 <div class="mb-6">
-                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">Website Management</p>
+                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">Website
+                        Management</p>
 
                     <!-- Announcements -->
-                    <a href="{{ route('admin.announcements.index') }}" class="{{ $navBase }} {{ request()->routeIs('admin.announcements.*') ? $navActive : $navInactive }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.announcements.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i class='hgi-stroke hgi-megaphone-01 text-lg {{ request()->routeIs('admin.announcements.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
+                    <a href="{{ route('admin.announcements.index') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('admin.announcements.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.announcements.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <i
+                                class='hgi-stroke hgi-megaphone-01 text-lg {{ request()->routeIs('admin.announcements.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
                         </div>
                         <span>Announcements</span>
                     </a>
-                    
+
                     <!-- Services -->
-                    <a href="{{ route('admin.services.index') }}" class="{{ $navBase }} {{ request()->routeIs('admin.services.*') ? $navActive : $navInactive }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.services.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i class='hgi-stroke hgi-briefcase-01 text-lg {{ request()->routeIs('admin.services.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
+                    <a href="{{ route('admin.services.index') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('admin.services.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.services.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <i
+                                class='hgi-stroke hgi-briefcase-01 text-lg {{ request()->routeIs('admin.services.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
                         </div>
                         <span>Services</span>
                     </a>
-                    
+
                     <!-- Team -->
-                    <a href="{{ route('admin.team.index') }}" class="{{ $navBase }} {{ request()->routeIs('admin.team.*') ? $navActive : $navInactive }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.team.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i class='hgi-stroke hgi-user-multiple text-lg {{ request()->routeIs('admin.team.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
+                    <a href="{{ route('admin.team.index') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('admin.team.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.team.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <i
+                                class='hgi-stroke hgi-user-multiple text-lg {{ request()->routeIs('admin.team.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
                         </div>
                         <span>Our Team</span>
                     </a>
 
                     <!-- Packages -->
-                    <a href="{{ route('admin.packages.index') }}" class="{{ $navBase }} {{ request()->routeIs('admin.packages.*') ? $navActive : $navInactive }}">
-                        <div class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.packages.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i class='hgi-stroke hgi-package text-lg {{ request()->routeIs('admin.packages.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
+                    <a href="{{ route('admin.packages.index') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('admin.packages.*') ? $navActive : $navInactive }}">
+                        <div
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.packages.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <i
+                                class='hgi-stroke hgi-package text-lg {{ request()->routeIs('admin.packages.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
                         </div>
                         <span>Packages</span>
                     </a>
                 </div>
 
                 <!-- Public Interface -->
-                @if(in_array(Auth::user()->role, ['Super Admin', 'Admin']))
+                @if(in_array(Auth::user()->role, ['super admin', 'admin']))
                     <div class="mb-6">
                         <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">System Config</p>
 
-                        <a href="{{ route('admin.settings.index') }}" class="{{ $navBase }} {{ request()->routeIs('admin.settings.*') ? $navActive : $navInactive }}">
-                            <div class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.settings.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                                <i class='hgi-stroke hgi-settings-02 text-lg {{ request()->routeIs('admin.settings.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
+                        <a href="{{ route('admin.settings.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('admin.settings.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.settings.*') ? 'bg-primary-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-settings-02 text-lg {{ request()->routeIs('admin.settings.*') ? 'text-white' : 'text-primary-400/70 group-hover:text-primary-400' }}'></i>
                             </div>
                             <span>Core Settings</span>
                         </a>

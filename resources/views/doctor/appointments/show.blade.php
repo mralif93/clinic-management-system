@@ -7,15 +7,18 @@
     <div class="space-y-6">
         <!-- Page Header -->
         <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-            <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <a href="{{ route('doctor.appointments.index') }}" class="inline-flex items-center gap-1 text-emerald-100 hover:text-white text-sm mb-2 transition">
-                        <i class='bx bx-arrow-back'></i> Back to Appointments
+                        <i class='hgi-stroke hgi-arrow-left-01'></i> Back to Appointments
                     </a>
                     <h1 class="text-2xl font-bold flex items-center gap-3">
                         <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                            <i class='bx bx-calendar-check text-xl'></i>
+                            <i class='hgi-stroke hgi-calendar-03-check text-xl'></i>
                         </div>
                         Appointment Details
                     </h1>
@@ -23,15 +26,15 @@
                 <div class="flex flex-wrap gap-2">
                     <a href="{{ route('doctor.appointments.invoice', $appointment->id) }}"
                         class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur text-white font-semibold rounded-xl hover:bg-white/30 transition">
-                        <i class='bx bx-receipt mr-2'></i> Invoice
+                        <i class='hgi-stroke hgi-invoice-01 mr-2'></i> Invoice
                     </a>
                     <a href="{{ route('doctor.referral-letters.create', ['appointment_id' => $appointment->id]) }}"
                         class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur text-white font-semibold rounded-xl hover:bg-white/30 transition">
-                        <i class='bx bx-transfer mr-2'></i> Referral Letter
+                        <i class='hgi-stroke hgi-transfer-horizontal mr-2'></i> Referral Letter
                     </a>
                     <a href="{{ route('doctor.appointments.edit', $appointment->id) }}"
                         class="inline-flex items-center px-4 py-2 bg-white text-emerald-600 font-semibold rounded-xl hover:bg-emerald-50 transition shadow-lg">
-                        <i class='bx bx-edit mr-2'></i> Edit
+                        <i class='hgi-stroke hgi-pencil-edit-01 mr-2'></i> Edit
                     </a>
                 </div>
             </div>
@@ -42,7 +45,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-user text-blue-500'></i> Patient Information
+                        <i class='hgi-stroke hgi-user text-blue-500'></i> Patient Information
                     </h3>
                 </div>
                 <div class="p-6">
@@ -71,7 +74,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-calendar text-emerald-500'></i> Appointment Details
+                        <i class='hgi-stroke hgi-calendar-03 text-emerald-500'></i> Appointment Details
                     </h3>
                 </div>
                 <div class="p-6">
@@ -121,7 +124,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-credit-card text-purple-500'></i> Payment Information
+                    <i class='hgi-stroke hgi-credit-card text-purple-500'></i> Payment Information
                 </h3>
             </div>
             <div class="p-6">
@@ -171,7 +174,7 @@
         <div class="bg-white rounded-2xl shadow-sm border {{ $appointment->record_approved_at ? 'border-emerald-100' : 'border-amber-100' }} overflow-hidden">
             <div class="px-6 py-4 border-b {{ $appointment->record_approved_at ? 'border-emerald-100 bg-emerald-50/50' : 'border-amber-100 bg-amber-50/50' }}">
                 <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx {{ $appointment->record_approved_at ? "bx-check-shield text-emerald-500" : "bx-shield-quarter text-amber-500" }}'></i>
+                    <i class='hgi-stroke {{ $appointment->record_approved_at ? "hgi-shield-check text-emerald-500" : "hgi-shield-half-01 text-amber-500" }}'></i>
                     Medical Record Approval
                 </h3>
             </div>
@@ -180,7 +183,7 @@
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center">
-                                <i class='bx bx-check-double text-emerald-600 text-xl'></i>
+                                <i class='hgi-stroke hgi-checkmark-circle-02-double text-emerald-600 text-xl'></i>
                             </div>
                             <div>
                                 <p class="font-semibold text-emerald-700">Record Approved</p>
@@ -191,14 +194,14 @@
                             </div>
                         </div>
                         <span class="inline-flex items-center gap-1 px-4 py-1.5 bg-emerald-100 text-emerald-700 text-sm font-semibold rounded-full">
-                            <i class='bx bx-check-circle'></i> Approved
+                            <i class='hgi-stroke hgi-checkmark-circle-02'></i> Approved
                         </span>
                     </div>
                 @else
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center">
-                                <i class='bx bx-time-five text-amber-600 text-xl'></i>
+                                <i class='hgi-stroke hgi-clock-02 text-amber-600 text-xl'></i>
                             </div>
                             <div>
                                 <p class="font-semibold text-amber-700">Approval Pending</p>
@@ -209,7 +212,7 @@
                             @csrf
                             <button type="button" id="approveRecordBtn"
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-700 active:scale-95 transition-all shadow-lg shadow-emerald-500/30">
-                                <i class='bx bx-check-shield text-lg'></i>
+                                <i class='hgi-stroke hgi-checkmark-circle-02-shield text-lg'></i>
                                 Approve Record
                             </button>
                         </form>
@@ -224,14 +227,14 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-first-aid text-red-500'></i> Medical Information
+                        <i class='hgi-stroke hgi-first-aid-kit text-red-500'></i> Medical Information
                     </h3>
                 </div>
                 <div class="p-6 space-y-6">
                     @if($appointment->diagnosis)
                         <div>
                             <label class="text-sm font-semibold text-gray-700 flex items-center gap-2 mb-2">
-                                <i class='bx bx-search-alt text-gray-400'></i> Diagnosis
+                                <i class='hgi-stroke hgi-search-01-alt text-gray-400'></i> Diagnosis
                             </label>
                             <div class="text-gray-900 bg-gray-50 p-4 rounded-xl rich-content">{!! $appointment->diagnosis !!}</div>
                         </div>
@@ -239,7 +242,7 @@
                     @if($appointment->prescription)
                         <div>
                             <label class="text-sm font-semibold text-gray-700 flex items-center gap-2 mb-2">
-                                <i class='bx bx-capsule text-gray-400'></i> Prescription
+                                <i class='hgi-stroke hgi-capsule text-gray-400'></i> Prescription
                             </label>
                             <div class="text-gray-900 bg-gray-50 p-4 rounded-xl rich-content">{!! $appointment->prescription !!}</div>
                         </div>
@@ -247,7 +250,7 @@
                     @if($appointment->notes)
                         <div>
                             <label class="text-sm font-semibold text-gray-700 flex items-center gap-2 mb-2">
-                                <i class='bx bx-note text-gray-400'></i> Notes
+                                <i class='hgi-stroke hgi-note-01 text-gray-400'></i> Notes
                             </label>
                             <div class="text-gray-900 bg-gray-50 p-4 rounded-xl rich-content">{!! $appointment->notes !!}</div>
                         </div>
@@ -271,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function () {
             icon: 'question',
             iconColor: '#059669',
             showCancelButton: true,
-            confirmButtonText: '<i class="bx bx-check-shield"></i> Yes, Approve',
+            confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02-shield"></i> Yes, Approve',
             cancelButtonText: 'Cancel',
             confirmButtonColor: '#059669',
             cancelButtonColor: '#6b7280',

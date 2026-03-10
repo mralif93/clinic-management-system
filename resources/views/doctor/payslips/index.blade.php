@@ -7,11 +7,14 @@
     <div class="space-y-6">
         <!-- Page Header -->
         <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
             <div class="relative">
                 <h1 class="text-2xl font-bold flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='bx bx-receipt text-xl'></i>
+                        <i class='hgi-stroke hgi-invoice-01 text-xl'></i>
                     </div>
                     My Payslips
                 </h1>
@@ -43,13 +46,13 @@
                     <div class="relative">
                         <input type="text" id="searchInput" placeholder="Search..."
                             class="w-full sm:w-48 pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition">
-                        <i class='bx bx-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                        <i class='hgi-stroke hgi-search-01 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                     </div>
                 </div>
                 @if($month || $year)
                     <a href="{{ route('doctor.payslips.index') }}"
                         class="inline-flex items-center px-4 py-2.5 border border-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition">
-                        <i class='bx bx-x mr-1'></i> Clear Filters
+                        <i class='hgi-stroke hgi-cancel-circle mr-1'></i> Clear Filters
                     </a>
                 @endif
             </div>
@@ -77,7 +80,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center gap-3">
                                             <div class="w-9 h-9 rounded-lg bg-emerald-100 flex items-center justify-center">
-                                                <i class='bx bx-calendar text-emerald-600'></i>
+                                                <i class='hgi-stroke hgi-calendar-03 text-emerald-600'></i>
                                             </div>
                                             <span class="text-sm font-semibold text-gray-900">{{ $payslip->pay_period }}</span>
                                         </div>
@@ -108,7 +111,7 @@
                                             <a href="{{ route('doctor.payslips.show', $payslip->id) }}"
                                                 class="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-colors"
                                                 title="View Payslip">
-                                                <i class='bx bx-show text-lg'></i>
+                                                <i class='hgi-stroke hgi-eye text-lg'></i>
                                             </a>
                                         </div>
                                     </td>
@@ -121,7 +124,7 @@
                 <!-- No Results Message -->
                 <div id="noResults" class="hidden p-12 text-center">
                     <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                        <i class='bx bx-search-alt text-3xl text-gray-400'></i>
+                        <i class='hgi-stroke hgi-search-01-alt text-3xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No payslips found matching your search.</p>
                 </div>
@@ -135,7 +138,7 @@
             @else
                 <div class="p-12 text-center">
                     <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                        <i class='bx bx-receipt text-3xl text-gray-400'></i>
+                        <i class='hgi-stroke hgi-invoice-01 text-3xl text-gray-400'></i>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-2">No Payslips Available</h3>
                     <p class="text-gray-500">Your payslips will appear here once they are processed.</p>

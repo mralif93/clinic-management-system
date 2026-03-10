@@ -6,7 +6,11 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-cyan-600 to-teal-600 rounded-2xl p-6 text-white shadow-lg">
+        <div
+            class="bg-gradient-to-r from-cyan-600 to-teal-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div
@@ -15,10 +19,11 @@
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">
-                            {{ $staff->full_name ?? ($staff->first_name . ' ' . $staff->last_name) }}</h1>
+                            {{ $staff->full_name ?? ($staff->first_name . ' ' . $staff->last_name) }}
+                        </h1>
                         @if($staff->user)
                             <p class="text-cyan-100 flex items-center gap-2 mt-1">
-                                <i class='bx bx-envelope'></i>
+                                <i class='hgi-stroke hgi-mail-01'></i>
                                 {{ $staff->user->email }}
                             </p>
                         @endif
@@ -26,23 +31,23 @@
                             @if($staff->staff_id)
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-white/20 backdrop-blur">
-                                    <i class='bx bx-id-card mr-1'></i> ID: {{ $staff->staff_id }}
+                                    <i class='hgi-stroke hgi-identity-card mr-1'></i> ID: {{ $staff->staff_id }}
                                 </span>
                             @endif
                             @if($staff->position)
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-white/20 backdrop-blur">
-                                    <i class='bx bx-briefcase mr-1'></i> {{ $staff->position }}
+                                    <i class='hgi-stroke hgi-briefcase-01 mr-1'></i> {{ $staff->position }}
                                 </span>
                             @endif
                             @if($staff->trashed())
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-red-500/30">
-                                    <i class='bx bx-trash mr-1'></i> Deleted
+                                    <i class='hgi-stroke hgi-delete-01 mr-1'></i> Deleted
                                 </span>
                             @else
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-green-400/30">
-                                    <i class='bx bx-check-circle mr-1'></i> Active
+                                    <i class='hgi-stroke hgi-checkmark-circle-02 mr-1'></i> Active
                                 </span>
                             @endif
                         </div>
@@ -52,20 +57,20 @@
                     @if(!$staff->trashed())
                         <a href="{{ route('admin.staff.edit', $staff->id) }}"
                             class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-cyan-600 rounded-xl font-semibold hover:bg-cyan-50 transition-all shadow-lg">
-                            <i class='bx bx-edit'></i>
+                            <i class='hgi-stroke hgi-pencil-edit-01'></i>
                             Edit Staff
                         </a>
                     @else
                         <button
                             onclick="restoreStaff({{ $staff->id }}, '{{ $staff->full_name ?? ($staff->first_name . ' ' . $staff->last_name) }}')"
                             class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-green-600 rounded-xl font-semibold hover:bg-green-50 transition-all shadow-lg">
-                            <i class='bx bx-refresh'></i>
+                            <i class='hgi-stroke hgi-refresh'></i>
                             Restore Staff
                         </button>
                     @endif
                     <a href="{{ route('admin.staff.index') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                        <i class='bx bx-arrow-back'></i>
+                        <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back to List
                     </a>
                 </div>
@@ -78,7 +83,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-user text-cyan-600'></i>
+                        <i class='hgi-stroke hgi-user text-cyan-600'></i>
                         Basic Information
                     </h3>
                 </div>
@@ -94,7 +99,7 @@
                                 <span class="text-sm text-gray-500">User Account</span>
                                 <a href="{{ route('admin.users.show', $staff->user->id) }}"
                                     class="text-sm font-medium text-cyan-600 hover:text-cyan-700">
-                                    {{ $staff->user->email }} <i class='bx bx-link-external ml-1'></i>
+                                    {{ $staff->user->email }} <i class='hgi-stroke hgi-link-external-01 ml-1'></i>
                                 </a>
                             </div>
                         @endif
@@ -124,7 +129,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-briefcase text-cyan-600'></i>
+                        <i class='hgi-stroke hgi-briefcase-01 text-cyan-600'></i>
                         Employment Information
                     </h3>
                 </div>
@@ -174,7 +179,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-time text-cyan-600'></i>
+                    <i class='hgi-stroke hgi-clock-02 text-cyan-600'></i>
                     Account Timestamps
                 </h3>
             </div>
@@ -205,7 +210,7 @@
         <div class="bg-white rounded-2xl shadow-sm border-2 border-red-200 overflow-hidden">
             <div class="p-6 border-b border-red-100 bg-red-50/50">
                 <h3 class="text-lg font-semibold text-red-900 flex items-center gap-2">
-                    <i class='bx bx-error-circle text-red-600'></i>
+                    <i class='hgi-stroke hgi-alert-circle text-red-600'></i>
                     Danger Zone
                 </h3>
             </div>
@@ -219,7 +224,7 @@
                         <button
                             onclick="deleteStaff({{ $staff->id }}, '{{ $staff->full_name ?? ($staff->first_name . ' ' . $staff->last_name) }}')"
                             class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-all text-sm shadow-lg shadow-red-600/20">
-                            <i class='bx bx-trash'></i>
+                            <i class='hgi-stroke hgi-delete-01'></i>
                             Delete Staff
                         </button>
                     </div>
@@ -232,7 +237,7 @@
                         <button
                             onclick="forceDeleteStaff({{ $staff->id }}, '{{ $staff->full_name ?? ($staff->first_name . ' ' . $staff->last_name) }}')"
                             class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-all text-sm shadow-lg shadow-red-600/20">
-                            <i class='bx bx-trash'></i>
+                            <i class='hgi-stroke hgi-delete-01'></i>
                             Permanently Delete
                         </button>
                     </div>
@@ -311,11 +316,11 @@
                 Swal.fire({
                     title: 'Permanently Delete?',
                     html: `<div class="text-left">
-                    <p class="mb-3">Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?</p>
-                    <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
-                        <p class="text-sm text-red-800"><i class='bx bx-error-circle mr-1.5'></i> <strong>Warning:</strong> This action cannot be undone!</p>
-                    </div>
-                </div>`,
+                            <p class="mb-3">Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?</p>
+                            <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
+                                <p class="text-sm text-red-800"><i class='hgi-stroke hgi-alert-circle mr-1.5'></i> <strong>Warning:</strong> This action cannot be undone!</p>
+                            </div>
+                        </div>`,
                     icon: 'error',
                     showCancelButton: true,
                     confirmButtonColor: '#dc2626',

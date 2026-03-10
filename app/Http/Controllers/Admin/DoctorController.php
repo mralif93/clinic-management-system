@@ -40,9 +40,10 @@ class DoctorController extends Controller
             $query->whereNull('deleted_at');
         }
 
-        $doctors = $query->orderBy('created_at', 'desc')->paginate(15);
+        $perPage = in_array($request->input('per_page'), [10, 15, 25, 50, 100]) ? (int) $request->input('per_page') : 10;
+        $doctors = $query->orderBy('created_at', 'desc')->paginate($perPage)->withQueryString();
 
-        return view('admin.doctors.index', compact('doctors'));
+        return view('admin.doctors.index', compact('doctors', 'perPage'));
     }
 
     /**

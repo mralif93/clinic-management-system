@@ -7,14 +7,17 @@
     <div class="space-y-6">
         <!-- Page Header -->
         <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
             <div class="relative">
                 <a href="{{ route('doctor.todos.index') }}" class="inline-flex items-center gap-1 text-emerald-100 hover:text-white text-sm mb-2 transition">
-                    <i class='bx bx-arrow-back'></i> Back to My Tasks
+                    <i class='hgi-stroke hgi-arrow-left-01'></i> Back to My Tasks
                 </a>
                 <h1 class="text-2xl font-bold flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='bx bx-task text-xl'></i>
+                        <i class='hgi-stroke hgi-task-01 text-xl'></i>
                     </div>
                     Task Details
                 </h1>
@@ -25,7 +28,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-detail text-emerald-500'></i> Task Information
+                    <i class='hgi-stroke hgi-file-01 text-emerald-500'></i> Task Information
                 </h3>
             </div>
             <div class="p-6">
@@ -74,7 +77,7 @@
                         @if($todo->due_date)
                             <div class="flex items-center gap-2 {{ $todo->isOverdue() ? 'text-red-600' : 'text-gray-900' }}">
                                 <div class="w-8 h-8 rounded-lg {{ $todo->isOverdue() ? 'bg-red-100' : 'bg-emerald-100' }} flex items-center justify-center">
-                                    <i class='bx {{ $todo->isOverdue() ? 'bx-error-circle text-red-600' : 'bx-calendar text-emerald-600' }}'></i>
+                                    <i class='hgi-stroke {{ $todo->isOverdue() ? 'hgi-alert-circle text-red-600' : 'hgi-calendar-03 text-emerald-600' }}'></i>
                                 </div>
                                 <span class="font-medium">{{ $todo->due_date->format('M d, Y') }}</span>
                                 @if($todo->isOverdue())
@@ -91,7 +94,7 @@
                         <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Assigned By</label>
                         <div class="flex items-center gap-2">
                             <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
-                                <i class='bx bx-user text-gray-600'></i>
+                                <i class='hgi-stroke hgi-user text-gray-600'></i>
                             </div>
                             <span class="font-medium text-gray-900">{{ $todo->creator->name }}</span>
                         </div>
@@ -102,7 +105,7 @@
                         <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Created At</label>
                         <div class="flex items-center gap-2">
                             <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
-                                <i class='bx bx-time text-gray-600'></i>
+                                <i class='hgi-stroke hgi-clock-02 text-gray-600'></i>
                             </div>
                             <span class="font-medium text-gray-900">{{ $todo->created_at->format('M d, Y h:i A') }}</span>
                         </div>
@@ -113,7 +116,7 @@
                 @if($todo->status !== 'completed')
                     <div class="mt-6 pt-6 border-t border-gray-100">
                         <h4 class="text-sm font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                            <i class='bx bx-edit text-emerald-500'></i> Update Status
+                            <i class='hgi-stroke hgi-pencil-edit-01 text-emerald-500'></i> Update Status
                         </h4>
                         <form action="{{ route('doctor.todos.update-status', $todo->id) }}" method="POST"
                             class="flex flex-col sm:flex-row items-stretch sm:items-end gap-4">
@@ -129,7 +132,7 @@
                             </div>
                             <button type="submit"
                                 class="inline-flex items-center justify-center px-5 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 transition shadow-sm">
-                                <i class='bx bx-save mr-2'></i> Update Status
+                                <i class='hgi-stroke hgi-floppy-disk mr-2'></i> Update Status
                             </button>
                         </form>
                     </div>

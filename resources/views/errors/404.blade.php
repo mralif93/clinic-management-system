@@ -36,8 +36,8 @@
         }
     </script>
 
-    <!-- Boxicons CDN -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Boxicons -->
+    <link href='{{ asset("css/boxicons.min.css") }}' rel='stylesheet'>
 </head>
 
 <body class="bg-gradient-to-br from-blue-50 via-white to-indigo-50 font-sans min-h-screen flex items-center justify-center px-4">
@@ -79,7 +79,7 @@
         <!-- Icon -->
         <div class="mb-8 flex justify-center">
             <div class="w-24 h-24 rounded-full bg-blue-100 flex items-center justify-center">
-                <i class='bx bx-search-alt-2 text-5xl text-blue-600'></i>
+                <i class='hgi-stroke hgi-search-01-alt-2 text-5xl text-blue-600'></i>
             </div>
         </div>
 
@@ -87,12 +87,12 @@
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a href="{{ route('home') }}" 
                class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition shadow-lg hover:shadow-xl">
-                <i class='bx bx-home text-xl'></i>
+                <i class='hgi-stroke hgi-home-01 text-xl'></i>
                 Go to Homepage
             </a>
             <button onclick="window.history.back()" 
                     class="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-700 border-2 border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition shadow-md hover:shadow-lg">
-                <i class='bx bx-arrow-back text-xl'></i>
+                <i class='hgi-stroke hgi-arrow-left-01 text-xl'></i>
                 Go Back
             </button>
         </div>

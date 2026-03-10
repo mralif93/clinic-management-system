@@ -5,11 +5,11 @@
         <!-- Page Header -->
         <div class="bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 rounded-2xl shadow-lg overflow-hidden">
             <div class="p-6 md:p-8">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="flex items-center gap-4">
                         <a href="{{ route('staff.leaves.index') }}"
-                            class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/30 transition">
-                            <i class='bx bx-arrow-back text-white text-xl'></i>
+                            class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                            <i class='hgi-stroke hgi-arrow-left-01 text-white text-xl'></i>
                         </a>
                         <div class="text-white">
                             <h1 class="text-2xl font-bold">Leave Details</h1>
@@ -21,14 +21,14 @@
                         <div class="flex flex-wrap gap-2">
                             <a href="{{ route('staff.leaves.edit', $leave->id) }}"
                                 class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm text-white font-medium rounded-xl hover:bg-white/30 transition border border-white/30">
-                                <i class='bx bx-edit mr-2'></i> Edit
+                                <i class='hgi-stroke hgi-pencil-edit-01 mr-2'></i> Edit
                             </a>
                             <form action="{{ route('staff.leaves.destroy', $leave->id) }}" method="POST" class="delete-form">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit"
                                     class="inline-flex items-center px-4 py-2 bg-red-500 text-white font-medium rounded-xl hover:bg-red-600 transition shadow-lg">
-                                    <i class='bx bx-trash mr-2'></i> Cancel
+                                    <i class='hgi-stroke hgi-delete-01 mr-2'></i> Cancel
                                 </button>
                             </form>
                         </div>
@@ -54,11 +54,11 @@
                                         {{ ucfirst($leave->status) }}
                                     </span>
                                     @if($leave->status === 'approved')
-                                        <i class='bx bx-check-circle text-2xl text-green-500'></i>
+                                        <i class='hgi-stroke hgi-checkmark-circle-02 text-2xl text-green-500'></i>
                                     @elseif($leave->status === 'rejected')
-                                        <i class='bx bx-x-circle text-2xl text-red-500'></i>
+                                        <i class='hgi-stroke hgi-cancel-circle text-2xl text-red-500'></i>
                                     @else
-                                        <i class='bx bx-time text-2xl text-yellow-500'></i>
+                                        <i class='hgi-stroke hgi-clock-02 text-2xl text-yellow-500'></i>
                                     @endif
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                 <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Reviewed By</p>
                                 <div class="mt-2 flex items-center gap-3">
                                     <div class="bg-gray-100 p-2 rounded-full">
-                                        <i class='bx bx-user text-xl text-gray-600'></i>
+                                        <i class='hgi-stroke hgi-user text-xl text-gray-600'></i>
                                     </div>
                                     <div>
                                         <p class="font-medium text-gray-800">{{ $leave->reviewer->name }}</p>
@@ -114,14 +114,14 @@
                             <div>
                                 <p class="text-sm font-medium text-gray-500 mb-1">Start Date</p>
                                 <div class="flex items-center gap-2">
-                                    <i class='bx bx-calendar text-gray-400'></i>
+                                    <i class='hgi-stroke hgi-calendar-03 text-gray-400'></i>
                                     <p class="font-medium text-gray-800">{{ $leave->start_date->format('M d, Y') }}</p>
                                 </div>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-500 mb-1">End Date</p>
                                 <div class="flex items-center gap-2">
-                                    <i class='bx bx-calendar text-gray-400'></i>
+                                    <i class='hgi-stroke hgi-calendar-03 text-gray-400'></i>
                                     <p class="font-medium text-gray-800">{{ $leave->end_date->format('M d, Y') }}</p>
                                 </div>
                             </div>
@@ -148,20 +148,20 @@
                                 @endphp
 
                                 @if(in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))
-                                    <i class='bx bx-image text-4xl text-blue-500 mb-2'></i>
+                                    <i class='hgi-stroke hgi-image-01 text-4xl text-blue-500 mb-2'></i>
                                 @else
-                                    <i class='bx bx-file-pdf text-4xl text-red-500 mb-2'></i>
+                                    <i class='hgi-stroke hgi-file-01-pdf text-4xl text-red-500 mb-2'></i>
                                 @endif
 
                                 <p class="text-sm font-medium text-gray-700 mb-4">Proof Document</p>
                                 <a href="{{ Storage::url($leave->attachment) }}" target="_blank"
                                     class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
-                                    <i class='bx bx-download'></i> Download
+                                    <i class='hgi-stroke hgi-download-04'></i> Download
                                 </a>
                             </div>
                         @else
                             <div class="text-center py-8 text-gray-500">
-                                <i class='bx bx-file-blank text-4xl mb-2'></i>
+                                <i class='hgi-stroke hgi-file-01-blank text-4xl mb-2'></i>
                                 <p>No attachment provided</p>
                             </div>
                         @endif

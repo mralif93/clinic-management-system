@@ -21,7 +21,7 @@
             <div class="p-4 border-b border-gray-200">
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <i class='bx bx-search text-gray-400'></i>
+                        <i class='hgi-stroke hgi-search-01 text-gray-400'></i>
                     </div>
                     <input
                         x-ref="input"
@@ -40,7 +40,7 @@
             <div class="max-h-96 overflow-y-auto">
                 <template x-if="filteredShortcuts.length === 0">
                     <div class="p-8 text-center">
-                        <i class='bx bx-search text-4xl text-gray-300 mb-2'></i>
+                        <i class='hgi-stroke hgi-search-01 text-4xl text-gray-300 mb-2'></i>
                         <p class="text-sm text-gray-500">No commands found</p>
                     </div>
                 </template>

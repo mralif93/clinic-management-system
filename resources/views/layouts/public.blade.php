@@ -22,69 +22,31 @@
     <link rel="shortcut icon" type="image/png" href="{{ $faviconUrl }}">
     <link rel="apple-touch-icon" href="{{ $faviconUrl }}">
 
-    <!-- Google Fonts - Poppins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <!-- Google Fonts - Poppins (Local) -->
+    <link href="{{ asset('fonts/poppins.css') }}" rel="stylesheet">
 
-    <!-- Tailwind CSS CDN (dev warning is expected) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
+    <!-- Vite Assets -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
-                            400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8',
-                            800: '#1e40af', 900: '#1e3a8a',
-                        },
-                    },
-                    fontFamily: {
-                        'sans': ['Poppins', 'sans-serif'],
-                    },
-                    keyframes: {
-                        'fadeIn': { from: { opacity: '0' }, to: { opacity: '1' } },
-                        'slideInUp': { from: { transform: 'translateY(20px)', opacity: '0' }, to: { transform: 'translateY(0)', opacity: '1' } },
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.2s ease-in-out',
-                        'slide-in-up': 'slideInUp 0.3s ease-out',
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Alpine.js & Plugins -->
+    <script defer src="{{ asset('js/collapse.min.js') }}"></script>
+    <script defer src="{{ asset('js/alpine.min.js') }}"></script>
 
-    <!-- Alpine.js CDN for dropdown functionality -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Boxicons for icons -->
+    <link href='{{ asset("css/boxicons.min.css") }}' rel='stylesheet'>
 
-    <!-- Boxicons CDN for icons -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Hugeicons -->
+    <link href='{{ asset("css/hugeicons.css") }}' rel='stylesheet'>
 
-    <!-- Hugeicons CDN -->
-    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css" />
-
-    <style>
-        /* Global Bold Icon Style */
-        .hgi {
-            -webkit-text-stroke: 0.5px currentColor;
-            paint-order: stroke fill;
-        }
-    </style>
-
-    <!-- Animate.css CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
-    <!-- SweetAlert2 CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert2 -->
+    <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 
     @stack('styles')
 </head>
 
-<body class="bg-gray-50 font-sans" x-data="{ mobileMenuOpen: false }" :class="{ 'overflow-hidden': mobileMenuOpen }">
+<body class="theme-public bg-gray-50 font-sans" x-data="{ mobileMenuOpen: false }"
+    :class="{ 'overflow-hidden': mobileMenuOpen }">
     <x-ui.skip-nav />
     <!-- Header -->
     <header
@@ -110,7 +72,7 @@
                                 class="h-8 w-auto">
                         @else
                             <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                                <i class='bx bx-clinic text-white text-xl'></i>
+                                <i class='hgi-stroke hgi-hospital-01 text-white text-xl'></i>
                             </div>
                         @endif
                         <span class="text-xl font-bold text-gray-900 hidden sm:block">
@@ -162,8 +124,8 @@
                     <!-- Hamburger Menu Button (Mobile) -->
                     <button @click="mobileMenuOpen = !mobileMenuOpen"
                         class="lg:hidden p-2 text-gray-600 hover:text-gray-900 focus:outline-none rounded-lg hover:bg-gray-100">
-                        <i class='bx bx-menu text-2xl' x-show="!mobileMenuOpen"></i>
-                        <i class='bx bx-x text-2xl' x-show="mobileMenuOpen" x-cloak></i>
+                        <i class='hgi-stroke hgi-menu-01 text-2xl' x-show="!mobileMenuOpen"></i>
+                        <i class='hgi-stroke hgi-cancel-circle text-2xl' x-show="mobileMenuOpen" x-cloak></i>
                     </button>
 
                     <!-- Desktop Actions -->
@@ -178,7 +140,7 @@
                                         {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                                     </div>
                                     <span class="font-medium">{{ explode(' ', Auth::user()->name)[0] }}</span>
-                                    <i class='bx bx-chevron-down'></i>
+                                    <i class='hgi-stroke hgi-arrow-down-01'></i>
                                 </button>
 
                                 <!-- Dropdown -->
@@ -215,7 +177,7 @@
 
                                     <a href="{{ route('user-guide') }}"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2">
-                                        <i class='bx bx-book-reader'></i> User Guide
+                                        <i class='hgi-stroke hgi-book-open-02'></i> User Guide
                                     </a>
 
                                     <div class="border-t border-gray-100">
@@ -255,8 +217,8 @@
     <!-- Footer -->
     <x-public.footer />
 
-    <!-- Splide.js JS - Load before scripts stack -->
-    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <!-- Splide.js JS -->
+    <script src="{{ asset('js/splide.min.js') }}"></script>
 
     @stack('scripts')
 

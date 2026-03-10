@@ -17,28 +17,28 @@ class PageController extends Controller
         $moduleConfigs = [
             'services' => [
                 'name' => 'Services',
-                'icon' => 'bx-grid-alt',
+                'icon' => 'hgi-dashboard-square-01',
                 'color' => 'cyan',
                 'route' => 'services.index',
                 'admin_route' => 'admin.services.index',
             ],
             'packages' => [
                 'name' => 'Packages',
-                'icon' => 'bx-package',
+                'icon' => 'hgi-package',
                 'color' => 'purple',
                 'route' => 'packages.index',
                 'admin_route' => 'admin.packages.index',
             ],
             'team' => [
                 'name' => 'Team',
-                'icon' => 'bx-group',
+                'icon' => 'hgi-user-group',
                 'color' => 'indigo',
                 'route' => 'team.index',
                 'admin_route' => 'admin.team.index',
             ],
             'about' => [
                 'name' => 'About',
-                'icon' => 'bx-info-circle',
+                'icon' => 'hgi-information-circle',
                 'color' => 'blue',
                 'route' => 'about',
                 'admin_route' => 'admin.pages.about',

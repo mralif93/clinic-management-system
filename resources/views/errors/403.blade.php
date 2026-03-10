@@ -37,7 +37,7 @@
     </script>
 
     <!-- Boxicons CDN -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='{{ asset('css/boxicons.min.css') }}' rel='stylesheet'>
 </head>
 
 <body class="bg-gradient-to-br from-amber-50 via-white to-yellow-50 font-sans min-h-screen flex items-center justify-center px-4">
@@ -79,7 +79,7 @@
         <!-- Icon -->
         <div class="mb-8 flex justify-center">
             <div class="w-24 h-24 rounded-full bg-amber-100 flex items-center justify-center">
-                <i class='bx bx-lock-alt text-5xl text-amber-600'></i>
+                <i class='hgi-stroke hgi-lock-01 text-5xl text-amber-600'></i>
             </div>
         </div>
 
@@ -87,19 +87,19 @@
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a href="{{ route('home') }}" 
                class="inline-flex items-center gap-2 px-6 py-3 bg-amber-600 text-white rounded-lg font-semibold hover:bg-amber-700 transition shadow-lg hover:shadow-xl">
-                <i class='bx bx-home text-xl'></i>
+                <i class='hgi-stroke hgi-home-01 text-xl'></i>
                 Go to Homepage
             </a>
             @auth
                 <a href="{{ route('patient.dashboard') }}" 
                    class="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-700 border-2 border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition shadow-md hover:shadow-lg">
-                    <i class='bx bx-user text-xl'></i>
+                    <i class='hgi-stroke hgi-user text-xl'></i>
                     Go to Dashboard
                 </a>
             @else
                 <a href="{{ route('login') }}" 
                    class="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-700 border-2 border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition shadow-md hover:shadow-lg">
-                    <i class='bx bx-log-in text-xl'></i>
+                    <i class='hgi-stroke hgi-login-01 text-xl'></i>
                     Login
                 </a>
             @endauth

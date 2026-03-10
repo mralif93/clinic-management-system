@@ -6,23 +6,26 @@
 @section('content')
 <div class="space-y-6">
     <!-- Page Header -->
-    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
-        <div>
-            <h1 class="text-2xl font-bold flex items-center gap-3">
-                <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                    <i class='bx bx-file text-2xl'></i>
-                </div>
-                Pages
-            </h1>
-            <p class="mt-2 text-indigo-100">Module Visibility Control</p>
-        </div>
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="flex items-center gap-4">
+    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+        <i class='hgi-stroke hgi-file-01 text-2xl'></i>
+    </div>
+    <div>
+        <h2 class="text-2xl font-bold">Pages</h2>
+        <p class="text-indigo-100 text-sm mt-1">Module Visibility Control</p>
+    </div>
+</div>
     </div>
 
     <!-- Module Visibility Section -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="p-5 border-b border-gray-100 bg-gray-50/50">
             <div class="flex items-center gap-2">
-                <i class='bx bx-toggle-left text-indigo-600'></i>
+                <i class='hgi-stroke hgi-toggle-off text-indigo-600'></i>
                 <h3 class="font-semibold text-gray-700">Module Visibility Control</h3>
             </div>
             <p class="text-sm text-gray-500 mt-1">Control which modules appear on the public website</p>
@@ -40,7 +43,7 @@
                         <div class="flex items-center justify-between mb-3">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-lg bg-{{ $config['color'] }}-100 flex items-center justify-center">
-                                    <i class='bx {{ $config['icon'] }} text-xl text-{{ $config['color'] }}-600'></i>
+                                    <i class='hgi-stroke {{ $config['icon'] }} text-xl text-{{ $config['color'] }}-600'></i>
                                 </div>
                                 <div>
                                     <h4 class="font-semibold text-gray-900">{{ $config['name'] }}</h4>
@@ -49,11 +52,11 @@
                             </div>
                             @if($isPublished)
                                 <span class="px-2 py-1 rounded-lg text-xs font-semibold bg-green-100 text-green-700">
-                                    <i class='bx bx-check-circle'></i> Visible
+                                    <i class='hgi-stroke hgi-checkmark-circle-02'></i> Visible
                                 </span>
                             @else
                                 <span class="px-2 py-1 rounded-lg text-xs font-semibold bg-gray-100 text-gray-600">
-                                    <i class='bx bx-x-circle'></i> Hidden
+                                    <i class='hgi-stroke hgi-cancel-circle'></i> Hidden
                                 </span>
                             @endif
                         </div>
@@ -65,7 +68,7 @@
                                     <button type="submit" 
                                         class="w-full px-3 py-2 rounded-lg text-sm font-medium transition-all
                                         {{ $isPublished ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'bg-green-100 text-green-700 hover:bg-green-200' }}">
-                                        <i class='bx {{ $isPublished ? 'bx-hide' : 'bx-show' }} mr-1'></i>
+                                        <i class='hgi-stroke {{ $isPublished ? 'hgi-view-off-slash' : 'hgi-eye' }} mr-1'></i>
                                         {{ $isPublished ? 'Hide' : 'Show' }} Module
                                     </button>
                                 </form>
@@ -77,7 +80,7 @@
                                         class="flex-1 px-3 py-2 rounded-lg border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm">
                                     <button type="submit" 
                                         class="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-lg text-sm font-medium hover:bg-indigo-200 transition">
-                                        <i class='bx bx-check mr-1'></i> Update
+                                        <i class='hgi-stroke hgi-checkmark-circle-02 mr-1'></i> Update
                                     </button>
                                 </form>
                             @else
@@ -88,12 +91,12 @@
                                 @if($type !== 'about')
                                     <a href="{{ route($config['admin_route']) }}" 
                                        class="flex-1 px-3 py-2 bg-{{ $config['color'] }}-100 text-{{ $config['color'] }}-700 rounded-lg text-sm font-medium hover:bg-{{ $config['color'] }}-200 transition text-center">
-                                        <i class='bx bx-cog mr-1'></i> Manage
+                                        <i class='hgi-stroke hgi-settings-01 mr-1'></i> Manage
                                     </a>
                                 @else
                                     <a href="{{ route($config['admin_route']) }}" 
                                        class="flex-1 px-3 py-2 bg-blue-100 text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-200 transition text-center">
-                                        <i class='bx bx-edit mr-1'></i> Edit
+                                        <i class='hgi-stroke hgi-pencil-edit-01 mr-1'></i> Edit
                                     </a>
                                 @endif
                             </div>

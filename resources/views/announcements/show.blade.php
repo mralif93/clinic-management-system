@@ -45,9 +45,9 @@
                 <nav class="mb-8" aria-label="Breadcrumb">
                     <ol class="flex items-center space-x-2 text-sm">
                         <li><a href="{{ route('home') }}" class="text-white/90 hover:text-white transition-colors duration-200">Home</a></li>
-                        <li><i class='bx bx-chevron-right text-white/60 text-xs'></i></li>
+                        <li><i class='hgi-stroke hgi-arrow-right-01 text-white/60 text-xs'></i></li>
                         <li><a href="{{ route('announcements.index') }}" class="text-white/90 hover:text-white transition-colors duration-200">Announcements</a></li>
-                        <li><i class='bx bx-chevron-right text-white/60 text-xs'></i></li>
+                        <li><i class='hgi-stroke hgi-arrow-right-01 text-white/60 text-xs'></i></li>
                         <li class="text-white font-medium truncate max-w-xs">{{ Str::limit($announcement->title, 40) }}</li>
                     </ol>
                 </nav>
@@ -55,16 +55,16 @@
                 <!-- Meta Information Row -->
                 <div class="flex flex-wrap items-center gap-3 mb-6">
                     <span class="inline-flex items-center px-4 py-2 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-lg">
-                        <i class='bx {{ $announcement->type === 'news' ? 'bx-news' : 'bx-bullhorn' }} mr-2 text-sm'></i>
+                        <i class='hgi-stroke {{ $announcement->type === 'news' ? 'hgi-news' : 'hgi-megaphone-01' }} mr-2 text-sm'></i>
                         {{ ucfirst($announcement->type) }}
                     </span>
                     <span class="text-white/95 flex items-center gap-2 text-sm font-medium">
-                        <i class='bx bx-calendar text-base'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-base'></i>
                         {{ $announcement->created_at->format('F d, Y') }}
                     </span>
                     @if($announcement->expires_at)
                         <span class="text-white/95 flex items-center gap-2 text-sm font-medium {{ $announcement->isExpired() ? 'bg-red-500/40 px-3 py-1.5 rounded-full' : '' }}">
-                            <i class='bx bx-time text-base'></i>
+                            <i class='hgi-stroke hgi-clock-02 text-base'></i>
                             Expires: {{ $announcement->expires_at->format('M d, Y') }}
                         </span>
                     @endif
@@ -92,9 +92,9 @@
             <nav class="mb-8" aria-label="Breadcrumb">
                 <ol class="flex items-center space-x-2 text-sm">
                     <li><a href="{{ route('home') }}" class="text-white/90 hover:text-white transition-colors duration-200">Home</a></li>
-                    <li><i class='bx bx-chevron-right text-white/60 text-xs'></i></li>
+                    <li><i class='hgi-stroke hgi-arrow-right-01 text-white/60 text-xs'></i></li>
                     <li><a href="{{ route('announcements.index') }}" class="text-white/90 hover:text-white transition-colors duration-200">Announcements</a></li>
-                    <li><i class='bx bx-chevron-right text-white/60 text-xs'></i></li>
+                    <li><i class='hgi-stroke hgi-arrow-right-01 text-white/60 text-xs'></i></li>
                     <li class="text-white font-medium truncate max-w-xs">{{ Str::limit($announcement->title, 40) }}</li>
                 </ol>
             </nav>
@@ -102,16 +102,16 @@
             <!-- Meta Information Row -->
             <div class="flex flex-wrap items-center gap-3 mb-6">
                 <span class="inline-flex items-center px-4 py-2 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md text-white border border-white/30 shadow-lg">
-                    <i class='bx {{ $announcement->type === 'news' ? 'bx-news' : 'bx-bullhorn' }} mr-2 text-sm'></i>
+                    <i class='hgi-stroke {{ $announcement->type === 'news' ? 'hgi-news' : 'hgi-megaphone-01' }} mr-2 text-sm'></i>
                     {{ ucfirst($announcement->type) }}
                 </span>
                 <span class="text-white/95 flex items-center gap-2 text-sm font-medium">
-                    <i class='bx bx-calendar text-base'></i>
+                    <i class='hgi-stroke hgi-calendar-03 text-base'></i>
                     {{ $announcement->created_at->format('F d, Y') }}
                 </span>
                 @if($announcement->expires_at)
                     <span class="text-white/95 flex items-center gap-2 text-sm font-medium {{ $announcement->isExpired() ? 'bg-red-500/40 px-3 py-1.5 rounded-full' : '' }}">
-                        <i class='bx bx-time text-base'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-base'></i>
                         Expires: {{ $announcement->expires_at->format('M d, Y') }}
                     </span>
                 @endif
@@ -164,7 +164,7 @@
                                 <div class="flex flex-wrap items-center gap-6">
                                     @if($announcement->updated_at && $announcement->updated_at->ne($announcement->created_at))
                                         <div class="flex items-center gap-2 text-sm text-gray-600">
-                                            <i class='bx bx-edit text-blue-600 text-lg'></i>
+                                            <i class='hgi-stroke hgi-pencil-edit-01 text-blue-600 text-lg'></i>
                                             <span class="font-medium">Last Updated:</span>
                                             <span>{{ $announcement->updated_at->diffForHumans() }}</span>
                                         </div>
@@ -192,22 +192,22 @@
                 <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-4 sm:p-6 lg:p-8 no-print lg:sticky lg:top-6">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-lg">
-                            <i class='bx bx-share-alt text-white text-xl'></i>
+                            <i class='hgi-stroke hgi-share-08 text-white text-xl'></i>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900">Share This</h3>
                     </div>
                     <div class="space-y-3">
-                        <button onclick="if(navigator.share) { navigator.share({title: '{{ addslashes($announcement->title) }}', text: '{{ addslashes($announcement->subtitle ?? $announcement->title) }}', url: window.location.href}); } else { navigator.clipboard.writeText(window.location.href); const btn = this; const original = btn.innerHTML; btn.innerHTML='<i class=\'bx bx-check text-lg\'></i> Copied!'; btn.classList.add('bg-green-600'); setTimeout(() => { btn.innerHTML = original; btn.classList.remove('bg-green-600'); }, 2000); }"
+                        <button onclick="if(navigator.share) { navigator.share({title: '{{ addslashes($announcement->title) }}', text: '{{ addslashes($announcement->subtitle ?? $announcement->title) }}', url: window.location.href}); } else { navigator.clipboard.writeText(window.location.href); const btn = this; const original = btn.innerHTML; btn.innerHTML='<i class=\'hgi-stroke hgi-checkmark-circle-02 text-lg\'></i> Copied!'; btn.classList.add('bg-green-600'); setTimeout(() => { btn.innerHTML = original; btn.classList.remove('bg-green-600'); }, 2000); }"
                                 class="share-button w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl font-bold hover:from-blue-700 hover:to-indigo-700 active:from-blue-800 active:to-indigo-800 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 min-h-[48px] text-sm sm:text-base">
-                            <i class='bx bx-share text-lg sm:text-xl'></i> Share
+                            <i class='hgi-stroke hgi-share-01 text-lg sm:text-xl'></i> Share
                         </button>
-                        <button onclick="navigator.clipboard.writeText(window.location.href); const btn = this; const original = btn.innerHTML; btn.innerHTML='<i class=\'bx bx-check text-lg\'></i> Copied!'; btn.classList.add('bg-green-600', 'text-white'); setTimeout(() => { btn.innerHTML = original; btn.classList.remove('bg-green-600', 'text-white'); }, 2000);"
+                        <button onclick="navigator.clipboard.writeText(window.location.href); const btn = this; const original = btn.innerHTML; btn.innerHTML='<i class=\'hgi-stroke hgi-checkmark-circle-02 text-lg\'></i> Copied!'; btn.classList.add('bg-green-600', 'text-white'); setTimeout(() => { btn.innerHTML = original; btn.classList.remove('bg-green-600', 'text-white'); }, 2000);"
                                 class="share-button w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 active:bg-gray-300 transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md min-h-[48px] text-sm sm:text-base">
-                            <i class='bx bx-link text-lg sm:text-xl'></i> Copy Link
+                            <i class='hgi-stroke hgi-link-01 text-lg sm:text-xl'></i> Copy Link
                         </button>
                         <button onclick="window.print();"
                                 class="share-button w-full px-4 sm:px-5 py-3.5 sm:py-4 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 active:bg-gray-300 transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md min-h-[48px] text-sm sm:text-base">
-                            <i class='bx bx-printer text-lg sm:text-xl'></i> Print
+                            <i class='hgi-stroke hgi-printer text-lg sm:text-xl'></i> Print
                         </button>
                     </div>
                 </div>
@@ -225,7 +225,7 @@
                     <a href="{{ route('announcements.index') }}" 
                        class="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3.5 bg-white border-2 border-blue-600 text-blue-600 rounded-xl font-bold hover:bg-blue-50 active:bg-blue-100 transition-all shadow-lg hover:shadow-xl min-h-[44px] text-sm sm:text-base">
                         View All
-                        <i class='bx bx-arrow-right text-lg sm:text-xl'></i>
+                        <i class='hgi-stroke hgi-arrow-right-01 text-lg sm:text-xl'></i>
                     </a>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
@@ -251,7 +251,7 @@
                                     </div>
                                 @else
                                     <div class="h-64 bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 flex items-center justify-center relative group-hover:from-blue-200 group-hover:via-indigo-200 group-hover:to-purple-200 transition-all duration-300">
-                                        <i class='bx bx-news text-7xl text-blue-300 group-hover:text-blue-400 transition-colors'></i>
+                                        <i class='hgi-stroke hgi-news text-7xl text-blue-300 group-hover:text-blue-400 transition-colors'></i>
                                         <div class="absolute top-4 left-4 flex items-center gap-2">
                                             <span class="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-bold {{ $related->type === 'news' ? 'bg-blue-600 text-white' : 'bg-green-600 text-white' }} shadow-xl">
                                                 {{ ucfirst($related->type) }}
@@ -266,7 +266,7 @@
                                 @endif
                                 <div class="p-6 lg:p-7">
                                     <div class="flex items-center gap-2 mb-3 text-xs text-gray-500 font-medium">
-                                        <i class='bx bx-calendar text-sm'></i>
+                                        <i class='hgi-stroke hgi-calendar-03 text-sm'></i>
                                         <span>{{ $related->created_at->format('M d, Y') }}</span>
                                     </div>
                                     <h3 class="text-xl lg:text-2xl font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors leading-tight">
@@ -280,7 +280,7 @@
                                     @endif
                                     <div class="inline-flex items-center gap-2 text-blue-600 font-bold group-hover:gap-3 transition-all">
                                         Read More
-                                        <i class='bx bx-arrow-right text-lg'></i>
+                                        <i class='hgi-stroke hgi-arrow-right-01 text-lg'></i>
                                     </div>
                                 </div>
                             </a>

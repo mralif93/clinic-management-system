@@ -9,7 +9,7 @@
         <!-- Header -->
         <div class="text-center mb-8 md:mb-12">
             <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 mb-4">
-                <i class='bx bx-package text-purple-600 text-3xl'></i>
+                <i class='hgi-stroke hgi-package text-purple-600 text-3xl'></i>
             </div>
             <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">Special Packages</h1>
             <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
@@ -25,7 +25,7 @@
                         <div class="p-5 md:p-6">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="bg-purple-100 p-3 rounded-full">
-                                    <i class='bx bx-package text-2xl text-purple-600'></i>
+                                    <i class='hgi-stroke hgi-package text-2xl text-purple-600'></i>
                                 </div>
                                 @if($package->discount_percentage)
                                     <span class="bg-red-100 text-red-800 text-xs font-semibold px-3 py-1 rounded-full">
@@ -44,13 +44,13 @@
                             <div class="space-y-2 mb-4">
                                 @if($package->sessions)
                                     <div class="flex items-center text-gray-600 text-sm">
-                                        <i class='bx bx-calendar-check text-purple-600 mr-2'></i>
+                                        <i class='hgi-stroke hgi-calendar-03-check text-purple-600 mr-2'></i>
                                         <span>{{ $package->sessions }}</span>
                                     </div>
                                 @endif
                                 @if($package->duration)
                                     <div class="flex items-center text-gray-600 text-sm">
-                                        <i class='bx bx-time text-purple-600 mr-2'></i>
+                                        <i class='hgi-stroke hgi-clock-02 text-purple-600 mr-2'></i>
                                         <span>{{ $package->duration }} Per Session</span>
                                     </div>
                                 @endif
@@ -80,7 +80,7 @@
             </div>
         @else
             <x-ui.empty-state
-                icon="bx bx-package"
+                icon="hgi-stroke hgi-package"
                 title="No Packages Available"
                 description="We're currently updating our special packages. Please check back soon or contact us for more information."
                 variant="no-results"
@@ -88,7 +88,10 @@
         @endif
 
         <!-- CTA Section -->
-        <div class="cta-section mt-8 md:mt-12 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-5 sm:p-6 md:p-8 text-white text-center">
+        <div class="cta-section mt-8 md:mt-12 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-5 sm:p-6 md:p-8 text-white text-center shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-3 md:mb-4">Ready to Get Started?</h3>
             <p class="text-purple-100 mb-4 md:mb-6 text-xs sm:text-sm md:text-base">Choose from our special packages designed for your wellness journey</p>
             @auth

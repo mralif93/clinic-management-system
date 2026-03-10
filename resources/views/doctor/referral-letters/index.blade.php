@@ -6,21 +6,31 @@
     <div class="space-y-6">
 
         {{-- Header --}}
-        <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 rounded-2xl p-6 text-white">
-            <div class="flex items-center justify-between flex-wrap gap-4">
+        <div
+            class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
-                        <i class='bx bx-transfer text-2xl'></i>
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-medical-file text-2xl'></i>
                     </div>
                     <div>
                         <h2 class="text-2xl font-bold">Referral Letters</h2>
-                        <p class="text-emerald-100 text-sm">Manage patient referrals and specialist communications</p>
+                        <p class="text-emerald-100 text-sm mt-1">Manage patient referrals and specialist communications</p>
                     </div>
                 </div>
-                <a href="{{ route('doctor.referral-letters.create') }}"
-                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-emerald-700 font-semibold text-sm rounded-xl hover:bg-emerald-50 transition shadow-lg">
-                    <i class='bx bx-plus'></i> New Referral Letter
-                </a>
+
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('doctor.referral-letters.create') }}"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-emerald-700 font-semibold text-sm rounded-xl hover:bg-emerald-50 transition shadow-lg">
+                        <i class='hgi-stroke hgi-plus-sign md:text-lg'></i>
+                        <span>New Referral Letter</span>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -31,7 +41,7 @@
                     <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wide mb-1.5">Search
                         Patient</label>
                     <div class="relative">
-                        <i class='bx bx-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                        <i class='hgi-stroke hgi-search-01 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                         <input type="text" name="search" value="{{ request('search') }}" placeholder="Patient name…"
                             class="w-full pl-9 pr-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
                     </div>
@@ -48,7 +58,7 @@
                 <div class="flex gap-2">
                     <button type="submit"
                         class="px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition">
-                        <i class='bx bx-filter-alt'></i> Filter
+                        <i class='hgi-stroke hgi-filter'></i> Filter
                     </button>
                     @if(request('search') || request('status'))
                         <a href="{{ route('doctor.referral-letters.index') }}"
@@ -117,12 +127,12 @@
                                         @if($letter->isIssued())
                                             <span
                                                 class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-emerald-100 text-emerald-700 flex items-center gap-1 w-fit">
-                                                <i class='bx bx-check-circle'></i> Issued
+                                                <i class='hgi-stroke hgi-checkmark-circle-02'></i> Issued
                                             </span>
                                         @else
                                             <span
                                                 class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-gray-100 text-gray-600 flex items-center gap-1 w-fit">
-                                                <i class='bx bx-edit-alt'></i> Draft
+                                                <i class='hgi-stroke hgi-edit-02'></i> Draft
                                             </span>
                                         @endif
                                     </td>
@@ -134,13 +144,13 @@
                                             <a href="{{ route('doctor.referral-letters.show', $letter->id) }}"
                                                 class="w-8 h-8 flex items-center justify-center bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-lg transition"
                                                 title="View">
-                                                <i class='bx bx-show'></i>
+                                                <i class='hgi-stroke hgi-view'></i>
                                             </a>
                                             @if($letter->isDraft())
                                                 <a href="{{ route('doctor.referral-letters.edit', $letter->id) }}"
                                                     class="w-8 h-8 flex items-center justify-center bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition"
                                                     title="Edit">
-                                                    <i class='bx bx-edit'></i>
+                                                    <i class='hgi-stroke hgi-edit-02'></i>
                                                 </a>
                                             @endif
                                         </div>
@@ -160,13 +170,13 @@
             @else
                 <div class="flex flex-col items-center py-16">
                     <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                        <i class='bx bx-transfer text-3xl text-gray-300'></i>
+                        <i class='hgi-stroke hgi-medical-file text-3xl text-gray-300'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No referral letters found</p>
                     <p class="text-gray-400 text-sm mt-1 mb-5">Create your first referral letter to get started</p>
                     <a href="{{ route('doctor.referral-letters.create') }}"
                         class="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white font-semibold text-sm rounded-xl hover:bg-emerald-700 transition">
-                        <i class='bx bx-plus'></i> New Referral Letter
+                        <i class='hgi-stroke hgi-plus-sign'></i> New Referral Letter
                     </a>
                 </div>
             @endif

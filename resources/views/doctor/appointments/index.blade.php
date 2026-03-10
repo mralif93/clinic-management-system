@@ -7,17 +7,20 @@
     <div class="space-y-6">
         <!-- Page Header -->
         <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-            <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                    <h1 class="text-2xl font-bold flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                            <i class='bx bx-calendar-check text-xl'></i>
-                        </div>
-                        My Appointments
-                    </h1>
-                    <p class="text-emerald-100 mt-2">Manage your patient appointments</p>
-                </div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+        <i class='hgi-stroke hgi-calendar-03-check text-xl'></i>
+    </div>
+    <div>
+        <h2 class="text-2xl font-bold">My Appointments</h2>
+        <p class="text-emerald-100 text-sm mt-1">Manage your patient appointments</p>
+    </div>
+</div>
             </div>
         </div>
 
@@ -45,12 +48,12 @@
                 </div>
                 <button type="submit"
                     class="inline-flex items-center px-5 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 transition shadow-sm">
-                    <i class='bx bx-search mr-2'></i> Filter
+                    <i class='hgi-stroke hgi-search-01 mr-2'></i> Filter
                 </button>
                 @if(request()->hasAny(['search', 'status', 'date']))
                     <a href="{{ route('doctor.appointments.index') }}"
                         class="inline-flex items-center px-5 py-2.5 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition">
-                        <i class='bx bx-x mr-1'></i> Clear
+                        <i class='hgi-stroke hgi-cancel-circle mr-1'></i> Clear
                     </a>
                 @endif
             </form>
@@ -128,15 +131,15 @@
                                     <div class="flex justify-end items-center gap-2">
                                         <a href="{{ route('doctor.appointments.show', $appointment->id) }}"
                                             class="w-8 h-8 flex items-center justify-center bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition" title="View">
-                                            <i class='bx bx-show text-lg'></i>
+                                            <i class='hgi-stroke hgi-eye text-lg'></i>
                                         </a>
                                         <a href="{{ route('doctor.appointments.invoice', $appointment->id) }}"
                                             class="w-8 h-8 flex items-center justify-center bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-lg transition" title="Invoice">
-                                            <i class='bx bx-receipt text-lg'></i>
+                                            <i class='hgi-stroke hgi-invoice-01 text-lg'></i>
                                         </a>
                                         <a href="{{ route('doctor.appointments.edit', $appointment->id) }}"
                                             class="w-8 h-8 flex items-center justify-center bg-amber-50 text-amber-600 hover:bg-amber-100 rounded-lg transition" title="Edit">
-                                            <i class='bx bx-pencil text-lg'></i>
+                                            <i class='hgi-stroke hgi-pencil-01 text-lg'></i>
                                         </a>
                                     </div>
                                 </td>
@@ -146,7 +149,7 @@
                                 <td colspan="6" class="px-6 py-12 text-center">
                                     <div class="flex flex-col items-center">
                                         <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                            <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
+                                            <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
                                         </div>
                                         <p class="text-gray-500 font-medium">No appointments found</p>
                                         <p class="text-gray-400 text-sm mt-1">Try adjusting your filters</p>

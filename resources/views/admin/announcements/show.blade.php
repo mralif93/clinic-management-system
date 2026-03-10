@@ -6,8 +6,11 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <h1 class="text-2xl font-bold">{{ $announcement->title }}</h1>
                     <div class="flex items-center gap-2 mt-2">
@@ -16,7 +19,7 @@
                         </span>
                         @if($announcement->is_featured)
                             <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-yellow-500/20">
-                                <i class='bx bx-star mr-1'></i> Featured
+                                <i class='hgi-stroke hgi-star mr-1'></i> Featured
                             </span>
                         @endif
                         @if($announcement->is_published)
@@ -33,12 +36,12 @@
                 <div class="flex items-center gap-3">
                     <a href="{{ route('admin.announcements.edit', $announcement->id) }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                        <i class='bx bx-edit'></i>
+                        <i class='hgi-stroke hgi-pencil-edit-01'></i>
                         Edit
                     </a>
                     <a href="{{ route('admin.announcements.index') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                        <i class='bx bx-arrow-back'></i>
+                        <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back to List
                     </a>
                 </div>
@@ -71,7 +74,7 @@
                             <a href="{{ $announcement->link_url }}" target="_blank" rel="noopener noreferrer"
                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all">
                                 {{ $announcement->link_text ?: 'Learn More' }}
-                                <i class='bx bx-link-external'></i>
+                                <i class='hgi-stroke hgi-link-external-01'></i>
                             </a>
                         </div>
                     @endif

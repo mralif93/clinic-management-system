@@ -11,7 +11,7 @@
                 <div class="space-y-2">
                     <div class="flex items-center gap-3">
                         <a href="{{ route('admin.schedules.index') }}" class="rounded-xl bg-white/20 p-2 backdrop-blur-sm hover:bg-white/30 transition-colors text-white">
-                            <i class='bx bx-arrow-back text-2xl'></i>
+                            <i class='hgi-stroke hgi-arrow-left-01 text-2xl'></i>
                         </a>
                         <h1 class="text-3xl font-bold text-white">Manage Schedule</h1>
                     </div>
@@ -20,7 +20,7 @@
                 
                 <div class="flex items-center gap-3">
                     <div class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/10 backdrop-blur-sm border border-white/10">
-                        <i class='bx bx-id-card text-indigo-200'></i>
+                        <i class='hgi-stroke hgi-identity-card text-indigo-200'></i>
                         <span class="font-medium">{{ $doctor->specialization }}</span>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         <!-- Card Header -->
                         <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
                             <h3 class="font-bold text-gray-900 flex items-center gap-2">
-                                <i class='bx bx-calendar-event text-indigo-500'></i>
+                                <i class='hgi-stroke hgi-calendar-03-event text-indigo-500'></i>
                                 {{ $dayName }}
                             </h3>
                             
@@ -74,7 +74,7 @@
                                 <!-- Working Hours -->
                                 <div class="space-y-2">
                                     <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                                        <i class='bx bx-time'></i> Working Hours
+                                        <i class='hgi-stroke hgi-clock-02'></i> Working Hours
                                     </label>
                                     <div class="grid grid-cols-2 gap-2">
                                         <div class="relative">
@@ -95,7 +95,7 @@
                                 <!-- Break Time -->
                                 <div class="space-y-2">
                                     <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                                        <i class='bx bx-coffee'></i> Break Time
+                                        <i class='hgi-stroke hgi-coffee-01'></i> Break Time
                                     </label>
                                     <div class="grid grid-cols-2 gap-2">
                                         <div class="relative">
@@ -116,7 +116,7 @@
                                 <!-- Slot Duration -->
                                 <div class="space-y-2">
                                     <label class="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                                        <i class='bx bx-timer'></i> Slot Duration
+                                        <i class='hgi-stroke hgi-clock-02r'></i> Slot Duration
                                     </label>
                                     <select name="schedules[{{ $dayIndex }}][slot_duration]" 
                                         class="w-full rounded-xl border-gray-200 bg-gray-50 text-sm focus:border-indigo-500 focus:ring-indigo-500 transition-colors">
@@ -144,7 +144,7 @@
             <div class="fixed bottom-6 right-6 z-40">
                 <button type="submit"
                     class="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white font-bold rounded-full shadow-xl hover:bg-indigo-700 hover:scale-105 hover:shadow-2xl transition-all duration-300">
-                    <i class='bx bx-save text-xl'></i>
+                    <i class='hgi-stroke hgi-floppy-disk text-xl'></i>
                     Save Schedule Changes
                 </button>
             </div>

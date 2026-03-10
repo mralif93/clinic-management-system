@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Doctor Dashboard - Clinic Management System')</title>
+    <title>@yield('title', 'Doctor Portal - Clinic Management System')</title>
 
     @php
         $logoPath = get_setting('clinic_logo');
@@ -21,161 +21,31 @@
     <link rel="shortcut icon" type="image/png" href="{{ $faviconUrl }}">
     <link rel="apple-touch-icon" href="{{ $faviconUrl }}">
 
-    <!-- Google Fonts - Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <!-- Google Fonts - Poppins (Local) -->
+    <link href="{{ asset('fonts/poppins.css') }}" rel="stylesheet">
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontSize: {
-                        'xs': '10px',
-                        'sm': '11px',
-                        'base': '12px',
-                        'lg': '14px',
-                        'xl': '16px',
-                        '2xl': '20px',
-                        '3xl': '24px',
-                        '4xl': '30px',
-                        '5xl': '36px',
-                    },
-                    colors: {
-                        primary: {
-                            50: '#ecfdf5',
-                            100: '#d1fae5',
-                            200: '#a7f3d0',
-                            300: '#6ee7b7',
-                            400: '#34d399',
-                            500: '#10b981',
-                            600: '#059669',
-                            700: '#047857',
-                            800: '#065f46',
-                            900: '#064e3b'
-                        },
-                        success: {
-                            50: '#f0fdf4',
-                            50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac',
-                            400: '#4ade80', 500: '#22c55e', 600: '#16a34a', 700: '#15803d',
-                            800: '#166534', 900: '#14532d',
-                        },
-                        'sidebar-dark': '#064e3b',
-                        'sidebar-text': '#a7f3d0',
-                    },
-                    spacing: {
-                        '1.25': '0.3125rem',
-                        '1.5': '0.375rem',
-                        '2.5': '0.625rem',
-                    },
-                    fontSize: {
-                        'xs': ['0.625rem', { lineHeight: '0.875rem' }],
-                        'sm': ['0.75rem', { lineHeight: '1rem' }],
-                        'base': ['0.875rem', { lineHeight: '1.25rem' }],
-                        'lg': ['1rem', { lineHeight: '1.5rem' }],
-                        'xl': ['1.125rem', { lineHeight: '1.75rem' }],
-                    },
-                    borderRadius: {
-                        'xs': '0.125rem',
-                        'sm': '0.25rem',
-                        'md': '0.375rem',
-                        'lg': '0.5rem',
-                        'xl': '0.75rem',
-                    },
-                    boxShadow: {
-                        card: '0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08)',
-                        sidebar: '4px 0 6px -1px rgb(0 0 0 / 0.1)'
-                    },
-                    keyframes: {
-                        'fadeIn': { from: { opacity: '0' }, to: { opacity: '1' } },
-                        'slideInUp': { from: { transform: 'translateY(20px)', opacity: '0' }, to: { transform: 'translateY(0)', opacity: '1' } },
-                        'shimmer': { '0%': { backgroundPosition: '-1000px 0' }, '100%': { backgroundPosition: '1000px 0' } }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.2s ease-in-out',
-                        'slide-in-up': 'slideInUp 0.3s ease-out',
-                        'shimmer': 'shimmer 2s infinite',
-                    }
-                }
-            },
-            plugins: [
-                function ({ addBase, addComponents, addUtilities, theme }) {
-                    addBase({
-                        'input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"], input[type="time"], input[type="datetime-local"], input[type="tel"], input[type="url"], input[type="search"], input[type="file"], select, textarea': {
-                            paddingTop: theme('spacing[1.5]'),
-                            paddingBottom: theme('spacing[1.5]'),
-                            paddingLeft: theme('spacing[2.5]'),
-                            paddingRight: theme('spacing[2.5]'),
-                            borderRadius: theme('borderRadius.md'),
-                            lineHeight: theme('lineHeight.5'),
-                        },
-                        'input[type="checkbox"], input[type="radio"]': {
-                            width: '0.625rem',
-                            height: '0.625rem',
-                        },
-                        'label': {
-                            marginBottom: theme('spacing[1]'),
-                            display: 'block',
-                            fontWeight: '500',
-                        },
-                        '*:focus-visible': {
-                            outline: `2px solid ${theme('colors.emerald.600')}`,
-                            outlineOffset: '2px',
-                            borderRadius: theme('borderRadius.sm'),
-                        }
-                    });
-                    addComponents({
-                        '.btn': {
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontWeight: '500',
-                            borderRadius: theme('borderRadius.md'),
-                            transition: 'all 0.2s ease-in-out',
-                            paddingTop: theme('spacing[1.5]'),
-                            paddingBottom: theme('spacing[1.5]'),
-                            paddingLeft: theme('spacing[4]'),
-                            paddingRight: theme('spacing[4]'),
-                            fontSize: theme('fontSize.sm'),
-                            lineHeight: theme('lineHeight.5'),
-                        },
-                        '.btn-primary': { backgroundColor: theme('colors.emerald.600'), color: 'white', '&:hover': { backgroundColor: theme('colors.emerald.700') } },
-                        '.rich-content p': { marginBottom: theme('spacing[2]') },
-                        '.rich-content ul': { listStyleType: 'disc', paddingLeft: theme('spacing[6]'), margin: `${theme('spacing[2]')} 0` },
-                        '.rich-content ol': { listStyleType: 'decimal', paddingLeft: theme('spacing[6]'), margin: `${theme('spacing[2]')} 0` },
-                        '.rich-content blockquote': { borderLeft: `3px solid ${theme('colors.emerald.300')}`, paddingLeft: theme('spacing[4]'), color: theme('colors.emerald.500') },
-                    });
-                    addUtilities({
-                        '.sr-only': { position: 'absolute', width: '1px', height: '1px', padding: '0', margin: '-1px', overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', borderWidth: '0' },
-                        '.skip-link': { position: 'absolute', top: '-40px', left: '0', background: theme('colors.emerald.600'), color: 'white', padding: '8px 16px', zIndex: '100', '&:focus': { top: '0' } },
-                    });
-                }
-            ]
-        }
-    </script>
+    <!-- Vite Assets -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Alpine.js CDN -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Alpine.js & Plugins -->
+    <script defer src="{{ asset('js/collapse.min.js') }}"></script>
+    <script defer src="{{ asset('js/alpine.min.js') }}"></script>
 
-    <!-- Boxicons CDN -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Boxicons -->
+    <link href='{{ asset("css/boxicons.min.css") }}' rel='stylesheet'>
 
-    <!-- Hugeicons CDN -->
-    <link rel="stylesheet" href="https://cdn.hugeicons.com/font/hgi-stroke-rounded.css" />
+    <!-- Hugeicons -->
+    <link href='{{ asset("css/hugeicons.css") }}' rel='stylesheet'>
 
-    <!-- Animate.css CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-    <!-- SweetAlert2 CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert2 -->
+    <link href="{{ asset('css/sweetalert2.min.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
 
     @stack('styles')
 </head>
 
-<body class="bg-gray-50 font-sans text-base text-gray-900" x-data="{ sidebarOpen: true, mobileSidebarOpen: false }">
+<body class="theme-doctor bg-gray-50 font-sans text-base text-gray-900"
+    x-data="{ sidebarOpen: true, mobileSidebarOpen: false }">
     <x-ui.skip-nav />
     <div class="min-h-screen flex">
 
@@ -188,10 +58,10 @@
 
         <!-- Sidebar -->
         <aside :class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
-            class="fixed lg:sticky top-0 left-0 z-50 h-screen w-64 bg-sidebar-dark text-white flex flex-col transition-transform duration-300 ease-in-out shadow-sidebar">
+            class="fixed lg:sticky top-0 left-0 z-50 h-screen w-64 bg-sidebar-dark text-white flex flex-col transition-all duration-300 ease-in-out shadow-sidebar overflow-hidden lg:overflow-visible border-r border-white/5">
 
             <!-- Logo Section -->
-            <div class="flex-shrink-0 p-5 border-b border-white/10">
+            <div class="flex-shrink-0 p-6 border-b border-white/5">
                 @php
                     $logoPath = get_setting('clinic_logo');
                     if ($logoPath && str_starts_with($logoPath, 'data:')) {
@@ -204,264 +74,257 @@
                     $clinicName = get_setting('clinic_name', 'Clinic Management');
                 @endphp
 
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-4">
                     @if($logoUrl)
-                        <div class="w-10 h-10 rounded-xl bg-white/10 p-1.5 flex items-center justify-center">
-                            <img src="{{ $logoUrl }}" alt="{{ $clinicName }}" class="max-h-full max-w-full object-contain">
+                        <div
+                            class="w-10 h-10 rounded-2xl bg-white/5 p-2 flex items-center justify-center border border-white/10 shadow-lg">
+                            <img src="{{ $logoUrl }}" alt="{{ $clinicName }}"
+                                class="max-h-full max-w-full object-contain filter brightness-110">
                         </div>
                     @else
                         <div
-                            class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center">
-                            <i class='bx bx-plus-circle text-xl text-white'></i>
+                            class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                            <i class='hgi-stroke hgi-plus-sign text-xl text-white'></i>
                         </div>
                     @endif
                     <div class="flex-1 min-w-0">
-                        <h1 class="text-sm font-bold text-white truncate">{{ $clinicName }}</h1>
-                        <p class="text-xs text-sidebar-text">Doctor Portal</p>
+                        <h1
+                            class="text-sm font-extrabold text-white truncate tracking-tight uppercase leading-none mb-1">
+                            {{ $clinicName }}
+                        </h1>
+                        <p class="text-[10px] text-emerald-400/80 font-bold tracking-[0.1em] uppercase">Doctor Portal</p>
                     </div>
                 </div>
             </div>
 
             <!-- Navigation -->
             @php
-                $navBase = "relative overflow-hidden flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all mb-1 before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-[3px] before:bg-gradient-to-b before:from-emerald-500 before:to-emerald-400 before:rounded-r-sm before:transition-all before:duration-200 before:content-['']";
-                $navActive = "bg-white/10 text-white before:h-[70%]";
-                $navInactive = "text-sidebar-text hover:bg-white/5 hover:text-white before:h-0 hover:before:h-[60%]";
+                $navBase = "group relative flex items-center gap-3 px-4 py-2.5 rounded-xl text-[13px] font-bold transition-all mb-1";
+                $navActive = "bg-emerald-500/10 text-emerald-400 shadow-[inset_0_0_20px_-10px_rgba(59,104,245,0.4)] border border-emerald-500/20";
+                $navInactive = "text-sidebar-text hover:bg-white/5 hover:text-white border border-transparent";
             @endphp
-            <nav class="flex-1 overflow-y-auto py-4 px-3">
-                <!-- Main Section -->
+            <nav class="flex-1 overflow-y-auto py-6 px-4 custom-scrollbar">
                 <div class="mb-6">
-                    <p class="px-3 mb-2 text-xs font-semibold text-sidebar-text uppercase tracking-wider">Main</p>
-
-                    <!-- Dashboard -->
+                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">Main</p>
                     <a href="{{ route('doctor.dashboard') }}"
                         class="{{ $navBase }} {{ request()->routeIs('doctor.dashboard') ? $navActive : $navInactive }}">
                         <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.dashboard') ? 'bg-emerald-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.dashboard') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                             <i
-                                class='bx bxs-dashboard text-lg {{ request()->routeIs('doctor.dashboard') ? 'text-emerald-400' : '' }}'></i>
+                                class='hgi-stroke hgi-dashboard-square-01 text-lg {{ request()->routeIs('doctor.dashboard') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
                         </div>
                         <span>Dashboard</span>
                     </a>
-
-                    <!-- Tasks -->
                     <a href="{{ route('doctor.todos.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.todos.*') ? $navActive : $navInactive }}">
+                        class="{{ $navBase }} {{ request()->routeIs('doctor.todos.index.*') || request()->routeIs('doctor.todos.index') ? $navActive : $navInactive }}">
                         <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.todos.*') ? 'bg-pink-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.todos.index.*') || request()->routeIs('doctor.todos.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                             <i
-                                class='bx bx-task text-lg {{ request()->routeIs('doctor.todos.*') ? 'text-pink-400' : '' }}'></i>
+                                class='hgi-stroke hgi-task-01 text-lg {{ request()->routeIs('doctor.todos.index.*') || request()->routeIs('doctor.todos.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
                         </div>
                         <span>Tasks</span>
                     </a>
-                </div>
-
-                <!-- Clinical Section -->
                 <div class="mb-6">
-                    <p class="px-3 mb-2 text-xs font-semibold text-sidebar-text uppercase tracking-wider">Clinical</p>
-
-                    <!-- Schedule -->
+                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">Clinical</p>
                     <a href="{{ route('doctor.schedule.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.schedule.*') ? $navActive : $navInactive }}">
+                        class="{{ $navBase }} {{ request()->routeIs('doctor.schedule.index.*') || request()->routeIs('doctor.schedule.index') ? $navActive : $navInactive }}">
                         <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.schedule.*') ? 'bg-teal-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.schedule.index.*') || request()->routeIs('doctor.schedule.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                             <i
-                                class='bx bx-calendar text-lg {{ request()->routeIs('doctor.schedule.*') ? 'text-teal-400' : '' }}'></i>
+                                class='hgi-stroke hgi-calendar-03 text-lg {{ request()->routeIs('doctor.schedule.index.*') || request()->routeIs('doctor.schedule.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
                         </div>
                         <span>Schedule</span>
                     </a>
-
-                    <!-- Appointments -->
                     <a href="{{ route('doctor.appointments.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.appointments.*') ? $navActive : $navInactive }}">
+                        class="{{ $navBase }} {{ request()->routeIs('doctor.appointments.index.*') || request()->routeIs('doctor.appointments.index') ? $navActive : $navInactive }}">
                         <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.appointments.*') ? 'bg-green-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.appointments.index.*') || request()->routeIs('doctor.appointments.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                             <i
-                                class='bx bx-calendar-check text-lg {{ request()->routeIs('doctor.appointments.*') ? 'text-green-400' : '' }}'></i>
+                                class='hgi-stroke hgi-calendar-01 text-lg {{ request()->routeIs('doctor.appointments.index.*') || request()->routeIs('doctor.appointments.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
                         </div>
                         <span>Appointments</span>
                     </a>
-
-                    <!-- Patients -->
                     <a href="{{ route('doctor.patients.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.patients.*') ? $navActive : $navInactive }}">
+                        class="{{ $navBase }} {{ request()->routeIs('doctor.patients.index.*') || request()->routeIs('doctor.patients.index') ? $navActive : $navInactive }}">
                         <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.patients.*') ? 'bg-blue-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.patients.index.*') || request()->routeIs('doctor.patients.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                             <i
-                                class='bx bx-group text-lg {{ request()->routeIs('doctor.patients.*') ? 'text-blue-400' : '' }}'></i>
+                                class='hgi-stroke hgi-user-group text-lg {{ request()->routeIs('doctor.patients.index.*') || request()->routeIs('doctor.patients.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
                         </div>
                         <span>Patients</span>
                     </a>
-
-                    <!-- Referral Letters -->
                     <a href="{{ route('doctor.referral-letters.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.referral-letters.*') ? $navActive : $navInactive }}">
+                        class="{{ $navBase }} {{ request()->routeIs('doctor.referral-letters.index.*') || request()->routeIs('doctor.referral-letters.index') ? $navActive : $navInactive }}">
                         <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.referral-letters.*') ? 'bg-violet-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.referral-letters.index.*') || request()->routeIs('doctor.referral-letters.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                             <i
-                                class='bx bx-transfer text-lg {{ request()->routeIs('doctor.referral-letters.*') ? 'text-violet-400' : '' }}'></i>
+                                class='hgi-stroke hgi-medical-file text-lg {{ request()->routeIs('doctor.referral-letters.index.*') || request()->routeIs('doctor.referral-letters.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
                         </div>
                         <span>Referral Letters</span>
                     </a>
-                </div>
-
-                <!-- HR Section -->
                 <div class="mb-6">
-                    <p class="px-3 mb-2 text-xs font-semibold text-sidebar-text uppercase tracking-wider">HR</p>
-
-                    <!-- Attendance -->
+                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">HR</p>
                     <a href="{{ route('doctor.attendance.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.attendance.*') ? $navActive : $navInactive }}">
+                        class="{{ $navBase }} {{ request()->routeIs('doctor.attendance.index.*') || request()->routeIs('doctor.attendance.index') ? $navActive : $navInactive }}">
                         <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.attendance.*') ? 'bg-orange-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.attendance.index.*') || request()->routeIs('doctor.attendance.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                             <i
-                                class='bx bx-time text-lg {{ request()->routeIs('doctor.attendance.*') ? 'text-orange-400' : '' }}'></i>
+                                class='hgi-stroke hgi-clock-02 text-lg {{ request()->routeIs('doctor.attendance.index.*') || request()->routeIs('doctor.attendance.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
                         </div>
                         <span>Attendance</span>
                     </a>
-
-                    <!-- Leave -->
                     <a href="{{ route('doctor.leaves.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.leaves.*') ? $navActive : $navInactive }}">
+                        class="{{ $navBase }} {{ request()->routeIs('doctor.leaves.index.*') || request()->routeIs('doctor.leaves.index') ? $navActive : $navInactive }}">
                         <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.leaves.*') ? 'bg-purple-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.leaves.index.*') || request()->routeIs('doctor.leaves.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                             <i
-                                class='bx bx-calendar-minus text-lg {{ request()->routeIs('doctor.leaves.*') ? 'text-purple-400' : '' }}'></i>
+                                class='hgi-stroke hgi-clock-01 text-lg {{ request()->routeIs('doctor.leaves.index.*') || request()->routeIs('doctor.leaves.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
                         </div>
                         <span>Leave</span>
                     </a>
-
-                    <!-- Payslips -->
                     <a href="{{ route('doctor.payslips.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.payslips.*') ? $navActive : $navInactive }}">
+                        class="{{ $navBase }} {{ request()->routeIs('doctor.payslips.index.*') || request()->routeIs('doctor.payslips.index') ? $navActive : $navInactive }}">
                         <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.payslips.*') ? 'bg-cyan-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.payslips.index.*') || request()->routeIs('doctor.payslips.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                             <i
-                                class='bx bx-wallet text-lg {{ request()->routeIs('doctor.payslips.*') ? 'text-cyan-400' : '' }}'></i>
+                                class='hgi-stroke hgi-invoice text-lg {{ request()->routeIs('doctor.payslips.index.*') || request()->routeIs('doctor.payslips.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
                         </div>
                         <span>Payslips</span>
                     </a>
-
-                    <!-- User Guide -->
-                    <a href="{{ route('user-guide') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('user-guide') ? $navActive : $navInactive }}">
+                    <a href="{{ route('doctor.digital-card.show') }}"
+                        class="{{ $navBase }} {{ request()->routeIs('doctor.digital-card.*') ? $navActive : $navInactive }}">
                         <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('user-guide') ? 'bg-blue-500/20' : 'bg-white/5' }} flex items-center justify-center">
+                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.digital-card.*') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
                             <i
-                                class='bx bx-book-reader text-lg {{ request()->routeIs('user-guide') ? 'text-blue-400' : '' }}'></i>
+                                class='hgi-stroke hgi-identity-card text-lg {{ request()->routeIs('doctor.digital-card.*') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
                         </div>
-                        <span>User Guide</span>
+                        <span>Digital Card</span>
                     </a>
-                </div>
             </nav>
 
             <!-- Footer Section -->
-            <div class="flex-shrink-0 border-t border-white/10 p-3">
-                <!-- Profile -->
-                <a href="{{ route('doctor.profile.show') }}"
-                    class="{{ $navBase }} {{ request()->routeIs('doctor.profile.*') ? $navActive : $navInactive }}">
+            <div class="flex-shrink-0 border-t border-white/5 p-4">
+                <a href="{{ route('user-guide') }}"
+                    class="{{ $navBase }} bg-white/5 text-white/50 hover:bg-white/10 hover:text-white">
                     <div
-                        class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.profile.*') ? 'bg-slate-500/20' : 'bg-white/5' }} flex items-center justify-center">
-                        <i
-                            class='bx bx-user text-lg {{ request()->routeIs('doctor.profile.*') ? 'text-slate-400' : '' }}'></i>
+                        class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class='hgi-stroke hgi-book-open-01 text-lg opacity-70'></i>
                     </div>
-                    <span>My Profile</span>
+                    <span>System Guide</span>
                 </a>
-
-                <!-- User Profile Section -->
-                <div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-white/5">
-                    <div
-                        class="w-9 h-9 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white text-sm font-bold">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-white truncate">Dr. {{ Auth::user()->name }}</p>
-                        <p class="text-xs text-sidebar-text truncate">{{ Auth::user()->doctor?->doctor_id ?? 'Doctor' }}
-                        </p>
-                    </div>
-                </div>
             </div>
         </aside>
 
         <!-- Main Content Area -->
-        <div class="flex-1 flex flex-col min-h-screen lg:ml-0">
+        <div class="flex-1 flex flex-col min-h-screen min-w-0 transition-all duration-300">
             <!-- Header -->
-            <header class="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-sm">
-                <div class="flex items-center justify-between px-3 sm:px-4 lg:px-6 h-14 sm:h-15 md:h-16">
+            <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-gray-100/50 shadow-sm w-full">
+                <div class="flex items-center justify-between px-3 sm:px-4 lg:px-6 h-14 sm:h-15 md:h-16 w-full">
                     <!-- Left Side - Mobile Menu & Breadcrumb -->
-                    <div class="flex items-center gap-2 sm:gap-3 md:gap-4 min-w-0 flex-1">
+                    <div class="flex items-center gap-2 sm:gap-3 md:gap-4 min-w-0">
                         <!-- Mobile Menu Toggle -->
                         <button @click="mobileSidebarOpen = !mobileSidebarOpen"
-                            class="lg:hidden p-1.5 sm:p-2 rounded-lg hover:bg-gray-100 transition-colors flex-shrink-0"
+                            class="lg:hidden p-1.5 sm:p-2 rounded-xl hover:bg-gray-100 transition-colors flex-shrink-0"
                             aria-label="Toggle sidebar">
-                            <i class='bx bx-menu text-lg sm:text-xl text-gray-600'></i>
+                            <i class='hgi-stroke hgi-menu-01 text-lg sm:text-xl text-gray-600'></i>
                         </button>
 
                         <!-- Page Title -->
                         <div class="min-w-0">
-                            <h1 class="text-base sm:text-lg font-semibold text-gray-900 truncate">
-                                @yield('page-title', 'Dashboard')</h1>
+                            <h1 class="text-base sm:text-lg font-bold text-gray-900 tracking-tight truncate">
+                                @yield('page-title', 'Dashboard')
+                            </h1>
                         </div>
                     </div>
 
                     <!-- Right Side - Actions -->
-                    <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
-                        <!-- Global Search -->
-                        <div class="hidden md:block w-48 lg:w-64 xl:w-80">
-                            <x-search.global-search />
-                        </div>
-
+                    <div class="flex items-center gap-1.5 sm:gap-4 flex-shrink-0">
                         <!-- User Dropdown -->
                         <div class="relative" x-data="{ open: false }" @click.away="open = false">
                             <button @click="open = !open"
-                                class="flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                                <div
-                                    class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-xs sm:text-sm font-semibold flex-shrink-0">
-                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                class="flex items-center gap-2 p-1 rounded-full hover:bg-white hover:shadow-premium transition-all border border-transparent hover:border-gray-100 group">
+                                <div class="flex items-center gap-2.5 px-2 py-1">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white text-xs font-black shadow-md group-hover:scale-105 transition-transform">
+                                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                    </div>
+                                    <div class="w-px h-4 bg-gray-200"></div>
+                                    <span
+                                        class="text-xs font-bold text-gray-700 group-hover:text-emerald-600 transition-colors truncate max-w-[100px]">
+                                        {{ Auth::user()->name }}
+                                    </span>
                                 </div>
-                                <i class='bx bx-chevron-down text-gray-500 hidden sm:block text-sm sm:text-base flex-shrink-0'
-                                    :class="open ? 'rotate-180' : ''" style="transition: transform 0.2s;"></i>
+                                <i class='hgi-stroke hgi-arrow-down-01 text-gray-400 text-[10px] mr-2 transition-transform duration-300'
+                                    :class="open ? 'rotate-180' : ''"></i>
                             </button>
 
                             <!-- Dropdown Menu -->
-                            <div x-show="open" x-transition:enter="transition ease-out duration-100"
-                                x-transition:enter-start="transform opacity-0 scale-95"
-                                x-transition:enter-end="transform opacity-100 scale-100"
-                                x-transition:leave="transition ease-in duration-75"
-                                x-transition:leave-start="transform opacity-100 scale-100"
-                                x-transition:leave-end="transform opacity-0 scale-95"
-                                class="absolute right-0 mt-2 w-48 sm:w-56 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50"
-                                style="display: none;">
+                            <div x-show="open" x-transition:enter="transition ease-out duration-300"
+                                x-transition:enter-start="opacity-0 scale-95 -translate-y-2"
+                                x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                                x-transition:leave="transition ease-in duration-200"
+                                x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                                x-transition:leave-end="opacity-0 scale-95 -translate-y-2"
+                                class="absolute right-0 mt-3 w-56 sm:w-60 bg-white rounded-[2rem] shadow-premium border border-gray-100 overflow-hidden z-50 pointer-events-auto"
+                                style="display: none;" @click.away="open = false">
 
-                                <!-- User Info -->
-                                <div class="px-4 py-3 border-b border-gray-100">
-                                    <p class="text-sm font-semibold text-gray-800">Dr. {{ Auth::user()->name }}</p>
-                                    <p class="text-xs text-gray-500 mt-0.5">{{ Auth::user()->email }}</p>
-                                    @if(Auth::user()->doctor)
-                                        <p class="text-xs text-emerald-600 mt-1">ID: {{ Auth::user()->doctor->doctor_id }}
-                                        </p>
-                                    @endif
+                                <!-- Compact Premium User Profile Header -->
+                                <div
+                                    class="relative p-4 overflow-hidden bg-gradient-to-br from-emerald-900 via-emerald-800 to-indigo-900 text-white">
+                                    <div class="absolute -right-2 -top-4 w-16 h-16 bg-white/5 rounded-full blur-xl">
+                                    </div>
+
+                                    <div class="relative flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-sm font-black text-white shadow-lg">
+                                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <p class="text-[13px] font-black truncate leading-tight">
+                                                {{ Auth::user()->name }}
+                                            </p>
+                                            <div class="mt-1 flex items-center gap-1.5">
+                                                <div
+                                                    class="px-1.5 py-0.5 rounded-md bg-white/10 backdrop-blur-md border border-white/10 text-[8px] font-black uppercase tracking-widest text-white/90">
+                                                    {{ Auth::user()->doctor ? Auth::user()->doctor->doctor_id : ucfirst('doctor') }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <!-- Menu Items -->
-                                <div class="py-1">
-                                    <a href="{{ route('doctor.profile.show') }}"
-                                        class="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                        <i class='bx bx-user text-lg text-gray-400'></i>
-                                        <span>My Profile</span>
-                                    </a>
-                                </div>
+                                <!-- Compact Menu Items -->
+                                <div class="p-2 bg-white">
+                                    <div class="space-y-0.5">
+                                        <a href="{{ route('doctor.profile.show') }}"
+                                            class="flex items-center justify-between group px-3 py-2 rounded-2xl hover:bg-emerald-50 transition-all duration-300">
+                                            <div class="flex items-center gap-2.5">
+                                                <div
+                                                    class="p-1.5 rounded-xl bg-emerald-50 text-emerald-600 group-hover:bg-white transition-colors shadow-sm border border-transparent group-hover:border-emerald-100">
+                                                    <i class='hgi-stroke hgi-user-circle text-base'></i>
+                                                </div>
+                                                <span
+                                                    class="text-xs font-bold text-gray-700 group-hover:text-emerald-700">Account</span>
+                                            </div>
+                                            <i
+                                                class='hgi-stroke hgi-arrow-right-01 text-gray-300 group-hover:text-emerald-400 opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all text-[10px]'></i>
+                                        </a>
+                                    </div>
 
-                                <!-- Logout -->
-                                <div class="border-t border-gray-100 pt-1">
-                                    <form method="POST" action="{{ route('logout') }}" class="logout-form">
-                                        @csrf
-                                        <button type="submit"
-                                            class="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
-                                            <i class='bx bx-log-out text-lg'></i>
-                                            <span>Logout</span>
-                                        </button>
-                                    </form>
+                                    <!-- Compact Logout -->
+                                    <div class="mt-1.5 pt-1.5 border-t border-gray-50">
+                                        <form method="POST" action="{{ route('logout') }}" class="logout-form">
+                                            @csrf
+                                            <button type="submit"
+                                                class="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-bold text-red-600 hover:bg-red-50 rounded-2xl transition-all text-left group">
+                                                <div
+                                                    class="p-1.5 rounded-xl bg-red-50 group-hover:bg-white transition-colors shadow-sm border border-transparent group-hover:border-red-100">
+                                                    <i class='hgi-stroke hgi-logout-01 text-base'></i>
+                                                </div>
+                                                <span>Sign Out</span>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -534,11 +397,12 @@
         window.showInfo = (message, title = 'Info') => showAlert({ icon: 'info', title, text: message });
         window.showWarning = (message, title = 'Warning') => showAlert({ icon: 'warning', title, text: message });
 
-        // Show session messages
-        @if(session('success')) showSuccess('{{ session('success') }}'); @endif
+            // Show session messages
+            @if(session('success')) showSuccess('{{ session('success') }}'); @endif
         @if(session('error')) showError('{{ session('error') }}'); @endif
         @if(session('info')) showInfo('{{ session('info') }}'); @endif
         @if(session('warning')) showWarning('{{ session('warning') }}'); @endif
+
 
         // Logout confirmation with clock-out option
         @php
@@ -555,7 +419,6 @@
                 const formElement = this;
 
                 @if($hasActiveAttendance)
-                    // Doctor is clocked in - show options
                     Swal.fire({
                         title: 'Before you go...',
                         html: `
@@ -563,7 +426,7 @@
                                 <p class="text-gray-600 mb-4">You are still clocked in. What would you like to do?</p>
                                 <div class="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-3">
                                     <div class="flex items-center gap-2 text-amber-700">
-                                        <i class='bx bx-time text-xl'></i>
+                                        <i class='hgi-stroke hgi-clock-02 text-xl'></i>
                                         <span class="font-medium">You haven't clocked out yet</span>
                                     </div>
                                 </div>
@@ -573,8 +436,8 @@
                         iconColor: '#f59e0b',
                         showDenyButton: true,
                         showCancelButton: true,
-                        confirmButtonText: '<i class="bx bx-log-out mr-1"></i> Clock Out & Logout',
-                        denyButtonText: '<i class="bx bx-log-out mr-1"></i> Just Logout',
+                        confirmButtonText: '<i class="hgi-stroke hgi-logout-01 mr-1"></i> Clock Out & Logout',
+                        denyButtonText: '<i class="hgi-stroke hgi-logout-01 mr-1"></i> Just Logout',
                         cancelButtonText: 'Cancel',
                         confirmButtonColor: '#10b981',
                         denyButtonColor: '#ef4444',
@@ -591,7 +454,7 @@
                             // Clock out first, then logout
                             Swal.fire({
                                 title: 'Clocking Out...',
-                                html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-green-500"></i><span>Recording your clock out time...</span></div>',
+                                html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-green-500"></i><span>Recording your clock out time...</span></div>',
                                 allowOutsideClick: false,
                                 showConfirmButton: false
                             });
@@ -608,7 +471,7 @@
                                 // Now logout
                                 Swal.fire({
                                     title: 'Logging out...',
-                                    html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-amber-500"></i><span>Goodbye!</span></div>',
+                                    html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-amber-500"></i><span>Goodbye!</span></div>',
                                     allowOutsideClick: false,
                                     showConfirmButton: false
                                 });
@@ -624,7 +487,7 @@
                             // Just logout without clocking out
                             Swal.fire({
                                 title: 'Logging out...',
-                                html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-red-500"></i><span>Goodbye!</span></div>',
+                                html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-red-500"></i><span>Goodbye!</span></div>',
                                 allowOutsideClick: false,
                                 showConfirmButton: false
                             });
@@ -634,7 +497,6 @@
                         }
                     });
                 @else
-                    // Doctor is not clocked in - simple logout confirmation
                     Swal.fire({
                         title: 'Logout?',
                         text: 'Are you sure you want to logout?',
@@ -643,8 +505,7 @@
                         confirmButtonColor: '#ef4444',
                         cancelButtonColor: '#6b7280',
                         confirmButtonText: 'Yes, logout',
-                        cancelButtonText: 'Cancel',
-                        customClass: { popup: 'rounded-2xl' }
+                        cancelButtonText: 'Cancel'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             Swal.fire({

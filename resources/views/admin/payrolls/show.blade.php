@@ -6,17 +6,20 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-emerald-600 to-green-600 rounded-2xl p-6 text-white shadow-lg">
+        <div class="bg-gradient-to-r from-emerald-600 to-green-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div
                         class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30">
-                        <i class='bx bx-money text-4xl'></i>
+                        <i class='hgi-stroke hgi-money-bag-01 text-4xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">Payslip #{{ $payroll->id }}</h1>
                         <p class="text-emerald-100 flex items-center gap-2 mt-1">
-                            <i class='bx bx-user'></i>
+                            <i class='hgi-stroke hgi-user'></i>
                             {{ $payroll->user->name ?? 'Employee' }} • {{ $payroll->pay_period ?? 'N/A' }}
                         </p>
                         <div class="flex flex-wrap gap-2 mt-2">
@@ -30,11 +33,11 @@
                             <span
                                 class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium {{ $statusColors[$payroll->status] ?? 'bg-gray-400/30' }}">
                                 @if($payroll->status === 'paid')
-                                    <i class='bx bx-check-circle mr-1'></i>
+                                    <i class='hgi-stroke hgi-checkmark-circle-02 mr-1'></i>
                                 @elseif($payroll->status === 'approved')
-                                    <i class='bx bx-badge-check mr-1'></i>
+                                    <i class='hgi-stroke hgi-checkmark-badge-01 mr-1'></i>
                                 @else
-                                    <i class='bx bx-file mr-1'></i>
+                                    <i class='hgi-stroke hgi-file-01 mr-1'></i>
                                 @endif
                                 {{ ucfirst($payroll->status) }}
                             </span>
@@ -45,11 +48,11 @@
                     <!-- Icon-only action buttons -->
                     <button onclick="printPayslip()" title="Print Payslip"
                         class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-blue-600 hover:bg-blue-50 hover:scale-105 transition-all shadow-lg">
-                        <i class='bx bx-printer text-xl'></i>
+                        <i class='hgi-stroke hgi-printer text-xl'></i>
                     </button>
                     <button onclick="downloadPayslip()" title="Download PDF"
                         class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-emerald-600 hover:bg-emerald-50 hover:scale-105 transition-all shadow-lg">
-                        <i class='bx bx-download text-xl'></i>
+                        <i class='hgi-stroke hgi-download-04 text-xl'></i>
                     </button>
                     
                     <div class="w-px h-8 bg-white/30 mx-1"></div>
@@ -57,24 +60,24 @@
                     @if($payroll->status === 'draft')
                         <button onclick="approvePayroll({{ $payroll->id }})"
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-emerald-600 rounded-full font-semibold hover:bg-emerald-50 hover:scale-105 transition-all shadow-lg">
-                            <i class='bx bx-check-circle text-lg'></i>
+                            <i class='hgi-stroke hgi-checkmark-circle-02 text-lg'></i>
                             Approve
                         </button>
                         <a href="{{ route('admin.payrolls.edit', $payroll->id) }}" title="Edit Payslip"
                             class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-amber-600 hover:bg-amber-50 hover:scale-105 transition-all shadow-lg">
-                            <i class='bx bx-edit text-xl'></i>
+                            <i class='hgi-stroke hgi-pencil-edit-01 text-xl'></i>
                         </a>
                     @elseif($payroll->status === 'approved')
                         <button onclick="markAsPaid({{ $payroll->id }})"
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-purple-600 rounded-full font-semibold hover:bg-purple-50 hover:scale-105 transition-all shadow-lg">
-                            <i class='bx bx-dollar-circle text-lg'></i>
+                            <i class='hgi-stroke hgi-dollar-circle text-lg'></i>
                             Mark as Paid
                         </button>
                     @endif
                     
                     <a href="{{ route('admin.payrolls.index') }}"
                         class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur text-white rounded-full font-medium hover:bg-white/30 transition-all">
-                        <i class='bx bx-arrow-back'></i>
+                        <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back
                     </a>
                 </div>
@@ -131,7 +134,7 @@
             <div class="bg-white rounded-2xl shadow-sm border-2 border-red-200 overflow-hidden">
                 <div class="p-6 border-b border-red-100 bg-red-50/50">
                     <h3 class="text-lg font-semibold text-red-900 flex items-center gap-2">
-                        <i class='bx bx-error-circle text-red-600'></i>
+                        <i class='hgi-stroke hgi-alert-circle text-red-600'></i>
                         Danger Zone
                     </h3>
                 </div>
@@ -146,7 +149,7 @@
                             @method('DELETE')
                             <button type="submit"
                                 class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-all text-sm shadow-lg shadow-red-600/20">
-                                <i class='bx bx-trash'></i>
+                                <i class='hgi-stroke hgi-delete-01'></i>
                                 Delete Payslip
                             </button>
                         </form>
@@ -156,8 +159,8 @@
         @endif
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <script src="{{ asset('js/html2pdf.min.js') }}"></script>
+    <link href="{{ asset('css/boxicons.min.css') }}" rel="stylesheet">
     @push('scripts')
         <script>
             function getPdfOptions(filename) {

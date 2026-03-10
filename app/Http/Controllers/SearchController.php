@@ -44,7 +44,7 @@ class SearchController extends Controller
                         'title' => $patient->full_name,
                         'subtitle' => $patient->patient_id,
                         'url' => route('admin.patients.show', $patient->id),
-                        'icon' => 'bx-user',
+                        'icon' => 'hgi-user',
                     ];
                 });
 
@@ -68,7 +68,7 @@ class SearchController extends Controller
                         'title' => 'Dr. '.$doctor->full_name,
                         'subtitle' => $doctor->doctor_id,
                         'url' => route('admin.doctors.show', $doctor->id),
-                        'icon' => 'bx-plus-medical',
+                        'icon' => 'hgi-medicine-01',
                     ];
                 });
 
@@ -92,7 +92,7 @@ class SearchController extends Controller
                         'title' => 'Appointment #'.$appointment->id,
                         'subtitle' => $appointment->patient?->full_name.' - '.($appointment->appointment_date ? $appointment->appointment_date->format('M d, Y') : ''),
                         'url' => route('admin.appointments.show', $appointment->id),
-                        'icon' => 'bx-calendar-check',
+                        'icon' => 'hgi-calendar-03-check',
                     ];
                 });
 

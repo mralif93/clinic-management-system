@@ -6,7 +6,7 @@
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
-                    <i class='bx bx-book-reader text-blue-600'></i>
+                    <i class='hgi-stroke hgi-book-open-02 text-blue-600'></i>
                     System User Guide
                 </h2>
                 <p class="text-sm text-gray-600 mt-1">Comprehensive guide for all modules across different user roles.
@@ -19,9 +19,9 @@
             @php
                 $roles = [
                     'admin' => ['icon' => 'bx-shield', 'label' => 'Admin'],
-                    'doctor' => ['icon' => 'bx-plus-medical', 'label' => 'Doctor'],
+                    'doctor' => ['icon' => 'hgi-medicine-01', 'label' => 'Doctor'],
                     'staff' => ['icon' => 'bx-id-card', 'label' => 'Staff'],
-                    'patient' => ['icon' => 'bx-user', 'label' => 'Patient']
+                    'patient' => ['icon' => 'hgi-user', 'label' => 'Patient']
                 ];
             @endphp
 
@@ -29,7 +29,7 @@
                 <button @click="activeTab = '{{ $key }}'; activeAccordion = null"
                     :class="activeTab === '{{ $key }}' ? 'bg-blue-600 text-white shadow-md' : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'"
                     class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200">
-                    <i class='bx {{ $data['icon'] }}'></i>
+                    <i class='hgi-stroke {{ $data['icon'] }}'></i>
                     {{ $data['label'] }}
                 </button>
             @endforeach
@@ -88,7 +88,7 @@
                                 @click="activeAccordion = activeAccordion === '{{ $roleKey }}-{{ Str::slug($moduleName) }}' ? null : '{{ $roleKey }}-{{ Str::slug($moduleName) }}'"
                                 class="w-full flex items-center justify-between p-4 bg-white text-left focus:outline-none">
                                 <span class="font-semibold text-gray-800">{{ $moduleName }}</span>
-                                <i class='bx bx-chevron-down text-xl text-gray-500 transition-transform duration-300'
+                                <i class='hgi-stroke hgi-arrow-down-01 text-xl text-gray-500 transition-transform duration-300'
                                     :class="activeAccordion === '{{ $roleKey }}-{{ Str::slug($moduleName) }}' ? 'rotate-180 text-blue-600' : ''"></i>
                             </button>
                             <div x-show="activeAccordion === '{{ $roleKey }}-{{ Str::slug($moduleName) }}'" x-collapse>

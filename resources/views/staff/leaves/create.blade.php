@@ -5,11 +5,11 @@
         <!-- Page Header -->
         <div class="bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 rounded-2xl shadow-lg overflow-hidden">
             <div class="p-6 md:p-8">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="flex items-center gap-4">
                         <a href="{{ route('staff.leaves.index') }}"
-                            class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/30 transition">
-                            <i class='bx bx-arrow-back text-white text-xl'></i>
+                            class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                            <i class='hgi-stroke hgi-arrow-left-01 text-white text-xl'></i>
                         </a>
                         <div class="text-white">
                             <h1 class="text-2xl font-bold">Apply for Leave</h1>
@@ -75,7 +75,7 @@
                         <!-- Duration Calculation (Auto-updated via JS) -->
                         <div id="duration_display"
                             class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-center gap-3">
-                            <i class='bx bx-time text-blue-600 text-xl'></i>
+                            <i class='hgi-stroke hgi-clock-02 text-blue-600 text-xl'></i>
                             <p class="text-blue-800 font-medium">Total Duration: <span id="total_days">0</span> days</p>
                         </div>
 
@@ -99,7 +99,7 @@
                             <div
                                 class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-500 transition-colors">
                                 <div class="space-y-1 text-center">
-                                    <i class='bx bx-cloud-upload text-4xl text-gray-400'></i>
+                                    <i class='hgi-stroke hgi-cloud-upload text-4xl text-gray-400'></i>
                                     <div class="flex text-sm text-gray-600">
                                         <label for="attachment"
                                             class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
@@ -124,7 +124,7 @@
                                 class="px-6 py-2.5 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium">Cancel</a>
                             <button type="submit"
                                 class="px-6 py-2.5 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-xl hover:from-purple-600 hover:to-indigo-700 transition-all shadow-lg shadow-purple-500/30 flex items-center gap-2 font-semibold">
-                                <i class='bx bx-send'></i>
+                                <i class='hgi-stroke hgi-sent'></i>
                                 Submit Request
                             </button>
                         </div>

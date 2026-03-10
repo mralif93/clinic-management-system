@@ -22,7 +22,7 @@
                         <div class="p-6">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="bg-purple-100 p-3 rounded-full">
-                                    <i class='bx bx-package text-2xl text-purple-600'></i>
+                                    <i class='hgi-stroke hgi-package text-2xl text-purple-600'></i>
                                 </div>
                                 @if(!empty($package['original_price']) && !empty($package['price']))
                                     @php
@@ -44,13 +44,13 @@
                             <div class="space-y-2 mb-4">
                                 @if(!empty($package['sessions']))
                                     <div class="flex items-center text-gray-600 text-sm">
-                                        <i class='bx bx-calendar-check text-purple-600 mr-2'></i>
+                                        <i class='hgi-stroke hgi-calendar-03-check text-purple-600 mr-2'></i>
                                         <span>{{ $package['sessions'] }} Sessions</span>
                                     </div>
                                 @endif
                                 @if(!empty($package['duration']))
                                     <div class="flex items-center text-gray-600 text-sm">
-                                        <i class='bx bx-time text-purple-600 mr-2'></i>
+                                        <i class='hgi-stroke hgi-clock-02 text-purple-600 mr-2'></i>
                                         <span>{{ $package['duration'] }} Per Session</span>
                                     </div>
                                 @endif
@@ -90,7 +90,7 @@
         @else
             <div class="text-center py-16">
                 <div class="w-20 h-20 bg-purple-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class='bx bx-package text-3xl text-purple-400'></i>
+                    <i class='hgi-stroke hgi-package text-3xl text-purple-400'></i>
                 </div>
                 <p class="text-gray-500 text-lg">No packages available at the moment.</p>
                 <p class="text-gray-400 text-sm mt-2">Please check back later or contact us for more information.</p>
@@ -98,7 +98,10 @@
         @endif
 
         <!-- CTA Section -->
-        <div class="mt-12 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-8 text-white text-center">
+        <div class="mt-12 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-8 text-white text-center shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <h3 class="text-2xl font-bold mb-4">Ready to Get Started?</h3>
             <p class="text-purple-100 mb-6">Choose from our special packages designed for your wellness journey</p>
             @auth

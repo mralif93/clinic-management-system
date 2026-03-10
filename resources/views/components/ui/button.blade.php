@@ -41,7 +41,7 @@
 >
     @if($loading)
         <span class="absolute inset-0 flex items-center justify-center">
-            <i class='bx bx-loader-alt bx-spin'></i>
+            <i class='hgi-stroke hgi-loading-02 bx-spin'></i>
         </span>
     @endif
     

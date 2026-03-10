@@ -22,7 +22,7 @@
                 <div class="flex items-end">
                     <button type="submit"
                         class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                        <i class='bx bx-search mr-2'></i>Generate Report
+                        <i class='hgi-stroke hgi-search-01 mr-2'></i>Generate Report
                     </button>
                 </div>
             </form>
@@ -37,7 +37,7 @@
                         <p class="text-3xl font-bold text-gray-900 mt-2">{{ $summary->count() }}</p>
                     </div>
                     <div class="bg-blue-100 p-4 rounded-full">
-                        <i class='bx bx-user text-3xl text-blue-600'></i>
+                        <i class='hgi-stroke hgi-user text-3xl text-blue-600'></i>
                     </div>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                         <p class="text-3xl font-bold text-green-600 mt-2">{{ $summary->sum('total_days') }}</p>
                     </div>
                     <div class="bg-green-100 p-4 rounded-full">
-                        <i class='bx bx-calendar text-3xl text-green-600'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-3xl text-green-600'></i>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                         </p>
                     </div>
                     <div class="bg-purple-100 p-4 rounded-full">
-                        <i class='bx bx-time text-3xl text-purple-600'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-3xl text-purple-600'></i>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                         <p class="text-3xl font-bold text-yellow-600 mt-2">{{ $summary->sum('late') }}</p>
                     </div>
                     <div class="bg-yellow-100 p-4 rounded-full">
-                        <i class='bx bx-error-circle text-3xl text-yellow-600'></i>
+                        <i class='hgi-stroke hgi-alert-circle text-3xl text-yellow-600'></i>
                     </div>
                 </div>
             </div>
@@ -90,11 +90,11 @@
                 <div class="flex gap-2">
                     <a href="{{ route('admin.attendance.export', ['start_date' => $startDate, 'end_date' => $endDate]) }}"
                         class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                        <i class='bx bx-download mr-2'></i>Export CSV
+                        <i class='hgi-stroke hgi-download-04 mr-2'></i>Export CSV
                     </a>
                     <button onclick="window.print()"
                         class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
-                        <i class='bx bx-printer mr-2'></i>Print Report
+                        <i class='hgi-stroke hgi-printer mr-2'></i>Print Report
                     </button>
                 </div>
             </div>
@@ -118,7 +118,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                                            <i class='bx bx-user text-xl text-blue-600'></i>
+                                            <i class='hgi-stroke hgi-user text-xl text-blue-600'></i>
                                         </div>
                                         <div>
                                             <div class="text-sm font-medium text-gray-900">{{ $userSummary['user']->name }}
@@ -156,7 +156,7 @@
                         @empty
                             <tr>
                                 <td colspan="8" class="px-6 py-8 text-center text-gray-500">
-                                    <i class='bx bx-data text-4xl mb-2'></i>
+                                    <i class='hgi-stroke hgi-database-01 text-4xl mb-2'></i>
                                     <p>No attendance data found for the selected date range</p>
                                 </td>
                             </tr>
@@ -193,7 +193,7 @@
         <div class="flex justify-between items-center">
             <a href="{{ route('admin.attendance.index') }}"
                 class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
-                <i class='bx bx-arrow-back mr-2'></i>Back to Attendance
+                <i class='hgi-stroke hgi-arrow-left-01 mr-2'></i>Back to Attendance
             </a>
         </div>
     </div>

@@ -8,7 +8,7 @@
             <!-- Header -->
             <div class="mb-8 md:mb-12 text-center">
                 <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
-                    <i class='bx bx-qr text-blue-600 text-3xl'></i>
+                    <i class='hgi-stroke hgi-qr-code text-blue-600 text-3xl'></i>
                 </div>
                 <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3">How to Use Your QR Code</h1>
                 <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">A simple guide to using your appointment QR code at our clinic</p>
@@ -67,15 +67,15 @@
                                 </p>
                                 <ul class="mt-3 space-y-2 text-gray-600">
                                     <li class="flex items-center gap-2">
-                                        <i class='bx bx-check text-green-500'></i>
+                                        <i class='hgi-stroke hgi-checkmark-circle-02 text-green-500'></i>
                                         Show it on your phone screen
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i class='bx bx-check text-green-500'></i>
+                                        <i class='hgi-stroke hgi-checkmark-circle-02 text-green-500'></i>
                                         Screenshot for offline access
                                     </li>
                                     <li class="flex items-center gap-2">
-                                        <i class='bx bx-check text-green-500'></i>
+                                        <i class='hgi-stroke hgi-checkmark-circle-02 text-green-500'></i>
                                         Note down your reference number
                                     </li>
                                 </ul>
@@ -150,7 +150,7 @@
                                 </p>
                                 <div class="mt-4 p-4 bg-cyan-50 rounded-xl border border-cyan-200">
                                     <div class="flex items-center gap-3">
-                                        <i class='bx bx-bell-ring text-cyan-600 text-2xl'></i>
+                                        <i class='hgi-stroke hgi-notification-03 text-cyan-600 text-2xl'></i>
                                         <div>
                                             <p class="font-medium text-cyan-800">You'll be notified!</p>
                                             <p class="text-sm text-cyan-600">Staff will call you with your room number when the doctor accepts.</p>
@@ -220,24 +220,24 @@
             <div class="mt-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl shadow-lg overflow-hidden">
                 <div class="p-6 text-white">
                     <h3 class="font-semibold text-lg flex items-center gap-2">
-                        <i class='bx bx-lightbulb text-yellow-300'></i>
+                        <i class='hgi-stroke hgi-idea text-yellow-300'></i>
                         Helpful Tips
                     </h3>
                     <ul class="mt-4 space-y-3">
                         <li class="flex items-start gap-3">
-                            <i class='bx bx-check-circle text-green-300 mt-0.5'></i>
+                            <i class='hgi-stroke hgi-checkmark-circle-02 text-green-300 mt-0.5'></i>
                             <span>Arrive 10-15 minutes before your appointment time</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i class='bx bx-check-circle text-green-300 mt-0.5'></i>
+                            <i class='hgi-stroke hgi-checkmark-circle-02 text-green-300 mt-0.5'></i>
                             <span>Take a screenshot of your QR code in case of poor internet connection</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i class='bx bx-check-circle text-green-300 mt-0.5'></i>
+                            <i class='hgi-stroke hgi-checkmark-circle-02 text-green-300 mt-0.5'></i>
                             <span>Bring a valid ID for verification</span>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i class='bx bx-check-circle text-green-300 mt-0.5'></i>
+                            <i class='hgi-stroke hgi-checkmark-circle-02 text-green-300 mt-0.5'></i>
                             <span>If you need to cancel, do so at least 24 hours in advance</span>
                         </li>
                     </ul>
@@ -247,7 +247,7 @@
             <!-- Back Button -->
             <div class="mt-8 text-center">
                 <a href="{{ route('patient.dashboard') }}" class="inline-flex items-center px-6 py-3 bg-gray-900 text-white font-medium rounded-xl hover:bg-gray-800 transition">
-                    <i class='bx bx-arrow-back mr-2'></i>
+                    <i class='hgi-stroke hgi-arrow-left-01 mr-2'></i>
                     Back to Dashboard
                 </a>
             </div>
@@ -255,23 +255,15 @@
     </div>
 
     @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="{{ asset('js/qrcode.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var qrContainer = document.getElementById('example-qr');
             if (qrContainer) {
-                QRCode.toCanvas(document.createElement('canvas'), 'EXAMPLE-TOKEN-123', {
-                    width: 120,
-                    margin: 1,
-                    color: {
-                        dark: '#1f2937',
-                        light: '#ffffff'
-                    }
-                }, function(error, canvas) {
-                    if (!error) {
-                        qrContainer.appendChild(canvas);
-                    }
-                });
+                var qr = qrcode(0, 'L');
+                qr.addData('EXAMPLE-TOKEN-123');
+                qr.make();
+                qrContainer.innerHTML = qr.createImgTag(3, 8);
             }
         });
     </script>

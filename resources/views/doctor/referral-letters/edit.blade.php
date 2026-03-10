@@ -8,7 +8,7 @@
     <div class="flex items-center gap-3">
         <a href="{{ route('doctor.referral-letters.show', $letter->id) }}"
            class="w-9 h-9 bg-white border border-gray-200 rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition text-gray-600">
-            <i class='bx bx-arrow-back text-lg'></i>
+            <i class='hgi-stroke hgi-arrow-left-01 text-lg'></i>
         </a>
         <div>
             <h2 class="text-xl font-bold text-gray-900">Edit {{ $letter->referral_number }}</h2>
@@ -27,7 +27,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-user text-emerald-500'></i> Patient
+                    <i class='hgi-stroke hgi-user text-emerald-500'></i> Patient
                 </h3>
             </div>
             <div class="p-6">
@@ -57,7 +57,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-transfer text-blue-500'></i> Referred To
+                    <i class='hgi-stroke hgi-transfer-horizontal text-blue-500'></i> Referred To
                 </h3>
             </div>
             <div class="p-6">
@@ -85,7 +85,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-notepad text-purple-500'></i> Clinical Details
+                    <i class='hgi-stroke hgi-note-01pad text-purple-500'></i> Clinical Details
                 </h3>
             </div>
             <div class="p-6 space-y-5">
@@ -106,7 +106,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-sm font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-info-circle text-amber-500'></i> Urgency & Validity
+                    <i class='hgi-stroke hgi-information-circle text-amber-500'></i> Urgency & Validity
                 </h3>
             </div>
             <div class="p-6">
@@ -143,7 +143,7 @@
             </a>
             <button type="submit"
                 class="inline-flex items-center gap-2 px-6 py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition shadow-lg shadow-emerald-500/30">
-                <i class='bx bx-save'></i> Save Changes
+                <i class='hgi-stroke hgi-floppy-disk'></i> Save Changes
             </button>
         </div>
     </form>

@@ -52,7 +52,7 @@
                         <img src="{{ asset('storage/' . $clinicLogo) }}" alt="{{ $clinicName }}" class="w-11 h-11 object-contain rounded-lg bg-white/20 p-1">
                     @endif
                 @else
-                    <div class="w-11 h-11 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center text-white text-xl font-bold">
+                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
                         {{ strtoupper(substr($clinicName, 0, 1)) }}
                     </div>
                 @endif
@@ -64,7 +64,7 @@
             </div>
             <div class="text-right">
                 <div class="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur px-3 py-1.5 rounded-lg">
-                    <i class='bx bx-receipt text-lg'></i>
+                    <i class='hgi-stroke hgi-invoice-01 text-lg'></i>
                     <span class="text-base font-bold tracking-wide">INVOICE</span>
                 </div>
                 <p class="text-emerald-100 mt-1 text-xs font-medium">INV-{{ str_pad($appointment->id, 6, '0', STR_PAD_LEFT) }}</p>
@@ -79,7 +79,7 @@
     <div class="grid grid-cols-2 gap-4 mb-4">
         <div class="bg-gray-50 rounded-lg p-3">
             <h3 class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-2 flex items-center gap-1">
-                <i class='bx bx-user text-xs'></i> Bill To
+                <i class='hgi-stroke hgi-user text-xs'></i> Bill To
             </h3>
             <table class="w-full text-xs">
                 <tr>
@@ -102,7 +102,7 @@
         </div>
         <div class="bg-gray-50 rounded-lg p-3">
             <h3 class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-2 flex items-center gap-1">
-                <i class='bx bx-calendar-check text-xs'></i> Appointment Details
+                <i class='hgi-stroke hgi-calendar-03-check text-xs'></i> Appointment Details
             </h3>
             <table class="w-full text-xs">
                 <tr>
@@ -141,7 +141,7 @@
     <!-- Service Details -->
     <div class="mb-4 border border-emerald-200 rounded-lg overflow-hidden">
         <div class="bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-2 flex items-center gap-1">
-            <i class='bx bx-receipt text-sm text-white'></i>
+            <i class='hgi-stroke hgi-invoice-01 text-sm text-white'></i>
             <h3 class="text-xs font-bold text-white">Service Details</h3>
         </div>
         <table class="w-full text-xs">
@@ -222,7 +222,7 @@
     @if($appointment->notes)
     <div class="mb-4">
         <h3 class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1 flex items-center gap-1">
-            <i class='bx bx-note text-xs'></i> Notes
+            <i class='hgi-stroke hgi-note-01 text-xs'></i> Notes
         </h3>
         <div class="bg-gray-50 p-2 rounded-lg border border-gray-200">
             <p class="text-xs text-gray-700">{{ $appointment->notes }}</p>

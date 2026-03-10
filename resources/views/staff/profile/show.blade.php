@@ -17,12 +17,12 @@
                             <h1 class="text-2xl md:text-3xl font-bold">{{ $staff->full_name }}</h1>
                             <div class="flex flex-wrap items-center gap-2 mt-2">
                                 <span class="inline-flex items-center gap-1 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm">
-                                    <i class='bx bx-id-card'></i>
+                                    <i class='hgi-stroke hgi-identity-card'></i>
                                     {{ $staff->staff_id ?? 'N/A' }}
                                 </span>
                                 @if($staff->position)
                                     <span class="inline-flex items-center gap-1 px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm">
-                                        <i class='bx bx-briefcase'></i>
+                                        <i class='hgi-stroke hgi-briefcase-01'></i>
                                         {{ $staff->position }}
                                     </span>
                                 @endif
@@ -31,7 +31,7 @@
                     </div>
                     <a href="{{ route('staff.profile.edit') }}"
                         class="inline-flex items-center justify-center px-5 py-2.5 bg-white text-purple-600 font-semibold rounded-xl hover:bg-purple-50 transition shadow-lg hover:shadow-xl">
-                        <i class='bx bx-edit mr-2'></i> Edit Profile
+                        <i class='hgi-stroke hgi-pencil-edit-01 mr-2'></i> Edit Profile
                     </a>
                 </div>
             </div>
@@ -42,7 +42,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-briefcase text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-briefcase-01 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-900 truncate">{{ $staff->position ?? 'N/A' }}</p>
@@ -53,7 +53,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-building text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-building-01 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-900 truncate">{{ $staff->department ?? 'N/A' }}</p>
@@ -64,7 +64,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-calendar-check text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03-check text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-900">{{ $staff->hire_date ? $staff->hire_date->format('M Y') : 'N/A' }}</p>
@@ -75,7 +75,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-time text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-white text-xl'></i>
                     </div>
                     <div>
                         @if($staff->hire_date)
@@ -100,7 +100,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                         <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                            <i class='bx bx-user text-violet-500'></i>
+                            <i class='hgi-stroke hgi-user text-violet-500'></i>
                             Personal Information
                         </h3>
                     </div>
@@ -108,7 +108,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="flex items-start gap-3">
                                 <div class="w-10 h-10 bg-violet-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class='bx bx-user text-violet-600'></i>
+                                    <i class='hgi-stroke hgi-user text-violet-600'></i>
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-500 uppercase tracking-wide">Full Name</p>
@@ -117,7 +117,7 @@
                             </div>
                             <div class="flex items-start gap-3">
                                 <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class='bx bx-envelope text-blue-600'></i>
+                                    <i class='hgi-stroke hgi-mail-01 text-blue-600'></i>
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-500 uppercase tracking-wide">Email</p>
@@ -126,7 +126,7 @@
                             </div>
                             <div class="flex items-start gap-3">
                                 <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class='bx bx-phone text-green-600'></i>
+                                    <i class='hgi-stroke hgi-phone text-green-600'></i>
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-500 uppercase tracking-wide">Phone</p>
@@ -135,7 +135,7 @@
                             </div>
                             <div class="flex items-start gap-3">
                                 <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                    <i class='bx bx-calendar text-amber-600'></i>
+                                    <i class='hgi-stroke hgi-calendar-03 text-amber-600'></i>
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-500 uppercase tracking-wide">Hire Date</p>
@@ -148,7 +148,7 @@
                             <div class="mt-6 pt-6 border-t border-gray-100">
                                 <div class="flex items-start gap-3">
                                     <div class="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                                        <i class='bx bx-note text-gray-600'></i>
+                                        <i class='hgi-stroke hgi-note-01 text-gray-600'></i>
                                     </div>
                                     <div class="flex-1">
                                         <p class="text-xs text-gray-500 uppercase tracking-wide">Notes</p>
@@ -164,7 +164,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                         <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                            <i class='bx bx-lock-alt text-violet-500'></i>
+                            <i class='hgi-stroke hgi-lock-01 text-violet-500'></i>
                             Change Password
                         </h3>
                     </div>
@@ -175,7 +175,7 @@
                                 <div>
                                     <label class="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Current Password</label>
                                     <div class="relative">
-                                        <i class='bx bx-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-lock-02 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                         <input type="password" name="current_password" required
                                             class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
                                             placeholder="••••••••">
@@ -187,7 +187,7 @@
                                 <div>
                                     <label class="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">New Password</label>
                                     <div class="relative">
-                                        <i class='bx bx-lock-alt absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-lock-01 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                         <input type="password" name="password" required
                                             class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
                                             placeholder="••••••••">
@@ -199,7 +199,7 @@
                                 <div>
                                     <label class="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Confirm Password</label>
                                     <div class="relative">
-                                        <i class='bx bx-check-shield absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-checkmark-circle-02-shield absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                         <input type="password" name="password_confirmation" required
                                             class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500"
                                             placeholder="••••••••">
@@ -209,7 +209,7 @@
                             <div class="mt-4 flex justify-end">
                                 <button type="submit"
                                     class="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-violet-500 to-purple-600 text-white font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition shadow-sm hover:shadow">
-                                    <i class='bx bx-lock mr-2'></i> Update Password
+                                    <i class='hgi-stroke hgi-lock-02 mr-2'></i> Update Password
                                 </button>
                             </div>
                         </form>
@@ -223,7 +223,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                         <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                            <i class='bx bx-shield-quarter text-violet-500'></i>
+                            <i class='hgi-stroke hgi-shield-half-01 text-violet-500'></i>
                             Account Status
                         </h3>
                     </div>
@@ -233,7 +233,7 @@
                                 <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                                 <span class="text-sm font-medium text-green-700">Active</span>
                             </div>
-                            <i class='bx bx-check-circle text-green-500 text-xl'></i>
+                            <i class='hgi-stroke hgi-checkmark-circle-02 text-green-500 text-xl'></i>
                         </div>
                         <div class="text-center py-4">
                             <div class="w-16 h-16 bg-gradient-to-br from-violet-400 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-3">
@@ -249,14 +249,14 @@
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                         <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                            <i class='bx bx-zap text-violet-500'></i>
+                            <i class='hgi-stroke hgi-energy-ellipse text-violet-500'></i>
                             Quick Actions
                         </h3>
                     </div>
                     <div class="p-4 space-y-2">
                         <a href="{{ route('staff.profile.edit') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-violet-50 transition group">
                             <div class="w-10 h-10 bg-violet-100 rounded-lg flex items-center justify-center group-hover:bg-violet-200 transition">
-                                <i class='bx bx-edit text-violet-600'></i>
+                                <i class='hgi-stroke hgi-pencil-edit-01 text-violet-600'></i>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-900">Edit Profile</p>
@@ -265,7 +265,7 @@
                         </a>
                         <a href="{{ route('staff.attendance.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-50 transition group">
                             <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition">
-                                <i class='bx bx-time text-blue-600'></i>
+                                <i class='hgi-stroke hgi-clock-02 text-blue-600'></i>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-900">My Attendance</p>
@@ -274,7 +274,7 @@
                         </a>
                         <a href="{{ route('staff.leaves.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-amber-50 transition group">
                             <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center group-hover:bg-amber-200 transition">
-                                <i class='bx bx-calendar-event text-amber-600'></i>
+                                <i class='hgi-stroke hgi-calendar-03-event text-amber-600'></i>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-900">My Leaves</p>
@@ -283,7 +283,7 @@
                         </a>
                         <a href="{{ route('staff.payslips.index') }}" class="flex items-center gap-3 p-3 rounded-xl hover:bg-green-50 transition group">
                             <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center group-hover:bg-green-200 transition">
-                                <i class='bx bx-receipt text-green-600'></i>
+                                <i class='hgi-stroke hgi-invoice-01 text-green-600'></i>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-900">My Payslips</p>

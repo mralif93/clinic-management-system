@@ -24,6 +24,12 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => 'admin',
                 'email_verified_at' => now(),
+                'nric' => '900101-01-1234',
+                'blood_type' => 'O+',
+                'emergency_contact_name' => 'Admin Emergency',
+                'emergency_contact_phone' => '012-3456789',
+                'card_issued_at' => now(),
+                'card_expires_at' => now()->addYears(2),
             ]
         );
         $this->command->info('Admin user created: admin@clinic.com / password');
@@ -71,6 +77,13 @@ class UserSeeder extends Seeder
                 'specialization' => 'General Practice',
                 'qualification' => 'MD',
                 'type' => 'general',
+                'license_number' => 'MMC-123456',
+                'license_expiry' => now()->addYears(1),
+                'years_of_experience' => 10,
+                'languages_spoken' => 'English, Malay',
+                'clinic_location' => 'Main Wing, Room 101',
+                'card_issued_at' => now(),
+                'card_expires_at' => now()->addYears(2),
             ]
         );
         $this->command->info('Doctor user created: doctor@clinic.com / password');
@@ -94,6 +107,13 @@ class UserSeeder extends Seeder
                 'position' => 'Receptionist',
                 'department' => 'Admin',
                 'hire_date' => '2023-01-01',
+                'nric' => '950202-02-5678',
+                'blood_type' => 'A+',
+                'emergency_contact_name' => 'Staff Emergency',
+                'emergency_contact_phone' => '019-8765432',
+                'clinic_location' => 'Front Desk',
+                'card_issued_at' => now(),
+                'card_expires_at' => now()->addYears(2),
             ]
         );
         $this->command->info('Staff user created: staff@clinic.com / password');
@@ -115,7 +135,7 @@ class UserSeeder extends Seeder
                     'first_name' => 'Patient',
                     'last_name' => "{$i}",
                     'email' => $pUser->email,
-                    'phone' => '111-222-333'.$i,
+                    'phone' => '111-222-333' . $i,
                     'date_of_birth' => now()->subYears(20 + $i)->format('Y-m-d'),
                     'gender' => $i % 2 == 0 ? 'female' : 'male',
                 ]
@@ -140,10 +160,17 @@ class UserSeeder extends Seeder
                     'first_name' => 'Doctor',
                     'last_name' => "{$i}",
                     'email' => $dUser->email,
-                    'phone' => '444-555-666'.$i,
+                    'phone' => '444-555-666' . $i,
                     'specialization' => $i % 2 == 0 ? 'Psychology' : 'Homeopathy',
                     'qualification' => 'MD',
                     'type' => $i % 2 == 0 ? 'psychology' : 'homeopathy',
+                    'license_number' => 'MMC-98765' . $i,
+                    'license_expiry' => now()->addYears(1),
+                    'years_of_experience' => 5 + $i,
+                    'languages_spoken' => 'English',
+                    'clinic_location' => 'East Wing, Room 20' . $i,
+                    'card_issued_at' => now(),
+                    'card_expires_at' => now()->addYears(2),
                 ]
             );
         }
@@ -165,10 +192,17 @@ class UserSeeder extends Seeder
                 [
                     'first_name' => 'Staff',
                     'last_name' => "{$i}",
-                    'phone' => '777-888-999'.$i,
+                    'phone' => '777-888-999' . $i,
                     'position' => $i % 2 == 0 ? 'Nurse' : 'Administrator',
                     'department' => $i % 2 == 0 ? 'Medical' : 'Admin',
                     'hire_date' => now()->subMonths($i)->format('Y-m-d'),
+                    'nric' => '9' . $i . '0303-03-901' . $i,
+                    'blood_type' => $i % 2 == 0 ? 'B+' : 'AB+',
+                    'emergency_contact_name' => 'Contact ' . $i,
+                    'emergency_contact_phone' => '011-223344' . $i,
+                    'clinic_location' => $i % 2 == 0 ? 'Ward 1' : 'Office 2',
+                    'card_issued_at' => now(),
+                    'card_expires_at' => now()->addYears(2),
                 ]
             );
         }

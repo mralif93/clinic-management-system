@@ -6,105 +6,160 @@
 @section('content')
     <div class="space-y-6">
         <!-- Welcome Banner -->
-        <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
-            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-            <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                            <i class='bx bx-plus-circle text-2xl'></i>
-                        </div>
-                        <div>
-                            <h1 class="text-2xl font-bold">Welcome back, Dr. {{ Auth::user()->name }}!</h1>
-                            <p class="text-emerald-100 text-sm">{{ now()->format('l, F d, Y') }}</p>
-                        </div>
+        <div
+            class="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white rounded-3xl shadow-2xl p-8 border border-white/10 group">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10">
+            </div>
+            <div
+                class="absolute -right-16 -top-16 w-64 h-64 bg-primary-400/20 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700">
+            </div>
+            <div
+                class="absolute -left-16 -bottom-16 w-48 h-48 bg-primary-300/20 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700">
+            </div>
+
+            <div class="relative flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="space-y-4 text-center md:text-left">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 backdrop-blur-md">
+                        <i class='hgi-stroke hgi-sun-01 text-yellow-400 animate-pulse'></i>
+                        <span
+                            class="text-xs font-bold tracking-wider uppercase opacity-90">{{ now()->format('l, F j, Y') }}</span>
                     </div>
-                    <p class="text-emerald-100 mt-2">Manage your appointments and patients efficiently.</p>
+                    <div class="space-y-2">
+                        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">
+                            Welcome back, <span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-white to-primary-200">Dr. {{ Auth::user()->name }}!</span>
+                        </h2>
+                        <p class="text-sm text-primary-100/80 max-w-md font-medium leading-relaxed">
+                            You have <span class="text-white font-bold">{{ $todayAppointments }} appointments</span> scheduled today.
+                        </p>
+                    </div>
                     @if(Auth::user()->doctor)
-                        <span class="inline-flex items-center gap-1 mt-3 px-3 py-1 bg-white/20 backdrop-blur rounded-full text-sm">
-                            <i class='bx bx-id-card'></i> {{ Auth::user()->doctor->doctor_id }}
+                        <span
+                            class="inline-flex items-center gap-2 mt-1 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-xs font-bold uppercase tracking-wider">
+                            <i class='hgi-stroke hgi-identity-card'></i>{{ Auth::user()->doctor->doctor_id }}
                         </span>
                     @endif
                 </div>
-                <div class="flex gap-3">
-                    <a href="{{ route('doctor.appointments.index') }}"
-                       class="inline-flex items-center gap-2 px-4 py-2 bg-white text-emerald-600 rounded-xl font-semibold hover:bg-emerald-50 transition-all shadow-lg">
-                        <i class='bx bx-calendar-check'></i>
-                        <span>My Appointments</span>
-                    </a>
+                <div class="flex-shrink-0">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-primary-500/20 blur-2xl rounded-full"></div>
+                        <a href="{{ route('doctor.appointments.index') }}"
+                            class="relative w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                            <i class='hgi-stroke hgi-calendar-03-check text-5xl md:text-6xl text-white opacity-90'></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Quick Stats Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
             <!-- Total Appointments -->
-            <div class="group bg-white border border-gray-100 rounded-xl shadow-sm p-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-                <div class="flex items-center justify-between">
-                    <div class="space-y-1">
-                        <p class="text-xs font-semibold uppercase tracking-wider text-gray-500">Total Appointments</p>
-                        <p class="text-3xl font-bold text-gray-900">{{ number_format($totalAppointments) }}</p>
+            <div
+                class="group bg-white rounded-3xl shadow-sm hover:shadow-premium border border-gray-100 p-6 transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-start justify-between">
+                    <div class="space-y-3">
+                        <div class="p-2.5 rounded-2xl bg-primary-50 text-primary-600 inline-flex shadow-sm">
+                            <i class='hgi-stroke hgi-calendar-03 text-2xl'></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-extrabold uppercase tracking-[0.1em] text-gray-400 mb-1">Total Appointments</p>
+                            <h4 class="text-3xl font-black text-gray-900">{{ number_format($totalAppointments) }}</h4>
+                        </div>
                     </div>
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-                        <i class='bx bx-calendar text-xl'></i>
+                    <div
+                        class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-primary-50 transition-colors">
+                        <i
+                            class='hgi-stroke hgi-calendar-add-01 text-gray-300 group-hover:text-primary-400 transition-colors'></i>
                     </div>
                 </div>
             </div>
 
             <!-- Today's Appointments -->
-            <div class="group bg-white border border-gray-100 rounded-xl shadow-sm p-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-                <div class="flex items-center justify-between">
-                    <div class="space-y-1">
-                        <p class="text-xs font-semibold uppercase tracking-wider text-gray-500">Today's Appointments</p>
-                        <p class="text-3xl font-bold text-gray-900">{{ number_format($todayAppointments) }}</p>
+            <div
+                class="group bg-white rounded-3xl shadow-sm hover:shadow-premium border border-gray-100 p-6 transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-start justify-between">
+                    <div class="space-y-3">
+                        <div class="p-2.5 rounded-2xl bg-primary-50 text-primary-600 inline-flex shadow-sm">
+                            <i class='hgi-stroke hgi-clock-02 text-2xl'></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-extrabold uppercase tracking-[0.1em] text-gray-400 mb-1">Today</p>
+                            <h4 class="text-3xl font-black text-gray-900">{{ number_format($todayAppointments) }}</h4>
+                        </div>
                     </div>
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
-                        <i class='bx bx-time text-xl'></i>
+                    <div
+                        class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-primary-50 transition-colors">
+                        <i
+                            class='hgi-stroke hgi-time-04 text-gray-300 group-hover:text-primary-400 transition-colors'></i>
                     </div>
                 </div>
             </div>
 
             <!-- Upcoming -->
-            <div class="group bg-white border border-gray-100 rounded-xl shadow-sm p-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-                <div class="flex items-center justify-between">
-                    <div class="space-y-1">
-                        <p class="text-xs font-semibold uppercase tracking-wider text-gray-500">Upcoming</p>
-                        <p class="text-3xl font-bold text-gray-900">{{ number_format($upcomingAppointments) }}</p>
+            <div
+                class="group bg-white rounded-3xl shadow-sm hover:shadow-premium border border-gray-100 p-6 transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-start justify-between">
+                    <div class="space-y-3">
+                        <div class="p-2.5 rounded-2xl bg-primary-50 text-primary-600 inline-flex shadow-sm">
+                            <i class='hgi-stroke hgi-calendar-03-check text-2xl'></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-extrabold uppercase tracking-[0.1em] text-gray-400 mb-1">Upcoming</p>
+                            <h4 class="text-3xl font-black text-gray-900">{{ number_format($upcomingAppointments) }}</h4>
+                        </div>
                     </div>
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
-                        <i class='bx bx-calendar-check text-xl'></i>
+                    <div
+                        class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-primary-50 transition-colors">
+                        <i
+                            class='hgi-stroke hgi-arrow-up-right-01 text-gray-300 group-hover:text-primary-400 transition-colors'></i>
                     </div>
                 </div>
             </div>
 
             <!-- Completed -->
-            <div class="group bg-white border border-gray-100 rounded-xl shadow-sm p-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1">
-                <div class="flex items-center justify-between">
-                    <div class="space-y-1">
-                        <p class="text-xs font-semibold uppercase tracking-wider text-gray-500">Completed</p>
-                        <p class="text-3xl font-bold text-gray-900">{{ number_format($completedAppointments) }}</p>
+            <div
+                class="group bg-white rounded-3xl shadow-sm hover:shadow-premium border border-gray-100 p-6 transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-start justify-between">
+                    <div class="space-y-3">
+                        <div class="p-2.5 rounded-2xl bg-primary-50 text-primary-600 inline-flex shadow-sm">
+                            <i class='hgi-stroke hgi-checkmark-circle-02 text-2xl'></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-extrabold uppercase tracking-[0.1em] text-gray-400 mb-1">Completed</p>
+                            <h4 class="text-3xl font-black text-gray-900">{{ number_format($completedAppointments) }}</h4>
+                        </div>
                     </div>
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform">
-                        <i class='bx bx-check-circle text-xl'></i>
+                    <div
+                        class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-primary-50 transition-colors">
+                        <i
+                            class='hgi-stroke hgi-checkmark-badge-01 text-gray-300 group-hover:text-primary-400 transition-colors'></i>
                     </div>
                 </div>
             </div>
 
             <!-- Pending Approvals -->
             <a href="{{ route('doctor.appointments.index', ['status' => 'completed', 'approved' => '0']) }}"
-               class="group bg-white border {{ $pendingApprovalCount > 0 ? 'border-amber-200 ring-2 ring-amber-300/50' : 'border-gray-100' }} rounded-xl shadow-sm p-5 hover:shadow-md transition-all duration-300 hover:-translate-y-1 block">
-                <div class="flex items-center justify-between">
-                    <div class="space-y-1">
-                        <p class="text-xs font-semibold uppercase tracking-wider {{ $pendingApprovalCount > 0 ? 'text-amber-600' : 'text-gray-500' }}">Pending Approvals</p>
-                        <p class="text-3xl font-bold {{ $pendingApprovalCount > 0 ? 'text-amber-600' : 'text-gray-900' }}">{{ number_format($pendingApprovalCount) }}</p>
+               class="group bg-white {{ $pendingApprovalCount > 0 ? 'border-amber-200 ring-2 ring-amber-300/50' : 'border-gray-100' }} rounded-3xl shadow-sm hover:shadow-premium border p-6 transition-all duration-300 hover:-translate-y-1 block">
+                <div class="flex items-start justify-between">
+                    <div class="space-y-3">
+                        <div class="p-2.5 rounded-2xl bg-amber-50 text-amber-600 inline-flex shadow-sm">
+                            <i class='hgi-stroke hgi-shield-half-01 text-2xl'></i>
+                        </div>
+                        <div>
+                            <p class="text-xs font-extrabold uppercase tracking-[0.1em] {{ $pendingApprovalCount > 0 ? 'text-amber-600' : 'text-gray-400' }}">Pending Approvals</p>
+                            <h4 class="text-3xl font-black {{ $pendingApprovalCount > 0 ? 'text-amber-600' : 'text-gray-900' }}">{{ number_format($pendingApprovalCount) }}</h4>
+                        </div>
                         @if($pendingApprovalCount > 0)
-                            <p class="text-xs text-amber-500 font-medium">Records need review</p>
+                            <p class="text-xs text-amber-500 font-bold">Records need review</p>
                         @else
-                            <p class="text-xs text-gray-400">All records up to date</p>
+                            <p class="text-xs text-gray-400 font-medium">All records up to date</p>
                         @endif
                     </div>
-                    <div class="relative w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform {{ $pendingApprovalCount > 0 ? 'animate-pulse' : '' }}">
-                        <i class='bx bx-shield-quarter text-xl'></i>
+                    <div
+                        class="w-12 h-12 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-amber-50 transition-colors {{ $pendingApprovalCount > 0 ? 'animate-pulse' : '' }}">
+                        <i class='hgi-stroke hgi-shield-half-01 text-xl text-gray-300 group-hover:text-amber-400 transition-colors'></i>
                     </div>
                 </div>
             </a>
@@ -113,10 +168,10 @@
         <!-- Attendance & Tasks Side by Side -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <!-- Attendance Widget -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
-                    <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-time text-orange-500'></i>Attendance
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-premium transition-all">
+                <div class="p-6 border-b border-primary-100/60 bg-gradient-to-br from-primary-50/80 to-primary-100/30">
+                    <h3 class="text-sm font-black text-gray-900 uppercase tracking-wider flex items-center gap-2">
+                        <i class='hgi-stroke hgi-clock-02 text-primary-500'></i>Attendance
                     </h3>
                 </div>
                 <div class="p-6">
@@ -126,14 +181,14 @@
                             <div class="text-center">
                                 <div class="mb-4">
                                     <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-emerald-100 text-emerald-700">
-                                        <i class='bx bx-check-circle mr-2'></i> Clocked In
+                                        <i class='hgi-stroke hgi-checkmark-circle-02 mr-2'></i> Clocked In
                                     </span>
                                 </div>
                                 <div class="space-y-2 mb-6">
                                     <p class="text-sm text-gray-600">Clock In: <span class="font-semibold text-gray-900">{{ $todayAttendance->clock_in_time->format('h:i A') }}</span></p>
                                     <p class="text-sm text-gray-600">Duration: <span class="font-semibold text-gray-900">{{ $todayAttendance->getWorkDuration() }}</span></p>
                                     @if($todayAttendance->isOnBreak())
-                                        <p class="text-sm text-amber-600 font-semibold"><i class='bx bx-coffee'></i> On Break</p>
+                                        <p class="text-sm text-amber-600 font-semibold"><i class='hgi-stroke hgi-coffee-01'></i> On Break</p>
                                     @endif
                                 </div>
                                 <div class="grid grid-cols-2 gap-3">
@@ -141,21 +196,21 @@
                                         <form action="{{ route('doctor.attendance.break-end') }}" method="POST">
                                             @csrf
                                             <button type="submit" class="w-full px-4 py-3 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition font-semibold">
-                                                <i class='bx bx-play-circle mr-1'></i> End Break
+                                                <i class='hgi-stroke hgi-play-circle mr-1'></i> End Break
                                             </button>
                                         </form>
                                     @else
                                         <form action="{{ route('doctor.attendance.break-start') }}" method="POST">
                                             @csrf
                                             <button type="submit" class="w-full px-4 py-3 bg-amber-500 text-white rounded-xl hover:bg-amber-600 transition font-semibold">
-                                                <i class='bx bx-coffee mr-1'></i> Start Break
+                                                <i class='hgi-stroke hgi-coffee-01 mr-1'></i> Start Break
                                             </button>
                                         </form>
                                     @endif
                                     <form action="{{ route('doctor.attendance.clock-out') }}" method="POST" onsubmit="return confirm('Are you sure you want to clock out?')">
                                         @csrf
                                         <button type="submit" class="w-full px-4 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 transition font-semibold">
-                                            <i class='bx bx-log-out mr-1'></i> Clock Out
+                                            <i class='hgi-stroke hgi-logout-01 mr-1'></i> Clock Out
                                         </button>
                                     </form>
                                 </div>
@@ -165,7 +220,7 @@
                             <div class="text-center">
                                 <div class="mb-4">
                                     <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gray-100 text-gray-600">
-                                        <i class='bx bx-check-circle mr-2'></i> Clocked Out
+                                        <i class='hgi-stroke hgi-checkmark-circle-02 mr-2'></i> Clocked Out
                                     </span>
                                 </div>
                                 <div class="space-y-2 mb-4">
@@ -181,14 +236,14 @@
                         <div class="text-center">
                             <div class="mb-4">
                                 <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gray-100 text-gray-600">
-                                    <i class='bx bx-time mr-2'></i> Not Clocked In
+                                    <i class='hgi-stroke hgi-clock-02 mr-2'></i> Not Clocked In
                                 </span>
                             </div>
                             <p class="text-sm text-gray-600 mb-6">{{ now()->format('l, F d, Y') }}</p>
                             <form action="{{ route('doctor.attendance.clock-in') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="w-full px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl hover:from-emerald-600 hover:to-teal-700 transition font-bold text-lg shadow-lg shadow-emerald-500/30">
-                                    <i class='bx bx-time text-2xl mr-2'></i> CLOCK IN
+                                <button type="submit" class="w-full px-6 py-4 bg-gradient-to-r from-primary-500 to-primary-600 text-white rounded-xl hover:from-primary-600 hover:to-primary-700 transition font-bold text-lg shadow-lg shadow-primary-500/30">
+                                    <i class='hgi-stroke hgi-clock-02 text-2xl mr-2'></i> CLOCK IN
                                 </button>
                             </form>
                             <p class="text-xs text-gray-500 mt-4">Tap to start your day</p>
@@ -198,13 +253,13 @@
             </div>
 
             <!-- My Tasks Widget -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50 flex justify-between items-center">
-                    <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-task text-pink-500'></i>My Tasks
+            <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-premium transition-all">
+                <div class="p-6 border-b border-primary-100/60 bg-gradient-to-br from-primary-50/80 to-primary-100/30 flex justify-between items-center">
+                    <h3 class="text-sm font-black text-gray-900 uppercase tracking-wider flex items-center gap-2">
+                        <i class='hgi-stroke hgi-task-01 text-primary-500'></i>My Tasks
                     </h3>
-                    <a href="{{ route('doctor.todos.index') }}" class="text-sm text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1">
-                        View All <i class='bx bx-chevron-right'></i>
+                    <a href="{{ route('doctor.todos.index') }}" class="text-sm text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1">
+                        View All <i class='hgi-stroke hgi-arrow-right-01'></i>
                     </a>
                 </div>
                 <div class="p-6">
@@ -219,7 +274,7 @@
                                                data-todo-id="{{ $todo->id }}"
                                                {{ $todo->status === 'completed' ? 'checked' : '' }}
                                                onchange="updateTodoStatus({{ $todo->id }}, this.checked)"
-                                               class="w-5 h-5 text-emerald-600 border-gray-300 rounded focus:ring-emerald-500 cursor-pointer">
+                                               class="w-5 h-5 text-primary-600 border-gray-300 rounded focus:ring-primary-500 cursor-pointer">
                                     </div>
 
                                     <!-- Task Info -->
@@ -237,7 +292,7 @@
                                                 <!-- Due Date -->
                                                 @if($todo->due_date)
                                                     <span class="text-xs {{ $todo->isOverdue() ? 'text-red-600 font-semibold' : 'text-gray-500' }}">
-                                                        <i class='bx bx-calendar'></i> {{ $todo->due_date->format('M d') }}
+                                                        <i class='hgi-stroke hgi-calendar-03'></i> {{ $todo->due_date->format('M d') }}
                                                     </span>
                                                 @endif
                                             </div>
@@ -247,8 +302,8 @@
                                     <!-- View Button -->
                                     <div class="flex-shrink-0">
                                         <a href="{{ route('doctor.todos.show', $todo->id) }}"
-                                           class="text-emerald-600 hover:text-emerald-700">
-                                            <i class='bx bx-chevron-right text-xl'></i>
+                                           class="text-primary-600 hover:text-primary-700">
+                                            <i class='hgi-stroke hgi-arrow-right-01 text-xl'></i>
                                         </a>
                                     </div>
                                 </div>
@@ -257,7 +312,7 @@
                     @else
                         <div class="text-center py-8">
                             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-                                <i class='bx bx-task text-3xl text-gray-400'></i>
+                                <i class='hgi-stroke hgi-task-01 text-3xl text-gray-400'></i>
                             </div>
                             <p class="text-gray-500 font-medium">No pending tasks</p>
                             <p class="text-gray-400 text-sm mt-1">You're all caught up!</p>
@@ -268,27 +323,27 @@
         </div>
 
         <!-- Today's Appointments -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
-                <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-calendar-event text-emerald-500'></i>Today's Appointments
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-premium transition-all">
+            <div class="p-6 border-b border-primary-100/60 bg-gradient-to-br from-primary-50/80 to-primary-100/30">
+                <h3 class="text-sm font-black text-gray-900 uppercase tracking-wider flex items-center gap-2">
+                    <i class='hgi-stroke hgi-calendar-03-event text-primary-500'></i>Today's Appointments
                 </h3>
             </div>
             <div class="p-6">
                 @if($todayAppointmentsList->count() > 0)
                     <div class="space-y-4">
                         @foreach($todayAppointmentsList as $appointment)
-                            <div class="flex items-center justify-between p-4 border border-gray-100 rounded-xl hover:bg-gray-50/50 transition">
+                            <div class="flex items-center justify-between p-4 border border-gray-100 rounded-2xl hover:bg-gray-50/50 transition">
                                 <div class="flex-1">
                                     <div class="flex items-center space-x-3">
-                                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold text-sm">
+                                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center text-white font-bold text-sm">
                                             {{ strtoupper(substr($appointment->patient->name ?? 'P', 0, 1)) }}
                                         </div>
                                         <div>
                                             <h4 class="font-semibold text-gray-900">{{ $appointment->patient->name ?? 'N/A' }}</h4>
                                             <p class="text-sm text-gray-600">{{ $appointment->service->name ?? 'N/A' }}</p>
                                             <p class="text-xs text-gray-500 mt-1">
-                                                <i class='bx bx-time mr-1'></i>{{ $appointment->appointment_time }}
+                                                <i class='hgi-stroke hgi-clock-02 mr-1'></i>{{ $appointment->appointment_time }}
                                             </p>
                                         </div>
                                     </div>
@@ -304,8 +359,8 @@
                                         {{ ucfirst($appointment->status) }}
                                     </span>
                                     <a href="{{ route('doctor.appointments.show', $appointment->id) }}"
-                                        class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 flex items-center justify-center transition">
-                                        <i class='bx bx-chevron-right text-xl'></i>
+                                        class="w-8 h-8 rounded-lg bg-primary-50 text-primary-600 hover:bg-primary-100 flex items-center justify-center transition">
+                                        <i class='hgi-stroke hgi-arrow-right-01 text-xl'></i>
                                     </a>
                                 </div>
                             </div>
@@ -314,7 +369,7 @@
                 @else
                     <div class="text-center py-8">
                         <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-                            <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
+                            <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
                         </div>
                         <p class="text-gray-500 font-medium">No appointments scheduled for today</p>
                         <p class="text-gray-400 text-sm mt-1">Enjoy your free time!</p>
@@ -324,39 +379,39 @@
         </div>
 
         <!-- Quick Actions -->
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
-                <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-zap text-yellow-500'></i>Quick Actions
+        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden group hover:shadow-premium transition-all">
+            <div class="p-6 border-b border-primary-100/60 bg-gradient-to-br from-primary-50/80 to-primary-100/30">
+                <h3 class="text-sm font-black text-gray-900 uppercase tracking-wider flex items-center gap-2">
+                    <i class='hgi-stroke hgi-energy-ellipse text-primary-500'></i>Quick Actions
                 </h3>
             </div>
             <div class="p-6">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <a href="{{ route('doctor.schedule.index') }}"
-                        class="group flex flex-col items-center p-5 bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-100 rounded-xl hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                        <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl flex items-center justify-center mb-3 shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
-                            <i class='bx bx-calendar text-2xl text-white'></i>
+                        class="group flex flex-col items-center p-5 bg-gradient-to-br from-primary-50 to-primary-100 border border-primary-100 rounded-xl hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mb-3 shadow-lg shadow-primary-500/30 group-hover:scale-110 transition-transform">
+                            <i class='hgi-stroke hgi-calendar-03 text-2xl text-white'></i>
                         </div>
                         <span class="text-sm font-semibold text-gray-700">View Schedule</span>
                     </a>
                     <a href="{{ route('doctor.patients.index') }}"
-                        class="group flex flex-col items-center p-5 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 rounded-xl hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                        <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mb-3 shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-                            <i class='bx bx-user text-2xl text-white'></i>
+                        class="group flex flex-col items-center p-5 bg-gradient-to-br from-primary-50 to-primary-100 border border-primary-100 rounded-xl hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mb-3 shadow-lg shadow-primary-500/30 group-hover:scale-110 transition-transform">
+                            <i class='hgi-stroke hgi-user text-2xl text-white'></i>
                         </div>
                         <span class="text-sm font-semibold text-gray-700">My Patients</span>
                     </a>
                     <a href="{{ route('doctor.profile.show') }}"
-                        class="group flex flex-col items-center p-5 bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 rounded-xl hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-3 shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
-                            <i class='bx bx-user-circle text-2xl text-white'></i>
+                        class="group flex flex-col items-center p-5 bg-gradient-to-br from-primary-50 to-primary-100 border border-primary-100 rounded-xl hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mb-3 shadow-lg shadow-primary-500/30 group-hover:scale-110 transition-transform">
+                            <i class='hgi-stroke hgi-user-circle text-2xl text-white'></i>
                         </div>
                         <span class="text-sm font-semibold text-gray-700">My Profile</span>
                     </a>
                     <a href="{{ route('doctor.appointments.index') }}"
-                        class="group flex flex-col items-center p-5 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-100 rounded-xl hover:shadow-md hover:-translate-y-1 transition-all duration-300">
-                        <div class="w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center mb-3 shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform">
-                            <i class='bx bx-calendar-check text-2xl text-white'></i>
+                        class="group flex flex-col items-center p-5 bg-gradient-to-br from-primary-50 to-primary-100 border border-primary-100 rounded-xl hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                        <div class="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center mb-3 shadow-lg shadow-primary-500/30 group-hover:scale-110 transition-transform">
+                            <i class='hgi-stroke hgi-calendar-03-check text-2xl text-white'></i>
                         </div>
                         <span class="text-sm font-semibold text-gray-700">Appointments</span>
                     </a>
@@ -395,7 +450,7 @@
                             taskContainer.innerHTML = `
                                 <div class="text-center py-8">
                                     <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-                                        <i class="bx bx-task text-3xl text-gray-400"></i>
+                                        <i class="hgi-stroke hgi-task-01 text-3xl text-gray-400"></i>
                                     </div>
                                     <p class="text-gray-500 font-medium">No pending tasks</p>
                                     <p class="text-gray-400 text-sm mt-1">You're all caught up!</p>

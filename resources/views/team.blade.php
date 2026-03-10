@@ -57,7 +57,7 @@
         @else
             <div class="text-center py-16">
                 <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i class='bx bx-group text-3xl text-indigo-400'></i>
+                    <i class='hgi-stroke hgi-user-group text-3xl text-indigo-400'></i>
                 </div>
                 <p class="text-gray-500 text-lg">No team members available at the moment.</p>
                 <p class="text-gray-400 text-sm mt-2">Please check back later or contact us for more information.</p>
@@ -65,7 +65,10 @@
         @endif
 
         <!-- CTA Section -->
-        <div class="mt-12 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white text-center">
+        <div class="mt-12 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-8 text-white text-center shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <h3 class="text-2xl font-bold mb-4">Ready to Book an Appointment?</h3>
             <p class="text-indigo-100 mb-6">Connect with our experienced team members</p>
             @auth

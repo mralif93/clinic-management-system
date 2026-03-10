@@ -6,11 +6,14 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-2xl shadow-lg p-6 text-white">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-2xl  p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                        <i class='bx bx-calendar-check text-3xl'></i>
+                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-calendar-03-check text-3xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">Appointments</h1>
@@ -19,12 +22,12 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 text-sm">
-                        <i class='bx bx-calendar mr-1'></i>
+                        <i class='hgi-stroke hgi-calendar-03 mr-1'></i>
                         {{ now()->format('l, M d, Y') }}
                     </div>
                     <a href="{{ route('staff.appointments.create') }}"
                         class="inline-flex items-center px-5 py-2.5 bg-white text-amber-600 font-semibold rounded-xl hover:bg-amber-50 transition shadow-lg hover:shadow-xl">
-                        <i class='bx bx-plus mr-2 text-lg'></i>
+                        <i class='hgi-stroke hgi-plus-sign mr-2 text-lg'></i>
                         Schedule Appointment
                     </a>
                 </div>
@@ -42,7 +45,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-calendar text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $appointments->total() }}</p>
@@ -53,7 +56,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-time text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $scheduledCount }}</p>
@@ -64,7 +67,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-check-circle text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-checkmark-circle-02 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $confirmedCount }}</p>
@@ -75,7 +78,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-check-double text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-checkmark-circle-02-double text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $completedCount }}</p>
@@ -91,7 +94,7 @@
                 <!-- Search Bar -->
                 <div class="relative mb-4">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <i class='bx bx-search text-amber-500 text-xl'></i>
+                        <i class='hgi-stroke hgi-search-01 text-amber-500 text-xl'></i>
                     </div>
                     <input type="text" name="search" value="{{ request('search') }}"
                         placeholder="Search appointments by patient name, phone, or email..."
@@ -101,7 +104,7 @@
                 <!-- Filter Options -->
                 <div class="flex flex-wrap items-center gap-3">
                     <span class="text-sm font-medium text-amber-700 flex items-center gap-1.5">
-                        <i class='bx bx-filter-alt'></i> Filters:
+                        <i class='hgi-stroke hgi-filter'></i> Filters:
                     </span>
 
                     <select name="status"
@@ -130,12 +133,12 @@
                         @if(request()->hasAny(['search', 'status', 'doctor_id', 'date']))
                             <a href="{{ route('staff.appointments.index') }}"
                                 class="inline-flex items-center px-4 py-2 bg-white text-gray-600 text-sm font-medium rounded-lg shadow-sm hover:bg-gray-50 transition">
-                                <i class='bx bx-x mr-1'></i> Clear
+                                <i class='hgi-stroke hgi-cancel-circle mr-1'></i> Clear
                             </a>
                         @endif
                         <button type="submit"
                             class="inline-flex items-center px-5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-lg hover:from-amber-600 hover:to-orange-600 transition-all">
-                            <i class='bx bx-search mr-1.5'></i> Search
+                            <i class='hgi-stroke hgi-search-01 mr-1.5'></i> Search
                         </button>
                     </div>
                 </div>
@@ -147,7 +150,7 @@
             <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                 <div class="flex items-center justify-between">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                        <i class='bx bx-list-ul text-amber-500'></i>
+                        <i class='hgi-stroke hgi-list-view text-amber-500'></i>
                         Appointments List
                     </h3>
                     <span class="text-sm text-gray-500">Showing {{ $appointments->firstItem() ?? 0 }} - {{ $appointments->lastItem() ?? 0 }} of {{ $appointments->total() }} appointments</span>
@@ -183,28 +186,28 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center gap-2">
                                         <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                                            <i class='bx bx-user text-blue-600'></i>
+                                            <i class='hgi-stroke hgi-user text-blue-600'></i>
                                         </div>
                                         <span class="text-sm text-gray-700">{{ $appointment->doctor->full_name ?? 'N/A' }}</span>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-gray-100 text-gray-700 text-xs font-medium">
-                                        <i class='bx bx-briefcase-alt mr-1'></i>
+                                        <i class='hgi-stroke hgi-briefcase-01-alt mr-1'></i>
                                         {{ $appointment->service->name ?? 'N/A' }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-900">{{ $appointment->appointment_date->format('M d, Y') }}</div>
                                     <div class="text-xs text-gray-500 flex items-center gap-1">
-                                        <i class='bx bx-time'></i>
+                                        <i class='hgi-stroke hgi-clock-02'></i>
                                         {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @php
                                         $statusConfig = [
-                                            'scheduled' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'bx-calendar', 'label' => 'Scheduled'],
+                                            'scheduled' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-calendar-03', 'label' => 'Scheduled'],
                                             'confirmed' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'icon' => 'bx-check-circle', 'label' => 'Checked In'],
                                             'in_progress' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'bx-loader-circle', 'label' => 'In Consultation'],
                                             'completed' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'bx-check-double', 'label' => 'Completed'],
@@ -214,7 +217,7 @@
                                         $config = $statusConfig[$appointment->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-help-circle', 'label' => ucfirst($appointment->status)];
                                     @endphp
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $config['bg'] }} {{ $config['text'] }}">
-                                        <i class='bx {{ $config['icon'] }}'></i>
+                                        <i class='hgi-stroke {{ $config['icon'] }}'></i>
                                         {{ $config['label'] }}
                                     </span>
                                 </td>
@@ -239,15 +242,15 @@
                                     <div class="flex justify-end items-center gap-1.5">
                                         <a href="{{ route('staff.appointments.show', $appointment->id) }}"
                                             class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600 rounded-full transition shadow-sm hover:shadow" title="View Details">
-                                            <i class='bx bx-show text-sm'></i>
+                                            <i class='hgi-stroke hgi-eye text-sm'></i>
                                         </a>
                                         <a href="{{ route('staff.appointments.invoice', $appointment->id) }}"
                                             class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm hover:shadow" title="View Invoice">
-                                            <i class='bx bx-receipt text-sm'></i>
+                                            <i class='hgi-stroke hgi-invoice-01 text-sm'></i>
                                         </a>
                                         <a href="{{ route('staff.appointments.edit', $appointment->id) }}"
                                             class="w-8 h-8 flex items-center justify-center bg-amber-500 text-white hover:bg-amber-600 rounded-full transition shadow-sm hover:shadow" title="Edit">
-                                            <i class='bx bx-edit text-sm'></i>
+                                            <i class='hgi-stroke hgi-pencil-edit-01 text-sm'></i>
                                         </a>
                                     </div>
                                 </td>
@@ -257,12 +260,12 @@
                                 <td colspan="7" class="px-6 py-16 text-center">
                                     <div class="flex flex-col items-center">
                                         <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                                            <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
+                                            <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
                                         </div>
                                         <p class="text-gray-500 font-medium">No appointments found</p>
                                         <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or create a new appointment</p>
                                         <a href="{{ route('staff.appointments.create') }}" class="mt-4 inline-flex items-center px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition text-sm font-medium">
-                                            <i class='bx bx-plus mr-1'></i> Schedule Appointment
+                                            <i class='hgi-stroke hgi-plus-sign mr-1'></i> Schedule Appointment
                                         </a>
                                     </div>
                                 </td>

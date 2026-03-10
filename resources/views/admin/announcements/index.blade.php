@@ -6,58 +6,61 @@
 @section('content')
 <div class="space-y-6">
     <!-- Page Header with Stats -->
-    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg">
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            <div>
-                <h1 class="text-2xl font-bold flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='bx bx-news text-2xl'></i>
-                    </div>
-                    News & Announcements
-                </h1>
-                <p class="mt-2 text-blue-100">Manage news and announcements for your homepage</p>
-            </div>
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+        <i class='hgi-stroke hgi-news text-2xl'></i>
+    </div>
+    <div>
+        <h2 class="text-2xl font-bold">News & Announcements</h2>
+        <p class="text-blue-100 text-sm mt-1">Manage news and announcements for your homepage</p>
+    </div>
+</div>
             <div class="flex items-center gap-3">
                 <a href="{{ route('admin.announcements.create') }}" 
                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-all shadow-lg shadow-blue-900/20">
-                    <i class='bx bx-plus text-xl'></i>
+                    <i class='hgi-stroke hgi-plus-sign text-xl'></i>
                     Add New Announcement
                 </a>
             </div>
         </div>
+    </div>
 
-        <!-- Quick Stats -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+    <!-- Quick Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             @php
                 $totalAnnouncements = $announcements->total();
                 $publishedAnnouncements = \App\Models\Announcement::where('is_published', true)->count();
                 $featuredAnnouncements = \App\Models\Announcement::where('is_featured', true)->where('is_published', true)->count();
                 $deletedAnnouncements = \App\Models\Announcement::onlyTrashed()->count();
             @endphp
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $totalAnnouncements }}</p>
-                <p class="text-sm text-blue-200">Total</p>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $totalAnnouncements }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Total</p>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $publishedAnnouncements }}</p>
-                <p class="text-sm text-blue-200">Published</p>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $publishedAnnouncements }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Published</p>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $featuredAnnouncements }}</p>
-                <p class="text-sm text-blue-200">Featured</p>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $featuredAnnouncements }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Featured</p>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $deletedAnnouncements }}</p>
-                <p class="text-sm text-blue-200">Deleted</p>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $deletedAnnouncements }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Deleted</p>
             </div>
         </div>
-    </div>
 
     <!-- Filters Card -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="p-5 border-b border-gray-100 bg-gray-50/50">
             <div class="flex items-center gap-2">
-                <i class='bx bx-filter-alt text-gray-500'></i>
+                <i class='hgi-stroke hgi-filter text-gray-500'></i>
                 <h3 class="font-semibold text-gray-700">Filter Announcements</h3>
             </div>
         </div>
@@ -69,7 +72,7 @@
                         <label for="search" class="block text-sm font-medium text-gray-600 mb-2">Search</label>
                         <div class="relative">
                             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                                <i class='bx bx-search'></i>
+                                <i class='hgi-stroke hgi-search-01'></i>
                             </span>
                             <input type="text" id="search" name="search" value="{{ request('search') }}"
                                 placeholder="Search by title or description..."
@@ -104,39 +107,39 @@
                 <div class="flex flex-wrap items-center gap-3 mt-5 pt-5 border-t border-gray-100">
                     <button type="submit" 
                         class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all text-sm">
-                        <i class='bx bx-search'></i>
+                        <i class='hgi-stroke hgi-search-01'></i>
                         Search
                     </button>
                     @if(request()->hasAny(['search', 'status', 'type', 'featured', 'expired']))
                         <a href="{{ route('admin.announcements.index') }}" 
                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-all text-sm">
-                            <i class='bx bx-x'></i>
+                            <i class='hgi-stroke hgi-cancel-circle'></i>
                             Clear
                         </a>
                     @endif
                     @if(request('featured') == '1')
                         <a href="{{ route('admin.announcements.index', array_merge(request()->except('featured'), ['featured' => '0'])) }}" 
                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-all text-sm">
-                            <i class='bx bx-x'></i>
+                            <i class='hgi-stroke hgi-cancel-circle'></i>
                             Show All
                         </a>
                     @else
                         <a href="{{ route('admin.announcements.index', array_merge(request()->all(), ['featured' => '1'])) }}" 
                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-yellow-100 text-yellow-700 rounded-xl font-medium hover:bg-yellow-200 transition-all text-sm">
-                            <i class='bx bx-star'></i>
+                            <i class='hgi-stroke hgi-star'></i>
                             Show Featured Only
                         </a>
                     @endif
                     @if(request('deleted') == '1')
                         <a href="{{ route('admin.announcements.index') }}" 
                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-all text-sm">
-                            <i class='bx bx-x'></i>
+                            <i class='hgi-stroke hgi-cancel-circle'></i>
                             Show Active
                         </a>
                     @else
                         <a href="{{ route('admin.announcements.index', array_merge(request()->all(), ['deleted' => '1'])) }}" 
                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-red-100 text-red-700 rounded-xl font-medium hover:bg-red-200 transition-all text-sm">
-                            <i class='bx bx-trash'></i>
+                            <i class='hgi-stroke hgi-delete-01'></i>
                             Show Deleted
                         </a>
                     @endif
@@ -157,7 +160,7 @@
                     </div>
                 @else
                     <div class="h-48 bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
-                        <i class='bx bx-news text-6xl text-blue-300'></i>
+                        <i class='hgi-stroke hgi-news text-6xl text-blue-300'></i>
                     </div>
                 @endif
 
@@ -175,7 +178,7 @@
                                 </span>
                                 @if($announcement->is_featured)
                                     <span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-yellow-100 text-yellow-700">
-                                        <i class='bx bx-star mr-1'></i> Featured
+                                        <i class='hgi-stroke hgi-star mr-1'></i> Featured
                                     </span>
                                 @endif
                             </div>
@@ -191,12 +194,12 @@
                     
                     <div class="space-y-2 mb-4 text-xs text-gray-500">
                         <div class="flex items-center">
-                            <i class='bx bx-calendar text-blue-600 mr-2'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-blue-600 mr-2'></i>
                             <span>Created: {{ $announcement->created_at->format('M d, Y') }}</span>
                         </div>
                         @if($announcement->expires_at)
                             <div class="flex items-center {{ $announcement->isExpired() ? 'text-red-600' : '' }}">
-                                <i class='bx bx-time text-blue-600 mr-2'></i>
+                                <i class='hgi-stroke hgi-clock-02 text-blue-600 mr-2'></i>
                                 <span>Expires: {{ $announcement->expires_at->format('M d, Y') }}</span>
                             </div>
                         @endif
@@ -220,7 +223,7 @@
                                 @csrf
                                 <button type="submit" onclick="return confirm('Restore this announcement?')"
                                     class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-200 hover:scale-110 transition-all" title="Restore">
-                                    <i class='bx bx-undo text-lg'></i>
+                                    <i class='hgi-stroke hgi-undo text-lg'></i>
                                 </button>
                             </form>
                             <form action="{{ route('admin.announcements.force-delete', $announcement->id) }}" method="POST" class="inline">
@@ -228,24 +231,24 @@
                                 @method('DELETE')
                                 <button type="submit" onclick="return confirm('Permanently delete this announcement? This cannot be undone!')"
                                     class="w-9 h-9 flex items-center justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-200 hover:scale-110 transition-all" title="Delete Permanently">
-                                    <i class='bx bx-x-circle text-lg'></i>
+                                    <i class='hgi-stroke hgi-cancel-circle text-lg'></i>
                                 </button>
                             </form>
                         @else
                             <a href="{{ route('admin.announcements.show', $announcement->id) }}"
                                class="w-9 h-9 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 hover:scale-110 transition-all" title="View">
-                                <i class='bx bx-show text-lg'></i>
+                                <i class='hgi-stroke hgi-eye text-lg'></i>
                             </a>
                             <a href="{{ route('admin.announcements.edit', $announcement->id) }}"
                                class="w-9 h-9 flex items-center justify-center rounded-full bg-amber-100 text-amber-600 hover:bg-amber-200 hover:scale-110 transition-all" title="Edit">
-                                <i class='bx bx-edit text-lg'></i>
+                                <i class='hgi-stroke hgi-pencil-edit-01 text-lg'></i>
                             </a>
                             <form action="{{ route('admin.announcements.toggle-publish', $announcement->id) }}" method="POST" class="inline">
                                 @csrf
                                 <button type="submit"
                                     class="w-9 h-9 flex items-center justify-center rounded-full {{ $announcement->is_published ? 'bg-gray-100 text-gray-600' : 'bg-green-100 text-green-600' }} hover:scale-110 transition-all" 
                                     title="{{ $announcement->is_published ? 'Unpublish' : 'Publish' }}">
-                                    <i class='bx {{ $announcement->is_published ? 'bx-hide' : 'bx-show' }} text-lg'></i>
+                                    <i class='hgi-stroke {{ $announcement->is_published ? 'hgi-view-off-slash' : 'hgi-eye' }} text-lg'></i>
                                 </button>
                             </form>
                             <form action="{{ route('admin.announcements.toggle-featured', $announcement->id) }}" method="POST" class="inline">
@@ -253,7 +256,7 @@
                                 <button type="submit"
                                     class="w-9 h-9 flex items-center justify-center rounded-full {{ $announcement->is_featured ? 'bg-yellow-100 text-yellow-600' : 'bg-gray-100 text-gray-600' }} hover:scale-110 transition-all" 
                                     title="{{ $announcement->is_featured ? 'Unfeature' : 'Feature' }}">
-                                    <i class='bx {{ $announcement->is_featured ? 'bx-star' : 'bx-star' }} text-lg'></i>
+                                    <i class='hgi-stroke {{ $announcement->is_featured ? 'hgi-star' : 'hgi-star' }} text-lg'></i>
                                 </button>
                             </form>
                             <form action="{{ route('admin.announcements.destroy', $announcement->id) }}" method="POST" class="inline">
@@ -261,7 +264,7 @@
                                 @method('DELETE')
                                 <button type="submit" onclick="return confirm('Delete this announcement?')"
                                     class="w-9 h-9 flex items-center justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-200 hover:scale-110 transition-all" title="Delete">
-                                    <i class='bx bx-trash text-lg'></i>
+                                    <i class='hgi-stroke hgi-delete-01 text-lg'></i>
                                 </button>
                             </form>
                         @endif
@@ -272,13 +275,13 @@
             <div class="col-span-full">
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                        <i class='bx bx-news text-4xl text-gray-400'></i>
+                        <i class='hgi-stroke hgi-news text-4xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No announcements found</p>
                     <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or add a new announcement</p>
                     <a href="{{ route('admin.announcements.create') }}" 
                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all text-sm mt-4">
-                        <i class='bx bx-plus'></i>
+                        <i class='hgi-stroke hgi-plus-sign'></i>
                         Add New Announcement
                     </a>
                 </div>

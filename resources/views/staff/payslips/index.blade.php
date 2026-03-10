@@ -6,11 +6,14 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-emerald-500 via-emerald-600 to-green-600 rounded-2xl shadow-lg p-6 text-white">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="bg-gradient-to-r from-emerald-500 via-emerald-600 to-green-600 rounded-2xl  p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                        <i class='bx bx-receipt text-3xl'></i>
+                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-invoice-01 text-3xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">My Payslips</h1>
@@ -19,7 +22,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 text-sm">
-                        <i class='bx bx-calendar mr-1'></i>
+                        <i class='hgi-stroke hgi-calendar-03 mr-1'></i>
                         {{ now()->format('Y') }}
                     </div>
                 </div>
@@ -36,7 +39,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-file text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-file-01 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $payslips->total() }}</p>
@@ -47,7 +50,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-check-circle text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-checkmark-circle-02 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $paidCount }}</p>
@@ -58,7 +61,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-wallet text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-wallet-01 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-lg font-bold text-gray-900">RM {{ number_format($totalNet, 0) }}</p>
@@ -69,7 +72,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-calendar-check text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03-check text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-sm font-bold text-gray-900">{{ $latestPayslip ? $latestPayslip->pay_period : 'N/A' }}</p>
@@ -84,7 +87,7 @@
             <!-- Search Bar -->
             <div class="relative mb-4">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <i class='bx bx-search text-emerald-500 text-xl'></i>
+                    <i class='hgi-stroke hgi-search-01 text-emerald-500 text-xl'></i>
                 </div>
                 <input type="text" id="searchInput" placeholder="Search payslips..."
                     class="w-full pl-12 pr-4 py-3 bg-white border-0 rounded-xl shadow-sm focus:ring-2 focus:ring-emerald-500 text-gray-700 placeholder-gray-400">
@@ -93,7 +96,7 @@
             <!-- Filter Options -->
             <div class="flex flex-wrap items-center gap-3">
                 <span class="text-sm font-medium text-emerald-700 flex items-center gap-1.5">
-                    <i class='bx bx-filter-alt'></i> Filters:
+                    <i class='hgi-stroke hgi-filter'></i> Filters:
                 </span>
 
                 <select id="monthFilter" onchange="applyFilters()"
@@ -115,7 +118,7 @@
                 @if($month || $year)
                     <a href="{{ route('staff.payslips.index') }}"
                         class="inline-flex items-center px-4 py-2 bg-white text-gray-600 text-sm font-medium rounded-lg shadow-sm hover:bg-gray-50 transition ml-auto">
-                        <i class='bx bx-x mr-1'></i> Clear
+                        <i class='hgi-stroke hgi-cancel-circle mr-1'></i> Clear
                     </a>
                 @endif
             </div>
@@ -126,7 +129,7 @@
             <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                 <div class="flex items-center justify-between">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                        <i class='bx bx-list-ul text-emerald-500'></i>
+                        <i class='hgi-stroke hgi-list-view text-emerald-500'></i>
                         Payslip History
                     </h3>
                     <span class="text-sm text-gray-500">{{ $payslips->total() }} records</span>
@@ -153,7 +156,7 @@
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-3">
                                             <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-green-500 rounded-lg flex items-center justify-center">
-                                                <i class='bx bx-calendar text-white text-lg'></i>
+                                                <i class='hgi-stroke hgi-calendar-03 text-white text-lg'></i>
                                             </div>
                                             <div>
                                                 <div class="text-sm font-semibold text-gray-900">{{ $payslip->pay_period }}</div>
@@ -180,7 +183,7 @@
                                             $sConfig = $statusConfig[$payslip->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-help-circle'];
                                         @endphp
                                         <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $sConfig['bg'] }} {{ $sConfig['text'] }}">
-                                            <i class='bx {{ $sConfig['icon'] }}'></i>
+                                            <i class='hgi-stroke {{ $sConfig['icon'] }}'></i>
                                             {{ ucfirst($payslip->status) }}
                                         </span>
                                     </td>
@@ -196,7 +199,7 @@
                                         <div class="flex justify-end">
                                             <a href="{{ route('staff.payslips.show', $payslip->id) }}"
                                                 class="w-8 h-8 flex items-center justify-center bg-emerald-500 text-white hover:bg-emerald-600 rounded-full transition shadow-sm hover:shadow" title="View">
-                                                <i class='bx bx-show text-sm'></i>
+                                                <i class='hgi-stroke hgi-eye text-sm'></i>
                                             </a>
                                         </div>
                                     </td>
@@ -208,7 +211,7 @@
 
                 <div id="noResults" class="hidden p-8 text-center">
                     <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class='bx bx-search-alt text-3xl text-gray-400'></i>
+                        <i class='hgi-stroke hgi-search-01-alt text-3xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No payslips found matching your search</p>
                 </div>
@@ -221,7 +224,7 @@
             @else
                 <div class="text-center py-16">
                     <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class='bx bx-receipt text-3xl text-gray-400'></i>
+                        <i class='hgi-stroke hgi-invoice-01 text-3xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No Payslips Available</p>
                     <p class="text-gray-400 text-sm mt-1">Your payslips will appear here once they are processed</p>

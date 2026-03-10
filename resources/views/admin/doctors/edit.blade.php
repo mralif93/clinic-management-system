@@ -6,7 +6,10 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-6 text-white shadow-lg">
+        <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div
@@ -15,7 +18,8 @@
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">
-                            {{ $doctor->full_name ?? ($doctor->first_name . ' ' . $doctor->last_name) }}</h1>
+                            {{ $doctor->full_name ?? ($doctor->first_name . ' ' . $doctor->last_name) }}
+                        </h1>
                         <p class="text-green-100">{{ $doctor->email }}</p>
                         @if($doctor->doctor_id)
                             <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-white/20 mt-1">
@@ -27,12 +31,12 @@
                 <div class="flex items-center gap-3">
                     <a href="{{ route('admin.doctors.show', $doctor->id) }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                        <i class='bx bx-show'></i>
+                        <i class='hgi-stroke hgi-eye'></i>
                         View Details
                     </a>
                     <a href="{{ route('admin.doctors.index') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                        <i class='bx bx-arrow-back'></i>
+                        <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back to List
                     </a>
                 </div>
@@ -48,7 +52,7 @@
                 <!-- User Account Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-link text-green-600'></i>
+                        <i class='hgi-stroke hgi-link-01 text-green-600'></i>
                         Link to User Account
                     </h3>
                 </div>
@@ -67,7 +71,7 @@
                 <!-- Personal Information Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-user text-green-600'></i>
+                        <i class='hgi-stroke hgi-user text-green-600'></i>
                         Personal Information
                     </h3>
                 </div>
@@ -83,7 +87,7 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all text-sm @error('first_name') border-red-500 @enderror"
                                 placeholder="Enter first name">
                             @error('first_name')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='bx bx-error-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -98,7 +102,7 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all text-sm @error('last_name') border-red-500 @enderror"
                                 placeholder="Enter last name">
                             @error('last_name')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='bx bx-error-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -112,7 +116,7 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all text-sm @error('email') border-red-500 @enderror"
                                 placeholder="Enter email address">
                             @error('email')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='bx bx-error-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -130,7 +134,7 @@
                 <!-- Professional Information Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-briefcase text-green-600'></i>
+                        <i class='hgi-stroke hgi-briefcase-01 text-green-600'></i>
                         Professional Information
                     </h3>
                 </div>
@@ -172,7 +176,7 @@
                                     General</option>
                             </select>
                             @error('type')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='bx bx-error-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -193,7 +197,7 @@
                 <!-- Employment & Salary Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-wallet text-green-600'></i>
+                        <i class='hgi-stroke hgi-wallet-01 text-green-600'></i>
                         Employment & Salary
                     </h3>
                 </div>
@@ -207,8 +211,8 @@
                             <select id="employment_type" name="employment_type" required
                                 onchange="toggleDoctorSalaryFields()"
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all text-sm bg-white">
-                                <option value="full_time" {{ old('employment_type', $doctor->user->employment_type ?? 'full_time') == 'full_time' ? 'selected' : '' }}>Full Time</option>
-                                <option value="locum" {{ old('employment_type', $doctor->user->employment_type) == 'locum' ? 'selected' : '' }}>Locum</option>
+                                <option value="full_time" {{ old('employment_type', $doctor->user?->employment_type ?? 'full_time') == 'full_time' ? 'selected' : '' }}>Full Time</option>
+                                <option value="locum" {{ old('employment_type', $doctor->user?->employment_type) == 'locum' ? 'selected' : '' }}>Locum</option>
                             </select>
                         </div>
 
@@ -220,12 +224,13 @@
                             <div class="relative">
                                 <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">RM</span>
                                 <input type="number" id="basic_salary" name="basic_salary"
-                                    value="{{ old('basic_salary', $doctor->user->basic_salary) }}" step="0.01" min="0"
+                                    value="{{ old('basic_salary', $doctor->user?->basic_salary ?? '') }}" step="0.01"
+                                    min="0"
                                     class="w-full pl-12 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all text-sm @error('basic_salary') border-red-500 @enderror"
                                     placeholder="0.00">
                             </div>
                             @error('basic_salary')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='bx bx-error-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -239,7 +244,7 @@
                                 <input type="number" id="commission_rate" name="commission_rate"
                                     value="{{ old('commission_rate', $doctor->commission_rate ?? '60.00') }}" step="0.01"
                                     min="0" max="100"
-                                    class="w-full pr-10 px-4 py-2.5 rounded-xl border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all text-sm"
+                                    class="w-full pr-10 px-4 py-2.5 rounded-xl border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all text-sm @error('commission_rate') border-red-500 @enderror"
                                     placeholder="60.00">
                                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">%</span>
                             </div>
@@ -251,7 +256,7 @@
                 <!-- Bio Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-file-blank text-green-600'></i>
+                        <i class='hgi-stroke hgi-file-01-blank text-green-600'></i>
                         Biography
                     </h3>
                 </div>
@@ -265,12 +270,12 @@
                 <div class="p-6 bg-gray-50/50 flex flex-col sm:flex-row justify-end gap-3">
                     <a href="{{ route('admin.doctors.index') }}"
                         class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-all text-sm">
-                        <i class='bx bx-x'></i>
+                        <i class='hgi-stroke hgi-cancel-circle'></i>
                         Cancel
                     </a>
                     <button type="submit"
                         class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-all text-sm shadow-lg shadow-green-600/20">
-                        <i class='bx bx-save'></i>
+                        <i class='hgi-stroke hgi-floppy-disk'></i>
                         Update Doctor
                     </button>
                 </div>

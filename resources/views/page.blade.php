@@ -50,7 +50,7 @@
                 @else
                     <div class="text-center py-16">
                         <div class="w-20 h-20 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class='bx bx-file text-3xl text-indigo-400'></i>
+                            <i class='hgi-stroke hgi-file-01 text-3xl text-indigo-400'></i>
                         </div>
                         <p class="text-gray-500 text-lg">No content available for this page.</p>
                     </div>

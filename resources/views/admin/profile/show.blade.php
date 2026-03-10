@@ -6,15 +6,18 @@
 <div class="max-w-3xl mx-auto space-y-6">
 
     {{-- Header Banner --}}
-    <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 rounded-2xl p-6 text-white">
+    <div class="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
         <div class="flex items-center gap-5">
-            <div class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-3xl font-bold select-none">
+            <div class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-3xl font-bold select-none shadow-inner border border-white/20 transform transition-transform hover:scale-105">
                 {{ strtoupper(substr($user->name, 0, 1)) }}
             </div>
             <div>
                 <h2 class="text-2xl font-bold">{{ $user->name }}</h2>
                 <p class="text-blue-100 text-sm mt-0.5 flex items-center gap-2 flex-wrap">
-                    <span class="flex items-center gap-1"><i class='bx bx-envelope'></i> {{ $user->email }}</span>
+                    <span class="flex items-center gap-1"><i class='hgi-stroke hgi-mail-01'></i> {{ $user->email }}</span>
                     <span class="px-2 py-0.5 bg-white/20 rounded-lg text-xs font-semibold">{{ ucfirst($user->role) }}</span>
                     @if($user->position)
                         <span class="text-blue-200">· {{ $user->position }}</span>
@@ -27,7 +30,7 @@
     {{-- Personal Information --}}
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50 flex items-center gap-2">
-            <i class='bx bx-user text-blue-500'></i>
+            <i class='hgi-stroke hgi-user text-blue-500'></i>
             <h3 class="text-sm font-semibold text-gray-900">Personal Information</h3>
         </div>
         <div class="p-6">
@@ -116,7 +119,7 @@
                 <div class="flex justify-end">
                     <button type="submit"
                         class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition shadow-lg shadow-blue-500/25">
-                        <i class='bx bx-save'></i> Save Profile
+                        <i class='hgi-stroke hgi-floppy-disk'></i> Save Profile
                     </button>
                 </div>
             </form>
@@ -126,7 +129,7 @@
     {{-- Change Password --}}
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50 flex items-center gap-2">
-            <i class='bx bx-lock-alt text-red-500'></i>
+            <i class='hgi-stroke hgi-lock-01 text-red-500'></i>
             <h3 class="text-sm font-semibold text-gray-900">Change Password</h3>
         </div>
         <div class="p-6 space-y-4">
@@ -164,14 +167,14 @@
 
                 {{-- Smaller, inline-aligned info notice --}}
                 <p class="flex items-center gap-1.5 text-xs text-amber-600">
-                    <i class='bx bx-info-circle text-sm'></i>
+                    <i class='hgi-stroke hgi-information-circle text-sm'></i>
                     You must enter your current password before setting a new one.
                 </p>
 
                 <div class="flex justify-end">
                     <button type="submit"
                         class="inline-flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white text-sm font-semibold rounded-xl hover:bg-red-700 transition shadow-lg shadow-red-500/25">
-                        <i class='bx bx-lock-open-alt'></i> Update Password
+                        <i class='hgi-stroke hgi-lock-open-01'></i> Update Password
                     </button>
                 </div>
             </form>
@@ -181,7 +184,7 @@
     {{-- Account Info (read-only) --}}
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50 flex items-center gap-2">
-            <i class='bx bx-info-circle text-gray-400'></i>
+            <i class='hgi-stroke hgi-information-circle text-gray-400'></i>
             <h3 class="text-sm font-semibold text-gray-900">Account Information</h3>
         </div>
         <div class="p-6">
@@ -199,7 +202,7 @@
                     <dd>
                         @if($user->email_verified_at)
                             <span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 rounded-lg text-xs font-semibold flex items-center gap-1 w-fit">
-                                <i class='bx bx-check-circle'></i> Verified
+                                <i class='hgi-stroke hgi-checkmark-circle-02'></i> Verified
                             </span>
                         @else
                             <span class="px-2.5 py-1 bg-gray-100 text-gray-500 rounded-lg text-xs font-semibold">Not Verified</span>

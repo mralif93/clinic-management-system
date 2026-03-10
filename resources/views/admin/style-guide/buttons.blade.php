@@ -67,29 +67,29 @@
             <h2 class="text-lg font-semibold mb-4">Icon Buttons</h2>
             <div class="flex flex-wrap gap-4 mb-6">
                 <button class="btn btn-primary btn-icon" title="Edit">
-                    <i class='bx bx-pencil'></i>
+                    <i class='hgi-stroke hgi-pencil-01'></i>
                 </button>
                 <button class="btn btn-danger btn-icon" title="Delete">
-                    <i class='bx bx-trash'></i>
+                    <i class='hgi-stroke hgi-delete-01'></i>
                 </button>
                 <button class="btn btn-success btn-icon" title="Approve">
-                    <i class='bx bx-check'></i>
+                    <i class='hgi-stroke hgi-checkmark-circle-02'></i>
                 </button>
                 <button class="btn btn-secondary btn-icon" title="View">
-                    <i class='bx bx-show'></i>
+                    <i class='hgi-stroke hgi-eye'></i>
                 </button>
             </div>
 
             <h3 class="text-sm font-medium text-gray-500 mb-2">Buttons with Text & Icon</h3>
             <div class="flex flex-wrap gap-4">
                 <button class="btn btn-primary">
-                    <i class='bx bx-plus-circle mr-2'></i> Add New
+                    <i class='hgi-stroke hgi-plus-sign mr-2'></i> Add New
                 </button>
                 <button class="btn btn-danger">
-                    <i class='bx bx-trash mr-2'></i> Delete Item
+                    <i class='hgi-stroke hgi-delete-01 mr-2'></i> Delete Item
                 </button>
                 <button class="btn btn-secondary">
-                    <i class='bx bx-filter-alt mr-2'></i> Filter
+                    <i class='hgi-stroke hgi-filter mr-2'></i> Filter
                 </button>
             </div>
         </div>

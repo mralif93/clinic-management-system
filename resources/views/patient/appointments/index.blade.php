@@ -13,7 +13,7 @@
                 </div>
                 <a href="{{ route('patient.appointments.create') }}"
                     class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg">
-                    <i class='bx bx-plus mr-2 text-base'></i>
+                    <i class='hgi-stroke hgi-plus-sign mr-2 text-base'></i>
                     Book Appointment
                 </a>
             </div>
@@ -25,7 +25,7 @@
                             <div class="flex items-center justify-between">
                                 <div class="flex items-start space-x-4 flex-1">
                                     <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                                        <i class='bx bx-calendar text-blue-600 text-2xl'></i>
+                                        <i class='hgi-stroke hgi-calendar-03 text-blue-600 text-2xl'></i>
                                     </div>
                                     <div class="flex-1">
                                         <h3 class="text-lg font-semibold text-gray-900">{{ $appointment->service->name ?? 'N/A' }}
@@ -33,11 +33,11 @@
                                         <p class="text-gray-600 mt-1">Dr. {{ $appointment->doctor->user->name ?? 'N/A' }}</p>
                                         <div class="flex items-center space-x-4 mt-2 text-sm text-gray-500">
                                             <span class="flex items-center">
-                                                <i class='bx bx-calendar mr-1'></i>
+                                                <i class='hgi-stroke hgi-calendar-03 mr-1'></i>
                                                 {{ \Carbon\Carbon::parse($appointment->appointment_date)->format('l, M d, Y') }}
                                             </span>
                                             <span class="flex items-center">
-                                                <i class='bx bx-time mr-1'></i>
+                                                <i class='hgi-stroke hgi-clock-02 mr-1'></i>
                                                 {{ $appointment->appointment_time }}
                                             </span>
                                         </div>
@@ -71,7 +71,7 @@
                                     </span>
                                     <a href="{{ route('patient.appointments.show', $appointment->id) }}"
                                         class="text-blue-600 hover:text-blue-700">
-                                        <i class='bx bx-chevron-right text-3xl'></i>
+                                        <i class='hgi-stroke hgi-arrow-right-01 text-3xl'></i>
                                     </a>
                                 </div>
                             </div>
@@ -85,12 +85,12 @@
                 </div>
             @else
                 <div class="bg-white rounded-lg shadow-md border border-gray-200 p-12 text-center">
-                    <i class='bx bx-calendar-minus text-6xl text-gray-300 mb-4'></i>
+                    <i class='hgi-stroke hgi-calendar-03-minus text-6xl text-gray-300 mb-4'></i>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">No Appointments Yet</h3>
                     <p class="text-gray-600 mb-6">You haven't booked any appointments yet.</p>
                     <a href="{{ route('patient.appointments.create') }}"
                         class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg">
-                        <i class='bx bx-plus mr-2 text-lg'></i>
+                        <i class='hgi-stroke hgi-plus-sign mr-2 text-lg'></i>
                         Book Your First Appointment
                     </a>
                 </div>

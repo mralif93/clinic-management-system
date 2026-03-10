@@ -6,37 +6,40 @@
 @section('content')
 <div class="space-y-6">
     <!-- Page Header -->
-    <div class="bg-gradient-to-r from-violet-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
+    <div class="bg-gradient-to-r from-violet-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div class="flex items-center gap-4">
-                <div class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30">
-                    <i class='bx bx-calendar-minus text-4xl'></i>
+                <div class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center border-2 border-white/30 shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                    <i class='hgi-stroke hgi-calendar-03 text-4xl'></i>
                 </div>
                 <div>
                     <h1 class="text-2xl font-bold">Leave Request</h1>
                     <p class="text-violet-100 flex items-center gap-2 mt-1">
-                        <i class='bx bx-user'></i>
+                        <i class='hgi-stroke hgi-user'></i>
                         {{ $leave->user->name }} • {{ ucfirst($leave->user->role) }}
                     </p>
                     <div class="flex flex-wrap gap-2 mt-2">
                         @php
                             $statusColors = [
-                                'pending' => 'bg-yellow-400/30',
-                                'approved' => 'bg-green-400/30',
-                                'rejected' => 'bg-red-400/30',
+                                'pending' => 'text-yellow-600',
+                                'approved' => 'text-green-600',
+                                'rejected' => 'text-red-600',
                             ];
                         @endphp
-                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium {{ $statusColors[$leave->status] ?? 'bg-gray-400/30' }}">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-white shadow-sm {{ $statusColors[$leave->status] ?? 'text-gray-600' }}">
                             @if($leave->status === 'approved')
-                                <i class='bx bx-check-circle mr-1'></i>
+                                <i class='hgi-stroke hgi-checkmark-circle-02 mr-1 text-sm'></i>
                             @elseif($leave->status === 'rejected')
-                                <i class='bx bx-x-circle mr-1'></i>
+                                <i class='hgi-stroke hgi-cancel-circle mr-1 text-sm'></i>
                             @else
-                                <i class='bx bx-time mr-1'></i>
+                                <i class='hgi-stroke hgi-clock-02 mr-1 text-sm'></i>
                             @endif
                             {{ ucfirst($leave->status) }}
                         </span>
-                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium {{ $leave->type_color }} bg-white/20">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md border border-white/30 text-white shadow-sm">
                             {{ \App\Models\Leave::getLeaveTypes()[$leave->leave_type] ?? ucfirst($leave->leave_type) }}
                         </span>
                     </div>
@@ -46,12 +49,12 @@
                 @if($leave->status === 'pending')
                     <button onclick="approveLeave({{ $leave->id }})"
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-green-600 rounded-full font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg">
-                        <i class='bx bx-check-circle text-lg'></i>
+                        <i class='hgi-stroke hgi-checkmark-circle-02 text-lg'></i>
                         Approve
                     </button>
                     <button onclick="rejectLeave({{ $leave->id }})"
                             class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-red-600 rounded-full font-semibold hover:bg-red-50 hover:scale-105 transition-all shadow-lg">
-                        <i class='bx bx-x-circle text-lg'></i>
+                        <i class='hgi-stroke hgi-cancel-circle text-lg'></i>
                         Reject
                     </button>
                     
@@ -60,11 +63,11 @@
                 
                 <a href="{{ route('admin.leaves.edit', $leave->id) }}" title="Edit Leave"
                    class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-violet-600 hover:bg-violet-50 hover:scale-105 transition-all shadow-lg">
-                    <i class='bx bx-edit text-xl'></i>
+                    <i class='hgi-stroke hgi-pencil-edit-01 text-xl'></i>
                 </a>
                 <a href="{{ route('admin.leaves.index') }}"
                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur text-white rounded-full font-medium hover:bg-white/30 transition-all">
-                    <i class='bx bx-arrow-back'></i>
+                    <i class='hgi-stroke hgi-arrow-left-01'></i>
                     Back
                 </a>
             </div>
@@ -76,7 +79,7 @@
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
             <div class="flex items-center gap-4">
                 <div class="w-12 h-12 rounded-xl bg-violet-50 flex items-center justify-center">
-                    <i class='bx bx-calendar text-2xl text-violet-600'></i>
+                    <i class='hgi-stroke hgi-calendar-03 text-2xl text-violet-600'></i>
                 </div>
                 <div>
                     <p class="text-sm text-gray-500">Start Date</p>
@@ -87,7 +90,7 @@
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
             <div class="flex items-center gap-4">
                 <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center">
-                    <i class='bx bx-calendar-check text-2xl text-purple-600'></i>
+                    <i class='hgi-stroke hgi-calendar-03 text-2xl text-purple-600'></i>
                 </div>
                 <div>
                     <p class="text-sm text-gray-500">End Date</p>
@@ -98,7 +101,7 @@
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
             <div class="flex items-center gap-4">
                 <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
-                    <i class='bx bx-time text-2xl text-blue-600'></i>
+                    <i class='hgi-stroke hgi-clock-02 text-2xl text-blue-600'></i>
                 </div>
                 <div>
                     <p class="text-sm text-gray-500">Duration</p>
@@ -117,7 +120,7 @@
                     $style = $statusStyle[$leave->status] ?? ['bg' => 'bg-gray-50', 'text' => 'text-gray-600'];
                 @endphp
                 <div class="w-12 h-12 rounded-xl {{ $style['bg'] }} flex items-center justify-center">
-                    <i class='bx bx-badge-check text-2xl {{ $style['text'] }}'></i>
+                    <i class='hgi-stroke hgi-checkmark-badge-01 text-2xl {{ $style['text'] }}'></i>
                 </div>
                 <div>
                     <p class="text-sm text-gray-500">Status</p>
@@ -134,7 +137,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-user text-violet-600'></i>
+                        <i class='hgi-stroke hgi-user text-violet-600'></i>
                         Employee Information
                     </h3>
                 </div>
@@ -155,7 +158,7 @@
             <div class="bg-white rounded-2xl shadow-sm border-l-4 overflow-hidden {{ $leave->status === 'approved' ? 'border-green-500' : ($leave->status === 'rejected' ? 'border-red-500' : 'border-yellow-500') }}">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-info-circle text-violet-600'></i>
+                        <i class='hgi-stroke hgi-information-circle text-violet-600'></i>
                         Request Status
                     </h3>
                 </div>
@@ -168,11 +171,11 @@
                                     {{ ucfirst($leave->status) }}
                                 </span>
                                 @if($leave->status === 'approved')
-                                    <i class='bx bx-check-circle text-2xl text-green-500'></i>
+                                    <i class='hgi-stroke hgi-checkmark-circle-02 text-2xl text-green-500'></i>
                                 @elseif($leave->status === 'rejected')
-                                    <i class='bx bx-x-circle text-2xl text-red-500'></i>
+                                    <i class='hgi-stroke hgi-cancel-circle text-2xl text-red-500'></i>
                                 @else
-                                    <i class='bx bx-time text-2xl text-yellow-500'></i>
+                                    <i class='hgi-stroke hgi-clock-02 text-2xl text-yellow-500'></i>
                                 @endif
                             </div>
                         </div>
@@ -210,7 +213,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-detail text-violet-600'></i>
+                        <i class='hgi-stroke hgi-file-01 text-violet-600'></i>
                         Request Details
                     </h3>
                 </div>
@@ -229,14 +232,14 @@
                         <div>
                             <p class="text-sm font-medium text-gray-500 mb-2">Start Date</p>
                             <div class="flex items-center gap-2">
-                                <i class='bx bx-calendar text-gray-400'></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-gray-400'></i>
                                 <p class="font-medium text-gray-800">{{ $leave->start_date->format('M d, Y') }}</p>
                             </div>
                         </div>
                         <div>
                             <p class="text-sm font-medium text-gray-500 mb-2">End Date</p>
                             <div class="flex items-center gap-2">
-                                <i class='bx bx-calendar text-gray-400'></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-gray-400'></i>
                                 <p class="font-medium text-gray-800">{{ $leave->end_date->format('M d, Y') }}</p>
                             </div>
                         </div>
@@ -258,7 +261,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-paperclip text-violet-600'></i>
+                        <i class='hgi-stroke hgi-attachment-01 text-violet-600'></i>
                         Attachment
                     </h3>
                 </div>
@@ -269,19 +272,19 @@
                                 $extension = pathinfo($leave->attachment, PATHINFO_EXTENSION);
                             @endphp
                             @if(in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))
-                                <i class='bx bx-image text-4xl text-blue-500 mb-2'></i>
+                                <i class='hgi-stroke hgi-image-01 text-4xl text-blue-500 mb-2'></i>
                             @else
-                                <i class='bx bx-file-pdf text-4xl text-red-500 mb-2'></i>
+                                <i class='hgi-stroke hgi-file-01-pdf text-4xl text-red-500 mb-2'></i>
                             @endif
                             <p class="text-sm font-medium text-gray-700 mb-4">Proof Document</p>
                             <a href="{{ Storage::url($leave->attachment) }}" target="_blank"
                                 class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors">
-                                <i class='bx bx-download'></i> Download
+                                <i class='hgi-stroke hgi-download-04'></i> Download
                             </a>
                         </div>
                     @else
                         <div class="text-center py-8 text-gray-500">
-                            <i class='bx bx-file-blank text-4xl mb-2'></i>
+                            <i class='hgi-stroke hgi-file-01-blank text-4xl mb-2'></i>
                             <p>No attachment provided</p>
                         </div>
                     @endif
@@ -292,7 +295,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-git-branch text-violet-600'></i>
+                        <i class='hgi-stroke hgi-git-branch text-violet-600'></i>
                         Timeline
                     </h3>
                 </div>
@@ -323,7 +326,7 @@
             <div class="bg-white rounded-2xl shadow-sm border-2 border-red-200 overflow-hidden">
                 <div class="p-6 border-b border-red-100 bg-red-50/50">
                     <h3 class="text-lg font-semibold text-red-900 flex items-center gap-2">
-                        <i class='bx bx-error-circle text-red-600'></i>
+                        <i class='hgi-stroke hgi-alert-circle text-red-600'></i>
                         Danger Zone
                     </h3>
                 </div>
@@ -333,7 +336,7 @@
                         @method('DELETE')
                         <button type="submit" 
                                 class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-all text-sm">
-                            <i class='bx bx-trash'></i>
+                            <i class='hgi-stroke hgi-delete-01'></i>
                             Delete Request
                         </button>
                     </form>

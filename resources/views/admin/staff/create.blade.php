@@ -6,20 +6,23 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-cyan-600 to-teal-600 rounded-2xl p-6 text-white shadow-lg">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                    <h1 class="text-2xl font-bold flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                            <i class='bx bx-user-plus text-2xl'></i>
-                        </div>
-                        Create New Staff
-                    </h1>
-                    <p class="mt-2 text-cyan-100">Add a new staff member to the system</p>
-                </div>
+        <div class="bg-gradient-to-r from-cyan-600 to-teal-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+        <i class='hgi-stroke hgi-user-plus text-2xl'></i>
+    </div>
+    <div>
+        <h2 class="text-2xl font-bold">Create New Staff</h2>
+        <p class="text-cyan-100 text-sm mt-1">Add a new staff member to the system</p>
+    </div>
+</div>
                 <a href="{{ route('admin.staff.index') }}"
                     class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                    <i class='bx bx-arrow-back'></i>
+                    <i class='hgi-stroke hgi-arrow-left-01'></i>
                     Back to List
                 </a>
             </div>
@@ -33,7 +36,7 @@
                 <!-- User Account Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-link text-cyan-600'></i>
+                        <i class='hgi-stroke hgi-link-01 text-cyan-600'></i>
                         Link to User Account
                     </h3>
                     <p class="text-sm text-gray-500 mt-1">Required - Staff must be linked to an existing user with staff
@@ -50,13 +53,13 @@
                         @endforeach
                     </select>
                     @error('user_id')
-                        <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='bx bx-error-circle'></i>
+                        <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                             {{ $message }}</p>
                     @enderror
                     @if($availableUsers->isEmpty())
                         <div class="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-xl">
                             <p class="text-sm text-amber-700 flex items-center gap-1">
-                                <i class='bx bx-info-circle'></i>
+                                <i class='hgi-stroke hgi-information-circle'></i>
                                 No available users with staff role. Please create a user with staff role first.
                             </p>
                         </div>
@@ -66,7 +69,7 @@
                 <!-- Personal Information Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-user text-cyan-600'></i>
+                        <i class='hgi-stroke hgi-user text-cyan-600'></i>
                         Personal Information
                     </h3>
                 </div>
@@ -82,7 +85,7 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all text-sm @error('first_name') border-red-500 @enderror"
                                 placeholder="Enter first name">
                             @error('first_name')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='bx bx-error-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -96,7 +99,7 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all text-sm @error('last_name') border-red-500 @enderror"
                                 placeholder="Enter last name">
                             @error('last_name')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='bx bx-error-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -121,7 +124,7 @@
                 <!-- Position & Department Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-briefcase text-cyan-600'></i>
+                        <i class='hgi-stroke hgi-briefcase-01 text-cyan-600'></i>
                         Position & Department
                     </h3>
                 </div>
@@ -148,7 +151,7 @@
                 <!-- Employment & Salary Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-wallet text-cyan-600'></i>
+                        <i class='hgi-stroke hgi-wallet-01 text-cyan-600'></i>
                         Employment & Salary
                     </h3>
                 </div>
@@ -180,7 +183,7 @@
                                     placeholder="0.00">
                             </div>
                             @error('basic_salary')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='bx bx-error-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -204,7 +207,7 @@
                 <!-- Notes Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-file-blank text-cyan-600'></i>
+                        <i class='hgi-stroke hgi-file-01-blank text-cyan-600'></i>
                         Additional Notes
                     </h3>
                 </div>
@@ -218,12 +221,12 @@
                 <div class="p-6 bg-gray-50/50 flex flex-col sm:flex-row justify-end gap-3">
                     <a href="{{ route('admin.staff.index') }}"
                         class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-all text-sm">
-                        <i class='bx bx-x'></i>
+                        <i class='hgi-stroke hgi-cancel-circle'></i>
                         Cancel
                     </a>
                     <button type="submit"
                         class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-cyan-600 text-white rounded-xl font-semibold hover:bg-cyan-700 transition-all text-sm shadow-lg shadow-cyan-600/20">
-                        <i class='bx bx-save'></i>
+                        <i class='hgi-stroke hgi-floppy-disk'></i>
                         Create Staff
                     </button>
                 </div>

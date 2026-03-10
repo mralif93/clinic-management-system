@@ -8,7 +8,7 @@
         <!-- Page Header -->
         <div class="text-center mb-16">
             <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
-                <i class='bx bx-megaphone text-blue-600 text-3xl'></i>
+                <i class='hgi-stroke hgi-megaphone-01 text-blue-600 text-3xl'></i>
             </div>
             <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
                 News & Announcements
@@ -33,7 +33,7 @@
                             </div>
                         @else
                             <div class="h-64 bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
-                                <i class='bx bx-news text-6xl text-blue-300'></i>
+                                <i class='hgi-stroke hgi-news text-6xl text-blue-300'></i>
                             </div>
                         @endif
                         <div class="p-6">
@@ -57,7 +57,7 @@
                             <a href="{{ route('announcements.show', $announcement->id) }}" 
                                class="inline-flex items-center gap-1 text-blue-600 font-semibold hover:text-blue-800 text-sm">
                                 Read More
-                                <i class='bx bx-arrow-right'></i>
+                                <i class='hgi-stroke hgi-arrow-right-01'></i>
                             </a>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
         @else
             <div class="text-center py-16">
                 <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                    <i class='bx bx-news text-4xl text-gray-400'></i>
+                    <i class='hgi-stroke hgi-news text-4xl text-gray-400'></i>
                 </div>
                 <p class="text-gray-500 font-medium text-lg">No announcements available</p>
                 <p class="text-gray-400 text-sm mt-1">Check back later for updates</p>

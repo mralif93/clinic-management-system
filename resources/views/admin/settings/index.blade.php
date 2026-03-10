@@ -14,7 +14,7 @@
                 </div>
                 <div id="saveStatus"
                     class="hidden items-center gap-2 px-4 py-2 rounded-lg bg-green-50 border border-green-200">
-                    <i class='bx bx-check-circle text-green-600'></i>
+                    <i class='hgi-stroke hgi-checkmark-circle-02 text-green-600'></i>
                     <span class="text-sm font-medium text-green-700">All changes saved</span>
                 </div>
             </div>
@@ -35,37 +35,37 @@
                         <button @click="activeTab = 'general'"
                             :class="activeTab === 'general' ? 'border-blue-500 text-blue-600 bg-blue-50/50' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
                             class="flex items-center gap-2 px-6 py-4 border-b-2 text-sm font-medium transition-all whitespace-nowrap">
-                            <i class='bx bx-cog text-lg'></i>
+                            <i class='hgi-stroke hgi-settings-01 text-lg'></i>
                             General
                         </button>
                         <button @click="activeTab = 'branding'"
                             :class="activeTab === 'branding' ? 'border-blue-500 text-blue-600 bg-blue-50/50' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
                             class="flex items-center gap-2 px-6 py-4 border-b-2 text-sm font-medium transition-all whitespace-nowrap">
-                            <i class='bx bx-palette text-lg'></i>
+                            <i class='hgi-stroke hgi-paint-board text-lg'></i>
                             Branding
                         </button>
                         <button @click="activeTab = 'payment'"
                             :class="activeTab === 'payment' ? 'border-blue-500 text-blue-600 bg-blue-50/50' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
                             class="flex items-center gap-2 px-6 py-4 border-b-2 text-sm font-medium transition-all whitespace-nowrap">
-                            <i class='bx bx-credit-card text-lg'></i>
+                            <i class='hgi-stroke hgi-credit-card text-lg'></i>
                             Payment
                         </button>
                         <button @click="activeTab = 'payroll'"
                             :class="activeTab === 'payroll' ? 'border-blue-500 text-blue-600 bg-blue-50/50' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
                             class="flex items-center gap-2 px-6 py-4 border-b-2 text-sm font-medium transition-all whitespace-nowrap">
-                            <i class='bx bx-money text-lg'></i>
+                            <i class='hgi-stroke hgi-money-bag-01 text-lg'></i>
                             Payroll
                         </button>
                         <button @click="activeTab = 'email'"
                             :class="activeTab === 'email' ? 'border-blue-500 text-blue-600 bg-blue-50/50' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
                             class="flex items-center gap-2 px-6 py-4 border-b-2 text-sm font-medium transition-all whitespace-nowrap">
-                            <i class='bx bx-envelope text-lg'></i>
+                            <i class='hgi-stroke hgi-mail-01 text-lg'></i>
                             Email
                         </button>
                         <button @click="activeTab = 'hours'"
                             :class="activeTab === 'hours' ? 'border-blue-500 text-blue-600 bg-blue-50/50' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
                             class="flex items-center gap-2 px-6 py-4 border-b-2 text-sm font-medium transition-all whitespace-nowrap">
-                            <i class='bx bx-time text-lg'></i>
+                            <i class='hgi-stroke hgi-clock-02 text-lg'></i>
                             Hours
                         </button>
                     </nav>
@@ -96,15 +96,15 @@
                                                 <label for="setting_{{ $setting->key }}"
                                                     class="text-sm font-semibold text-gray-700 flex items-center gap-2">
                                                     @if($setting->key === 'clinic_name')
-                                                        <i class='bx bx-building-house text-blue-500'></i>
+                                                        <i class='hgi-stroke hgi-home-09 text-blue-500'></i>
                                                     @elseif($setting->key === 'clinic_email')
-                                                        <i class='bx bx-envelope text-blue-500'></i>
+                                                        <i class='hgi-stroke hgi-mail-01 text-blue-500'></i>
                                                     @elseif($setting->key === 'clinic_phone')
-                                                        <i class='bx bx-phone text-blue-500'></i>
+                                                        <i class='hgi-stroke hgi-phone text-blue-500'></i>
                                                     @elseif($setting->key === 'clinic_address')
-                                                        <i class='bx bx-map text-blue-500'></i>
+                                                        <i class='hgi-stroke hgi-maps-location-01 text-blue-500'></i>
                                                     @else
-                                                        <i class='bx bx-cog text-blue-500'></i>
+                                                        <i class='hgi-stroke hgi-settings-01 text-blue-500'></i>
                                                     @endif
                                                     {{ ucwords(str_replace('_', ' ', $setting->key)) }}
                                                 </label>
@@ -146,7 +146,7 @@
                             </div>
                         @else
                             <div class="text-center py-12">
-                                <i class='bx bx-cog text-4xl text-gray-300 mb-3'></i>
+                                <i class='hgi-stroke hgi-settings-01 text-4xl text-gray-300 mb-3'></i>
                                 <p class="text-gray-500">No general settings found</p>
                             </div>
                         @endif
@@ -181,7 +181,7 @@
                                 <!-- Current Logo -->
                                 <div class="p-6 rounded-xl border border-gray-100 bg-gray-50/50">
                                     <h4 class="text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
-                                        <i class='bx bx-image text-blue-500'></i>
+                                        <i class='hgi-stroke hgi-image-01 text-blue-500'></i>
                                         Current Logo
                                     </h4>
                                     <div
@@ -193,7 +193,7 @@
                                             <div class="text-center">
                                                 <div
                                                     class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                                                    <i class='bx bx-image text-3xl text-gray-400'></i>
+                                                    <i class='hgi-stroke hgi-image-01 text-3xl text-gray-400'></i>
                                                 </div>
                                                 <p class="text-sm font-medium text-gray-600">No logo uploaded</p>
                                                 <p class="text-xs text-gray-400 mt-1">Upload a logo on the right</p>
@@ -203,7 +203,7 @@
                                     @if($logoUrl)
                                         <button type="button" onclick="removeLogo()"
                                             class="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition-all">
-                                            <i class='bx bx-trash'></i>
+                                            <i class='hgi-stroke hgi-delete-01'></i>
                                             Remove Logo
                                         </button>
                                     @endif
@@ -212,7 +212,7 @@
                                 <!-- Upload New Logo -->
                                 <div class="p-6 rounded-xl border border-gray-100 bg-gray-50/50">
                                     <h4 class="text-sm font-semibold text-gray-700 mb-4 flex items-center gap-2">
-                                        <i class='bx bx-upload text-blue-500'></i>
+                                        <i class='hgi-stroke hgi-upload-04 text-blue-500'></i>
                                         Upload New Logo
                                     </h4>
 
@@ -226,7 +226,7 @@
                                         <div class="p-8 text-center">
                                             <div
                                                 class="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mx-auto mb-4">
-                                                <i class='bx bx-cloud-upload text-3xl text-blue-500'></i>
+                                                <i class='hgi-stroke hgi-cloud-upload text-3xl text-blue-500'></i>
                                             </div>
                                             <p class="text-sm font-semibold text-gray-700">Drop your logo here or <span
                                                     class="text-blue-600">browse</span></p>
@@ -246,7 +246,7 @@
                                                 </div>
                                                 <button type="button" onclick="clearFileInput()"
                                                     class="text-gray-400 hover:text-red-500 transition-colors">
-                                                    <i class='bx bx-x text-xl'></i>
+                                                    <i class='hgi-stroke hgi-cancel-circle text-xl'></i>
                                                 </button>
                                             </div>
                                         </div>
@@ -256,7 +256,7 @@
                                     <div id="fileSizeError" class="hidden mt-4">
                                         <div class="p-4 bg-red-50 border border-red-200 rounded-xl">
                                             <div class="flex items-center gap-3">
-                                                <i class='bx bx-error-circle text-red-500 text-xl'></i>
+                                                <i class='hgi-stroke hgi-alert-circle text-red-500 text-xl'></i>
                                                 <div>
                                                     <p class="text-sm font-medium text-red-700">File too large</p>
                                                     <p class="text-xs text-red-500">Maximum file size is 2MB</p>
@@ -267,12 +267,12 @@
 
                                     <button type="submit" id="uploadBtn"
                                         class="mt-4 w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
-                                        <i class='bx bx-upload'></i>
+                                        <i class='hgi-stroke hgi-upload-04'></i>
                                         Upload Logo
                                     </button>
 
                                     <p class="mt-3 text-xs text-gray-400 text-center">
-                                        <i class='bx bx-info-circle mr-1'></i>
+                                        <i class='hgi-stroke hgi-information-circle mr-1'></i>
                                         Use a square logo (256×256px) with transparent background for best results
                                     </p>
                                 </div>
@@ -297,7 +297,7 @@
                                             <div class="md:w-1/3">
                                                 <label for="setting_{{ $setting->key }}"
                                                     class="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                                                    <i class='bx bx-dollar-circle text-green-500'></i>
+                                                    <i class='hgi-stroke hgi-dollar-circle text-green-500'></i>
                                                     {{ ucwords(str_replace('_', ' ', $setting->key)) }}
                                                 </label>
                                                 @if($setting->description)
@@ -342,7 +342,7 @@
                             </div>
                         @else
                             <div class="text-center py-12">
-                                <i class='bx bx-credit-card text-4xl text-gray-300 mb-3'></i>
+                                <i class='hgi-stroke hgi-credit-card text-4xl text-gray-300 mb-3'></i>
                                 <p class="text-gray-500">No payment settings found</p>
                             </div>
                         @endif
@@ -363,7 +363,7 @@
                                         class="group p-4 rounded-xl border border-gray-100 hover:border-amber-200 hover:bg-amber-50/30 transition-all duration-200">
                                         <label for="setting_{{ $setting->key }}"
                                             class="text-sm font-semibold text-gray-700 flex items-center gap-2 mb-3">
-                                            <i class='bx bx-calculator text-amber-500'></i>
+                                            <i class='hgi-stroke hgi-calculator text-amber-500'></i>
                                             {{ ucwords(str_replace(['payroll_', '_'], ['', ' '], $setting->key)) }}
                                         </label>
                                         @if($setting->description)
@@ -382,7 +382,7 @@
                             </div>
                         @else
                             <div class="text-center py-12">
-                                <i class='bx bx-money text-4xl text-gray-300 mb-3'></i>
+                                <i class='hgi-stroke hgi-money-bag-01 text-4xl text-gray-300 mb-3'></i>
                                 <p class="text-gray-500">No payroll settings found</p>
                             </div>
                         @endif
@@ -405,7 +405,7 @@
                                             <div class="md:w-1/3">
                                                 <label for="setting_{{ $setting->key }}"
                                                     class="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                                                    <i class='bx bx-at text-indigo-500'></i>
+                                                    <i class='hgi-stroke hgi-at text-indigo-500'></i>
                                                     {{ ucwords(str_replace('_', ' ', $setting->key)) }}
                                                 </label>
                                                 @if($setting->description)
@@ -426,7 +426,7 @@
                             </div>
                         @else
                             <div class="text-center py-12">
-                                <i class='bx bx-envelope text-4xl text-gray-300 mb-3'></i>
+                                <i class='hgi-stroke hgi-mail-01 text-4xl text-gray-300 mb-3'></i>
                                 <p class="text-gray-500">No email settings found</p>
                             </div>
                         @endif
@@ -451,7 +451,7 @@
                                 class="p-6 rounded-xl border border-gray-100 bg-gradient-to-br from-orange-50 to-yellow-50">
                                 <div class="flex items-center gap-3 mb-4">
                                     <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
-                                        <i class='bx bx-sun text-2xl text-orange-500'></i>
+                                        <i class='hgi-stroke hgi-sun-01 text-2xl text-orange-500'></i>
                                     </div>
                                     <div>
                                         <h4 class="text-sm font-semibold text-gray-700">Opening Time</h4>
@@ -469,7 +469,7 @@
                                 class="p-6 rounded-xl border border-gray-100 bg-gradient-to-br from-indigo-50 to-purple-50">
                                 <div class="flex items-center gap-3 mb-4">
                                     <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center">
-                                        <i class='bx bx-moon text-2xl text-indigo-500'></i>
+                                        <i class='hgi-stroke hgi-moon-01 text-2xl text-indigo-500'></i>
                                     </div>
                                     <div>
                                         <h4 class="text-sm font-semibold text-gray-700">Closing Time</h4>
@@ -485,7 +485,7 @@
 
                         <div class="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-xl">
                             <div class="flex items-start gap-3">
-                                <i class='bx bx-info-circle text-blue-500 text-xl mt-0.5'></i>
+                                <i class='hgi-stroke hgi-information-circle text-blue-500 text-xl mt-0.5'></i>
                                 <div>
                                     <p class="text-sm font-medium text-blue-700">About Operating Hours</p>
                                     <p class="text-xs text-blue-600 mt-1">These hours will be displayed to patients when

@@ -28,7 +28,7 @@
                             {{ $isCompleted ? 'bg-green-600 border-green-600 text-white' : '' }}
                             {{ !$isActive && !$isCompleted ? 'bg-white border-gray-300 text-gray-400' : '' }}">
                             @if($isCompleted)
-                                <i class='bx bx-check text-xl'></i>
+                                <i class='hgi-stroke hgi-checkmark-circle-02 text-xl'></i>
                             @else
                                 <span class="font-semibold">{{ $stepNumber }}</span>
                             @endif
@@ -72,7 +72,7 @@
             @click="currentStep--"
             class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
         >
-            <i class='bx bx-chevron-left mr-2'></i>Previous
+            <i class='hgi-stroke hgi-arrow-left-01 mr-2'></i>Previous
         </button>
         
         <div class="flex-1"></div>
@@ -83,7 +83,7 @@
             @click="currentStep++"
             class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
         >
-            Next<i class='bx bx-chevron-right ml-2'></i>
+            Next<i class='hgi-stroke hgi-arrow-right-01 ml-2'></i>
         </button>
         
         <button 
@@ -91,7 +91,7 @@
             x-show="currentStep === totalSteps"
             class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
         >
-            <i class='bx bx-check mr-2'></i>Submit
+            <i class='hgi-stroke hgi-checkmark-circle-02 mr-2'></i>Submit
         </button>
     </div>
 </div>

@@ -6,22 +6,29 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-            <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-3xl font-bold">
+                    <div
+                        class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-3xl font-bold">
                         {{ strtoupper(substr($doctor->first_name, 0, 1)) }}
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">{{ $doctor->full_name }}</h1>
                         <div class="flex flex-wrap items-center gap-2 mt-2">
-                            <span class="inline-flex items-center gap-1 px-3 py-1 bg-white/20 backdrop-blur rounded-full text-sm">
-                                <i class='bx bx-id-card'></i> {{ $doctor->doctor_id ?? 'N/A' }}
+                            <span
+                                class="inline-flex items-center gap-1 px-3 py-1 bg-white/20 backdrop-blur rounded-full text-sm">
+                                <i class='hgi-stroke hgi-identity-card'></i> {{ $doctor->doctor_id ?? 'N/A' }}
                             </span>
                             @if($doctor->qualification)
-                                <span class="inline-flex items-center gap-1 px-3 py-1 bg-white/20 backdrop-blur rounded-full text-sm">
-                                    <i class='bx bx-award'></i> {{ $doctor->qualification }}
+                                <span
+                                    class="inline-flex items-center gap-1 px-3 py-1 bg-white/20 backdrop-blur rounded-full text-sm">
+                                    <i class='hgi-stroke hgi-award-01'></i> {{ $doctor->qualification }}
                                 </span>
                             @endif
                         </div>
@@ -29,7 +36,7 @@
                 </div>
                 <a href="{{ route('doctor.profile.edit') }}"
                     class="inline-flex items-center px-5 py-2.5 bg-white/20 backdrop-blur text-white font-medium rounded-xl hover:bg-white/30 transition">
-                    <i class='bx bx-edit mr-2'></i> Edit Profile
+                    <i class='hgi-stroke hgi-pencil-edit-01 mr-2'></i> Edit Profile
                 </a>
             </div>
         </div>
@@ -39,7 +46,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-badge-check text-emerald-500'></i> Status Information
+                        <i class='hgi-stroke hgi-checkmark-badge-01 text-emerald-500'></i> Status Information
                     </h3>
                 </div>
                 <div class="p-6">
@@ -47,12 +54,14 @@
                         <div class="flex items-center justify-between py-3.5">
                             <label class="text-sm font-medium text-gray-500">Availability</label>
                             @if($doctor->is_available)
-                                <span class="px-3 py-1 inline-flex items-center text-sm font-semibold rounded-lg bg-emerald-100 text-emerald-700">
-                                    <i class='bx bx-check-circle mr-1'></i> Available
+                                <span
+                                    class="px-3 py-1 inline-flex items-center text-sm font-semibold rounded-lg bg-emerald-100 text-emerald-700">
+                                    <i class='hgi-stroke hgi-checkmark-circle-02 mr-1'></i> Available
                                 </span>
                             @else
-                                <span class="px-3 py-1 inline-flex items-center text-sm font-semibold rounded-lg bg-amber-100 text-amber-700">
-                                    <i class='bx bx-x-circle mr-1'></i> Unavailable
+                                <span
+                                    class="px-3 py-1 inline-flex items-center text-sm font-semibold rounded-lg bg-amber-100 text-amber-700">
+                                    <i class='hgi-stroke hgi-cancel-circle mr-1'></i> Unavailable
                                 </span>
                             @endif
                         </div>
@@ -76,7 +85,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-phone text-blue-500'></i> Contact Information
+                        <i class='hgi-stroke hgi-phone text-blue-500'></i> Contact Information
                     </h3>
                 </div>
                 <div class="p-6">
@@ -97,7 +106,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-briefcase text-purple-500'></i> Professional Information
+                        <i class='hgi-stroke hgi-briefcase-01 text-purple-500'></i> Professional Information
                     </h3>
                 </div>
                 <div class="p-6">
@@ -116,16 +125,16 @@
 
             <!-- Bio Card -->
             @if($doctor->bio)
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
-                    <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-user text-amber-500'></i> Bio
-                    </h3>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
+                        <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
+                            <i class='hgi-stroke hgi-user text-amber-500'></i> Bio
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 leading-relaxed">{{ $doctor->bio }}</p>
+                    </div>
                 </div>
-                <div class="p-6">
-                    <p class="text-gray-700 leading-relaxed">{{ $doctor->bio }}</p>
-                </div>
-            </div>
             @endif
         </div>
 
@@ -133,7 +142,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-lock-alt text-red-500'></i> Change Password
+                    <i class='hgi-stroke hgi-lock-01 text-red-500'></i> Change Password
                 </h3>
             </div>
             <div class="p-6">
@@ -165,7 +174,7 @@
                     <div class="mt-6">
                         <button type="submit"
                             class="inline-flex items-center px-5 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 transition shadow-sm">
-                            <i class='bx bx-lock mr-2'></i> Update Password
+                            <i class='hgi-stroke hgi-lock-02 mr-2'></i> Update Password
                         </button>
                     </div>
                 </form>

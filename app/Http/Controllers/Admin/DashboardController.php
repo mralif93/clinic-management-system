@@ -218,7 +218,7 @@ class DashboardController extends Controller
 
                         return [
                             'type' => 'appointment',
-                            'icon' => 'bx-calendar',
+                            'icon' => 'hgi-calendar-03',
                             'color' => 'blue',
                             'title' => 'New Appointment',
                             'description' => ($patientName ?: 'Patient').' with Dr. '.($doctorName ?: 'Doctor'),
@@ -235,7 +235,7 @@ class DashboardController extends Controller
 
                         return [
                             'type' => 'leave',
-                            'icon' => 'bx-calendar-check',
+                            'icon' => 'hgi-calendar-03-check',
                             'color' => 'purple',
                             'title' => 'Leave Request',
                             'description' => $userName.' - '.ucfirst($leave->leave_type ?? 'leave'),

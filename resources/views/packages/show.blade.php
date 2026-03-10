@@ -6,7 +6,7 @@
 <div class="min-h-screen bg-gray-50 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
         <a href="{{ route('packages.index') }}" class="text-purple-600 hover:text-purple-800 mb-4 sm:mb-6 inline-flex items-center min-h-[36px] text-sm sm:text-base">
-            <i class='bx bx-arrow-back mr-2'></i> Back to Packages
+            <i class='hgi-stroke hgi-arrow-left-01 mr-2'></i> Back to Packages
         </a>
 
         <div class="package-detail bg-white rounded-lg shadow-lg overflow-hidden">
@@ -14,7 +14,7 @@
                 <div class="flex items-center justify-between mb-6">
                     <div class="flex items-center">
                         <div class="bg-purple-100 p-4 rounded-full mr-4">
-                            <i class='bx bx-package text-4xl text-purple-600'></i>
+                            <i class='hgi-stroke hgi-package text-4xl text-purple-600'></i>
                         </div>
                         <div>
                             @if($package->discount_percentage)
@@ -31,13 +31,13 @@
                 <div class="flex flex-wrap items-center gap-4 sm:gap-6 mb-6 text-gray-600">
                     @if($package->sessions)
                         <div class="flex items-center">
-                            <i class='bx bx-calendar-check mr-2'></i>
+                            <i class='hgi-stroke hgi-calendar-03-check mr-2'></i>
                             <span>{{ $package->sessions }}</span>
                         </div>
                     @endif
                     @if($package->duration)
                         <div class="flex items-center">
-                            <i class='bx bx-time mr-2'></i>
+                            <i class='hgi-stroke hgi-clock-02 mr-2'></i>
                             <span>{{ $package->duration }}</span>
                         </div>
                     @endif

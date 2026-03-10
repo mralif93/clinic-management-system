@@ -9,9 +9,13 @@
             ['label' => 'Patients', 'url' => route('admin.patients.index')],
             ['label' => $patient->full_name ?? 'Patient Details']
         ])" />
-        
+
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-rose-600 to-pink-600 rounded-2xl p-6 text-white shadow-lg">
+        <div
+            class="bg-gradient-to-r from-rose-600 to-pink-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div
@@ -20,10 +24,11 @@
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">
-                            {{ $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name) }}</h1>
+                            {{ $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name) }}
+                        </h1>
                         @if($patient->email)
                             <p class="text-rose-100 flex items-center gap-2 mt-1">
-                                <i class='bx bx-envelope'></i>
+                                <i class='hgi-stroke hgi-mail-01'></i>
                                 {{ $patient->email }}
                             </p>
                         @endif
@@ -31,23 +36,23 @@
                             @if($patient->patient_id)
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-white/20 backdrop-blur">
-                                    <i class='bx bx-id-card mr-1'></i> ID: {{ $patient->patient_id }}
+                                    <i class='hgi-stroke hgi-identity-card mr-1'></i> ID: {{ $patient->patient_id }}
                                 </span>
                             @endif
                             @if($patient->trashed())
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-red-500/30">
-                                    <i class='bx bx-trash mr-1'></i> Deleted
+                                    <i class='hgi-stroke hgi-delete-01 mr-1'></i> Deleted
                                 </span>
                             @else
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-green-400/30">
-                                    <i class='bx bx-check-circle mr-1'></i> Active
+                                    <i class='hgi-stroke hgi-checkmark-circle-02 mr-1'></i> Active
                                 </span>
                             @endif
                             @if($patient->date_of_birth)
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-white/20 backdrop-blur">
-                                    <i class='bx bx-calendar mr-1'></i> {{ $patient->date_of_birth->age }} years old
+                                    <i class='hgi-stroke hgi-calendar-03 mr-1'></i> {{ $patient->date_of_birth->age }} years old
                                 </span>
                             @endif
                         </div>
@@ -57,20 +62,20 @@
                     @if(!$patient->trashed())
                         <a href="{{ route('admin.patients.edit', $patient->id) }}"
                             class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-rose-600 rounded-xl font-semibold hover:bg-rose-50 transition-all shadow-lg">
-                            <i class='bx bx-edit'></i>
+                            <i class='hgi-stroke hgi-pencil-edit-01'></i>
                             Edit Patient
                         </a>
                     @else
                         <button
                             onclick="restorePatient({{ $patient->id }}, '{{ $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name) }}')"
                             class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-green-600 rounded-xl font-semibold hover:bg-green-50 transition-all shadow-lg">
-                            <i class='bx bx-refresh'></i>
+                            <i class='hgi-stroke hgi-refresh'></i>
                             Restore Patient
                         </button>
                     @endif
                     <a href="{{ route('admin.patients.index') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                        <i class='bx bx-arrow-back'></i>
+                        <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back to List
                     </a>
                 </div>
@@ -83,7 +88,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-user text-rose-600'></i>
+                        <i class='hgi-stroke hgi-user text-rose-600'></i>
                         Basic Information
                     </h3>
                 </div>
@@ -127,7 +132,7 @@
                                 <span class="text-sm text-gray-500">User Account</span>
                                 <a href="{{ route('admin.users.show', $patient->user->id) }}"
                                     class="text-sm font-medium text-rose-600 hover:text-rose-700">
-                                    {{ $patient->user->email }} <i class='bx bx-link-external ml-1'></i>
+                                    {{ $patient->user->email }} <i class='hgi-stroke hgi-link-external-01 ml-1'></i>
                                 </a>
                             </div>
                         @endif
@@ -139,7 +144,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-heart text-rose-600'></i>
+                        <i class='hgi-stroke hgi-heart text-rose-600'></i>
                         Medical Information
                     </h3>
                 </div>
@@ -165,7 +170,8 @@
                                         class="px-2 py-0.5 bg-red-100 text-red-700 text-xs font-medium rounded-lg">Important</span>
                                 </span>
                                 <p class="text-sm text-gray-900 bg-red-50 rounded-xl p-3 border border-red-100">
-                                    {{ $patient->allergies }}</p>
+                                    {{ $patient->allergies }}
+                                </p>
                             </div>
                         @endif
                         @if($patient->emergency_contact_name || $patient->emergency_contact_phone)
@@ -175,7 +181,7 @@
                                     <p class="text-sm font-medium text-gray-900">{{ $patient->emergency_contact_name }}</p>
                                     @if($patient->emergency_contact_phone)
                                         <p class="text-sm text-gray-600 flex items-center gap-1 mt-1">
-                                            <i class='bx bx-phone'></i> {{ $patient->emergency_contact_phone }}
+                                            <i class='hgi-stroke hgi-phone'></i> {{ $patient->emergency_contact_phone }}
                                         </p>
                                     @endif
                                 </div>
@@ -190,7 +196,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-time text-rose-600'></i>
+                    <i class='hgi-stroke hgi-clock-02 text-rose-600'></i>
                     Account Timestamps
                 </h3>
             </div>
@@ -221,7 +227,7 @@
         <div class="bg-white rounded-2xl shadow-sm border-2 border-red-200 overflow-hidden">
             <div class="p-6 border-b border-red-100 bg-red-50/50">
                 <h3 class="text-lg font-semibold text-red-900 flex items-center gap-2">
-                    <i class='bx bx-error-circle text-red-600'></i>
+                    <i class='hgi-stroke hgi-alert-circle text-red-600'></i>
                     Danger Zone
                 </h3>
             </div>
@@ -235,7 +241,7 @@
                         <button
                             onclick="deletePatient({{ $patient->id }}, '{{ $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name) }}')"
                             class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-all text-sm shadow-lg shadow-red-600/20">
-                            <i class='bx bx-trash'></i>
+                            <i class='hgi-stroke hgi-delete-01'></i>
                             Delete Patient
                         </button>
                     </div>
@@ -248,7 +254,7 @@
                         <button
                             onclick="forceDeletePatient({{ $patient->id }}, '{{ $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name) }}')"
                             class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-all text-sm shadow-lg shadow-red-600/20">
-                            <i class='bx bx-trash'></i>
+                            <i class='hgi-stroke hgi-delete-01'></i>
                             Permanently Delete
                         </button>
                     </div>
@@ -327,11 +333,11 @@
                 Swal.fire({
                     title: 'Permanently Delete?',
                     html: `<div class="text-left">
-                    <p class="mb-3">Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?</p>
-                    <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
-                        <p class="text-sm text-red-800"><i class='bx bx-error-circle mr-1.5'></i> <strong>Warning:</strong> This action cannot be undone!</p>
-                    </div>
-                </div>`,
+                            <p class="mb-3">Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?</p>
+                            <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
+                                <p class="text-sm text-red-800"><i class='hgi-stroke hgi-alert-circle mr-1.5'></i> <strong>Warning:</strong> This action cannot be undone!</p>
+                            </div>
+                        </div>`,
                     icon: 'error',
                     showCancelButton: true,
                     confirmButtonColor: '#dc2626',

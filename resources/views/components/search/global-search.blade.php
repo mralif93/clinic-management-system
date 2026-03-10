@@ -61,7 +61,7 @@
         >
         
         <div x-show="loading" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-            <i class='bx bx-loader-alt bx-spin text-gray-400'></i>
+            <i class='hgi-stroke hgi-loading-02 bx-spin text-gray-400'></i>
         </div>
     </div>
     
@@ -91,7 +91,7 @@
                     <p class="text-sm font-medium text-gray-900 truncate" x-text="result.title"></p>
                     <p class="text-xs text-gray-500 truncate" x-text="result.subtitle"></p>
                 </div>
-                <i class='bx bx-chevron-right text-gray-400'></i>
+                <i class='hgi-stroke hgi-arrow-right-01 text-gray-400'></i>
             </a>
         </template>
     </div>
@@ -102,7 +102,7 @@
         x-transition
         class="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg p-4 text-center"
     >
-        <i class='bx bx-search text-4xl text-gray-300 mb-2'></i>
+        <i class='hgi-stroke hgi-search-01 text-4xl text-gray-300 mb-2'></i>
         <p class="text-sm text-gray-500">No results found</p>
     </div>
 </div>

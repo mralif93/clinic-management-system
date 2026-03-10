@@ -7,11 +7,14 @@
     <div class="space-y-6">
         <!-- Page Header -->
         <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
             <div class="relative">
                 <h1 class="text-2xl font-bold flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='bx bx-task text-xl'></i>
+                        <i class='hgi-stroke hgi-task-01 text-xl'></i>
                     </div>
                     My Daily Tasks
                 </h1>
@@ -44,11 +47,11 @@
                 <div class="flex gap-2">
                     <button type="submit"
                         class="inline-flex items-center px-5 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 transition shadow-sm">
-                        <i class='bx bx-filter-alt mr-2'></i> Filter
+                        <i class='hgi-stroke hgi-filter mr-2'></i> Filter
                     </button>
                     <a href="{{ route('doctor.todos.index') }}"
                         class="inline-flex items-center px-4 py-2.5 border border-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition">
-                        <i class='bx bx-reset'></i>
+                        <i class='hgi-stroke hgi-reset'></i>
                     </a>
                 </div>
             </form>
@@ -73,7 +76,7 @@
                                 <td class="px-6 py-4">
                                     <div class="flex items-start gap-3">
                                         <div class="w-9 h-9 rounded-lg bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                                            <i class='bx bx-task text-emerald-600'></i>
+                                            <i class='hgi-stroke hgi-task-01 text-emerald-600'></i>
                                         </div>
                                         <div>
                                             <div class="text-sm font-semibold text-gray-900">{{ $todo->title }}</div>
@@ -105,7 +108,7 @@
                                     @if($todo->due_date)
                                         <div class="flex items-center gap-2 {{ $todo->isOverdue() ? 'text-red-600 font-semibold' : 'text-gray-900' }}">
                                             <div class="w-7 h-7 rounded-lg {{ $todo->isOverdue() ? 'bg-red-100' : 'bg-gray-100' }} flex items-center justify-center">
-                                                <i class='bx {{ $todo->isOverdue() ? 'bx-error-circle text-red-600' : 'bx-calendar text-gray-600' }} text-sm'></i>
+                                                <i class='hgi-stroke {{ $todo->isOverdue() ? 'hgi-alert-circle text-red-600' : 'hgi-calendar-03 text-gray-600' }} text-sm'></i>
                                             </div>
                                             {{ $todo->due_date->format('M d, Y') }}
                                         </div>
@@ -117,12 +120,12 @@
                                     <div class="flex items-center justify-end gap-2">
                                         <a href="{{ route('doctor.todos.show', $todo->id) }}"
                                             class="w-8 h-8 rounded-lg inline-flex items-center justify-center bg-emerald-100 text-emerald-600 hover:bg-emerald-200 transition">
-                                            <i class='bx bx-show text-base'></i>
+                                            <i class='hgi-stroke hgi-eye text-base'></i>
                                         </a>
                                         @if($todo->status !== 'completed')
                                             <button onclick="updateStatus({{ $todo->id }}, '{{ $todo->title }}')"
                                                 class="w-8 h-8 rounded-lg inline-flex items-center justify-center bg-blue-100 text-blue-600 hover:bg-blue-200 transition">
-                                                <i class='bx bx-check text-base'></i>
+                                                <i class='hgi-stroke hgi-checkmark-circle-02 text-base'></i>
                                             </button>
                                         @endif
                                     </div>
@@ -132,7 +135,7 @@
                             <tr>
                                 <td colspan="5" class="px-6 py-12 text-center">
                                     <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                                        <i class='bx bx-task text-3xl text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-task-01 text-3xl text-gray-400'></i>
                                     </div>
                                     <p class="text-gray-500 font-medium">No tasks assigned to you</p>
                                 </td>

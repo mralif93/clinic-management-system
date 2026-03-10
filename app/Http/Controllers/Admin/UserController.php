@@ -46,9 +46,10 @@ class UserController extends Controller
             $query->whereNull('deleted_at');
         }
 
-        $users = $query->orderBy('created_at', 'desc')->paginate(15);
+        $perPage = in_array($request->input('per_page'), [10, 15, 25, 50, 100]) ? (int) $request->input('per_page') : 10;
+        $users = $query->orderBy('created_at', 'desc')->paginate($perPage)->withQueryString();
 
-        return view('admin.users.index', compact('users'));
+        return view('admin.users.index', compact('users', 'perPage'));
     }
 
     /**

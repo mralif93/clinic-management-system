@@ -6,7 +6,7 @@
         <div class="flex items-center gap-4 mb-8">
             <a href="{{ route('admin.payrolls.index') }}"
                 class="bg-white p-2 rounded-full shadow-sm hover:shadow-md transition-shadow text-gray-600">
-                <i class='bx bx-arrow-back text-2xl'></i>
+                <i class='hgi-stroke hgi-arrow-left-01 text-2xl'></i>
             </a>
             <div>
                 <h1 class="text-3xl font-bold text-gray-800">Edit Payslip</h1>
@@ -79,7 +79,7 @@
                     <div class="flex justify-between items-center mb-3">
                         <label class="block text-sm font-medium text-gray-700">Allowances</label>
                         <button type="button" onclick="addAllowance()" class="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                            <i class='bx bx-plus-circle'></i> Add Allowance
+                            <i class='hgi-stroke hgi-plus-sign'></i> Add Allowance
                         </button>
                     </div>
                     <div id="allowances-container" class="space-y-2">
@@ -93,7 +93,7 @@
                                         oninput="calculateSalary()">
                                     <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
                                         class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                                        <i class='bx bx-trash'></i>
+                                        <i class='hgi-stroke hgi-delete-01'></i>
                                     </button>
                                 </div>
                             @endforeach
@@ -108,11 +108,11 @@
                         <div class="flex gap-2">
                             <button type="button" onclick="autoCalculateDeductions()"
                                 class="text-green-600 hover:text-green-700 text-sm font-medium flex items-center gap-1">
-                                <i class='bx bx-calculator'></i> Auto Calculate
+                                <i class='hgi-stroke hgi-calculator'></i> Auto Calculate
                             </button>
                             <button type="button" onclick="addDeduction()"
                                 class="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                                <i class='bx bx-plus-circle'></i> Add Deduction
+                                <i class='hgi-stroke hgi-plus-sign'></i> Add Deduction
                             </button>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                                         oninput="calculateSalary()">
                                     <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
                                         class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                                        <i class='bx bx-trash'></i>
+                                        <i class='hgi-stroke hgi-delete-01'></i>
                                     </button>
                                 </div>
                             @endforeach
@@ -229,7 +229,7 @@
                     oninput="calculateSalary()">
                 <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
                     class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                    <i class='bx bx-trash'></i>
+                    <i class='hgi-stroke hgi-delete-01'></i>
                 </button>
             `;
             container.appendChild(div);
@@ -247,7 +247,7 @@
                     oninput="calculateSalary()">
                 <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
                     class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                    <i class='bx bx-trash'></i>
+                    <i class='hgi-stroke hgi-delete-01'></i>
                 </button>
             `;
             container.appendChild(div);
@@ -327,7 +327,7 @@
                     oninput="calculateSalary()">
                 <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
                     class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                    <i class='bx bx-trash'></i>
+                    <i class='hgi-stroke hgi-delete-01'></i>
                 </button>
             `;
             container.appendChild(div);

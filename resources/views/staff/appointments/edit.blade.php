@@ -8,11 +8,11 @@
         <!-- Page Header -->
         <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 rounded-2xl shadow-lg overflow-hidden">
             <div class="p-6 md:p-8">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="flex items-center gap-4">
                         <a href="{{ route('staff.appointments.index') }}"
-                            class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/30 transition">
-                            <i class='bx bx-arrow-back text-white text-xl'></i>
+                            class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                            <i class='hgi-stroke hgi-arrow-left-01 text-white text-xl'></i>
                         </a>
                         <div class="text-white">
                             <h1 class="text-2xl font-bold">Edit Appointment</h1>
@@ -194,7 +194,7 @@
                     </a>
                     <button type="submit"
                         class="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-xl hover:from-amber-600 hover:to-orange-700 transition-all shadow-lg shadow-amber-500/30 flex items-center gap-2 font-semibold">
-                        <i class='bx bx-save'></i>
+                        <i class='hgi-stroke hgi-floppy-disk'></i>
                         Update Appointment
                     </button>
                 </div>
@@ -203,7 +203,7 @@
     </div>
 
 @push('styles')
-<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+<link href="{{ asset('css/quill.snow.css') }}" rel="stylesheet">
 <style>
     .quill-wrapper {
         border: 1px solid #d1d5db;
@@ -266,7 +266,7 @@
 @endpush
 
 @push('scripts')
-<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+<script src="{{ asset('js/quill.min.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const toolbarOptions = [

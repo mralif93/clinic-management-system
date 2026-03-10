@@ -11,17 +11,20 @@
         ])" />
         
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div
                         class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30">
-                        <i class='bx bx-calendar-check text-4xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03-check text-4xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">Appointment #{{ $appointment->id }}</h1>
                         <p class="text-indigo-100 flex items-center gap-2 mt-1">
-                            <i class='bx bx-calendar'></i>
+                            <i class='hgi-stroke hgi-calendar-03'></i>
                             {{ $appointment->appointment_date->format('l, M d, Y') }} at
                             {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
                         </p>
@@ -50,7 +53,7 @@
                             </span>
                             @if($appointment->trashed())
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-red-500/30">
-                                    <i class='bx bx-trash mr-1'></i> Deleted
+                                    <i class='hgi-stroke hgi-delete-01 mr-1'></i> Deleted
                                 </span>
                             @endif
                         </div>
@@ -60,25 +63,25 @@
                     @if(!$appointment->trashed())
                         <a href="{{ route('admin.appointments.invoice', $appointment->id) }}" title="View Invoice"
                             class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-green-600 hover:bg-green-50 hover:scale-105 transition-all shadow-lg">
-                            <i class='bx bx-receipt text-xl'></i>
+                            <i class='hgi-stroke hgi-invoice-01 text-xl'></i>
                         </a>
                         <a href="{{ route('admin.appointments.edit', $appointment->id) }}" title="Edit Appointment"
                             class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-indigo-600 hover:bg-indigo-50 hover:scale-105 transition-all shadow-lg">
-                            <i class='bx bx-edit text-xl'></i>
+                            <i class='hgi-stroke hgi-pencil-edit-01 text-xl'></i>
                         </a>
                     @else
                         <form action="{{ route('admin.appointments.restore', $appointment->id) }}" method="POST" class="inline">
                             @csrf
                             <button type="submit"
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-green-600 rounded-full font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg">
-                                <i class='bx bx-refresh text-lg'></i>
+                                <i class='hgi-stroke hgi-refresh text-lg'></i>
                                 Restore
                             </button>
                         </form>
                     @endif
                     <a href="{{ route('admin.appointments.index') }}"
                         class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur text-white rounded-full font-medium hover:bg-white/30 transition-all">
-                        <i class='bx bx-arrow-back'></i>
+                        <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back
                     </a>
                 </div>
@@ -90,7 +93,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-indigo-50 flex items-center justify-center">
-                        <i class='bx bx-money text-2xl text-indigo-600'></i>
+                        <i class='hgi-stroke hgi-money-bag-01 text-2xl text-indigo-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Fee</p>
@@ -103,7 +106,7 @@
                 <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center">
-                            <i class='bx bx-purchase-tag text-2xl text-red-600'></i>
+                            <i class='hgi-stroke hgi-tag-01 text-2xl text-red-600'></i>
                         </div>
                         <div>
                             <p class="text-sm text-gray-500">Discount</p>
@@ -116,7 +119,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center">
-                        <i class='bx bx-badge-check text-2xl text-green-600'></i>
+                        <i class='hgi-stroke hgi-checkmark-badge-01 text-2xl text-green-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Final Amount</p>
@@ -137,7 +140,7 @@
                         $paymentColor = $paymentStatusColors[$appointment->payment_status ?? 'unpaid'] ?? $paymentStatusColors['unpaid'];
                     @endphp
                     <div class="w-12 h-12 rounded-xl {{ $paymentColor['bg'] }} flex items-center justify-center">
-                        <i class='bx bx-credit-card text-2xl {{ $paymentColor['text'] }}'></i>
+                        <i class='hgi-stroke hgi-credit-card text-2xl {{ $paymentColor['text'] }}'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Payment</p>
@@ -154,7 +157,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-user text-indigo-600'></i>
+                        <i class='hgi-stroke hgi-user text-indigo-600'></i>
                         Patient Information
                     </h3>
                 </div>
@@ -184,7 +187,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-calendar text-indigo-600'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-indigo-600'></i>
                         Appointment Details
                     </h3>
                 </div>
@@ -241,7 +244,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-plus-circle text-indigo-600'></i>
+                            <i class='hgi-stroke hgi-plus-sign text-indigo-600'></i>
                             Doctor Information
                         </h3>
                     </div>
@@ -277,7 +280,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-cube text-indigo-600'></i>
+                            <i class='hgi-stroke hgi-package text-indigo-600'></i>
                             Service Information
                         </h3>
                     </div>
@@ -308,7 +311,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-purple-200 overflow-hidden">
                 <div class="p-6 border-b border-purple-100 bg-purple-50/50">
                     <h3 class="text-lg font-semibold text-purple-900 flex items-center gap-2">
-                        <i class='bx bx-wallet text-purple-600'></i>
+                        <i class='hgi-stroke hgi-wallet-01 text-purple-600'></i>
                         Commission Breakdown
                     </h3>
                 </div>
@@ -336,7 +339,7 @@
                         </div>
                     </div>
                     <p class="text-xs text-purple-700 mt-4 flex items-center gap-1">
-                        <i class='bx bx-info-circle'></i>
+                        <i class='hgi-stroke hgi-information-circle'></i>
                         This commission will be included in the doctor's payroll calculation.
                     </p>
                 </div>
@@ -350,7 +353,7 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                                <i class='bx bx-note text-indigo-600'></i>
+                                <i class='hgi-stroke hgi-note-01 text-indigo-600'></i>
                                 Notes
                             </h3>
                         </div>
@@ -364,7 +367,7 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                                <i class='bx bx-search-alt text-indigo-600'></i>
+                                <i class='hgi-stroke hgi-search-01-alt text-indigo-600'></i>
                                 Diagnosis
                             </h3>
                         </div>
@@ -378,7 +381,7 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                                <i class='bx bx-capsule text-indigo-600'></i>
+                                <i class='hgi-stroke hgi-capsule text-indigo-600'></i>
                                 Prescription
                             </h3>
                         </div>
@@ -394,7 +397,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-time text-indigo-600'></i>
+                    <i class='hgi-stroke hgi-clock-02 text-indigo-600'></i>
                     Timestamps
                 </h3>
             </div>

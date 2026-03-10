@@ -10,7 +10,7 @@
         <div class="flex items-center gap-4">
             <a href="{{ route('admin.attendance.by-month', ['year' => $attendance->date->year, 'month' => $attendance->date->month]) }}"
                 class="bg-white p-2 rounded-full shadow-sm hover:shadow-md transition-shadow text-gray-600">
-                <i class='bx bx-arrow-back text-2xl'></i>
+                <i class='hgi-stroke hgi-arrow-left-01 text-2xl'></i>
             </a>
             <div>
                 <h1 class="text-3xl font-bold text-gray-800">Edit Attendance</h1>
@@ -29,7 +29,7 @@
             <div class="bg-gray-50 rounded-lg p-4 mb-6">
                 <div class="flex items-center gap-4">
                     <div class="bg-blue-100 rounded-full p-3">
-                        <i class='bx bx-user text-2xl text-blue-600'></i>
+                        <i class='hgi-stroke hgi-user text-2xl text-blue-600'></i>
                     </div>
                     <div>
                         <p class="text-sm font-medium text-gray-500">Employee</p>
@@ -48,7 +48,7 @@
                 <!-- Clock In Time -->
                 <div>
                     <label for="clock_in_time" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class='bx bx-log-in-circle mr-1 text-green-600'></i> Clock In Time <span class="text-red-500">*</span>
+                        <i class='hgi-stroke hgi-login-02 mr-1 text-green-600'></i> Clock In Time <span class="text-red-500">*</span>
                     </label>
                     <input type="time" name="clock_in_time" id="clock_in_time"
                         value="{{ old('clock_in_time', $attendance->clock_in_time ? $attendance->clock_in_time->format('H:i') : '') }}"
@@ -62,7 +62,7 @@
                 <!-- Clock Out Time -->
                 <div>
                     <label for="clock_out_time" class="block text-sm font-medium text-gray-700 mb-2">
-                        <i class='bx bx-log-out mr-1 text-red-600'></i> Clock Out Time
+                        <i class='hgi-stroke hgi-logout-01 mr-1 text-red-600'></i> Clock Out Time
                     </label>
                     <input type="time" name="clock_out_time" id="clock_out_time"
                         value="{{ old('clock_out_time', $attendance->clock_out_time ? $attendance->clock_out_time->format('H:i') : '') }}"
@@ -76,7 +76,7 @@
             <!-- Status -->
             <div>
                 <label for="status" class="block text-sm font-medium text-gray-700 mb-2">
-                    <i class='bx bx-check-circle mr-1 text-blue-600'></i> Status <span class="text-red-500">*</span>
+                    <i class='hgi-stroke hgi-checkmark-circle-02 mr-1 text-blue-600'></i> Status <span class="text-red-500">*</span>
                 </label>
                 <select name="status" id="status"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition @error('status') border-red-500 @enderror"
@@ -105,7 +105,7 @@
             <!-- Notes -->
             <div>
                 <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">
-                    <i class='bx bx-note mr-1 text-yellow-600'></i> Notes
+                    <i class='hgi-stroke hgi-note-01 mr-1 text-yellow-600'></i> Notes
                 </label>
                 <textarea name="notes" id="notes" rows="4"
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition @error('notes') border-red-500 @enderror"
@@ -117,7 +117,7 @@
 
             <!-- Current Info Box -->
             <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <h4 class="font-medium text-blue-800 mb-2"><i class='bx bx-info-circle mr-1'></i> Current Information</h4>
+                <h4 class="font-medium text-blue-800 mb-2"><i class='hgi-stroke hgi-information-circle mr-1'></i> Current Information</h4>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
                         <span class="text-blue-600">Total Hours:</span>
@@ -148,7 +148,7 @@
                 </a>
                 <button type="submit"
                     class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center gap-2">
-                    <i class='bx bx-save'></i> Save Changes
+                    <i class='hgi-stroke hgi-floppy-disk'></i> Save Changes
                 </button>
             </div>
         </form>

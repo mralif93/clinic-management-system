@@ -6,7 +6,10 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg">
+        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div
@@ -24,12 +27,12 @@
                 <div class="flex items-center gap-3">
                     <a href="{{ route('admin.users.show', $user->id) }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                        <i class='bx bx-show'></i>
+                        <i class='hgi-stroke hgi-eye'></i>
                         View Details
                     </a>
                     <a href="{{ route('admin.users.index') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                        <i class='bx bx-arrow-back'></i>
+                        <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back to List
                     </a>
                 </div>
@@ -45,7 +48,7 @@
                 <!-- Account Information Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-user text-blue-600'></i>
+                        <i class='hgi-stroke hgi-user text-blue-600'></i>
                         Account Information
                     </h3>
                 </div>
@@ -60,7 +63,7 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('name') border-red-500 @enderror"
                                 placeholder="Enter full name">
                             @error('name')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='bx bx-error-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -74,7 +77,7 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('email') border-red-500 @enderror"
                                 placeholder="Enter email address">
                             @error('email')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='bx bx-error-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -96,7 +99,7 @@
                                 </option>
                             </select>
                             @error('role')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='bx bx-error-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -106,7 +109,7 @@
                 <!-- Change Password Section -->
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-lock-alt text-blue-600'></i>
+                        <i class='hgi-stroke hgi-lock-01 text-blue-600'></i>
                         Change Password
                     </h3>
                     <p class="text-sm text-gray-500 mt-1">Leave blank to keep the current password</p>
@@ -114,7 +117,7 @@
                 <div class="p-6 border-b border-gray-100">
                     <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl mb-6">
                         <p class="text-sm text-amber-800 flex items-center gap-2">
-                            <i class='bx bx-info-circle text-lg'></i>
+                            <i class='hgi-stroke hgi-information-circle text-lg'></i>
                             Leave password fields blank to keep the current password
                         </p>
                     </div>
@@ -128,11 +131,11 @@
                                     placeholder="Enter new password (min 8 characters)">
                                 <button type="button" onclick="togglePassword('password')"
                                     class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
-                                    <i class='bx bx-hide text-lg' id="passwordToggle"></i>
+                                    <i class='hgi-stroke hgi-view-off-slash text-lg' id="passwordToggle"></i>
                                 </button>
                             </div>
                             @error('password')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='bx bx-error-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -147,7 +150,7 @@
                                     placeholder="Confirm new password">
                                 <button type="button" onclick="togglePassword('password_confirmation')"
                                     class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
-                                    <i class='bx bx-hide text-lg' id="passwordConfirmationToggle"></i>
+                                    <i class='hgi-stroke hgi-view-off-slash text-lg' id="passwordConfirmationToggle"></i>
                                 </button>
                             </div>
                         </div>
@@ -158,12 +161,12 @@
                 <div class="p-6 bg-gray-50/50 flex flex-col sm:flex-row justify-end gap-3">
                     <a href="{{ route('admin.users.index') }}"
                         class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-gray-200 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-all text-sm">
-                        <i class='bx bx-x'></i>
+                        <i class='hgi-stroke hgi-cancel-circle'></i>
                         Cancel
                     </a>
                     <button type="submit"
                         class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-all text-sm shadow-lg shadow-blue-600/20">
-                        <i class='bx bx-save'></i>
+                        <i class='hgi-stroke hgi-floppy-disk'></i>
                         Update User
                     </button>
                 </div>
@@ -179,12 +182,12 @@
 
                 if (field.type === 'password') {
                     field.type = 'text';
-                    toggle.classList.remove('bx-hide');
-                    toggle.classList.add('bx-show');
+                    toggle.classList.remove('hgi-view-off-slash');
+                    toggle.classList.add('hgi-eye');
                 } else {
                     field.type = 'password';
-                    toggle.classList.remove('bx-show');
-                    toggle.classList.add('bx-hide');
+                    toggle.classList.remove('hgi-eye');
+                    toggle.classList.add('hgi-view-off-slash');
                 }
             }
 

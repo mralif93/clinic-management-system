@@ -29,7 +29,7 @@
                         <p class="text-4xl font-bold text-green-600 mt-2">{{ $clockedIn->count() }}</p>
                     </div>
                     <div class="bg-green-100 p-4 rounded-full">
-                        <i class='bx bx-user-check text-4xl text-green-600'></i>
+                        <i class='hgi-stroke hgi-user-check text-4xl text-green-600'></i>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                         <p class="text-4xl font-bold text-yellow-600 mt-2">{{ $lateToday->count() }}</p>
                     </div>
                     <div class="bg-yellow-100 p-4 rounded-full">
-                        <i class='bx bx-error-circle text-4xl text-yellow-600'></i>
+                        <i class='hgi-stroke hgi-alert-circle text-4xl text-yellow-600'></i>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                             {{ $clockedIn->filter(fn($a) => $a->isOnBreak())->count() }}</p>
                     </div>
                     <div class="bg-blue-100 p-4 rounded-full">
-                        <i class='bx bx-coffee text-4xl text-blue-600'></i>
+                        <i class='hgi-stroke hgi-coffee-01 text-4xl text-blue-600'></i>
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                                            <i class='bx bx-user text-xl text-green-600'></i>
+                                            <i class='hgi-stroke hgi-user text-xl text-green-600'></i>
                                         </div>
                                         <div>
                                             <div class="text-sm font-medium text-gray-900">{{ $attendance->user->name }}</div>
@@ -105,7 +105,7 @@
                                     @if($attendance->isOnBreak())
                                         <span
                                             class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700 border border-blue-300">
-                                            <i class='bx bx-coffee'></i> On Break
+                                            <i class='hgi-stroke hgi-coffee-01'></i> On Break
                                         </span>
                                     @else
                                         <span class="px-2 py-1 text-xs font-semibold rounded-full {{ $attendance->status_color }}">
@@ -117,7 +117,7 @@
                         @empty
                             <tr>
                                 <td colspan="5" class="px-6 py-8 text-center text-gray-500">
-                                    <i class='bx bx-user-x text-4xl mb-2'></i>
+                                    <i class='hgi-stroke hgi-user-x text-4xl mb-2'></i>
                                     <p>No one is currently clocked in</p>
                                 </td>
                             </tr>
@@ -149,7 +149,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
                                             <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
-                                                <i class='bx bx-user text-xl text-yellow-600'></i>
+                                                <i class='hgi-stroke hgi-user text-xl text-yellow-600'></i>
                                             </div>
                                             <div>
                                                 <div class="text-sm font-medium text-gray-900">{{ $attendance->user->name }}</div>
@@ -183,11 +183,11 @@
         <div class="flex justify-between items-center">
             <a href="{{ route('admin.attendance.index') }}"
                 class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition">
-                <i class='bx bx-arrow-back mr-2'></i>Back to Attendance
+                <i class='hgi-stroke hgi-arrow-left-01 mr-2'></i>Back to Attendance
             </a>
             <button onclick="location.reload()"
                 class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                <i class='bx bx-refresh mr-2'></i>Refresh
+                <i class='hgi-stroke hgi-refresh mr-2'></i>Refresh
             </button>
         </div>
     </div>

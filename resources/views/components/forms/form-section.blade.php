@@ -23,7 +23,7 @@
                     @endif
                 </div>
                 @if($collapsible)
-                    <i class='bx bx-chevron-down text-gray-400 transition-transform duration-200' 
+                    <i class='hgi-stroke hgi-arrow-down-01 text-gray-400 transition-transform duration-200' 
                        :class="{ 'rotate-180': open }"></i>
                 @endif
             </div>

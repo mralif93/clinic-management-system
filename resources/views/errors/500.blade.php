@@ -37,7 +37,7 @@
     </script>
 
     <!-- Boxicons CDN -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='{{ asset('css/boxicons.min.css') }}' rel='stylesheet'>
 </head>
 
 <body class="bg-gradient-to-br from-red-50 via-white to-orange-50 font-sans min-h-screen flex items-center justify-center px-4">
@@ -79,7 +79,7 @@
         <!-- Icon -->
         <div class="mb-8 flex justify-center">
             <div class="w-24 h-24 rounded-full bg-red-100 flex items-center justify-center">
-                <i class='bx bx-error-circle text-5xl text-red-600'></i>
+                <i class='hgi-stroke hgi-alert-circle text-5xl text-red-600'></i>
             </div>
         </div>
 
@@ -87,12 +87,12 @@
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a href="{{ route('home') }}" 
                class="inline-flex items-center gap-2 px-6 py-3 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition shadow-lg hover:shadow-xl">
-                <i class='bx bx-home text-xl'></i>
+                <i class='hgi-stroke hgi-home-01 text-xl'></i>
                 Go to Homepage
             </a>
             <button onclick="window.location.reload()" 
                     class="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-700 border-2 border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition shadow-md hover:shadow-lg">
-                <i class='bx bx-refresh text-xl'></i>
+                <i class='hgi-stroke hgi-refresh text-xl'></i>
                 Try Again
             </button>
         </div>
@@ -103,12 +103,12 @@
             <div class="flex flex-col sm:flex-row justify-center gap-4 text-sm">
                 @if(get_setting('clinic_email'))
                     <a href="mailto:{{ get_setting('clinic_email') }}" class="text-red-600 hover:text-red-800 font-medium transition">
-                        <i class='bx bx-envelope mr-1'></i> {{ get_setting('clinic_email') }}
+                        <i class='hgi-stroke hgi-mail-01 mr-1'></i> {{ get_setting('clinic_email') }}
                     </a>
                 @endif
                 @if(get_setting('clinic_phone'))
                     <a href="tel:{{ get_setting('clinic_phone') }}" class="text-red-600 hover:text-red-800 font-medium transition">
-                        <i class='bx bx-phone mr-1'></i> {{ get_setting('clinic_phone') }}
+                        <i class='hgi-stroke hgi-phone mr-1'></i> {{ get_setting('clinic_phone') }}
                     </a>
                 @endif
             </div>

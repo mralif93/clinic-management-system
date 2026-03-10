@@ -9,7 +9,7 @@
     <div class="flex justify-between items-center">
         <div class="flex items-center gap-4">
             <a href="{{ route('admin.attendance.index') }}" class="text-gray-500 hover:text-gray-700">
-                <i class='bx bx-arrow-back text-2xl'></i>
+                <i class='hgi-stroke hgi-arrow-left-01 text-2xl'></i>
             </a>
             <h2 class="text-xl font-semibold text-gray-800">Pending Requests</h2>
         </div>
@@ -38,7 +38,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                                        <i class='bx bx-user text-blue-600'></i>
+                                        <i class='hgi-stroke hgi-user text-blue-600'></i>
                                     </div>
                                     <div>
                                         <div class="text-sm font-medium text-gray-900">{{ $correction->user->name }}</div>
@@ -65,13 +65,13 @@
                                     <form action="{{ route('admin.attendance.corrections.approve', $correction) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm" title="Approve">
-                                            <i class='bx bx-check text-base'></i>
+                                            <i class='hgi-stroke hgi-checkmark-circle-02 text-base'></i>
                                         </button>
                                     </form>
                                     <form action="{{ route('admin.attendance.corrections.reject', $correction) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm" title="Reject">
-                                            <i class='bx bx-x text-base'></i>
+                                            <i class='hgi-stroke hgi-cancel-circle text-base'></i>
                                         </button>
                                     </form>
                                 </div>
@@ -80,7 +80,7 @@
                     @empty
                         <tr>
                             <td colspan="6" class="px-6 py-12 text-center text-gray-500">
-                                <i class='bx bx-check-circle text-4xl mb-2 text-green-500'></i>
+                                <i class='hgi-stroke hgi-checkmark-circle-02 text-4xl mb-2 text-green-500'></i>
                                 <p>No pending correction requests!</p>
                             </td>
                         </tr>

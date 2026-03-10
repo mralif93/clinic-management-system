@@ -39,12 +39,12 @@
                 <div class="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 px-4">
                     <a href="{{ route('register') }}"
                         class="hero-cta-button inline-flex items-center justify-center gap-2 px-5 sm:px-6 md:px-8 py-3 md:py-4 bg-blue-600 text-white rounded-lg text-sm sm:text-base md:text-lg font-semibold hover:bg-blue-700 active:bg-blue-800 transition shadow-lg hover:shadow-xl min-h-[44px]">
-                        <i class='bx bx-rocket'></i>
+                        <i class='hgi-stroke hgi-rocket-01'></i>
                         Get Started Free
                     </a>
                     <a href="{{ route('login') }}"
                         class="hero-cta-button inline-flex items-center justify-center gap-2 px-5 sm:px-6 md:px-8 py-3 md:py-4 bg-white text-blue-600 rounded-lg text-sm sm:text-base md:text-lg font-semibold hover:bg-gray-50 active:bg-gray-100 transition shadow-lg hover:shadow-xl border-2 border-blue-600 min-h-[44px]">
-                        <i class='bx bx-log-in'></i>
+                        <i class='hgi-stroke hgi-login-01'></i>
                         Sign In
                     </a>
                 </div>
@@ -56,7 +56,7 @@
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 md:mb-8">
                         <div class="flex items-center">
                             <div class="bg-blue-100 p-2 md:p-3 rounded-full mr-3 md:mr-4">
-                                <i class='bx bx-news text-2xl md:text-3xl text-blue-600'></i>
+                                <i class='hgi-stroke hgi-news text-2xl md:text-3xl text-blue-600'></i>
                             </div>
                             <div>
                                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900">News & Announcements</h2>
@@ -66,7 +66,7 @@
                         </div>
                         <a href="{{ route('announcements.index') }}"
                             class="text-blue-600 font-semibold hover:text-blue-800 text-sm md:text-base whitespace-nowrap">
-                            View All <i class='bx bx-arrow-right ml-1'></i>
+                            View All <i class='hgi-stroke hgi-arrow-right-01 ml-1'></i>
                         </a>
                     </div>
 
@@ -80,7 +80,7 @@
                                     </div>
                                 @else
                                     <div class="h-48 bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
-                                        <i class='bx bx-news text-6xl text-blue-300'></i>
+                                        <i class='hgi-stroke hgi-news text-6xl text-blue-300'></i>
                                     </div>
                                 @endif
                                 <div class="p-6">
@@ -103,13 +103,13 @@
                                         <a href="{{ $announcement->link_url }}"
                                             class="inline-flex items-center gap-1 text-blue-600 font-semibold hover:text-blue-800 text-sm">
                                             {{ $announcement->link_text ?: 'Read More' }}
-                                            <i class='bx bx-arrow-right'></i>
+                                            <i class='hgi-stroke hgi-arrow-right-01'></i>
                                         </a>
                                     @else
                                         <a href="{{ route('announcements.show', $announcement->id) }}"
                                             class="inline-flex items-center gap-1 text-blue-600 font-semibold hover:text-blue-800 text-sm">
                                             Read More
-                                            <i class='bx bx-arrow-right'></i>
+                                            <i class='hgi-stroke hgi-arrow-right-01'></i>
                                         </a>
                                     @endif
                                 </div>
@@ -127,7 +127,7 @@
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
                             <div class="flex items-center">
                                 <div class="bg-blue-100 p-3 rounded-full mr-4">
-                                    <i class='bx bx-brain text-2xl md:text-3xl text-blue-600'></i>
+                                    <i class='hgi-stroke hgi-brain text-2xl md:text-3xl text-blue-600'></i>
                                 </div>
                                 <div>
                                     <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Psychology Services</h2>
@@ -137,7 +137,7 @@
                             </div>
                             <a href="{{ route('services.index', ['type' => 'psychology']) }}"
                                 class="text-blue-600 font-semibold hover:text-blue-800 text-sm md:text-base whitespace-nowrap">
-                                View All ({{ $totalPsychologyServices }}) <i class='bx bx-arrow-right ml-1'></i>
+                                View All ({{ $totalPsychologyServices }}) <i class='hgi-stroke hgi-arrow-right-01 ml-1'></i>
                             </a>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -147,7 +147,7 @@
                                     <div class="p-5 md:p-6">
                                         <div class="flex items-center justify-between mb-4">
                                             <div class="bg-blue-100 p-3 rounded-full">
-                                                <i class='bx bx-brain text-2xl text-blue-600'></i>
+                                                <i class='hgi-stroke hgi-brain text-2xl text-blue-600'></i>
                                             </div>
                                             <span
                                                 class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Psychology</span>
@@ -161,7 +161,7 @@
                                                 <span class="text-gray-500 text-sm">/session</span>
                                             </div>
                                             <span class="text-gray-500 text-sm">
-                                                <i class='bx bx-time'></i> {{ $service->duration_minutes }} min
+                                                <i class='hgi-stroke hgi-clock-02'></i> {{ $service->duration_minutes }} min
                                             </span>
                                         </div>
                                         <a href="{{ route('services.show', $service->slug) }}"
@@ -181,7 +181,7 @@
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
                             <div class="flex items-center">
                                 <div class="bg-green-100 p-3 rounded-full mr-4">
-                                    <i class='bx bx-leaf text-2xl md:text-3xl text-green-600'></i>
+                                    <i class='hgi-stroke hgi-leaf-01 text-2xl md:text-3xl text-green-600'></i>
                                 </div>
                                 <div>
                                     <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Homeopathy Services</h2>
@@ -190,7 +190,7 @@
                             </div>
                             <a href="{{ route('services.index', ['type' => 'homeopathy']) }}"
                                 class="text-green-600 font-semibold hover:text-green-800 text-sm md:text-base whitespace-nowrap">
-                                View All ({{ $totalHomeopathyServices }}) <i class='bx bx-arrow-right ml-1'></i>
+                                View All ({{ $totalHomeopathyServices }}) <i class='hgi-stroke hgi-arrow-right-01 ml-1'></i>
                             </a>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -200,7 +200,7 @@
                                     <div class="p-6">
                                         <div class="flex items-center justify-between mb-4">
                                             <div class="bg-green-100 p-3 rounded-full">
-                                                <i class='bx bx-leaf text-2xl text-green-600'></i>
+                                                <i class='hgi-stroke hgi-leaf-01 text-2xl text-green-600'></i>
                                             </div>
                                             <x-ui.badge variant="success" size="sm">Homeopathy</x-ui.badge>
                                         </div>
@@ -213,7 +213,7 @@
                                                 <span class="text-gray-500 text-sm">/session</span>
                                             </div>
                                             <span class="text-gray-500 text-sm flex items-center gap-1">
-                                                <i class='bx bx-time'></i> {{ $service->duration_minutes }} min
+                                                <i class='hgi-stroke hgi-clock-02'></i> {{ $service->duration_minutes }} min
                                             </span>
                                         </div>
                                         <a href="{{ route('services.show', $service->slug) }}"
@@ -231,7 +231,7 @@
                 <div class="mt-8 md:mt-12 text-center">
                     <a href="{{ route('services.index') }}"
                         class="inline-block bg-gradient-to-r from-blue-600 to-green-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-lg text-base md:text-lg font-semibold hover:from-blue-700 hover:to-green-700 transition shadow-lg">
-                        <i class='bx bx-list-ul mr-2'></i>
+                        <i class='hgi-stroke hgi-list-view mr-2'></i>
                         View All Services
                     </a>
                 </div>
@@ -268,7 +268,10 @@
 
             <!-- CTA Section -->
             <div class="mt-16 md:mt-24 text-center">
-                <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 md:p-8 lg:p-12 text-white">
+                <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 md:p-8 lg:p-12 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
                     <h2 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">
                         {{ get_setting('cta_title', 'Ready to Get Started?') }}</h2>
                     <p class="text-blue-100 mb-6 md:mb-8 text-base md:text-lg px-4">

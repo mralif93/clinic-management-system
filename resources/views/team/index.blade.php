@@ -9,7 +9,7 @@
         <!-- Header -->
         <div class="text-center mb-8 md:mb-12">
             <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 mb-4">
-                <i class='bx bx-group text-indigo-600 text-3xl'></i>
+                <i class='hgi-stroke hgi-user-group text-indigo-600 text-3xl'></i>
             </div>
             <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">Our Team</h1>
             <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
@@ -61,7 +61,7 @@
             </div>
         @else
             <x-ui.empty-state
-                icon="bx bx-group"
+                icon="hgi-stroke hgi-user-group"
                 title="No Team Members"
                 description="We're currently updating our team information. Please check back soon or contact us for more information."
                 variant="no-results"
@@ -69,7 +69,10 @@
         @endif
 
         <!-- CTA Section -->
-        <div class="cta-section mt-8 md:mt-12 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-5 sm:p-6 md:p-8 text-white text-center">
+        <div class="cta-section mt-8 md:mt-12 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-5 sm:p-6 md:p-8 text-white text-center shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-3 md:mb-4">Ready to Book an Appointment?</h3>
             <p class="text-indigo-100 mb-4 md:mb-6 text-xs sm:text-sm md:text-base">Connect with our experienced team members</p>
             @auth

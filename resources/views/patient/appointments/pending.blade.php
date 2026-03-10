@@ -9,7 +9,7 @@
                 <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
                     <div class="px-6 py-8 text-center bg-gradient-to-b from-blue-50 to-white border-b border-gray-200">
                         <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
-                            <i class='bx bx-time text-blue-600 text-4xl'></i>
+                            <i class='hgi-stroke hgi-clock-02 text-blue-600 text-4xl'></i>
                         </div>
                         <h1 class="text-2xl font-bold text-gray-900 mb-2">Appointment Submitted!</h1>
                         <p class="text-gray-600">Your appointment request has been received and is pending confirmation.</p>
@@ -18,7 +18,7 @@
                     <div class="p-6">
                         <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
                             <div class="flex items-start">
-                                <i class='bx bx-info-circle text-amber-500 text-xl mr-3 mt-0.5'></i>
+                                <i class='hgi-stroke hgi-information-circle text-amber-500 text-xl mr-3 mt-0.5'></i>
                                 <div>
                                     <h3 class="font-semibold text-amber-800">Waiting for Confirmation</h3>
                                     <p class="text-sm text-amber-700 mt-1">
@@ -64,12 +64,12 @@
                         <div class="flex flex-col sm:flex-row gap-3">
                             <a href="{{ route('patient.appointments.pending', $appointment->id) }}" 
                                class="flex-1 inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition">
-                                <i class='bx bx-refresh mr-2'></i>
+                                <i class='hgi-stroke hgi-refresh mr-2'></i>
                                 Refresh Status
                             </a>
                             <a href="{{ route('patient.appointments.index') }}" 
                                class="flex-1 inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition">
-                                <i class='bx bx-list-ul mr-2'></i>
+                                <i class='hgi-stroke hgi-list-view mr-2'></i>
                                 View All Appointments
                             </a>
                         </div>

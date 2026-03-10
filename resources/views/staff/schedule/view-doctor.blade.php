@@ -6,10 +6,13 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-cyan-500 via-cyan-600 to-teal-600 rounded-2xl shadow-lg p-6 text-white">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="bg-gradient-to-r from-cyan-500 via-cyan-600 to-teal-600 rounded-2xl  p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
                         <span class="text-2xl font-bold">{{ strtoupper(substr($doctor->user->name, 0, 1)) }}</span>
                     </div>
                     <div>
@@ -19,12 +22,12 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 text-sm">
-                        <i class='bx bx-id-card mr-1'></i>
+                        <i class='hgi-stroke hgi-identity-card mr-1'></i>
                         {{ $doctor->doctor_id ?? 'N/A' }}
                     </div>
                     <a href="{{ route('staff.schedule.doctors') }}"
                         class="inline-flex items-center px-4 py-2.5 bg-white/20 backdrop-blur-sm text-white font-medium rounded-xl hover:bg-white/30 transition">
-                        <i class='bx bx-arrow-back mr-2'></i> Back to Doctors
+                        <i class='hgi-stroke hgi-arrow-left-01 mr-2'></i> Back to Doctors
                     </a>
                 </div>
             </div>
@@ -39,7 +42,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-calendar-check text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03-check text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $workingDays }}</p>
@@ -50,7 +53,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-500 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-calendar-minus text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03-minus text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $offDays }}</p>
@@ -61,7 +64,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-envelope text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-mail-01 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-900 truncate">{{ $doctor->user->email ?? 'N/A' }}</p>
@@ -72,7 +75,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-phone text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-phone text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-900">{{ $doctor->phone ?? 'N/A' }}</p>
@@ -86,7 +89,7 @@
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                 <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                    <i class='bx bx-calendar text-cyan-500'></i>
+                    <i class='hgi-stroke hgi-calendar-03 text-cyan-500'></i>
                     Weekly Schedule
                 </h3>
             </div>
@@ -123,7 +126,7 @@
                                     <div class="space-y-3">
                                         <div class="flex items-center gap-3 p-2.5 bg-green-50 rounded-lg">
                                             <div class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                                <i class='bx bx-time text-white'></i>
+                                                <i class='hgi-stroke hgi-clock-02 text-white'></i>
                                             </div>
                                             <div>
                                                 <p class="text-xs text-gray-500">Working Hours</p>
@@ -135,7 +138,7 @@
 
                                         <div class="flex items-center gap-3 p-2.5 bg-amber-50 rounded-lg">
                                             <div class="w-8 h-8 bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                                <i class='bx bx-coffee text-white'></i>
+                                                <i class='hgi-stroke hgi-coffee-01 text-white'></i>
                                             </div>
                                             <div>
                                                 <p class="text-xs text-gray-500">Break Time</p>
@@ -147,7 +150,7 @@
 
                                         <div class="flex items-center gap-3 p-2.5 bg-blue-50 rounded-lg">
                                             <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                                <i class='bx bx-timer text-white'></i>
+                                                <i class='hgi-stroke hgi-clock-02r text-white'></i>
                                             </div>
                                             <div>
                                                 <p class="text-xs text-gray-500">Slot Duration</p>
@@ -158,7 +161,7 @@
                                 @else
                                     <div class="flex flex-col items-center justify-center py-8 text-gray-400">
                                         <div class="w-14 h-14 bg-gray-100 rounded-full flex items-center justify-center mb-3">
-                                            <i class='bx bx-calendar-minus text-2xl'></i>
+                                            <i class='hgi-stroke hgi-calendar-03-minus text-2xl'></i>
                                         </div>
                                         <span class="text-sm font-medium">Day Off</span>
                                         <span class="text-xs text-gray-400 mt-1">No schedule</span>

@@ -20,10 +20,21 @@ class Staff extends Model
         'department',
         'hire_date',
         'notes',
+        // Digital card fields
+        'profile_photo',
+        'nric',
+        'blood_type',
+        'emergency_contact_name',
+        'emergency_contact_phone',
+        'clinic_location',
+        'card_issued_at',
+        'card_expires_at',
     ];
 
     protected $casts = [
         'hire_date' => 'date',
+        'card_issued_at' => 'datetime',
+        'card_expires_at' => 'date',
     ];
 
     /**
@@ -74,7 +85,7 @@ class Staff extends Model
         }
 
         do {
-            $staffId = 'STF-'.str_pad($number, 6, '0', STR_PAD_LEFT);
+            $staffId = 'STF-' . str_pad($number, 6, '0', STR_PAD_LEFT);
             $exists = static::withTrashed()->where('staff_id', $staffId)->exists();
             $number++;
         } while ($exists);

@@ -6,7 +6,7 @@
         <div class="flex items-center gap-4 mb-8">
             <a href="{{ route('admin.payrolls.index') }}"
                 class="bg-white p-2 rounded-full shadow-sm hover:shadow-md transition-shadow text-gray-600">
-                <i class='bx bx-arrow-back text-2xl'></i>
+                <i class='hgi-stroke hgi-arrow-left-01 text-2xl'></i>
             </a>
             <div>
                 <h1 class="text-3xl font-bold text-gray-800">Generate Payslip</h1>
@@ -44,7 +44,7 @@
                     <!-- Employment Type Info -->
                     <div id="employment_info" class="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg hidden">
                         <div class="flex items-start">
-                            <i class='bx bx-info-circle text-blue-600 text-xl mr-2'></i>
+                            <i class='hgi-stroke hgi-information-circle text-blue-600 text-xl mr-2'></i>
                             <div>
                                 <p class="text-sm font-semibold text-blue-900" id="employment_type_text"></p>
                                 <p class="text-xs text-blue-700 mt-1" id="employment_details"></p>
@@ -79,7 +79,7 @@
                 <div class="flex justify-end">
                     <button type="button" onclick="autoCalculateSalary()" id="auto_calculate_btn"
                         class="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 transition shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i class='bx bx-calculator mr-2'></i>
+                        <i class='hgi-stroke hgi-calculator mr-2'></i>
                         Auto Calculate Salary
                     </button>
                 </div>
@@ -107,7 +107,7 @@
                         <label class="block text-sm font-medium text-gray-700">Allowances</label>
                         <button type="button" onclick="addAllowance()"
                             class="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                            <i class='bx bx-plus-circle'></i> Add Allowance
+                            <i class='hgi-stroke hgi-plus-sign'></i> Add Allowance
                         </button>
                     </div>
                     <div id="allowances-container" class="space-y-2"></div>
@@ -120,11 +120,11 @@
                         <div class="flex gap-2">
                             <button type="button" onclick="autoCalculateDeductions()"
                                 class="text-green-600 hover:text-green-700 text-sm font-medium flex items-center gap-1">
-                                <i class='bx bx-calculator'></i> Auto Calculate
+                                <i class='hgi-stroke hgi-calculator'></i> Auto Calculate
                             </button>
                             <button type="button" onclick="addDeduction()"
                                 class="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                                <i class='bx bx-plus-circle'></i> Add Deduction
+                                <i class='hgi-stroke hgi-plus-sign'></i> Add Deduction
                             </button>
                         </div>
                     </div>
@@ -197,7 +197,7 @@
                 </a>
                 <button type="button" onclick="previewPayslip()"
                     class="px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition-colors flex items-center gap-2">
-                    <i class='bx bx-show'></i> Preview Payslip
+                    <i class='hgi-stroke hgi-eye'></i> Preview Payslip
                 </button>
                 <button type="submit"
                     class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
@@ -212,7 +212,7 @@
         class="fixed inset-0 bg-black bg-opacity-50 hidden items-start justify-center z-50 overflow-y-auto py-10">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl mx-4 relative">
             <button onclick="closePreviewModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 z-10">
-                <i class='bx bx-x text-3xl'></i>
+                <i class='hgi-stroke hgi-cancel-circle text-3xl'></i>
             </button>
 
             <div class="p-8">
@@ -248,7 +248,7 @@
                                             oninput="calculateSalary()">
                                         <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
                                             class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                                            <i class='bx bx-trash'></i>
+                                            <i class='hgi-stroke hgi-delete-01'></i>
                                         </button>
                                     `;
             container.appendChild(div);
@@ -266,7 +266,7 @@
                                             oninput="calculateSalary()">
                                         <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
                                             class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                                            <i class='bx bx-trash'></i>
+                                            <i class='hgi-stroke hgi-delete-01'></i>
                                         </button>
                                     `;
             container.appendChild(div);
@@ -346,7 +346,7 @@
                                         oninput="calculateSalary()">
                                     <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
                                         class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                                        <i class='bx bx-trash'></i>
+                                        <i class='hgi-stroke hgi-delete-01'></i>
                                     </button>
                                 `;
             container.appendChild(div);
@@ -502,7 +502,7 @@
 
             // Disable button and show loading
             button.disabled = true;
-            button.innerHTML = '<i class="bx bx-loader-alt bx-spin mr-2"></i>Calculating...';
+            button.innerHTML = '<i class="hgi-stroke hgi-loading-02 bx-spin mr-2"></i>Calculating...';
 
             try {
                 const response = await fetch('{{ route("admin.payrolls.calculate-salary") }}', {
@@ -556,7 +556,7 @@
             } finally {
                 // Re-enable button
                 button.disabled = false;
-                button.innerHTML = '<i class="bx bx-calculator mr-2"></i>Auto Calculate Salary';
+                button.innerHTML = '<i class="hgi-stroke hgi-calculator mr-2"></i>Auto Calculate Salary';
             }
         }
 

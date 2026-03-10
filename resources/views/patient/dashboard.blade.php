@@ -13,14 +13,17 @@
 
             <div class="space-y-6">
                 <!-- Welcome Card -->
-                <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg shadow-lg p-6 text-white">
+                <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg  p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-2xl font-bold mb-2">Welcome, {{ Auth::user()->name }}!</h3>
                             <p class="text-blue-100">Manage your appointments and profile from here.</p>
                         </div>
                         <div class="text-6xl opacity-20">
-                            <i class='bx bx-user-circle'></i>
+                            <i class='hgi-stroke hgi-user-circle'></i>
                         </div>
                     </div>
                 </div>
@@ -35,7 +38,7 @@
                                 <p class="text-3xl font-bold text-gray-900 mt-2">{{ $totalAppointments }}</p>
                             </div>
                             <div class="bg-blue-100 p-4 rounded-full">
-                                <i class='bx bx-calendar text-3xl text-blue-600'></i>
+                                <i class='hgi-stroke hgi-calendar-03 text-3xl text-blue-600'></i>
                             </div>
                         </div>
                     </div>
@@ -48,7 +51,7 @@
                                 <p class="text-3xl font-bold text-gray-900 mt-2">{{ $upcomingAppointments }}</p>
                             </div>
                             <div class="bg-green-100 p-4 rounded-full">
-                                <i class='bx bx-time text-3xl text-green-600'></i>
+                                <i class='hgi-stroke hgi-clock-02 text-3xl text-green-600'></i>
                             </div>
                         </div>
                     </div>
@@ -61,7 +64,7 @@
                                 <p class="text-3xl font-bold text-gray-900 mt-2">{{ $completedAppointments }}</p>
                             </div>
                             <div class="bg-purple-100 p-4 rounded-full">
-                                <i class='bx bx-check-circle text-3xl text-purple-600'></i>
+                                <i class='hgi-stroke hgi-checkmark-circle-02 text-3xl text-purple-600'></i>
                             </div>
                         </div>
                     </div>
@@ -77,28 +80,28 @@
                             <a href="{{ route('patient.appointments.create') }}"
                                 class="flex flex-col items-center p-6 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 hover:shadow-md transition-all duration-200">
                                 <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-3">
-                                    <i class='bx bx-calendar-plus text-3xl text-blue-600'></i>
+                                    <i class='hgi-stroke hgi-calendar-03-plus text-3xl text-blue-600'></i>
                                 </div>
                                 <span class="text-sm font-semibold text-gray-700">Book Appointment</span>
                             </a>
                             <a href="{{ route('patient.appointments.index') }}"
                                 class="flex flex-col items-center p-6 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 hover:shadow-md transition-all duration-200">
                                 <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-3">
-                                    <i class='bx bx-history text-3xl text-green-600'></i>
+                                    <i class='hgi-stroke hgi-time-schedule text-3xl text-green-600'></i>
                                 </div>
                                 <span class="text-sm font-semibold text-gray-700">View History</span>
                             </a>
                             <a href="{{ route('patient.profile.show') }}"
                                 class="flex flex-col items-center p-6 border-2 border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 hover:shadow-md transition-all duration-200">
                                 <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-3">
-                                    <i class='bx bx-user text-3xl text-purple-600'></i>
+                                    <i class='hgi-stroke hgi-user text-3xl text-purple-600'></i>
                                 </div>
                                 <span class="text-sm font-semibold text-gray-700">My Profile</span>
                             </a>
                             <a href="{{ route('patient.records.index') }}"
                                 class="flex flex-col items-center p-6 border-2 border-gray-200 rounded-lg hover:border-orange-500 hover:bg-orange-50 hover:shadow-md transition-all duration-200">
                                 <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-3">
-                                    <i class='bx bx-file text-3xl text-orange-600'></i>
+                                    <i class='hgi-stroke hgi-file-01 text-3xl text-orange-600'></i>
                                 </div>
                                 <span class="text-sm font-semibold text-gray-700">My Records</span>
                             </a>
@@ -120,7 +123,7 @@
                                         <div class="flex-1">
                                             <div class="flex items-center space-x-3">
                                                 <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                                    <i class='bx bx-calendar text-blue-600 text-xl'></i>
+                                                    <i class='hgi-stroke hgi-calendar-03 text-blue-600 text-xl'></i>
                                                 </div>
                                                 <div>
                                                     <h4 class="font-semibold text-gray-900">
@@ -146,7 +149,7 @@
                                             </span>
                                             <a href="{{ route('patient.appointments.show', $appointment->id) }}"
                                                 class="text-blue-600 hover:text-blue-700">
-                                                <i class='bx bx-chevron-right text-2xl'></i>
+                                                <i class='hgi-stroke hgi-arrow-right-01 text-2xl'></i>
                                             </a>
                                         </div>
                                     </div>

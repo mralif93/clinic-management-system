@@ -6,11 +6,14 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-2xl shadow-lg p-6 text-white">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-2xl  p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                        <i class='bx bx-calendar text-3xl'></i>
+                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-calendar-03 text-3xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">Clinic Schedule</h1>
@@ -19,7 +22,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 text-sm">
-                        <i class='bx bx-calendar-check mr-1'></i>
+                        <i class='hgi-stroke hgi-calendar-03-check mr-1'></i>
                         {{ $selectedDate->format('l, M d') }}
                     </div>
                 </div>
@@ -31,7 +34,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-calendar-check text-white text-2xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03-check text-white text-2xl'></i>
                     </div>
                     <div>
                         <p class="text-3xl font-bold text-gray-900">{{ $todayCount }}</p>
@@ -42,7 +45,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-calendar text-white text-2xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-white text-2xl'></i>
                     </div>
                     <div>
                         <p class="text-3xl font-bold text-gray-900">{{ $weekCount }}</p>
@@ -53,7 +56,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-time text-white text-2xl'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-white text-2xl'></i>
                     </div>
                     <div>
                         <p class="text-3xl font-bold text-gray-900">{{ $upcomingCount }}</p>
@@ -68,7 +71,7 @@
             <form method="GET" action="{{ route('staff.schedule.index') }}">
                 <div class="flex flex-wrap items-center gap-3">
                     <span class="text-sm font-medium text-amber-700 flex items-center gap-1.5">
-                        <i class='bx bx-calendar-event'></i> Select Date:
+                        <i class='hgi-stroke hgi-calendar-03-event'></i> Select Date:
                     </span>
 
                     <input type="date" name="date" value="{{ $selectedDate->format('Y-m-d') }}"
@@ -77,11 +80,11 @@
                     <div class="flex items-center gap-2 ml-auto">
                         <a href="{{ route('staff.schedule.index') }}"
                             class="inline-flex items-center px-4 py-2 bg-white text-gray-600 text-sm font-medium rounded-lg shadow-sm hover:bg-gray-50 transition">
-                            <i class='bx bx-calendar-check mr-1'></i> Today
+                            <i class='hgi-stroke hgi-calendar-03-check mr-1'></i> Today
                         </a>
                         <button type="submit"
                             class="inline-flex items-center px-5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-lg hover:from-amber-600 hover:to-orange-600 transition-all">
-                            <i class='bx bx-search mr-1.5'></i> View
+                            <i class='hgi-stroke hgi-search-01 mr-1.5'></i> View
                         </button>
                     </div>
                 </div>
@@ -94,12 +97,12 @@
                 <div class="flex items-center justify-between">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
                         <div class="w-8 h-8 bg-gradient-to-br from-amber-500 to-orange-500 rounded-lg flex items-center justify-center">
-                            <i class='bx bx-list-ul text-white text-lg'></i>
+                            <i class='hgi-stroke hgi-list-view text-white text-lg'></i>
                         </div>
                         Appointments for {{ $selectedDate->format('l, F d, Y') }}
                     </h3>
                     <span class="inline-flex items-center px-3 py-1 bg-amber-100 text-amber-700 text-sm font-semibold rounded-full">
-                        <i class='bx bx-calendar-check mr-1'></i>
+                        <i class='hgi-stroke hgi-calendar-03-check mr-1'></i>
                         {{ $appointments->count() }} appointments
                     </span>
                 </div>
@@ -110,7 +113,7 @@
                         @foreach($appointments as $appointment)
                             @php
                                 $statusConfig = [
-                                    'scheduled' => ['bg' => 'bg-blue-50/50', 'border' => 'border-blue-100', 'badge_bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'bx-calendar', 'time_bg' => 'bg-blue-500', 'time_text' => 'text-blue-600'],
+                                    'scheduled' => ['bg' => 'bg-blue-50/50', 'border' => 'border-blue-100', 'badge_bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-calendar-03', 'time_bg' => 'bg-blue-500', 'time_text' => 'text-blue-600'],
                                     'confirmed' => ['bg' => 'bg-green-50/50', 'border' => 'border-green-100', 'badge_bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'bx-check', 'time_bg' => 'bg-green-500', 'time_text' => 'text-green-600'],
                                     'in_progress' => ['bg' => 'bg-amber-50/50', 'border' => 'border-amber-100', 'badge_bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'bx-loader-alt', 'time_bg' => 'bg-amber-500', 'time_text' => 'text-amber-600'],
                                     'completed' => ['bg' => 'bg-purple-50/50', 'border' => 'border-purple-100', 'badge_bg' => 'bg-purple-100', 'text' => 'text-purple-700', 'icon' => 'bx-check-double', 'time_bg' => 'bg-purple-500', 'time_text' => 'text-purple-600'],
@@ -142,12 +145,12 @@
                                         <h4 class="font-semibold text-gray-900">{{ $appointment->patient->full_name }}</h4>
                                         <div class="flex flex-wrap items-center gap-2 mt-1 text-sm text-gray-500">
                                             <span class="inline-flex items-center gap-1">
-                                                <i class='bx bx-briefcase-alt-2 text-amber-500'></i>
+                                                <i class='hgi-stroke hgi-briefcase-01-alt-2 text-amber-500'></i>
                                                 {{ $appointment->service->name ?? 'N/A' }}
                                             </span>
                                             <span class="text-gray-300">•</span>
                                             <span class="inline-flex items-center gap-1">
-                                                <i class='bx bx-user text-blue-500'></i>
+                                                <i class='hgi-stroke hgi-user text-blue-500'></i>
                                                 @if($appointment->doctor)
                                                     Dr. {{ $appointment->doctor->full_name }}
                                                 @else
@@ -160,12 +163,12 @@
                                     <!-- Status & Action - Right Aligned, Vertically Centered -->
                                     <div class="flex-shrink-0 flex items-center gap-3">
                                         <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold {{ $sConfig['badge_bg'] }} {{ $sConfig['text'] }}">
-                                            <i class='bx {{ $sConfig['icon'] }}'></i>
+                                            <i class='hgi-stroke {{ $sConfig['icon'] }}'></i>
                                             {{ ucfirst(str_replace('_', ' ', $appointment->status)) }}
                                         </span>
                                         <a href="{{ route('staff.appointments.show', $appointment->id) }}"
                                             class="w-9 h-9 flex items-center justify-center bg-gradient-to-br from-amber-500 to-orange-500 text-white rounded-full hover:from-amber-600 hover:to-orange-600 transition-all shadow-sm hover:shadow-md" title="View Details">
-                                            <i class='bx bx-right-arrow-alt text-lg'></i>
+                                            <i class='hgi-stroke hgi-arrow-right-01 text-lg'></i>
                                         </a>
                                     </div>
                                 </div>
@@ -175,7 +178,7 @@
                 @else
                     <div class="text-center py-16">
                         <div class="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                            <i class='bx bx-calendar-minus text-4xl text-gray-400'></i>
+                            <i class='hgi-stroke hgi-calendar-03-minus text-4xl text-gray-400'></i>
                         </div>
                         <p class="text-gray-600 font-semibold text-lg">No appointments scheduled</p>
                         <p class="text-gray-400 text-sm mt-1">Select another date to view appointments</p>
@@ -188,7 +191,7 @@
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                 <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                    <i class='bx bx-calendar-week text-amber-500'></i>
+                    <i class='hgi-stroke hgi-calendar-03-week text-amber-500'></i>
                     Week View
                     <span class="text-sm font-normal text-gray-500 ml-2">{{ $weekStart->format('M d') }} - {{ $weekEnd->format('M d, Y') }}</span>
                 </h3>

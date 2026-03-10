@@ -9,7 +9,7 @@
             <!-- Logo/Header -->
             <div class="text-center mb-8">
                 <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 mb-4">
-                    <i class='bx bx-lock text-4xl text-blue-600'></i>
+                    <i class='hgi-stroke hgi-lock-02 text-4xl text-blue-600'></i>
                 </div>
                 <h2 class="text-3xl font-bold text-gray-900">Forgot Password</h2>
                 <p class="mt-2 text-sm text-gray-600">Enter your email address and we'll send you a link to reset your password</p>
@@ -18,7 +18,7 @@
             <!-- Info Alert -->
             <div class="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                 <div class="flex items-start">
-                    <i class='bx bx-info-circle text-yellow-600 text-xl mr-3 mt-0.5'></i>
+                    <i class='hgi-stroke hgi-information-circle text-yellow-600 text-xl mr-3 mt-0.5'></i>
                     <div class="text-sm text-yellow-800">
                         <p class="font-semibold mb-1">Email Service Not Available</p>
                         <p>Email hosting is not yet configured. Please contact the administrator to reset your password.</p>
@@ -37,7 +37,7 @@
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <i class='bx bx-envelope text-gray-400'></i>
+                            <i class='hgi-stroke hgi-mail-01 text-gray-400'></i>
                         </div>
                         <input 
                             id="email" 
@@ -62,7 +62,7 @@
                         class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
                         disabled
                     >
-                        <i class='bx bx-send mr-2'></i>
+                        <i class='hgi-stroke hgi-sent mr-2'></i>
                         Send Reset Link
                     </button>
                 </div>
@@ -70,7 +70,7 @@
                 <!-- Back to Login -->
                 <div class="text-center">
                     <a href="{{ route('login') }}" class="text-sm font-medium text-blue-600 hover:text-blue-500">
-                        <i class='bx bx-arrow-back mr-1'></i>
+                        <i class='hgi-stroke hgi-arrow-left-01 mr-1'></i>
                         Back to Login
                     </a>
                 </div>

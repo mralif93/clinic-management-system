@@ -57,7 +57,7 @@
         </select>
         
         <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-            <i class='bx bx-chevron-down {{ $hasError ? "text-red-500" : "text-gray-400" }}'></i>
+            <i class='hgi-stroke hgi-arrow-down-01 {{ $hasError ? "text-red-500" : "text-gray-400" }}'></i>
         </div>
     </div>
     
@@ -67,7 +67,7 @@
     
     @if($hasError)
         <p id="{{ $inputId }}_error" class="mt-1 text-sm text-red-600 flex items-center gap-1" role="alert">
-            <i class='bx bx-error-circle'></i>
+            <i class='hgi-stroke hgi-alert-circle'></i>
             {{ $errorMessage }}
         </p>
     @endif

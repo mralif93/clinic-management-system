@@ -9,7 +9,7 @@
             <!-- Logo/Header -->
             <div class="text-center mb-8">
                 <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 mb-4">
-                    <i class='bx bx-clinic text-4xl text-blue-600'></i>
+                    <i class='hgi-stroke hgi-hospital-01 text-4xl text-blue-600'></i>
                 </div>
                 <h2 class="text-3xl font-bold text-gray-900">Create Account</h2>
                 <p class="mt-2 text-sm text-gray-600">Sign up to get started</p>
@@ -24,7 +24,7 @@
                     name="name"
                     label="Full Name"
                     type="text"
-                    icon="bx bx-user"
+                    icon="hgi-stroke hgi-user"
                     placeholder="Enter your full name"
                     required
                     :value="old('name')"
@@ -36,7 +36,7 @@
                     name="email"
                     label="Email Address"
                     type="email"
-                    icon="bx bx-envelope"
+                    icon="hgi-stroke hgi-mail-01"
                     placeholder="Enter your email"
                     required
                     :value="old('email')"
@@ -48,7 +48,7 @@
                     name="password"
                     label="Password"
                     type="password"
-                    icon="bx bx-lock"
+                    icon="hgi-stroke hgi-lock-02"
                     placeholder="Enter your password"
                     required
                     autocomplete="new-password"
@@ -59,7 +59,7 @@
                     name="password_confirmation"
                     label="Confirm Password"
                     type="password"
-                    icon="bx bx-lock-alt"
+                    icon="hgi-stroke hgi-lock-01"
                     placeholder="Confirm your password"
                     required
                     autocomplete="new-password"
@@ -71,7 +71,7 @@
                         type="submit" 
                         class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out min-h-[44px]"
                     >
-                        <i class='bx bx-user-plus mr-2'></i>
+                        <i class='hgi-stroke hgi-user-plus mr-2'></i>
                         Create Account
                     </button>
                 </div>

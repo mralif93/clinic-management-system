@@ -18,7 +18,7 @@
                             <div class="flex items-start justify-between">
                                 <div class="flex items-start space-x-4 flex-1">
                                     <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                                        <i class='bx bx-check-circle text-green-600 text-2xl'></i>
+                                        <i class='hgi-stroke hgi-checkmark-circle-02 text-green-600 text-2xl'></i>
                                     </div>
                                     <div class="flex-1">
                                         <div class="flex items-center space-x-3 mb-2">
@@ -31,7 +31,7 @@
 
                                         <div class="space-y-2">
                                             <p class="text-gray-600">
-                                                <i class='bx bx-user-plus mr-1'></i>
+                                                <i class='hgi-stroke hgi-user-plus mr-1'></i>
                                                 Dr. {{ $record->doctor->user->name ?? 'N/A' }}
                                                 @if($record->doctor->specialization)
                                                     <span class="text-gray-500">- {{ $record->doctor->specialization }}</span>
@@ -40,18 +40,18 @@
 
                                             <div class="flex items-center space-x-4 text-sm text-gray-500">
                                                 <span class="flex items-center">
-                                                    <i class='bx bx-calendar mr-1'></i>
+                                                    <i class='hgi-stroke hgi-calendar-03 mr-1'></i>
                                                     {{ \Carbon\Carbon::parse($record->appointment_date)->format('M d, Y') }}
                                                 </span>
                                                 <span class="flex items-center">
-                                                    <i class='bx bx-time mr-1'></i>
+                                                    <i class='hgi-stroke hgi-clock-02 mr-1'></i>
                                                     {{ $record->appointment_time }}
                                                 </span>
                                             </div>
 
                                             @if($record->record_approved_at)
                                                 <p class="text-xs text-emerald-700 mt-2">
-                                                    <i class='bx bx-check-shield mr-1'></i>
+                                                    <i class='hgi-stroke hgi-checkmark-circle-02-shield mr-1'></i>
                                                     Approved on {{ $record->record_approved_at->format('M d, Y h:i A') }}
                                                     @if($record->recordApprovedBy)
                                                         by Dr. {{ $record->recordApprovedBy->name }}
@@ -86,12 +86,12 @@
                 </div>
             @else
                 <div class="bg-white rounded-lg shadow-md border border-gray-200 p-12 text-center">
-                    <i class='bx bx-file text-6xl text-gray-300 mb-4'></i>
+                    <i class='hgi-stroke hgi-file-01 text-6xl text-gray-300 mb-4'></i>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">No Approved Medical Records Yet</h3>
                     <p class="text-gray-600 mb-6">Your records will appear once a doctor completes and approves them.</p>
                     <a href="{{ route('patient.appointments.create') }}"
                         class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg">
-                        <i class='bx bx-calendar-plus mr-2 text-lg'></i>
+                        <i class='hgi-stroke hgi-calendar-03-plus mr-2 text-lg'></i>
                         Book an Appointment
                     </a>
                 </div>

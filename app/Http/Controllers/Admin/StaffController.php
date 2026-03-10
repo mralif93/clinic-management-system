@@ -42,9 +42,10 @@ class StaffController extends Controller
             $query->whereNull('deleted_at');
         }
 
-        $staff = $query->orderBy('created_at', 'desc')->paginate(15);
+        $perPage = in_array($request->input('per_page'), [10, 15, 25, 50, 100]) ? (int) $request->input('per_page') : 10;
+        $staff = $query->orderBy('created_at', 'desc')->paginate($perPage)->withQueryString();
 
-        return view('admin.staff.index', compact('staff'));
+        return view('admin.staff.index', compact('staff', 'perPage'));
     }
 
     /**

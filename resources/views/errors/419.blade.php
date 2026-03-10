@@ -37,7 +37,7 @@
     </script>
 
     <!-- Boxicons CDN -->
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='{{ asset('css/boxicons.min.css') }}' rel='stylesheet'>
 </head>
 
 <body class="bg-gradient-to-br from-purple-50 via-white to-pink-50 font-sans min-h-screen flex items-center justify-center px-4">
@@ -79,7 +79,7 @@
         <!-- Icon -->
         <div class="mb-8 flex justify-center">
             <div class="w-24 h-24 rounded-full bg-purple-100 flex items-center justify-center">
-                <i class='bx bx-time text-5xl text-purple-600'></i>
+                <i class='hgi-stroke hgi-clock-02 text-5xl text-purple-600'></i>
             </div>
         </div>
 
@@ -87,12 +87,12 @@
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button onclick="window.location.reload()" 
                     class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition shadow-lg hover:shadow-xl">
-                <i class='bx bx-refresh text-xl'></i>
+                <i class='hgi-stroke hgi-refresh text-xl'></i>
                 Refresh Page
             </button>
             <a href="{{ route('home') }}" 
                class="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-700 border-2 border-gray-300 rounded-lg font-semibold hover:bg-gray-50 transition shadow-md hover:shadow-lg">
-                <i class='bx bx-home text-xl'></i>
+                <i class='hgi-stroke hgi-home-01 text-xl'></i>
                 Go to Homepage
             </a>
         </div>
@@ -100,7 +100,7 @@
         <!-- Help Text -->
         <div class="mt-12 pt-8 border-t border-gray-200">
             <p class="text-sm text-gray-500">
-                <i class='bx bx-info-circle mr-1'></i>
+                <i class='hgi-stroke hgi-information-circle mr-1'></i>
                 This usually happens when a form page has been open for too long. Simply refresh and resubmit your form.
             </p>
         </div>

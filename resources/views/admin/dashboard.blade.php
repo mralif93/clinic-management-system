@@ -321,7 +321,7 @@
                 <div class="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden">
                     <div class="p-4 border-b border-gray-100">
                         <h3 class="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                            <i class='bx bx-pie-chart-alt-2 text-indigo-600'></i>
+                            <i class='hgi-stroke hgi-pie-chart text-indigo-600'></i>
                             Appointment Status Overview
                         </h3>
                     </div>
@@ -396,7 +396,7 @@
                     <div class="p-4 border-b border-gray-100">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                                <i class='bx bx-line-chart text-green-600'></i>
+                                <i class='hgi-stroke hgi-chart-line-up-01 text-green-600'></i>
                                 Revenue (Last 7 Days)
                             </h3>
                             <span
@@ -442,7 +442,7 @@
                     <div class="p-4 border-b border-gray-100">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                                <i class='bx bx-calendar-event text-blue-600'></i>
+                                <i class='hgi-stroke hgi-calendar-03-event text-blue-600'></i>
                                 Upcoming Appointments
                             </h3>
                             <a href="{{ route('admin.appointments.index') }}"
@@ -492,7 +492,7 @@
                             </table>
                         @else
                             <div class="p-8 text-center">
-                                <i class='bx bx-calendar-minus text-4xl text-gray-300 mb-2'></i>
+                                <i class='hgi-stroke hgi-calendar-03-minus text-4xl text-gray-300 mb-2'></i>
                                 <p class="text-sm text-gray-500">No upcoming appointments</p>
                             </div>
                         @endif
@@ -504,7 +504,7 @@
                     <div class="p-4 border-b border-gray-100">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-semibold text-gray-800 flex items-center gap-2">
-                                <i class='bx bx-calendar-check text-amber-600'></i>
+                                <i class='hgi-stroke hgi-calendar-03-check text-amber-600'></i>
                                 Pending Leave Requests
                             </h3>
                             <a href="{{ route('admin.leaves.index') }}"
@@ -555,7 +555,7 @@
                             </table>
                         @else
                             <div class="p-8 text-center">
-                                <i class='bx bx-check-circle text-4xl text-green-300 mb-2'></i>
+                                <i class='hgi-stroke hgi-checkmark-circle-02 text-4xl text-green-300 mb-2'></i>
                                 <p class="text-sm text-gray-500">No pending leave requests</p>
                             </div>
                         @endif

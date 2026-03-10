@@ -16,10 +16,10 @@
     $sortIcon = '';
     if ($sortable && $currentSort === $sortKey) {
         $sortIcon = $currentDirection === 'asc' 
-            ? '<i class="bx bx-sort-up ml-1"></i>' 
-            : '<i class="bx bx-sort-down ml-1"></i>';
+            ? '<i class="hgi-stroke hgi-sorting-01 ml-1"></i>' 
+            : '<i class="hgi-stroke hgi-sorting-09 ml-1"></i>';
     } elseif ($sortable) {
-        $sortIcon = '<i class="bx bx-sort ml-1 text-gray-400"></i>';
+        $sortIcon = '<i class="hgi-stroke hgi-sorting-05 ml-1 text-gray-400"></i>';
     }
 @endphp
 

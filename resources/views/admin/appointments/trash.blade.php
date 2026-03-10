@@ -10,7 +10,7 @@
             </div>
             <a href="{{ route('admin.appointments.index') }}"
                 class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
-                <i class='bx bx-arrow-back text-xl'></i>
+                <i class='hgi-stroke hgi-arrow-left-01 text-xl'></i>
                 Back to Appointments
             </a>
         </div>
@@ -42,7 +42,7 @@
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-3">
                                             <div class="bg-blue-100 p-2 rounded-full">
-                                                <i class='bx bx-user text-xl text-blue-600'></i>
+                                                <i class='hgi-stroke hgi-user text-xl text-blue-600'></i>
                                             </div>
                                             <div>
                                                 <p class="font-medium text-gray-900">{{ $appointment->patient->full_name }}</p>
@@ -71,7 +71,7 @@
                                                 <button type="submit"
                                                     class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm"
                                                     title="Restore">
-                                                    <i class='bx bx-undo text-base'></i>
+                                                    <i class='hgi-stroke hgi-undo text-base'></i>
                                                 </button>
                                             </form>
 
@@ -83,7 +83,7 @@
                                                 <button type="submit"
                                                     class="w-8 h-8 flex items-center justify-center bg-red-500 text-white hover:bg-red-600 rounded-full transition shadow-sm"
                                                     title="Permanently Delete">
-                                                    <i class='bx bx-x-circle text-base'></i>
+                                                    <i class='hgi-stroke hgi-cancel-circle text-base'></i>
                                                 </button>
                                             </form>
                                         </div>
@@ -100,7 +100,7 @@
                 </div>
             @else
                 <div class="text-center py-12">
-                    <i class='bx bx-trash text-6xl text-gray-300'></i>
+                    <i class='hgi-stroke hgi-delete-01 text-6xl text-gray-300'></i>
                     <p class="text-gray-500 mt-4 text-lg">No trashed appointments found</p>
                     <a href="{{ route('admin.appointments.index') }}"
                         class="inline-block mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition-colors">

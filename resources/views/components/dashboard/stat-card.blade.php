@@ -43,10 +43,10 @@
     @if($trend && $trendValue)
         <div class="flex items-center gap-2 mt-4">
             @if($trend === 'up')
-                <i class='bx bx-trending-up text-green-600'></i>
+                <i class='hgi-stroke hgi-arrow-up-right-01 text-green-600'></i>
                 <span class="text-sm font-medium text-green-600">+{{ $trendValue }}</span>
             @elseif($trend === 'down')
-                <i class='bx bx-trending-down text-red-600'></i>
+                <i class='hgi-stroke hgi-arrow-down-right-01 text-red-600'></i>
                 <span class="text-sm font-medium text-red-600">-{{ $trendValue }}</span>
             @endif
             @if($subtitle)

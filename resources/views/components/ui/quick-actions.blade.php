@@ -9,7 +9,7 @@
             class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
             aria-label="Quick actions"
         >
-            <i class='bx bx-dots-horizontal text-xl'></i>
+            <i class='hgi-stroke hgi-more-horizontal text-xl'></i>
             <span class="hidden sm:inline">Quick Actions</span>
         </button>
         

@@ -13,7 +13,7 @@
                     <div class="flex items-center gap-3">
                         <a href="{{ route('admin.schedules.index') }}"
                             class="rounded-xl bg-white/20 p-2 backdrop-blur-sm hover:bg-white/30 transition-colors text-white">
-                            <i class='bx bx-arrow-back text-2xl'></i>
+                            <i class='hgi-stroke hgi-arrow-left-01 text-2xl'></i>
                         </a>
                         <h1 class="text-3xl font-bold text-white">View Schedule</h1>
                     </div>
@@ -24,7 +24,7 @@
                 <div class="flex items-center gap-3">
                     <a href="{{ route('admin.schedules.manage', $doctor->id) }}"
                         class="flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-600 font-bold rounded-full hover:bg-indigo-50 hover:scale-105 transition-all shadow-lg">
-                        <i class='bx bx-edit text-xl'></i>
+                        <i class='hgi-stroke hgi-pencil-edit-01 text-xl'></i>
                         Edit Schedule
                     </a>
                 </div>
@@ -49,7 +49,7 @@
                     <!-- Card Header -->
                     <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
                         <h3 class="font-bold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-calendar-event text-indigo-500'></i>
+                            <i class='hgi-stroke hgi-calendar-03-event text-indigo-500'></i>
                             {{ $dayName }}
                         </h3>
                         <span
@@ -67,7 +67,7 @@
                                 <div class="space-y-1">
                                     <label
                                         class="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                                        <i class='bx bx-time'></i> Working Hours
+                                        <i class='hgi-stroke hgi-clock-02'></i> Working Hours
                                     </label>
                                     <div class="p-3 bg-indigo-50 rounded-xl border border-indigo-100">
                                         <p class="text-indigo-900 font-bold text-lg text-center">
@@ -83,7 +83,7 @@
                                     <div class="space-y-1">
                                         <label
                                             class="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                                            <i class='bx bx-coffee'></i> Break
+                                            <i class='hgi-stroke hgi-coffee-01'></i> Break
                                         </label>
                                         <div class="p-2 bg-gray-50 rounded-lg border border-gray-100 text-center">
                                             <p class="text-gray-700 font-semibold text-sm">
@@ -97,7 +97,7 @@
                                     <div class="space-y-1">
                                         <label
                                             class="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1">
-                                            <i class='bx bx-timer'></i> Slot
+                                            <i class='hgi-stroke hgi-clock-02r'></i> Slot
                                         </label>
                                         <div class="p-2 bg-gray-50 rounded-lg border border-gray-100 text-center">
                                             <p class="text-gray-700 font-semibold text-sm">
@@ -110,7 +110,7 @@
                         @else
                             <div class="flex flex-col items-center justify-center py-8 text-gray-400">
                                 <div class="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mb-3">
-                                    <i class='bx bx-calendar-minus text-3xl text-gray-300'></i>
+                                    <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-300'></i>
                                 </div>
                                 <span class="text-sm font-medium">No schedule configured</span>
                             </div>

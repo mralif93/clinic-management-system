@@ -11,6 +11,10 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/how-it-works', [HomeController::class, 'howItWorks'])->name('how-it-works');
 
+// Public Digital Card Verification
+Route::get('/verify/doctor/{id}', [\App\Http\Controllers\PublicDigitalCardController::class, 'verifyDoctor'])->name('public.verify.doctor');
+Route::get('/verify/staff/{id}', [\App\Http\Controllers\PublicDigitalCardController::class, 'verifyStaff'])->name('public.verify.staff');
+
 // Team Routes
 Route::get('/team', [App\Http\Controllers\TeamController::class, 'index'])->name('team.index');
 
@@ -25,10 +29,6 @@ Route::get('/packages/{package:slug}', [App\Http\Controllers\PackageController::
 // Announcements Routes
 Route::get('/announcements', [HomeController::class, 'announcements'])->name('announcements.index');
 Route::get('/announcements/{id}', [HomeController::class, 'showAnnouncement'])->name('announcements.show');
-
-// Dynamic Page Route (must be after specific routes)
-Route::get('/{slug}', [HomeController::class, 'page'])->name('page.show')
-    ->where('slug', '^(?!admin|login|register|logout|forgot-password|reset-password|services|about|team|packages|announcements|staff|doctor|patient).*');
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -149,6 +149,10 @@ Route::middleware('auth')->group(function () {
             // Payslips (View Own)
             Route::get('/payslips', [App\Http\Controllers\Doctor\PayslipController::class, 'index'])->name('payslips.index');
             Route::get('/payslips/{id}', [App\Http\Controllers\Doctor\PayslipController::class, 'show'])->name('payslips.show');
+
+            // Digital Card
+            Route::get('/digital-card', [App\Http\Controllers\Doctor\DigitalCardController::class, 'show'])->name('digital-card.show');
+            Route::put('/digital-card', [App\Http\Controllers\Doctor\DigitalCardController::class, 'updateCard'])->name('digital-card.update');
         });
     });
 
@@ -223,6 +227,10 @@ Route::middleware('auth')->group(function () {
             // Payslips (View Own)
             Route::get('/payslips', [App\Http\Controllers\Staff\PayslipController::class, 'index'])->name('payslips.index');
             Route::get('/payslips/{id}', [App\Http\Controllers\Staff\PayslipController::class, 'show'])->name('payslips.show');
+
+            // Digital Card
+            Route::get('/digital-card', [App\Http\Controllers\Staff\DigitalCardController::class, 'show'])->name('digital-card.show');
+            Route::put('/digital-card', [App\Http\Controllers\Staff\DigitalCardController::class, 'updateCard'])->name('digital-card.update');
         });
     });
 
@@ -298,6 +306,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/profile', [App\Http\Controllers\Admin\ProfileController::class, 'show'])->name('profile.show');
         Route::put('/profile/details', [App\Http\Controllers\Admin\ProfileController::class, 'updateDetails'])->name('profile.update-details');
         Route::put('/profile/password', [App\Http\Controllers\Admin\ProfileController::class, 'updatePassword'])->name('profile.update-password');
+
+        // Digital Cards
+        Route::get('/digital-card', [App\Http\Controllers\Admin\DigitalCardController::class, 'selfCard'])->name('digital-card.self');
+        Route::put('/digital-card', [App\Http\Controllers\Admin\DigitalCardController::class, 'updateCard'])->name('digital-card.update');
+        Route::get('/digital-cards', [App\Http\Controllers\Admin\DigitalCardController::class, 'index'])->name('digital-cards.index');
+        Route::get('/digital-cards/{type}/{id}', [App\Http\Controllers\Admin\DigitalCardController::class, 'show'])->name('digital-cards.show')->where('type', 'doctor|staff')->where('id', '[0-9]+');
 
         // Reports
         Route::get('/reports', [App\Http\Controllers\Admin\ReportController::class, 'index'])->name('reports.index');
@@ -382,3 +396,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/search', [App\Http\Controllers\SearchController::class, 'search'])->name('search');
     Route::get('/search/autocomplete', [App\Http\Controllers\SearchController::class, 'autocomplete'])->name('search.autocomplete');
 });
+
+// Dynamic Page Route (must be after specific routes, moved from top)
+Route::get('/{slug}', [App\Http\Controllers\HomeController::class, 'page'])->name('page.show')
+    ->where('slug', '^(?!admin|login|register|logout|forgot-password|reset-password|services|about|team|packages|announcements|staff|doctor|patient|user-guide|search).*');

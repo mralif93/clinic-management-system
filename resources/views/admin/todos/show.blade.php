@@ -6,12 +6,15 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-6 text-white shadow-lg">
+        <div class="bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div
                         class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30">
-                        <i class='bx bx-task text-4xl'></i>
+                        <i class='hgi-stroke hgi-task-01 text-4xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">{{ Str::limit($todo->title, 50) }}</h1>
@@ -27,12 +30,12 @@
                             @if($todo->is_recurring)
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-indigo-400/30">
-                                    <i class='bx bx-repeat mr-1'></i> {{ ucfirst($todo->recurrence_type) }}
+                                    <i class='hgi-stroke hgi-repeat mr-1'></i> {{ ucfirst($todo->recurrence_type) }}
                                 </span>
                             @endif
                             @if($todo->isOverdue())
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-red-500/30">
-                                    <i class='bx bx-error-circle mr-1'></i> Overdue
+                                    <i class='hgi-stroke hgi-alert-circle mr-1'></i> Overdue
                                 </span>
                             @endif
                         </div>
@@ -41,12 +44,12 @@
                 <div class="flex items-center gap-3">
                     <a href="{{ route('admin.todos.edit', $todo->id) }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-amber-600 rounded-xl font-semibold hover:bg-amber-50 transition-all shadow-lg">
-                        <i class='bx bx-edit'></i>
+                        <i class='hgi-stroke hgi-pencil-edit-01'></i>
                         Edit To-Do
                     </a>
                     <a href="{{ route('admin.todos.index') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                        <i class='bx bx-arrow-back'></i>
+                        <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back to List
                     </a>
                 </div>
@@ -58,7 +61,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center">
-                        <i class='bx bx-flag text-2xl text-amber-600'></i>
+                        <i class='hgi-stroke hgi-flag-01 text-2xl text-amber-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Status</p>
@@ -72,7 +75,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
-                        <i class='bx bx-trophy text-2xl text-blue-600'></i>
+                        <i class='hgi-stroke hgi-trophy text-2xl text-blue-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Priority</p>
@@ -87,7 +90,7 @@
                 <div class="flex items-center gap-4">
                     <div
                         class="w-12 h-12 rounded-xl {{ $todo->isOverdue() ? 'bg-red-50' : 'bg-green-50' }} flex items-center justify-center">
-                        <i class='bx bx-calendar text-2xl {{ $todo->isOverdue() ? 'text-red-600' : 'text-green-600' }}'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-2xl {{ $todo->isOverdue() ? 'text-red-600' : 'text-green-600' }}'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Due Date</p>
@@ -104,7 +107,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center">
-                        <i class='bx bx-user text-2xl text-purple-600'></i>
+                        <i class='hgi-stroke hgi-user text-2xl text-purple-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Assigned To</p>
@@ -121,7 +124,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-info-circle text-amber-600'></i>
+                        <i class='hgi-stroke hgi-information-circle text-amber-600'></i>
                         Task Details
                     </h3>
                 </div>
@@ -155,7 +158,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-repeat text-amber-600'></i>
+                        <i class='hgi-stroke hgi-repeat text-amber-600'></i>
                         Recurring Settings
                     </h3>
                 </div>
@@ -163,25 +166,25 @@
                     @if($todo->is_recurring)
                         <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-xl">
                             <div class="flex items-center gap-3 mb-3">
-                                <i class='bx bx-repeat text-2xl text-indigo-600'></i>
+                                <i class='hgi-stroke hgi-repeat text-2xl text-indigo-600'></i>
                                 <span class="text-lg font-semibold text-indigo-700">{{ ucfirst($todo->recurrence_type) }}
                                     Recurrence</span>
                             </div>
                             @if($todo->last_generated_date)
                                 <p class="text-sm text-indigo-600 mb-2">
-                                    <i class='bx bx-calendar-check mr-1'></i>
+                                    <i class='hgi-stroke hgi-calendar-03-check mr-1'></i>
                                     Last generated: {{ $todo->last_generated_date->format('M d, Y') }}
                                 </p>
                             @endif
                             <p class="text-xs text-indigo-700 mt-3 flex items-center gap-1">
-                                <i class='bx bx-info-circle'></i>
+                                <i class='hgi-stroke hgi-information-circle'></i>
                                 This is a template task. New instances are automatically created {{ $todo->recurrence_type }}.
                             </p>
                         </div>
                     @else
                         <div class="text-center py-8">
                             <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                                <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
+                                <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
                             </div>
                             <p class="text-gray-500">This is not a recurring task</p>
                         </div>
@@ -194,7 +197,7 @@
         <div class="bg-white rounded-2xl shadow-sm border-2 border-red-200 overflow-hidden">
             <div class="p-6 border-b border-red-100 bg-red-50/50">
                 <h3 class="text-lg font-semibold text-red-900 flex items-center gap-2">
-                    <i class='bx bx-error-circle text-red-600'></i>
+                    <i class='hgi-stroke hgi-alert-circle text-red-600'></i>
                     Danger Zone
                 </h3>
             </div>
@@ -210,7 +213,7 @@
                         @method('DELETE')
                         <button type="submit"
                             class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-all text-sm shadow-lg shadow-red-600/20">
-                            <i class='bx bx-trash'></i>
+                            <i class='hgi-stroke hgi-delete-01'></i>
                             Delete Task
                         </button>
                     </form>

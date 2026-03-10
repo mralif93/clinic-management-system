@@ -8,23 +8,23 @@
     <!-- Page Header -->
     <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-2xl shadow-lg overflow-hidden">
         <div class="p-6 md:p-8">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
                     <a href="{{ route('staff.patients.index') }}"
-                        class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/30 transition">
-                        <i class='bx bx-arrow-back text-white text-xl'></i>
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-arrow-left-01 text-white text-xl'></i>
                     </a>
-                    <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
                         <span class="text-white font-bold text-2xl">{{ strtoupper(substr($patient->first_name, 0, 1)) }}</span>
                     </div>
                     <div class="text-white">
                         <h1 class="text-2xl font-bold">{{ $patient->full_name }}</h1>
                         <p class="text-blue-100 text-sm mt-1 flex items-center gap-2">
-                            <i class='bx bx-id-card'></i>
+                            <i class='hgi-stroke hgi-identity-card'></i>
                             {{ $patient->patient_id ?? 'N/A' }}
                             @if($patient->gender)
                                 <span class="text-white/50">•</span>
-                                <i class='bx {{ $patient->gender == 'male' ? 'bx-male' : 'bx-female' }}'></i>
+                                <i class='hgi-stroke {{ $patient->gender == 'male' ? 'hgi-male' : 'hgi-female' }}'></i>
                                 {{ ucfirst($patient->gender) }}
                             @endif
                             @if($patient->date_of_birth)
@@ -43,7 +43,7 @@
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
-                    <i class='bx bx-calendar text-white text-xl'></i>
+                    <i class='hgi-stroke hgi-calendar-03 text-white text-xl'></i>
                 </div>
                 <div>
                     <p class="text-lg font-bold text-gray-900">{{ $totalAppointments }}</p>
@@ -54,7 +54,7 @@
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg flex items-center justify-center">
-                    <i class='bx bx-check-circle text-white text-xl'></i>
+                    <i class='hgi-stroke hgi-checkmark-circle-02 text-white text-xl'></i>
                 </div>
                 <div>
                     <p class="text-lg font-bold text-gray-900">{{ $completedAppointments }}</p>
@@ -65,7 +65,7 @@
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-violet-600 rounded-lg flex items-center justify-center">
-                    <i class='bx bx-time text-white text-xl'></i>
+                    <i class='hgi-stroke hgi-clock-02 text-white text-xl'></i>
                 </div>
                 <div>
                     <p class="text-lg font-bold text-gray-900">{{ $upcomingAppointments }}</p>
@@ -76,7 +76,7 @@
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-lg flex items-center justify-center">
-                    <i class='bx bx-cake text-white text-xl'></i>
+                    <i class='hgi-stroke hgi-cake text-white text-xl'></i>
                 </div>
                 <div>
                     <p class="text-sm font-bold text-gray-900">{{ $patient->date_of_birth ? $patient->date_of_birth->format('M d') : 'N/A' }}</p>
@@ -93,7 +93,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                        <i class='bx bx-calendar-check text-blue-500'></i>
+                        <i class='hgi-stroke hgi-calendar-03-check text-blue-500'></i>
                         Appointment History
                     </h3>
                 </div>
@@ -121,7 +121,7 @@
                                         <div class="flex-1 min-w-0">
                                             <h4 class="font-semibold text-gray-900 truncate">{{ $appointment->service->name ?? 'N/A' }}</h4>
                                             <p class="text-sm text-gray-500 flex items-center gap-2 flex-wrap">
-                                                <i class='bx bx-time'></i>
+                                                <i class='hgi-stroke hgi-clock-02'></i>
                                                 {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
                                                 @if($appointment->doctor)
                                                     <span class="text-gray-300">•</span>
@@ -131,7 +131,7 @@
                                         </div>
                                         <a href="{{ route('staff.appointments.show', $appointment->id) }}"
                                             class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-200 transition">
-                                            <i class='bx bx-show'></i>
+                                            <i class='hgi-stroke hgi-eye'></i>
                                         </a>
                                     </div>
 
@@ -143,7 +143,7 @@
                                             @if($appointment->record_approved_at)
                                                 <div class="flex items-center gap-2 flex-wrap">
                                                     <span class="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700 flex items-center gap-1">
-                                                        <i class='bx bx-check-shield'></i> Doctor Approved
+                                                        <i class='hgi-stroke hgi-checkmark-circle-02-shield'></i> Doctor Approved
                                                     </span>
                                                     <span class="text-xs text-gray-500">
                                                         Dr. {{ $appointment->recordApprovedBy->name ?? '' }} &bull; {{ $appointment->record_approved_at->format('M d, Y h:i A') }}
@@ -151,7 +151,7 @@
                                                 </div>
                                             @else
                                                 <span class="px-3 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-700 flex items-center gap-1">
-                                                    <i class='bx bx-time-five'></i> Waiting Doctor Approval
+                                                    <i class='hgi-stroke hgi-clock-02'></i> Waiting Doctor Approval
                                                 </span>
                                             @endif
                                         @endif
@@ -185,7 +185,7 @@
                     @else
                         <div class="text-center py-8">
                             <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i class='bx bx-calendar-minus text-gray-400 text-3xl'></i>
+                                <i class='hgi-stroke hgi-calendar-03-minus text-gray-400 text-3xl'></i>
                             </div>
                             <p class="text-gray-500">No appointment history found</p>
                         </div>
@@ -198,7 +198,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                        <i class='bx bx-plus-circle text-blue-500'></i>
+                        <i class='hgi-stroke hgi-plus-sign text-blue-500'></i>
                         Medical Information
                     </h3>
                 </div>
@@ -206,7 +206,7 @@
                     @if($patient->medical_history)
                     <div>
                         <h4 class="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                            <i class='bx bx-history text-gray-400'></i> Medical History
+                            <i class='hgi-stroke hgi-time-schedule text-gray-400'></i> Medical History
                         </h4>
                         <div class="bg-blue-50 p-4 rounded-xl text-sm text-gray-700">{{ $patient->medical_history }}</div>
                     </div>
@@ -214,7 +214,7 @@
                     @if($patient->allergies)
                     <div>
                         <h4 class="text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                            <i class='bx bx-error-circle text-red-400'></i> Allergies
+                            <i class='hgi-stroke hgi-alert-circle text-red-400'></i> Allergies
                         </h4>
                         <div class="bg-red-50 p-4 rounded-xl text-sm text-red-700">{{ $patient->allergies }}</div>
                     </div>
@@ -230,27 +230,27 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                        <i class='bx bx-user text-blue-500'></i>
+                        <i class='hgi-stroke hgi-user text-blue-500'></i>
                         Basic Information
                     </h3>
                 </div>
                 <div class="p-4 space-y-3">
                     <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                        <i class='bx bx-user text-gray-400'></i>
+                        <i class='hgi-stroke hgi-user text-gray-400'></i>
                         <div>
                             <p class="text-xs text-gray-500">Full Name</p>
                             <p class="text-sm font-medium text-gray-900">{{ $patient->full_name }}</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                        <i class='bx bx-calendar text-gray-400'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-gray-400'></i>
                         <div>
                             <p class="text-xs text-gray-500">Date of Birth</p>
                             <p class="text-sm font-medium text-gray-900">{{ $patient->date_of_birth ? $patient->date_of_birth->format('M d, Y') : 'N/A' }}</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                        <i class='bx {{ $patient->gender == 'male' ? 'bx-male' : 'bx-female' }} text-gray-400'></i>
+                        <i class='hgi-stroke {{ $patient->gender == 'male' ? 'hgi-male' : 'hgi-female' }} text-gray-400'></i>
                         <div>
                             <p class="text-xs text-gray-500">Gender</p>
                             <p class="text-sm font-medium text-gray-900">{{ $patient->gender ? ucfirst($patient->gender) : 'N/A' }}</p>
@@ -263,27 +263,27 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                        <i class='bx bx-phone text-blue-500'></i>
+                        <i class='hgi-stroke hgi-phone text-blue-500'></i>
                         Contact Information
                     </h3>
                 </div>
                 <div class="p-4 space-y-3">
                     <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                        <i class='bx bx-envelope text-gray-400'></i>
+                        <i class='hgi-stroke hgi-mail-01 text-gray-400'></i>
                         <div>
                             <p class="text-xs text-gray-500">Email</p>
                             <p class="text-sm font-medium text-gray-900">{{ $patient->email ?? 'N/A' }}</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                        <i class='bx bx-phone text-gray-400'></i>
+                        <i class='hgi-stroke hgi-phone text-gray-400'></i>
                         <div>
                             <p class="text-xs text-gray-500">Phone</p>
                             <p class="text-sm font-medium text-gray-900">{{ $patient->phone ?? 'N/A' }}</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                        <i class='bx bx-map text-gray-400'></i>
+                        <i class='hgi-stroke hgi-maps-location-01 text-gray-400'></i>
                         <div>
                             <p class="text-xs text-gray-500">Address</p>
                             <p class="text-sm font-medium text-gray-900">{{ $patient->address ?? 'N/A' }}</p>
@@ -297,20 +297,20 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-red-50 to-white">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                        <i class='bx bx-error-circle text-red-500'></i>
+                        <i class='hgi-stroke hgi-alert-circle text-red-500'></i>
                         Emergency Contact
                     </h3>
                 </div>
                 <div class="p-4 space-y-3">
                     <div class="flex items-center gap-3 p-3 bg-red-50 rounded-xl">
-                        <i class='bx bx-user text-red-400'></i>
+                        <i class='hgi-stroke hgi-user text-red-400'></i>
                         <div>
                             <p class="text-xs text-red-500">Contact Name</p>
                             <p class="text-sm font-medium text-gray-900">{{ $patient->emergency_contact_name ?? 'N/A' }}</p>
                         </div>
                     </div>
                     <div class="flex items-center gap-3 p-3 bg-red-50 rounded-xl">
-                        <i class='bx bx-phone text-red-400'></i>
+                        <i class='hgi-stroke hgi-phone text-red-400'></i>
                         <div>
                             <p class="text-xs text-red-500">Contact Phone</p>
                             <p class="text-sm font-medium text-gray-900">{{ $patient->emergency_contact_phone ?? 'N/A' }}</p>

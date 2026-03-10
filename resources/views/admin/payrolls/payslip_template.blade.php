@@ -50,7 +50,7 @@
                         <img src="{{ asset('storage/' . $clinicLogo) }}" alt="{{ $clinicName }}" class="w-11 h-11 object-contain rounded-lg bg-white/20 p-1">
                     @endif
                 @else
-                    <div class="w-11 h-11 bg-white/20 backdrop-blur rounded-lg flex items-center justify-center text-white text-xl font-bold">
+                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
                         {{ strtoupper(substr($clinicName, 0, 1)) }}
                     </div>
                 @endif
@@ -62,7 +62,7 @@
             </div>
             <div class="text-right">
                 <div class="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur px-3 py-1.5 rounded-lg">
-                    <i class='bx bx-receipt text-lg'></i>
+                    <i class='hgi-stroke hgi-invoice-01 text-lg'></i>
                     <span class="text-base font-bold tracking-wide">PAYSLIP</span>
                 </div>
                 <p class="text-emerald-100 mt-1 text-xs" id="preview-period">Period: {{ $payroll->pay_period ?? 'N/A' }}</p>
@@ -76,29 +76,29 @@
     <div class="grid grid-cols-2 gap-4 mb-4">
         <div class="bg-gray-50 rounded-lg p-3">
             <h3 class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-2 flex items-center gap-1">
-                <i class='bx bx-user text-xs'></i> Employee Details
+                <i class='hgi-stroke hgi-user text-xs'></i> Employee Details
             </h3>
             <table class="w-full text-xs">
                 <tr>
                     <td class="py-1 text-gray-500 w-24">Name:</td>
-                    <td class="py-1 font-semibold text-gray-900" id="preview-name">{{ $payroll->user->name ?? 'N/A' }}</td>
+                    <td class="py-1 font-semibold text-gray-900" id="preview-name">{{ $payroll->user?->name ?? 'N/A' }}</td>
                 </tr>
                 <tr>
                     <td class="py-1 text-gray-500">Employee ID:</td>
-                    <td class="py-1 font-medium text-gray-900">EMP-{{ str_pad($payroll->user->id ?? 0, 4, '0', STR_PAD_LEFT) }}</td>
+                    <td class="py-1 font-medium text-gray-900">EMP-{{ str_pad($payroll->user?->id ?? 0, 4, '0', STR_PAD_LEFT) }}</td>
                 </tr>
                 <tr>
                     <td class="py-1 text-gray-500">Position:</td>
-                    <td class="py-1 text-gray-900">{{ ucfirst($payroll->user->role ?? 'N/A') }}</td>
+                    <td class="py-1 text-gray-900">{{ ucfirst($payroll->user?->role ?? 'N/A') }}</td>
                 </tr>
                 <tr>
                     <td class="py-1 text-gray-500">Employment:</td>
                     <td class="py-1 text-gray-900">
-                        @if($payroll->user->employment_type)
+                        @if($payroll->user?->employment_type)
                             <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold
-                                {{ $payroll->user->employment_type === 'locum' ? 'bg-purple-100 text-purple-700' :
-                                   ($payroll->user->employment_type === 'part_time' ? 'bg-orange-100 text-orange-700' : 'bg-emerald-100 text-emerald-700') }}">
-                                {{ ucfirst(str_replace('_', ' ', $payroll->user->employment_type)) }}
+                                {{ $payroll->user?->employment_type === 'locum' ? 'bg-purple-100 text-purple-700' :
+                                   ($payroll->user?->employment_type === 'part_time' ? 'bg-orange-100 text-orange-700' : 'bg-emerald-100 text-emerald-700') }}">
+                                {{ ucfirst(str_replace('_', ' ', $payroll->user?->employment_type)) }}
                             </span>
                         @else
                             <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-100 text-emerald-700">Full Time</span>
@@ -113,7 +113,7 @@
         </div>
         <div class="bg-gray-50 rounded-lg p-3">
             <h3 class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-2 flex items-center gap-1">
-                <i class='bx bx-credit-card text-xs'></i> Payment Details
+                <i class='hgi-stroke hgi-credit-card text-xs'></i> Payment Details
             </h3>
             <table class="w-full text-xs">
                 <tr>
@@ -141,20 +141,20 @@
     </div>
 
     <!-- Hours Breakdown for Part-Time Staff -->
-    @if($payroll->user->employment_type === 'part_time')
+    @if($payroll->user?->employment_type === 'part_time')
         @php
             $attendances = \App\Models\Attendance::where('user_id', $payroll->user_id)
                 ->whereBetween('date', [$payroll->pay_period_start, $payroll->pay_period_end])
                 ->where('is_approved', true)
                 ->orderBy('date')
                 ->get();
-            $hourlyRate = $payroll->user->hourly_rate ?? 8;
+            $hourlyRate = $payroll->user?->hourly_rate ?? 8;
         @endphp
 
         @if($attendances->count() > 0)
             <div class="mb-4 border border-amber-200 rounded-lg overflow-hidden">
                 <div class="bg-gradient-to-r from-amber-500 to-orange-500 px-3 py-2 flex items-center gap-1">
-                    <i class='bx bx-time text-sm text-white'></i>
+                    <i class='hgi-stroke hgi-clock-02 text-sm text-white'></i>
                     <h3 class="text-xs font-bold text-white">Hours Breakdown ({{ $currencySymbol }}{{ number_format($hourlyRate, 2) }}/hr)</h3>
                 </div>
                 <table class="w-full text-xs bg-amber-50">
@@ -187,20 +187,20 @@
     @endif
 
     <!-- Commission Breakdown for Locum Doctors -->
-    @if($payroll->user->employment_type === 'locum' && $payroll->user->doctor)
+    @if($payroll->user?->employment_type === 'locum' && $payroll->user?->doctor)
         @php
-            $appointments = \App\Models\Appointment::where('doctor_id', $payroll->user->doctor->id)
+            $appointments = \App\Models\Appointment::where('doctor_id', $payroll->user?->doctor?->id)
                 ->whereBetween('appointment_date', [$payroll->pay_period_start, $payroll->pay_period_end])
                 ->whereIn('status', ['completed', 'confirmed'])
                 ->with('patient')
                 ->get();
-            $commissionRate = $payroll->user->doctor->commission_rate ?? 60;
+            $commissionRate = $payroll->user?->doctor?->commission_rate ?? 60;
         @endphp
 
         @if($appointments->count() > 0)
             <div class="mb-4 border border-purple-200 rounded-lg overflow-hidden">
                 <div class="bg-gradient-to-r from-purple-500 to-violet-500 px-3 py-2 flex items-center gap-1">
-                    <i class='bx bx-wallet text-sm text-white'></i>
+                    <i class='hgi-stroke hgi-wallet-01 text-sm text-white'></i>
                     <h3 class="text-xs font-bold text-white">Commission Breakdown ({{ number_format($commissionRate, 0) }}%)</h3>
                 </div>
                 <table class="w-full text-xs bg-purple-50">
@@ -237,7 +237,7 @@
     <!-- Salary Details -->
     <div class="mb-4 border border-emerald-200 rounded-lg overflow-hidden">
         <div class="bg-gradient-to-r from-emerald-500 to-teal-500 px-3 py-2 flex items-center gap-1">
-            <i class='bx bx-money text-sm text-white'></i>
+            <i class='hgi-stroke hgi-money-bag-01 text-sm text-white'></i>
             <h3 class="text-xs font-bold text-white">Earnings</h3>
         </div>
         <table class="w-full text-xs">
@@ -290,7 +290,7 @@
     <!-- Deductions -->
     <div class="mb-4 border border-red-200 rounded-lg overflow-hidden">
         <div class="bg-gradient-to-r from-red-500 to-rose-500 px-3 py-2 flex items-center gap-1">
-            <i class='bx bx-minus-circle text-sm text-white'></i>
+            <i class='hgi-stroke hgi-minus-sign-circle text-sm text-white'></i>
             <h3 class="text-xs font-bold text-white">Deductions</h3>
         </div>
         <table class="w-full text-xs">

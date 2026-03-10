@@ -9,7 +9,7 @@
         <!-- Header -->
         <div class="text-center mb-8 md:mb-12">
             <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
-                <i class='bx bx-info-circle text-blue-600 text-3xl'></i>
+                <i class='hgi-stroke hgi-information-circle text-blue-600 text-3xl'></i>
             </div>
             <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">{{ $aboutHeroTitle ?: 'About Us' }}</h1>
             <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
@@ -22,7 +22,7 @@
         <div class="mb-8 md:mb-12">
             <div class="flex items-center mb-4 md:mb-6">
                 <div class="bg-blue-100 p-2 md:p-3 rounded-full mr-3 md:mr-4">
-                    <i class='bx bx-group text-2xl md:text-3xl text-blue-600'></i>
+                    <i class='hgi-stroke hgi-user-group text-2xl md:text-3xl text-blue-600'></i>
                 </div>
                 <div>
                     <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Who We Are</h2>
@@ -49,7 +49,7 @@
         <div class="mb-8 md:mb-12">
             <div class="flex items-center mb-4 md:mb-6">
                 <div class="bg-blue-100 p-2 md:p-3 rounded-full mr-3 md:mr-4">
-                    <i class='bx bx-target-lock text-2xl md:text-3xl text-blue-600'></i>
+                    <i class='hgi-stroke hgi-target-01 text-2xl md:text-3xl text-blue-600'></i>
                 </div>
                 <div>
                     <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Our Vision</h2>
@@ -69,7 +69,7 @@
         <div class="mb-8 md:mb-12">
             <div class="flex items-center mb-4 md:mb-6">
                 <div class="bg-indigo-100 p-2 md:p-3 rounded-full mr-3 md:mr-4">
-                    <i class='bx bx-bullseye text-2xl md:text-3xl text-indigo-600'></i>
+                    <i class='hgi-stroke hgi-target-01 text-2xl md:text-3xl text-indigo-600'></i>
                 </div>
                 <div>
                     <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Our Mission</h2>
@@ -82,7 +82,7 @@
                         <li class="flex items-start gap-4">
                             <div class="mt-1 flex-shrink-0">
                                 <div class="w-6 h-6 bg-indigo-100 rounded-md flex items-center justify-center">
-                                    <i class='bx bx-check text-indigo-600 text-base'></i>
+                                    <i class='hgi-stroke hgi-checkmark-circle-02 text-indigo-600 text-base'></i>
                                 </div>
                             </div>
                             <span class="text-gray-700 leading-relaxed pt-0.5 text-justify">
@@ -100,7 +100,7 @@
         <div class="mb-8 md:mb-12">
             <div class="flex items-center mb-4 md:mb-6">
                 <div class="bg-indigo-100 p-2 md:p-3 rounded-full mr-3 md:mr-4">
-                    <i class='bx bx-heart text-2xl md:text-3xl text-indigo-600'></i>
+                    <i class='hgi-stroke hgi-heart text-2xl md:text-3xl text-indigo-600'></i>
                 </div>
                 <div>
                     <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Our Values</h2>
@@ -120,7 +120,7 @@
                         <div class="p-6">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="{{ $value['accent'] ?? 'bg-indigo-100' }} p-3 rounded-full">
-                                    <i class='bx {{ $value['icon'] ?? 'bx-heart' }} text-2xl {{ str_contains($value['accent'] ?? '', 'blue') ? 'text-blue-600' : (str_contains($value['accent'] ?? '', 'green') ? 'text-green-600' : 'text-indigo-600') }}'></i>
+                                    <i class='hgi-stroke {{ $value['icon'] ?? 'hgi-heart' }} text-2xl {{ str_contains($value['accent'] ?? '', 'blue') ? 'text-blue-600' : (str_contains($value['accent'] ?? '', 'green') ? 'text-green-600' : 'text-indigo-600') }}'></i>
                                 </div>
                                 <span class="bg-indigo-100 text-indigo-800 text-xs font-semibold px-3 py-1 rounded-full">Value</span>
                             </div>
@@ -136,7 +136,10 @@
         @endif
 
         <!-- CTA Section -->
-        <div class="cta-section mt-8 md:mt-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-5 sm:p-6 md:p-8 text-white text-center">
+        <div class="cta-section mt-8 md:mt-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-5 sm:p-6 md:p-8 text-white text-center shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-3 md:mb-4">Ready to Get Started?</h3>
             <p class="text-blue-100 mb-4 md:mb-6 text-xs sm:text-sm md:text-base">Experience our comprehensive healthcare services</p>
             @auth

@@ -7,14 +7,17 @@
     <div class="space-y-6">
         <!-- Page Header -->
         <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
             <div class="relative">
                 <a href="{{ route('doctor.appointments.show', $appointment->id) }}" class="inline-flex items-center gap-1 text-emerald-100 hover:text-white text-sm mb-2 transition">
-                    <i class='bx bx-arrow-back'></i> Back to Details
+                    <i class='hgi-stroke hgi-arrow-left-01'></i> Back to Details
                 </a>
                 <h1 class="text-2xl font-bold flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='bx bx-edit text-xl'></i>
+                        <i class='hgi-stroke hgi-pencil-edit-01 text-xl'></i>
                     </div>
                     Edit Appointment
                 </h1>
@@ -83,7 +86,7 @@
                 <!-- Diagnosis -->
                 <div class="mb-6">
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                        <i class='bx bx-search-alt text-gray-400 mr-1'></i> Diagnosis
+                        <i class='hgi-stroke hgi-search-01-alt text-gray-400 mr-1'></i> Diagnosis
                     </label>
                     <input type="hidden" name="diagnosis" id="diagnosis-input" value="{{ old('diagnosis', $appointment->diagnosis) }}">
                     <div id="diagnosis-editor" class="quill-editor"></div>
@@ -95,7 +98,7 @@
                 <!-- Prescription -->
                 <div class="mb-6">
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                        <i class='bx bx-capsule text-gray-400 mr-1'></i> Prescription
+                        <i class='hgi-stroke hgi-capsule text-gray-400 mr-1'></i> Prescription
                     </label>
                     <input type="hidden" name="prescription" id="prescription-input" value="{{ old('prescription', $appointment->prescription) }}">
                     <div id="prescription-editor" class="quill-editor"></div>
@@ -107,7 +110,7 @@
                 <!-- Notes -->
                 <div class="mb-6">
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
-                        <i class='bx bx-note text-gray-400 mr-1'></i> Notes
+                        <i class='hgi-stroke hgi-note-01 text-gray-400 mr-1'></i> Notes
                     </label>
                     <input type="hidden" name="notes" id="notes-input" value="{{ old('notes', $appointment->notes) }}">
                     <div id="notes-editor" class="quill-editor"></div>
@@ -124,7 +127,7 @@
                     </a>
                     <button type="submit"
                         class="inline-flex items-center px-5 py-2.5 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition font-medium shadow-sm">
-                        <i class='bx bx-save mr-2'></i>
+                        <i class='hgi-stroke hgi-floppy-disk mr-2'></i>
                         Update Appointment
                     </button>
                 </div>
@@ -133,7 +136,7 @@
     </div>
 
 @push('styles')
-<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+<link href="{{ asset('css/quill.snow.css') }}" rel="stylesheet">
 <style>
     .quill-wrapper {
         border: 1px solid #e5e7eb;
@@ -196,7 +199,7 @@
 @endpush
 
 @push('scripts')
-<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+<script src="{{ asset('js/quill.min.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const toolbarOptions = [

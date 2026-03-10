@@ -186,7 +186,7 @@
                     Cancel
                 </a>
                 <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                    <i class='bx bx-save mr-2 text-base'></i>
+                    <i class='hgi-stroke hgi-floppy-disk mr-2 text-base'></i>
                     Schedule Appointment
                 </button>
             </div>
@@ -195,7 +195,7 @@
 </div>
 
 @push('styles')
-<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+<link href="{{ asset('css/quill.snow.css') }}" rel="stylesheet">
 <style>
     .quill-wrapper {
         border: 1px solid #d1d5db;
@@ -258,7 +258,7 @@
 @endpush
 
 @push('scripts')
-<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+<script src="{{ asset('js/quill.min.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const toolbarOptions = [

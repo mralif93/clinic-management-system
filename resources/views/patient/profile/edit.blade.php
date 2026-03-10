@@ -154,7 +154,7 @@
                         </a>
                         <button type="submit"
                             class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition">
-                            <i class='bx bx-save mr-2'></i>
+                            <i class='hgi-stroke hgi-floppy-disk mr-2'></i>
                             Save Changes
                         </button>
                     </div>

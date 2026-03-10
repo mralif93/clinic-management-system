@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malaysia EA 1955 · Full Width Professional Layout</title>
+  <!-- Tailwind via CDN (corrected) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; background: #f8fafc; }
+    .stat-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #eef2f6; }
+    .stat-row:last-child { border-bottom: none; }
+  </style>
+</head>
+<body class="p-4 md:p-6">
+
+  <div class="max-w-5xl mx-auto">
+    <!-- header with act reference & flag -->
+    <div class="flex items-center gap-3 mb-6">
+      <div class="flex gap-0.5">
+        <span class="w-3 h-8 bg-red-600 rounded-l"></span>
+        <span class="w-3 h-8 bg-white border-y border-gray-300"></span>
+        <span class="w-3 h-8 bg-blue-600 rounded-r"></span>
+      </div>
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-800">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-900 to-indigo-800">Employment Act 1955</span> 
+        <span class="text-lg md:text-xl font-normal text-gray-600 ml-2">compliant salary calculator</span>
+      </h1>
+    </div>
+
+    <!-- ===== INPUT SECTION – full width cards with notes below ===== -->
+    <div class="space-y-6">
+      <!-- Card 1: Basic salary & period -->
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
+            <span class="w-1.5 h-6 bg-blue-600 rounded-full"></span>① Monthly salary & period
+          </h2>
+          <button id="resetBtn" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm font-medium text-gray-700 transition flex items-center gap-1">
+            <span>↻</span> Reset
+          </button>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
+          <div class="col-span-2">
+            <label class="block text-xs font-medium text-gray-600 mb-1">Gross monthly salary (RM)</label>
+            <input type="number" id="monthlySalary" value="1700" min="1700" max="50000" step="50" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-300 focus:border-blue-400 outline-none transition bg-white text-gray-800 text-lg font-medium">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">📅 Start date</label>
+            <input type="date" id="periodStart" value="2026-02-28" class="w-full px-3 py-3 border border-gray-200 rounded-xl bg-white focus:ring-2 focus:ring-blue-300">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">📅 End date</label>
+            <input type="date" id="periodEnd" value="2026-03-30" class="w-full px-3 py-3 border border-gray-200 rounded-xl bg-white focus:ring-2 focus:ring-blue-300">
+          </div>
+        </div>
+        <div class="mt-3 text-xs text-amber-700 bg-amber-50 p-3 rounded-xl" id="proRateInfo"></div>
+      </div>
+
+      <!-- Card 2: Overtime & extra pay -->
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
+        <h2 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+          <span class="w-1.5 h-6 bg-green-600 rounded-full"></span>② Overtime / Holiday / Rest day (EA 1955)
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- left column: OT type + hours -->
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-medium text-gray-600 mb-1">⚙️ Overtime type</label>
+              <select id="otType" class="w-full px-3 py-3 border border-gray-200 rounded-xl bg-white text-sm">
+                <option value="ordinary">Ordinary day (1.5× HRP)</option>
+                <option value="restDay">Rest day (0.5× ORP / 1.0× ORP + 2× HRP)</option>
+                <option value="publicHoliday">Public holiday (2.0× ORP + 3× HRP)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 mb-1">⏱️ Hours worked (on that day)</label>
+              <input type="number" id="otHours" value="0" min="0" max="24" step="0.5" class="w-full px-3 py-3 border border-gray-200 rounded-xl bg-white">
+            </div>
+            <div class="text-xs text-gray-500 bg-gray-50 p-2 rounded-lg" id="otDesc"></div>
+          </div>
+
+          <!-- right column: ORP/HRP display -->
+          <div class="bg-blue-50/50 p-4 rounded-xl">
+            <div class="flex justify-between text-sm mb-2"><span>Ordinary rate (ORP):</span> <span class="font-mono font-semibold" id="orpDisplay">RM 65.38</span></div>
+            <div class="flex justify-between text-sm"><span>Hourly rate (HRP):</span> <span class="font-mono font-semibold" id="hrpDisplay">RM 8.17</span></div>
+            <div class="mt-3 text-xs text-gray-500">ORP = salary ÷ 26 (EA 1955) <br> HRP = ORP ÷ 8h</div>
+          </div>
+        </div>
+
+        <!-- overtime pay summary -->
+        <div class="mt-4 flex justify-between items-center p-3 bg-green-50 rounded-xl border border-green-200">
+          <span class="text-sm font-medium text-gray-700">Overtime pay</span>
+          <span class="text-lg font-bold text-green-700" id="otPayDisplay">RM 0.00</span>
+        </div>
+      </div>
+
+      <!-- NOTE for Overtime (moved below card, full width) -->
+      <div class="text-xs text-gray-500 bg-gray-50 p-3 rounded-xl border border-gray-200 -mt-2">
+        *Employees earning ≤ RM4,000 (or manual workers) entitled to OT. [Sec 60A, 60D]
+      </div>
+
+      <!-- Card 3: Other payments -->
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
+        <h2 class="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+          <span class="w-1.5 h-6 bg-purple-600 rounded-full"></span>③ Other payments
+        </h2>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Bonus / incentive (RM)</label>
+            <input type="number" id="bonusAmount" value="0" min="0" step="10" class="w-full px-3 py-3 border border-gray-200 rounded-xl bg-white">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Commission (RM)</label>
+            <input type="number" id="commissionAmount" value="0" min="0" step="10" class="w-full px-3 py-3 border border-gray-200 rounded-xl bg-white">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Allowance (RM)</label>
+            <input type="number" id="allowanceAmount" value="0" min="0" step="10" class="w-full px-3 py-3 border border-gray-200 rounded-xl bg-white">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Arrears / other (RM)</label>
+            <input type="number" id="otherAmount" value="0" min="0" step="10" class="w-full px-3 py-3 border border-gray-200 rounded-xl bg-white">
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTE for Other payments (moved below card, full width) -->
+      <div class="text-xs text-gray-500 bg-gray-50 p-3 rounded-xl border border-gray-200 -mt-2">
+        *Bonus/commission/allowance/arrears: subject to EPF, SOCSO, EIS and PCB (overtime exempt EPF).
+      </div>
+    </div>
+
+    <!-- ===== FULL WIDTH TOTAL TAXABLE EARNINGS CARD ===== -->
+    <div class="w-full mt-8">
+      <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-6">
+        <h3 class="font-semibold text-gray-800 mb-3 flex items-center gap-2 text-lg">🧾 Total taxable earnings</h3>
+        <div class="space-y-2 text-sm">
+          <div class="stat-row"><span>Pro‑rated salary:</span> <span class="font-mono font-medium" id="proratedSalaryDisp">RM 1,700.00</span></div>
+          <div class="stat-row"><span>Overtime pay:</span> <span class="font-mono font-medium" id="totalOTDisp">RM 0.00</span></div>
+          <div class="stat-row"><span>Bonus + commission + etc:</span> <span class="font-mono font-medium" id="extraPayDisp">RM 0.00</span></div>
+          <div class="border-t border-dashed border-gray-200 my-2"></div>
+          <div class="stat-row font-semibold text-base"><span>Gross for month:</span> <span class="font-mono" id="grossTotalDisp">RM 1,700.00</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TWO STATUTORY CARDS SIDE BY SIDE ===== -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+      <!-- Employee statutory deductions card -->
+      <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-6">
+        <h3 class="font-semibold text-gray-800 mb-3 flex items-center gap-2">⚖️ Employee statutory deductions</h3>
+        <div class="space-y-2 text-sm">
+          <div class="stat-row"><span>EPF (11%) <span class="text-gray-400 text-xs">uncapped</span></span> <span class="font-mono" id="epfDeduction">RM 187.00</span></div>
+          <div class="stat-row"><span>SOCSO (0.5%) <span class="text-gray-400 text-xs">cap RM6,000</span></span> <span class="font-mono" id="socsoDeduction">RM 8.50</span></div>
+          <div class="stat-row"><span>EIS (0.2%) <span class="text-gray-400 text-xs">cap RM6,000</span></span> <span class="font-mono" id="eisDeduction">RM 3.40</span></div>
+          <div class="stat-row border-t border-dashed pt-2"><span>PCB (monthly tax) *estimate</span> <span class="font-mono" id="pcbEstimate">RM 2.83</span></div>
+          <div class="border-t border-gray-200 my-2"></div>
+          <div class="stat-row font-bold text-base"><span>Total employee deductions</span> <span class="font-mono" id="totalDeductions">RM 201.73</span></div>
+        </div>
+        <p class="text-xs text-gray-400 mt-2">PCB based on pro‑rated annual projection.</p>
+      </div>
+
+      <!-- Employer statutory contributions card -->
+      <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-6">
+        <h3 class="font-semibold text-gray-800 mb-3 flex items-center gap-2">🏢 Employer statutory contributions</h3>
+        <div class="space-y-2 text-sm">
+          <div class="stat-row"><span>EPF employer <span class="text-gray-400 text-xs">(12% / 13%)</span></span> <span class="font-mono" id="employerEpf">RM 221.00</span></div>
+          <div class="stat-row"><span>SOCSO employer <span class="text-gray-400 text-xs">(1.75% cap RM6k)</span></span> <span class="font-mono" id="employerSocso">RM 29.75</span></div>
+          <div class="stat-row"><span>EIS employer <span class="text-gray-400 text-xs">(0.2% cap RM6k)</span></span> <span class="font-mono" id="employerEis">RM 3.40</span></div>
+          <div class="border-t border-gray-200 my-2"></div>
+          <div class="stat-row font-bold text-base"><span>Total employer cost</span> <span class="font-mono" id="totalEmployerCost">RM 1,752.42</span></div>
+        </div>
+        <p class="text-xs text-gray-400 mt-2">Employer cost = net take‑home + employer contributions.</p>
+      </div>
+    </div>
+
+    <!-- ===== FULL WIDTH NET TAKE-HOME & PAYMENT CARD ===== -->
+    <div class="w-full mt-6">
+      <div class="bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-2xl shadow-xl p-6 md:p-8">
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+          <div class="flex items-center gap-4">
+            <span class="text-2xl font-semibold">Net take‑home</span>
+            <span class="text-4xl font-bold" id="netTakehome">RM 1,498.27</span>
+          </div>
+          <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+            <div class="flex items-center gap-2">
+              <span class="text-sm opacity-90">Payment date (7‑day rule)</span>
+              <span class="font-medium text-lg" id="paymentDateDisplay">07 Apr 2026</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-sm opacity-90">Custom pay day</span>
+              <span class="flex items-center gap-1 bg-white/20 rounded-lg px-3 py-1">
+                <input type="number" id="customPayDay" value="7" min="1" max="31" class="w-16 bg-transparent text-white border-none focus:ring-0 text-right text-lg"> th
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== COMPLIANCE BADGE – full width below net take-home ===== -->
+    <div class="w-full mt-6">
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-amber-800">
+        <strong>✅ Employment Act 1955 compliant</strong><br>
+        incomplete month (Sec 18A), ORP÷26, HRP÷8, OT rates (Sec 60A, 60D), payment within 7 days (Sec 25).
+      </div>
+    </div>
+
+    <!-- ===== STATUTORY REFERENCE TABLE ===== -->
+    <div class="bg-white rounded-xl shadow-inner border border-gray-200 p-5 overflow-x-auto mt-6">
+      <h4 class="font-semibold text-sm mb-3">📋 Statutory treatment summary (EPF / SOCSO / PCB)</h4>
+      <table class="text-xs w-full text-left">
+        <thead class="bg-gray-100"><tr><th class="p-2">Payment type</th><th>EPF (employee)</th><th>EPF (employer)</th><th>SOCSO/EIS</th><th>PCB</th></tr></thead>
+        <tbody>
+          <tr><td class="p-2">Basic salary</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td>Overtime</td><td>❌</td><td>❌</td><td>✅</td><td>✅</td></tr>
+          <tr><td>Bonus / commission</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td>Allowance</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+          <tr><td>Arrears / other</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td></tr>
+        </tbody>
+      </table>
+      <p class="text-[10px] text-gray-400 mt-2">Employer EPF rate: 13% if wage ≤RM5,000, else 12%. SOCSO/EIS capped at RM6,000 monthly.</p>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ---------- DOM elements ----------
+      const monthlySalaryInput = document.getElementById('monthlySalary');
+      const startDate = document.getElementById('periodStart');
+      const endDate = document.getElementById('periodEnd');
+      const proRateInfo = document.getElementById('proRateInfo');
+
+      const otType = document.getElementById('otType');
+      const otHours = document.getElementById('otHours');
+      const otDesc = document.getElementById('otDesc');
+      const otPayDisplay = document.getElementById('otPayDisplay');
+      const orpSpan = document.getElementById('orpDisplay');
+      const hrpSpan = document.getElementById('hrpDisplay');
+
+      const bonus = document.getElementById('bonusAmount');
+      const commission = document.getElementById('commissionAmount');
+      const allowance = document.getElementById('allowanceAmount');
+      const other = document.getElementById('otherAmount');
+
+      // result spans
+      const proratedSalarySpan = document.getElementById('proratedSalaryDisp');
+      const totalOTSpan = document.getElementById('totalOTDisp');
+      const extraPaySpan = document.getElementById('extraPayDisp');
+      const grossTotalSpan = document.getElementById('grossTotalDisp');
+
+      const epfSpan = document.getElementById('epfDeduction');
+      const socsoSpan = document.getElementById('socsoDeduction');
+      const eisSpan = document.getElementById('eisDeduction');
+      const pcbSpan = document.getElementById('pcbEstimate');
+      const totalDeductionsSpan = document.getElementById('totalDeductions');
+      const netSpan = document.getElementById('netTakehome');
+
+      const employerEpfSpan = document.getElementById('employerEpf');
+      const employerSocsoSpan = document.getElementById('employerSocso');
+      const employerEisSpan = document.getElementById('employerEis');
+      const totalEmployerCostSpan = document.getElementById('totalEmployerCost');
+
+      const payDayInput = document.getElementById('customPayDay');
+      const paymentDateSpan = document.getElementById('paymentDateDisplay');
+
+      const resetBtn = document.getElementById('resetBtn');
+
+      // ---------- constants ----------
+      const ORP_DAYS = 26;
+      const NORMAL_HOURS = 8;
+      const SOCSO_EIS_CAP = 6000;
+      const EPF_EMPLOYEE_RATE = 0.11;
+      const SOCSO_EMPLOYEE_RATE = 0.005;
+      const EIS_EMPLOYEE_RATE = 0.002;
+      const SOCSO_EMPLOYER_RATE = 0.0175;
+      const EIS_EMPLOYER_RATE = 0.002;
+      const EPF_EMPLOYER_THRESHOLD = 5000;
+
+      // helper: format money
+      const fm = (val) => 'RM ' + val.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+      function parseYMD(str) {
+        if (!str) return null;
+        let parts = str.split('-');
+        return new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+      }
+
+      function updatePaymentDate() {
+        let end = parseYMD(endDate.value);
+        if (!end) { paymentDateSpan.textContent = '—'; return; }
+        let payDay = parseInt(payDayInput.value, 10) || 7;
+        payDay = Math.min(31, Math.max(1, payDay));
+        payDayInput.value = payDay;
+        let nextMonth = new Date(end.getFullYear(), end.getMonth() + 1, 1);
+        let lastDay = new Date(end.getFullYear(), end.getMonth() + 2, 0).getDate();
+        let actualDay = Math.min(payDay, lastDay);
+        let payDate = new Date(end.getFullYear(), end.getMonth() + 1, actualDay);
+        paymentDateSpan.textContent = payDate.toLocaleDateString('en-MY', { day:'2-digit', month:'short', year:'numeric' });
+      }
+
+      function computeORP_HRP(monthly) {
+        let orp = monthly / ORP_DAYS;
+        let hrp = orp / NORMAL_HOURS;
+        return { orp, hrp };
+      }
+
+      function getProRatedSalary(monthly, startStr, endStr) {
+        if (!startStr || !endStr) return monthly;
+        let start = parseYMD(startStr);
+        let end = parseYMD(endStr);
+        if (!start || !end || start > end) return monthly;
+        let monthDays = new Date(end.getFullYear(), end.getMonth() + 1, 0).getDate();
+        let diff = Math.round((end - start) / (1000*60*60*24)) + 1;
+        diff = Math.min(diff, monthDays);
+        proRateInfo.innerText = `📐 Pro-ration: ${diff} / ${monthDays} days worked (Sec 18A)`;
+        return (monthly / monthDays) * diff;
+      }
+
+      function calculateOT(monthly, type, hours) {
+        if (hours <= 0) return 0;
+        let { orp, hrp } = computeORP_HRP(monthly);
+        let pay = 0, desc = '';
+        if (type === 'ordinary') {
+          pay = hours * hrp * 1.5;
+          desc = '1.5 × HRP';
+        } else if (type === 'restDay') {
+          let half = NORMAL_HOURS / 2;
+          if (hours <= half) { pay = 0.5 * orp; desc = '0.5 × ORP (≤ half)'; }
+          else if (hours <= NORMAL_HOURS) { pay = orp; desc = '1.0 × ORP (≤ normal)'; }
+          else { let extra = hours - NORMAL_HOURS; pay = orp + extra * hrp * 2; desc = `1 × ORP + 2 × HRP for ${extra.toFixed(1)} extra`; }
+        } else if (type === 'publicHoliday') {
+          if (hours <= NORMAL_HOURS) { pay = 2 * orp; desc = '2.0 × ORP (normal)'; }
+          else { let extra = hours - NORMAL_HOURS; pay = 2 * orp + extra * hrp * 3; desc = `2 × ORP + 3 × HRP for ${extra.toFixed(1)} extra`; }
+        }
+        otDesc.innerText = desc;
+        return pay;
+      }
+
+      function resetAll() {
+        monthlySalaryInput.value = 1700;
+        startDate.value = '2026-02-28';
+        endDate.value = '2026-03-30';
+        otType.value = 'ordinary';
+        otHours.value = 0;
+        bonus.value = 0;
+        commission.value = 0;
+        allowance.value = 0;
+        other.value = 0;
+        payDayInput.value = 7;
+        refreshAll();
+      }
+
+      function refreshAll() {
+        let monthly = parseFloat(monthlySalaryInput.value) || 1700;
+        if (monthly < 1700) monthly = 1700;
+        monthlySalaryInput.value = monthly;
+
+        // pro-rated salary
+        let proRated = getProRatedSalary(monthly, startDate.value, endDate.value);
+        proratedSalarySpan.innerText = fm(proRated);
+
+        let { orp, hrp } = computeORP_HRP(monthly);
+        orpSpan.innerText = `RM ${orp.toFixed(2)}`;
+        hrpSpan.innerText = `RM ${hrp.toFixed(2)}`;
+
+        let otHoursVal = parseFloat(otHours.value) || 0;
+        let otPay = calculateOT(monthly, otType.value, otHoursVal);
+        otPayDisplay.innerText = fm(otPay);
+        totalOTSpan.innerText = fm(otPay);
+
+        let bonusVal = parseFloat(bonus.value) || 0;
+        let commVal = parseFloat(commission.value) || 0;
+        let allowVal = parseFloat(allowance.value) || 0;
+        let otherVal = parseFloat(other.value) || 0;
+        let extraSum = bonusVal + commVal + allowVal + otherVal;
+        extraPaySpan.innerText = fm(extraSum);
+
+        let grossTotal = proRated + otPay + extraSum;
+        grossTotalSpan.innerText = fm(grossTotal);
+
+        // EPF employee (excludes OT)
+        let epfBase = proRated + bonusVal + commVal + allowVal + otherVal;
+        let epfEmployee = epfBase * EPF_EMPLOYEE_RATE;
+        epfSpan.innerText = fm(epfEmployee);
+
+        // SOCSO/EIS base (includes OT)
+        let socsoEisBase = proRated + otPay + extraSum;
+        let capped = Math.min(socsoEisBase, SOCSO_EIS_CAP);
+        let socsoEmployee = capped * SOCSO_EMPLOYEE_RATE;
+        let eisEmployee = capped * EIS_EMPLOYEE_RATE;
+        socsoSpan.innerText = fm(socsoEmployee);
+        eisSpan.innerText = fm(eisEmployee);
+
+        // PCB simplified
+        let annualGross = (proRated + otPay + extraSum) * 12;
+        let chargeable = annualGross - 12000;
+        let tax = 0;
+        if (chargeable > 5000) {
+          if (chargeable <= 20000) tax = (chargeable - 5000) * 0.01;
+          else if (chargeable <= 35000) tax = 150 + (chargeable - 20000) * 0.03;
+          else if (chargeable <= 50000) tax = 600 + (chargeable - 35000) * 0.08;
+          else tax = 1800 + (chargeable - 50000) * 0.13;
+        }
+        let monthlyPCB = Math.max(0, tax / 12);
+        pcbSpan.innerText = fm(monthlyPCB);
+
+        let totalDed = epfEmployee + socsoEmployee + eisEmployee + monthlyPCB;
+        totalDeductionsSpan.innerText = fm(totalDed);
+        let net = grossTotal - totalDed;
+        netSpan.innerText = fm(net);
+
+        // Employer contributions
+        let epfEmployerRate = (epfBase <= EPF_EMPLOYER_THRESHOLD) ? 0.13 : 0.12;
+        let epfEmployer = epfBase * epfEmployerRate;
+        employerEpfSpan.innerText = fm(epfEmployer);
+        let socsoEmployer = capped * SOCSO_EMPLOYER_RATE;
+        employerSocsoSpan.innerText = fm(socsoEmployer);
+        let eisEmployer = capped * EIS_EMPLOYER_RATE;
+        employerEisSpan.innerText = fm(eisEmployer);
+        let totalEmployerCost = net + epfEmployer + socsoEmployer + eisEmployer;
+        totalEmployerCostSpan.innerText = fm(totalEmployerCost);
+
+        updatePaymentDate();
+      }
+
+      // event listeners
+      monthlySalaryInput.addEventListener('input', refreshAll);
+      startDate.addEventListener('change', refreshAll);
+      endDate.addEventListener('change', refreshAll);
+      otType.addEventListener('change', refreshAll);
+      otHours.addEventListener('input', refreshAll);
+      bonus.addEventListener('input', refreshAll);
+      commission.addEventListener('input', refreshAll);
+      allowance.addEventListener('input', refreshAll);
+      other.addEventListener('input', refreshAll);
+      payDayInput.addEventListener('input', function() {
+        let v = parseInt(this.value) || 7;
+        this.value = Math.min(31, Math.max(1, v));
+        updatePaymentDate();
+      });
+
+      resetBtn.addEventListener('click', resetAll);
+
+      // initialise (already set in HTML)
+      refreshAll();
+    })();
+  </script>
+</body>
+</html>

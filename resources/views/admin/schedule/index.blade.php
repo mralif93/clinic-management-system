@@ -12,7 +12,7 @@
                 <div class="space-y-2">
                     <div class="flex items-center gap-3">
                         <div class="rounded-xl bg-white/20 p-2 backdrop-blur-sm">
-                            <i class='bx bx-time text-2xl text-white'></i>
+                            <i class='hgi-stroke hgi-clock-02 text-2xl text-white'></i>
                         </div>
                         <h1 class="text-3xl font-bold text-white">Doctor Schedule Management</h1>
                     </div>
@@ -60,7 +60,7 @@
                             </div>
 
                             <div class="flex items-center gap-2 text-sm text-gray-500">
-                                <i class='bx bx-calendar-check text-lg text-emerald-500'></i>
+                                <i class='hgi-stroke hgi-calendar-03-check text-lg text-emerald-500'></i>
                                 <span>Schedule Configured</span>
                             </div>
                         </div>
@@ -73,11 +73,11 @@
                             <a href="{{ route('admin.schedules.view', $doctor->id) }}"
                                 class="w-9 h-9 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 hover:scale-110 transition-all"
                                 title="View Schedule">
-                                <i class='bx bx-show text-lg'></i>
+                                <i class='hgi-stroke hgi-eye text-lg'></i>
                             </a>
                             <a href="{{ route('admin.schedules.manage', $doctor->id) }}"
                                 class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-full hover:bg-indigo-700 hover:shadow-lg hover:-translate-y-0.5 transition-all">
-                                <i class='bx bx-edit'></i>
+                                <i class='hgi-stroke hgi-pencil-edit-01'></i>
                                 Manage
                             </a>
                         </div>
@@ -87,7 +87,7 @@
                 <div class="col-span-full">
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
                         <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                            <i class='bx bx-user-x text-4xl text-gray-400'></i>
+                            <i class='hgi-stroke hgi-user-x text-4xl text-gray-400'></i>
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 mb-1">No Doctors Found</h3>
                         <p class="text-gray-500">Add doctors to the system to manage their schedules.</p>

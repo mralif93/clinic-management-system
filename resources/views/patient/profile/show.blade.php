@@ -13,7 +13,7 @@
                 </div>
                 <a href="{{ route('patient.profile.edit') }}"
                     class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-md hover:shadow-lg">
-                    <i class='bx bx-edit mr-2 text-base'></i>
+                    <i class='hgi-stroke hgi-pencil-edit-01 mr-2 text-base'></i>
                     Edit Profile
                 </a>
             </div>

@@ -61,11 +61,11 @@
     <div class="space-y-6">
         <!-- Header -->
         <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-600 rounded-2xl p-6 shadow-lg">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="text-white">
                     <h1 class="text-2xl md:text-3xl font-bold flex items-center gap-3">
                         <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                            <i class='bx bx-qr-scan text-2xl'></i>
+                            <i class='hgi-stroke hgi-qr-code text-2xl'></i>
                         </div>
                         QR Check-In Scanner
                     </h1>
@@ -73,7 +73,7 @@
                 </div>
                 <div class="flex gap-3">
                     <button onclick="toggleCamera()" id="toggleCameraBtn" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-blue-600 rounded-xl hover:bg-blue-50 transition-all font-semibold shadow-md">
-                        <i class='bx bx-camera text-xl'></i>
+                        <i class='hgi-stroke hgi-camera-01 text-xl'></i>
                         <span id="toggleCameraText">Start Scanner</span>
                     </button>
                 </div>
@@ -85,7 +85,7 @@
             <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-camera text-blue-500 text-xl'></i>
+                        <i class='hgi-stroke hgi-camera-01 text-blue-500 text-xl'></i>
                         Scanner
                     </h3>
                 </div>
@@ -95,7 +95,7 @@
                         <video id="video-preview" autoplay playsinline class="hidden"></video>
                         <div id="scanner-overlay" class="hidden"></div>
                         <div id="scanner-placeholder" class="aspect-square bg-gray-100 rounded-xl flex flex-col items-center justify-center">
-                            <i class='bx bx-qr text-6xl text-gray-300 mb-4'></i>
+                            <i class='hgi-stroke hgi-qr-code text-6xl text-gray-300 mb-4'></i>
                             <p class="text-gray-500 text-center px-4">Click "Start Scanner" to begin scanning QR codes</p>
                         </div>
                     </div>
@@ -120,14 +120,14 @@
             <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-user text-green-500 text-xl'></i>
+                        <i class='hgi-stroke hgi-user text-green-500 text-xl'></i>
                         Patient Information
                     </h3>
                 </div>
                 <div class="p-6" id="result-container">
                     <div id="empty-state" class="text-center py-12">
                         <div class="w-20 h-20 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                            <i class='bx bx-qr text-gray-300 text-4xl'></i>
+                            <i class='hgi-stroke hgi-qr-code text-gray-300 text-4xl'></i>
                         </div>
                         <p class="text-gray-500">Scan a QR code to see patient information</p>
                     </div>
@@ -150,21 +150,21 @@
                             <!-- Appointment Details -->
                             <div class="space-y-3 mb-6">
                                 <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                                    <i class='bx bx-user-md text-blue-500 text-xl'></i>
+                                    <i class='hgi-stroke hgi-user-md text-blue-500 text-xl'></i>
                                     <div>
                                         <p class="text-xs text-gray-500">Doctor</p>
                                         <p id="doctor-name" class="font-semibold text-gray-900"></p>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                                    <i class='bx bx-plus-medical text-green-500 text-xl'></i>
+                                    <i class='hgi-stroke hgi-plus-sign-medical text-green-500 text-xl'></i>
                                     <div>
                                         <p class="text-xs text-gray-500">Service</p>
                                         <p id="service-name" class="font-semibold text-gray-900"></p>
                                     </div>
                                 </div>
                                 <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                                    <i class='bx bx-time text-purple-500 text-xl'></i>
+                                    <i class='hgi-stroke hgi-clock-02 text-purple-500 text-xl'></i>
                                     <div>
                                         <p class="text-xs text-gray-500">Time</p>
                                         <p id="appointment-time" class="font-semibold text-gray-900"></p>
@@ -184,11 +184,11 @@
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50 flex items-center justify-between">
                 <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-user-check text-amber-500 text-xl'></i>
+                    <i class='hgi-stroke hgi-user-check text-amber-500 text-xl'></i>
                     Waiting for Doctor Acceptance
                 </h3>
                 <button onclick="refreshWaitingQueue()" class="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                    <i class='bx bx-refresh mr-1'></i> Refresh
+                    <i class='hgi-stroke hgi-refresh mr-1'></i> Refresh
                 </button>
             </div>
             <div class="p-6" id="waiting-queue">
@@ -205,7 +205,7 @@
                             <div class="flex items-center justify-between mb-2">
                                 <span class="font-semibold text-gray-900">{{ $appt->patient->name ?? 'Unknown' }}</span>
                                 <span class="text-xs text-amber-600 bg-amber-100 px-2 py-1 rounded-full">
-                                    <i class='bx bx-time mr-1'></i>{{ $appt->arrived_at?->diffForHumans() }}
+                                    <i class='hgi-stroke hgi-clock-02 mr-1'></i>{{ $appt->arrived_at?->diffForHumans() }}
                                 </span>
                             </div>
                             <p class="text-sm text-gray-600">Dr. {{ $appt->doctor->user->name ?? 'TBA' }}</p>
@@ -219,14 +219,11 @@
         </div>
     </div>
 
-    <!-- Alert Sound (hidden) -->
-    <audio id="alert-sound" preload="auto">
-        <source src="https://cdn.jsdelivr.net/npm/@breezystack/lamejs@master/demo/notification.mp3" type="audio/mpeg">
-    </audio>
+    <!-- Note: Add your own notification sound file at public/sounds/notification.mp3 -->
 @endsection
 
 @push('scripts')
-<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="{{ asset('js/html5-qrcode.min.js') }}"></script>
 <script>
     let html5QrCode = null;
     let isScanning = false;
@@ -328,7 +325,7 @@
     function verifyToken(token) {
         Swal.fire({
             title: 'Verifying...',
-            html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-blue-500"></i><span>Checking appointment...</span></div>',
+            html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-blue-500"></i><span>Checking appointment...</span></div>',
             allowOutsideClick: false,
             showConfirmButton: false
         });
@@ -378,9 +375,9 @@
         // Status Badge
         const statusBadge = document.getElementById('status-badge');
         if (data.already_arrived) {
-            statusBadge.innerHTML = '<span class="inline-flex items-center px-4 py-2 bg-amber-100 text-amber-700 rounded-full font-medium"><i class="bx bx-time mr-2"></i>Already Arrived - Waiting for Doctor</span>';
+            statusBadge.innerHTML = '<span class="inline-flex items-center px-4 py-2 bg-amber-100 text-amber-700 rounded-full font-medium"><i class="hgi-stroke hgi-clock-02 mr-2"></i>Already Arrived - Waiting for Doctor</span>';
         } else {
-            statusBadge.innerHTML = '<span class="inline-flex items-center px-4 py-2 bg-green-100 text-green-700 rounded-full font-medium"><i class="bx bx-check mr-2"></i>Verified - Ready to Check In</span>';
+            statusBadge.innerHTML = '<span class="inline-flex items-center px-4 py-2 bg-green-100 text-green-700 rounded-full font-medium"><i class="hgi-stroke hgi-checkmark-circle-02 mr-2"></i>Verified - Ready to Check In</span>';
         }
 
         // Patient Info
@@ -396,7 +393,7 @@
         if (data.already_arrived) {
             actionButtons.innerHTML = `
                 <div class="text-center text-amber-600">
-                    <i class='bx bx-time text-2xl mb-2'></i>
+                    <i class='hgi-stroke hgi-clock-02 text-2xl mb-2'></i>
                     <p>Patient is waiting for doctor to accept.</p>
                     <p class="text-sm">The system will notify you when the doctor accepts.</p>
                 </div>
@@ -404,7 +401,7 @@
         } else {
             actionButtons.innerHTML = `
                 <button onclick="checkInPatient('${appt.confirmation_token}')" class="w-full py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white font-semibold rounded-xl hover:from-green-600 hover:to-emerald-600 transition shadow-md">
-                    <i class='bx bx-check-circle mr-2'></i>Check In Patient
+                    <i class='hgi-stroke hgi-checkmark-circle-02 mr-2'></i>Check In Patient
                 </button>
             `;
         }
@@ -413,7 +410,7 @@
     function checkInPatient(token) {
         Swal.fire({
             title: 'Checking In...',
-            html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-green-500"></i><span>Processing...</span></div>',
+            html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-green-500"></i><span>Processing...</span></div>',
             allowOutsideClick: false,
             showConfirmButton: false
         });
@@ -476,12 +473,12 @@
                             <div class="flex items-center justify-between mb-2">
                                 <span class="font-semibold text-gray-900">${appt.patient_name}</span>
                                 <span class="text-xs ${appt.is_accepted ? 'text-green-600 bg-green-100' : 'text-amber-600 bg-amber-100'} px-2 py-1 rounded-full">
-                                    ${appt.is_accepted ? '<i class="bx bx-check mr-1"></i>Accepted' : '<i class="bx bx-time mr-1"></i>' + appt.wait_time}
+                                    ${appt.is_accepted ? '<i class="hgi-stroke hgi-checkmark-circle-02 mr-1"></i>Accepted' : '<i class="hgi-stroke hgi-clock-02 mr-1"></i>' + appt.wait_time}
                                 </span>
                             </div>
                             <p class="text-sm text-gray-600">Dr. ${appt.doctor_name}</p>
                             <p class="text-xs text-gray-500">${appt.service_name}</p>
-                            ${appt.is_accepted ? `<p class="text-sm text-green-600 font-medium mt-2"><i class='bx bx-door-open mr-1'></i>Room: ${appt.room_number || 'TBA'}</p>` : ''}
+                            ${appt.is_accepted ? `<p class="text-sm text-green-600 font-medium mt-2"><i class='hgi-stroke hgi-door-01 mr-1'></i>Room: ${appt.room_number || 'TBA'}</p>` : ''}
                         </div>
                     `).join('');
 
@@ -509,7 +506,7 @@
                 <div class="text-left">
                     <p class="font-semibold text-lg">${appt.patient_name}</p>
                     <p class="text-gray-600">Dr. ${appt.doctor_name}</p>
-                    <p class="text-green-600 font-bold mt-4 text-xl"><i class='bx bx-door-open mr-2'></i>Room: ${appt.room_number || 'TBA'}</p>
+                    <p class="text-green-600 font-bold mt-4 text-xl"><i class='hgi-stroke hgi-door-01 mr-2'></i>Room: ${appt.room_number || 'TBA'}</p>
                 </div>
             `,
             confirmButtonText: 'Got it!',

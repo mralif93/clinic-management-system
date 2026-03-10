@@ -6,44 +6,47 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-teal-600 to-cyan-600 rounded-2xl p-6 text-white shadow-lg">
+        <div class="bg-gradient-to-r from-teal-600 to-cyan-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div
                         class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30">
-                        <i class='bx bx-time text-4xl'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-4xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">Attendance Record</h1>
                         <p class="text-teal-100 flex items-center gap-2 mt-1">
-                            <i class='bx bx-calendar'></i>
+                            <i class='hgi-stroke hgi-calendar-03'></i>
                             {{ $attendance->date->format('l, F d, Y') }}
                         </p>
                         <div class="flex flex-wrap gap-2 mt-2">
                             @php
                                 $statusConfig = [
                                     'present' => ['color' => 'bg-green-400/30', 'icon' => 'bx-check-circle'],
-                                    'late' => ['color' => 'bg-yellow-400/30', 'icon' => 'bx-time'],
-                                    'half_day' => ['color' => 'bg-orange-400/30', 'icon' => 'bx-time'],
+                                    'late' => ['color' => 'bg-yellow-400/30', 'icon' => 'hgi-clock-01'],
+                                    'half_day' => ['color' => 'bg-orange-400/30', 'icon' => 'hgi-clock-01'],
                                     'absent' => ['color' => 'bg-red-400/30', 'icon' => 'bx-x-circle'],
-                                    'on_leave' => ['color' => 'bg-purple-400/30', 'icon' => 'bx-calendar-exclamation'],
+                                    'on_leave' => ['color' => 'bg-purple-400/30', 'icon' => 'hgi-calendar-03-exclamation'],
                                 ];
                                 $config = $statusConfig[$attendance->status] ?? ['color' => 'bg-gray-400/30', 'icon' => 'bx-question-mark'];
                             @endphp
                             <span
                                 class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium {{ $config['color'] }}">
-                                <i class='bx {{ $config['icon'] }} mr-1'></i>
+                                <i class='hgi-stroke {{ $config['icon'] }} mr-1'></i>
                                 {{ ucfirst(str_replace('_', ' ', $attendance->status)) }}
                             </span>
                             @if($attendance->is_approved)
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-green-400/30">
-                                    <i class='bx bx-check mr-1'></i> Approved
+                                    <i class='hgi-stroke hgi-checkmark-circle-02 mr-1'></i> Approved
                                 </span>
                             @else
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-yellow-400/30">
-                                    <i class='bx bx-time mr-1'></i> Pending
+                                    <i class='hgi-stroke hgi-clock-02 mr-1'></i> Pending
                                 </span>
                             @endif
                         </div>
@@ -55,7 +58,7 @@
                             @csrf
                             <button type="submit"
                                 class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-green-600 rounded-full font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg">
-                                <i class='bx bx-check-circle text-lg'></i>
+                                <i class='hgi-stroke hgi-checkmark-circle-02 text-lg'></i>
                                 Approve
                             </button>
                         </form>
@@ -65,15 +68,15 @@
                     
                     <a href="{{ route('admin.attendance.edit', $attendance) }}" title="Edit Attendance"
                         class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-teal-600 hover:bg-teal-50 hover:scale-105 transition-all shadow-lg">
-                        <i class='bx bx-edit text-xl'></i>
+                        <i class='hgi-stroke hgi-pencil-edit-01 text-xl'></i>
                     </a>
                     <button onclick="deleteAttendance({{ $attendance->id }}, '{{ addslashes($attendance->user->name) }}')" title="Delete"
                         class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-red-600 hover:bg-red-50 hover:scale-105 transition-all shadow-lg">
-                        <i class='bx bx-trash text-xl'></i>
+                        <i class='hgi-stroke hgi-delete-01 text-xl'></i>
                     </button>
                     <a href="{{ route('admin.attendance.by-month', ['year' => $attendance->date->year, 'month' => $attendance->date->month]) }}"
                         class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur text-white rounded-full font-medium hover:bg-white/30 transition-all">
-                        <i class='bx bx-arrow-back'></i>
+                        <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back
                     </a>
                 </div>
@@ -85,7 +88,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center">
-                        <i class='bx bx-log-in-circle text-2xl text-green-600'></i>
+                        <i class='hgi-stroke hgi-login-02 text-2xl text-green-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Clock In</p>
@@ -97,7 +100,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center">
-                        <i class='bx bx-log-out text-2xl text-red-600'></i>
+                        <i class='hgi-stroke hgi-logout-01 text-2xl text-red-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Clock Out</p>
@@ -109,7 +112,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
-                        <i class='bx bx-time text-2xl text-blue-600'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-2xl text-blue-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Total Hours</p>
@@ -121,7 +124,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-yellow-50 flex items-center justify-center">
-                        <i class='bx bx-coffee text-2xl text-yellow-600'></i>
+                        <i class='hgi-stroke hgi-coffee-01 text-2xl text-yellow-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Break Duration</p>
@@ -139,7 +142,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-user text-teal-600'></i>
+                            <i class='hgi-stroke hgi-user text-teal-600'></i>
                             Employee Information
                         </h3>
                     </div>
@@ -162,14 +165,14 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-time text-teal-600'></i>
+                            <i class='hgi-stroke hgi-clock-02 text-teal-600'></i>
                             Time Details
                         </h3>
                     </div>
                     <div class="p-6">
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div class="text-center p-4 bg-green-50 rounded-xl">
-                                <i class='bx bx-log-in-circle text-2xl text-green-600 mb-2'></i>
+                                <i class='hgi-stroke hgi-login-02 text-2xl text-green-600 mb-2'></i>
                                 <p class="text-xs text-gray-500">Clock In</p>
                                 <p class="text-lg font-bold text-gray-900">
                                     {{ $attendance->clock_in_time ? $attendance->clock_in_time->format('h:i A') : '-' }}</p>
@@ -178,7 +181,7 @@
                                 @endif
                             </div>
                             <div class="text-center p-4 bg-red-50 rounded-xl">
-                                <i class='bx bx-log-out text-2xl text-red-600 mb-2'></i>
+                                <i class='hgi-stroke hgi-logout-01 text-2xl text-red-600 mb-2'></i>
                                 <p class="text-xs text-gray-500">Clock Out</p>
                                 <p class="text-lg font-bold text-gray-900">
                                     {{ $attendance->clock_out_time ? $attendance->clock_out_time->format('h:i A') : '-' }}
@@ -188,14 +191,14 @@
                                 @endif
                             </div>
                             <div class="text-center p-4 bg-blue-50 rounded-xl">
-                                <i class='bx bx-time text-2xl text-blue-600 mb-2'></i>
+                                <i class='hgi-stroke hgi-clock-02 text-2xl text-blue-600 mb-2'></i>
                                 <p class="text-xs text-gray-500">Total Hours</p>
                                 <p class="text-lg font-bold text-gray-900">
                                     {{ $attendance->total_hours ? number_format($attendance->total_hours, 2) . 'h' : '-' }}
                                 </p>
                             </div>
                             <div class="text-center p-4 bg-yellow-50 rounded-xl">
-                                <i class='bx bx-coffee text-2xl text-yellow-600 mb-2'></i>
+                                <i class='hgi-stroke hgi-coffee-01 text-2xl text-yellow-600 mb-2'></i>
                                 <p class="text-xs text-gray-500">Break</p>
                                 <p class="text-lg font-bold text-gray-900">
                                     {{ $attendance->break_duration ? $attendance->break_duration . ' min' : '-' }}</p>
@@ -209,7 +212,7 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                                <i class='bx bx-note text-teal-600'></i>
+                                <i class='hgi-stroke hgi-note-01 text-teal-600'></i>
                                 Notes
                             </h3>
                         </div>
@@ -224,7 +227,7 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                             <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                                <i class='bx bx-coffee text-teal-600'></i>
+                                <i class='hgi-stroke hgi-coffee-01 text-teal-600'></i>
                                 Break History
                             </h3>
                         </div>
@@ -233,7 +236,7 @@
                                 @foreach($attendance->breaks as $break)
                                     <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
                                         <div class="flex items-center gap-3">
-                                            <i class='bx bx-coffee text-xl text-yellow-600'></i>
+                                            <i class='hgi-stroke hgi-coffee-01 text-xl text-yellow-600'></i>
                                             <div>
                                                 <p class="font-medium text-gray-800">{{ $break->start_time->format('h:i A') }} -
                                                     {{ $break->end_time ? $break->end_time->format('h:i A') : 'Ongoing' }}</p>
@@ -259,26 +262,27 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-badge-check text-teal-600'></i>
+                            <i class='hgi-stroke hgi-checkmark-circle-03 text-teal-600'></i>
                             Status
                         </h3>
                     </div>
                     <div class="p-6 text-center">
                         @php
                             $statusStyle = [
-                                'present' => ['bg' => 'bg-green-100', 'text' => 'text-green-600', 'icon' => 'bx-check-circle'],
-                                'late' => ['bg' => 'bg-yellow-100', 'text' => 'text-yellow-600', 'icon' => 'bx-time'],
-                                'half_day' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-600', 'icon' => 'bx-time'],
-                                'absent' => ['bg' => 'bg-red-100', 'text' => 'text-red-600', 'icon' => 'bx-x-circle'],
-                                'on_leave' => ['bg' => 'bg-purple-100', 'text' => 'text-purple-600', 'icon' => 'bx-calendar-exclamation'],
+                                'present' => ['bg' => 'bg-green-100', 'text' => 'text-green-600', 'icon' => 'hgi-checkmark-circle-03'],
+                                'late' => ['bg' => 'bg-yellow-100', 'text' => 'text-yellow-600', 'icon' => 'hgi-clock-01'],
+                                'half_day' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-600', 'icon' => 'hgi-clock-01'],
+                                'absent' => ['bg' => 'bg-red-100', 'text' => 'text-red-600', 'icon' => 'hgi-cancel-circle'],
+                                'on_leave' => ['bg' => 'bg-purple-100', 'text' => 'text-purple-600', 'icon' => 'hgi-information-circle'],
                             ];
-                            $style = $statusStyle[$attendance->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-600', 'icon' => 'bx-question-mark'];
+                            $style = $statusStyle[$attendance->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-600', 'icon' => 'hgi-question-mark-circle-03'];
                         @endphp
                         <div class="inline-flex items-center justify-center w-16 h-16 {{ $style['bg'] }} rounded-full mb-3">
-                            <i class='bx {{ $style['icon'] }} text-4xl {{ $style['text'] }}'></i>
+                            <i class='hgi-stroke {{ $style['icon'] }} text-4xl {{ $style['text'] }}'></i>
                         </div>
                         <p class="text-2xl font-bold {{ $style['text'] }}">
-                            {{ ucfirst(str_replace('_', ' ', $attendance->status)) }}</p>
+                            {{ ucfirst(str_replace('_', ' ', $attendance->status)) }}
+                        </p>
                     </div>
                 </div>
 
@@ -286,14 +290,14 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-check-shield text-teal-600'></i>
+                            <i class='hgi-stroke hgi-shield-energy text-teal-600'></i>
                             Approval
                         </h3>
                     </div>
                     <div class="p-6 text-center">
                         @if($attendance->is_approved)
                             <div class="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-full mb-3">
-                                <i class='bx bx-check text-3xl text-green-600'></i>
+                                <i class='hgi-stroke hgi-checkmark-circle-02 text-3xl text-green-600'></i>
                             </div>
                             <p class="font-semibold text-green-600">Approved</p>
                             @if($attendance->approver)
@@ -302,7 +306,7 @@
                             @endif
                         @else
                             <div class="inline-flex items-center justify-center w-12 h-12 bg-yellow-100 rounded-full mb-3">
-                                <i class='bx bx-time text-3xl text-yellow-600'></i>
+                                <i class='hgi-stroke hgi-clock-02 text-3xl text-yellow-600'></i>
                             </div>
                             <p class="font-semibold text-yellow-600">Pending Approval</p>
                         @endif
@@ -313,7 +317,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-git-branch text-teal-600'></i>
+                            <i class='hgi-stroke hgi-git-branch text-teal-600'></i>
                             Timeline
                         </h3>
                     </div>

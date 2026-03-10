@@ -8,10 +8,10 @@
         <!-- Page Header -->
         <div class="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-600 rounded-2xl shadow-lg overflow-hidden">
             <div class="p-6 md:p-8">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="flex items-center gap-4">
-                        <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                            <i class='bx bx-edit text-white text-2xl'></i>
+                        <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                            <i class='hgi-stroke hgi-pencil-edit-01 text-white text-2xl'></i>
                         </div>
                         <div class="text-white">
                             <h1 class="text-2xl font-bold">Edit Profile</h1>
@@ -20,7 +20,7 @@
                     </div>
                     <a href="{{ route('staff.profile.show') }}"
                         class="inline-flex items-center justify-center px-5 py-2.5 bg-white/20 backdrop-blur-sm text-white font-medium rounded-xl hover:bg-white/30 transition border border-white/30">
-                        <i class='bx bx-arrow-back mr-2'></i> Back to Profile
+                        <i class='hgi-stroke hgi-arrow-left-01 mr-2'></i> Back to Profile
                     </a>
                 </div>
             </div>
@@ -35,7 +35,7 @@
                 <!-- Basic Information Section -->
                 <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                        <i class='bx bx-user text-violet-500'></i>
+                        <i class='hgi-stroke hgi-user text-violet-500'></i>
                         Basic Information
                     </h3>
                 </div>
@@ -46,14 +46,14 @@
                                 First Name <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
-                                <i class='bx bx-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                <i class='hgi-stroke hgi-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                 <input type="text" name="first_name" value="{{ old('first_name', $staff->first_name) }}" required
                                     class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 @error('first_name') border-red-300 bg-red-50 @enderror"
                                     placeholder="Enter first name">
                             </div>
                             @error('first_name')
                                 <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                                    <i class='bx bx-error-circle'></i> {{ $message }}
+                                    <i class='hgi-stroke hgi-alert-circle'></i> {{ $message }}
                                 </p>
                             @enderror
                         </div>
@@ -63,14 +63,14 @@
                                 Last Name <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
-                                <i class='bx bx-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                <i class='hgi-stroke hgi-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                 <input type="text" name="last_name" value="{{ old('last_name', $staff->last_name) }}" required
                                     class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 @error('last_name') border-red-300 bg-red-50 @enderror"
                                     placeholder="Enter last name">
                             </div>
                             @error('last_name')
                                 <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                                    <i class='bx bx-error-circle'></i> {{ $message }}
+                                    <i class='hgi-stroke hgi-alert-circle'></i> {{ $message }}
                                 </p>
                             @enderror
                         </div>
@@ -80,14 +80,14 @@
                                 Phone Number
                             </label>
                             <div class="relative">
-                                <i class='bx bx-phone absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                <i class='hgi-stroke hgi-phone absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                 <input type="text" name="phone" value="{{ old('phone', $staff->phone) }}"
                                     class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 @error('phone') border-red-300 bg-red-50 @enderror"
                                     placeholder="e.g., 012-345 6789">
                             </div>
                             @error('phone')
                                 <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                                    <i class='bx bx-error-circle'></i> {{ $message }}
+                                    <i class='hgi-stroke hgi-alert-circle'></i> {{ $message }}
                                 </p>
                             @enderror
                         </div>
@@ -97,14 +97,14 @@
                                 Hire Date
                             </label>
                             <div class="relative">
-                                <i class='bx bx-calendar absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                <i class='hgi-stroke hgi-calendar-03 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                 <input type="date" name="hire_date"
                                     value="{{ old('hire_date', $staff->hire_date ? $staff->hire_date->format('Y-m-d') : '') }}"
                                     class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 @error('hire_date') border-red-300 bg-red-50 @enderror">
                             </div>
                             @error('hire_date')
                                 <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                                    <i class='bx bx-error-circle'></i> {{ $message }}
+                                    <i class='hgi-stroke hgi-alert-circle'></i> {{ $message }}
                                 </p>
                             @enderror
                         </div>
@@ -114,7 +114,7 @@
                 <!-- Work Information Section -->
                 <div class="px-6 py-4 border-b border-t border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                        <i class='bx bx-briefcase text-violet-500'></i>
+                        <i class='hgi-stroke hgi-briefcase-01 text-violet-500'></i>
                         Work Information
                     </h3>
                 </div>
@@ -125,14 +125,14 @@
                                 Position
                             </label>
                             <div class="relative">
-                                <i class='bx bx-briefcase absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                <i class='hgi-stroke hgi-briefcase-01 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                 <input type="text" name="position" value="{{ old('position', $staff->position) }}"
                                     class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 @error('position') border-red-300 bg-red-50 @enderror"
                                     placeholder="e.g., Receptionist, Nurse">
                             </div>
                             @error('position')
                                 <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                                    <i class='bx bx-error-circle'></i> {{ $message }}
+                                    <i class='hgi-stroke hgi-alert-circle'></i> {{ $message }}
                                 </p>
                             @enderror
                         </div>
@@ -142,14 +142,14 @@
                                 Department
                             </label>
                             <div class="relative">
-                                <i class='bx bx-building absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                <i class='hgi-stroke hgi-building-01 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                 <input type="text" name="department" value="{{ old('department', $staff->department) }}"
                                     class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 @error('department') border-red-300 bg-red-50 @enderror"
                                     placeholder="e.g., Admin, Medical">
                             </div>
                             @error('department')
                                 <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                                    <i class='bx bx-error-circle'></i> {{ $message }}
+                                    <i class='hgi-stroke hgi-alert-circle'></i> {{ $message }}
                                 </p>
                             @enderror
                         </div>
@@ -159,7 +159,7 @@
                 <!-- Notes Section -->
                 <div class="px-6 py-4 border-b border-t border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                        <i class='bx bx-note text-violet-500'></i>
+                        <i class='hgi-stroke hgi-note-01 text-violet-500'></i>
                         Additional Notes
                     </h3>
                 </div>
@@ -171,7 +171,7 @@
                     </div>
                     @error('notes')
                         <p class="mt-1 text-xs text-red-600 flex items-center gap-1">
-                            <i class='bx bx-error-circle'></i> {{ $message }}
+                            <i class='hgi-stroke hgi-alert-circle'></i> {{ $message }}
                         </p>
                     @enderror
                 </div>
@@ -180,11 +180,11 @@
                 <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex flex-col sm:flex-row justify-end gap-3">
                     <a href="{{ route('staff.profile.show') }}"
                         class="inline-flex items-center justify-center px-5 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-xl hover:bg-gray-100 transition">
-                        <i class='bx bx-x mr-2'></i> Cancel
+                        <i class='hgi-stroke hgi-cancel-circle mr-2'></i> Cancel
                     </a>
                     <button type="submit"
                         class="inline-flex items-center justify-center px-5 py-2.5 bg-gradient-to-r from-violet-500 to-purple-600 text-white font-medium rounded-xl hover:from-violet-600 hover:to-purple-700 transition shadow-sm hover:shadow">
-                        <i class='bx bx-save mr-2'></i> Save Changes
+                        <i class='hgi-stroke hgi-floppy-disk mr-2'></i> Save Changes
                     </button>
                 </div>
             </form>

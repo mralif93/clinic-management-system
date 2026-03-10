@@ -221,14 +221,14 @@
                                             onchange="handleTeamPhotoUpload({{ $idx }}, this)">
                                         <label for="team-photo-{{ $idx }}" 
                                             class="flex-1 cursor-pointer inline-flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-lg hover:bg-indigo-100 transition">
-                                            <i class='bx bx-cloud-upload text-sm'></i>
+                                            <i class='hgi-stroke hgi-cloud-upload text-sm'></i>
                                             Upload Photo
                                         </label>
                                         @if(!empty($item['photo']))
                                             <button type="button" 
                                                 onclick="clearTeamPhoto({{ $idx }})"
                                                 class="px-3 py-2 text-xs font-medium text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition">
-                                                <i class='bx bx-x'></i>
+                                                <i class='hgi-stroke hgi-cancel-circle'></i>
                                             </button>
                                         @endif
                             </div>
@@ -365,14 +365,14 @@
                                         onchange="handlePackageImageUpload({{ $idx }}, this)">
                                     <label for="package-image-{{ $idx }}" 
                                         class="flex-1 cursor-pointer inline-flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-lg hover:bg-indigo-100 transition">
-                                        <i class='bx bx-cloud-upload text-sm'></i>
+                                        <i class='hgi-stroke hgi-cloud-upload text-sm'></i>
                                         Upload Image
                                     </label>
                                     @if(!empty($item['image']))
                                         <button type="button" 
                                             onclick="clearPackageImage({{ $idx }})"
                                             class="px-3 py-2 text-xs font-medium text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 transition">
-                                            <i class='bx bx-x'></i>
+                                            <i class='hgi-stroke hgi-cancel-circle'></i>
                                         </button>
                                     @endif
                                 </div>
@@ -591,7 +591,7 @@ if (!window.pageEditor) {
                                     onchange="handleTeamPhotoUpload(${idx}, this)">
                                 <label for="team-photo-${idx}" 
                                     class="flex-1 cursor-pointer inline-flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-indigo-600 bg-indigo-50 border border-indigo-200 rounded-lg hover:bg-indigo-100 transition">
-                                    <i class='bx bx-cloud-upload text-sm'></i>
+                                    <i class='hgi-stroke hgi-cloud-upload text-sm'></i>
                                     Upload Photo
                                 </label>
                         </div>

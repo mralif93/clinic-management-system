@@ -6,11 +6,14 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-cyan-500 via-cyan-600 to-teal-600 rounded-2xl shadow-lg p-6 text-white">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="bg-gradient-to-r from-cyan-500 via-cyan-600 to-teal-600 rounded-2xl  p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                        <i class='bx bx-user-circle text-3xl'></i>
+                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-user-circle text-3xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">Doctor Schedules</h1>
@@ -19,7 +22,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 text-sm">
-                        <i class='bx bx-group mr-1'></i>
+                        <i class='hgi-stroke hgi-user-group mr-1'></i>
                         {{ $doctors->total() }} Doctors
                     </div>
                 </div>
@@ -31,7 +34,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-user-circle text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-user-circle text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $doctors->total() }}</p>
@@ -42,7 +45,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-category text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-grid-01 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ count($specializations) }}</p>
@@ -53,7 +56,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-check-circle text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-checkmark-circle-02 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $doctors->where('user.is_active', true)->count() }}</p>
@@ -64,7 +67,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-calendar text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ now()->format('l') }}</p>
@@ -80,7 +83,7 @@
                 <!-- Search Bar -->
                 <div class="relative mb-4">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <i class='bx bx-search text-cyan-500 text-xl'></i>
+                        <i class='hgi-stroke hgi-search-01 text-cyan-500 text-xl'></i>
                     </div>
                     <input type="text" name="search" value="{{ request('search') }}"
                         placeholder="Search by name, email, or specialization..."
@@ -90,7 +93,7 @@
                 <!-- Filter Options -->
                 <div class="flex flex-wrap items-center gap-3">
                     <span class="text-sm font-medium text-cyan-700 flex items-center gap-1.5">
-                        <i class='bx bx-filter-alt'></i> Filters:
+                        <i class='hgi-stroke hgi-filter'></i> Filters:
                     </span>
 
                     <select name="specialization"
@@ -105,12 +108,12 @@
                         @if(request()->hasAny(['search', 'specialization']))
                             <a href="{{ route('staff.schedule.doctors') }}"
                                 class="inline-flex items-center px-4 py-2 bg-white text-gray-600 text-sm font-medium rounded-lg shadow-sm hover:bg-gray-50 transition">
-                                <i class='bx bx-x mr-1'></i> Clear
+                                <i class='hgi-stroke hgi-cancel-circle mr-1'></i> Clear
                             </a>
                         @endif
                         <button type="submit"
                             class="inline-flex items-center px-5 py-2 bg-gradient-to-r from-cyan-500 to-teal-500 text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-lg hover:from-cyan-600 hover:to-teal-600 transition-all">
-                            <i class='bx bx-search mr-1.5'></i> Search
+                            <i class='hgi-stroke hgi-search-01 mr-1.5'></i> Search
                         </button>
                     </div>
                 </div>
@@ -122,7 +125,7 @@
             <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                 <div class="flex items-center justify-between">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                        <i class='bx bx-list-ul text-cyan-500'></i>
+                        <i class='hgi-stroke hgi-list-view text-cyan-500'></i>
                         Doctors List
                     </h3>
                     <span class="text-sm text-gray-500">{{ $doctors->total() }} doctors found</span>
@@ -160,17 +163,17 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-semibold">
-                                        <i class='bx bx-briefcase-alt-2'></i>
+                                        <i class='hgi-stroke hgi-briefcase-01-alt-2'></i>
                                         {{ $doctor->specialization }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="text-sm text-gray-700 flex items-center gap-1">
-                                        <i class='bx bx-envelope text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-mail-01 text-gray-400'></i>
                                         {{ $doctor->user->email ?? 'N/A' }}
                                     </div>
                                     <div class="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
-                                        <i class='bx bx-phone text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-phone text-gray-400'></i>
                                         {{ $doctor->phone ?? 'N/A' }}
                                     </div>
                                 </td>
@@ -179,12 +182,12 @@
                                         <a href="{{ route('staff.doctors.show', $doctor->id) }}"
                                             class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-blue-600 transition shadow-sm hover:shadow"
                                             title="View Details">
-                                            <i class='bx bx-show text-sm'></i>
+                                            <i class='hgi-stroke hgi-eye text-sm'></i>
                                         </a>
                                         <a href="{{ route('staff.schedule.view-doctor', $doctor->id) }}"
                                             class="w-8 h-8 flex items-center justify-center bg-amber-500 text-white rounded-full hover:bg-amber-600 transition shadow-sm hover:shadow"
                                             title="View Schedule">
-                                            <i class='bx bx-calendar text-sm'></i>
+                                            <i class='hgi-stroke hgi-calendar-03 text-sm'></i>
                                         </a>
                                     </div>
                                 </td>
@@ -194,7 +197,7 @@
                                 <td colspan="5" class="px-6 py-16 text-center">
                                     <div class="flex flex-col items-center">
                                         <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                                            <i class='bx bx-user-x text-3xl text-gray-400'></i>
+                                            <i class='hgi-stroke hgi-user-x text-3xl text-gray-400'></i>
                                         </div>
                                         <p class="text-gray-500 font-medium">No doctors found</p>
                                         <p class="text-gray-400 text-sm mt-1">Try adjusting your search filters</p>

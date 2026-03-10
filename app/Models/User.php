@@ -33,6 +33,14 @@ class User extends Authenticatable
         'hourly_rate',
         'failed_login_attempts',
         'locked_until',
+        // Digital card fields
+        'profile_photo',
+        'nric',
+        'blood_type',
+        'emergency_contact_name',
+        'emergency_contact_phone',
+        'card_issued_at',
+        'card_expires_at',
     ];
 
     /**
@@ -57,6 +65,8 @@ class User extends Authenticatable
         'date_of_birth' => 'date',
         'basic_salary' => 'decimal:2',
         'hourly_rate' => 'decimal:2',
+        'card_issued_at' => 'datetime',
+        'card_expires_at' => 'date',
     ];
 
     /**

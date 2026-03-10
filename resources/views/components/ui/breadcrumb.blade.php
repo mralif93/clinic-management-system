@@ -8,7 +8,7 @@
             @foreach($items as $index => $item)
                 <li class="flex items-center">
                     @if($index > 0)
-                        <i class='bx bx-chevron-right text-gray-400 mx-2'></i>
+                        <i class='hgi-stroke hgi-arrow-right-01 text-gray-400 mx-2'></i>
                     @endif
                     
                     @if(isset($item['url']) && $index < count($items) - 1)

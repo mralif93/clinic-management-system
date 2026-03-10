@@ -6,57 +6,60 @@
 @section('content')
 <div class="space-y-6">
     <!-- Page Header with Stats -->
-    <div class="bg-gradient-to-r from-orange-600 to-amber-600 rounded-2xl p-6 text-white shadow-lg">
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            <div>
-                <h1 class="text-2xl font-bold flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='bx bx-time text-2xl'></i>
-                    </div>
-                    Attendance Management
-                </h1>
-                <p class="mt-2 text-orange-100">Records for {{ $monthName }}</p>
-            </div>
+    <div class="bg-gradient-to-r from-orange-600 to-amber-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+        <i class='hgi-stroke hgi-clock-02 text-2xl'></i>
+    </div>
+    <div>
+        <h2 class="text-2xl font-bold">Attendance Management</h2>
+        <p class="text-orange-100 text-sm mt-1">Records for {{ $monthName }}</p>
+    </div>
+</div>
             <div class="flex items-center gap-3">
                 <a href="{{ route('admin.attendance.index') }}" 
                    class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                    <i class='bx bx-arrow-back'></i>
+                    <i class='hgi-stroke hgi-arrow-left-01 text-lg'></i>
                     All Months
                 </a>
                 <button onclick="openAddEntryModal()"
                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-orange-600 rounded-xl font-semibold hover:bg-orange-50 transition-all shadow-lg shadow-orange-900/20">
-                    <i class='bx bx-plus text-xl'></i>
+                    <i class='hgi-stroke hgi-plus-sign text-xl'></i>
                     Add Entry
                 </button>
             </div>
         </div>
+    </div>
 
-        <!-- Quick Stats -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $stats['total'] }}</p>
-                <p class="text-sm text-orange-200">Total Records</p>
+    <!-- Quick Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $stats['total'] }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Total Records</p>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $stats['present'] }}</p>
-                <p class="text-sm text-orange-200">Present</p>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $stats['present'] }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Present</p>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $stats['late'] }}</p>
-                <p class="text-sm text-orange-200">Late</p>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $stats['late'] }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Late</p>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $stats['absent'] ?? 0 }}</p>
-                <p class="text-sm text-orange-200">Absent</p>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $stats['absent'] ?? 0 }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Absent</p>
             </div>
         </div>
-    </div>
 
     <!-- Filters Card -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="p-5 border-b border-gray-100 bg-gray-50/50">
             <div class="flex items-center gap-2">
-                <i class='bx bx-filter-alt text-gray-500'></i>
+                <i class='hgi-stroke hgi-filter text-gray-500'></i>
                 <h3 class="font-semibold text-gray-700">Filter Records</h3>
             </div>
         </div>
@@ -101,12 +104,12 @@
                     <div class="flex items-end gap-2">
                         <button type="submit" 
                             class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-orange-600 text-white rounded-xl font-medium hover:bg-orange-700 transition-all text-sm">
-                            <i class='bx bx-search'></i>
+                            <i class='hgi-stroke hgi-search-01'></i>
                             Filter
                         </button>
                         <a href="{{ route('admin.attendance.by-month', ['year' => $year, 'month' => $month]) }}" 
                            class="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-all text-sm">
-                            <i class='bx bx-reset'></i>
+                            <i class='hgi-stroke hgi-reset'></i>
                         </a>
                     </div>
                 </div>
@@ -155,7 +158,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-2">
                                     <div class="w-8 h-8 rounded-lg bg-green-50 flex items-center justify-center">
-                                        <i class='bx bx-log-in text-green-600'></i>
+                                        <i class='hgi-stroke hgi-login-01 text-green-600'></i>
                                     </div>
                                     <span class="text-sm font-medium text-gray-900">{{ $attendance->clock_in_time->format('h:i A') }}</span>
                                 </div>
@@ -166,7 +169,7 @@
                                 @if($attendance->clock_out_time)
                                     <div class="flex items-center gap-2">
                                         <div class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center">
-                                            <i class='bx bx-log-out text-red-600'></i>
+                                            <i class='hgi-stroke hgi-logout-01 text-red-600'></i>
                                         </div>
                                         <span class="text-sm font-medium text-gray-900">{{ $attendance->clock_out_time->format('h:i A') }}</span>
                                     </div>
@@ -179,7 +182,7 @@
                             <td class="px-6 py-4">
                                 @if($attendance->total_hours)
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-sm font-semibold bg-green-50 text-green-700">
-                                        <i class='bx bx-time'></i>
+                                        <i class='hgi-stroke hgi-clock-02'></i>
                                         {{ $attendance->total_hours }}h
                                     </span>
                                 @else
@@ -208,23 +211,23 @@
                                 <div class="flex justify-end items-center gap-2">
                                     <a href="{{ route('admin.attendance.show', $attendance) }}"
                                        class="w-9 h-9 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 hover:scale-110 transition-all" title="View">
-                                        <i class='bx bx-show text-lg'></i>
+                                        <i class='hgi-stroke hgi-eye text-lg'></i>
                                     </a>
                                     <a href="{{ route('admin.attendance.edit', $attendance) }}"
                                        class="w-9 h-9 flex items-center justify-center rounded-full bg-amber-100 text-amber-600 hover:bg-amber-200 hover:scale-110 transition-all" title="Edit">
-                                        <i class='bx bx-edit text-lg'></i>
+                                        <i class='hgi-stroke hgi-pencil-edit-01 text-lg'></i>
                                     </a>
                                     @if(!$attendance->is_approved)
                                         <form action="{{ route('admin.attendance.approve', $attendance) }}" method="POST" class="inline">
                                             @csrf
                                             <button type="submit" class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-200 hover:scale-110 transition-all" title="Approve">
-                                                <i class='bx bx-check text-lg'></i>
+                                                <i class='hgi-stroke hgi-checkmark-circle-02 text-lg'></i>
                                             </button>
                                         </form>
                                     @endif
                                     <button onclick="deleteAttendance({{ $attendance->id }}, '{{ addslashes($attendance->user->name ?? 'Unknown') }}')"
                                         class="w-9 h-9 flex items-center justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-200 hover:scale-110 transition-all" title="Delete">
-                                        <i class='bx bx-trash text-lg'></i>
+                                        <i class='hgi-stroke hgi-delete-01 text-lg'></i>
                                     </button>
                                 </div>
                             </td>
@@ -234,7 +237,7 @@
                             <td colspan="7" class="px-6 py-16 text-center">
                                 <div class="flex flex-col items-center">
                                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                        <i class='bx bx-calendar-minus text-4xl text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-calendar-03-minus text-4xl text-gray-400'></i>
                                     </div>
                                     <p class="text-gray-500 font-medium">No attendance records found</p>
                                     <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or add a new entry</p>
@@ -305,7 +308,7 @@
                 </form>
             `,
             showCancelButton: true,
-            confirmButtonText: '<i class="bx bx-save mr-1"></i> Save Entry',
+            confirmButtonText: '<i class="hgi-stroke hgi-floppy-disk mr-1"></i> Save Entry',
             cancelButtonText: 'Cancel',
             confirmButtonColor: '#ea580c',
             cancelButtonColor: '#6b7280',
@@ -330,7 +333,7 @@
             showCancelButton: true,
             confirmButtonColor: '#dc2626',
             cancelButtonColor: '#6b7280',
-            confirmButtonText: '<i class="bx bx-trash mr-1"></i> Delete',
+            confirmButtonText: '<i class="hgi-stroke hgi-delete-01 mr-1"></i> Delete',
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {

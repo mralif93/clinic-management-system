@@ -6,57 +6,60 @@
 @section('content')
 <div class="space-y-6">
     <!-- Page Header with Stats -->
-    <div class="bg-gradient-to-r from-blue-600 to-sky-600 rounded-2xl p-6 text-white shadow-lg">
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            <div>
-                <h1 class="text-2xl font-bold flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='bx bx-calendar text-2xl'></i>
-                    </div>
-                    Appointments
-                </h1>
-                <p class="mt-2 text-blue-100">Appointments for {{ $monthName }}</p>
-            </div>
+    <div class="bg-gradient-to-r from-blue-600 to-sky-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+        <i class='hgi-stroke hgi-calendar-03 text-2xl'></i>
+    </div>
+    <div>
+        <h2 class="text-2xl font-bold">Appointments</h2>
+        <p class="text-blue-100 text-sm mt-1">Appointments for {{ $monthName }}</p>
+    </div>
+</div>
             <div class="flex items-center gap-3">
                 <a href="{{ route('admin.appointments.index') }}" 
                    class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                    <i class='bx bx-arrow-back'></i>
+                    <i class='hgi-stroke hgi-arrow-left-01'></i>
                     All Months
                 </a>
                 <a href="{{ route('admin.appointments.create') }}"
                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-all shadow-lg shadow-blue-900/20">
-                    <i class='bx bx-plus text-xl'></i>
+                    <i class='hgi-stroke hgi-plus-sign text-xl'></i>
                     New Appointment
                 </a>
             </div>
         </div>
+    </div>
 
-        <!-- Quick Stats -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $stats['total'] }}</p>
-                <p class="text-sm text-blue-200">Total</p>
+    <!-- Quick Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $stats['total'] }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Total</p>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $stats['scheduled'] }}</p>
-                <p class="text-sm text-blue-200">Scheduled</p>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $stats['scheduled'] }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Scheduled</p>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $stats['completed'] }}</p>
-                <p class="text-sm text-blue-200">Completed</p>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $stats['completed'] }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Completed</p>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $stats['cancelled'] ?? 0 }}</p>
-                <p class="text-sm text-blue-200">Cancelled</p>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $stats['cancelled'] ?? 0 }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Cancelled</p>
             </div>
         </div>
-    </div>
 
     <!-- Filters Card -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="p-5 border-b border-gray-100 bg-gray-50/50">
             <div class="flex items-center gap-2">
-                <i class='bx bx-filter-alt text-gray-500'></i>
+                <i class='hgi-stroke hgi-filter text-gray-500'></i>
                 <h3 class="font-semibold text-gray-700">Filter Appointments</h3>
             </div>
         </div>
@@ -68,7 +71,7 @@
                         <label for="search" class="block text-sm font-medium text-gray-600 mb-2">Search</label>
                         <div class="relative">
                             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                                <i class='bx bx-search'></i>
+                                <i class='hgi-stroke hgi-search-01'></i>
                             </span>
                             <input type="text" id="search" name="search" value="{{ request('search') }}"
                                 placeholder="Search patient, doctor, or service..."
@@ -102,13 +105,13 @@
                 <div class="flex flex-wrap items-center gap-3 mt-5 pt-5 border-t border-gray-100">
                     <button type="submit" 
                         class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all text-sm">
-                        <i class='bx bx-search'></i>
+                        <i class='hgi-stroke hgi-search-01'></i>
                         Search
                     </button>
                     @if(request()->hasAny(['search', 'status', 'date']))
                         <a href="{{ route('admin.appointments.by-month', ['year' => $year, 'month' => $month]) }}" 
                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-all text-sm">
-                            <i class='bx bx-x'></i>
+                            <i class='hgi-stroke hgi-cancel-circle'></i>
                             Clear
                         </a>
                     @endif
@@ -156,7 +159,7 @@
                                         <p class="text-xs text-gray-500">{{ $appointment->doctor->specialization ?? 'N/A' }}</p>
                                         @if($appointment->is_locum_doctor)
                                             <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-blue-50 text-blue-700 mt-1">
-                                                <i class='bx bx-briefcase-alt'></i> Locum
+                                                <i class='hgi-stroke hgi-briefcase-01-alt'></i> Locum
                                             </span>
                                         @endif
                                     </div>
@@ -179,7 +182,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-2">
                                     <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
-                                        <i class='bx bx-calendar text-blue-600'></i>
+                                        <i class='hgi-stroke hgi-calendar-03 text-blue-600'></i>
                                     </div>
                                     <div>
                                         <p class="text-sm font-medium text-gray-900">{{ $appointment->appointment_date->format('M d, Y') }}</p>
@@ -200,9 +203,9 @@
                                         'no_show' => 'bg-gray-50 text-gray-700 ring-gray-500/20',
                                     ];
                                     $statusIcons = [
-                                        'scheduled' => 'bx-time',
+                                        'scheduled' => 'hgi-clock-01',
                                         'confirmed' => 'bx-log-in',
-                                        'in_progress' => 'bx-user-voice',
+                                        'in_progress' => 'hgi-user-voice',
                                         'completed' => 'bx-check-double',
                                         'cancelled' => 'bx-x',
                                         'no_show' => 'bx-error',
@@ -217,7 +220,7 @@
                                     ];
                                 @endphp
                                 <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold ring-1 ring-inset {{ $statusStyles[$appointment->status] ?? $statusStyles['scheduled'] }}">
-                                    <i class='bx {{ $statusIcons[$appointment->status] ?? 'bx-time' }}'></i>
+                                    <i class='hgi-stroke {{ $statusIcons[$appointment->status] ?? 'hgi-clock-01' }}'></i>
                                     {{ $statusLabels[$appointment->status] ?? ucfirst(str_replace('_', ' ', $appointment->status)) }}
                                 </span>
                             </td>
@@ -241,28 +244,28 @@
                                     @if($appointment->trashed())
                                         <button onclick="restoreAppointment({{ $appointment->id }}, '{{ addslashes($appointment->patient->name ?? 'Unknown') }}')"
                                             class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-200 hover:scale-110 transition-all" title="Restore">
-                                            <i class='bx bx-undo text-lg'></i>
+                                            <i class='hgi-stroke hgi-undo text-lg'></i>
                                         </button>
                                         <button onclick="forceDeleteAppointment({{ $appointment->id }}, '{{ addslashes($appointment->patient->name ?? 'Unknown') }}')"
                                             class="w-9 h-9 flex items-center justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-200 hover:scale-110 transition-all" title="Delete Permanently">
-                                            <i class='bx bx-x-circle text-lg'></i>
+                                            <i class='hgi-stroke hgi-cancel-circle text-lg'></i>
                                         </button>
                                     @else
                                         <a href="{{ route('admin.appointments.show', $appointment->id) }}"
                                            class="w-9 h-9 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 hover:scale-110 transition-all" title="View">
-                                            <i class='bx bx-show text-lg'></i>
+                                            <i class='hgi-stroke hgi-eye text-lg'></i>
                                         </a>
                                         <a href="{{ route('admin.appointments.invoice', $appointment->id) }}"
                                            class="w-9 h-9 flex items-center justify-center rounded-full bg-emerald-100 text-emerald-600 hover:bg-emerald-200 hover:scale-110 transition-all" title="Invoice">
-                                            <i class='bx bx-receipt text-lg'></i>
+                                            <i class='hgi-stroke hgi-invoice-01 text-lg'></i>
                                         </a>
                                         <a href="{{ route('admin.appointments.edit', $appointment->id) }}"
                                            class="w-9 h-9 flex items-center justify-center rounded-full bg-amber-100 text-amber-600 hover:bg-amber-200 hover:scale-110 transition-all" title="Edit">
-                                            <i class='bx bx-edit text-lg'></i>
+                                            <i class='hgi-stroke hgi-pencil-edit-01 text-lg'></i>
                                         </a>
                                         <button onclick="deleteAppointment({{ $appointment->id }}, '{{ addslashes($appointment->patient->name ?? 'Unknown') }}')"
                                             class="w-9 h-9 flex items-center justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-200 hover:scale-110 transition-all" title="Delete">
-                                            <i class='bx bx-trash text-lg'></i>
+                                            <i class='hgi-stroke hgi-delete-01 text-lg'></i>
                                         </button>
                                     @endif
                                 </div>
@@ -273,13 +276,13 @@
                             <td colspan="7" class="px-6 py-16 text-center">
                                 <div class="flex flex-col items-center">
                                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                        <i class='bx bx-calendar-minus text-4xl text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-calendar-03-minus text-4xl text-gray-400'></i>
                                     </div>
                                     <p class="text-gray-500 font-medium">No appointments found</p>
                                     <p class="text-gray-400 text-sm mt-1">Try adjusting your filters or schedule a new appointment</p>
                                     <a href="{{ route('admin.appointments.create') }}" 
                                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all text-sm mt-4">
-                                        <i class='bx bx-plus'></i>
+                                        <i class='hgi-stroke hgi-plus-sign'></i>
                                         Schedule Appointment
                                     </a>
                                 </div>
@@ -308,7 +311,7 @@
             showCancelButton: true,
             confirmButtonColor: '#dc2626',
             cancelButtonColor: '#6b7280',
-            confirmButtonText: '<i class="bx bx-trash mr-1"></i> Delete',
+            confirmButtonText: '<i class="hgi-stroke hgi-delete-01 mr-1"></i> Delete',
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -331,7 +334,7 @@
             showCancelButton: true,
             confirmButtonColor: '#10b981',
             cancelButtonColor: '#6b7280',
-            confirmButtonText: '<i class="bx bx-undo mr-1"></i> Restore',
+            confirmButtonText: '<i class="hgi-stroke hgi-undo mr-1"></i> Restore',
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -352,7 +355,7 @@
             html: `<div class="text-left">
                 <p>Are you sure you want to <strong class="text-red-600">permanently delete</strong> the appointment for <strong>${patientName}</strong>?</p>
                 <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
-                    <p class="text-sm text-red-700"><i class='bx bx-error-circle mr-1'></i> This cannot be undone!</p>
+                    <p class="text-sm text-red-700"><i class='hgi-stroke hgi-alert-circle mr-1'></i> This cannot be undone!</p>
                 </div>
             </div>`,
             icon: 'error',

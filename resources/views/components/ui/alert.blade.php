@@ -24,14 +24,14 @@
             'bg' => 'bg-red-50',
             'border' => 'border-red-200',
             'text' => 'text-red-800',
-            'icon' => 'bx-error-circle',
+            'icon' => 'hgi-alert-circle',
             'iconColor' => 'text-red-600'
         ],
         'info' => [
             'bg' => 'bg-blue-50',
             'border' => 'border-blue-200',
             'text' => 'text-blue-800',
-            'icon' => 'bx-info-circle',
+            'icon' => 'hgi-information-circle',
             'iconColor' => 'text-blue-600'
         ]
     ];
@@ -56,7 +56,7 @@
                 class="flex-shrink-0 {{ $style['text'] }} hover:opacity-75 transition-opacity"
                 aria-label="Dismiss alert"
             >
-                <i class='bx bx-x text-xl'></i>
+                <i class='hgi-stroke hgi-cancel-circle text-xl'></i>
             </button>
         @endif
     </div>

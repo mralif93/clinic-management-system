@@ -9,7 +9,7 @@
         <div
             class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-            <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
                     <div
                         class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-2xl font-bold">
@@ -18,19 +18,19 @@
                     <div>
                         <a href="{{ route('doctor.patients.index') }}"
                             class="inline-flex items-center gap-1 text-emerald-100 hover:text-white text-sm mb-1 transition">
-                            <i class='bx bx-arrow-back'></i> Back to Patients
+                            <i class='hgi-stroke hgi-arrow-left-01'></i> Back to Patients
                         </a>
                         <h1 class="text-2xl font-bold">{{ $patient->full_name }}</h1>
                         <span
                             class="inline-flex items-center gap-1 mt-1 px-3 py-1 bg-white/20 backdrop-blur rounded-full text-sm">
-                            <i class='bx bx-id-card'></i> {{ $patient->patient_id ?? 'N/A' }}
+                            <i class='hgi-stroke hgi-identity-card'></i> {{ $patient->patient_id ?? 'N/A' }}
                         </span>
                     </div>
                 </div>
                 <div class="flex items-center gap-2 flex-wrap">
                     <a href="{{ route('doctor.referral-letters.create', ['patient_id' => $patient->id]) }}"
                         class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur text-white font-semibold rounded-xl hover:bg-white/30 transition text-sm">
-                        <i class='bx bx-transfer'></i> New Referral Letter
+                        <i class='hgi-stroke hgi-transfer-horizontal'></i> New Referral Letter
                     </a>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                     </div>
                     <div
                         class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-                        <i class='bx bx-calendar text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-xl'></i>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                     </div>
                     <div
                         class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
-                        <i class='bx bx-check-circle text-xl'></i>
+                        <i class='hgi-stroke hgi-checkmark-circle-02 text-xl'></i>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                     </div>
                     <div
                         class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
-                        <i class='bx bx-time text-xl'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-xl'></i>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-user text-blue-500'></i> Basic Information
+                        <i class='hgi-stroke hgi-user text-blue-500'></i> Basic Information
                     </h3>
                 </div>
                 <div class="p-6">
@@ -117,7 +117,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-phone text-emerald-500'></i> Contact Information
+                        <i class='hgi-stroke hgi-phone text-emerald-500'></i> Contact Information
                     </h3>
                 </div>
                 <div class="p-6">
@@ -146,7 +146,7 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                             <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                                <i class='bx bx-file text-amber-500'></i> Medical History
+                                <i class='hgi-stroke hgi-file-01 text-amber-500'></i> Medical History
                             </h3>
                         </div>
                         <div class="p-6">
@@ -158,7 +158,7 @@
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                             <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                                <i class='bx bx-error-circle text-red-500'></i> Allergies
+                                <i class='hgi-stroke hgi-alert-circle text-red-500'></i> Allergies
                             </h3>
                         </div>
                         <div class="p-6">
@@ -174,7 +174,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-phone-call text-red-500'></i> Emergency Contact
+                        <i class='hgi-stroke hgi-call-02 text-red-500'></i> Emergency Contact
                     </h3>
                 </div>
                 <div class="p-6">
@@ -196,7 +196,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-history text-purple-500'></i> Appointment History
+                    <i class='hgi-stroke hgi-time-schedule text-purple-500'></i> Appointment History
                 </h3>
             </div>
             <div class="p-6">
@@ -206,7 +206,7 @@
                 @if($pendingApprovalAppointments->count() > 0)
                     <div class="mb-5 p-4 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-3">
                         <div class="w-8 h-8 rounded-lg bg-amber-400 flex items-center justify-center flex-shrink-0 mt-0.5">
-                            <i class='bx bx-shield-quarter text-white'></i>
+                            <i class='hgi-stroke hgi-shield-half-01 text-white'></i>
                         </div>
                         <div>
                             <p class="font-semibold text-amber-800 text-sm">{{ $pendingApprovalAppointments->count() }}
@@ -283,7 +283,7 @@
                                                 <div class="flex flex-col items-end">
                                                     <span
                                                         class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-emerald-100 text-emerald-700 flex items-center gap-1">
-                                                        <i class='bx bx-check-shield'></i> Record Approved
+                                                        <i class='hgi-stroke hgi-checkmark-circle-02-shield'></i> Record Approved
                                                     </span>
                                                     <p class="text-[11px] text-gray-500 text-right mt-1">
                                                         Dr. {{ $appointment->recordApprovedBy->name ?? '' }}<br>
@@ -294,7 +294,7 @@
                                                 <div class="flex flex-col items-end gap-1">
                                                     <span
                                                         class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-amber-100 text-amber-700 flex items-center gap-1">
-                                                        <i class='bx bx-time-five'></i> Approval Pending
+                                                        <i class='hgi-stroke hgi-clock-02'></i> Approval Pending
                                                     </span>
                                                     <form class="approve-record-form"
                                                         action="{{ route('doctor.appointments.approve-record', $appointment->id) }}"
@@ -302,7 +302,7 @@
                                                         @csrf
                                                         <button type="button"
                                                             class="approve-record-btn inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition">
-                                                            <i class='bx bx-check-shield mr-1'></i>
+                                                            <i class='hgi-stroke hgi-checkmark-circle-02-shield mr-1'></i>
                                                             Approve Record
                                                         </button>
                                                     </form>
@@ -312,7 +312,7 @@
 
                                         <a href="{{ route('doctor.appointments.show', $appointment->id) }}"
                                             class="w-8 h-8 flex items-center justify-center bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-lg transition">
-                                            <i class='bx bx-show text-lg'></i>
+                                            <i class='hgi-stroke hgi-eye text-lg'></i>
                                         </a>
                                     </div>
                                 </div>
@@ -322,7 +322,7 @@
                 @else
                     <div class="flex flex-col items-center py-12">
                         <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                            <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
+                            <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
                         </div>
                         <p class="text-gray-500 font-medium">No appointment history found</p>
                     </div>
@@ -348,7 +348,7 @@
                     icon: 'question',
                     iconColor: '#059669',
                     showCancelButton: true,
-                    confirmButtonText: '<i class="bx bx-check-shield"></i> Yes, Approve',
+                    confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02-shield"></i> Yes, Approve',
                     cancelButtonText: 'Cancel',
                     confirmButtonColor: '#059669',
                     cancelButtonColor: '#6b7280',

@@ -67,13 +67,15 @@
     $colors = $colorClasses[$color] ?? $colorClasses['slate'];
 @endphp
 
-<div class="flow-column bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col min-h-[500px] overflow-hidden">
+<div
+    class="flow-column bg-white rounded-2xl border border-gray-100 shadow-sm flex flex-col min-h-[500px] overflow-hidden">
     <!-- Column Header -->
     <div class="{{ $colors['header'] }} px-4 py-4 border-b {{ $colors['border'] }}">
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gradient-to-br {{ $colors['gradient'] }} rounded-xl flex items-center justify-center shadow-sm">
-                    <i class='bx {{ $icon }} text-white text-xl'></i>
+                <div
+                    class="w-10 h-10 bg-gradient-to-br {{ $colors['gradient'] }} rounded-xl flex items-center justify-center shadow-sm">
+                    <i class='hgi-stroke {{ $icon }} text-white text-xl'></i>
                 </div>
                 <div>
                     <h3 class="font-bold text-gray-900">{{ $title }}</h3>
@@ -81,7 +83,8 @@
                 </div>
             </div>
             <div class="flex flex-col items-center">
-                <span class="w-8 h-8 bg-white {{ $colors['text'] }} rounded-xl text-sm font-bold flex items-center justify-center shadow-sm border {{ $colors['border'] }}">
+                <span
+                    class="w-8 h-8 bg-white {{ $colors['text'] }} rounded-xl text-sm font-bold flex items-center justify-center shadow-sm border {{ $colors['border'] }}">
                     {{ $appointments->count() }}
                 </span>
             </div>
@@ -105,27 +108,29 @@
                 $patientInitials = collect(explode(' ', $patientName))->map(fn($n) => substr($n, 0, 1))->take(2)->implode('');
             @endphp
 
-            <div class="flow-card bg-white border-2 {{ $isUrgent ? 'border-red-300 waiting-urgent' : ($isWarning ? 'border-amber-300' : 'border-gray-100') }} rounded-xl p-4 hover:shadow-lg transition-all cursor-pointer group relative overflow-hidden">
+            <div
+                class="flow-card bg-white border-2 {{ $isUrgent ? 'border-red-300 waiting-urgent' : ($isWarning ? 'border-amber-300' : 'border-gray-100') }} rounded-xl p-4 hover:shadow-lg transition-all cursor-pointer group relative overflow-hidden">
                 <!-- Urgent/Warning Badge -->
                 @if($isUrgent)
                     <div class="absolute top-0 right-0 bg-red-500 text-white text-xs px-2 py-0.5 rounded-bl-lg font-medium">
-                        <i class='bx bx-error-circle mr-1'></i>{{ $waitTime }}min wait
+                        <i class='hgi-stroke hgi-alert-circle mr-1'></i>{{ $waitTime }}min wait
                     </div>
                 @elseif($isWarning)
                     <div class="absolute top-0 right-0 bg-amber-500 text-white text-xs px-2 py-0.5 rounded-bl-lg font-medium">
-                        <i class='bx bx-time mr-1'></i>{{ $waitTime }}min wait
+                        <i class='hgi-stroke hgi-clock-02 mr-1'></i>{{ $waitTime }}min wait
                     </div>
                 @endif
 
                 <!-- Patient Info -->
                 <div class="flex items-start gap-3 mb-3 {{ ($isUrgent || $isWarning) ? 'mt-4' : '' }}">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br {{ $colors['gradient'] }} flex items-center justify-center text-white font-bold text-sm shadow-sm flex-shrink-0">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-gradient-to-br {{ $colors['gradient'] }} flex items-center justify-center text-white font-bold text-sm shadow-sm flex-shrink-0">
                         {{ $patientInitials }}
                     </div>
                     <div class="flex-1 min-w-0">
                         <p class="font-semibold text-gray-900 truncate">{{ $patientName }}</p>
                         <p class="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
-                            <i class='bx bx-id-card'></i>
+                            <i class='hgi-stroke hgi-identity-card'></i>
                             {{ $appointment->patient->ic_number ?? 'No IC' }}
                         </p>
                     </div>
@@ -136,16 +141,17 @@
                     <!-- Time -->
                     <div class="flex items-center gap-2 text-sm">
                         <div class="w-7 h-7 rounded-lg {{ $colors['light'] }} flex items-center justify-center">
-                            <i class='bx bx-time {{ $colors['text'] }} text-sm'></i>
+                            <i class='hgi-stroke hgi-clock-02 {{ $colors['text'] }} text-sm'></i>
                         </div>
-                        <span class="font-medium text-gray-700">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</span>
+                        <span
+                            class="font-medium text-gray-700">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</span>
                     </div>
 
                     <!-- Doctor -->
                     @if($appointment->doctor)
                         <div class="flex items-center gap-2 text-sm">
                             <div class="w-7 h-7 rounded-lg {{ $colors['light'] }} flex items-center justify-center">
-                                <i class='bx bx-user {{ $colors['text'] }} text-sm'></i>
+                                <i class='hgi-stroke hgi-user {{ $colors['text'] }} text-sm'></i>
                             </div>
                             <span class="text-gray-600">Dr. {{ $appointment->doctor->user->name ?? 'TBA' }}</span>
                         </div>
@@ -155,7 +161,7 @@
                     @if($appointment->service)
                         <div class="flex items-center gap-2 text-sm">
                             <div class="w-7 h-7 rounded-lg {{ $colors['light'] }} flex items-center justify-center">
-                                <i class='bx bx-plus-circle {{ $colors['text'] }} text-sm'></i>
+                                <i class='hgi-stroke hgi-plus-sign {{ $colors['text'] }} text-sm'></i>
                             </div>
                             <span class="text-gray-600 truncate">{{ $appointment->service->name }}</span>
                         </div>
@@ -164,12 +170,13 @@
 
                 <!-- Amount (for payment/completed stage) -->
                 @if($stage === 'completed' || $stage === 'paid')
-                    <div class="flex items-center justify-between py-3 px-3 -mx-1 rounded-lg {{ $stage === 'paid' ? 'bg-green-50' : 'bg-purple-50' }} mb-3">
+                    <div
+                        class="flex items-center justify-between py-3 px-3 -mx-1 rounded-lg {{ $stage === 'paid' ? 'bg-green-50' : 'bg-purple-50' }} mb-3">
                         <span class="text-sm {{ $stage === 'paid' ? 'text-green-700' : 'text-purple-700' }}">
                             @if($stage === 'paid')
-                                <i class='bx bx-check-circle mr-1'></i>Paid
+                                <i class='hgi-stroke hgi-checkmark-circle-02 mr-1'></i>Paid
                             @else
-                                <i class='bx bx-receipt mr-1'></i>Amount Due
+                                <i class='hgi-stroke hgi-invoice-01 mr-1'></i>Amount Due
                             @endif
                         </span>
                         <span class="text-lg font-bold {{ $stage === 'paid' ? 'text-green-600' : 'text-purple-600' }}">
@@ -185,29 +192,30 @@
                             $paymentAmount = $appointment->final_amount ?? $appointment->fee ?? 0;
                         @endphp
                         <!-- Forward Action Button -->
-                        <button onclick="event.stopPropagation(); @if($nextAction === 'mark_paid') openPaymentModal({{ $appointment->id }}, {{ $paymentAmount }}); @else updateStatus({{ $appointment->id }}, '{{ $nextAction }}'); @endif"
+                        <button
+                            onclick="event.stopPropagation(); @if($nextAction === 'mark_paid') openPaymentModal({{ $appointment->id }}, {{ $paymentAmount }}); @else updateStatus({{ $appointment->id }}, '{{ $nextAction }}'); @endif"
                             class="w-full py-2.5 text-sm font-semibold rounded-xl transition-all flex items-center justify-center gap-2
-                            @if($stage === 'pending')
-                                bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white shadow-sm hover:shadow-md
-                            @elseif($stage === 'completed')
-                                bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-sm hover:shadow-md
-                            @elseif($stage === 'scheduled')
-                                bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm hover:shadow-md
-                            @elseif($stage === 'checked_in')
-                                bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-sm hover:shadow-md
-                            @elseif($stage === 'in_consultation')
-                                bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-sm hover:shadow-md
-                            @else
-                                bg-gray-100 hover:bg-gray-200 text-gray-700
-                            @endif">
-                            <i class='bx {{ $nextIcon ?? 'bx-right-arrow-alt' }}'></i>
+                                    @if($stage === 'pending')
+                                        bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white shadow-sm hover:shadow-md
+                                    @elseif($stage === 'completed')
+                                        bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-sm hover:shadow-md
+                                    @elseif($stage === 'scheduled')
+                                        bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm hover:shadow-md
+                                    @elseif($stage === 'checked_in')
+                                        bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-sm hover:shadow-md
+                                    @elseif($stage === 'in_consultation')
+                                        bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-sm hover:shadow-md
+                                    @else
+                                        bg-gray-100 hover:bg-gray-200 text-gray-700
+                                    @endif">
+                            <i class='hgi-stroke {{ $nextIcon ?? 'bx-right-arrow-alt' }}'></i>
                             {{ $nextLabel }}
                         </button>
                     @else
                         <!-- Completed - View Receipt -->
                         <a href="{{ route('staff.appointments.show', $appointment->id) }}"
                             class="w-full py-2.5 text-sm font-semibold rounded-xl transition-all flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700">
-                            <i class='bx bx-receipt'></i>
+                            <i class='hgi-stroke hgi-invoice-01'></i>
                             View Details
                         </a>
                     @endif
@@ -243,7 +251,7 @@
                     @if($revertAction)
                         <button onclick="event.stopPropagation(); updateStatus({{ $appointment->id }}, '{{ $revertAction }}')"
                             class="w-full py-2 text-xs font-medium rounded-lg transition-all flex items-center justify-center gap-1.5 border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-700 hover:border-gray-300">
-                            <i class='bx bx-undo'></i>
+                            <i class='hgi-stroke hgi-undo'></i>
                             {{ $revertLabel }}
                         </button>
                     @endif
@@ -252,13 +260,13 @@
                 <!-- Quick View Link -->
                 <a href="{{ route('staff.appointments.show', $appointment->id) }}"
                     class="block text-center text-xs text-gray-400 hover:text-amber-500 mt-3 transition-colors">
-                    <i class='bx bx-link-external mr-1'></i>View Full Details
+                    <i class='hgi-stroke hgi-link-external-01 mr-1'></i>View Full Details
                 </a>
             </div>
         @empty
             <div class="flex flex-col items-center justify-center py-12 text-gray-400">
                 <div class="w-16 h-16 rounded-full {{ $colors['light'] }} flex items-center justify-center mb-3">
-                    <i class='bx bx-inbox {{ $colors['text'] }} text-3xl'></i>
+                    <i class='hgi-stroke hgi-inbox {{ $colors['text'] }} text-3xl'></i>
                 </div>
                 <p class="text-sm font-medium text-gray-500">No patients</p>
                 <p class="text-xs text-gray-400 mt-1">{{ $subtitle ?? 'Empty queue' }}</p>
@@ -266,4 +274,3 @@
         @endforelse
     </div>
 </div>
-

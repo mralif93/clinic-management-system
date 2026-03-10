@@ -6,11 +6,14 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-teal-500 via-teal-600 to-cyan-600 rounded-2xl shadow-lg p-6 text-white">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="bg-gradient-to-r from-teal-500 via-teal-600 to-cyan-600 rounded-2xl  p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                        <i class='bx bx-task text-3xl'></i>
+                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-task-01 text-3xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">My Daily Tasks</h1>
@@ -19,7 +22,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 text-sm">
-                        <i class='bx bx-calendar mr-1'></i>
+                        <i class='hgi-stroke hgi-calendar-03 mr-1'></i>
                         {{ now()->format('l, M d') }}
                     </div>
                 </div>
@@ -37,7 +40,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-list-check text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-check-list text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $todos->total() }}</p>
@@ -48,7 +51,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-time text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $pendingCount }}</p>
@@ -59,7 +62,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-loader-circle text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-loading-03 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $inProgressCount }}</p>
@@ -70,7 +73,7 @@
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
-                        <i class='bx bx-check-circle text-white text-xl'></i>
+                        <i class='hgi-stroke hgi-checkmark-circle-02 text-white text-xl'></i>
                     </div>
                     <div>
                         <p class="text-2xl font-bold text-gray-900">{{ $completedCount }}</p>
@@ -86,7 +89,7 @@
                 <!-- Filter Options -->
                 <div class="flex flex-wrap items-center gap-3">
                     <span class="text-sm font-medium text-teal-700 flex items-center gap-1.5">
-                        <i class='bx bx-filter-alt'></i> Filters:
+                        <i class='hgi-stroke hgi-filter'></i> Filters:
                     </span>
 
                     <select name="status"
@@ -109,12 +112,12 @@
                         @if(request()->hasAny(['status', 'priority']))
                             <a href="{{ route('staff.todos.index') }}"
                                 class="inline-flex items-center px-4 py-2 bg-white text-gray-600 text-sm font-medium rounded-lg shadow-sm hover:bg-gray-50 transition">
-                                <i class='bx bx-x mr-1'></i> Clear
+                                <i class='hgi-stroke hgi-cancel-circle mr-1'></i> Clear
                             </a>
                         @endif
                         <button type="submit"
                             class="inline-flex items-center px-5 py-2 bg-gradient-to-r from-teal-500 to-cyan-500 text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-lg hover:from-teal-600 hover:to-cyan-600 transition-all">
-                            <i class='bx bx-filter-alt mr-1.5'></i> Filter
+                            <i class='hgi-stroke hgi-filter mr-1.5'></i> Filter
                         </button>
                     </div>
                 </div>
@@ -126,12 +129,12 @@
             <div class="px-6 py-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
                 <div class="flex items-center justify-between">
                     <h3 class="font-semibold text-gray-800 flex items-center gap-2">
-                        <i class='bx bx-list-ul text-teal-500'></i>
+                        <i class='hgi-stroke hgi-list-view text-teal-500'></i>
                         Tasks List
                     </h3>
                     @if($overdueCount > 0)
                         <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-red-100 text-red-700 text-xs font-semibold">
-                            <i class='bx bx-error-circle'></i>
+                            <i class='hgi-stroke hgi-alert-circle'></i>
                             {{ $overdueCount }} Overdue
                         </span>
                     @endif
@@ -154,7 +157,7 @@
                                 <td class="px-6 py-4">
                                     <div class="flex items-start gap-3">
                                         <div class="w-8 h-8 bg-gradient-to-br from-teal-400 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                                            <i class='bx bx-task text-white text-sm'></i>
+                                            <i class='hgi-stroke hgi-task-01 text-white text-sm'></i>
                                         </div>
                                         <div>
                                             <div class="text-sm font-semibold text-gray-900">{{ $todo->title }}</div>
@@ -167,14 +170,14 @@
                                 <td class="px-6 py-4">
                                     @php
                                         $statusConfig = [
-                                            'pending' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'bx-time'],
+                                            'pending' => ['bg' => 'bg-amber-100', 'text' => 'text-amber-700', 'icon' => 'hgi-clock-01'],
                                             'in_progress' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'icon' => 'bx-loader-circle'],
                                             'completed' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'bx-check-circle'],
                                         ];
                                         $sConfig = $statusConfig[$todo->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-help-circle'];
                                     @endphp
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $sConfig['bg'] }} {{ $sConfig['text'] }}">
-                                        <i class='bx {{ $sConfig['icon'] }}'></i>
+                                        <i class='hgi-stroke {{ $sConfig['icon'] }}'></i>
                                         {{ ucfirst(str_replace('_', ' ', $todo->status)) }}
                                     </span>
                                 </td>
@@ -182,14 +185,14 @@
                                     @php
                                         $priorityConfig = [
                                             'low' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-down-arrow-alt'],
-                                            'medium' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'bx-minus'],
+                                            'medium' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-minus-sign'],
                                             'high' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'icon' => 'bx-up-arrow-alt'],
                                             'urgent' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-error'],
                                         ];
-                                        $pConfig = $priorityConfig[$todo->priority] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-minus'];
+                                        $pConfig = $priorityConfig[$todo->priority] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-minus-sign'];
                                     @endphp
                                     <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $pConfig['bg'] }} {{ $pConfig['text'] }}">
-                                        <i class='bx {{ $pConfig['icon'] }}'></i>
+                                        <i class='hgi-stroke {{ $pConfig['icon'] }}'></i>
                                         {{ ucfirst($todo->priority) }}
                                     </span>
                                 </td>
@@ -198,7 +201,7 @@
                                         <div class="{{ $todo->isOverdue() ? 'text-red-600' : 'text-gray-700' }}">
                                             <div class="text-sm font-medium flex items-center gap-1">
                                                 @if($todo->isOverdue())
-                                                    <i class='bx bx-error-circle text-red-500'></i>
+                                                    <i class='hgi-stroke hgi-alert-circle text-red-500'></i>
                                                 @endif
                                                 {{ $todo->due_date->format('M d, Y') }}
                                             </div>
@@ -214,16 +217,16 @@
                                     <div class="flex justify-end items-center gap-1.5">
                                         <a href="{{ route('staff.todos.show', $todo->id) }}"
                                             class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600 rounded-full transition shadow-sm hover:shadow" title="View">
-                                            <i class='bx bx-show text-sm'></i>
+                                            <i class='hgi-stroke hgi-eye text-sm'></i>
                                         </a>
                                         @if($todo->status !== 'completed')
                                             <button onclick="updateStatus({{ $todo->id }}, '{{ addslashes($todo->title) }}')"
                                                 class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm hover:shadow" title="Update Status">
-                                                <i class='bx bx-check text-sm'></i>
+                                                <i class='hgi-stroke hgi-checkmark-circle-02 text-sm'></i>
                                             </button>
                                         @else
                                             <span class="w-8 h-8 flex items-center justify-center bg-gray-200 text-gray-400 rounded-full">
-                                                <i class='bx bx-check-double text-sm'></i>
+                                                <i class='hgi-stroke hgi-checkmark-circle-02-double text-sm'></i>
                                             </span>
                                         @endif
                                     </div>
@@ -234,7 +237,7 @@
                                 <td colspan="5" class="px-6 py-16 text-center">
                                     <div class="flex flex-col items-center">
                                         <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                                            <i class='bx bx-task text-3xl text-gray-400'></i>
+                                            <i class='hgi-stroke hgi-task-01 text-3xl text-gray-400'></i>
                                         </div>
                                         <p class="text-gray-500 font-medium">No tasks assigned to you</p>
                                         <p class="text-gray-400 text-sm mt-1">Tasks will appear here when assigned</p>
@@ -269,7 +272,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#14b8a6',
                 cancelButtonColor: '#6b7280',
-                confirmButtonText: '<i class="bx bx-check mr-1"></i> Update',
+                confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02 mr-1"></i> Update',
                 cancelButtonText: 'Cancel',
                 customClass: {
                     popup: 'rounded-2xl',

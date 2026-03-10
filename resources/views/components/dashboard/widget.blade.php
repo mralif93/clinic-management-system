@@ -28,7 +28,7 @@
                         class="p-1 text-gray-400 hover:text-gray-600 transition-colors"
                         aria-label="Toggle widget"
                     >
-                        <i class='bx bx-chevron-up text-xl transition-transform' :class="{ 'rotate-180': collapsed }"></i>
+                        <i class='hgi-stroke hgi-arrow-up-01 text-xl transition-transform' :class="{ 'rotate-180': collapsed }"></i>
                     </button>
                 @endif
                 
@@ -38,7 +38,7 @@
                         class="p-1 text-gray-400 hover:text-red-600 transition-colors"
                         aria-label="Remove widget"
                     >
-                        <i class='bx bx-x text-xl'></i>
+                        <i class='hgi-stroke hgi-cancel-circle text-xl'></i>
                     </button>
                 @endif
             </div>

@@ -12,7 +12,7 @@
                     <p class="text-gray-600 mt-1">View your appointment information</p>
                 </div>
                 <a href="{{ route('patient.appointments.index') }}" class="text-blue-600 hover:text-blue-700">
-                    <i class='bx bx-arrow-back mr-1'></i>
+                    <i class='hgi-stroke hgi-arrow-left-01 mr-1'></i>
                     Back to Appointments
                 </a>
             </div>
@@ -69,7 +69,7 @@
                             <!-- Doctor Information -->
                             <div class="flex items-start space-x-4">
                                 <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                                    <i class='bx bx-user-plus text-blue-600 text-2xl'></i>
+                                    <i class='hgi-stroke hgi-user-plus text-blue-600 text-2xl'></i>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-600">Doctor</p>
@@ -84,7 +84,7 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="flex items-start space-x-4">
                                     <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
-                                        <i class='bx bx-calendar text-green-600 text-2xl'></i>
+                                        <i class='hgi-stroke hgi-calendar-03 text-green-600 text-2xl'></i>
                                     </div>
                                     <div>
                                         <p class="text-sm text-gray-600">Date</p>
@@ -96,7 +96,7 @@
 
                                 <div class="flex items-start space-x-4">
                                     <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
-                                        <i class='bx bx-time text-purple-600 text-2xl'></i>
+                                        <i class='hgi-stroke hgi-clock-02 text-purple-600 text-2xl'></i>
                                     </div>
                                     <div>
                                         <p class="text-sm text-gray-600">Time</p>
@@ -108,7 +108,7 @@
                             <!-- Service & Price -->
                             <div class="flex items-start space-x-4">
                                 <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
-                                    <i class='bx bx-list-ul text-orange-600 text-2xl'></i>
+                                    <i class='hgi-stroke hgi-list-view text-orange-600 text-2xl'></i>
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-600">Service</p>
@@ -121,7 +121,7 @@
                             @if($appointment->notes)
                                 <div class="flex items-start space-x-4">
                                     <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0">
-                                        <i class='bx bx-note text-gray-600 text-2xl'></i>
+                                        <i class='hgi-stroke hgi-note-01 text-gray-600 text-2xl'></i>
                                     </div>
                                     <div>
                                         <p class="text-sm text-gray-600">Notes</p>
@@ -166,14 +166,14 @@
                         <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden sticky top-4">
                             <div class="px-6 py-4 bg-orange-50 border-b border-orange-100">
                                 <div class="flex items-center">
-                                    <i class='bx bx-user-check text-orange-600 text-xl mr-2'></i>
+                                    <i class='hgi-stroke hgi-user-check text-orange-600 text-xl mr-2'></i>
                                     <h3 class="font-semibold text-orange-800">Checked In!</h3>
                                 </div>
                                 <p class="text-sm text-orange-600 mt-1">Waiting for doctor to accept</p>
                             </div>
                             <div class="p-6 text-center">
                                 <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-orange-100 flex items-center justify-center animate-pulse">
-                                    <i class='bx bx-time text-orange-500 text-5xl'></i>
+                                    <i class='hgi-stroke hgi-clock-02 text-orange-500 text-5xl'></i>
                                 </div>
                                 <p class="text-gray-600 text-sm mb-2">
                                     Please wait in the waiting area.
@@ -191,7 +191,7 @@
                         <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden sticky top-4">
                             <div class="px-6 py-4 bg-cyan-50 border-b border-cyan-100">
                                 <div class="flex items-center">
-                                    <i class='bx bx-door-open text-cyan-600 text-xl mr-2'></i>
+                                    <i class='hgi-stroke hgi-door-01 text-cyan-600 text-xl mr-2'></i>
                                     <h3 class="font-semibold text-cyan-800">With Doctor</h3>
                                 </div>
                                 @if($appointment->room_number)
@@ -200,7 +200,7 @@
                             </div>
                             <div class="p-6 text-center">
                                 <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-cyan-100 flex items-center justify-center">
-                                    <i class='bx bx-door-open text-cyan-500 text-5xl'></i>
+                                    <i class='hgi-stroke hgi-door-01 text-cyan-500 text-5xl'></i>
                                 </div>
                                 <p class="text-gray-600 text-sm">
                                     You are now with the doctor.
@@ -215,7 +215,7 @@
                         <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden sticky top-4">
                             <div class="px-6 py-4 bg-green-50 border-b border-green-100">
                                 <div class="flex items-center">
-                                    <i class='bx bx-qr text-green-600 text-xl mr-2'></i>
+                                    <i class='hgi-stroke hgi-qr-code text-green-600 text-xl mr-2'></i>
                                     <h3 class="font-semibold text-green-800">Appointment Confirmed</h3>
                                 </div>
                                 <p class="text-sm text-green-600 mt-1">Show this QR code at the clinic</p>
@@ -230,9 +230,9 @@
                             <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
                                 <h4 class="text-sm font-medium text-gray-700 mb-2">Important Information</h4>
                                 <ul class="text-xs text-gray-600 space-y-1">
-                                    <li><i class='bx bx-check text-green-500 mr-1'></i> Arrive 10 minutes early</li>
-                                    <li><i class='bx bx-check text-green-500 mr-1'></i> Bring this QR code or reference number</li>
-                                    <li><i class='bx bx-check text-green-500 mr-1'></i> Valid ID may be required</li>
+                                    <li><i class='hgi-stroke hgi-checkmark-circle-02 text-green-500 mr-1'></i> Arrive 10 minutes early</li>
+                                    <li><i class='hgi-stroke hgi-checkmark-circle-02 text-green-500 mr-1'></i> Bring this QR code or reference number</li>
+                                    <li><i class='hgi-stroke hgi-checkmark-circle-02 text-green-500 mr-1'></i> Valid ID may be required</li>
                                 </ul>
                             </div>
                         </div>
@@ -240,21 +240,21 @@
                         <div class="bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden sticky top-4">
                             <div class="px-6 py-4 bg-yellow-50 border-b border-yellow-100">
                                 <div class="flex items-center">
-                                    <i class='bx bx-time text-yellow-600 text-xl mr-2'></i>
+                                    <i class='hgi-stroke hgi-clock-02 text-yellow-600 text-xl mr-2'></i>
                                     <h3 class="font-semibold text-yellow-800">Awaiting Confirmation</h3>
                                 </div>
                                 <p class="text-sm text-yellow-600 mt-1">Your appointment is being reviewed</p>
                             </div>
                             <div class="p-6 text-center">
                                 <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-yellow-100 flex items-center justify-center">
-                                    <i class='bx bx-time text-yellow-500 text-5xl'></i>
+                                    <i class='hgi-stroke hgi-clock-02 text-yellow-500 text-5xl'></i>
                                 </div>
                                 <p class="text-gray-600 text-sm">
                                     QR code will appear here once your appointment is confirmed.
                                 </p>
                                 <a href="{{ route('patient.appointments.pending', $appointment->id) }}" 
                                    class="mt-4 inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition">
-                                    <i class='bx bx-refresh mr-2'></i>
+                                    <i class='hgi-stroke hgi-refresh mr-2'></i>
                                     Refresh Status
                                 </a>
                             </div>
@@ -267,7 +267,7 @@
                             <div class="p-6 text-center">
                                 @if($appointment->status === 'cancelled')
                                     <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center">
-                                        <i class='bx bx-x text-red-500 text-5xl'></i>
+                                        <i class='hgi-stroke hgi-cancel-circle text-red-500 text-5xl'></i>
                                     </div>
                                     <p class="text-gray-600 text-sm">This appointment has been cancelled.</p>
                                 @else
@@ -291,26 +291,18 @@
     @endpush
 
     @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="{{ asset('js/qrcode.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var qrContainer = document.getElementById('qrcode');
             if (qrContainer) {
                 var qrData = '{!! addslashes($appointment->getQrCodeData()) !!}';
-                QRCode.toCanvas(document.createElement('canvas'), qrData, {
-                    width: 200,
-                    margin: 2,
-                    color: {
-                        dark: '#1f2937',
-                        light: '#ffffff'
-                    }
-                }, function(error, canvas) {
-                    if (error) {
-                        console.error(error);
-                        return;
-                    }
-                    qrContainer.appendChild(canvas);
-                });
+                var typeNumber = 0;
+                var errorCorrectionLevel = 'L';
+                var qr = qrcode(typeNumber, errorCorrectionLevel);
+                qr.addData(qrData);
+                qr.make();
+                qrContainer.innerHTML = qr.createImgTag(5, 10);
             }
         });
     </script>

@@ -6,17 +6,20 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-slate-700 to-slate-800 rounded-2xl p-6 text-white shadow-lg">
-            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-                <div>
-                    <h1 class="text-2xl font-bold flex items-center gap-3">
-                        <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                            <i class='bx bx-bar-chart-alt text-2xl'></i>
-                        </div>
-                        Reports & Analytics
-                    </h1>
-                    <p class="mt-2 text-slate-300">Comprehensive overview of clinic performance</p>
-                </div>
+        <div class="bg-gradient-to-r from-slate-700 to-slate-800 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+        <i class='hgi-stroke hgi-bar-chart-01 text-2xl'></i>
+    </div>
+    <div>
+        <h2 class="text-2xl font-bold">Reports & Analytics</h2>
+        <p class="text-slate-300 text-sm mt-1">Comprehensive overview of clinic performance</p>
+    </div>
+</div>
             </div>
         </div>
 
@@ -24,7 +27,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-5 border-b border-gray-100 bg-gray-50/50">
                 <div class="flex items-center gap-2">
-                    <i class='bx bx-calendar text-gray-500'></i>
+                    <i class='hgi-stroke hgi-calendar-03 text-gray-500'></i>
                     <h3 class="font-semibold text-gray-700">Date Range</h3>
                 </div>
             </div>
@@ -44,13 +47,13 @@
                         <div class="flex items-end gap-2">
                             <button type="submit"
                                 class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-slate-700 text-white rounded-xl font-medium hover:bg-slate-800 transition-all text-sm">
-                                <i class='bx bx-filter-alt'></i>
+                                <i class='hgi-stroke hgi-filter'></i>
                                 Apply
                             </button>
                             @if(request()->hasAny(['start_date', 'end_date']))
                                 <a href="{{ route('admin.reports.index') }}"
                                     class="px-4 py-2.5 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-all text-sm">
-                                    <i class='bx bx-reset'></i>
+                                    <i class='hgi-stroke hgi-reset'></i>
                                 </a>
                             @endif
                         </div>
@@ -68,7 +71,7 @@
                         <p class="text-2xl font-bold text-gray-900">{{ number_format($totalPatients) }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
-                        <i class='bx bx-user text-2xl text-blue-600'></i>
+                        <i class='hgi-stroke hgi-user text-2xl text-blue-600'></i>
                     </div>
                 </div>
             </div>
@@ -79,7 +82,7 @@
                         <p class="text-2xl font-bold text-gray-900">{{ number_format($totalDoctors) }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center">
-                        <i class='bx bx-plus-circle text-2xl text-emerald-600'></i>
+                        <i class='hgi-stroke hgi-plus-sign text-2xl text-emerald-600'></i>
                     </div>
                 </div>
             </div>
@@ -90,7 +93,7 @@
                         <p class="text-2xl font-bold text-gray-900">{{ number_format($totalServices) }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center">
-                        <i class='bx bx-grid text-2xl text-purple-600'></i>
+                        <i class='hgi-stroke hgi-grid-01 text-2xl text-purple-600'></i>
                     </div>
                 </div>
             </div>
@@ -101,7 +104,7 @@
                         <p class="text-2xl font-bold text-gray-900">{{ number_format($totalUsers) }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center">
-                        <i class='bx bx-group text-2xl text-amber-600'></i>
+                        <i class='hgi-stroke hgi-user-group text-2xl text-amber-600'></i>
                     </div>
                 </div>
             </div>
@@ -112,7 +115,7 @@
                         <p class="text-2xl font-bold text-gray-900">{{ number_format($totalAppointments) }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-cyan-50 flex items-center justify-center">
-                        <i class='bx bx-calendar text-2xl text-cyan-600'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-2xl text-cyan-600'></i>
                     </div>
                 </div>
             </div>
@@ -120,7 +123,10 @@
 
         <!-- Revenue & Appointments Cards -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div class="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-5 text-white shadow-lg">
+            <div class="bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-green-100">Total Revenue</p>
@@ -129,11 +135,14 @@
                         <p class="text-xs text-green-200 mt-1">In selected period</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-                        <i class='bx bx-dollar text-2xl'></i>
+                        <i class='hgi-stroke hgi-dollar-01 text-2xl'></i>
                     </div>
                 </div>
             </div>
-            <div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl p-5 text-white shadow-lg">
+            <div class="bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-blue-100">Appointments</p>
@@ -141,11 +150,14 @@
                         <p class="text-xs text-blue-200 mt-1">In selected period</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-                        <i class='bx bx-calendar-check text-2xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03-check text-2xl'></i>
                     </div>
                 </div>
             </div>
-            <div class="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 text-white shadow-lg">
+            <div class="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-emerald-100">Completed</p>
@@ -153,11 +165,14 @@
                         <p class="text-xs text-emerald-200 mt-1">Appointments</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-                        <i class='bx bx-check-double text-2xl'></i>
+                        <i class='hgi-stroke hgi-checkmark-circle-02-double text-2xl'></i>
                     </div>
                 </div>
             </div>
-            <div class="bg-gradient-to-br from-red-500 to-rose-600 rounded-2xl p-5 text-white shadow-lg">
+            <div class="bg-gradient-to-br from-red-500 to-rose-600 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm text-red-100">Cancelled</p>
@@ -165,7 +180,7 @@
                         <p class="text-xs text-red-200 mt-1">Appointments</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center">
-                        <i class='bx bx-x-circle text-2xl'></i>
+                        <i class='hgi-stroke hgi-cancel-circle text-2xl'></i>
                     </div>
                 </div>
             </div>
@@ -177,7 +192,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-5 border-b border-gray-100">
                     <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-pie-chart-alt-2 text-gray-500'></i>
+                        <i class='hgi-stroke hgi-pie-chart text-gray-500'></i>
                         Appointments by Status
                     </h3>
                 </div>
@@ -210,7 +225,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-5 border-b border-gray-100">
                     <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-trending-up text-gray-500'></i>
+                        <i class='hgi-stroke hgi-arrow-up-right-01 text-gray-500'></i>
                         Monthly Revenue (Last 6 Months)
                     </h3>
                 </div>
@@ -241,7 +256,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-5 border-b border-gray-100">
                     <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-user text-gray-500'></i>
+                        <i class='hgi-stroke hgi-user text-gray-500'></i>
                         Patients Statistics
                     </h3>
                 </div>
@@ -271,7 +286,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-5 border-b border-gray-100">
                     <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-plus-circle text-gray-500'></i>
+                        <i class='hgi-stroke hgi-plus-sign text-gray-500'></i>
                         Doctors Statistics
                     </h3>
                 </div>
@@ -307,7 +322,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-5 border-b border-gray-100">
                 <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-grid text-gray-500'></i>
+                    <i class='hgi-stroke hgi-grid-01 text-gray-500'></i>
                     Services Statistics
                 </h3>
             </div>
@@ -344,7 +359,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="p-5 border-b border-gray-100">
                         <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-trophy text-gray-500'></i>
+                            <i class='hgi-stroke hgi-trophy text-gray-500'></i>
                             Top Doctors by Appointments
                         </h3>
                     </div>
@@ -373,7 +388,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="p-5 border-b border-gray-100">
                         <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-star text-gray-500'></i>
+                            <i class='hgi-stroke hgi-star text-gray-500'></i>
                             Top Services by Appointments
                         </h3>
                     </div>
@@ -403,7 +418,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-5 border-b border-gray-100">
                 <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-line-chart text-gray-500'></i>
+                    <i class='hgi-stroke hgi-chart-line-up-01 text-gray-500'></i>
                     Daily Appointments (Last 7 Days)
                 </h3>
             </div>

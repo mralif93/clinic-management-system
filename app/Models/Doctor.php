@@ -23,10 +23,22 @@ class Doctor extends Model
         'type',
         'commission_rate',
         'is_available',
+        // Digital card fields
+        'profile_photo',
+        'license_number',
+        'license_expiry',
+        'years_of_experience',
+        'languages_spoken',
+        'clinic_location',
+        'card_issued_at',
+        'card_expires_at',
     ];
 
     protected $casts = [
         'commission_rate' => 'decimal:2',
+        'license_expiry' => 'date',
+        'card_issued_at' => 'datetime',
+        'card_expires_at' => 'date',
     ];
 
     /**
@@ -109,7 +121,7 @@ class Doctor extends Model
         }
 
         do {
-            $doctorId = 'DOC-'.str_pad($number, 6, '0', STR_PAD_LEFT);
+            $doctorId = 'DOC-' . str_pad($number, 6, '0', STR_PAD_LEFT);
             $exists = static::withTrashed()->where('doctor_id', $doctorId)->exists();
             $number++;
         } while ($exists);

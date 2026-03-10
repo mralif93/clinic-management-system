@@ -4,20 +4,23 @@
     <div class="space-y-6">
         <!-- Page Header -->
         <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-            <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                    <h1 class="text-2xl font-bold flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                            <i class='bx bx-calendar-exclamation text-xl'></i>
-                        </div>
-                        My Leave Requests
-                    </h1>
-                    <p class="text-emerald-100 mt-2">Manage your leave applications</p>
-                </div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+        <i class='hgi-stroke hgi-clock-01 text-xl'></i>
+    </div>
+    <div>
+        <h2 class="text-2xl font-bold">My Leave Requests</h2>
+        <p class="text-emerald-100 text-sm mt-1">Manage your leave applications</p>
+    </div>
+</div>
                 <a href="{{ route('doctor.leaves.create') }}"
                     class="inline-flex items-center px-5 py-2.5 bg-white/20 backdrop-blur text-white font-medium rounded-xl hover:bg-white/30 transition">
-                    <i class='bx bx-plus-circle mr-2'></i> Apply for Leave
+                    <i class='hgi-stroke hgi-plus-sign mr-2 text-lg'></i> Apply for Leave
                 </a>
             </div>
         </div>
@@ -32,7 +35,7 @@
                         <p class="text-3xl font-bold text-gray-900">{{ $stats['total'] }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-                        <i class='bx bx-calendar text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-xl'></i>
                     </div>
                 </div>
             </div>
@@ -45,7 +48,7 @@
                         <p class="text-3xl font-bold text-gray-900">{{ $stats['pending'] }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center text-white shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform">
-                        <i class='bx bx-time text-xl'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-xl'></i>
                     </div>
                 </div>
             </div>
@@ -58,7 +61,7 @@
                         <p class="text-3xl font-bold text-gray-900">{{ $stats['approved'] }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
-                        <i class='bx bx-check-circle text-xl'></i>
+                        <i class='hgi-stroke hgi-checkmark-circle-02 text-xl'></i>
                     </div>
                 </div>
             </div>
@@ -71,7 +74,7 @@
                         <p class="text-3xl font-bold text-gray-900">{{ $stats['rejected'] }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center text-white shadow-lg shadow-red-500/30 group-hover:scale-110 transition-transform">
-                        <i class='bx bx-x-circle text-xl'></i>
+                        <i class='hgi-stroke hgi-cancel-circle text-xl'></i>
                     </div>
                 </div>
             </div>
@@ -105,11 +108,11 @@
                 <div class="flex items-end gap-2">
                     <button type="submit"
                         class="inline-flex items-center px-5 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 transition shadow-sm">
-                        <i class='bx bx-filter-alt mr-2'></i> Filter
+                        <i class='hgi-stroke hgi-filter mr-2'></i> Filter
                     </button>
                     <a href="{{ route('doctor.leaves.index') }}"
                         class="inline-flex items-center px-5 py-2.5 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition">
-                        <i class='bx bx-reset mr-1'></i> Reset
+                        <i class='hgi-stroke hgi-reset mr-1'></i> Reset
                     </a>
                 </div>
             </form>
@@ -164,13 +167,13 @@
                                             <a href="{{ route('doctor.leaves.show', $leave->id) }}"
                                                 class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 hover:bg-blue-200 rounded-lg transition"
                                                 title="View">
-                                                <i class='bx bx-show text-base'></i>
+                                                <i class='hgi-stroke hgi-eye text-base'></i>
                                             </a>
                                             @if($leave->status === 'pending')
                                                 <a href="{{ route('doctor.leaves.edit', $leave->id) }}"
                                                     class="w-8 h-8 flex items-center justify-center bg-amber-100 text-amber-600 hover:bg-amber-200 rounded-lg transition"
                                                     title="Edit">
-                                                    <i class='bx bx-pencil text-base'></i>
+                                                    <i class='hgi-stroke hgi-pencil-01 text-base'></i>
                                                 </a>
                                                 <form action="{{ route('doctor.leaves.destroy', $leave->id) }}" method="POST"
                                                     class="inline delete-form">
@@ -179,7 +182,7 @@
                                                     <button type="submit"
                                                         class="w-8 h-8 flex items-center justify-center bg-red-100 text-red-600 hover:bg-red-200 rounded-lg transition"
                                                         title="Cancel">
-                                                        <i class='bx bx-trash text-base'></i>
+                                                        <i class='hgi-stroke hgi-delete-01 text-base'></i>
                                                     </button>
                                                 </form>
                                             @endif
@@ -198,13 +201,13 @@
             @else
                 <div class="text-center py-16">
                     <div class="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                        <i class='bx bx-calendar-minus text-3xl text-gray-400'></i>
+                        <i class='hgi-stroke hgi-calendar-03-minus text-3xl text-gray-400'></i>
                     </div>
                     <p class="text-gray-500 font-medium">No leave requests found</p>
                     <p class="text-gray-400 text-sm mt-1">Apply for a leave to get started</p>
                     <a href="{{ route('doctor.leaves.create') }}"
                         class="inline-flex items-center mt-4 px-5 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 transition shadow-sm">
-                        <i class='bx bx-plus mr-2'></i> Apply for Leave
+                        <i class='hgi-stroke hgi-plus-sign mr-2'></i> Apply for Leave
                     </a>
                 </div>
             @endif

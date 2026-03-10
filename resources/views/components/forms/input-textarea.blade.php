@@ -65,7 +65,7 @@
     
     @if($hasError)
         <p id="{{ $inputId }}_error" class="mt-1 text-sm text-red-600 flex items-center gap-1" role="alert">
-            <i class='bx bx-error-circle'></i>
+            <i class='hgi-stroke hgi-alert-circle'></i>
             {{ $errorMessage }}
         </p>
     @endif

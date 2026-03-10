@@ -4,15 +4,18 @@
     <div class="space-y-6">
         <!-- Page Header -->
         <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-            <div class="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <a href="{{ route('doctor.leaves.index') }}" class="inline-flex items-center gap-1 text-emerald-100 hover:text-white text-sm mb-2 transition">
-                        <i class='bx bx-arrow-back'></i> Back to Leave Requests
+                        <i class='hgi-stroke hgi-arrow-left-01'></i> Back to Leave Requests
                     </a>
                     <h1 class="text-2xl font-bold flex items-center gap-3">
                         <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                            <i class='bx bx-calendar-check text-xl'></i>
+                            <i class='hgi-stroke hgi-calendar-03-check text-xl'></i>
                         </div>
                         Leave Details
                     </h1>
@@ -21,14 +24,14 @@
                     <div class="flex gap-2">
                         <a href="{{ route('doctor.leaves.edit', $leave->id) }}"
                             class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur text-white font-medium rounded-xl hover:bg-white/30 transition">
-                            <i class='bx bx-edit mr-2'></i> Edit
+                            <i class='hgi-stroke hgi-pencil-edit-01 mr-2'></i> Edit
                         </a>
                         <form action="{{ route('doctor.leaves.destroy', $leave->id) }}" method="POST" class="delete-form">
                             @csrf
                             @method('DELETE')
                             <button type="submit"
                                 class="inline-flex items-center px-4 py-2 bg-red-500/80 backdrop-blur text-white font-medium rounded-xl hover:bg-red-600 transition">
-                                <i class='bx bx-trash mr-2'></i> Cancel
+                                <i class='hgi-stroke hgi-delete-01 mr-2'></i> Cancel
                             </button>
                         </form>
                     </div>
@@ -43,7 +46,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-info-circle text-emerald-500'></i> Status Information
+                            <i class='hgi-stroke hgi-information-circle text-emerald-500'></i> Status Information
                         </h3>
                     </div>
                     <div class="p-6">
@@ -53,15 +56,15 @@
                                 <div class="flex items-center gap-2">
                                     @if($leave->status === 'approved')
                                         <span class="inline-flex items-center px-4 py-2 rounded-xl text-lg font-bold bg-emerald-100 text-emerald-700">
-                                            <i class='bx bx-check-circle mr-2'></i> Approved
+                                            <i class='hgi-stroke hgi-checkmark-circle-02 mr-2'></i> Approved
                                         </span>
                                     @elseif($leave->status === 'rejected')
                                         <span class="inline-flex items-center px-4 py-2 rounded-xl text-lg font-bold bg-red-100 text-red-700">
-                                            <i class='bx bx-x-circle mr-2'></i> Rejected
+                                            <i class='hgi-stroke hgi-cancel-circle mr-2'></i> Rejected
                                         </span>
                                     @else
                                         <span class="inline-flex items-center px-4 py-2 rounded-xl text-lg font-bold bg-amber-100 text-amber-700">
-                                            <i class='bx bx-time mr-2'></i> Pending
+                                            <i class='hgi-stroke hgi-clock-02 mr-2'></i> Pending
                                         </span>
                                     @endif
                                 </div>
@@ -78,7 +81,7 @@
                                 <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">Reviewed By</p>
                                 <div class="flex items-center gap-3">
                                     <div class="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center">
-                                        <i class='bx bx-user text-xl text-gray-600'></i>
+                                        <i class='hgi-stroke hgi-user text-xl text-gray-600'></i>
                                     </div>
                                     <div>
                                         <p class="font-medium text-gray-800">{{ $leave->reviewer->name }}</p>
@@ -100,7 +103,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-detail text-blue-500'></i> Request Details
+                            <i class='hgi-stroke hgi-file-01 text-blue-500'></i> Request Details
                         </h3>
                     </div>
                     <div class="p-6">
@@ -119,7 +122,7 @@
                                 <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Start Date</p>
                                 <div class="flex items-center gap-2">
                                     <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
-                                        <i class='bx bx-calendar text-emerald-600'></i>
+                                        <i class='hgi-stroke hgi-calendar-03 text-emerald-600'></i>
                                     </div>
                                     <p class="font-medium text-gray-800">{{ $leave->start_date->format('M d, Y') }}</p>
                                 </div>
@@ -128,7 +131,7 @@
                                 <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">End Date</p>
                                 <div class="flex items-center gap-2">
                                     <div class="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center">
-                                        <i class='bx bx-calendar text-red-600'></i>
+                                        <i class='hgi-stroke hgi-calendar-03 text-red-600'></i>
                                     </div>
                                     <p class="font-medium text-gray-800">{{ $leave->end_date->format('M d, Y') }}</p>
                                 </div>
@@ -151,7 +154,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-paperclip text-purple-500'></i> Attachment
+                            <i class='hgi-stroke hgi-attachment-01 text-purple-500'></i> Attachment
                         </h3>
                     </div>
                     <div class="p-6">
@@ -163,22 +166,22 @@
 
                                 <div class="w-14 h-14 rounded-xl {{ in_array(strtolower($extension), ['jpg', 'jpeg', 'png']) ? 'bg-blue-100' : 'bg-red-100' }} flex items-center justify-center mx-auto mb-3">
                                     @if(in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))
-                                        <i class='bx bx-image text-2xl text-blue-600'></i>
+                                        <i class='hgi-stroke hgi-image-01 text-2xl text-blue-600'></i>
                                     @else
-                                        <i class='bx bx-file-pdf text-2xl text-red-600'></i>
+                                        <i class='hgi-stroke hgi-file-01-pdf text-2xl text-red-600'></i>
                                     @endif
                                 </div>
 
                                 <p class="text-sm font-medium text-gray-700 mb-4">Proof Document</p>
                                 <a href="{{ Storage::url($leave->attachment) }}" target="_blank"
                                     class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
-                                    <i class='bx bx-download'></i> Download
+                                    <i class='hgi-stroke hgi-download-04'></i> Download
                                 </a>
                             </div>
                         @else
                             <div class="text-center py-8">
                                 <div class="w-14 h-14 rounded-xl bg-gray-100 flex items-center justify-center mx-auto mb-3">
-                                    <i class='bx bx-file-blank text-2xl text-gray-400'></i>
+                                    <i class='hgi-stroke hgi-file-01-blank text-2xl text-gray-400'></i>
                                 </div>
                                 <p class="text-gray-500 text-sm">No attachment provided</p>
                             </div>
@@ -190,7 +193,7 @@
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                     <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                            <i class='bx bx-time text-amber-500'></i> Timeline
+                            <i class='hgi-stroke hgi-clock-02 text-amber-500'></i> Timeline
                         </h3>
                     </div>
                     <div class="p-6">

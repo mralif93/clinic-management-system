@@ -6,57 +6,60 @@
 @section('content')
 <div class="space-y-6">
     <!-- Page Header with Stats -->
-    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-            <div>
-                <h1 class="text-2xl font-bold flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='bx bx-wallet text-2xl'></i>
-                    </div>
-                    Payroll Management
-                </h1>
-                <p class="mt-2 text-indigo-100">Payslips for {{ $monthName }}</p>
-            </div>
+    <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+        <i class='hgi-stroke hgi-wallet-01 text-2xl'></i>
+    </div>
+    <div>
+        <h2 class="text-2xl font-bold">Payroll Management</h2>
+        <p class="text-indigo-100 text-sm mt-1">Payslips for {{ $monthName }}</p>
+    </div>
+</div>
             <div class="flex items-center gap-3">
                 <a href="{{ route('admin.payrolls.index') }}" 
                    class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                    <i class='bx bx-arrow-back'></i>
+                    <i class='hgi-stroke hgi-arrow-left-01'></i>
                     All Months
                 </a>
                 <a href="{{ route('admin.payrolls.create') }}"
                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all shadow-lg shadow-indigo-900/20">
-                    <i class='bx bx-plus text-xl'></i>
+                    <i class='hgi-stroke hgi-plus-sign text-xl'></i>
                     Generate Payslip
                 </a>
             </div>
         </div>
+    </div>
 
-        <!-- Quick Stats -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $stats['total_payrolls'] }}</p>
-                <p class="text-sm text-indigo-200">Total Payslips</p>
+    <!-- Quick Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $stats['total_payrolls'] }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Total Payslips</p>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $stats['pending_approval'] }}</p>
-                <p class="text-sm text-indigo-200">Pending</p>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $stats['pending_approval'] }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Pending</p>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">{{ $stats['paid'] ?? 0 }}</p>
-                <p class="text-sm text-indigo-200">Paid</p>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $stats['paid'] ?? 0 }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Paid</p>
             </div>
-            <div class="bg-white/10 backdrop-blur rounded-xl p-4">
-                <p class="text-2xl font-bold">RM {{ number_format($stats['total_paid'], 0) }}</p>
-                <p class="text-sm text-indigo-200">Total Amount</p>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">RM {{ number_format($stats['total_paid'], 0) }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Total Amount</p>
             </div>
         </div>
-    </div>
 
     <!-- Filters Card -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <div class="p-5 border-b border-gray-100 bg-gray-50/50">
             <div class="flex items-center gap-2">
-                <i class='bx bx-filter-alt text-gray-500'></i>
+                <i class='hgi-stroke hgi-filter text-gray-500'></i>
                 <h3 class="font-semibold text-gray-700">Filter Payslips</h3>
             </div>
         </div>
@@ -68,7 +71,7 @@
                         <label for="search" class="block text-sm font-medium text-gray-600 mb-2">Search</label>
                         <div class="relative">
                             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-                                <i class='bx bx-search'></i>
+                                <i class='hgi-stroke hgi-search-01'></i>
                             </span>
                             <input type="text" id="search" name="search" value="{{ request('search') }}"
                                 placeholder="Search by employee name..."
@@ -92,7 +95,7 @@
                     <div class="flex items-end gap-2">
                         <button type="submit" 
                             class="flex-1 inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition-all text-sm">
-                            <i class='bx bx-search'></i>
+                            <i class='hgi-stroke hgi-search-01'></i>
                             Filter
                         </button>
                     </div>
@@ -165,7 +168,7 @@
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-2">
                                     <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-bold bg-green-50 text-green-700">
-                                        <i class='bx bx-money'></i>
+                                        <i class='hgi-stroke hgi-money-bag-01'></i>
                                         RM {{ number_format($payroll->net_salary, 2) }}
                                     </span>
                                 </div>
@@ -181,14 +184,14 @@
                                         'cancelled' => 'bg-red-50 text-red-700 ring-red-500/20',
                                     ];
                                     $statusIcons = [
-                                        'draft' => 'bx-file',
+                                        'draft' => 'hgi-file-01',
                                         'approved' => 'bx-check-circle',
                                         'paid' => 'bx-badge-check',
                                         'cancelled' => 'bx-x-circle',
                                     ];
                                 @endphp
                                 <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-semibold ring-1 ring-inset {{ $statusStyles[$payroll->status] ?? $statusStyles['draft'] }}">
-                                    <i class='bx {{ $statusIcons[$payroll->status] ?? 'bx-file' }}'></i>
+                                    <i class='hgi-stroke {{ $statusIcons[$payroll->status] ?? 'hgi-file-01' }}'></i>
                                     {{ ucfirst($payroll->status) }}
                                 </span>
                             </td>
@@ -198,26 +201,26 @@
                                 <div class="flex justify-end items-center gap-2">
                                     <a href="{{ route('admin.payrolls.show', $payroll->id) }}"
                                        class="w-9 h-9 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200 hover:scale-110 transition-all" title="View">
-                                        <i class='bx bx-show text-lg'></i>
+                                        <i class='hgi-stroke hgi-eye text-lg'></i>
                                     </a>
                                     
                                     @if($payroll->status === 'draft')
                                         <button onclick="approvePayroll({{ $payroll->id }})"
                                             class="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 text-green-600 hover:bg-green-200 hover:scale-110 transition-all" title="Approve">
-                                            <i class='bx bx-check text-lg'></i>
+                                            <i class='hgi-stroke hgi-checkmark-circle-02 text-lg'></i>
                                         </button>
                                         <a href="{{ route('admin.payrolls.edit', $payroll->id) }}"
                                            class="w-9 h-9 flex items-center justify-center rounded-full bg-amber-100 text-amber-600 hover:bg-amber-200 hover:scale-110 transition-all" title="Edit">
-                                            <i class='bx bx-edit text-lg'></i>
+                                            <i class='hgi-stroke hgi-pencil-edit-01 text-lg'></i>
                                         </a>
                                         <button onclick="deletePayroll({{ $payroll->id }})"
                                             class="w-9 h-9 flex items-center justify-center rounded-full bg-red-100 text-red-600 hover:bg-red-200 hover:scale-110 transition-all" title="Delete">
-                                            <i class='bx bx-trash text-lg'></i>
+                                            <i class='hgi-stroke hgi-delete-01 text-lg'></i>
                                         </button>
                                     @elseif($payroll->status === 'approved')
                                         <button onclick="markAsPaid({{ $payroll->id }})"
                                             class="w-9 h-9 flex items-center justify-center rounded-full bg-purple-100 text-purple-600 hover:bg-purple-200 hover:scale-110 transition-all" title="Mark as Paid">
-                                            <i class='bx bx-dollar text-lg'></i>
+                                            <i class='hgi-stroke hgi-dollar-01 text-lg'></i>
                                         </button>
                                     @endif
                                 </div>
@@ -228,13 +231,13 @@
                             <td colspan="7" class="px-6 py-16 text-center">
                                 <div class="flex flex-col items-center">
                                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                                        <i class='bx bx-receipt text-4xl text-gray-400'></i>
+                                        <i class='hgi-stroke hgi-invoice-01 text-4xl text-gray-400'></i>
                                     </div>
                                     <p class="text-gray-500 font-medium">No payroll records found</p>
                                     <p class="text-gray-400 text-sm mt-1">Generate a new payslip to get started</p>
                                     <a href="{{ route('admin.payrolls.create') }}" 
                                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition-all text-sm mt-4">
-                                        <i class='bx bx-plus'></i>
+                                        <i class='hgi-stroke hgi-plus-sign'></i>
                                         Generate Payslip
                                     </a>
                                 </div>
@@ -263,7 +266,7 @@
             showCancelButton: true,
             confirmButtonColor: '#10b981',
             cancelButtonColor: '#6b7280',
-            confirmButtonText: '<i class="bx bx-check mr-1"></i> Approve',
+            confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02 mr-1"></i> Approve',
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -287,7 +290,7 @@
             showCancelButton: true,
             confirmButtonColor: '#8b5cf6',
             cancelButtonColor: '#6b7280',
-            confirmButtonText: '<i class="bx bx-dollar mr-1"></i> Mark as Paid',
+            confirmButtonText: '<i class="hgi-stroke hgi-dollar-01 mr-1"></i> Mark as Paid',
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {
@@ -310,7 +313,7 @@
             showCancelButton: true,
             confirmButtonColor: '#dc2626',
             cancelButtonColor: '#6b7280',
-            confirmButtonText: '<i class="bx bx-trash mr-1"></i> Delete',
+            confirmButtonText: '<i class="hgi-stroke hgi-delete-01 mr-1"></i> Delete',
             cancelButtonText: 'Cancel'
         }).then((result) => {
             if (result.isConfirmed) {

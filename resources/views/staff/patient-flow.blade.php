@@ -34,11 +34,11 @@
     <div class="space-y-6">
         <!-- Header -->
         <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-2xl p-6 shadow-lg">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="text-white">
                     <h1 class="text-2xl md:text-3xl font-bold flex items-center gap-3">
                         <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                            <i class='bx bx-transfer text-2xl'></i>
+                            <i class='hgi-stroke hgi-transfer-horizontal text-2xl'></i>
                         </div>
                         Patient Flow
                     </h1>
@@ -47,12 +47,12 @@
                 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                     <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 text-white">
                         <div class="flex items-center gap-2">
-                            <i class='bx bx-calendar text-lg'></i>
+                            <i class='hgi-stroke hgi-calendar-03 text-lg'></i>
                             <span class="font-medium">{{ now()->format('l, d M Y') }}</span>
                         </div>
                     </div>
                     <button onclick="refreshData()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-amber-600 rounded-xl hover:bg-amber-50 transition-all font-semibold shadow-md hover:shadow-lg">
-                        <i class='bx bx-refresh text-xl' id="refreshIcon"></i>
+                        <i class='hgi-stroke hgi-refresh text-xl' id="refreshIcon"></i>
                         Refresh
                     </button>
                 </div>
@@ -65,7 +65,7 @@
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-10 h-10 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-time text-yellow-600 text-xl'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-yellow-600 text-xl'></i>
                     </div>
                 </div>
                 <p class="text-2xl font-bold text-gray-900" id="stat-pending">{{ $stats['pending'] }}</p>
@@ -76,7 +76,7 @@
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-10 h-10 bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-calendar text-slate-600 text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-slate-600 text-xl'></i>
                     </div>
                 </div>
                 <p class="text-2xl font-bold text-gray-900" id="stat-scheduled">{{ $stats['scheduled'] }}</p>
@@ -87,7 +87,7 @@
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-10 h-10 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-qr text-orange-600 text-xl'></i>
+                        <i class='hgi-stroke hgi-qr-code text-orange-600 text-xl'></i>
                     </div>
                 </div>
                 <p class="text-2xl font-bold text-gray-900" id="stat-arrived">{{ $stats['arrived'] }}</p>
@@ -98,7 +98,7 @@
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-user-check text-blue-600 text-xl'></i>
+                        <i class='hgi-stroke hgi-user-check text-blue-600 text-xl'></i>
                     </div>
                 </div>
                 <p class="text-2xl font-bold text-gray-900" id="stat-checked-in">{{ $stats['checked_in'] }}</p>
@@ -109,7 +109,7 @@
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-10 h-10 bg-gradient-to-br from-amber-100 to-amber-200 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-user-voice text-amber-600 text-xl'></i>
+                        <i class='hgi-stroke hgi-user-voice text-amber-600 text-xl'></i>
                     </div>
                 </div>
                 <p class="text-2xl font-bold text-gray-900" id="stat-in-consultation">{{ $stats['in_consultation'] }}</p>
@@ -120,7 +120,7 @@
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-receipt text-purple-600 text-xl'></i>
+                        <i class='hgi-stroke hgi-invoice-01 text-purple-600 text-xl'></i>
                     </div>
                 </div>
                 <p class="text-2xl font-bold text-gray-900" id="stat-completed">{{ $stats['completed'] }}</p>
@@ -131,7 +131,7 @@
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
                     <div class="w-10 h-10 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center">
-                        <i class='bx bx-check-circle text-green-600 text-xl'></i>
+                        <i class='hgi-stroke hgi-checkmark-circle-02 text-green-600 text-xl'></i>
                     </div>
                 </div>
                 <p class="text-2xl font-bold text-gray-900" id="stat-paid">{{ $stats['paid'] }}</p>
@@ -142,7 +142,7 @@
             <div class="bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 rounded-2xl p-5 shadow-lg">
                 <div class="flex items-center justify-between mb-3">
                     <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                        <i class='bx bx-group text-white text-2xl'></i>
+                        <i class='hgi-stroke hgi-user-group text-white text-2xl'></i>
                     </div>
                     <span class="text-xs font-medium text-white/90 bg-white/20 px-2 py-1 rounded-full">TODAY</span>
                 </div>
@@ -155,7 +155,7 @@
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
             <div class="px-5 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-user text-amber-500 text-xl'></i>
+                    <i class='hgi-stroke hgi-user text-amber-500 text-xl'></i>
                     Doctor Availability
                 </h3>
             </div>
@@ -196,52 +196,52 @@
             <div class="flex items-center justify-between px-4">
                 <div class="flex flex-col items-center">
                     <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600">
-                        <i class='bx bx-time text-xl'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-xl'></i>
                     </div>
                     <span class="text-xs text-gray-500 mt-2">Pending</span>
                 </div>
                 <div class="flex-1 h-1 bg-gray-200 mx-2 rounded relative">
-                    <i class='bx bx-chevron-right absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                    <i class='hgi-stroke hgi-arrow-right-01 absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400'></i>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600">
-                        <i class='bx bx-calendar text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-xl'></i>
                     </div>
                     <span class="text-xs text-gray-500 mt-2">Scheduled</span>
                 </div>
                 <div class="flex-1 h-1 bg-gray-200 mx-2 rounded relative">
-                    <i class='bx bx-chevron-right absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                    <i class='hgi-stroke hgi-arrow-right-01 absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400'></i>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                        <i class='bx bx-user-check text-xl'></i>
+                        <i class='hgi-stroke hgi-user-check text-xl'></i>
                     </div>
                     <span class="text-xs text-gray-500 mt-2">Checked In</span>
                 </div>
                 <div class="flex-1 h-1 bg-gray-200 mx-2 rounded relative">
-                    <i class='bx bx-chevron-right absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                    <i class='hgi-stroke hgi-arrow-right-01 absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400'></i>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600">
-                        <i class='bx bx-user-voice text-xl'></i>
+                        <i class='hgi-stroke hgi-user-voice text-xl'></i>
                     </div>
                     <span class="text-xs text-gray-500 mt-2">Consulting</span>
                 </div>
                 <div class="flex-1 h-1 bg-gray-200 mx-2 rounded relative">
-                    <i class='bx bx-chevron-right absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                    <i class='hgi-stroke hgi-arrow-right-01 absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400'></i>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
-                        <i class='bx bx-receipt text-xl'></i>
+                        <i class='hgi-stroke hgi-invoice-01 text-xl'></i>
                     </div>
                     <span class="text-xs text-gray-500 mt-2">Payment</span>
                 </div>
                 <div class="flex-1 h-1 bg-gray-200 mx-2 rounded relative">
-                    <i class='bx bx-chevron-right absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                    <i class='hgi-stroke hgi-arrow-right-01 absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400'></i>
                 </div>
                 <div class="flex flex-col items-center">
                     <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-                        <i class='bx bx-check-circle text-xl'></i>
+                        <i class='hgi-stroke hgi-checkmark-circle-02 text-xl'></i>
                     </div>
                     <span class="text-xs text-gray-500 mt-2">Complete</span>
                 </div>
@@ -250,11 +250,11 @@
 
         <!-- Kanban Board -->
         <div class="grid grid-cols-1 lg:grid-cols-7 gap-4 overflow-x-auto pb-4">
-            @include('staff.partials.flow-column', ['title' => 'Pending', 'subtitle' => 'Awaiting confirmation', 'icon' => 'bx-time', 'color' => 'yellow', 'appointments' => $pending, 'stage' => 'pending', 'nextAction' => 'confirm', 'nextLabel' => 'Confirm', 'nextIcon' => 'bx-check'])
-            @include('staff.partials.flow-column', ['title' => 'Scheduled', 'subtitle' => 'Waiting to arrive', 'icon' => 'bx-calendar', 'color' => 'slate', 'appointments' => $scheduled, 'stage' => 'scheduled', 'nextAction' => null, 'nextLabel' => null, 'nextIcon' => null])
+            @include('staff.partials.flow-column', ['title' => 'Pending', 'subtitle' => 'Awaiting confirmation', 'icon' => 'hgi-clock-01', 'color' => 'yellow', 'appointments' => $pending, 'stage' => 'pending', 'nextAction' => 'confirm', 'nextLabel' => 'Confirm', 'nextIcon' => 'bx-check'])
+            @include('staff.partials.flow-column', ['title' => 'Scheduled', 'subtitle' => 'Waiting to arrive', 'icon' => 'hgi-calendar-03', 'color' => 'slate', 'appointments' => $scheduled, 'stage' => 'scheduled', 'nextAction' => null, 'nextLabel' => null, 'nextIcon' => null])
             @include('staff.partials.flow-column', ['title' => 'Arrived', 'subtitle' => 'QR scanned', 'icon' => 'bx-qr', 'color' => 'orange', 'appointments' => $arrived, 'stage' => 'arrived', 'nextAction' => null, 'nextLabel' => null, 'nextIcon' => null])
-            @include('staff.partials.flow-column', ['title' => 'With Doctor', 'subtitle' => 'Accepted', 'icon' => 'bx-user-check', 'color' => 'blue', 'appointments' => $checkedIn, 'stage' => 'checked_in', 'nextAction' => 'start_consultation', 'nextLabel' => 'Start Consult', 'nextIcon' => 'bx-play-circle'])
-            @include('staff.partials.flow-column', ['title' => 'In Consultation', 'subtitle' => 'With doctor', 'icon' => 'bx-user-voice', 'color' => 'amber', 'appointments' => $inConsultation, 'stage' => 'in_consultation', 'nextAction' => 'complete', 'nextLabel' => 'Complete', 'nextIcon' => 'bx-check'])
+            @include('staff.partials.flow-column', ['title' => 'With Doctor', 'subtitle' => 'Accepted', 'icon' => 'hgi-user-check', 'color' => 'blue', 'appointments' => $checkedIn, 'stage' => 'checked_in', 'nextAction' => 'start_consultation', 'nextLabel' => 'Start Consult', 'nextIcon' => 'bx-play-circle'])
+            @include('staff.partials.flow-column', ['title' => 'In Consultation', 'subtitle' => 'With doctor', 'icon' => 'hgi-user-voice', 'color' => 'amber', 'appointments' => $inConsultation, 'stage' => 'in_consultation', 'nextAction' => 'complete', 'nextLabel' => 'Complete', 'nextIcon' => 'bx-check'])
             @include('staff.partials.flow-column', ['title' => 'Pending Payment', 'subtitle' => 'Ready to pay', 'icon' => 'bx-receipt', 'color' => 'purple', 'appointments' => $completed, 'stage' => 'completed', 'nextAction' => 'mark_paid', 'nextLabel' => 'Process Payment', 'nextIcon' => 'bx-credit-card'])
             @include('staff.partials.flow-column', ['title' => 'Completed', 'subtitle' => 'Paid & done', 'icon' => 'bx-check-circle', 'color' => 'green', 'appointments' => $paid, 'stage' => 'paid', 'nextAction' => null, 'nextLabel' => null, 'nextIcon' => null])
         </div>
@@ -270,7 +270,7 @@
                 <div class="bg-gradient-to-r from-green-500 to-emerald-500 px-6 py-5">
                     <div class="flex items-center gap-4">
                         <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                            <i class='bx bx-credit-card text-white text-2xl'></i>
+                            <i class='hgi-stroke hgi-credit-card text-white text-2xl'></i>
                         </div>
                         <div>
                             <h3 class="text-xl font-bold text-white">Process Payment</h3>
@@ -294,28 +294,28 @@
                     <div class="grid grid-cols-2 gap-3" id="paymentMethods">
                         <button type="button" onclick="selectPaymentMethod('cash')" class="payment-method-btn group p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-center" data-method="cash">
                             <div class="w-12 h-12 mx-auto bg-green-100 rounded-xl flex items-center justify-center mb-2 group-hover:bg-green-200 transition-colors">
-                                <i class='bx bx-money text-green-600 text-2xl'></i>
+                                <i class='hgi-stroke hgi-money-bag-01 text-green-600 text-2xl'></i>
                             </div>
                             <p class="font-semibold text-gray-700">Cash</p>
                             <p class="text-xs text-gray-400">Pay with cash</p>
                         </button>
                         <button type="button" onclick="selectPaymentMethod('card')" class="payment-method-btn group p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-center" data-method="card">
                             <div class="w-12 h-12 mx-auto bg-blue-100 rounded-xl flex items-center justify-center mb-2 group-hover:bg-blue-200 transition-colors">
-                                <i class='bx bx-credit-card text-blue-600 text-2xl'></i>
+                                <i class='hgi-stroke hgi-credit-card text-blue-600 text-2xl'></i>
                             </div>
                             <p class="font-semibold text-gray-700">Card</p>
                             <p class="text-xs text-gray-400">Credit/Debit card</p>
                         </button>
                         <button type="button" onclick="selectPaymentMethod('online')" class="payment-method-btn group p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-center" data-method="online">
                             <div class="w-12 h-12 mx-auto bg-purple-100 rounded-xl flex items-center justify-center mb-2 group-hover:bg-purple-200 transition-colors">
-                                <i class='bx bx-transfer text-purple-600 text-2xl'></i>
+                                <i class='hgi-stroke hgi-transfer-horizontal text-purple-600 text-2xl'></i>
                             </div>
                             <p class="font-semibold text-gray-700">Online</p>
                             <p class="text-xs text-gray-400">Bank transfer</p>
                         </button>
                         <button type="button" onclick="selectPaymentMethod('insurance')" class="payment-method-btn group p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-center" data-method="insurance">
                             <div class="w-12 h-12 mx-auto bg-amber-100 rounded-xl flex items-center justify-center mb-2 group-hover:bg-amber-200 transition-colors">
-                                <i class='bx bx-shield-plus text-amber-600 text-2xl'></i>
+                                <i class='hgi-stroke hgi-shield-plus text-amber-600 text-2xl'></i>
                             </div>
                             <p class="font-semibold text-gray-700">Insurance</p>
                             <p class="text-xs text-gray-400">Insurance claim</p>
@@ -329,7 +329,7 @@
                         Cancel
                     </button>
                     <button type="button" onclick="submitPayment()" class="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:from-green-600 hover:to-emerald-600 font-semibold transition-all shadow-md hover:shadow-lg flex items-center gap-2">
-                        <i class='bx bx-check-circle'></i>
+                        <i class='hgi-stroke hgi-checkmark-circle-02'></i>
                         Confirm Payment
                     </button>
                 </div>
@@ -405,7 +405,7 @@
                 title: 'Confirm Appointment?',
                 text: 'This will confirm the appointment and generate a QR code for the patient.',
                 icon: 'question',
-                confirmButtonText: '<i class="bx bx-check mr-1"></i> Yes, Confirm',
+                confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02 mr-1"></i> Yes, Confirm',
                 confirmButtonColor: '#eab308',
                 iconColor: '#eab308'
             },
@@ -413,7 +413,7 @@
                 title: 'Check In Patient?',
                 text: 'Confirm that the patient has arrived at the clinic.',
                 icon: 'question',
-                confirmButtonText: '<i class="bx bx-log-in-circle mr-1"></i> Yes, Check In',
+                confirmButtonText: '<i class="hgi-stroke hgi-login-02 mr-1"></i> Yes, Check In',
                 confirmButtonColor: '#3b82f6',
                 iconColor: '#3b82f6'
             },
@@ -421,7 +421,7 @@
                 title: 'Start Consultation?',
                 text: 'The patient will be moved to "In Consultation" status.',
                 icon: 'question',
-                confirmButtonText: '<i class="bx bx-play-circle mr-1"></i> Yes, Start',
+                confirmButtonText: '<i class="hgi-stroke hgi-play-circle mr-1"></i> Yes, Start',
                 confirmButtonColor: '#f59e0b',
                 iconColor: '#f59e0b'
             },
@@ -429,7 +429,7 @@
                 title: 'Complete Consultation?',
                 text: 'Mark this consultation as completed. The patient will proceed to payment.',
                 icon: 'question',
-                confirmButtonText: '<i class="bx bx-check mr-1"></i> Yes, Complete',
+                confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02 mr-1"></i> Yes, Complete',
                 confirmButtonColor: '#8b5cf6',
                 iconColor: '#8b5cf6'
             },
@@ -438,7 +438,7 @@
                 title: 'Revert to Scheduled?',
                 text: 'The patient will be moved back to "Scheduled" status. They will need to check in again.',
                 icon: 'warning',
-                confirmButtonText: '<i class="bx bx-undo mr-1"></i> Yes, Revert',
+                confirmButtonText: '<i class="hgi-stroke hgi-undo mr-1"></i> Yes, Revert',
                 confirmButtonColor: '#64748b',
                 iconColor: '#f59e0b'
             },
@@ -446,7 +446,7 @@
                 title: 'Revert to Checked In?',
                 text: 'The patient will be moved back to "Checked In" status in the waiting room.',
                 icon: 'warning',
-                confirmButtonText: '<i class="bx bx-undo mr-1"></i> Yes, Revert',
+                confirmButtonText: '<i class="hgi-stroke hgi-undo mr-1"></i> Yes, Revert',
                 confirmButtonColor: '#3b82f6',
                 iconColor: '#f59e0b'
             },
@@ -454,7 +454,7 @@
                 title: 'Revert to In Consultation?',
                 text: 'The patient will be moved back to "In Consultation" status.',
                 icon: 'warning',
-                confirmButtonText: '<i class="bx bx-undo mr-1"></i> Yes, Revert',
+                confirmButtonText: '<i class="hgi-stroke hgi-undo mr-1"></i> Yes, Revert',
                 confirmButtonColor: '#f59e0b',
                 iconColor: '#f59e0b'
             },
@@ -462,7 +462,7 @@
                 title: 'Revert Payment?',
                 text: 'The payment will be cancelled and the patient will be moved back to "Pending Payment" status.',
                 icon: 'warning',
-                confirmButtonText: '<i class="bx bx-undo mr-1"></i> Yes, Revert Payment',
+                confirmButtonText: '<i class="hgi-stroke hgi-undo mr-1"></i> Yes, Revert Payment',
                 confirmButtonColor: '#8b5cf6',
                 iconColor: '#ef4444'
             },
@@ -470,7 +470,7 @@
                 title: 'Revert to Pending?',
                 text: 'The appointment will be moved back to "Pending" status. Patient will need to wait for confirmation again.',
                 icon: 'warning',
-                confirmButtonText: '<i class="bx bx-undo mr-1"></i> Yes, Revert',
+                confirmButtonText: '<i class="hgi-stroke hgi-undo mr-1"></i> Yes, Revert',
                 confirmButtonColor: '#eab308',
                 iconColor: '#f59e0b'
             },
@@ -478,7 +478,7 @@
                 title: 'Revert to Arrived?',
                 text: 'The patient will be moved back to "Arrived" status. They will need to wait for doctor to accept again.',
                 icon: 'warning',
-                confirmButtonText: '<i class="bx bx-undo mr-1"></i> Yes, Revert',
+                confirmButtonText: '<i class="hgi-stroke hgi-undo mr-1"></i> Yes, Revert',
                 confirmButtonColor: '#f97316',
                 iconColor: '#f59e0b'
             }
@@ -511,7 +511,7 @@
             confirmButtonColor: config.confirmButtonColor,
             cancelButtonColor: '#6b7280',
             confirmButtonText: config.confirmButtonText,
-            cancelButtonText: '<i class="bx bx-x mr-1"></i> Cancel',
+            cancelButtonText: '<i class="hgi-stroke hgi-cancel-circle mr-1"></i> Cancel',
             reverseButtons: true,
             customClass: {
                 popup: 'rounded-2xl',
@@ -523,7 +523,7 @@
                 // Show loading
                 Swal.fire({
                     title: 'Processing...',
-                    html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-amber-500"></i><span>Updating status...</span></div>',
+                    html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-amber-500"></i><span>Updating status...</span></div>',
                     allowOutsideClick: false,
                     showConfirmButton: false
                 });
@@ -634,8 +634,8 @@
             showCancelButton: true,
             confirmButtonColor: '#10b981',
             cancelButtonColor: '#6b7280',
-            confirmButtonText: '<i class="bx bx-check-circle mr-1"></i> Confirm Payment',
-            cancelButtonText: '<i class="bx bx-x mr-1"></i> Cancel',
+            confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02 mr-1"></i> Confirm Payment',
+            cancelButtonText: '<i class="hgi-stroke hgi-cancel-circle mr-1"></i> Cancel',
             reverseButtons: true,
             customClass: {
                 popup: 'rounded-2xl',
@@ -647,7 +647,7 @@
                 // Show processing
                 Swal.fire({
                     title: 'Processing Payment...',
-                    html: '<div class="flex items-center justify-center gap-2"><i class="bx bx-loader-alt bx-spin text-2xl text-green-500"></i><span>Recording payment...</span></div>',
+                    html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-green-500"></i><span>Recording payment...</span></div>',
                     allowOutsideClick: false,
                     showConfirmButton: false
                 });

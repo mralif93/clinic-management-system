@@ -18,7 +18,7 @@
                     <!-- Doctor Selection -->
                     <div class="mb-6">
                         <label for="doctor_id" class="block text-sm font-medium text-gray-700 mb-2">
-                            <i class='bx bx-user-plus mr-1'></i>
+                            <i class='hgi-stroke hgi-user-plus mr-1'></i>
                             Select Doctor
                         </label>
                         <select name="doctor_id" id="doctor_id" required
@@ -38,7 +38,7 @@
                     <!-- Service Selection -->
                     <div class="mb-6">
                         <label for="service_id" class="block text-sm font-medium text-gray-700 mb-2">
-                            <i class='bx bx-list-ul mr-1'></i>
+                            <i class='hgi-stroke hgi-list-view mr-1'></i>
                             Select Service
                         </label>
                         <select name="service_id" id="service_id" required
@@ -58,7 +58,7 @@
                     <!-- Date Selection -->
                     <div class="mb-6">
                         <label for="appointment_date" class="block text-sm font-medium text-gray-700 mb-2">
-                            <i class='bx bx-calendar mr-1'></i>
+                            <i class='hgi-stroke hgi-calendar-03 mr-1'></i>
                             Appointment Date
                         </label>
                         <input type="date" name="appointment_date" id="appointment_date" required
@@ -72,7 +72,7 @@
                     <!-- Time Selection -->
                     <div class="mb-6">
                         <label for="appointment_time" class="block text-sm font-medium text-gray-700 mb-2">
-                            <i class='bx bx-time mr-1'></i>
+                            <i class='hgi-stroke hgi-clock-02 mr-1'></i>
                             Appointment Time
                         </label>
                         <input type="time" name="appointment_time" id="appointment_time" required
@@ -86,7 +86,7 @@
                     <!-- Notes -->
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-2">
-                            <i class='bx bx-note mr-1'></i>
+                            <i class='hgi-stroke hgi-note-01 mr-1'></i>
                             Notes (Optional)
                         </label>
                         <input type="hidden" name="notes" id="notes-input" value="{{ old('notes') }}">
@@ -104,7 +104,7 @@
                         </a>
                         <button type="submit"
                             class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition">
-                            <i class='bx bx-check mr-2'></i>
+                            <i class='hgi-stroke hgi-checkmark-circle-02 mr-2'></i>
                             Book Appointment
                         </button>
                     </div>
@@ -114,7 +114,7 @@
     </div>
 
 @push('styles')
-<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+<link href="{{ asset('css/quill.snow.css') }}" rel="stylesheet">
 <style>
     .quill-wrapper {
         border: 1px solid #d1d5db;
@@ -177,7 +177,7 @@
 @endpush
 
 @push('scripts')
-<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+<script src="{{ asset('js/quill.min.js') }}"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const toolbarOptions = [

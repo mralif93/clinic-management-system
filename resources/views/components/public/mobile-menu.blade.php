@@ -27,7 +27,7 @@
                 <img src="{{ $logoUrl }}" alt="Logo" class="h-8 w-auto">
             @else
                 <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                    <i class='bx bx-clinic text-white text-xl'></i>
+                    <i class='hgi-stroke hgi-hospital-01 text-white text-xl'></i>
                 </div>
             @endif
             <span class="text-xl font-bold text-gray-900">Menu</span>
@@ -35,7 +35,7 @@
         <button @click="mobileMenuOpen = false"
             class="p-2 -mr-2 text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 rounded-lg">
             <span class="sr-only">Close menu</span>
-            <i class='bx bx-x text-3xl'></i>
+            <i class='hgi-stroke hgi-cancel-circle text-3xl'></i>
         </button>
     </div>
 
@@ -46,7 +46,7 @@
             @if(!$servicesPage || $servicesPage->is_published)
                 <a href="{{ route('services.index') }}"
                     class="flex items-center space-x-3 text-lg font-medium text-gray-900 hover:text-blue-600 p-2 rounded-lg hover:bg-gray-50 transition-colors">
-                    <i class='bx bx-plus-medical text-xl text-gray-400'></i>
+                    <i class='hgi-stroke hgi-plus-sign-medical text-xl text-gray-400'></i>
                     <span>Services</span>
                 </a>
             @endif
@@ -54,7 +54,7 @@
             @if(!$aboutPage || $aboutPage->is_published)
                 <a href="{{ route('about') }}"
                     class="flex items-center space-x-3 text-lg font-medium text-gray-900 hover:text-blue-600 p-2 rounded-lg hover:bg-gray-50 transition-colors">
-                    <i class='bx bx-info-circle text-xl text-gray-400'></i>
+                    <i class='hgi-stroke hgi-information-circle text-xl text-gray-400'></i>
                     <span>About</span>
                 </a>
             @endif
@@ -62,7 +62,7 @@
             @if(!$teamPage || $teamPage->is_published)
                 <a href="{{ route('team.index') }}"
                     class="flex items-center space-x-3 text-lg font-medium text-gray-900 hover:text-blue-600 p-2 rounded-lg hover:bg-gray-50 transition-colors">
-                    <i class='bx bx-user-voice text-xl text-gray-400'></i>
+                    <i class='hgi-stroke hgi-user-voice text-xl text-gray-400'></i>
                     <span>Team</span>
                 </a>
             @endif
@@ -70,7 +70,7 @@
             @if(!$packagesPage || $packagesPage->is_published)
                 <a href="{{ route('packages.index') }}"
                     class="flex items-center space-x-3 text-lg font-medium text-gray-900 hover:text-blue-600 p-2 rounded-lg hover:bg-gray-50 transition-colors">
-                    <i class='bx bx-package text-xl text-gray-400'></i>
+                    <i class='hgi-stroke hgi-package text-xl text-gray-400'></i>
                     <span>Packages</span>
                 </a>
             @endif

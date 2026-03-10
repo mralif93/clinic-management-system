@@ -27,10 +27,10 @@
         <div class="flex items-center justify-between text-xs text-gray-500">
             @if($todo->due_date)
                 <div class="flex items-center gap-1 {{ $todo->isOverdue() ? 'text-red-600 font-medium' : '' }}">
-                    <i class='bx bx-calendar'></i>
+                    <i class='hgi-stroke hgi-calendar-03'></i>
                     {{ $todo->due_date->format('M d') }}
                     @if($todo->isOverdue())
-                        <i class='bx bx-error-circle'></i>
+                        <i class='hgi-stroke hgi-alert-circle'></i>
                     @endif
                 </div>
             @else
@@ -53,16 +53,16 @@
         @if($todo->trashed())
             <button onclick="restoreTodo({{ $todo->id }}, '{{ addslashes($todo->title) }}')"
                 class="p-1.5 rounded text-green-600 hover:bg-green-100 transition-colors">
-                <i class='bx bx-undo'></i>
+                <i class='hgi-stroke hgi-undo'></i>
             </button>
         @else
             <a href="{{ route('admin.todos.show', $todo->id) }}"
                 class="p-1.5 rounded text-gray-500 hover:bg-gray-200 transition-colors">
-                <i class='bx bx-show'></i>
+                <i class='hgi-stroke hgi-eye'></i>
             </a>
             <a href="{{ route('admin.todos.edit', $todo->id) }}"
                 class="p-1.5 rounded text-gray-500 hover:bg-gray-200 transition-colors">
-                <i class='bx bx-edit'></i>
+                <i class='hgi-stroke hgi-pencil-edit-01'></i>
             </a>
         @endif
     </div>

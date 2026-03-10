@@ -6,37 +6,40 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-purple-600 to-violet-600 rounded-2xl p-6 text-white shadow-lg">
+        <div class="bg-gradient-to-r from-purple-600 to-violet-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div
                         class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30">
-                        <i class='bx bx-cube text-4xl'></i>
+                        <i class='hgi-stroke hgi-package text-4xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">{{ $service->name }}</h1>
                         <p class="text-purple-100 flex items-center gap-2 mt-1">
-                            <i class='bx bx-link'></i>
+                            <i class='hgi-stroke hgi-link-01'></i>
                             <span class="font-mono text-sm">{{ $service->slug }}</span>
                         </p>
                         <div class="flex flex-wrap gap-2 mt-2">
                             <span
                                 class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-white/20 backdrop-blur">
-                                <i class='bx bx-category mr-1'></i> {{ ucfirst($service->type) }}
+                                <i class='hgi-stroke hgi-grid-01 mr-1'></i> {{ ucfirst($service->type) }}
                             </span>
                             @if($service->trashed())
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-red-500/30">
-                                    <i class='bx bx-trash mr-1'></i> Deleted
+                                    <i class='hgi-stroke hgi-delete-01 mr-1'></i> Deleted
                                 </span>
                             @elseif($service->is_active)
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-green-400/30">
-                                    <i class='bx bx-check-circle mr-1'></i> Active
+                                    <i class='hgi-stroke hgi-checkmark-circle-02 mr-1'></i> Active
                                 </span>
                             @else
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-yellow-400/30">
-                                    <i class='bx bx-pause-circle mr-1'></i> Inactive
+                                    <i class='hgi-stroke hgi-pause-circle mr-1'></i> Inactive
                                 </span>
                             @endif
                         </div>
@@ -46,7 +49,7 @@
                     @if(!$service->trashed())
                         <a href="{{ route('admin.services.edit', $service->id) }}"
                             class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-purple-600 rounded-xl font-semibold hover:bg-purple-50 transition-all shadow-lg">
-                            <i class='bx bx-edit'></i>
+                            <i class='hgi-stroke hgi-pencil-edit-01'></i>
                             Edit Service
                         </a>
                     @else
@@ -54,14 +57,14 @@
                             @csrf
                             <button type="submit"
                                 class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-green-600 rounded-xl font-semibold hover:bg-green-50 transition-all shadow-lg">
-                                <i class='bx bx-refresh'></i>
+                                <i class='hgi-stroke hgi-refresh'></i>
                                 Restore Service
                             </button>
                         </form>
                     @endif
                     <a href="{{ route('admin.services.index') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                        <i class='bx bx-arrow-back'></i>
+                        <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back to List
                     </a>
                 </div>
@@ -73,7 +76,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center">
-                        <i class='bx bx-money text-2xl text-purple-600'></i>
+                        <i class='hgi-stroke hgi-money-bag-01 text-2xl text-purple-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Price</p>
@@ -85,7 +88,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
-                        <i class='bx bx-time text-2xl text-blue-600'></i>
+                        <i class='hgi-stroke hgi-clock-02 text-2xl text-blue-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Duration</p>
@@ -97,7 +100,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <div class="flex items-center gap-4">
                     <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center">
-                        <i class='bx bx-category text-2xl text-green-600'></i>
+                        <i class='hgi-stroke hgi-grid-01 text-2xl text-green-600'></i>
                     </div>
                     <div>
                         <p class="text-sm text-gray-500">Type</p>
@@ -113,7 +116,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-info-circle text-purple-600'></i>
+                        <i class='hgi-stroke hgi-information-circle text-purple-600'></i>
                         Service Details
                     </h3>
                 </div>
@@ -140,17 +143,17 @@
                             @if($service->trashed())
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-red-50 text-red-700 border border-red-200">
-                                    <i class='bx bx-trash mr-1'></i> Deleted
+                                    <i class='hgi-stroke hgi-delete-01 mr-1'></i> Deleted
                                 </span>
                             @elseif($service->is_active)
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-green-50 text-green-700 border border-green-200">
-                                    <i class='bx bx-check-circle mr-1'></i> Active
+                                    <i class='hgi-stroke hgi-checkmark-circle-02 mr-1'></i> Active
                                 </span>
                             @else
                                 <span
                                     class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-yellow-50 text-yellow-700 border border-yellow-200">
-                                    <i class='bx bx-pause-circle mr-1'></i> Inactive
+                                    <i class='hgi-stroke hgi-pause-circle mr-1'></i> Inactive
                                 </span>
                             @endif
                         </div>
@@ -162,7 +165,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                     <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                        <i class='bx bx-text text-purple-600'></i>
+                        <i class='hgi-stroke hgi-text text-purple-600'></i>
                         Description
                     </h3>
                 </div>
@@ -180,7 +183,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="p-6 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-time text-purple-600'></i>
+                    <i class='hgi-stroke hgi-clock-02 text-purple-600'></i>
                     Timestamps
                 </h3>
             </div>
@@ -212,7 +215,7 @@
             <div class="bg-white rounded-2xl shadow-sm border-2 border-red-200 overflow-hidden">
                 <div class="p-6 border-b border-red-100 bg-red-50/50">
                     <h3 class="text-lg font-semibold text-red-900 flex items-center gap-2">
-                        <i class='bx bx-error-circle text-red-600'></i>
+                        <i class='hgi-stroke hgi-alert-circle text-red-600'></i>
                         Danger Zone
                     </h3>
                 </div>
@@ -228,7 +231,7 @@
                             @method('DELETE')
                             <button type="submit"
                                 class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition-all text-sm shadow-lg shadow-red-600/20">
-                                <i class='bx bx-trash'></i>
+                                <i class='hgi-stroke hgi-delete-01'></i>
                                 Delete Service
                             </button>
                         </form>

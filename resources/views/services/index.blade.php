@@ -9,7 +9,7 @@
         <!-- Header -->
         <div class="text-center mb-8 md:mb-12">
             <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
-                <i class='bx bx-wrench text-blue-600 text-3xl'></i>
+                <i class='hgi-stroke hgi-wrench-01 text-blue-600 text-3xl'></i>
             </div>
             <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">Our Services</h1>
             <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
@@ -38,7 +38,7 @@
         <div class="mb-8 md:mb-12">
             <div class="flex items-center mb-4 md:mb-6">
                 <div class="bg-blue-100 p-2 md:p-3 rounded-full mr-3 md:mr-4">
-                    <i class='bx bx-brain text-2xl md:text-3xl text-blue-600'></i>
+                    <i class='hgi-stroke hgi-brain text-2xl md:text-3xl text-blue-600'></i>
                 </div>
                 <div>
                     <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Psychology Services</h2>
@@ -51,7 +51,7 @@
                         <div class="p-6">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="bg-blue-100 p-3 rounded-full">
-                                    <i class='bx bx-brain text-2xl text-blue-600'></i>
+                                    <i class='hgi-stroke hgi-brain text-2xl text-blue-600'></i>
                                 </div>
                                 <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">Psychology</span>
                             </div>
@@ -63,7 +63,7 @@
                                     <span class="text-gray-500 text-sm">/session</span>
                                 </div>
                                 <span class="text-gray-500 text-sm">
-                                    <i class='bx bx-time'></i> {{ $service->duration_minutes }} min
+                                    <i class='hgi-stroke hgi-clock-02'></i> {{ $service->duration_minutes }} min
                                 </span>
                             </div>
                             <a href="{{ route('services.show', $service->slug) }}" 
@@ -75,7 +75,7 @@
                 @empty
                     <div class="col-span-full">
                         <x-ui.empty-state
-                            icon="bx bx-brain"
+                            icon="hgi-stroke hgi-brain"
                             title="No Psychology Services"
                             description="We're currently updating our psychology services. Please check back soon."
                             variant="no-results"
@@ -91,7 +91,7 @@
         <div class="mb-8 md:mb-12">
             <div class="flex items-center mb-4 md:mb-6">
                 <div class="bg-green-100 p-2 md:p-3 rounded-full mr-3 md:mr-4">
-                    <i class='bx bx-leaf text-2xl md:text-3xl text-green-600'></i>
+                    <i class='hgi-stroke hgi-leaf-01 text-2xl md:text-3xl text-green-600'></i>
                 </div>
                 <div>
                     <h2 class="text-2xl md:text-3xl font-bold text-gray-900">Homeopathy Services</h2>
@@ -104,7 +104,7 @@
                         <div class="p-6">
                             <div class="flex items-center justify-between mb-4">
                                 <div class="bg-green-100 p-3 rounded-full">
-                                    <i class='bx bx-leaf text-2xl text-green-600'></i>
+                                    <i class='hgi-stroke hgi-leaf-01 text-2xl text-green-600'></i>
                                 </div>
                                 <span class="bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">Homeopathy</span>
                             </div>
@@ -116,7 +116,7 @@
                                     <span class="text-gray-500 text-sm">/session</span>
                                 </div>
                                 <span class="text-gray-500 text-sm">
-                                    <i class='bx bx-time'></i> {{ $service->duration_minutes }} min
+                                    <i class='hgi-stroke hgi-clock-02'></i> {{ $service->duration_minutes }} min
                                 </span>
                             </div>
                             <a href="{{ route('services.show', $service->slug) }}" 
@@ -128,7 +128,7 @@
                 @empty
                     <div class="col-span-full">
                         <x-ui.empty-state
-                            icon="bx bx-leaf"
+                            icon="hgi-stroke hgi-leaf-01"
                             title="No Homeopathy Services"
                             description="We're currently updating our homeopathy services. Please check back soon."
                             variant="no-results"
@@ -140,7 +140,10 @@
         @endif
 
         <!-- CTA Section -->
-        <div class="cta-section mt-8 md:mt-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-5 sm:p-6 md:p-8 text-white text-center">
+        <div class="cta-section mt-8 md:mt-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-5 sm:p-6 md:p-8 text-white text-center shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <h3 class="text-lg sm:text-xl md:text-2xl font-bold mb-3 md:mb-4">Ready to Book an Appointment?</h3>
             <p class="text-blue-100 mb-4 md:mb-6 text-xs sm:text-sm md:text-base">Choose from our psychology or homeopathy services</p>
             @auth

@@ -7,7 +7,7 @@
             <div class="flex items-center gap-4 mb-8">
                 <a href="{{ route('admin.leaves.index') }}"
                     class="bg-white p-2 rounded-full shadow-sm hover:shadow-md transition-shadow text-gray-600">
-                    <i class='bx bx-arrow-back text-2xl'></i>
+                    <i class='hgi-stroke hgi-arrow-left-01 text-2xl'></i>
                 </a>
                 <div>
                     <h1 class="text-3xl font-bold text-gray-800">Create Leave Record</h1>
@@ -87,7 +87,7 @@
                         <!-- Duration Calculation (Auto-updated via JS) -->
                         <div id="duration_display"
                             class="hidden bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-center gap-3">
-                            <i class='bx bx-time text-blue-600 text-xl'></i>
+                            <i class='hgi-stroke hgi-clock-02 text-blue-600 text-xl'></i>
                             <p class="text-blue-800 font-medium">Total Duration: <span id="total_days">0</span> days</p>
                         </div>
 
@@ -138,7 +138,7 @@
                             <div
                                 class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-blue-500 transition-colors">
                                 <div class="space-y-1 text-center">
-                                    <i class='bx bx-cloud-upload text-4xl text-gray-400'></i>
+                                    <i class='hgi-stroke hgi-cloud-upload text-4xl text-gray-400'></i>
                                     <div class="flex text-sm text-gray-600">
                                         <label for="attachment"
                                             class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500">
@@ -163,7 +163,7 @@
                                 class="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">Cancel</a>
                             <button type="submit"
                                 class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2">
-                                <i class='bx bx-save'></i>
+                                <i class='hgi-stroke hgi-floppy-disk'></i>
                                 Create Record
                             </button>
                         </div>

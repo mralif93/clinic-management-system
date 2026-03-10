@@ -4,14 +4,17 @@
     <div class="space-y-6">
         <!-- Page Header -->
         <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
             <div class="relative">
                 <a href="{{ route('doctor.leaves.index') }}" class="inline-flex items-center gap-1 text-emerald-100 hover:text-white text-sm mb-2 transition">
-                    <i class='bx bx-arrow-back'></i> Back to Leave Requests
+                    <i class='hgi-stroke hgi-arrow-left-01'></i> Back to Leave Requests
                 </a>
                 <h1 class="text-2xl font-bold flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='bx bx-calendar-plus text-xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03-plus text-xl'></i>
                     </div>
                     Apply for Leave
                 </h1>
@@ -23,7 +26,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/50">
                 <h3 class="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <i class='bx bx-file text-emerald-500'></i> Leave Request Details
+                    <i class='hgi-stroke hgi-file-01 text-emerald-500'></i> Leave Request Details
                 </h3>
             </div>
             <div class="p-6">
@@ -71,7 +74,7 @@
                     <!-- Duration Calculation (Auto-updated via JS) -->
                     <div id="duration_display" class="hidden bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-center gap-3">
                         <div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
-                            <i class='bx bx-time text-emerald-600 text-xl'></i>
+                            <i class='hgi-stroke hgi-clock-02 text-emerald-600 text-xl'></i>
                         </div>
                         <p class="text-emerald-800 font-medium">Total Duration: <span id="total_days" class="font-bold">0</span> days</p>
                     </div>
@@ -93,7 +96,7 @@
                         <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-200 border-dashed rounded-xl hover:border-emerald-400 transition-colors bg-gray-50/50">
                             <div class="space-y-2 text-center">
                                 <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mx-auto">
-                                    <i class='bx bx-cloud-upload text-2xl text-emerald-600'></i>
+                                    <i class='hgi-stroke hgi-cloud-upload text-2xl text-emerald-600'></i>
                                 </div>
                                 <div class="flex text-sm text-gray-600 justify-center">
                                     <label for="attachment" class="relative cursor-pointer font-medium text-emerald-600 hover:text-emerald-500">
@@ -117,7 +120,7 @@
                             class="px-5 py-2.5 border border-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition">Cancel</a>
                         <button type="submit"
                             class="inline-flex items-center px-5 py-2.5 bg-emerald-600 text-white font-medium rounded-xl hover:bg-emerald-700 transition shadow-sm">
-                            <i class='bx bx-send mr-2'></i> Submit Request
+                            <i class='hgi-stroke hgi-sent mr-2'></i> Submit Request
                         </button>
                     </div>
                 </form>

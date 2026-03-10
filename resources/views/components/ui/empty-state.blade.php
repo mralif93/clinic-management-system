@@ -1,10 +1,10 @@
 @props([
-    'icon' => 'bx bx-inbox',
+    'icon' => 'hgi-stroke hgi-inbox',
     'title' => 'No Data',
     'description' => 'There are no items to display.',
     'actionLabel' => null,
     'actionUrl' => null,
-    'actionIcon' => 'bx bx-plus',
+    'actionIcon' => 'hgi-stroke hgi-plus-sign',
     'variant' => 'default' // default, error, no-results
 ])
 
