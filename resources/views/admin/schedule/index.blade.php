@@ -7,31 +7,32 @@
     <div class="space-y-6">
         <!-- Header -->
         <div
-            class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-700 p-8 text-white shadow-lg">
-            <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                <div class="space-y-2">
-                    <div class="flex items-center gap-3">
-                        <div class="rounded-xl bg-white/20 p-2 backdrop-blur-sm">
-                            <i class='hgi-stroke hgi-clock-02 text-2xl text-white'></i>
-                        </div>
-                        <h1 class="text-3xl font-bold text-white">Doctor Schedule Management</h1>
-                    </div>
-                    <p class="text-indigo-100 max-w-xl">Manage weekly working hours, break times, and slot durations for all
-                        doctors.</p>
-                </div>
+            class="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
 
-                <!-- Quick Stats -->
-                <div class="flex gap-4">
-                    <div class="rounded-xl bg-white/10 p-4 backdrop-blur-sm border border-white/10">
-                        <p class="text-2xl font-bold text-white">{{ $doctors->count() }}</p>
-                        <p class="text-xs text-indigo-100 font-medium">Total Doctors</p>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-clock-02 text-2xl'></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">Doctor Schedule Management</h1>
+                        <p class="text-indigo-100 text-sm mt-1">Manage weekly working hours and slot durations</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div
+                        class="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 shadow-inner">
+                        <span class="text-2xl font-bold text-white">{{ $doctors->count() }}</span>
+                        <span class="text-[10px] text-indigo-100 font-bold uppercase tracking-wider whitespace-nowrap">Total
+                            Doctors</span>
                     </div>
                 </div>
             </div>
-
-            <!-- Decorative Background -->
-            <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-            <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl"></div>
         </div>
 
         <!-- Doctors Grid -->

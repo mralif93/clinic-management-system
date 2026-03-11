@@ -7,15 +7,17 @@
     <div class="space-y-6">
         <!-- Page Header -->
         <div
-            class="bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 rounded-2xl  p-6 text-white shadow-lg relative overflow-hidden">
+            class="bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
                     <div
                         class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-                        <i class='hgi-stroke hgi-user-group text-3xl'></i>
+                        <i class='hgi-stroke hgi-user-group text-2xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">Patients</h1>
@@ -181,7 +183,8 @@
                                         <div class="ml-3">
                                             <div class="text-sm font-semibold text-gray-900">{{ $patient->full_name }}</div>
                                             <div class="text-xs text-gray-500">Registered
-                                                {{ $patient->created_at->diffForHumans() }}</div>
+                                                {{ $patient->created_at->diffForHumans() }}
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -206,19 +209,19 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if($patient->gender)
-                                                            @php
-                                                                $genderConfig = [
-                                                                    'male' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'icon' => 'hgi-graduate-male'],
-                                                                    'female' => ['bg' => 'bg-pink-100', 'text' => 'text-pink-700', 'icon' => 'hgi-graduate-female'],
-                                                                    'other' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-user'],
-                                                                ];
-                                                                $config = $genderConfig[$patient->gender] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-user'];
-                                                            @endphp
-                                         <span
-                                                                class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $config['bg'] }} {{ $config['text'] }}">
-                                                                <i class='hgi-stroke {{ $config['icon'] }}'></i>
-                                                                {{ ucfirst($patient->gender) }}
-                                                            </span>
+                                        @php
+                                            $genderConfig = [
+                                                'male' => ['bg' => 'bg-cyan-100', 'text' => 'text-cyan-700', 'icon' => 'hgi-graduate-male'],
+                                                'female' => ['bg' => 'bg-pink-100', 'text' => 'text-pink-700', 'icon' => 'hgi-graduate-female'],
+                                                'other' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-user'],
+                                            ];
+                                            $config = $genderConfig[$patient->gender] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-user'];
+                                        @endphp
+                                        <span
+                                            class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $config['bg'] }} {{ $config['text'] }}">
+                                            <i class='hgi-stroke {{ $config['icon'] }}'></i>
+                                            {{ ucfirst($patient->gender) }}
+                                        </span>
                                     @else
                                         <span class="text-gray-400 text-sm">-</span>
                                     @endif

@@ -6,14 +6,16 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-2xl  p-6 text-white shadow-lg relative overflow-hidden">
+        <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+ 
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
                     <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-                        <i class='hgi-stroke hgi-calendar-03 text-3xl'></i>
+                        <i class='hgi-stroke hgi-calendar-03 text-2xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">Appointments</h1>
@@ -198,7 +200,7 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-900">{{ $appointment->appointment_date->format('M d, Y') }}</div>
+                                    <div class="text-sm font-medium text-gray-900">{{ \Carbon\Carbon::parse($appointment->appointment_date)->format('M d, Y') }}</div>
                                     <div class="text-xs text-gray-500 flex items-center gap-1">
                                         <i class='hgi-stroke hgi-clock-02'></i>
                                         {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}
@@ -225,13 +227,13 @@
                                     @if($appointment->fee)
                                         <div class="space-y-0.5">
                                             @if($appointment->discount_value > 0)
-                                                <span class="text-xs text-gray-400 line-through">{{ get_currency_symbol() }}{{ number_format($appointment->fee, 2) }}</span>
+                                                <span class="text-xs text-gray-400 line-through">{{ get_currency_symbol() }}{{ number_format((float) $appointment->fee, 2) }}</span>
                                                 <div class="flex items-center gap-1.5">
-                                                    <span class="text-sm font-semibold text-green-600">{{ get_currency_symbol() }}{{ number_format($appointment->final_amount, 2) }}</span>
+                                                    <span class="text-sm font-semibold text-green-600">{{ get_currency_symbol() }}{{ number_format((float) $appointment->final_amount, 2) }}</span>
                                                     <span class="text-xs px-1.5 py-0.5 bg-red-100 text-red-600 rounded font-medium">-{{ $appointment->discount_display }}</span>
                                                 </div>
                                             @else
-                                                <span class="text-sm font-semibold text-green-600">{{ get_currency_symbol() }}{{ number_format($appointment->fee, 2) }}</span>
+                                                <span class="text-sm font-semibold text-green-600">{{ get_currency_symbol() }}{{ number_format((float) $appointment->fee, 2) }}</span>
                                             @endif
                                         </div>
                                     @else

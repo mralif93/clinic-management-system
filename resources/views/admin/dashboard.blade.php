@@ -6,43 +6,28 @@
 @section('content')
     <div class="space-y-6">
         <!-- Welcome Banner -->
-        <div
-            class="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-indigo-800 to-violet-900 text-white rounded-3xl shadow-2xl p-8 mb-8 border border-white/10 group">
-            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10">
-            </div>
-            <div
-                class="absolute -right-16 -top-16 w-64 h-64 bg-primary-400/20 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700">
-            </div>
-            <div
-                class="absolute -left-16 -bottom-16 w-48 h-48 bg-violet-400/20 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700">
-            </div>
+        <div class="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-indigo-800 to-violet-900 text-white rounded-3xl shadow-2xl p-8 mb-8 border border-white/10 group">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-700"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
 
-            <div class="relative flex flex-col md:flex-row items-center justify-between gap-8">
-                <div class="space-y-4 text-center md:text-left">
-                    <div
-                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 backdrop-blur-md">
-                        <i class='hgi-stroke hgi-sun-01 text-yellow-400 animate-pulse'></i>
-                        <span
-                            class="text-xs font-bold tracking-wider uppercase opacity-90">{{ now()->format('l, F j, Y') }}</span>
+            <div class="relative flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
+                <div class="flex items-center gap-6">
+                    <div class="shrink-0 w-16 h-16 md:w-20 md:h-20 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-inner border border-white/20 transform hover:scale-105 transition-all duration-300">
+                        <i class='hgi-stroke hgi-hospital-01 text-4xl md:text-5xl text-white'></i>
                     </div>
                     <div class="space-y-2">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 backdrop-blur-md">
+                            <i class='hgi-stroke hgi-sun-01 text-yellow-400 animate-pulse'></i>
+                            <span class="text-[10px] font-bold tracking-wider uppercase opacity-90">{{ now()->format('l, F j, Y') }}</span>
+                        </div>
                         <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">
-                            Welcome back, <span
-                                class="text-transparent bg-clip-text bg-gradient-to-r from-white to-primary-200">{{ Auth::user()->name }}!</span>
+                            Welcome back, <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-indigo-200">{{ Auth::user()->name }}!</span>
                         </h2>
                         <p class="text-sm text-indigo-100/80 max-w-md font-medium leading-relaxed">
-                            Your clinic is performing excellently today. You have <span
-                                class="text-white font-bold">{{ $todayAppointments }} appointments</span> scheduled.
+                            Your clinic is performing excellently today. You have <span class="text-white font-bold">{{ $todayAppointments }} appointments</span> scheduled.
                         </p>
-                    </div>
-                </div>
-                <div class="flex-shrink-0">
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-primary-500/20 blur-2xl rounded-full"></div>
-                        <div
-                            class="relative w-24 h-24 md:w-32 md:h-32 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                            <i class='hgi-stroke hgi-hospital-01 text-5xl md:text-6xl text-white opacity-90'></i>
-                        </div>
                     </div>
                 </div>
             </div>

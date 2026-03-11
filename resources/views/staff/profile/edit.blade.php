@@ -6,11 +6,18 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-600 rounded-2xl shadow-lg overflow-hidden">
-            <div class="p-6 md:p-8">
+        <div
+            class="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-600 rounded-2xl shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
+            <div class="relative p-6 md:p-8">
                 <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="flex items-center gap-4">
-                        <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <div
+                            class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
                             <i class='hgi-stroke hgi-pencil-edit-01 text-white text-2xl'></i>
                         </div>
                         <div class="text-white">
@@ -47,7 +54,8 @@
                             </label>
                             <div class="relative">
                                 <i class='hgi-stroke hgi-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
-                                <input type="text" name="first_name" value="{{ old('first_name', $staff->first_name) }}" required
+                                <input type="text" name="first_name" value="{{ old('first_name', $staff->first_name) }}"
+                                    required
                                     class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 @error('first_name') border-red-300 bg-red-50 @enderror"
                                     placeholder="Enter first name">
                             </div>
@@ -64,7 +72,8 @@
                             </label>
                             <div class="relative">
                                 <i class='hgi-stroke hgi-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
-                                <input type="text" name="last_name" value="{{ old('last_name', $staff->last_name) }}" required
+                                <input type="text" name="last_name" value="{{ old('last_name', $staff->last_name) }}"
+                                    required
                                     class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 @error('last_name') border-red-300 bg-red-50 @enderror"
                                     placeholder="Enter last name">
                             </div>
@@ -97,7 +106,8 @@
                                 Hire Date
                             </label>
                             <div class="relative">
-                                <i class='hgi-stroke hgi-calendar-03 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                <i
+                                    class='hgi-stroke hgi-calendar-03 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                 <input type="date" name="hire_date"
                                     value="{{ old('hire_date', $staff->hire_date ? $staff->hire_date->format('Y-m-d') : '') }}"
                                     class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 @error('hire_date') border-red-300 bg-red-50 @enderror">
@@ -125,7 +135,8 @@
                                 Position
                             </label>
                             <div class="relative">
-                                <i class='hgi-stroke hgi-briefcase-01 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                <i
+                                    class='hgi-stroke hgi-briefcase-01 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                 <input type="text" name="position" value="{{ old('position', $staff->position) }}"
                                     class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 @error('position') border-red-300 bg-red-50 @enderror"
                                     placeholder="e.g., Receptionist, Nurse">
@@ -142,7 +153,8 @@
                                 Department
                             </label>
                             <div class="relative">
-                                <i class='hgi-stroke hgi-building-01 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
+                                <i
+                                    class='hgi-stroke hgi-building-01 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400'></i>
                                 <input type="text" name="department" value="{{ old('department', $staff->department) }}"
                                     class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-violet-500 focus:border-violet-500 @error('department') border-red-300 bg-red-50 @enderror"
                                     placeholder="e.g., Admin, Medical">

@@ -6,21 +6,24 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-        <i class='hgi-stroke hgi-calendar-download-02 text-xl'></i>
-    </div>
-    <div>
-        <h2 class="text-2xl font-bold">My Appointments</h2>
-        <p class="text-emerald-100 text-sm mt-1">Manage your patient appointments</p>
-    </div>
-</div>
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-calendar-download-02 text-2xl'></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold">My Appointments</h2>
+                        <p class="text-emerald-100 text-sm mt-1">Manage your patient appointments</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -65,85 +68,100 @@
                 <table class="min-w-full divide-y divide-gray-100">
                     <thead class="bg-gray-50/50">
                         <tr>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Patient</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Service</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Date & Time</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Fee</th>
-                            <th class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Patient</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Service</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Date & Time</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Status</th>
+                            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Fee
+                            </th>
+                            <th class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                Actions</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-100">
                         @forelse($appointments as $appointment)
-                            <tr class="hover:bg-gray-50/50 transition">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 h-10 w-10">
-                                            <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold text-sm">
-                                                {{ strtoupper(substr($appointment->patient->first_name, 0, 1)) }}
-                                            </div>
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="text-sm font-semibold text-gray-900">{{ $appointment->patient->full_name }}</div>
-                                            <div class="text-xs text-gray-500">{{ $appointment->patient->patient_id ?? 'N/A' }}</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-900">{{ $appointment->service->name ?? 'N/A' }}</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-900">{{ $appointment->appointment_date->format('M d, Y') }}</div>
-                                    <div class="text-xs text-gray-500">{{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    @php
-                                        $statusColors = [
-                                            'scheduled' => 'bg-blue-100 text-blue-700',
-                                            'confirmed' => 'bg-cyan-100 text-cyan-700',
-                                            'in_progress' => 'bg-amber-100 text-amber-700',
-                                            'completed' => 'bg-emerald-100 text-emerald-700',
-                                            'cancelled' => 'bg-red-100 text-red-700',
-                                            'no_show' => 'bg-gray-100 text-gray-700',
-                                        ];
-                                        $statusLabels = [
-                                            'scheduled' => 'Scheduled',
-                                            'confirmed' => 'Checked In',
-                                            'in_progress' => 'In Consultation',
-                                            'completed' => 'Completed',
-                                            'cancelled' => 'Cancelled',
-                                            'no_show' => 'No Show',
-                                        ];
-                                        $statusColor = $statusColors[$appointment->status] ?? 'bg-gray-100 text-gray-700';
-                                    @endphp
-                                    <span class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-lg {{ $statusColor }}">
-                                        {{ $statusLabels[$appointment->status] ?? ucfirst(str_replace('_', ' ', $appointment->status)) }}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    @if($appointment->fee)
-                                        {{ get_currency_symbol() }}{{ number_format($appointment->fee, 2) }}
-                                    @else
-                                        <span class="text-gray-400">N/A</span>
-                                    @endif
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <div class="flex justify-end items-center gap-2">
-                                        <a href="{{ route('doctor.appointments.show', $appointment->id) }}"
-                                            class="w-8 h-8 flex items-center justify-center bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition" title="View">
-                                            <i class='hgi-stroke hgi-eye text-lg'></i>
-                                        </a>
-                                        <a href="{{ route('doctor.appointments.invoice', $appointment->id) }}"
-                                            class="w-8 h-8 flex items-center justify-center bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-lg transition" title="Invoice">
-                                            <i class='hgi-stroke hgi-invoice-01 text-lg'></i>
-                                        </a>
-                                        <a href="{{ route('doctor.appointments.edit', $appointment->id) }}"
-                                            class="w-8 h-8 flex items-center justify-center bg-amber-50 text-amber-600 hover:bg-amber-100 rounded-lg transition" title="Edit">
-                                            <i class='hgi-stroke hgi-pencil-edit-01 text-lg'></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
+                                            <tr class="hover:bg-gray-50/50 transition">
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="flex items-center">
+                                                        <div class="flex-shrink-0 h-10 w-10">
+                                                            <div
+                                                                class="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold text-sm">
+                                                                {{ strtoupper(substr($appointment->patient->first_name, 0, 1)) }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="ml-4">
+                                                            <div class="text-sm font-semibold text-gray-900">
+                                                                {{ $appointment->patient->full_name }}</div>
+                                                            <div class="text-xs text-gray-500">{{ $appointment->patient->patient_id ?? 'N/A' }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="text-sm text-gray-900">{{ $appointment->service->name ?? 'N/A' }}</div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    <div class="text-sm font-medium text-gray-900">
+                                                        {{ $appointment->appointment_date->format('M d, Y') }}</div>
+                                                    <div class="text-xs text-gray-500">
+                                                        {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</div>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap">
+                                                    @php
+                                                        $statusColors = [
+                                                            'scheduled' => 'bg-blue-100 text-blue-700',
+                                                            'confirmed' => 'bg-cyan-100 text-cyan-700',
+                                                            'in_progress' => 'bg-amber-100 text-amber-700',
+                                                            'completed' => 'bg-emerald-100 text-emerald-700',
+                                                            'cancelled' => 'bg-red-100 text-red-700',
+                                                            'no_show' => 'bg-gray-100 text-gray-700',
+                                                        ];
+                                                        $statusLabels = [
+                                                            'scheduled' => 'Scheduled',
+                                                            'confirmed' => 'Checked In',
+                                                            'in_progress' => 'In Consultation',
+                                                            'completed' => 'Completed',
+                                                            'cancelled' => 'Cancelled',
+                                                            'no_show' => 'No Show',
+                                                        ];
+                                                        $statusColor = $statusColors[$appointment->status] ?? 'bg-gray-100 text-gray-700';
+                                                    @endphp
+                             <span
+                                                        class="px-2.5 py-1 inline-flex text-xs leading-5 font-semibold rounded-lg {{ $statusColor }}">
+                                                        {{ $statusLabels[$appointment->status] ?? ucfirst(str_replace('_', ' ', $appointment->status)) }}
+                                                    </span>
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    @if($appointment->fee)
+                                                        {{ get_currency_symbol() }}{{ number_format($appointment->fee, 2) }}
+                                                    @else
+                                                        <span class="text-gray-400">N/A</span>
+                                                    @endif
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                    <div class="flex justify-end items-center gap-2">
+                                                        <a href="{{ route('doctor.appointments.show', $appointment->id) }}"
+                                                            class="w-8 h-8 flex items-center justify-center bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition"
+                                                            title="View">
+                                                            <i class='hgi-stroke hgi-eye text-lg'></i>
+                                                        </a>
+                                                        <a href="{{ route('doctor.appointments.invoice', $appointment->id) }}"
+                                                            class="w-8 h-8 flex items-center justify-center bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-lg transition"
+                                                            title="Invoice">
+                                                            <i class='hgi-stroke hgi-invoice-01 text-lg'></i>
+                                                        </a>
+                                                        <a href="{{ route('doctor.appointments.edit', $appointment->id) }}"
+                                                            class="w-8 h-8 flex items-center justify-center bg-amber-50 text-amber-600 hover:bg-amber-100 rounded-lg transition"
+                                                            title="Edit">
+                                                            <i class='hgi-stroke hgi-pencil-edit-01 text-lg'></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
                         @empty
                             <tr>
                                 <td colspan="6" class="px-6 py-12 text-center">

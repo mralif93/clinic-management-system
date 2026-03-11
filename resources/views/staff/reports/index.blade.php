@@ -6,14 +6,18 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 rounded-2xl  p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-                        <i class='hgi-stroke hgi-chart-column text-3xl'></i>
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-chart-column text-2xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">Reports & Analytics</h1>
@@ -37,12 +41,14 @@
             </div>
             <form method="GET" action="{{ route('staff.reports.index') }}" class="flex flex-wrap gap-4 items-end">
                 <div class="flex-1 min-w-[150px]">
-                    <label for="start_date" class="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">Start Date</label>
+                    <label for="start_date"
+                        class="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">Start Date</label>
                     <input type="date" id="start_date" name="start_date" value="{{ $startDate->format('Y-m-d') }}"
                         class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
                 <div class="flex-1 min-w-[150px]">
-                    <label for="end_date" class="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">End Date</label>
+                    <label for="end_date" class="block text-xs font-medium text-gray-500 mb-1.5 uppercase tracking-wide">End
+                        Date</label>
                     <input type="date" id="end_date" name="end_date" value="{{ $endDate->format('Y-m-d') }}"
                         class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
@@ -61,7 +67,8 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
                         <i class='hgi-stroke hgi-user text-white text-xl'></i>
                     </div>
                     <div>
@@ -72,7 +79,8 @@
             </div>
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
                         <i class='hgi-stroke hgi-user-circle text-white text-xl'></i>
                     </div>
                     <div>
@@ -83,7 +91,8 @@
             </div>
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
                         <i class='hgi-stroke hgi-list-view text-white text-xl'></i>
                     </div>
                     <div>
@@ -94,7 +103,8 @@
             </div>
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
                         <i class='hgi-stroke hgi-calendar-03 text-white text-xl'></i>
                     </div>
                     <div>
@@ -155,13 +165,15 @@
         </div>
 
         <!-- Revenue Card -->
-        <div class="bg-gradient-to-r from-emerald-500 via-green-500 to-emerald-600 rounded-2xl  p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-r from-emerald-500 via-green-500 to-emerald-600 rounded-2xl  p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
                         <i class='hgi-stroke hgi-dollar-circle text-4xl'></i>
                     </div>
                     <div>
@@ -179,7 +191,8 @@
                     </div>
                     @if($completedAppointments > 0)
                         <div class="text-emerald-100 text-sm">
-                            Avg: {{ get_currency_symbol() }}{{ number_format($revenue / $completedAppointments, 2) }} per appointment
+                            Avg: {{ get_currency_symbol() }}{{ number_format($revenue / $completedAppointments, 2) }} per
+                            appointment
                         </div>
                     @endif
                 </div>

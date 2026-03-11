@@ -6,11 +6,16 @@
 @section('content')
     <div class="space-y-6">
         <!-- Profile Header Card -->
-        <div class="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-600 rounded-2xl shadow-lg overflow-hidden">
-            <div class="p-6 md:p-8">
+        <div class="bg-gradient-to-r from-violet-500 via-purple-500 to-indigo-600 rounded-2xl shadow-lg relative overflow-hidden">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+ 
+            <div class="relative p-6 md:p-8">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                     <div class="flex items-center gap-5">
-                        <div class="w-20 h-20 md:w-24 md:h-24 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border-2 border-white/30">
+                        <div class="w-20 h-20 md:w-24 md:h-24 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 shadow-inner transform transition-transform hover:scale-105">
                             <span class="text-white font-bold text-3xl md:text-4xl">{{ strtoupper(substr($staff->first_name, 0, 1)) }}{{ strtoupper(substr($staff->last_name, 0, 1)) }}</span>
                         </div>
                         <div class="text-white">

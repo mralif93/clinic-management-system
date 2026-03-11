@@ -6,14 +6,18 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-emerald-500 via-emerald-600 to-green-600 rounded-2xl  p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-r from-emerald-500 via-emerald-600 to-green-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-                        <i class='hgi-stroke hgi-invoice-01 text-3xl'></i>
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-invoice-01 text-2xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">My Payslips</h1>
@@ -38,7 +42,8 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
                         <i class='hgi-stroke hgi-file-01 text-white text-xl'></i>
                     </div>
                     <div>
@@ -49,7 +54,8 @@
             </div>
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
                         <i class='hgi-stroke hgi-checkmark-circle-02 text-white text-xl'></i>
                     </div>
                     <div>
@@ -60,7 +66,8 @@
             </div>
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
                         <i class='hgi-stroke hgi-wallet-01 text-white text-xl'></i>
                     </div>
                     <div>
@@ -71,11 +78,13 @@
             </div>
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
                         <i class='hgi-stroke hgi-calendar-03 text-white text-xl'></i>
                     </div>
                     <div>
-                        <p class="text-sm font-bold text-gray-900">{{ $latestPayslip ? $latestPayslip->pay_period : 'N/A' }}</p>
+                        <p class="text-sm font-bold text-gray-900">{{ $latestPayslip ? $latestPayslip->pay_period : 'N/A' }}
+                        </p>
                         <p class="text-xs text-gray-500 uppercase tracking-wide">Latest</p>
                     </div>
                 </div>
@@ -83,7 +92,8 @@
         </div>
 
         <!-- Search & Filters -->
-        <div class="bg-gradient-to-r from-emerald-50 via-green-50 to-emerald-50 rounded-2xl border border-emerald-100/50 p-5">
+        <div
+            class="bg-gradient-to-r from-emerald-50 via-green-50 to-emerald-50 rounded-2xl border border-emerald-100/50 p-5">
             <!-- Search Bar -->
             <div class="relative mb-4">
                 <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
@@ -141,69 +151,80 @@
                     <table class="min-w-full divide-y divide-gray-100" id="payslipsTable">
                         <thead class="bg-gray-50/50">
                             <tr>
-                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Pay Period</th>
-                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Basic Salary</th>
-                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Gross Salary</th>
-                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Net Salary</th>
-                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Payment Date</th>
-                                <th class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Pay
+                                    Period</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Basic Salary</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Gross Salary</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Net
+                                    Salary</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Status</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Payment Date</th>
+                                <th class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Actions</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-50">
                             @foreach($payslips as $payslip)
-                                <tr class="hover:bg-emerald-50/30 transition-colors duration-150 payslip-row">
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-green-500 rounded-lg flex items-center justify-center">
-                                                <i class='hgi-stroke hgi-calendar-03 text-white text-lg'></i>
-                                            </div>
-                                            <div>
-                                                <div class="text-sm font-semibold text-gray-900">{{ $payslip->pay_period }}</div>
-                                                <div class="text-xs text-gray-500">Payslip #{{ $payslip->id }}</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-700">
-                                        RM {{ number_format($payslip->basic_salary, 2) }}
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-700">
-                                        RM {{ number_format($payslip->gross_salary, 2) }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span class="text-sm font-bold text-emerald-600">RM {{ number_format($payslip->net_salary, 2) }}</span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        @php
-                                            $statusConfig = [
-                                                'draft' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-pencil-edit-01'],
-                                                'approved' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-checkmark-circle-01'],
-                                                'paid' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'hgi-tick-double-01'],
-                                            ];
-                                            $sConfig = $statusConfig[$payslip->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-help-circle'];
-                                        @endphp
-                                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $sConfig['bg'] }} {{ $sConfig['text'] }}">
-                                            <i class='hgi-stroke {{ $sConfig['icon'] }}'></i>
-                                            {{ ucfirst($payslip->status) }}
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        @if($payslip->payment_date)
-                                            <div class="text-sm text-gray-700">{{ $payslip->payment_date->format('d M Y') }}</div>
-                                            <div class="text-xs text-gray-500">{{ $payslip->payment_date->diffForHumans() }}</div>
-                                        @else
-                                            <span class="text-gray-400 text-sm">-</span>
-                                        @endif
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex justify-end">
-                                            <a href="{{ route('staff.payslips.show', $payslip->id) }}"
-                                                class="w-8 h-8 flex items-center justify-center bg-emerald-500 text-white hover:bg-emerald-600 rounded-full transition shadow-sm hover:shadow" title="View">
-                                                <i class='hgi-stroke hgi-eye text-sm'></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
+                                            <tr class="hover:bg-emerald-50/30 transition-colors duration-150 payslip-row">
+                                                <td class="px-6 py-4">
+                                                    <div class="flex items-center gap-3">
+                                                        <div
+                                                            class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-green-500 rounded-lg flex items-center justify-center">
+                                                            <i class='hgi-stroke hgi-calendar-03 text-white text-lg'></i>
+                                                        </div>
+                                                        <div>
+                                                            <div class="text-sm font-semibold text-gray-900">{{ $payslip->pay_period }}</div>
+                                                            <div class="text-xs text-gray-500">Payslip #{{ $payslip->id }}</div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="px-6 py-4 text-sm text-gray-700">
+                                                    RM {{ number_format($payslip->basic_salary, 2) }}
+                                                </td>
+                                                <td class="px-6 py-4 text-sm text-gray-700">
+                                                    RM {{ number_format($payslip->gross_salary, 2) }}
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    <span class="text-sm font-bold text-emerald-600">RM
+                                                        {{ number_format($payslip->net_salary, 2) }}</span>
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    @php
+                                                        $statusConfig = [
+                                                            'draft' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-pencil-edit-01'],
+                                                            'approved' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-checkmark-circle-01'],
+                                                            'paid' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'hgi-tick-double-01'],
+                                                        ];
+                                                        $sConfig = $statusConfig[$payslip->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-help-circle'];
+                                                    @endphp
+                                 <span
+                                                        class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $sConfig['bg'] }} {{ $sConfig['text'] }}">
+                                                        <i class='hgi-stroke {{ $sConfig['icon'] }}'></i>
+                                                        {{ ucfirst($payslip->status) }}
+                                                    </span>
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    @if($payslip->payment_date)
+                                                        <div class="text-sm text-gray-700">{{ $payslip->payment_date->format('d M Y') }}</div>
+                                                        <div class="text-xs text-gray-500">{{ $payslip->payment_date->diffForHumans() }}</div>
+                                                    @else
+                                                        <span class="text-gray-400 text-sm">-</span>
+                                                    @endif
+                                                </td>
+                                                <td class="px-6 py-4">
+                                                    <div class="flex justify-end">
+                                                        <a href="{{ route('staff.payslips.show', $payslip->id) }}"
+                                                            class="w-8 h-8 flex items-center justify-center bg-emerald-500 text-white hover:bg-emerald-600 rounded-full transition shadow-sm hover:shadow"
+                                                            title="View">
+                                                            <i class='hgi-stroke hgi-eye text-sm'></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
                             @endforeach
                         </tbody>
                     </table>
@@ -234,37 +255,36 @@
     </div>
 
     @push('scripts')
-    <script>
-        function applyFilters() {
-            const month = document.getElementById('monthFilter').value;
-            const year = document.getElementById('yearFilter').value;
-            const params = new URLSearchParams();
+        <script>
+            function applyFilters() {
+                const month = document.getElementById('monthFilter').value;
+                const year = document.getElementById('yearFilter').value;
+                const params = new URLSearchParams();
 
-            if (month) params.append('month', month);
-            if (year) params.append('year', year);
+                if (month) params.append('month', month);
+                if (year) params.append('year', year);
 
-            window.location.href = '{{ route('staff.payslips.index') }}' + (params.toString() ? '?' + params.toString() : '');
-        }
+                window.location.href = '{{ route('staff.payslips.index') }}' + (params.toString() ? '?' + params.toString() : '');
+            }
 
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const rows = document.querySelectorAll('.payslip-row');
-            let visibleCount = 0;
+            document.getElementById('searchInput').addEventListener('input', function () {
+                const searchTerm = this.value.toLowerCase();
+                const rows = document.querySelectorAll('.payslip-row');
+                let visibleCount = 0;
 
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
-                    row.style.display = '';
-                    visibleCount++;
-                } else {
-                    row.style.display = 'none';
-                }
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        row.style.display = '';
+                        visibleCount++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                document.getElementById('noResults').classList.toggle('hidden', visibleCount > 0);
+                document.getElementById('payslipsTable').classList.toggle('hidden', visibleCount === 0);
             });
-
-            document.getElementById('noResults').classList.toggle('hidden', visibleCount > 0);
-            document.getElementById('payslipsTable').classList.toggle('hidden', visibleCount === 0);
-        });
-    </script>
+        </script>
     @endpush
 @endsection
-

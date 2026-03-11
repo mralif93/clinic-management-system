@@ -6,16 +6,11 @@
 @section('content')
     <div class="space-y-6">
         <!-- Welcome Banner -->
-        <div
-            class="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white rounded-3xl shadow-2xl p-8 border border-white/10 group">
-            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10">
-            </div>
-            <div
-                class="absolute -right-16 -top-16 w-64 h-64 bg-primary-400/20 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700">
-            </div>
-            <div
-                class="absolute -left-16 -bottom-16 w-48 h-48 bg-primary-300/20 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700">
-            </div>
+        <div class="relative overflow-hidden bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white rounded-3xl shadow-2xl p-8 border border-white/10 group">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
 
             <div class="relative flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="space-y-4 text-center md:text-left">

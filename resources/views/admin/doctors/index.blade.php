@@ -10,6 +10,8 @@
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+ 
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
                     <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
@@ -21,10 +23,8 @@
                     </div>
                 </div>
                 <a href="{{ route('admin.doctors.create') }}"
-                   class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/15 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-white/25 active:bg-white/30 transition-all border border-white/30 shadow-lg shadow-black/10">
-                    <span class="flex items-center justify-center w-6 h-6 bg-white/30 rounded-lg">
-                        <i class='hgi-stroke hgi-plus-sign text-sm'></i>
-                    </span>
+                   class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-white/30 active:bg-white/40 transition-all border border-white/30 shadow-lg shadow-black/10">
+                    <i class='hgi-stroke hgi-plus-sign'></i>
                     Add New Doctor
                 </a>
             </div>
