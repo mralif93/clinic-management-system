@@ -2,15 +2,29 @@
 
 @section('content')
     <div class="space-y-6">
-        <!-- Header -->
-        <div class="flex items-center gap-4 mb-8">
-            <a href="{{ route('admin.payrolls.index') }}"
-                class="bg-white p-2 rounded-full shadow-sm hover:shadow-md transition-shadow text-gray-600">
-                <i class='hgi-stroke hgi-arrow-left-01 text-2xl'></i>
-            </a>
-            <div>
-                <h1 class="text-3xl font-bold text-gray-800">Generate Payslip</h1>
-                <p class="text-gray-600 mt-1">Create a new payroll record for an employee</p>
+        <div
+            class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-8">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-money-bag-02 text-2xl'></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold">Generate Payslip</h2>
+                        <p class="text-blue-100 text-sm mt-1">Create a new payroll record for an employee</p>
+                    </div>
+                </div>
+                <a href="{{ route('admin.payrolls.index') }}"
+                    class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                    <i class='hgi-stroke hgi-arrow-left-01'></i>
+                    Back to List
+                </a>
             </div>
         </div>
 
@@ -29,11 +43,12 @@
                         <option value="">Select Employee</option>
                         @foreach($employees as $employee)
                             <option value="{{ $employee->id }}"
-                                    data-employment-type="{{ $employee->employment_type ?? 'full_time' }}"
-                                    data-basic-salary="{{ $employee->basic_salary ?? 0 }}"
-                                    data-hourly-rate="{{ $employee->hourly_rate ?? 0 }}"
-                                    data-commission-rate="{{ $employee->doctor->commission_rate ?? 60 }}">
-                                {{ $employee->name }} ({{ ucfirst($employee->role) }}) - {{ ucfirst(str_replace('_', ' ', $employee->employment_type ?? 'full_time')) }}
+                                data-employment-type="{{ $employee->employment_type ?? 'full_time' }}"
+                                data-basic-salary="{{ $employee->basic_salary ?? 0 }}"
+                                data-hourly-rate="{{ $employee->hourly_rate ?? 0 }}"
+                                data-commission-rate="{{ $employee->doctor->commission_rate ?? 60 }}">
+                                {{ $employee->name }} ({{ ucfirst($employee->role) }}) -
+                                {{ ucfirst(str_replace('_', ' ', $employee->employment_type ?? 'full_time')) }}
                             </option>
                         @endforeach
                     </select>
@@ -241,16 +256,16 @@
             const div = document.createElement('div');
             div.className = 'flex gap-2';
             div.innerHTML = `
-                                        <input type="text" name="allowance_names[]" placeholder="Allowance name (e.g., Housing)"
-                                            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent allowance-name">
-                                        <input type="number" name="allowance_amounts[]" step="0.01" min="0" placeholder="Amount"
-                                            class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent allowance-input"
-                                            oninput="calculateSalary()">
-                                        <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
-                                            class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                                            <i class='hgi-stroke hgi-delete-01'></i>
-                                        </button>
-                                    `;
+                                            <input type="text" name="allowance_names[]" placeholder="Allowance name (e.g., Housing)"
+                                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent allowance-name">
+                                            <input type="number" name="allowance_amounts[]" step="0.01" min="0" placeholder="Amount"
+                                                class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent allowance-input"
+                                                oninput="calculateSalary()">
+                                            <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
+                                                class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                                                <i class='hgi-stroke hgi-delete-01'></i>
+                                            </button>
+                                        `;
             container.appendChild(div);
         }
 
@@ -259,16 +274,16 @@
             const div = document.createElement('div');
             div.className = 'flex gap-2';
             div.innerHTML = `
-                                        <input type="text" name="deduction_names[]" placeholder="Deduction name (e.g., Tax)"
-                                            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-name">
-                                        <input type="number" name="deduction_amounts[]" step="0.01" min="0" placeholder="Amount"
-                                            class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-input"
-                                            oninput="calculateSalary()">
-                                        <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
-                                            class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                                            <i class='hgi-stroke hgi-delete-01'></i>
-                                        </button>
-                                    `;
+                                            <input type="text" name="deduction_names[]" placeholder="Deduction name (e.g., Tax)"
+                                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-name">
+                                            <input type="number" name="deduction_amounts[]" step="0.01" min="0" placeholder="Amount"
+                                                class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-input"
+                                                oninput="calculateSalary()">
+                                            <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
+                                                class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                                                <i class='hgi-stroke hgi-delete-01'></i>
+                                            </button>
+                                        `;
             container.appendChild(div);
         }
 
@@ -339,16 +354,16 @@
             const div = document.createElement('div');
             div.className = 'flex gap-2';
             div.innerHTML = `
-                                    <input type="text" name="deduction_names[]" value="${name}"
-                                        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-name">
-                                    <input type="number" name="deduction_amounts[]" value="${amount.toFixed(2)}" step="0.01" min="0"
-                                        class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-input"
-                                        oninput="calculateSalary()">
-                                    <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
-                                        class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                                        <i class='hgi-stroke hgi-delete-01'></i>
-                                    </button>
-                                `;
+                                        <input type="text" name="deduction_names[]" value="${name}"
+                                            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-name">
+                                        <input type="number" name="deduction_amounts[]" value="${amount.toFixed(2)}" step="0.01" min="0"
+                                            class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-input"
+                                            oninput="calculateSalary()">
+                                        <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
+                                            class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                                            <i class='hgi-stroke hgi-delete-01'></i>
+                                        </button>
+                                    `;
             container.appendChild(div);
         }
 
@@ -381,11 +396,11 @@
                 if (amount > 0) {
                     const name = allowanceNames[index].value || 'Allowance';
                     allowancesList.innerHTML += `
-                                                <tr class="border-b border-gray-100">
-                                                    <td class="py-3 px-4 text-gray-600">${name}</td>
-                                                    <td class="py-3 px-4 text-right text-gray-900">${amount.toFixed(2)}</td>
-                                                </tr>
-                                            `;
+                                                    <tr class="border-b border-gray-100">
+                                                        <td class="py-3 px-4 text-gray-600">${name}</td>
+                                                        <td class="py-3 px-4 text-right text-gray-900">${amount.toFixed(2)}</td>
+                                                    </tr>
+                                                `;
                 }
             });
 
@@ -415,21 +430,21 @@
                     hasDeductions = true;
                     const name = deductionNames[index].value || 'Deduction';
                     deductionsList.innerHTML += `
-                                                <tr class="border-b border-gray-100">
-                                                    <td class="py-3 px-4 text-gray-600">${name}</td>
-                                                    <td class="py-3 px-4 text-right text-red-600">- ${amount.toFixed(2)}</td>
-                                                </tr>
-                                            `;
+                                                    <tr class="border-b border-gray-100">
+                                                        <td class="py-3 px-4 text-gray-600">${name}</td>
+                                                        <td class="py-3 px-4 text-right text-red-600">- ${amount.toFixed(2)}</td>
+                                                    </tr>
+                                                `;
                 }
             });
 
             if (!hasDeductions) {
                 deductionsList.innerHTML = `
-                                            <tr class="border-b border-gray-100">
-                                                <td class="py-3 px-4 text-gray-500 italic">No deductions</td>
-                                                <td class="py-3 px-4 text-right text-gray-500">- 0.00</td>
-                                            </tr>
-                                        `;
+                                                <tr class="border-b border-gray-100">
+                                                    <td class="py-3 px-4 text-gray-500 italic">No deductions</td>
+                                                    <td class="py-3 px-4 text-right text-gray-500">- 0.00</td>
+                                                </tr>
+                                            `;
             }
 
             // Total Deductions & Net Salary

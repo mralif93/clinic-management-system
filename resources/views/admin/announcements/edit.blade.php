@@ -6,20 +6,24 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-        <i class='hgi-stroke hgi-pencil-edit-01 text-2xl'></i>
-    </div>
-    <div>
-        <h2 class="text-2xl font-bold">Edit Announcement</h2>
-        <p class="text-blue-100 text-sm mt-1">{{ $announcement->title }}</p>
-    </div>
-</div>
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-pencil-edit-01 text-2xl'></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold">Edit Announcement</h2>
+                        <p class="text-blue-100 text-sm mt-1">{{ $announcement->title }}</p>
+                    </div>
+                </div>
                 <div class="flex items-center gap-3">
                     <a href="{{ route('admin.announcements.show', $announcement->id) }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
@@ -37,7 +41,8 @@
 
         <!-- Form Card -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-            <form action="{{ route('admin.announcements.update', $announcement->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.announcements.update', $announcement->id) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -55,11 +60,13 @@
                             <label for="title" class="block text-sm font-medium text-gray-700 mb-2">
                                 Title <span class="text-red-500">*</span>
                             </label>
-                            <input type="text" id="title" name="title" value="{{ old('title', $announcement->title) }}" required autofocus
+                            <input type="text" id="title" name="title" value="{{ old('title', $announcement->title) }}"
+                                required autofocus
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('title') border-red-500 @enderror"
                                 placeholder="Enter announcement title">
                             @error('title')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -69,11 +76,13 @@
                             <label for="subtitle" class="block text-sm font-medium text-gray-700 mb-2">
                                 Subtitle
                             </label>
-                            <input type="text" id="subtitle" name="subtitle" value="{{ old('subtitle', $announcement->subtitle) }}"
+                            <input type="text" id="subtitle" name="subtitle"
+                                value="{{ old('subtitle', $announcement->subtitle) }}"
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('subtitle') border-red-500 @enderror"
                                 placeholder="Enter announcement subtitle (optional)">
                             @error('subtitle')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                             <p class="mt-1 text-xs text-gray-500">A brief subtitle that appears below the title</p>
@@ -87,11 +96,13 @@
                             <select id="type" name="type" required
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm bg-white @error('type') border-red-500 @enderror">
                                 <option value="">Select Type</option>
-                                <option value="news" {{ old('type', $announcement->type) == 'news' ? 'selected' : '' }}>News</option>
+                                <option value="news" {{ old('type', $announcement->type) == 'news' ? 'selected' : '' }}>News
+                                </option>
                                 <option value="announcement" {{ old('type', $announcement->type) == 'announcement' ? 'selected' : '' }}>Announcement</option>
                             </select>
                             @error('type')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -101,11 +112,13 @@
                             <label for="order" class="block text-sm font-medium text-gray-700 mb-2">
                                 Display Order
                             </label>
-                            <input type="number" id="order" name="order" value="{{ old('order', $announcement->order) }}" min="0"
+                            <input type="number" id="order" name="order" value="{{ old('order', $announcement->order) }}"
+                                min="0"
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('order') border-red-500 @enderror"
                                 placeholder="0">
                             @error('order')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                             <p class="mt-1 text-xs text-gray-500">Lower numbers appear first</p>
@@ -142,11 +155,13 @@
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Current Image</label>
                             <div class="relative inline-block">
-                                <img src="{{ $announcement->image_url }}" alt="{{ $announcement->title }}" 
-                                     class="h-48 rounded-xl border border-gray-200 object-cover">
+                                <img src="{{ $announcement->image_url }}" alt="{{ $announcement->title }}"
+                                    class="h-48 rounded-xl border border-gray-200 object-cover">
                             </div>
-                            <label class="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-lg border border-red-200 text-red-700 hover:bg-red-50 cursor-pointer transition-all">
-                                <input type="checkbox" name="remove_image" value="1" class="w-4 h-4 text-red-600 border-gray-300 rounded">
+                            <label
+                                class="inline-flex items-center gap-2 mt-3 px-4 py-2 rounded-lg border border-red-200 text-red-700 hover:bg-red-50 cursor-pointer transition-all">
+                                <input type="checkbox" name="remove_image" value="1"
+                                    class="w-4 h-4 text-red-600 border-gray-300 rounded">
                                 <span class="text-sm">Remove current image</span>
                             </label>
                         </div>
@@ -160,7 +175,8 @@
                         <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                             {{ $message }}</p>
                     @enderror
-                    <p class="mt-1 text-xs text-gray-500">Max file size: 5MB. Supported formats: JPG, PNG, GIF, SVG, WEBP</p>
+                    <p class="mt-1 text-xs text-gray-500">Max file size: 5MB. Supported formats: JPG, PNG, GIF, SVG, WEBP
+                    </p>
                 </div>
 
                 <!-- Link Section -->
@@ -177,11 +193,13 @@
                             <label for="link_url" class="block text-sm font-medium text-gray-700 mb-2">
                                 Link URL
                             </label>
-                            <input type="url" id="link_url" name="link_url" value="{{ old('link_url', $announcement->link_url) }}"
+                            <input type="url" id="link_url" name="link_url"
+                                value="{{ old('link_url', $announcement->link_url) }}"
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('link_url') border-red-500 @enderror"
                                 placeholder="https://example.com">
                             @error('link_url')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -191,11 +209,13 @@
                             <label for="link_text" class="block text-sm font-medium text-gray-700 mb-2">
                                 Link Button Text
                             </label>
-                            <input type="text" id="link_text" name="link_text" value="{{ old('link_text', $announcement->link_text) }}"
+                            <input type="text" id="link_text" name="link_text"
+                                value="{{ old('link_text', $announcement->link_text) }}"
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('link_text') border-red-500 @enderror"
                                 placeholder="Learn More">
                             @error('link_text')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -238,14 +258,16 @@
                             <label for="expires_at" class="block text-sm font-medium text-gray-700 mb-2">
                                 Expiration Date (Optional)
                             </label>
-                            <input type="datetime-local" id="expires_at" name="expires_at" 
+                            <input type="datetime-local" id="expires_at" name="expires_at"
                                 value="{{ old('expires_at', $announcement->expires_at ? $announcement->expires_at->format('Y-m-d\TH:i') : '') }}"
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('expires_at') border-red-500 @enderror">
                             @error('expires_at')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
-                            <p class="mt-1 text-xs text-gray-500">Announcement will automatically be hidden after this date</p>
+                            <p class="mt-1 text-xs text-gray-500">Announcement will automatically be hidden after this date
+                            </p>
                         </div>
                     </div>
                 </div>

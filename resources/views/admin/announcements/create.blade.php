@@ -6,20 +6,24 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-        <i class='hgi-stroke hgi-plus-sign text-2xl'></i>
-    </div>
-    <div>
-        <h2 class="text-2xl font-bold">Create New Announcement</h2>
-        <p class="text-blue-100 text-sm mt-1">Add a new news or announcement for your homepage</p>
-    </div>
-</div>
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-plus-sign text-2xl'></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold">Create New Announcement</h2>
+                        <p class="text-blue-100 text-sm mt-1">Add a new news or announcement for your homepage</p>
+                    </div>
+                </div>
                 <a href="{{ route('admin.announcements.index') }}"
                     class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
                     <i class='hgi-stroke hgi-arrow-left-01'></i>
@@ -51,7 +55,8 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('title') border-red-500 @enderror"
                                 placeholder="Enter announcement title">
                             @error('title')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -65,7 +70,8 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('subtitle') border-red-500 @enderror"
                                 placeholder="Enter announcement subtitle (optional)">
                             @error('subtitle')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                             <p class="mt-1 text-xs text-gray-500">A brief subtitle that appears below the title</p>
@@ -80,10 +86,12 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm bg-white @error('type') border-red-500 @enderror">
                                 <option value="">Select Type</option>
                                 <option value="news" {{ old('type') == 'news' ? 'selected' : '' }}>News</option>
-                                <option value="announcement" {{ old('type') == 'announcement' ? 'selected' : '' }}>Announcement</option>
+                                <option value="announcement" {{ old('type') == 'announcement' ? 'selected' : '' }}>
+                                    Announcement</option>
                             </select>
                             @error('type')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -97,7 +105,8 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('order') border-red-500 @enderror"
                                 placeholder="0">
                             @error('order')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                             <p class="mt-1 text-xs text-gray-500">Lower numbers appear first</p>
@@ -139,7 +148,8 @@
                         <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
                             {{ $message }}</p>
                     @enderror
-                    <p class="mt-1 text-xs text-gray-500">Max file size: 5MB. Supported formats: JPG, PNG, GIF, SVG, WEBP</p>
+                    <p class="mt-1 text-xs text-gray-500">Max file size: 5MB. Supported formats: JPG, PNG, GIF, SVG, WEBP
+                    </p>
                 </div>
 
                 <!-- Link Section -->
@@ -160,7 +170,8 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('link_url') border-red-500 @enderror"
                                 placeholder="https://example.com">
                             @error('link_url')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -174,7 +185,8 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('link_text') border-red-500 @enderror"
                                 placeholder="Learn More">
                             @error('link_text')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -220,10 +232,12 @@
                             <input type="datetime-local" id="expires_at" name="expires_at" value="{{ old('expires_at') }}"
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-sm @error('expires_at') border-red-500 @enderror">
                             @error('expires_at')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
-                            <p class="mt-1 text-xs text-gray-500">Announcement will automatically be hidden after this date</p>
+                            <p class="mt-1 text-xs text-gray-500">Announcement will automatically be hidden after this date
+                            </p>
                         </div>
                     </div>
                 </div>

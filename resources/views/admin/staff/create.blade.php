@@ -6,20 +6,24 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-cyan-600 to-teal-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-r from-cyan-600 to-teal-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-        <i class='hgi-stroke hgi-user-add-01 text-2xl'></i>
-    </div>
-    <div>
-        <h2 class="text-2xl font-bold">Create New Staff</h2>
-        <p class="text-cyan-100 text-sm mt-1">Add a new staff member to the system</p>
-    </div>
-</div>
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-user-add-01 text-2xl'></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold">Create New Staff</h2>
+                        <p class="text-cyan-100 text-sm mt-1">Add a new staff member to the system</p>
+                    </div>
+                </div>
                 <a href="{{ route('admin.staff.index') }}"
                     class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
                     <i class='hgi-stroke hgi-arrow-left-01'></i>
@@ -85,7 +89,8 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all text-sm @error('first_name') border-red-500 @enderror"
                                 placeholder="Enter first name">
                             @error('first_name')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -99,7 +104,8 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all text-sm @error('last_name') border-red-500 @enderror"
                                 placeholder="Enter last name">
                             @error('last_name')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -183,7 +189,8 @@
                                     placeholder="0.00">
                             </div>
                             @error('basic_salary')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>

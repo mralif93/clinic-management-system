@@ -6,31 +6,43 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div>
-                    <h1 class="text-2xl font-bold">{{ $announcement->title }}</h1>
-                    <div class="flex items-center gap-2 mt-2">
-                        <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-white/20">
-                            {{ ucfirst($announcement->type) }}
-                        </span>
-                        @if($announcement->is_featured)
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-yellow-500/20">
-                                <i class='hgi-stroke hgi-star mr-1'></i> Featured
+                <div class="flex items-center gap-4">
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-information-circle text-2xl'></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">{{ $announcement->title }}</h1>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-white/20">
+                                {{ ucfirst($announcement->type) }}
                             </span>
-                        @endif
-                        @if($announcement->is_published)
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-green-500/20">
-                                Published
-                            </span>
-                        @else
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-amber-500/20">
-                                Draft
-                            </span>
-                        @endif
+                            @if($announcement->is_featured)
+                                <span
+                                    class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-yellow-500/20">
+                                    <i class='hgi-stroke hgi-star mr-1'></i> Featured
+                                </span>
+                            @endif
+                            @if($announcement->is_published)
+                                <span
+                                    class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-green-500/20">
+                                    Published
+                                </span>
+                            @else
+                                <span
+                                    class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-amber-500/20">
+                                    Draft
+                                </span>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
@@ -52,19 +64,19 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             @if($announcement->image)
                 <div class="h-96 bg-gray-100 overflow-hidden">
-                    <img src="{{ $announcement->image_url }}" alt="{{ $announcement->title }}" 
-                         class="w-full h-full object-cover">
+                    <img src="{{ $announcement->image_url }}" alt="{{ $announcement->title }}"
+                        class="w-full h-full object-cover">
                 </div>
             @endif
 
             <div class="p-6">
                 <div class="prose max-w-none">
                     <h2 class="text-2xl font-bold text-gray-900 mb-2">{{ $announcement->title }}</h2>
-                    
+
                     @if($announcement->subtitle)
                         <p class="text-lg text-gray-600 mb-4 italic">{{ $announcement->subtitle }}</p>
                     @endif
-                    
+
                     @if($announcement->description)
                         <div class="text-gray-700 whitespace-pre-wrap mb-6">{{ $announcement->description }}</div>
                     @endif
@@ -72,7 +84,7 @@
                     @if($announcement->link_url)
                         <div class="mt-6">
                             <a href="{{ $announcement->link_url }}" target="_blank" rel="noopener noreferrer"
-                               class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all">
+                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700 transition-all">
                                 {{ $announcement->link_text ?: 'Learn More' }}
                                 <i class='hgi-stroke hgi-link-01'></i>
                             </a>
@@ -86,7 +98,8 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                     <div>
                         <span class="text-gray-500">Created:</span>
-                        <span class="font-medium text-gray-900">{{ $announcement->created_at->format('F d, Y \a\t g:i A') }}</span>
+                        <span
+                            class="font-medium text-gray-900">{{ $announcement->created_at->format('F d, Y \a\t g:i A') }}</span>
                     </div>
                     @if($announcement->creator)
                         <div>

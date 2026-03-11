@@ -8,20 +8,23 @@
         {{-- Custom Page Edit --}}
         <div class="space-y-6">
             <!-- Page Header -->
-            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
-            <!-- Decorative background elements -->
-            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div
+                class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+                <!-- Decorative background elements -->
+                <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+                <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
                 <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="flex items-center gap-4">
-    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-        <i class='hgi-stroke hgi-pencil-edit-01 text-2xl'></i>
-    </div>
-    <div>
-        <h2 class="text-2xl font-bold">Edit Page: {{ $page->title }}</h2>
-        <p class="text-indigo-100 text-sm mt-1">Update page content and settings</p>
-    </div>
-</div>
+                        <div
+                            class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                            <i class='hgi-stroke hgi-pencil-edit-01 text-2xl'></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold">Edit Page: {{ $page->title }}</h2>
+                            <p class="text-indigo-100 text-sm mt-1">Update page content and settings</p>
+                        </div>
+                    </div>
                     <a href="{{ route('admin.pages.index') }}"
                         class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
                         <i class='hgi-stroke hgi-arrow-left-01'></i>
@@ -50,11 +53,13 @@
                                 <label for="title" class="block text-sm font-medium text-gray-700 mb-2">
                                     Page Title <span class="text-red-500">*</span>
                                 </label>
-                                <input type="text" id="title" name="title" value="{{ old('title', $page->title) }}" required autofocus
+                                <input type="text" id="title" name="title" value="{{ old('title', $page->title) }}" required
+                                    autofocus
                                     class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm @error('title') border-red-500 @enderror"
                                     placeholder="Enter page title">
                                 @error('title')
-                                    <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                    <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                            class='hgi-stroke hgi-alert-circle'></i>
                                         {{ $message }}</p>
                                 @enderror
                             </div>
@@ -68,7 +73,8 @@
                                     class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm @error('slug') border-red-500 @enderror"
                                     placeholder="page-slug">
                                 @error('slug')
-                                    <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                    <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                            class='hgi-stroke hgi-alert-circle'></i>
                                         {{ $message }}</p>
                                 @enderror
                                 <p class="mt-1 text-xs text-gray-500">URL-friendly identifier</p>
@@ -83,7 +89,8 @@
                                     class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm @error('order') border-red-500 @enderror"
                                     placeholder="0">
                                 @error('order')
-                                    <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                    <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                            class='hgi-stroke hgi-alert-circle'></i>
                                         {{ $message }}</p>
                                 @enderror
                                 <p class="mt-1 text-xs text-gray-500">Lower numbers appear first</p>
@@ -113,7 +120,8 @@
                         <textarea id="content" name="content" rows="10"
                             class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm font-mono"
                             placeholder='Enter JSON content structure'>{{ old('content', $page->content ? json_encode($page->content, JSON_PRETTY_PRINT) : '') }}</textarea>
-                        <p class="mt-2 text-xs text-gray-500">Enter content as JSON. For custom pages, use a structured format.</p>
+                        <p class="mt-2 text-xs text-gray-500">Enter content as JSON. For custom pages, use a structured format.
+                        </p>
                     </div>
 
                     <!-- SEO Section -->
@@ -130,11 +138,13 @@
                                 <label for="meta_title" class="block text-sm font-medium text-gray-700 mb-2">
                                     Meta Title
                                 </label>
-                                <input type="text" id="meta_title" name="meta_title" value="{{ old('meta_title', $page->meta_title) }}" maxlength="255"
+                                <input type="text" id="meta_title" name="meta_title"
+                                    value="{{ old('meta_title', $page->meta_title) }}" maxlength="255"
                                     class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm @error('meta_title') border-red-500 @enderror"
                                     placeholder="SEO title (leave empty to use page title)">
                                 @error('meta_title')
-                                    <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                    <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                            class='hgi-stroke hgi-alert-circle'></i>
                                         {{ $message }}</p>
                                 @enderror
                             </div>
@@ -148,7 +158,8 @@
                                     class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm @error('meta_description') border-red-500 @enderror"
                                     placeholder="SEO description (recommended: 150-160 characters)">{{ old('meta_description', $page->meta_description) }}</textarea>
                                 @error('meta_description')
-                                    <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                    <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                            class='hgi-stroke hgi-alert-circle'></i>
                                         {{ $message }}</p>
                                 @enderror
                             </div>
@@ -177,9 +188,14 @@
             <!-- Header Section -->
             <div class="mb-6 flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-semibold uppercase text-blue-600 mb-1">{{ $mode === 'team' ? 'Team page' : ($mode === 'packages' ? 'Packages page' : 'About page') }}</p>
-                    <h1 class="text-2xl font-bold text-gray-900">{{ $mode === 'team' ? 'Our Team Content' : ($mode === 'packages' ? 'Packages Content' : 'About Us Content') }}</h1>
-                    <p class="mt-1 text-sm text-gray-500">Edit the {{ $mode === 'team' ? 'team hero, leadership, and care teams.' : ($mode === 'packages' ? 'hero and special packages.' : 'hero, values, and timeline.') }}</p>
+                    <p class="text-xs font-semibold uppercase text-blue-600 mb-1">
+                        {{ $mode === 'team' ? 'Team page' : ($mode === 'packages' ? 'Packages page' : 'About page') }}</p>
+                    <h1 class="text-2xl font-bold text-gray-900">
+                        {{ $mode === 'team' ? 'Our Team Content' : ($mode === 'packages' ? 'Packages Content' : 'About Us Content') }}
+                    </h1>
+                    <p class="mt-1 text-sm text-gray-500">Edit the
+                        {{ $mode === 'team' ? 'team hero, leadership, and care teams.' : ($mode === 'packages' ? 'hero and special packages.' : 'hero, values, and timeline.') }}
+                    </p>
                 </div>
                 <a href="{{ route('admin.pages.index') }}"
                     class="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-200 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition">
@@ -303,24 +319,24 @@
                 const style = document.createElement('style');
                 style.id = id;
                 style.textContent = `
-                    .swal-toast-fixed { margin-top: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.12); }
-                    .swal2-container.swal2-top-end { padding: 12px; }
-                    .swal-toast-fallback {
-                        position: fixed;
-                        top: 16px;
-                        right: 16px;
-                        z-index: 9999;
-                        padding: 10px 14px;
-                        border-radius: 10px;
-                        background: #2563eb;
-                        color: #fff;
-                        font-size: 14px;
-                        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-                        opacity: 0;
-                        transition: opacity 0.2s ease;
-                    }
-                    .swal-toast-fallback.show { opacity: 1; }
-                `;
+                            .swal-toast-fixed { margin-top: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.12); }
+                            .swal2-container.swal2-top-end { padding: 12px; }
+                            .swal-toast-fallback {
+                                position: fixed;
+                                top: 16px;
+                                right: 16px;
+                                z-index: 9999;
+                                padding: 10px 14px;
+                                border-radius: 10px;
+                                background: #2563eb;
+                                color: #fff;
+                                font-size: 14px;
+                                box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+                                opacity: 0;
+                                transition: opacity 0.2s ease;
+                            }
+                            .swal-toast-fallback.show { opacity: 1; }
+                        `;
                 document.head.appendChild(style);
             }
         </script>

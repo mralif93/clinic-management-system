@@ -24,19 +24,18 @@
                     </div>
                 </div>
 
-                <div class="flex items-center gap-3">
-                    <!-- Stat Card -->
+                <div class="flex items-center gap-4">
                     <div
-                        class="bg-white/10 backdrop-blur-md rounded-xl px-5 py-3 flex items-center gap-4 border border-white/10 shadow-sm hover:bg-white/20 transition-colors">
-                        <div class="p-2 bg-white/10 rounded-lg">
-                            <i class='hgi-stroke hgi-file-01 text-xl text-primary-100'></i>
-                        </div>
-                        <div>
-                            <p class="text-2xl font-bold leading-none">{{ $letters->total() }}</p>
-                            <p class="text-[10px] text-primary-200 mt-1 uppercase tracking-widest font-bold">Total Letters
-                            </p>
-                        </div>
+                        class="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 shadow-inner">
+                        <span class="text-2xl font-bold text-white">{{ $letters->total() }}</span>
+                        <span class="text-[10px] text-primary-100 font-bold uppercase tracking-wider whitespace-nowrap">Total Letters</span>
                     </div>
+
+                    <a href="{{ route('admin.referral-letters.create') }}"
+                       class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-all shadow-lg">
+                        <i class='hgi-stroke hgi-plus-sign text-xl'></i>
+                        New Letter
+                    </a>
                 </div>
             </div>
         </div>
@@ -177,9 +176,25 @@
                                     </td>
                                     <td class="px-5 py-3.5 text-right">
                                         <div class="flex items-center justify-end gap-1">
+                                            @if($letter->isDraft())
+                                                <form action="{{ route('admin.referral-letters.issue', $letter->id) }}" method="POST"
+                                                    style="display:inline">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        class="w-8 h-8 flex items-center justify-center bg-emerald-50 text-emerald-600 hover:bg-emerald-100 rounded-lg transition"
+                                                        title="Issue Letter">
+                                                        <i class='hgi-stroke hgi-tick-01'></i>
+                                                    </button>
+                                                </form>
+                                                <a href="{{ route('admin.referral-letters.edit', $letter->id) }}"
+                                                    class="w-8 h-8 flex items-center justify-center bg-amber-50 text-amber-600 hover:bg-amber-100 rounded-lg transition"
+                                                    title="Edit">
+                                                    <i class='hgi-stroke hgi-pencil-edit-01'></i>
+                                                </a>
+                                            @endif
                                             <a href="{{ route('admin.referral-letters.show', $letter->id) }}"
                                                 class="w-8 h-8 flex items-center justify-center bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-lg transition"
-                                                title="View">
+                                                title="View/Print">
                                                 <i class='hgi-stroke hgi-view'></i>
                                             </a>
                                             <form class="admin-delete-form"

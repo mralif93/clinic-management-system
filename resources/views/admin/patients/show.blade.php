@@ -16,10 +16,12 @@
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
+            <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div
-                        class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-white font-bold text-3xl border-2 border-white/30">
+                        class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-white font-bold text-3xl border-2 border-white/30 transform transition-transform hover:scale-105">
                         {{ strtoupper(substr($patient->first_name ?? 'P', 0, 1)) }}
                     </div>
                     <div>
@@ -333,11 +335,11 @@
                 Swal.fire({
                     title: 'Permanently Delete?',
                     html: `<div class="text-left">
-                            <p class="mb-3">Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?</p>
-                            <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
-                                <p class="text-sm text-red-800"><i class='hgi-stroke hgi-alert-circle mr-1.5'></i> <strong>Warning:</strong> This action cannot be undone!</p>
-                            </div>
-                        </div>`,
+                                    <p class="mb-3">Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?</p>
+                                    <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
+                                        <p class="text-sm text-red-800"><i class='hgi-stroke hgi-alert-circle mr-1.5'></i> <strong>Warning:</strong> This action cannot be undone!</p>
+                                    </div>
+                                </div>`,
                     icon: 'error',
                     showCancelButton: true,
                     confirmButtonColor: '#dc2626',

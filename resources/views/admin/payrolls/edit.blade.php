@@ -2,17 +2,29 @@
 
 @section('content')
     <div class="space-y-6">
-        <!-- Header -->
-        <div class="flex items-center gap-4 mb-8">
-            <a href="{{ route('admin.payrolls.index') }}"
-                class="bg-white p-2 rounded-full shadow-sm hover:shadow-md transition-shadow text-gray-600">
-                <i class='hgi-stroke hgi-arrow-left-01 text-2xl'></i>
-            </a>
-            <div>
-                <h1 class="text-3xl font-bold text-gray-800">Edit Payslip</h1>
-                <p class="text-gray-600 mt-1">Edit payroll record for {{ $payroll->user->name }}</p>
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-8">
+        <!-- Decorative background elements -->
+        <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+        <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
+        <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+                <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                    <i class='hgi-stroke hgi-pencil-edit-01 text-2xl'></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold">Edit Payslip</h2>
+                    <p class="text-blue-100 text-sm mt-1">Edit payroll record for {{ $payroll->user->name }}</p>
+                </div>
             </div>
+            <a href="{{ route('admin.payrolls.index') }}"
+                class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                <i class='hgi-stroke hgi-arrow-left-01'></i>
+                Back to List
+            </a>
         </div>
+    </div>
 
         <form action="{{ route('admin.payrolls.update', $payroll->id) }}" method="POST" class="space-y-6">
             @csrf

@@ -6,26 +6,23 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-r from-green-600 to-emerald-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
                     <div
-                        class="w-16 h-16 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center text-white font-bold text-2xl">
-                        {{ strtoupper(substr($doctor->first_name ?? 'D', 0, 1)) }}
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-pencil-edit-01 text-2xl'></i>
                     </div>
                     <div>
-                        <h1 class="text-2xl font-bold">
-                            {{ $doctor->full_name ?? ($doctor->first_name . ' ' . $doctor->last_name) }}
-                        </h1>
-                        <p class="text-green-100">{{ $doctor->email }}</p>
-                        @if($doctor->doctor_id)
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-lg text-xs font-medium bg-white/20 mt-1">
-                                ID: {{ $doctor->doctor_id }}
-                            </span>
-                        @endif
+                        <h2 class="text-2xl font-bold">Edit Doctor</h2>
+                        <p class="text-green-100 text-sm mt-1">
+                            {{ $doctor->full_name ?? ($doctor->first_name . ' ' . $doctor->last_name) }}</p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
@@ -87,7 +84,8 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all text-sm @error('first_name') border-red-500 @enderror"
                                 placeholder="Enter first name">
                             @error('first_name')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -102,7 +100,8 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all text-sm @error('last_name') border-red-500 @enderror"
                                 placeholder="Enter last name">
                             @error('last_name')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -116,7 +115,8 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-500/20 transition-all text-sm @error('email') border-red-500 @enderror"
                                 placeholder="Enter email address">
                             @error('email')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -176,7 +176,8 @@
                                     General</option>
                             </select>
                             @error('type')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -230,7 +231,8 @@
                                     placeholder="0.00">
                             </div>
                             @error('basic_salary')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>

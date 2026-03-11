@@ -15,10 +15,12 @@
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
+            <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div
-                        class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30">
+                        class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30 transform transition-transform hover:scale-105 shadow-inner">
                         <i class='hgi-stroke hgi-calendar-03 text-4xl'></i>
                     </div>
                     <div>
@@ -62,27 +64,27 @@
                 <div class="flex flex-wrap items-center gap-2">
                     @if(!$appointment->trashed())
                         <a href="{{ route('admin.appointments.invoice', $appointment->id) }}" title="View Invoice"
-                            class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-green-600 hover:bg-green-50 hover:scale-105 transition-all shadow-lg">
+                            class="w-11 h-11 flex items-center justify-center bg-white rounded-xl text-green-600 hover:bg-green-50 hover:scale-105 transition-all shadow-lg scale-90 border border-green-100">
                             <i class='hgi-stroke hgi-invoice-01 text-xl'></i>
                         </a>
                         <a href="{{ route('admin.appointments.edit', $appointment->id) }}" title="Edit Appointment"
-                            class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-indigo-600 hover:bg-indigo-50 hover:scale-105 transition-all shadow-lg">
+                            class="w-11 h-11 flex items-center justify-center bg-white rounded-xl text-indigo-600 hover:bg-indigo-50 hover:scale-105 transition-all shadow-lg scale-90 border border-indigo-100">
                             <i class='hgi-stroke hgi-pencil-edit-01 text-xl'></i>
                         </a>
                     @else
                         <form action="{{ route('admin.appointments.restore', $appointment->id) }}" method="POST" class="inline">
                             @csrf
                             <button type="submit"
-                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-green-600 rounded-full font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg">
+                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-green-600 rounded-xl font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg">
                                 <i class='hgi-stroke hgi-refresh text-lg'></i>
                                 Restore
                             </button>
                         </form>
                     @endif
                     <a href="{{ route('admin.appointments.index') }}"
-                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur text-white rounded-full font-medium hover:bg-white/30 transition-all">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
                         <i class='hgi-stroke hgi-arrow-left-01'></i>
-                        Back
+                        Back to List
                     </a>
                 </div>
             </div>

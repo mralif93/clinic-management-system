@@ -268,10 +268,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/appointments/{year}/{month}', [App\Http\Controllers\Admin\AppointmentController::class, 'byMonth'])->name('appointments.by-month')->where(['year' => '[0-9]{4}', 'month' => '[0-9]{1,2}']);
         Route::resource('appointments', App\Http\Controllers\Admin\AppointmentController::class);
 
-        // Referral Letters (read-only + delete)
-        Route::get('/referral-letters', [App\Http\Controllers\Admin\ReferralLetterController::class, 'index'])->name('referral-letters.index');
-        Route::get('/referral-letters/{id}', [App\Http\Controllers\Admin\ReferralLetterController::class, 'show'])->name('referral-letters.show');
-        Route::delete('/referral-letters/{id}', [App\Http\Controllers\Admin\ReferralLetterController::class, 'destroy'])->name('referral-letters.destroy');
+        // Referral Letters
+        Route::resource('referral-letters', App\Http\Controllers\Admin\ReferralLetterController::class);
+        Route::post('/referral-letters/{id}/issue', [App\Http\Controllers\Admin\ReferralLetterController::class, 'issue'])->name('referral-letters.issue');
 
 
         // Service Management

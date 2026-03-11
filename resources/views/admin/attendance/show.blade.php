@@ -10,10 +10,12 @@
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
+            <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
                     <div
-                        class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30">
+                        class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30 transform transition-transform hover:scale-105 shadow-inner">
                         <i class='hgi-stroke hgi-clock-02 text-4xl'></i>
                     </div>
                     <div>
@@ -57,27 +59,25 @@
                         <form action="{{ route('admin.attendance.approve', $attendance) }}" method="POST" class="inline">
                             @csrf
                             <button type="submit"
-                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-green-600 rounded-full font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg">
+                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-green-600 rounded-xl font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg border border-green-100">
                                 <i class='hgi-stroke hgi-checkmark-circle-02 text-lg'></i>
                                 Approve
                             </button>
                         </form>
-                        
-                        <div class="w-px h-8 bg-white/30 mx-1"></div>
                     @endif
                     
                     <a href="{{ route('admin.attendance.edit', $attendance) }}" title="Edit Attendance"
-                        class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-teal-600 hover:bg-teal-50 hover:scale-105 transition-all shadow-lg">
+                        class="w-11 h-11 flex items-center justify-center bg-white rounded-xl text-teal-600 hover:bg-teal-50 hover:scale-105 transition-all shadow-lg scale-90 border border-teal-100">
                         <i class='hgi-stroke hgi-pencil-edit-01 text-xl'></i>
                     </a>
                     <button onclick="deleteAttendance({{ $attendance->id }}, '{{ addslashes($attendance->user->name) }}')" title="Delete"
-                        class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-red-600 hover:bg-red-50 hover:scale-105 transition-all shadow-lg">
+                        class="w-11 h-11 flex items-center justify-center bg-white rounded-xl text-red-600 hover:bg-red-50 hover:scale-105 transition-all shadow-lg scale-90 border border-red-100">
                         <i class='hgi-stroke hgi-delete-01 text-xl'></i>
                     </button>
                     <a href="{{ route('admin.attendance.by-month', ['year' => $attendance->date->year, 'month' => $attendance->date->month]) }}"
-                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur text-white rounded-full font-medium hover:bg-white/30 transition-all">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
                         <i class='hgi-stroke hgi-arrow-left-01'></i>
-                        Back
+                        Back to List
                     </a>
                 </div>
             </div>

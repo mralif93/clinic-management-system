@@ -6,32 +6,32 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-emerald-600 to-green-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div class="bg-gradient-to-r from-emerald-600 to-green-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-8">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
+            <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div
-                        class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center border-2 border-white/30">
-                        <i class='hgi-stroke hgi-money-bag-01 text-4xl'></i>
+                    <div class="shrink-0 w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-money-bag-01 text-3xl'></i>
                     </div>
                     <div>
-                        <h1 class="text-2xl font-bold">Payslip #{{ $payroll->id }}</h1>
-                        <p class="text-emerald-100 flex items-center gap-2 mt-1">
+                        <h2 class="text-2xl font-bold">Payslip #{{ $payroll->id }}</h2>
+                        <p class="text-emerald-100 text-sm mt-1 flex items-center gap-2">
                             <i class='hgi-stroke hgi-user'></i>
                             {{ $payroll->user->name ?? 'Employee' }} • {{ $payroll->pay_period ?? 'N/A' }}
                         </p>
                         <div class="flex flex-wrap gap-2 mt-2">
                             @php
                                 $statusColors = [
-                                    'draft' => 'bg-gray-400/30',
-                                    'approved' => 'bg-blue-400/30',
-                                    'paid' => 'bg-green-400/30',
+                                    'draft' => 'bg-gray-500/30 border-gray-400/30',
+                                    'approved' => 'bg-blue-500/30 border-blue-400/30',
+                                    'paid' => 'bg-green-500/30 border-green-400/30',
                                 ];
                             @endphp
-                            <span
-                                class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium {{ $statusColors[$payroll->status] ?? 'bg-gray-400/30' }}">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold {{ $statusColors[$payroll->status] ?? 'bg-gray-500/30' }} border text-white">
                                 @if($payroll->status === 'paid')
                                     <i class='hgi-stroke hgi-checkmark-circle-02 mr-1'></i>
                                 @elseif($payroll->status === 'approved')
@@ -44,41 +44,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-wrap items-center gap-2">
-                    <!-- Icon-only action buttons -->
-                    <button onclick="printPayslip()" title="Print Payslip"
-                        class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-blue-600 hover:bg-blue-50 hover:scale-105 transition-all shadow-lg">
-                        <i class='hgi-stroke hgi-printer text-xl'></i>
+                <div class="flex flex-wrap items-center gap-3">
+                    <button onclick="printPayslip()" id="printBtn"
+                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-50 transition-all shadow-lg border border-gray-100">
+                        <i class='hgi-stroke hgi-printer'></i>
+                        Print
                     </button>
-                    <button onclick="downloadPayslip()" title="Download PDF"
-                        class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-emerald-600 hover:bg-emerald-50 hover:scale-105 transition-all shadow-lg">
-                        <i class='hgi-stroke hgi-download-04 text-xl'></i>
+                    <button onclick="downloadPayslip()" id="downloadBtn"
+                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-emerald-600 rounded-xl font-semibold hover:bg-emerald-50 transition-all shadow-lg border border-emerald-100">
+                        <i class='hgi-stroke hgi-download-04'></i>
+                        Download PDF
                     </button>
-                    
-                    <div class="w-px h-8 bg-white/30 mx-1"></div>
-                    
+
+                    <div class="w-px h-8 bg-white/30 mx-1 hidden lg:block"></div>
+
                     @if($payroll->status === 'draft')
                         <button onclick="approvePayroll({{ $payroll->id }})"
-                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-emerald-600 rounded-full font-semibold hover:bg-emerald-50 hover:scale-105 transition-all shadow-lg">
-                            <i class='hgi-stroke hgi-checkmark-circle-02 text-lg'></i>
+                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-emerald-600 rounded-xl font-semibold hover:bg-emerald-50 hover:scale-105 transition-all shadow-lg border border-emerald-100">
+                            <i class='hgi-stroke hgi-checkmark-circle-02'></i>
                             Approve
                         </button>
-                        <a href="{{ route('admin.payrolls.edit', $payroll->id) }}" title="Edit Payslip"
-                            class="w-11 h-11 flex items-center justify-center bg-white rounded-full text-amber-600 hover:bg-amber-50 hover:scale-105 transition-all shadow-lg">
+                        <a href="{{ route('admin.payrolls.edit', $payroll->id) }}"
+                            class="inline-flex items-center justify-center w-11 h-11 bg-white text-amber-600 rounded-xl hover:bg-amber-50 hover:scale-105 transition-all shadow-lg border border-amber-100">
                             <i class='hgi-stroke hgi-pencil-edit-01 text-xl'></i>
                         </a>
                     @elseif($payroll->status === 'approved')
                         <button onclick="markAsPaid({{ $payroll->id }})"
-                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-purple-600 rounded-full font-semibold hover:bg-purple-50 hover:scale-105 transition-all shadow-lg">
-                            <i class='hgi-stroke hgi-dollar-circle text-lg'></i>
+                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-purple-600 rounded-xl font-semibold hover:bg-purple-50 hover:scale-105 transition-all shadow-lg border border-purple-100">
+                            <i class='hgi-stroke hgi-dollar-circle'></i>
                             Mark as Paid
                         </button>
                     @endif
-                    
+
                     <a href="{{ route('admin.payrolls.index') }}"
-                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur text-white rounded-full font-medium hover:bg-white/30 transition-all">
+                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
                         <i class='hgi-stroke hgi-arrow-left-01'></i>
-                        Back
+                        Back to List
                     </a>
                 </div>
             </div>

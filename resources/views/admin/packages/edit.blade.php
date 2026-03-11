@@ -6,14 +6,18 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
+            <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
-                    <div class="w-16 h-16 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-                        <i class='hgi-stroke hgi-settings-01 text-3xl'></i>
+                    <div
+                        class="w-16 h-16 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-pencil-edit-01 text-3xl'></i>
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">{{ $package->name }}</h1>
@@ -61,7 +65,8 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm @error('name') border-red-500 @enderror"
                                 placeholder="Enter package name">
                             @error('name')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                             <p class="mt-1 text-xs text-gray-500">Slug will be automatically updated if name changes</p>
@@ -97,12 +102,14 @@
                             <div class="relative">
                                 <span
                                     class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">{{ get_setting('currency', 'RM') }}</span>
-                                <input type="number" id="original_price" name="original_price" value="{{ old('original_price', $package->original_price) }}" step="0.01" min="0"
+                                <input type="number" id="original_price" name="original_price"
+                                    value="{{ old('original_price', $package->original_price) }}" step="0.01" min="0"
                                     class="w-full pl-12 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm @error('original_price') border-red-500 @enderror"
                                     placeholder="0.00">
                             </div>
                             @error('original_price')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -115,13 +122,14 @@
                             <div class="relative">
                                 <span
                                     class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm">{{ get_setting('currency', 'RM') }}</span>
-                                <input type="number" id="price" name="price" value="{{ old('price', $package->price) }}" step="0.01" min="0"
-                                    required
+                                <input type="number" id="price" name="price" value="{{ old('price', $package->price) }}"
+                                    step="0.01" min="0" required
                                     class="w-full pl-12 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm @error('price') border-red-500 @enderror"
                                     placeholder="0.00">
                             </div>
                             @error('price')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -142,11 +150,13 @@
                             <label for="sessions" class="block text-sm font-medium text-gray-700 mb-2">
                                 Sessions
                             </label>
-                            <input type="text" id="sessions" name="sessions" value="{{ old('sessions', $package->sessions) }}"
+                            <input type="text" id="sessions" name="sessions"
+                                value="{{ old('sessions', $package->sessions) }}"
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm @error('sessions') border-red-500 @enderror"
                                 placeholder="e.g., 2X SESSIONS">
                             @error('sessions')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -156,11 +166,13 @@
                             <label for="duration" class="block text-sm font-medium text-gray-700 mb-2">
                                 Duration
                             </label>
-                            <input type="text" id="duration" name="duration" value="{{ old('duration', $package->duration) }}"
+                            <input type="text" id="duration" name="duration"
+                                value="{{ old('duration', $package->duration) }}"
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 transition-all text-sm @error('duration') border-red-500 @enderror"
                                 placeholder="e.g., 1 HOUR PER SESSION">
                             @error('duration')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>

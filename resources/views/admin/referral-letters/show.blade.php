@@ -5,54 +5,69 @@
 @section('content')
     <div class="space-y-5">
 
-        {{-- Header bar --}}
-        <div class="flex items-center justify-between flex-wrap gap-3">
-            <div class="flex items-center gap-3">
-                <a href="{{ route('admin.referral-letters.index') }}"
-                    class="w-9 h-9 bg-white border border-gray-200 rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition text-gray-600">
-                    <i class='hgi-stroke hgi-arrow-left-01 text-lg'></i>
-                </a>
-                <div>
-                    <h2 class="text-xl font-bold text-gray-900">{{ $letter->referral_number }}</h2>
-                    <p class="text-sm text-gray-500">
-                        Patient: <strong>{{ $letter->patient->full_name ?? 'N/A' }}</strong>
-                        &bull; Doctor: <strong>Dr. {{ $letter->doctor->full_name ?? 'N/A' }}</strong>
-                    </p>
+        <div
+            class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-8">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
+            <div class="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="shrink-0 w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-file-attachment text-3xl'></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold">{{ $letter->referral_number }}</h2>
+                        <p class="text-blue-100 text-sm mt-1">
+                            Patient: <span class="font-bold text-white">{{ $letter->patient->full_name ?? 'N/A' }}</span>
+                            &bull; Doctor: <span class="font-bold text-white">Dr.
+                                {{ $letter->doctor->full_name ?? 'N/A' }}</span>
+                        </p>
+                        <div class="mt-2">
+                            @if($letter->isIssued())
+                                <span
+                                    class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-500/30 border border-emerald-400/30 text-emerald-50">
+                                    <i class='hgi-stroke hgi-checkmark-circle-02 mr-1'></i> Issued
+                                </span>
+                            @else
+                                <span
+                                    class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-500/30 border border-amber-400/30 text-amber-50">
+                                    <i class='hgi-stroke hgi-pencil-edit-02 mr-1'></i> Draft
+                                </span>
+                            @endif
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <div class="flex items-center gap-2 flex-wrap">
-                @if($letter->isIssued())
-                    <span
-                        class="px-3 py-1.5 text-xs font-semibold rounded-xl bg-emerald-100 text-emerald-700 flex items-center gap-1">
-                        <i class='hgi-stroke hgi-checkmark-circle-02'></i> Issued
-                    </span>
-                @else
-                    <span
-                        class="px-3 py-1.5 text-xs font-semibold rounded-xl bg-amber-100 text-amber-700 flex items-center gap-1">
-                        <i class='hgi-stroke hgi-pencil-edit-02'></i> Draft
-                    </span>
-                @endif
-
-                <button onclick="printLetter()" id="printBtn"
-                    class="inline-flex items-center gap-2 px-4 py-2 bg-gray-700 text-white text-sm font-semibold rounded-xl hover:bg-gray-800 transition shadow-sm">
-                    <i class='hgi-stroke hgi-printer'></i> Print
-                </button>
-                <button onclick="downloadLetter()" id="downloadBtn"
-                    class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition shadow-sm">
-                    <i class='hgi-stroke hgi-download-04'></i> Download PDF
-                </button>
-
-                {{-- Admin delete --}}
-                <form id="adminDeleteForm" action="{{ route('admin.referral-letters.destroy', $letter->id) }}" method="POST"
-                    class="inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="button" id="adminDeleteBtn"
-                        class="inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 text-sm font-semibold rounded-xl hover:bg-red-100 transition border border-red-200">
-                        <i class='hgi-stroke hgi-delete-01'></i> Delete
+                <div class="flex items-center gap-3 flex-wrap">
+                    <button onclick="printLetter()" id="printBtn"
+                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-50 transition-all shadow-lg border border-gray-100">
+                        <i class='hgi-stroke hgi-printer'></i>
+                        Print
                     </button>
-                </form>
+                    <button onclick="downloadLetter()" id="downloadBtn"
+                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-all shadow-lg border border-blue-100">
+                        <i class='hgi-stroke hgi-download-04'></i>
+                        Download PDF
+                    </button>
+                    <form id="adminDeleteForm" action="{{ route('admin.referral-letters.destroy', $letter->id) }}"
+                        method="POST" class="inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" id="adminDeleteBtn"
+                            class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-red-600 rounded-xl font-semibold hover:bg-red-50 transition-all shadow-lg border border-red-100">
+                            <i class='hgi-stroke hgi-delete-01'></i>
+                            Delete
+                        </button>
+                    </form>
+                    <a href="{{ route('admin.referral-letters.index') }}"
+                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                        <i class='hgi-stroke hgi-arrow-left-01'></i>
+                        Back to List
+                    </a>
+                </div>
             </div>
         </div>
 

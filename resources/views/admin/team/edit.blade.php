@@ -6,13 +6,16 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div class="flex items-center gap-4">
-                    <div class="w-16 h-16 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                    <div
+                        class="w-16 h-16 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
                         <i class='hgi-stroke hgi-settings-01 text-3xl'></i>
                     </div>
                     <div>
@@ -61,7 +64,8 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm @error('name') border-red-500 @enderror"
                                 placeholder="Enter team member name">
                             @error('name')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -75,7 +79,8 @@
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm @error('title') border-red-500 @enderror"
                                 placeholder="e.g., Senior Psychologist">
                             @error('title')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
@@ -85,11 +90,13 @@
                             <label for="order" class="block text-sm font-medium text-gray-700 mb-2">
                                 Display Order
                             </label>
-                            <input type="number" id="order" name="order" value="{{ old('order', $teamMember->order) }}" min="0"
+                            <input type="number" id="order" name="order" value="{{ old('order', $teamMember->order) }}"
+                                min="0"
                                 class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all text-sm @error('order') border-red-500 @enderror"
                                 placeholder="0">
                             @error('order')
-                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i class='hgi-stroke hgi-alert-circle'></i>
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>
                                     {{ $message }}</p>
                             @enderror
                         </div>
