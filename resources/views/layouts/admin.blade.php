@@ -222,7 +222,7 @@
 
                 <!-- Management -->
                 <div class="mb-4"
-                    x-data="{ open: {{ request()->routeIs('admin.staff.*') || request()->routeIs('admin.users.*') || request()->routeIs('admin.team.*') || request()->routeIs('admin.digital-cards.*') || request()->routeIs('admin.digital-card.*') ? 'true' : 'false' }} }">
+                    x-data="{ open: {{ request()->routeIs('admin.staff.*') || request()->routeIs('admin.users.*') || request()->routeIs('admin.digital-cards.*') || request()->routeIs('admin.digital-card.*') ? 'true' : 'false' }} }">
                     <button @click="open = !open"
                         class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[11px] font-black text-white/40 uppercase tracking-widest hover:bg-white/5 hover:text-white/70 transition-all group">
                         <span class="flex items-center gap-2">
@@ -255,17 +255,6 @@
                                     class='hgi-stroke hgi-user-group text-lg {{ request()->routeIs('admin.users.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
                             </div>
                             <span>System Users</span>
-                        </a>
-
-                        <!-- Team -->
-                        <a href="{{ route('admin.team.index') }}"
-                            class="{{ $navBase }} {{ request()->routeIs('admin.team.*') ? $navActive : $navInactive }}">
-                            <div
-                                class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.team.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                                <i
-                                    class='hgi-stroke hgi-user-multiple text-lg {{ request()->routeIs('admin.team.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
-                            </div>
-                            <span>Our Team</span>
                         </a>
 
                         <!-- Digital Cards -->
@@ -344,7 +333,7 @@
 
                 <!-- Setup -->
                 <div class="mb-4"
-                    x-data="{ open: {{ request()->routeIs('admin.services.*') || request()->routeIs('admin.packages.*') || request()->routeIs('admin.announcements.*') || request()->routeIs('admin.settings.*') ? 'true' : 'false' }} }">
+                    x-data="{ open: {{ request()->routeIs('admin.services.*') || request()->routeIs('admin.packages.*') || request()->routeIs('admin.announcements.*') || request()->routeIs('admin.settings.*') || request()->routeIs('admin.team.*') ? 'true' : 'false' }} }">
                     <button @click="open = !open"
                         class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[11px] font-black text-white/40 uppercase tracking-widest hover:bg-white/5 hover:text-white/70 transition-all group">
                         <span class="flex items-center gap-2">
@@ -388,6 +377,17 @@
                                     class='hgi-stroke hgi-megaphone-01 text-lg {{ request()->routeIs('admin.announcements.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
                             </div>
                             <span>Announcements</span>
+                        </a>
+
+                        <!-- Team -->
+                        <a href="{{ route('admin.team.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('admin.team.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('admin.team.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-user-multiple text-lg {{ request()->routeIs('admin.team.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Our Teams</span>
                         </a>
 
                         <!-- Core Settings -->
