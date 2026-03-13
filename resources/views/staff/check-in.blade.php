@@ -53,12 +53,27 @@
                         <div class="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-white"></div>
                     </div>
 
-                    <!-- Clock Icon -->
+                    <!-- Logo/Icon Section -->
+                    @php
+                        $logoPath = get_setting('clinic_logo');
+                        if ($logoPath && str_starts_with($logoPath, 'data:')) {
+                            $logoUrl = $logoPath;
+                        } elseif ($logoPath) {
+                            $logoUrl = asset('storage/' . $logoPath);
+                        } else {
+                            $logoUrl = null;
+                        }
+                    @endphp
+
                     <div class="relative inline-flex items-center justify-center mb-4">
                         <div class="absolute w-24 h-24 bg-white/30 rounded-full pulse-ring"></div>
                         <div
-                            class="relative w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg float-animation">
-                            <i class='hgi-stroke hgi-clock-02 text-5xl text-amber-500'></i>
+                            class="relative w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-lg float-animation p-3">
+                            @if($logoUrl)
+                                <img src="{{ $logoUrl }}" alt="{{ get_setting('clinic_name', 'Clinic') }}" class="max-h-full max-w-full object-contain">
+                            @else
+                                <i class='hgi-stroke hgi-clock-02 text-5xl text-amber-500'></i>
+                            @endif
                         </div>
                     </div>
 

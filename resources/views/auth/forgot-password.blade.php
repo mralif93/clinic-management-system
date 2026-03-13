@@ -8,9 +8,26 @@
         <div class="bg-white rounded-2xl shadow-xl p-8">
             <!-- Logo/Header -->
             <div class="text-center mb-8">
-                <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 mb-4">
-                    <i class='hgi-stroke hgi-lock text-4xl text-blue-600'></i>
-                </div>
+                @php
+                    $logoPath = get_setting('clinic_logo');
+                    if ($logoPath && str_starts_with($logoPath, 'data:')) {
+                        $logoUrl = $logoPath;
+                    } elseif ($logoPath) {
+                        $logoUrl = asset('storage/' . $logoPath);
+                    } else {
+                        $logoUrl = null;
+                    }
+                @endphp
+
+                @if($logoUrl)
+                    <div class="mx-auto mb-6 flex justify-center">
+                        <img src="{{ $logoUrl }}" alt="{{ get_setting('clinic_name', 'Clinic') }}" class="h-16 w-auto object-contain filter drop-shadow-sm">
+                    </div>
+                @else
+                    <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 mb-4">
+                        <i class='hgi-stroke hgi-lock text-4xl text-blue-600'></i>
+                    </div>
+                @endif
                 <h2 class="text-3xl font-bold text-gray-900">Forgot Password</h2>
                 <p class="mt-2 text-sm text-gray-600">Enter your email address and we'll send you a link to reset your password</p>
             </div>

@@ -14,7 +14,7 @@
         } elseif ($logoPath) {
             $faviconUrl = asset('storage/' . $logoPath);
         } else {
-            $faviconUrl = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22></text></svg>';
+            $faviconUrl = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏥</text></svg>';
         }
     @endphp
     <link rel="icon" type="image/png" href="{{ $faviconUrl }}">
@@ -80,8 +80,8 @@
                         </div>
                     @else
                         <div
-                            class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0">
-                            <i class='hgi-stroke hgi-hospital text-xl text-white'></i>
+                            class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0">
+                            <i class='hgi-stroke hgi-hospital-01 text-xl text-white'></i>
                         </div>
                     @endif
                     <div class="flex-1 min-w-0 flex flex-col justify-center">
