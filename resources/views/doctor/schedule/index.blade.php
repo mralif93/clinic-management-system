@@ -1,4 +1,4 @@
-@extends('layouts.doctor')
+@extends('layouts.doctor', ['hideLayoutTitle' => true])
 
 @section('title', 'My Schedule')
 @section('page-title', 'My Schedule')

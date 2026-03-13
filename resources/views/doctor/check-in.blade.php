@@ -1,4 +1,4 @@
-@extends('layouts.doctor')
+@extends('layouts.doctor', ['hideLayoutTitle' => true])
 
 @section('title', 'Check In')
 @section('page-title', 'Check In')
@@ -65,7 +65,8 @@
 
                     <h1 class="text-2xl font-bold text-white mb-1 relative">Good
                         {{ now()->format('H') < 12 ? 'Morning' : (now()->format('H') < 17 ? 'Afternoon' : 'Evening') }},
-                        Dr.!</h1>
+                        Dr.!
+                    </h1>
                     <p class="text-emerald-100 relative">Please check in to start your shift</p>
                 </div>
 
@@ -80,7 +81,8 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-gray-800">Dr. {{ $user->first_name ?? $user->name }}
-                                    {{ $user->last_name ?? '' }}</h3>
+                                    {{ $user->last_name ?? '' }}
+                                </h3>
                                 <p class="text-sm text-gray-500">{{ $user->email }}</p>
                             </div>
                         </div>
@@ -161,7 +163,7 @@
             Swal.fire({
                 title: 'Confirm Check In?',
                 html: `<p class="text-gray-600">You are about to check in for today's shift.</p>
-                       <p class="text-sm text-gray-500 mt-2">Time: <strong>${document.getElementById('currentTime').textContent}</strong></p>`,
+                               <p class="text-sm text-gray-500 mt-2">Time: <strong>${document.getElementById('currentTime').textContent}</strong></p>`,
                 icon: 'question',
                 iconColor: '#10b981',
                 showCancelButton: true,
@@ -175,7 +177,7 @@
                 if (result.isConfirmed) {
                     Swal.fire({
                         title: 'Checking In...',
-                        html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-emerald-500"></i><span>Recording your attendance...</span></div>',
+                        html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 animate-spin text-2xl text-emerald-500"></i><span>Recording your attendance...</span></div>',
                         allowOutsideClick: false,
                         showConfirmButton: false
                     });

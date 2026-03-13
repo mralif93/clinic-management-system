@@ -22,7 +22,7 @@
 </div>
             <div class="flex items-center gap-3">
                 <a href="{{ route('admin.todos.create') }}" 
-                   class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-pink-600 rounded-xl font-semibold hover:bg-pink-50 transition-all shadow-lg shadow-pink-900/20">
+                   class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                     <i class='hgi-stroke hgi-plus-sign text-xl'></i>
                     Add New Task
                 </a>
@@ -234,9 +234,9 @@
                                         'urgent' => 'bg-red-50 text-red-600',
                                     ];
                                     $priorityIcons = [
-                                        'low' => 'bx-chevrons-down',
+                                        'low' => 'hgi-arrow-down-double',
                                         'medium' => 'hgi-minus-sign',
-                                        'high' => 'bx-chevrons-up',
+                                        'high' => 'hgi-arrow-up-double',
                                         'urgent' => 'hgi-alert-01',
                                     ];
                                 @endphp

@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <a href="{{ route('admin.patients.create') }}"
-                    class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/15 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-white/25 active:bg-white/30 transition-all border border-white/30 shadow-lg shadow-black/10">
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                     <span class="flex items-center justify-center w-6 h-6 bg-white/30 rounded-lg">
                         <i class='hgi-stroke hgi-plus-sign text-sm'></i>
                     </span>
@@ -34,25 +34,25 @@
 
         <!-- Quick Stats -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
-                    <p class="text-2xl font-bold text-gray-900">{{ $patients->total() }}</p>
-                    <p class="text-sm text-gray-500 font-medium mt-1">Total Patients</p>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
-                    <p class="text-2xl font-bold text-gray-900">{{ $patients->where('gender', 'male')->count() }}</p>
-                    <p class="text-sm text-gray-500 font-medium mt-1">Male</p>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
-                    <p class="text-2xl font-bold text-gray-900">{{ $patients->where('gender', 'female')->count() }}</p>
-                    <p class="text-sm text-gray-500 font-medium mt-1">Female</p>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
-                    <p class="text-2xl font-bold text-gray-900">
-                        {{ $patients->filter(fn($p) => $p->created_at >= now()->subDays(30))->count() }}
-                    </p>
-                    <p class="text-sm text-gray-500 font-medium mt-1">New (30 days)</p>
-                </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $patients->total() }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Total Patients</p>
             </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $patients->where('gender', 'male')->count() }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Male</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">{{ $patients->where('gender', 'female')->count() }}</p>
+                <p class="text-sm text-gray-500 font-medium mt-1">Female</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md transition">
+                <p class="text-2xl font-bold text-gray-900">
+                    {{ $patients->filter(fn($p) => $p->created_at >= now()->subDays(30))->count() }}
+                </p>
+                <p class="text-sm text-gray-500 font-medium mt-1">New (30 days)</p>
+            </div>
+        </div>
 
         <!-- Filters Card -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
@@ -124,26 +124,27 @@
         <!-- Patients Table -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-3 border-b border-gray-100 bg-gray-50/30 flex items-center justify-between">
-                    <div class="flex items-center gap-2 text-sm text-gray-600">
-                        <span>Show</span>
-                        <form method="GET" id="perPageForm" class="inline">
-                            @foreach(request()->except(['per_page','page']) as $key => $value)
-                                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                <div class="flex items-center gap-2 text-sm text-gray-600">
+                    <span>Show</span>
+                    <form method="GET" id="perPageForm" class="inline">
+                        @foreach(request()->except(['per_page', 'page']) as $key => $value)
+                            <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                        @endforeach
+                        <select name="per_page" onchange="document.getElementById('perPageForm').submit()"
+                            class="px-2 py-1 rounded-lg border border-gray-200 text-sm bg-white focus:border-indigo-400 focus:ring-1 focus:ring-indigo-300 transition-all cursor-pointer">
+                            @foreach([10, 15, 25, 50, 100] as $limit)
+                                <option value="{{ $limit }}" {{ $perPage == $limit ? 'selected' : '' }}>{{ $limit }}</option>
                             @endforeach
-                            <select name="per_page" onchange="document.getElementById('perPageForm').submit()"
-                                class="px-2 py-1 rounded-lg border border-gray-200 text-sm bg-white focus:border-indigo-400 focus:ring-1 focus:ring-indigo-300 transition-all cursor-pointer">
-                                @foreach([10, 15, 25, 50, 100] as $limit)
-                                    <option value="{{ $limit }}" {{ $perPage == $limit ? 'selected' : '' }}>{{ $limit }}</option>
-                                @endforeach
-                            </select>
-                        </form>
-                        <span>entries</span>
-                    </div>
-                    <p class="text-xs text-gray-500">
-                        Showing {{ $patients->firstItem() ?? 0 }} &ndash; {{ $patients->lastItem() ?? 0 }} of {{ $patients->total() }} results
-                    </p>
+                        </select>
+                    </form>
+                    <span>entries</span>
                 </div>
-        <div class="overflow-x-auto">
+                <p class="text-xs text-gray-500">
+                    Showing {{ $patients->firstItem() ?? 0 }} &ndash; {{ $patients->lastItem() ?? 0 }} of
+                    {{ $patients->total() }} results
+                </p>
+            </div>
+            <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead>
                         <tr class="bg-gray-50/80">
@@ -295,7 +296,8 @@
             </div>
 
             @if($patients->hasPages())
-                <div class="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div
+                    class="px-6 py-4 border-t border-gray-100 bg-gray-50/50 flex flex-col sm:flex-row items-center justify-between gap-3">
                     <p class="text-sm text-gray-600">
                         Showing {{ $patients->firstItem() }} to {{ $patients->lastItem() }} of {{ $patients->total() }} results
                     </p>
@@ -358,11 +360,11 @@
                     Swal.fire({
                         title: 'Permanently Delete?',
                         html: `<div class="text-left">
-                                                <p>Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?</p>
-                                                <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
-                                                    <p class="text-sm text-red-700"><i class='hgi-stroke hgi-alert-circle mr-1'></i> This cannot be undone!</p>
-                                                </div>
-                                            </div>`,
+                                                        <p>Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?</p>
+                                                        <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
+                                                            <p class="text-sm text-red-700"><i class='hgi-stroke hgi-alert-circle mr-1'></i> This cannot be undone!</p>
+                                                        </div>
+                                                    </div>`,
                         icon: 'error',
                         showCancelButton: true,
                         confirmButtonColor: '#dc2626',

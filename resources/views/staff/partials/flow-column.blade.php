@@ -64,7 +64,7 @@
             'ring' => 'ring-green-200'
         ],
     ];
-    $colors = $colorClasses[$color] ?? $colorClasses['slate'];
+    $colors = (isset($color) && isset($colorClasses[$color])) ? $colorClasses[$color] : $colorClasses['slate'];
 @endphp
 
 <div
@@ -97,7 +97,8 @@
             @php
                 $waitTime = null;
                 if ($stage !== 'paid' && $appointment->appointment_time) {
-                    $appointmentTime = \Carbon\Carbon::parse($appointment->appointment_date->format('Y-m-d') . ' ' . $appointment->appointment_time);
+                    $dateStr = ($appointment->appointment_date instanceof \DateTimeInterface) ? $appointment->appointment_date->format('Y-m-d') : $appointment->appointment_date;
+                    $appointmentTime = \Carbon\Carbon::parse($dateStr . ' ' . $appointment->appointment_time);
                     if (now()->gt($appointmentTime)) {
                         $waitTime = now()->diffInMinutes($appointmentTime);
                     }
@@ -195,20 +196,20 @@
                         <button
                             onclick="event.stopPropagation(); @if($nextAction === 'mark_paid') openPaymentModal({{ $appointment->id }}, {{ $paymentAmount }}); @else updateStatus({{ $appointment->id }}, '{{ $nextAction }}'); @endif"
                             class="w-full py-2.5 text-sm font-semibold rounded-xl transition-all flex items-center justify-center gap-2
-                                    @if($stage === 'pending')
-                                        bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white shadow-sm hover:shadow-md
-                                    @elseif($stage === 'completed')
-                                        bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-sm hover:shadow-md
-                                    @elseif($stage === 'scheduled')
-                                        bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm hover:shadow-md
-                                    @elseif($stage === 'checked_in')
-                                        bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-sm hover:shadow-md
-                                    @elseif($stage === 'in_consultation')
-                                        bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-sm hover:shadow-md
-                                    @else
-                                        bg-gray-100 hover:bg-gray-200 text-gray-700
-                                    @endif">
-                            <i class='hgi-stroke {{ $nextIcon ?? 'bx-right-arrow-alt' }}'></i>
+                                            @if($stage === 'pending')
+                                                bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white shadow-sm hover:shadow-md
+                                            @elseif($stage === 'completed')
+                                                bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white shadow-sm hover:shadow-md
+                                            @elseif($stage === 'scheduled')
+                                                bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-sm hover:shadow-md
+                                            @elseif($stage === 'checked_in')
+                                                bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white shadow-sm hover:shadow-md
+                                            @elseif($stage === 'in_consultation')
+                                                bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-sm hover:shadow-md
+                                            @else
+                                                bg-gray-100 hover:bg-gray-200 text-gray-700
+                                            @endif">
+                            <i class='hgi-stroke {{ $nextIcon ?? 'hgi-arrow-right-01' }}'></i>
                             {{ $nextLabel }}
                         </button>
                     @else

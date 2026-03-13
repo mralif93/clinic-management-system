@@ -1,19 +1,27 @@
-@extends('layouts.doctor')
+@extends('layouts.doctor', ['hideLayoutTitle' => true])
 @section('title', 'New Referral Letter')
 @section('page-title', 'New Referral Letter')
 
 @section('content')
 <div class="space-y-6 max-w-4xl mx-auto">
 
-    {{-- Header --}}
-    <div class="flex items-center gap-3">
-        <a href="{{ route('doctor.referral-letters.index') }}"
-           class="w-9 h-9 bg-white border border-gray-200 rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition text-gray-600">
-            <i class='hgi-stroke hgi-arrow-left-01 text-lg'></i>
-        </a>
-        <div>
-            <h2 class="text-xl font-bold text-gray-900">New Referral Letter</h2>
-            <p class="text-sm text-gray-500">Create a formal referral for your patient</p>
+    <!-- Page Header -->
+    <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
+        <!-- Decorative background elements -->
+        <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+        <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+        <div class="relative">
+            <a href="{{ route('doctor.referral-letters.index') }}" class="inline-flex items-center gap-1 text-emerald-100 hover:text-white text-sm mb-2 transition">
+                <i class='hgi-stroke hgi-arrow-left-01'></i> Back to Referral Letters
+            </a>
+            <h1 class="text-2xl font-bold flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
+                    <i class='hgi-stroke hgi-plus-sign text-xl'></i>
+                </div>
+                New Referral Letter
+            </h1>
+            <p class="text-emerald-100 mt-2">Create a formal referral for your patient</p>
         </div>
     </div>
 

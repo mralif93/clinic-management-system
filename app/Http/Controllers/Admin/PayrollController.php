@@ -115,52 +115,57 @@ class PayrollController extends Controller
     }
 
     /**
-     * Calculate basic salary based on employment type
+     * Calculate comprehensive salary using service based purely on working days
      */
-    private function calculateBasicSalary($userId, $payPeriodStart, $payPeriodEnd)
+    public function calculateSalary(Request $request, \App\Services\PayrollCalculationService $payrollService)
     {
-        $user = User::with('doctor')->find($userId);
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'pay_period_start' => 'required|date',
+            'pay_period_end' => 'required|date|after_or_equal:pay_period_start',
+        ]);
 
-        if (! $user) {
-            return 0;
-        }
+        $user = User::with('doctor')->find($validated['user_id']);
+        $manualBasicSalary = $request->filled('basic_salary') ? (float) $request->input('basic_salary') : null;
 
-        switch ($user->employment_type) {
-            case 'full_time':
-                // Full-time: Use basic salary from user profile
-                return $user->basic_salary ?? 0;
+        // Calculate only the base salary and prorated amounts. We don't calculate deductions here.
+        $result = $payrollService->calculate(
+            $user,
+            $validated['pay_period_start'],
+            $validated['pay_period_end'],
+            $manualBasicSalary,
+            [],
+            0
+        );
 
-            case 'part_time':
-                // Part-time: Calculate hourly (RM8/hour by default)
-                $hourlyRate = $user->hourly_rate ?? \App\Models\Setting::get('payroll_part_time_hourly_rate', 8);
+        return response()->json($result);
+    }
 
-                // Get total hours worked in the pay period
-                $totalHours = \App\Models\Attendance::where('user_id', $userId)
-                    ->whereBetween('date', [$payPeriodStart, $payPeriodEnd])
-                    ->where('is_approved', true)
-                    ->sum('total_hours');
+    /**
+     * Calculate only statutory deductions
+     */
+    public function calculateStatutory(Request $request, \App\Services\PayrollCalculationService $payrollService)
+    {
+        $validated = $request->validate([
+            'basic_salary' => 'required|numeric|min:0',
+            'user_id' => 'nullable|exists:users,id',
+        ]);
 
-                return $totalHours * $hourlyRate;
+        $user = $request->filled('user_id') ? User::find($validated['user_id']) : null;
+        $allowanceAmounts = $request->input('allowance_amounts', []);
+        $overtimePay = (float) $request->input('overtime_pay', 0);
 
-            case 'locum':
-                // Locum: Calculate based on appointments with commission rate (60% by default)
-                if (! $user->doctor) {
-                    return 0;
-                }
+        $statutory = $payrollService->calculateStatutoryOnly(
+            (float) $validated['basic_salary'],
+            $allowanceAmounts,
+            $overtimePay,
+            $user
+        );
 
-                $commissionRate = $user->doctor->commission_rate ?? \App\Models\Setting::get('payroll_locum_commission_rate', 60);
-
-                // Get total appointments fee in the pay period
-                $totalFee = \App\Models\Appointment::where('doctor_id', $user->doctor->id)
-                    ->whereBetween('appointment_date', [$payPeriodStart, $payPeriodEnd])
-                    ->whereIn('status', ['completed', 'confirmed'])
-                    ->sum('fee');
-
-                return ($totalFee * $commissionRate) / 100;
-
-            default:
-                return 0;
-        }
+        return response()->json([
+            'success' => true,
+            'statutory_deductions' => $statutory
+        ]);
     }
 
     /**
@@ -181,8 +186,13 @@ class PayrollController extends Controller
             'deduction_names.*' => 'nullable|string',
             'deduction_amounts' => 'nullable|array',
             'deduction_amounts.*' => 'nullable|numeric|min:0',
+            'employer_deduction_names' => 'nullable|array',
+            'employer_deduction_names.*' => 'nullable|string',
+            'employer_deduction_amounts' => 'nullable|array',
+            'employer_deduction_amounts.*' => 'nullable|numeric|min:0',
             'overtime_hours' => 'nullable|numeric|min:0',
             'overtime_pay' => 'nullable|numeric|min:0',
+            'payment_release_date' => 'nullable|date',
             'payment_method' => 'nullable|in:bank_transfer,cash,cheque',
             'notes' => 'nullable|string',
         ]);
@@ -192,7 +202,7 @@ class PayrollController extends Controller
         $totalAllowances = 0;
         if ($request->has('allowance_names') && $request->has('allowance_amounts')) {
             foreach ($request->allowance_names as $index => $name) {
-                if (! empty($name) && isset($request->allowance_amounts[$index])) {
+                if (!empty($name) && isset($request->allowance_amounts[$index])) {
                     $amount = (float) $request->allowance_amounts[$index];
                     if ($amount > 0) {
                         $allowances[$name] = $amount;
@@ -207,11 +217,24 @@ class PayrollController extends Controller
         $totalDeductions = 0;
         if ($request->has('deduction_names') && $request->has('deduction_amounts')) {
             foreach ($request->deduction_names as $index => $name) {
-                if (! empty($name) && isset($request->deduction_amounts[$index])) {
+                if (!empty($name) && isset($request->deduction_amounts[$index])) {
                     $amount = (float) $request->deduction_amounts[$index];
                     if ($amount > 0) {
                         $deductions[$name] = $amount;
                         $totalDeductions += $amount;
+                    }
+                }
+            }
+        }
+
+        // Process employer deductions
+        $employerDeductions = [];
+        if ($request->has('employer_deduction_names') && $request->has('employer_deduction_amounts')) {
+            foreach ($request->employer_deduction_names as $index => $name) {
+                if (!empty($name) && isset($request->employer_deduction_amounts[$index])) {
+                    $amount = (float) $request->employer_deduction_amounts[$index];
+                    if ($amount > 0) {
+                        $employerDeductions[$name] = $amount;
                     }
                 }
             }
@@ -231,10 +254,12 @@ class PayrollController extends Controller
             'basic_salary' => $basicSalary,
             'allowances' => $allowances,
             'deductions' => $deductions,
+            'employer_deductions' => $employerDeductions,
             'overtime_hours' => $validated['overtime_hours'] ?? 0,
             'overtime_pay' => $overtimePay,
             'gross_salary' => $grossSalary,
             'net_salary' => $netSalary,
+            'payment_date' => $validated['payment_release_date'] ?? null,
             'payment_method' => $validated['payment_method'] ?? null,
             'notes' => $validated['notes'] ?? null,
             'generated_by' => Auth::id(),
@@ -311,8 +336,13 @@ class PayrollController extends Controller
             'deduction_names.*' => 'nullable|string',
             'deduction_amounts' => 'nullable|array',
             'deduction_amounts.*' => 'nullable|numeric|min:0',
+            'employer_deduction_names' => 'nullable|array',
+            'employer_deduction_names.*' => 'nullable|string',
+            'employer_deduction_amounts' => 'nullable|array',
+            'employer_deduction_amounts.*' => 'nullable|numeric|min:0',
             'overtime_hours' => 'nullable|numeric|min:0',
             'overtime_pay' => 'nullable|numeric|min:0',
+            'payment_release_date' => 'nullable|date',
             'payment_method' => 'nullable|in:bank_transfer,cash,cheque',
             'notes' => 'nullable|string',
         ]);
@@ -322,7 +352,7 @@ class PayrollController extends Controller
         $totalAllowances = 0;
         if ($request->has('allowance_names') && $request->has('allowance_amounts')) {
             foreach ($request->allowance_names as $index => $name) {
-                if (! empty($name) && isset($request->allowance_amounts[$index])) {
+                if (!empty($name) && isset($request->allowance_amounts[$index])) {
                     $amount = (float) $request->allowance_amounts[$index];
                     if ($amount > 0) {
                         $allowances[$name] = $amount;
@@ -337,11 +367,24 @@ class PayrollController extends Controller
         $totalDeductions = 0;
         if ($request->has('deduction_names') && $request->has('deduction_amounts')) {
             foreach ($request->deduction_names as $index => $name) {
-                if (! empty($name) && isset($request->deduction_amounts[$index])) {
+                if (!empty($name) && isset($request->deduction_amounts[$index])) {
                     $amount = (float) $request->deduction_amounts[$index];
                     if ($amount > 0) {
                         $deductions[$name] = $amount;
                         $totalDeductions += $amount;
+                    }
+                }
+            }
+        }
+
+        // Process employer deductions
+        $employerDeductions = [];
+        if ($request->has('employer_deduction_names') && $request->has('employer_deduction_amounts')) {
+            foreach ($request->employer_deduction_names as $index => $name) {
+                if (!empty($name) && isset($request->employer_deduction_amounts[$index])) {
+                    $amount = (float) $request->employer_deduction_amounts[$index];
+                    if ($amount > 0) {
+                        $employerDeductions[$name] = $amount;
                     }
                 }
             }
@@ -361,10 +404,12 @@ class PayrollController extends Controller
             'basic_salary' => $basicSalary,
             'allowances' => $allowances,
             'deductions' => $deductions,
+            'employer_deductions' => $employerDeductions,
             'overtime_hours' => $validated['overtime_hours'] ?? 0,
             'overtime_pay' => $overtimePay,
             'gross_salary' => $grossSalary,
             'net_salary' => $netSalary,
+            'payment_date' => $validated['payment_release_date'] ?? null,
             'payment_method' => $validated['payment_method'] ?? null,
             'notes' => $validated['notes'] ?? null,
         ];
@@ -415,99 +460,11 @@ class PayrollController extends Controller
     }
 
     /**
-     * Calculate salary for an employee (AJAX endpoint)
+     * Store and Update will rely on frontend sum
+     * calculateSalary is now at the top
      */
-    public function calculateSalary(Request $request)
-    {
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'pay_period_start' => 'required|date',
-            'pay_period_end' => 'required|date|after_or_equal:pay_period_start',
-        ]);
 
-        $basicSalary = $this->calculateBasicSalary(
-            $validated['user_id'],
-            $validated['pay_period_start'],
-            $validated['pay_period_end']
-        );
 
-        $user = User::with('doctor')->find($validated['user_id']);
-
-        return response()->json([
-            'success' => true,
-            'basic_salary' => number_format($basicSalary, 2, '.', ''),
-            'employment_type' => $user->employment_type,
-            'details' => $this->getSalaryCalculationDetails($user, $validated['pay_period_start'], $validated['pay_period_end']),
-        ]);
-    }
-
-    /**
-     * Get salary calculation details for display
-     */
-    private function getSalaryCalculationDetails($user, $payPeriodStart, $payPeriodEnd)
-    {
-        switch ($user->employment_type) {
-            case 'full_time':
-                return [
-                    'type' => 'Full Time',
-                    'description' => 'Monthly basic salary',
-                    'amount' => $user->basic_salary ?? 0,
-                ];
-
-            case 'part_time':
-                $hourlyRate = $user->hourly_rate ?? \App\Models\Setting::get('payroll_part_time_hourly_rate', 8);
-                $totalHours = \App\Models\Attendance::where('user_id', $user->id)
-                    ->whereBetween('date', [$payPeriodStart, $payPeriodEnd])
-                    ->where('is_approved', true)
-                    ->sum('total_hours');
-
-                return [
-                    'type' => 'Part Time',
-                    'description' => "Total hours: {$totalHours}h × RM{$hourlyRate}/hour",
-                    'hours' => $totalHours,
-                    'rate' => $hourlyRate,
-                    'amount' => $totalHours * $hourlyRate,
-                ];
-
-            case 'locum':
-                if (! $user->doctor) {
-                    return [
-                        'type' => 'Locum',
-                        'description' => 'No doctor profile found',
-                        'amount' => 0,
-                    ];
-                }
-
-                $commissionRate = $user->doctor->commission_rate ?? \App\Models\Setting::get('payroll_locum_commission_rate', 60);
-
-                // Get appointments with details
-                $appointments = \App\Models\Appointment::where('doctor_id', $user->doctor->id)
-                    ->whereBetween('appointment_date', [$payPeriodStart, $payPeriodEnd])
-                    ->whereIn('status', ['completed', 'confirmed'])
-                    ->with('patient')
-                    ->get();
-
-                $totalFee = $appointments->sum('fee');
-                $appointmentCount = $appointments->count();
-
-                return [
-                    'type' => 'Locum',
-                    'description' => "{$appointmentCount} appointments × {$commissionRate}% commission",
-                    'appointments' => $appointmentCount,
-                    'appointment_details' => $appointments,
-                    'total_fee' => $totalFee,
-                    'commission_rate' => $commissionRate,
-                    'amount' => ($totalFee * $commissionRate) / 100,
-                ];
-
-            default:
-                return [
-                    'type' => 'Unknown',
-                    'description' => 'Employment type not set',
-                    'amount' => 0,
-                ];
-        }
-    }
 
     /**
      * Mark the specified payroll as paid

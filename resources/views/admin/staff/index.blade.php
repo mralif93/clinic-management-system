@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <a href="{{ route('admin.staff.create') }}"
-                    class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-white/30 active:bg-white/40 transition-all border border-white/30 shadow-lg shadow-black/10">
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                     <i class='hgi-stroke hgi-plus-sign'></i>
                     Add New Staff
                 </a>
@@ -343,11 +343,11 @@
                 Swal.fire({
                     title: 'Permanently Delete?',
                     html: `<div class="text-left">
-                                                        <p>Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?</p>
-                                                        <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
-                                                            <p class="text-sm text-red-700"><i class='hgi-stroke hgi-alert-circle mr-1'></i> This cannot be undone!</p>
-                                                        </div>
-                                                    </div>`,
+                                                                <p>Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?</p>
+                                                                <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
+                                                                    <p class="text-sm text-red-700"><i class='hgi-stroke hgi-alert-circle mr-1'></i> This cannot be undone!</p>
+                                                                </div>
+                                                            </div>`,
                     icon: 'error',
                     showCancelButton: true,
                     confirmButtonColor: '#dc2626',

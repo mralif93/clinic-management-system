@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <a href="{{ route('staff.profile.edit') }}"
-                        class="inline-flex items-center justify-center px-5 py-2.5 bg-white text-purple-600 font-semibold rounded-xl hover:bg-purple-50 transition shadow-lg hover:shadow-xl">
+                        class="inline-flex items-center justify-center px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-pencil-edit-01 mr-2'></i> Edit Profile
                     </a>
                 </div>

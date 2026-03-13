@@ -168,7 +168,7 @@
             Swal.fire({
                 title: 'Confirm Check In?',
                 html: `<p class="text-gray-600">You are about to check in for today's shift.</p>
-                       <p class="text-sm text-gray-500 mt-2">Time: <strong>${document.getElementById('currentTime').textContent}</strong></p>`,
+                           <p class="text-sm text-gray-500 mt-2">Time: <strong>${document.getElementById('currentTime').textContent}</strong></p>`,
                 icon: 'question',
                 iconColor: '#f59e0b',
                 showCancelButton: true,
@@ -182,7 +182,7 @@
                 if (result.isConfirmed) {
                     Swal.fire({
                         title: 'Checking In...',
-                        html: '<i class="hgi-stroke hgi-loading-02 bx-spin text-3xl text-amber-500"></i>',
+                        html: '<i class="hgi-stroke hgi-loading-02 animate-spin text-3xl text-amber-500"></i>',
                         showConfirmButton: false,
                         allowOutsideClick: false
                     });

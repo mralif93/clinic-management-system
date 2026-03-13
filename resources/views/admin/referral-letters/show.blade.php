@@ -43,12 +43,12 @@
 
                 <div class="flex items-center gap-3 flex-wrap">
                     <button onclick="printLetter()" id="printBtn"
-                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-50 transition-all shadow-lg border border-gray-100">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-printer'></i>
                         Print
                     </button>
                     <button onclick="downloadLetter()" id="downloadBtn"
-                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-all shadow-lg border border-blue-100">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-download-04'></i>
                         Download PDF
                     </button>
@@ -57,13 +57,13 @@
                         @csrf
                         @method('DELETE')
                         <button type="button" id="adminDeleteBtn"
-                            class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-red-600 rounded-xl font-semibold hover:bg-red-50 transition-all shadow-lg border border-red-100">
+                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                             <i class='hgi-stroke hgi-delete-01'></i>
                             Delete
                         </button>
                     </form>
                     <a href="{{ route('admin.referral-letters.index') }}"
-                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back to List
                     </a>
@@ -98,7 +98,7 @@
             const el = document.getElementById('referral-letter-content');
             const btn = document.getElementById('printBtn');
             btn.disabled = true;
-            btn.innerHTML = '<i class="hgi-stroke hgi-loading-02 bx-spin"></i> Preparing...';
+            btn.innerHTML = '<i class="hgi-stroke hgi-loading-02 animate-spin"></i> Preparing...';
             html2pdf().set(getPdfOptions()).from(el).toPdf().get('pdf').then(function (pdf) {
                 const url = URL.createObjectURL(pdf.output('blob'));
                 const w = window.open(url, '_blank');
@@ -111,7 +111,7 @@
             const el = document.getElementById('referral-letter-content');
             const btn = document.getElementById('downloadBtn');
             btn.disabled = true;
-            btn.innerHTML = '<i class="hgi-stroke hgi-loading-02 bx-spin"></i> Generating...';
+            btn.innerHTML = '<i class="hgi-stroke hgi-loading-02 animate-spin"></i> Generating...';
             html2pdf().set(getPdfOptions()).from(el).save().then(function () {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="hgi-stroke hgi-download-04"></i> Download PDF';

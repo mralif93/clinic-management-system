@@ -52,7 +52,7 @@
                 <div class="flex items-center gap-3">
                     @if(!$package->trashed())
                         <a href="{{ route('admin.packages.edit', $package->id) }}"
-                            class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-purple-600 rounded-xl font-semibold hover:bg-purple-50 transition-all shadow-lg border border-purple-100">
+                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                             <i class='hgi-stroke hgi-pencil-edit-01'></i>
                             Edit Package
                         </a>
@@ -60,14 +60,14 @@
                         <form action="{{ route('admin.packages.restore', $package->id) }}" method="POST" class="inline">
                             @csrf
                             <button type="submit"
-                                class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-green-600 rounded-xl font-semibold hover:bg-green-50 transition-all shadow-lg border border-green-100">
+                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                                 <i class='hgi-stroke hgi-refresh'></i>
                                 Restore Package
                             </button>
                         </form>
                     @endif
                     <a href="{{ route('admin.packages.index') }}"
-                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back to List
                     </a>

@@ -71,6 +71,9 @@ class UserController extends Controller
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:8|confirmed',
                 'role' => 'required|in:admin,patient,doctor,staff',
+                'marital_status' => 'nullable|in:single,married,married_spouse_working,married_spouse_not_working',
+                'number_of_children' => 'nullable|integer|min:0',
+                'tax_number' => 'nullable|string|max:255',
             ], [
                 'name.required' => 'The name field is required.',
                 'email.required' => 'The email field is required.',
@@ -87,6 +90,9 @@ class UserController extends Controller
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
                 'role' => $validated['role'],
+                'marital_status' => $validated['marital_status'] ?? 'single',
+                'number_of_children' => $validated['number_of_children'] ?? 0,
+                'tax_number' => $validated['tax_number'] ?? null,
                 'email_verified_at' => now(),
             ]);
 
@@ -113,13 +119,13 @@ class UserController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to create user: '.$e->getMessage(),
+                    'message' => 'Failed to create user: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to create user: '.$e->getMessage());
+                ->with('error', 'Failed to create user: ' . $e->getMessage());
         }
     }
 
@@ -176,6 +182,9 @@ class UserController extends Controller
                 'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
                 'password' => 'nullable|string|min:8|confirmed',
                 'role' => 'required|in:admin,patient,doctor,staff',
+                'marital_status' => 'nullable|in:single,married,married_spouse_working,married_spouse_not_working',
+                'number_of_children' => 'nullable|integer|min:0',
+                'tax_number' => 'nullable|string|max:255',
             ], [
                 'name.required' => 'The name field is required.',
                 'email.required' => 'The email field is required.',
@@ -189,6 +198,9 @@ class UserController extends Controller
             $user->name = $validated['name'];
             $user->email = $validated['email'];
             $user->role = $validated['role'];
+            $user->marital_status = $validated['marital_status'] ?? 'single';
+            $user->number_of_children = $validated['number_of_children'] ?? 0;
+            $user->tax_number = $validated['tax_number'] ?? null;
 
             if ($request->filled('password')) {
                 $user->password = Hash::make($validated['password']);
@@ -219,13 +231,13 @@ class UserController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to update user: '.$e->getMessage(),
+                    'message' => 'Failed to update user: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to update user: '.$e->getMessage());
+                ->with('error', 'Failed to update user: ' . $e->getMessage());
         }
     }
 
@@ -266,12 +278,12 @@ class UserController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to delete user: '.$e->getMessage(),
+                    'message' => 'Failed to delete user: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->route('admin.users.index')
-                ->with('error', 'Failed to delete user: '.$e->getMessage());
+                ->with('error', 'Failed to delete user: ' . $e->getMessage());
         }
     }
 
@@ -283,7 +295,7 @@ class UserController extends Controller
         try {
             $user = User::withTrashed()->findOrFail($id);
 
-            if (! $user->trashed()) {
+            if (!$user->trashed()) {
                 $message = 'This user is not deleted.';
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
@@ -311,12 +323,12 @@ class UserController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to restore user: '.$e->getMessage(),
+                    'message' => 'Failed to restore user: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->route('admin.users.index')
-                ->with('error', 'Failed to restore user: '.$e->getMessage());
+                ->with('error', 'Failed to restore user: ' . $e->getMessage());
         }
     }
 
@@ -357,12 +369,12 @@ class UserController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to permanently delete user: '.$e->getMessage(),
+                    'message' => 'Failed to permanently delete user: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->route('admin.users.index')
-                ->with('error', 'Failed to permanently delete user: '.$e->getMessage());
+                ->with('error', 'Failed to permanently delete user: ' . $e->getMessage());
         }
     }
 
@@ -373,7 +385,7 @@ class UserController extends Controller
     {
         $user = User::withTrashed()->findOrFail($id);
 
-        if (! $user->isLocked()) {
+        if (!$user->isLocked()) {
             return redirect()->route('admin.users.show', $user->id)
                 ->with('info', 'This account is not locked.');
         }

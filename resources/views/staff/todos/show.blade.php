@@ -5,9 +5,9 @@
 
 @php
     $priorityColors = [
-        'low' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'bx-down-arrow-alt'],
+        'low' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'hgi-arrow-down-01'],
         'medium' => ['bg' => 'bg-yellow-100', 'text' => 'text-yellow-700', 'icon' => 'hgi-minus-sign'],
-        'high' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'bx-up-arrow-alt'],
+        'high' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'hgi-arrow-up-01'],
     ];
     $statusColors = [
         'pending' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-clock-01'],
@@ -21,13 +21,14 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-500 rounded-2xl shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-br from-teal-500 via-cyan-600 to-blue-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
 
-            <div class="relative p-6 md:p-8">
+            <div class="relative">
                 <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="flex items-center gap-4">
                         <a href="{{ route('staff.todos.index') }}"
@@ -59,7 +60,8 @@
                     </div>
                     <div>
                         <p class="text-sm font-semibold {{ $currentStatus['text'] }}">
-                            {{ ucfirst(str_replace('_', ' ', $todo->status)) }}</p>
+                            {{ ucfirst(str_replace('_', ' ', $todo->status)) }}
+                        </p>
                         <p class="text-xs text-gray-500 uppercase tracking-wide">Status</p>
                     </div>
                 </div>
@@ -85,7 +87,8 @@
                     <div>
                         @if($todo->due_date)
                             <p class="text-sm font-semibold {{ $todo->isOverdue() ? 'text-red-600' : 'text-gray-900' }}">
-                                {{ $todo->due_date->format('M d, Y') }}</p>
+                                {{ $todo->due_date->format('M d, Y') }}
+                            </p>
                             @if($todo->isOverdue())
                                 <p class="text-xs text-red-500 uppercase tracking-wide">Overdue!</p>
                             @else

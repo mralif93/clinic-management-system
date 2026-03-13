@@ -28,11 +28,13 @@
                     <div
                         class="inline-flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 shadow-inner">
                         <span class="text-2xl font-bold text-white">{{ $letters->total() }}</span>
-                        <span class="text-[10px] text-primary-100 font-bold uppercase tracking-wider whitespace-nowrap">Total Letters</span>
+                        <span
+                            class="text-[10px] text-primary-100 font-bold uppercase tracking-wider whitespace-nowrap">Total
+                            Letters</span>
                     </div>
 
                     <a href="{{ route('admin.referral-letters.create') }}"
-                       class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-blue-600 rounded-xl font-semibold hover:bg-blue-50 transition-all shadow-lg">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-plus-sign text-xl'></i>
                         New Letter
                     </a>

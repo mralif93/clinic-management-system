@@ -1,12 +1,13 @@
-@extends('layouts.doctor')
+@extends('layouts.doctor', ['hideLayoutTitle' => true])
 
 @section('title', 'Doctor Dashboard')
 @section('page-title', 'Dashboard')
+@section('hide-layout-title', true)
 
 @section('content')
     <div class="space-y-6">
         <!-- Welcome Banner -->
-        <div class="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white rounded-3xl shadow-2xl p-8 mb-8 border border-white/10 relative overflow-hidden group">
+        <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 text-white rounded-3xl shadow-2xl p-8 mb-8 border border-white/10 relative overflow-hidden group">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-110 transition-transform duration-700"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700"></div>
@@ -23,13 +24,13 @@
                             <span class="text-[10px] font-bold tracking-wider uppercase opacity-90">{{ now()->format('l, F j, Y') }}</span>
                         </div>
                         <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">
-                            Welcome back, <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-primary-200">Dr. {{ Auth::user()->name }}!</span>
+                            Welcome back, <span class="text-white">Dr. {{ Auth::user()->name }}!</span>
                         </h2>
-                        <p class="text-sm text-primary-100/80 max-w-md font-medium leading-relaxed">
+                        <p class="text-sm text-emerald-50 max-w-md font-medium leading-relaxed">
                             You have <span class="text-white font-bold">{{ $todayAppointments }} appointments</span> scheduled today.
                         </p>
                         @if(Auth::user()->doctor)
-                            <span class="inline-flex items-center gap-2 mt-1 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-[10px] font-bold uppercase tracking-wider">
+                            <span class="inline-flex items-center gap-2 mt-1 px-3 py-1 rounded-full bg-white/20 border border-white/10 text-[10px] font-bold uppercase tracking-wider">
                                 <i class='hgi-stroke hgi-identity-card'></i>{{ Auth::user()->doctor->doctor_id }}
                             </span>
                         @endif
@@ -37,7 +38,7 @@
                 </div>
                 <div class="flex-shrink-0">
                     <a href="{{ route('doctor.appointments.index') }}"
-                       class="relative w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-500 hover:bg-white/20 group/icon">
+                       class="relative w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-white/20 backdrop-blur-xl border border-white/20 flex items-center justify-center shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-500 hover:bg-white/30 group/icon">
                         <i class='hgi-stroke hgi-calendar-03 text-4xl md:text-5xl text-white opacity-90 group-hover/icon:opacity-100'></i>
                     </a>
                 </div>

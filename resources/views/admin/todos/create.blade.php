@@ -21,8 +21,8 @@
         <p class="text-amber-100 text-sm mt-1">Add a new task to your to-do list</p>
     </div>
 </div>
-            <a href="{{ route('admin.todos.index') }}" 
-               class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+            <a href="{{ route('admin.todos.index') }}"
+                class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                 <i class='hgi-stroke hgi-arrow-left-01'></i>
                 Back to List
             </a>

@@ -22,11 +22,11 @@
                 </div>
             </div>
             <div class="flex items-center gap-3">
-                <div class="bg-white/20 backdrop-blur px-4 py-2 rounded-xl border border-white/20">
+                <div class="bg-white/20 backdrop-blur-md px-5 py-2.5 rounded-xl border border-white/30 shadow-lg">
                     <span class="text-white font-semibold">{{ $corrections->count() }} Pending</span>
                 </div>
                 <a href="{{ route('admin.attendance.index') }}"
-                    class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                     <i class='hgi-stroke hgi-arrow-left-01'></i>
                     Back to List
                 </a>

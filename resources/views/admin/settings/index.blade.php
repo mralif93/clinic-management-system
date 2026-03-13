@@ -6,16 +6,28 @@
 @section('content')
     <div class="max-w-5xl mx-auto">
         <!-- Header Section -->
-        <div class="mb-8">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-2xl font-bold text-gray-900">Clinic Settings</h1>
-                    <p class="mt-1 text-sm text-gray-500">Manage your clinic configuration and preferences</p>
+        <div
+            class="bg-gradient-to-r from-gray-800 to-gray-900 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-8">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-settings-01 text-2xl'></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold">Clinic Settings</h2>
+                        <p class="text-gray-300 text-sm mt-1">Manage your clinic configuration and preferences</p>
+                    </div>
                 </div>
                 <div id="saveStatus"
-                    class="hidden items-center gap-2 px-4 py-2 rounded-lg bg-green-50 border border-green-200">
-                    <i class='hgi-stroke hgi-checkmark-circle-02 text-green-600'></i>
-                    <span class="text-sm font-medium text-green-700">All changes saved</span>
+                    class="hidden items-center gap-2 px-4 py-2 rounded-xl bg-green-500/20 backdrop-blur-md border border-green-500/30 text-green-100 transition-all">
+                    <i class='hgi-stroke hgi-checkmark-circle-02'></i>
+                    <span class="text-sm font-medium">All changes saved</span>
                 </div>
             </div>
         </div>
@@ -25,10 +37,10 @@
             $initialTab = $activeTab ?? request('tab') ?? request()->route('tab') ?? 'general';
         @endphp
         <div x-data="{ activeTab: '{{ $initialTab }}' }" x-init="
-            // If tab passed via URL params, ensure it exists; else fallback
-            const validTabs = ['general','branding','payment','payroll','email','hours'];
-            if (!validTabs.includes(activeTab)) activeTab = 'general';
-        " class="space-y-6">
+                // If tab passed via URL params, ensure it exists; else fallback
+                const validTabs = ['general','branding','payment','payroll','email','hours'];
+                if (!validTabs.includes(activeTab)) activeTab = 'general';
+            " class="space-y-6">
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                 <div class="border-b border-gray-100">
                     <nav class="flex -mb-px overflow-x-auto" aria-label="Tabs">
@@ -556,66 +568,66 @@
                     showError('Failed to save setting. Please try again.');
                 }
 
-        function showSavedToast(key) {
-            if (typeof Swal !== 'undefined') {
-                Swal.fire({
-                    toast: true,
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Changes updated',
-                    showConfirmButton: false,
-                    timer: 1600,
-                    timerProgressBar: true,
-                    customClass: {
-                        popup: 'swal-toast-fixed'
+                function showSavedToast(key) {
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Changes updated',
+                            showConfirmButton: false,
+                            timer: 1600,
+                            timerProgressBar: true,
+                            customClass: {
+                                popup: 'swal-toast-fixed'
+                            }
+                        });
+                        ensureToastStyle();
+                        return;
                     }
-                });
-                ensureToastStyle();
-                return;
-            }
 
-            const toast = document.createElement('div');
-            toast.textContent = 'Changes updated';
-            toast.className = 'swal-toast-fallback';
-            document.body.appendChild(toast);
-            requestAnimationFrame(() => {
-                toast.classList.add('show');
-            });
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 250);
-            }, 1600);
-        }
-
-        function ensureToastStyle() {
-            const id = 'swal-toast-fixed-style';
-            if (document.getElementById(id)) return;
-            const style = document.createElement('style');
-            style.id = id;
-            style.textContent = `
-                .swal-toast-fixed { margin-top: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.12); }
-                .swal2-container.swal2-top-end { padding: 12px; }
-                .swal-toast-fallback {
-                    position: fixed;
-                    top: 16px;
-                    right: 16px;
-                    z-index: 9999;
-                    padding: 10px 14px;
-                    border-radius: 10px;
-                    background: #2563eb;
-                    color: #fff;
-                    font-size: 14px;
-                    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-                    opacity: 0;
-                    transition: opacity 0.2s ease;
+                    const toast = document.createElement('div');
+                    toast.textContent = 'Changes updated';
+                    toast.className = 'swal-toast-fallback';
+                    document.body.appendChild(toast);
+                    requestAnimationFrame(() => {
+                        toast.classList.add('show');
+                    });
+                    setTimeout(() => {
+                        toast.classList.remove('show');
+                        setTimeout(() => toast.remove(), 250);
+                    }, 1600);
                 }
-                .swal-toast-fallback.show { opacity: 1; }
-            `;
-            document.head.appendChild(style);
-        }
+
+                function ensureToastStyle() {
+                    const id = 'swal-toast-fixed-style';
+                    if (document.getElementById(id)) return;
+                    const style = document.createElement('style');
+                    style.id = id;
+                    style.textContent = `
+                        .swal-toast-fixed { margin-top: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.12); }
+                        .swal2-container.swal2-top-end { padding: 12px; }
+                        .swal-toast-fallback {
+                            position: fixed;
+                            top: 16px;
+                            right: 16px;
+                            z-index: 9999;
+                            padding: 10px 14px;
+                            border-radius: 10px;
+                            background: #2563eb;
+                            color: #fff;
+                            font-size: 14px;
+                            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+                            opacity: 0;
+                            transition: opacity 0.2s ease;
+                        }
+                        .swal-toast-fallback.show { opacity: 1; }
+                    `;
+                    document.head.appendChild(style);
+                }
             }
 
-        // Toast removed per request; visual status handled by status badge only
+            // Toast removed per request; visual status handled by status badge only
 
             // Toggle boolean settings
             function toggleSetting(key, button) {
@@ -644,33 +656,33 @@
             }
 
             // Show save status indicator
-        let lastStatusToastAt = 0;
-        function showSaveStatus(status) {
-            // hide inline badge; use SweetAlert toasts instead
-            const statusEl = document.getElementById('saveStatus');
-            if (statusEl) {
-                statusEl.classList.add('hidden');
-                statusEl.classList.remove('flex');
+            let lastStatusToastAt = 0;
+            function showSaveStatus(status) {
+                // hide inline badge; use SweetAlert toasts instead
+                const statusEl = document.getElementById('saveStatus');
+                if (statusEl) {
+                    statusEl.classList.add('hidden');
+                    statusEl.classList.remove('flex');
+                }
+                showStatusToast(status);
             }
-            showStatusToast(status);
-        }
 
-        function showStatusToast(kind) {
+            function showStatusToast(kind) {
                 const now = Date.now();
                 // light throttle to avoid toast spam on rapid saves
                 if (kind === 'saving' && now - lastStatusToastAt < 800) return;
                 lastStatusToastAt = now;
 
-            const title = kind === 'saving'
-                ? 'Saving...'
-                : kind === 'error'
-                    ? 'Failed to save'
-                    : 'All changes saved';
-            const icon = kind === 'saving'
-                ? 'info'
-                : kind === 'error'
-                    ? 'error'
-                    : 'success';
+                const title = kind === 'saving'
+                    ? 'Saving...'
+                    : kind === 'error'
+                        ? 'Failed to save'
+                        : 'All changes saved';
+                const icon = kind === 'saving'
+                    ? 'info'
+                    : kind === 'error'
+                        ? 'error'
+                        : 'success';
 
                 if (typeof Swal !== 'undefined') {
                     Swal.fire({
@@ -679,7 +691,7 @@
                         icon,
                         title,
                         showConfirmButton: false,
-                    timer: kind === 'saving' ? 1200 : 1600,
+                        timer: kind === 'saving' ? 1200 : 1600,
                         timerProgressBar: true,
                         customClass: { popup: 'swal-toast-fixed' }
                     });
@@ -687,16 +699,16 @@
                     return;
                 }
 
-            const toast = document.createElement('div');
-            toast.textContent = title;
-            toast.className = 'swal-toast-fallback';
-            document.body.appendChild(toast);
-            requestAnimationFrame(() => toast.classList.add('show'));
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => toast.remove(), 250);
-            }, kind === 'saving' ? 1200 : 1600);
-        }
+                const toast = document.createElement('div');
+                toast.textContent = title;
+                toast.className = 'swal-toast-fallback';
+                document.body.appendChild(toast);
+                requestAnimationFrame(() => toast.classList.add('show'));
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 250);
+                }, kind === 'saving' ? 1200 : 1600);
+            }
 
             // File size validation
             const MAX_FILE_SIZE = 2 * 1024 * 1024;

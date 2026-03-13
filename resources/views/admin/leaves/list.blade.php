@@ -21,14 +21,14 @@
     </div>
 </div>
             <div class="flex items-center gap-3">
-                <a href="{{ route('admin.leaves.index') }}" 
-                   class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                    <i class='hgi-stroke hgi-arrow-left-01 text-lg'></i>
+                <a href="{{ route('admin.leaves.index') }}"
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
+                    <i class='hgi-stroke hgi-arrow-left-01'></i>
                     All Months
                 </a>
                 <a href="{{ route('admin.leaves.create') }}"
-                   class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-emerald-600 rounded-xl font-semibold hover:bg-emerald-50 transition-all shadow-lg shadow-emerald-900/20">
-                    <i class='hgi-stroke hgi-plus-sign text-xl'></i>
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
+                    <i class='hgi-stroke hgi-plus-sign'></i>
                     Apply Leave
                 </a>
             </div>

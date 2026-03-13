@@ -1,13 +1,14 @@
-@extends('layouts.staff')
+@extends('layouts.staff', ['hideLayoutTitle' => true])
 
 @section('title', 'My Payslips')
 @section('page-title', 'My Payslips')
+@section('hide-layout-title', true)
 
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
         <div
-            class="bg-gradient-to-r from-emerald-500 via-emerald-600 to-green-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            class="bg-gradient-to-br from-emerald-500 via-green-600 to-emerald-800 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
@@ -169,62 +170,62 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-50">
                             @foreach($payslips as $payslip)
-                                            <tr class="hover:bg-emerald-50/30 transition-colors duration-150 payslip-row">
-                                                <td class="px-6 py-4">
-                                                    <div class="flex items-center gap-3">
-                                                        <div
-                                                            class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-green-500 rounded-lg flex items-center justify-center">
-                                                            <i class='hgi-stroke hgi-calendar-03 text-white text-lg'></i>
-                                                        </div>
-                                                        <div>
-                                                            <div class="text-sm font-semibold text-gray-900">{{ $payslip->pay_period }}</div>
-                                                            <div class="text-xs text-gray-500">Payslip #{{ $payslip->id }}</div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4 text-sm text-gray-700">
-                                                    RM {{ number_format($payslip->basic_salary, 2) }}
-                                                </td>
-                                                <td class="px-6 py-4 text-sm text-gray-700">
-                                                    RM {{ number_format($payslip->gross_salary, 2) }}
-                                                </td>
-                                                <td class="px-6 py-4">
-                                                    <span class="text-sm font-bold text-emerald-600">RM
-                                                        {{ number_format($payslip->net_salary, 2) }}</span>
-                                                </td>
-                                                <td class="px-6 py-4">
-                                                    @php
-                                                        $statusConfig = [
-                                                            'draft' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-pencil-edit-01'],
-                                                            'approved' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-checkmark-circle-01'],
-                                                            'paid' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'hgi-tick-double-01'],
-                                                        ];
-                                                        $sConfig = $statusConfig[$payslip->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-help-circle'];
-                                                    @endphp
-                                 <span
-                                                        class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $sConfig['bg'] }} {{ $sConfig['text'] }}">
-                                                        <i class='hgi-stroke {{ $sConfig['icon'] }}'></i>
-                                                        {{ ucfirst($payslip->status) }}
-                                                    </span>
-                                                </td>
-                                                <td class="px-6 py-4">
-                                                    @if($payslip->payment_date)
-                                                        <div class="text-sm text-gray-700">{{ $payslip->payment_date->format('d M Y') }}</div>
-                                                        <div class="text-xs text-gray-500">{{ $payslip->payment_date->diffForHumans() }}</div>
-                                                    @else
-                                                        <span class="text-gray-400 text-sm">-</span>
-                                                    @endif
-                                                </td>
-                                                <td class="px-6 py-4">
-                                                    <div class="flex justify-end">
-                                                        <a href="{{ route('staff.payslips.show', $payslip->id) }}"
-                                                            class="w-8 h-8 flex items-center justify-center bg-emerald-500 text-white hover:bg-emerald-600 rounded-full transition shadow-sm hover:shadow"
-                                                            title="View">
-                                                            <i class='hgi-stroke hgi-eye text-sm'></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                <tr class="hover:bg-emerald-50/30 transition-colors duration-150 payslip-row">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-green-500 rounded-lg flex items-center justify-center">
+                                                <i class='hgi-stroke hgi-calendar-03 text-white text-lg'></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-sm font-semibold text-gray-900">{{ $payslip->pay_period }}</div>
+                                                <div class="text-xs text-gray-500">Payslip #{{ $payslip->id }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">
+                                        RM {{ number_format($payslip->basic_salary, 2) }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-700">
+                                        RM {{ number_format($payslip->gross_salary, 2) }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="text-sm font-bold text-emerald-600">RM
+                                            {{ number_format($payslip->net_salary, 2) }}</span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        @php
+                                            $statusConfig = [
+                                                'draft' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-pencil-edit-01'],
+                                                'approved' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-checkmark-circle-01'],
+                                                'paid' => ['bg' => 'bg-green-100', 'text' => 'text-green-700', 'icon' => 'hgi-tick-double-01'],
+                                            ];
+                                            $sConfig = $statusConfig[$payslip->status] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-help-circle'];
+                                        @endphp
+                                        <span
+                                            class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold {{ $sConfig['bg'] }} {{ $sConfig['text'] }}">
+                                            <i class='hgi-stroke {{ $sConfig['icon'] }}'></i>
+                                            {{ ucfirst($payslip->status) }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        @if($payslip->payment_date)
+                                            <div class="text-sm text-gray-700">{{ $payslip->payment_date->format('d M Y') }}</div>
+                                            <div class="text-xs text-gray-500">{{ $payslip->payment_date->diffForHumans() }}</div>
+                                        @else
+                                            <span class="text-gray-400 text-sm">-</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex justify-end">
+                                            <a href="{{ route('staff.payslips.show', $payslip->id) }}"
+                                                class="w-8 h-8 flex items-center justify-center bg-emerald-500 text-white hover:bg-emerald-600 rounded-full transition shadow-sm hover:shadow"
+                                                title="View">
+                                                <i class='hgi-stroke hgi-eye text-sm'></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

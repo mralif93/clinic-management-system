@@ -22,7 +22,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <a href="{{ route('admin.digital-card.self') }}"
-                        class="bg-white/10 hover:bg-white/20 border border-white/10 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all backdrop-blur-sm font-medium shadow-sm">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-user-circle text-xl'></i>
                         My Card
                     </a>

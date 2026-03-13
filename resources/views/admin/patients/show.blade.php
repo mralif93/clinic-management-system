@@ -63,20 +63,20 @@
                 <div class="flex items-center gap-3">
                     @if(!$patient->trashed())
                         <a href="{{ route('admin.patients.edit', $patient->id) }}"
-                            class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-rose-600 rounded-xl font-semibold hover:bg-rose-50 transition-all shadow-lg">
+                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                             <i class='hgi-stroke hgi-pencil-edit-01'></i>
                             Edit Patient
                         </a>
                     @else
                         <button
                             onclick="restorePatient({{ $patient->id }}, '{{ $patient->full_name ?? ($patient->first_name . ' ' . $patient->last_name) }}')"
-                            class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-green-600 rounded-xl font-semibold hover:bg-green-50 transition-all shadow-lg">
+                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                             <i class='hgi-stroke hgi-refresh'></i>
                             Restore Patient
                         </button>
                     @endif
                     <a href="{{ route('admin.patients.index') }}"
-                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back to List
                     </a>
@@ -335,11 +335,11 @@
                 Swal.fire({
                     title: 'Permanently Delete?',
                     html: `<div class="text-left">
-                                    <p class="mb-3">Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?</p>
-                                    <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
-                                        <p class="text-sm text-red-800"><i class='hgi-stroke hgi-alert-circle mr-1.5'></i> <strong>Warning:</strong> This action cannot be undone!</p>
-                                    </div>
-                                </div>`,
+                                            <p class="mb-3">Are you sure you want to <strong class="text-red-600">permanently delete</strong> <strong>${name}</strong>?</p>
+                                            <div class="bg-red-50 border border-red-200 rounded-lg p-3 mt-3">
+                                                <p class="text-sm text-red-800"><i class='hgi-stroke hgi-alert-circle mr-1.5'></i> <strong>Warning:</strong> This action cannot be undone!</p>
+                                            </div>
+                                        </div>`,
                     icon: 'error',
                     showCancelButton: true,
                     confirmButtonColor: '#dc2626',

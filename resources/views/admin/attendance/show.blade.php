@@ -33,7 +33,7 @@
                                     'absent' => ['color' => 'bg-red-400/30', 'icon' => 'hgi-cancel-circle'],
                                     'on_leave' => ['color' => 'bg-purple-400/30', 'icon' => 'hgi-calendar-03'],
                                 ];
-                                $config = $statusConfig[$attendance->status] ?? ['color' => 'bg-gray-400/30', 'icon' => 'bx-question-mark'];
+                                $config = $statusConfig[$attendance->status] ?? ['color' => 'bg-gray-400/30', 'icon' => 'hgi-help-circle'];
                             @endphp
                             <span
                                 class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium {{ $config['color'] }}">
@@ -54,28 +54,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-wrap items-center gap-2">
+                <div class="flex flex-wrap items-center gap-3">
                     @if(!$attendance->is_approved)
                         <form action="{{ route('admin.attendance.approve', $attendance) }}" method="POST" class="inline">
                             @csrf
                             <button type="submit"
-                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-green-600 rounded-xl font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg border border-green-100">
+                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                                 <i class='hgi-stroke hgi-checkmark-circle-02 text-lg'></i>
                                 Approve
                             </button>
                         </form>
                     @endif
-                    
+
                     <a href="{{ route('admin.attendance.edit', $attendance) }}" title="Edit Attendance"
-                        class="w-11 h-11 flex items-center justify-center bg-white rounded-xl text-teal-600 hover:bg-teal-50 hover:scale-105 transition-all shadow-lg scale-90 border border-teal-100">
+                        class="inline-flex items-center justify-center w-11 h-11 bg-white/20 backdrop-blur-md border border-white/30 text-white rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-pencil-edit-01 text-xl'></i>
                     </a>
                     <button onclick="deleteAttendance({{ $attendance->id }}, '{{ addslashes($attendance->user->name) }}')" title="Delete"
-                        class="w-11 h-11 flex items-center justify-center bg-white rounded-xl text-red-600 hover:bg-red-50 hover:scale-105 transition-all shadow-lg scale-90 border border-red-100">
+                        class="inline-flex items-center justify-center w-11 h-11 bg-white/20 backdrop-blur-md border border-white/30 text-white rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-delete-01 text-xl'></i>
                     </button>
                     <a href="{{ route('admin.attendance.by-month', ['year' => $attendance->date->year, 'month' => $attendance->date->month]) }}"
-                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back to List
                     </a>

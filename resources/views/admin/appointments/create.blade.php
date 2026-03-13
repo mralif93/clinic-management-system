@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <a href="{{ route('admin.appointments.index') }}"
-                    class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                     <i class='hgi-stroke hgi-arrow-left-01'></i>
                     Back to List
                 </a>
@@ -166,7 +166,8 @@
                             class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                             @foreach(\App\Models\Appointment::getPaymentStatuses() as $value => $label)
                                 <option value="{{ $value }}" {{ old('payment_status', 'unpaid') == $value ? 'selected' : '' }}>
-                                    {{ $label }}</option>
+                                    {{ $label }}
+                                </option>
                             @endforeach
                         </select>
                     </div>

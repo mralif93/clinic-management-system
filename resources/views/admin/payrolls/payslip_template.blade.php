@@ -326,6 +326,45 @@
         </table>
     </div>
 
+    <!-- Employer Contributions -->
+    <div class="mb-4 border border-blue-200 rounded-lg overflow-hidden" id="employer-contributions-section">
+        <div class="bg-gradient-to-r from-blue-500 to-indigo-500 px-3 py-2 flex items-center gap-1">
+            <i class='hgi-stroke hgi-building-03 text-sm text-white'></i>
+            <h3 class="text-xs font-bold text-white">Employer Contributions</h3>
+        </div>
+        <table class="w-full text-xs">
+            <thead>
+                <tr class="bg-blue-50 border-b border-blue-100">
+                    <th class="py-2 px-3 text-left text-[10px] font-bold text-blue-700 uppercase tracking-wider w-1/2">Description</th>
+                    <th class="py-2 px-3 text-right text-[10px] font-bold text-blue-700 uppercase tracking-wider w-1/2">Amount ({{ $currencySymbol }})</th>
+                </tr>
+            </thead>
+            <tbody id="preview-employer-contributions-list">
+                @if(isset($payroll->employer_deductions) && is_array($payroll->employer_deductions) && count($payroll->employer_deductions) > 0)
+                    @foreach($payroll->employer_deductions as $name => $amount)
+                        <tr class="border-b border-gray-100">
+                            <td class="py-1.5 px-3 text-gray-600">{{ ucfirst(str_replace('_', ' ', $name)) }}</td>
+                            <td class="py-1.5 px-3 text-right text-blue-600 font-medium">{{ number_format($amount, 2) }}</td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr class="border-b border-gray-100">
+                        <td class="py-1.5 px-3 text-gray-500 italic">No employer contributions</td>
+                        <td class="py-1.5 px-3 text-right text-gray-500">0.00</td>
+                    </tr>
+                @endif
+            </tbody>
+            <tfoot>
+                <tr class="bg-blue-50 font-bold">
+                    <td class="py-2 px-3 text-blue-800">TOTAL CONTRIBUTIONS</td>
+                    <td class="py-2 px-3 text-right text-blue-600" id="preview-total-employer-contributions">
+                        {{ number_format(is_array($payroll->employer_deductions) ? array_sum($payroll->employer_deductions) : 0, 2) }}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
     <!-- Net Salary -->
     <div class="flex justify-end mb-3">
         <div class="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-4 py-2 rounded-lg min-w-[180px]">

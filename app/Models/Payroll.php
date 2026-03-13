@@ -16,6 +16,7 @@ class Payroll extends Model
         'basic_salary',
         'allowances',
         'deductions',
+        'employer_deductions',
         'overtime_hours',
         'overtime_pay',
         'gross_salary',
@@ -37,6 +38,7 @@ class Payroll extends Model
         'approved_at' => 'datetime',
         'allowances' => 'array',
         'deductions' => 'array',
+        'employer_deductions' => 'array',
         'basic_salary' => 'decimal:2',
         'overtime_hours' => 'decimal:2',
         'overtime_pay' => 'decimal:2',
@@ -128,11 +130,11 @@ class Payroll extends Model
      */
     public function getPayPeriodAttribute()
     {
-        if (! $this->pay_period_start || ! $this->pay_period_end) {
+        if (!$this->pay_period_start || !$this->pay_period_end) {
             return 'N/A';
         }
 
-        return $this->pay_period_start->format('M d, Y').' - '.$this->pay_period_end->format('M d, Y');
+        return $this->pay_period_start->format('M d, Y') . ' - ' . $this->pay_period_end->format('M d, Y');
     }
 
     /**
@@ -140,7 +142,7 @@ class Payroll extends Model
      */
     public function getTotalAllowancesAttribute()
     {
-        if (! $this->allowances) {
+        if (!$this->allowances) {
             return 0;
         }
 
@@ -152,7 +154,7 @@ class Payroll extends Model
      */
     public function getTotalDeductionsAttribute()
     {
-        if (! $this->deductions) {
+        if (!$this->deductions) {
             return 0;
         }
 

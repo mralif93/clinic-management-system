@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <a href="{{ route('admin.doctors.create') }}"
-                   class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-white/30 active:bg-white/40 transition-all border border-white/30 shadow-lg shadow-black/10">
+                   class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                     <i class='hgi-stroke hgi-plus-sign'></i>
                     Add New Doctor
                 </a>

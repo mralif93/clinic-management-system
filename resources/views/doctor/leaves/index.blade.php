@@ -1,29 +1,34 @@
-@extends('layouts.doctor')
+@extends('layouts.doctor', ['hideLayoutTitle' => true])
+@section('title', 'My Leaves')
+@section('page-title', 'My Leaves')
+@section('hide-layout-title', true)
 
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
- 
+
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
                     <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
                         <i class='hgi-stroke hgi-clock-01 text-2xl'></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold">My Leave Requests</h2>
+                        <h1 class="text-2xl font-bold">My Leave Requests</h1>
                         <p class="text-emerald-100 text-sm mt-1">Manage your leave applications</p>
                     </div>
                 </div>
-                <a href="{{ route('doctor.leaves.create') }}"
-                   class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-white/30 active:bg-white/40 transition-all border border-white/30 shadow-lg shadow-black/10">
-                    <i class='hgi-stroke hgi-plus-sign'></i>
-                    Apply for Leave
-                </a>
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('doctor.leaves.create') }}"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold text-sm rounded-xl hover:bg-white/30 transition-all shadow-lg">
+                        <i class='hgi-stroke hgi-plus-sign'></i>
+                        <span>Apply for Leave</span>
+                    </a>
+                </div>
             </div>
         </div>
 

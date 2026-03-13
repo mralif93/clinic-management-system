@@ -1,19 +1,20 @@
-@extends('layouts.staff')
+@extends('layouts.staff', ['hideLayoutTitle' => true])
 
 @section('title', 'View Payslip')
 @section('page-title', 'View Payslip')
+@section('hide-layout-title', true)
 
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
         <div
-            class="bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 rounded-2xl shadow-lg relative overflow-hidden">
+            class="bg-gradient-to-br from-emerald-500 via-green-600 to-emerald-800 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
 
-            <div class="relative p-6 md:p-8">
+            <div class="relative">
                 <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div class="flex items-center gap-4">
                         <a href="{{ route('staff.payslips.index') }}"
@@ -49,7 +50,8 @@
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-900">
-                            {{ get_currency_symbol() }}{{ number_format($payroll->net_salary ?? 0, 2) }}</p>
+                            {{ get_currency_symbol() }}{{ number_format($payroll->net_salary ?? 0, 2) }}
+                        </p>
                         <p class="text-xs text-gray-500 uppercase tracking-wide">Net Pay</p>
                     </div>
                 </div>
@@ -62,7 +64,8 @@
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-900">
-                            {{ get_currency_symbol() }}{{ number_format($payroll->basic_salary ?? 0, 2) }}</p>
+                            {{ get_currency_symbol() }}{{ number_format($payroll->basic_salary ?? 0, 2) }}
+                        </p>
                         <p class="text-xs text-gray-500 uppercase tracking-wide">Basic</p>
                     </div>
                 </div>

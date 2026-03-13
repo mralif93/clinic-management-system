@@ -1,4 +1,4 @@
-@extends('layouts.doctor')
+@extends('layouts.doctor', ['hideLayoutTitle' => true])
 
 @section('title', 'Referral Letter — ' . $letter->referral_number)
 @section('page-title', 'Referral Letter')
@@ -7,75 +7,82 @@
     <div class="space-y-5">
 
         {{-- ── Header bar ── --}}
-        <div class="flex items-center justify-between flex-wrap gap-3">
-            <div class="flex items-center gap-3">
-                <a href="{{ route('doctor.referral-letters.index') }}"
-                    class="w-9 h-9 bg-white border border-gray-200 rounded-xl flex items-center justify-center shadow-sm hover:shadow-md transition text-gray-600">
-                    <i class='hgi-stroke hgi-arrow-left-01 text-lg'></i>
-                </a>
+        <!-- Page Header -->
+        <div
+            class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
-                    <h2 class="text-xl font-bold text-gray-900">{{ $letter->referral_number }}</h2>
-                    <p class="text-sm text-gray-500">
+                    <a href="{{ route('doctor.referral-letters.index') }}"
+                        class="inline-flex items-center gap-1 text-emerald-100 hover:text-white text-sm mb-2 transition">
+                        <i class='hgi-stroke hgi-arrow-left-01'></i> Back to Referral Letters
+                    </a>
+                    <h1 class="text-2xl font-bold flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
+                            <i class='hgi-stroke hgi-file-01 text-xl'></i>
+                        </div>
+                        {{ $letter->referral_number }}
+                    </h1>
+                    <p class="text-emerald-100 mt-2">
                         For <strong>{{ $letter->patient->full_name ?? 'N/A' }}</strong>
                         &bull;
                         Referred to <strong>{{ $letter->referred_to_name }}</strong>
                         ({{ $letter->referred_to_specialty }})
                     </p>
                 </div>
-            </div>
+                <div class="flex items-center gap-2 flex-wrap">
+                    {{-- Status badge --}}
+                    @if($letter->isIssued())
+                        <span
+                            class="px-3 py-1.5 text-xs font-semibold rounded-xl bg-white/20 text-white backdrop-blur flex items-center gap-1 border border-white/20">
+                            <i class='hgi-stroke hgi-checkmark-circle-02'></i> Issued
+                        </span>
+                    @else
+                        <span
+                            class="px-3 py-1.5 text-xs font-semibold rounded-xl bg-amber-400 text-amber-900 backdrop-blur flex items-center gap-1 border border-amber-300">
+                            <i class='hgi-stroke hgi-pencil-edit-02'></i> Draft
+                        </span>
+                    @endif
 
-            <div class="flex items-center gap-2 flex-wrap">
-                {{-- Status badge --}}
-                @if($letter->isIssued())
-                    <span
-                        class="px-3 py-1.5 text-xs font-semibold rounded-xl bg-emerald-100 text-emerald-700 flex items-center gap-1">
-                        <i class='hgi-stroke hgi-checkmark-circle-02'></i> Issued
-                    </span>
-                @else
-                    <span
-                        class="px-3 py-1.5 text-xs font-semibold rounded-xl bg-amber-100 text-amber-700 flex items-center gap-1">
-                        <i class='hgi-stroke hgi-pencil-edit-02'></i> Draft
-                    </span>
-                @endif
+                    {{-- Print / Download --}}
+                    <button onclick="printLetter()" id="printBtn"
+                        class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur text-white text-sm font-semibold rounded-xl hover:bg-white/30 transition border border-white/20">
+                        <i class='hgi-stroke hgi-printer'></i> Print
+                    </button>
+                    <button onclick="downloadLetter()" id="downloadBtn"
+                        class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur text-white text-sm font-semibold rounded-xl hover:bg-white/30 transition border border-white/20">
+                        <i class='hgi-stroke hgi-download-04'></i> Download
+                    </button>
 
-                {{-- Print / Download --}}
-                <button onclick="printLetter()" id="printBtn"
-                    class="inline-flex items-center gap-2 px-4 py-2 bg-gray-700 text-white text-sm font-semibold rounded-xl hover:bg-gray-800 transition shadow-sm">
-                    <i class='hgi-stroke hgi-printer'></i> Print
-                </button>
-                <button onclick="downloadLetter()" id="downloadBtn"
-                    class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition shadow-sm">
-                    <i class='hgi-stroke hgi-download-04'></i> Download PDF
-                </button>
+                    @if($letter->isDraft())
+                        <a href="{{ route('doctor.referral-letters.edit', $letter->id) }}"
+                            class="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur text-white text-sm font-semibold rounded-xl hover:bg-white/30 transition border border-white/20">
+                            <i class='hgi-stroke hgi-pencil-edit-01'></i> Edit
+                        </a>
 
-                {{-- Edit (draft only) --}}
-                @if($letter->isDraft())
-                    <a href="{{ route('doctor.referral-letters.edit', $letter->id) }}"
-                        class="inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 text-gray-700 text-sm font-semibold rounded-xl hover:bg-gray-50 transition shadow-sm">
-                        <i class='hgi-stroke hgi-pencil-edit-01'></i> Edit
-                    </a>
+                        <form id="issueForm" action="{{ route('doctor.referral-letters.issue', $letter->id) }}" method="POST"
+                            class="inline">
+                            @csrf
+                            <button type="button" id="issueBtn"
+                                class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-500 text-white text-sm font-semibold rounded-xl hover:bg-emerald-600 transition shadow-lg shadow-emerald-500/30">
+                                <i class='hgi-stroke hgi-checkmark-circle-02'></i> Issue
+                            </button>
+                        </form>
 
-                    {{-- Issue button --}}
-                    <form id="issueForm" action="{{ route('doctor.referral-letters.issue', $letter->id) }}" method="POST"
-                        class="inline">
-                        @csrf
-                        <button type="button" id="issueBtn"
-                            class="inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition shadow-sm shadow-emerald-500/30">
-                            <i class='hgi-stroke hgi-checkmark-circle-02'></i> Issue Letter
-                        </button>
-                    </form>
-
-                    {{-- Delete button --}}
-                    <form id="deleteForm" action="{{ route('doctor.referral-letters.destroy', $letter->id) }}" method="POST"
-                        class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" id="deleteBtn"
-                            class="inline-flex items-center gap-2 px-4 py-2 bg-red-50 text-red-600 text-sm font-semibold rounded-xl hover:bg-red-100 transition border border-red-200">
-                            <i class='hgi-stroke hgi-delete-01'></i> Delete
-                        </button>
-                    </form>
-                @endif
+                        <form id="deleteForm" action="{{ route('doctor.referral-letters.destroy', $letter->id) }}" method="POST"
+                            class="inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" id="deleteBtn"
+                                class="inline-flex items-center gap-2 px-4 py-2 bg-red-500/80 backdrop-blur text-white text-sm font-semibold rounded-xl hover:bg-red-600 transition border border-red-500/30">
+                                <i class='hgi-stroke hgi-delete-01'></i> Delete
+                            </button>
+                        </form>
+                    @endif
+                </div>
             </div>
         </div>
 
@@ -107,7 +114,7 @@
             const el = document.getElementById('referral-letter-content');
             const btn = document.getElementById('printBtn');
             btn.disabled = true;
-            btn.innerHTML = '<i class="hgi-stroke hgi-loading-02 bx-spin"></i> Preparing...';
+            btn.innerHTML = '<i class="hgi-stroke hgi-loading-02 animate-spin"></i> Preparing...';
             html2pdf().set(getPdfOptions()).from(el).toPdf().get('pdf').then(function (pdf) {
                 const url = URL.createObjectURL(pdf.output('blob'));
                 const w = window.open(url, '_blank');
@@ -121,7 +128,7 @@
             const el = document.getElementById('referral-letter-content');
             const btn = document.getElementById('downloadBtn');
             btn.disabled = true;
-            btn.innerHTML = '<i class="hgi-stroke hgi-loading-02 bx-spin"></i> Generating...';
+            btn.innerHTML = '<i class="hgi-stroke hgi-loading-02 animate-spin"></i> Generating...';
             html2pdf().set(getPdfOptions()).from(el).save().then(function () {
                 btn.disabled = false;
                 btn.innerHTML = '<i class="hgi-stroke hgi-download-04"></i> Download PDF';

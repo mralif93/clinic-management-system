@@ -186,9 +186,9 @@
                                 <td class="px-6 py-4">
                                     @php
                                         $priorityConfig = [
-                                            'low' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'bx-down-arrow-alt'],
+                                            'low' => ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-arrow-down-01'],
                                             'medium' => ['bg' => 'bg-blue-100', 'text' => 'text-blue-700', 'icon' => 'hgi-minus-sign'],
-                                            'high' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'icon' => 'bx-up-arrow-alt'],
+                                            'high' => ['bg' => 'bg-orange-100', 'text' => 'text-orange-700', 'icon' => 'hgi-arrow-up-01'],
                                             'urgent' => ['bg' => 'bg-red-100', 'text' => 'text-red-700', 'icon' => 'hgi-alert-01'],
                                         ];
                                         $pConfig = $priorityConfig[$todo->priority] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700', 'icon' => 'hgi-minus-sign'];

@@ -3,31 +3,51 @@
 @section('title', 'Patient Flow - Staff Dashboard')
 
 @push('styles')
-<style>
-    .flow-card {
-        transition: all 0.2s ease;
-    }
-    .flow-card:hover {
-        transform: translateY(-2px);
-    }
-    .flow-column {
-        min-width: 280px;
-    }
-    .pulse-dot {
-        animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-        0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
-    }
-    .waiting-urgent {
-        animation: urgentPulse 1s infinite;
-    }
-    @keyframes urgentPulse {
-        0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-        50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
-    }
-</style>
+    <style>
+        .flow-card {
+            transition: all 0.2s ease;
+        }
+
+        .flow-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .flow-column {
+            min-width: 280px;
+        }
+
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .waiting-urgent {
+            animation: urgentPulse 1s infinite;
+        }
+
+        @keyframes urgentPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+            }
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -42,7 +62,8 @@
                         </div>
                         Patient Flow
                     </h1>
-                    <p class="text-amber-100 mt-2 text-sm md:text-base">Real-time monitoring of patient journey from arrival to payment</p>
+                    <p class="text-amber-100 mt-2 text-sm md:text-base">Real-time monitoring of patient journey from arrival
+                        to payment</p>
                 </div>
                 <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                     <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 text-white">
@@ -51,7 +72,8 @@
                             <span class="font-medium">{{ now()->format('l, d M Y') }}</span>
                         </div>
                     </div>
-                    <button onclick="refreshData()" class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-amber-600 rounded-xl hover:bg-amber-50 transition-all font-semibold shadow-md hover:shadow-lg">
+                    <button onclick="refreshData()"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-amber-600 rounded-xl hover:bg-amber-50 transition-all font-semibold shadow-md hover:shadow-lg">
                         <i class='hgi-stroke hgi-refresh text-xl' id="refreshIcon"></i>
                         Refresh
                     </button>
@@ -64,7 +86,8 @@
             <!-- Pending -->
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
-                    <div class="w-10 h-10 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-xl flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-xl flex items-center justify-center">
                         <i class='hgi-stroke hgi-clock-02 text-yellow-600 text-xl'></i>
                     </div>
                 </div>
@@ -75,7 +98,8 @@
             <!-- Scheduled -->
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
-                    <div class="w-10 h-10 bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl flex items-center justify-center">
                         <i class='hgi-stroke hgi-calendar-03 text-slate-600 text-xl'></i>
                     </div>
                 </div>
@@ -86,7 +110,8 @@
             <!-- Arrived -->
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
-                    <div class="w-10 h-10 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center">
                         <i class='hgi-stroke hgi-qr-code text-orange-600 text-xl'></i>
                     </div>
                 </div>
@@ -97,7 +122,8 @@
             <!-- Checked In -->
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
-                    <div class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center">
                         <i class='hgi-stroke hgi-user-check-01 text-blue-600 text-xl'></i>
                     </div>
                 </div>
@@ -108,7 +134,8 @@
             <!-- In Consultation -->
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
-                    <div class="w-10 h-10 bg-gradient-to-br from-amber-100 to-amber-200 rounded-xl flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-amber-100 to-amber-200 rounded-xl flex items-center justify-center">
                         <i class='hgi-stroke hgi-voice text-amber-600 text-xl'></i>
                     </div>
                 </div>
@@ -119,7 +146,8 @@
             <!-- Completed -->
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
-                    <div class="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center">
                         <i class='hgi-stroke hgi-invoice-01 text-purple-600 text-xl'></i>
                     </div>
                 </div>
@@ -130,7 +158,8 @@
             <!-- Paid -->
             <div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
                 <div class="flex items-center justify-between mb-2">
-                    <div class="w-10 h-10 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center">
                         <i class='hgi-stroke hgi-checkmark-circle-02 text-green-600 text-xl'></i>
                     </div>
                 </div>
@@ -162,15 +191,19 @@
             <div class="p-5">
                 <div class="flex flex-wrap gap-3">
                     @forelse($doctors as $doctor)
-                        <div class="inline-flex items-center gap-3 px-4 py-3 rounded-xl {{ $doctor['status'] === 'busy' ? 'bg-gradient-to-r from-red-50 to-orange-50 border border-red-200' : 'bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200' }} transition-all hover:shadow-md">
+                        <div
+                            class="inline-flex items-center gap-3 px-4 py-3 rounded-xl {{ $doctor['status'] === 'busy' ? 'bg-gradient-to-r from-red-50 to-orange-50 border border-red-200' : 'bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200' }} transition-all hover:shadow-md">
                             <div class="relative">
-                                <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-sm font-bold text-gray-600">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-sm font-bold text-gray-600">
                                     {{ substr($doctor['name'], 0, 1) }}
                                 </div>
-                                <span class="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full border-2 border-white {{ $doctor['status'] === 'busy' ? 'bg-red-500 animate-pulse' : 'bg-green-500' }}"></span>
+                                <span
+                                    class="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full border-2 border-white {{ $doctor['status'] === 'busy' ? 'bg-red-500 animate-pulse' : 'bg-green-500' }}"></span>
                             </div>
                             <div>
-                                <p class="font-semibold text-sm {{ $doctor['status'] === 'busy' ? 'text-red-700' : 'text-green-700' }}">
+                                <p
+                                    class="font-semibold text-sm {{ $doctor['status'] === 'busy' ? 'text-red-700' : 'text-green-700' }}">
                                     Dr. {{ $doctor['name'] }}
                                 </p>
                                 @if($doctor['current_patient'])
@@ -180,7 +213,9 @@
                                 @endif
                             </div>
                             <div class="ml-2 text-center">
-                                <p class="text-lg font-bold {{ $doctor['status'] === 'busy' ? 'text-red-600' : 'text-green-600' }}">{{ $doctor['completed'] }}/{{ $doctor['upcoming'] + $doctor['completed'] }}</p>
+                                <p
+                                    class="text-lg font-bold {{ $doctor['status'] === 'busy' ? 'text-red-600' : 'text-green-600' }}">
+                                    {{ $doctor['completed'] }}/{{ $doctor['upcoming'] + $doctor['completed'] }}</p>
                                 <p class="text-xs text-gray-500">Patients</p>
                             </div>
                         </div>
@@ -252,8 +287,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-7 gap-4 overflow-x-auto pb-4">
             @include('staff.partials.flow-column', ['title' => 'Pending', 'subtitle' => 'Awaiting confirmation', 'icon' => 'hgi-clock-01', 'color' => 'yellow', 'appointments' => $pending, 'stage' => 'pending', 'nextAction' => 'confirm', 'nextLabel' => 'Confirm', 'nextIcon' => 'hgi-checkmark-circle-01'])
             @include('staff.partials.flow-column', ['title' => 'Scheduled', 'subtitle' => 'Waiting to arrive', 'icon' => 'hgi-calendar-03', 'color' => 'slate', 'appointments' => $scheduled, 'stage' => 'scheduled', 'nextAction' => null, 'nextLabel' => null, 'nextIcon' => null])
-            @include('staff.partials.flow-column', ['title' => 'Arrived', 'subtitle' => 'QR scanned', 'icon' => 'bx-qr', 'color' => 'orange', 'appointments' => $arrived, 'stage' => 'arrived', 'nextAction' => null, 'nextLabel' => null, 'nextIcon' => null])
-            @include('staff.partials.flow-column', ['title' => 'With Doctor', 'subtitle' => 'Accepted', 'icon' => 'hgi-user-check-01', 'color' => 'blue', 'appointments' => $checkedIn, 'stage' => 'checked_in', 'nextAction' => 'start_consultation', 'nextLabel' => 'Start Consult', 'nextIcon' => 'bx-play-circle'])
+            @include('staff.partials.flow-column', ['title' => 'Arrived', 'subtitle' => 'QR scanned', 'icon' => 'hgi-qr-code-01', 'color' => 'orange', 'appointments' => $arrived, 'stage' => 'arrived', 'nextAction' => null, 'nextLabel' => null, 'nextIcon' => null])
+            @include('staff.partials.flow-column', ['title' => 'With Doctor', 'subtitle' => 'Accepted', 'icon' => 'hgi-user-check-01', 'color' => 'blue', 'appointments' => $checkedIn, 'stage' => 'checked_in', 'nextAction' => 'start_consultation', 'nextLabel' => 'Start Consult', 'nextIcon' => 'hgi-play-circle'])
             @include('staff.partials.flow-column', ['title' => 'In Consultation', 'subtitle' => 'With doctor', 'icon' => 'hgi-voice', 'color' => 'amber', 'appointments' => $inConsultation, 'stage' => 'in_consultation', 'nextAction' => 'complete', 'nextLabel' => 'Complete', 'nextIcon' => 'hgi-checkmark-circle-01'])
             @include('staff.partials.flow-column', ['title' => 'Pending Payment', 'subtitle' => 'Ready to pay', 'icon' => 'hgi-invoice-01', 'color' => 'purple', 'appointments' => $completed, 'stage' => 'completed', 'nextAction' => 'mark_paid', 'nextLabel' => 'Process Payment', 'nextIcon' => 'hgi-credit-card'])
             @include('staff.partials.flow-column', ['title' => 'Completed', 'subtitle' => 'Paid & done', 'icon' => 'hgi-checkmark-circle-01', 'color' => 'green', 'appointments' => $paid, 'stage' => 'paid', 'nextAction' => null, 'nextLabel' => null, 'nextIcon' => null])
@@ -261,11 +296,14 @@
     </div>
 
     <!-- Payment Modal -->
-    <div id="paymentModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div id="paymentModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+        aria-modal="true">
         <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity" onclick="closePaymentModal()"></div>
+            <div class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity" onclick="closePaymentModal()">
+            </div>
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen">&#8203;</span>
-            <div class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div
+                class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <!-- Modal Header -->
                 <div class="bg-gradient-to-r from-green-500 to-emerald-500 px-6 py-5">
                     <div class="flex items-center gap-4">
@@ -292,29 +330,41 @@
                     <!-- Payment Methods -->
                     <label class="block text-sm font-semibold text-gray-700 mb-3">Select Payment Method</label>
                     <div class="grid grid-cols-2 gap-3" id="paymentMethods">
-                        <button type="button" onclick="selectPaymentMethod('cash')" class="payment-method-btn group p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-center" data-method="cash">
-                            <div class="w-12 h-12 mx-auto bg-green-100 rounded-xl flex items-center justify-center mb-2 group-hover:bg-green-200 transition-colors">
+                        <button type="button" onclick="selectPaymentMethod('cash')"
+                            class="payment-method-btn group p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-center"
+                            data-method="cash">
+                            <div
+                                class="w-12 h-12 mx-auto bg-green-100 rounded-xl flex items-center justify-center mb-2 group-hover:bg-green-200 transition-colors">
                                 <i class='hgi-stroke hgi-money-bag-01 text-green-600 text-2xl'></i>
                             </div>
                             <p class="font-semibold text-gray-700">Cash</p>
                             <p class="text-xs text-gray-400">Pay with cash</p>
                         </button>
-                        <button type="button" onclick="selectPaymentMethod('card')" class="payment-method-btn group p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-center" data-method="card">
-                            <div class="w-12 h-12 mx-auto bg-blue-100 rounded-xl flex items-center justify-center mb-2 group-hover:bg-blue-200 transition-colors">
+                        <button type="button" onclick="selectPaymentMethod('card')"
+                            class="payment-method-btn group p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-center"
+                            data-method="card">
+                            <div
+                                class="w-12 h-12 mx-auto bg-blue-100 rounded-xl flex items-center justify-center mb-2 group-hover:bg-blue-200 transition-colors">
                                 <i class='hgi-stroke hgi-credit-card text-blue-600 text-2xl'></i>
                             </div>
                             <p class="font-semibold text-gray-700">Card</p>
                             <p class="text-xs text-gray-400">Credit/Debit card</p>
                         </button>
-                        <button type="button" onclick="selectPaymentMethod('online')" class="payment-method-btn group p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-center" data-method="online">
-                            <div class="w-12 h-12 mx-auto bg-purple-100 rounded-xl flex items-center justify-center mb-2 group-hover:bg-purple-200 transition-colors">
+                        <button type="button" onclick="selectPaymentMethod('online')"
+                            class="payment-method-btn group p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-center"
+                            data-method="online">
+                            <div
+                                class="w-12 h-12 mx-auto bg-purple-100 rounded-xl flex items-center justify-center mb-2 group-hover:bg-purple-200 transition-colors">
                                 <i class='hgi-stroke hgi-arrow-data-transfer-horizontal text-purple-600 text-2xl'></i>
                             </div>
                             <p class="font-semibold text-gray-700">Online</p>
                             <p class="text-xs text-gray-400">Bank transfer</p>
                         </button>
-                        <button type="button" onclick="selectPaymentMethod('insurance')" class="payment-method-btn group p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-center" data-method="insurance">
-                            <div class="w-12 h-12 mx-auto bg-amber-100 rounded-xl flex items-center justify-center mb-2 group-hover:bg-amber-200 transition-colors">
+                        <button type="button" onclick="selectPaymentMethod('insurance')"
+                            class="payment-method-btn group p-4 border-2 border-gray-200 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all text-center"
+                            data-method="insurance">
+                            <div
+                                class="w-12 h-12 mx-auto bg-amber-100 rounded-xl flex items-center justify-center mb-2 group-hover:bg-amber-200 transition-colors">
                                 <i class='hgi-stroke hgi-shield-01 text-amber-600 text-2xl'></i>
                             </div>
                             <p class="font-semibold text-gray-700">Insurance</p>
@@ -325,10 +375,12 @@
 
                 <!-- Modal Footer -->
                 <div class="bg-gray-50 px-6 py-4 flex justify-end gap-3 border-t border-gray-100">
-                    <button type="button" onclick="closePaymentModal()" class="px-5 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 font-medium transition-colors">
+                    <button type="button" onclick="closePaymentModal()"
+                        class="px-5 py-2.5 text-gray-700 bg-white border border-gray-300 rounded-xl hover:bg-gray-50 font-medium transition-colors">
                         Cancel
                     </button>
-                    <button type="button" onclick="submitPayment()" class="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:from-green-600 hover:to-emerald-600 font-semibold transition-all shadow-md hover:shadow-lg flex items-center gap-2">
+                    <button type="button" onclick="submitPayment()"
+                        class="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-xl hover:from-green-600 hover:to-emerald-600 font-semibold transition-all shadow-md hover:shadow-lg flex items-center gap-2">
                         <i class='hgi-stroke hgi-checkmark-circle-02'></i>
                         Confirm Payment
                     </button>
@@ -339,386 +391,385 @@
 @endsection
 
 @push('scripts')
-<script>
-    let selectedPaymentMethod = 'cash';
-    let autoRefreshInterval;
+    <script>
+        let selectedPaymentMethod = 'cash';
+        let autoRefreshInterval;
 
-    // Start auto-refresh every 30 seconds
-    function startAutoRefresh() {
-        autoRefreshInterval = setInterval(refreshData, 30000);
-    }
-
-    // Stop auto-refresh
-    function stopAutoRefresh() {
-        if (autoRefreshInterval) {
-            clearInterval(autoRefreshInterval);
+        // Start auto-refresh every 30 seconds
+        function startAutoRefresh() {
+            autoRefreshInterval = setInterval(refreshData, 30000);
         }
-    }
 
-    // Refresh data via AJAX
-    function refreshData() {
-        const refreshIcon = document.getElementById('refreshIcon');
-        refreshIcon.classList.add('animate-spin');
-
-        fetch('{{ route("staff.patient-flow.data") }}', {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Accept': 'application/json'
+        // Stop auto-refresh
+        function stopAutoRefresh() {
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
             }
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Update stats
-            document.getElementById('stat-pending').textContent = data.stats.pending;
-            document.getElementById('stat-arrived').textContent = data.stats.arrived;
-            document.getElementById('stat-scheduled').textContent = data.stats.scheduled;
-            document.getElementById('stat-checked-in').textContent = data.stats.checked_in;
-            document.getElementById('stat-in-consultation').textContent = data.stats.in_consultation;
-            document.getElementById('stat-completed').textContent = data.stats.completed;
-            document.getElementById('stat-paid').textContent = data.stats.paid;
-            document.getElementById('stat-total').textContent = data.stats.total;
+        }
 
-            refreshIcon.classList.remove('animate-spin');
+        // Refresh data via AJAX
+        function refreshData() {
+            const refreshIcon = document.getElementById('refreshIcon');
+            refreshIcon.classList.add('animate-spin');
 
-            // Show toast
+            fetch('{{ route("staff.patient-flow.data") }}', {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Update stats
+                    document.getElementById('stat-pending').textContent = data.stats.pending;
+                    document.getElementById('stat-arrived').textContent = data.stats.arrived;
+                    document.getElementById('stat-scheduled').textContent = data.stats.scheduled;
+                    document.getElementById('stat-checked-in').textContent = data.stats.checked_in;
+                    document.getElementById('stat-in-consultation').textContent = data.stats.in_consultation;
+                    document.getElementById('stat-completed').textContent = data.stats.completed;
+                    document.getElementById('stat-paid').textContent = data.stats.paid;
+                    document.getElementById('stat-total').textContent = data.stats.total;
+
+                    refreshIcon.classList.remove('animate-spin');
+
+                    // Show toast
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Refreshed!',
+                        text: 'Data updated successfully',
+                        timer: 1500,
+                        showConfirmButton: false,
+                        toast: true,
+                        position: 'top-end'
+                    });
+                })
+                .catch(error => {
+                    refreshIcon.classList.remove('animate-spin');
+                    console.error('Error:', error);
+                });
+        }
+
+        // Get confirmation config based on action
+        function getConfirmationConfig(action) {
+            const configs = {
+                // Forward actions
+                'confirm': {
+                    title: 'Confirm Appointment?',
+                    text: 'This will confirm the appointment and generate a QR code for the patient.',
+                    icon: 'question',
+                    confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02 mr-1"></i> Yes, Confirm',
+                    confirmButtonColor: '#eab308',
+                    iconColor: '#eab308'
+                },
+                'check_in': {
+                    title: 'Check In Patient?',
+                    text: 'Confirm that the patient has arrived at the clinic.',
+                    icon: 'question',
+                    confirmButtonText: '<i class="hgi-stroke hgi-login-02 mr-1"></i> Yes, Check In',
+                    confirmButtonColor: '#3b82f6',
+                    iconColor: '#3b82f6'
+                },
+                'start_consultation': {
+                    title: 'Start Consultation?',
+                    text: 'The patient will be moved to "In Consultation" status.',
+                    icon: 'question',
+                    confirmButtonText: '<i class="hgi-stroke hgi-play-circle mr-1"></i> Yes, Start',
+                    confirmButtonColor: '#f59e0b',
+                    iconColor: '#f59e0b'
+                },
+                'complete': {
+                    title: 'Complete Consultation?',
+                    text: 'Mark this consultation as completed. The patient will proceed to payment.',
+                    icon: 'question',
+                    confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02 mr-1"></i> Yes, Complete',
+                    confirmButtonColor: '#8b5cf6',
+                    iconColor: '#8b5cf6'
+                },
+                // Revert actions
+                'revert_to_scheduled': {
+                    title: 'Revert to Scheduled?',
+                    text: 'The patient will be moved back to "Scheduled" status. They will need to check in again.',
+                    icon: 'warning',
+                    confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Yes, Revert',
+                    confirmButtonColor: '#64748b',
+                    iconColor: '#f59e0b'
+                },
+                'revert_to_checked_in': {
+                    title: 'Revert to Checked In?',
+                    text: 'The patient will be moved back to "Checked In" status in the waiting room.',
+                    icon: 'warning',
+                    confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Yes, Revert',
+                    confirmButtonColor: '#3b82f6',
+                    iconColor: '#f59e0b'
+                },
+                'revert_to_in_consultation': {
+                    title: 'Revert to In Consultation?',
+                    text: 'The patient will be moved back to "In Consultation" status.',
+                    icon: 'warning',
+                    confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Yes, Revert',
+                    confirmButtonColor: '#f59e0b',
+                    iconColor: '#f59e0b'
+                },
+                'revert_to_completed': {
+                    title: 'Revert Payment?',
+                    text: 'The payment will be cancelled and the patient will be moved back to "Pending Payment" status.',
+                    icon: 'warning',
+                    confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Yes, Revert Payment',
+                    confirmButtonColor: '#8b5cf6',
+                    iconColor: '#ef4444'
+                },
+                'revert_to_pending': {
+                    title: 'Revert to Pending?',
+                    text: 'The appointment will be moved back to "Pending" status. Patient will need to wait for confirmation again.',
+                    icon: 'warning',
+                    confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Yes, Revert',
+                    confirmButtonColor: '#eab308',
+                    iconColor: '#f59e0b'
+                },
+                'revert_to_arrived': {
+                    title: 'Revert to Arrived?',
+                    text: 'The patient will be moved back to "Arrived" status. They will need to wait for doctor to accept again.',
+                    icon: 'warning',
+                    confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Yes, Revert',
+                    confirmButtonColor: '#f97316',
+                    iconColor: '#f59e0b'
+                }
+            };
+            return configs[action] || {
+                title: 'Confirm Action?',
+                text: 'Are you sure you want to proceed?',
+                icon: 'question',
+                confirmButtonText: 'Yes, Proceed',
+                confirmButtonColor: '#f59e0b',
+                iconColor: '#f59e0b'
+            };
+        }
+
+        // Update appointment status
+        function updateStatus(appointmentId, action) {
+            if (action === 'mark_paid') {
+                openPaymentModal(appointmentId);
+                return;
+            }
+
+            const config = getConfirmationConfig(action);
+
             Swal.fire({
-                icon: 'success',
-                title: 'Refreshed!',
-                text: 'Data updated successfully',
-                timer: 1500,
-                showConfirmButton: false,
-                toast: true,
-                position: 'top-end'
-            });
-        })
-        .catch(error => {
-            refreshIcon.classList.remove('animate-spin');
-            console.error('Error:', error);
-        });
-    }
-
-    // Get confirmation config based on action
-    function getConfirmationConfig(action) {
-        const configs = {
-            // Forward actions
-            'confirm': {
-                title: 'Confirm Appointment?',
-                text: 'This will confirm the appointment and generate a QR code for the patient.',
-                icon: 'question',
-                confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02 mr-1"></i> Yes, Confirm',
-                confirmButtonColor: '#eab308',
-                iconColor: '#eab308'
-            },
-            'check_in': {
-                title: 'Check In Patient?',
-                text: 'Confirm that the patient has arrived at the clinic.',
-                icon: 'question',
-                confirmButtonText: '<i class="hgi-stroke hgi-login-02 mr-1"></i> Yes, Check In',
-                confirmButtonColor: '#3b82f6',
-                iconColor: '#3b82f6'
-            },
-            'start_consultation': {
-                title: 'Start Consultation?',
-                text: 'The patient will be moved to "In Consultation" status.',
-                icon: 'question',
-                confirmButtonText: '<i class="hgi-stroke hgi-play-circle mr-1"></i> Yes, Start',
-                confirmButtonColor: '#f59e0b',
-                iconColor: '#f59e0b'
-            },
-            'complete': {
-                title: 'Complete Consultation?',
-                text: 'Mark this consultation as completed. The patient will proceed to payment.',
-                icon: 'question',
-                confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02 mr-1"></i> Yes, Complete',
-                confirmButtonColor: '#8b5cf6',
-                iconColor: '#8b5cf6'
-            },
-            // Revert actions
-            'revert_to_scheduled': {
-                title: 'Revert to Scheduled?',
-                text: 'The patient will be moved back to "Scheduled" status. They will need to check in again.',
-                icon: 'warning',
-                confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Yes, Revert',
-                confirmButtonColor: '#64748b',
-                iconColor: '#f59e0b'
-            },
-            'revert_to_checked_in': {
-                title: 'Revert to Checked In?',
-                text: 'The patient will be moved back to "Checked In" status in the waiting room.',
-                icon: 'warning',
-                confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Yes, Revert',
-                confirmButtonColor: '#3b82f6',
-                iconColor: '#f59e0b'
-            },
-            'revert_to_in_consultation': {
-                title: 'Revert to In Consultation?',
-                text: 'The patient will be moved back to "In Consultation" status.',
-                icon: 'warning',
-                confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Yes, Revert',
-                confirmButtonColor: '#f59e0b',
-                iconColor: '#f59e0b'
-            },
-            'revert_to_completed': {
-                title: 'Revert Payment?',
-                text: 'The payment will be cancelled and the patient will be moved back to "Pending Payment" status.',
-                icon: 'warning',
-                confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Yes, Revert Payment',
-                confirmButtonColor: '#8b5cf6',
-                iconColor: '#ef4444'
-            },
-            'revert_to_pending': {
-                title: 'Revert to Pending?',
-                text: 'The appointment will be moved back to "Pending" status. Patient will need to wait for confirmation again.',
-                icon: 'warning',
-                confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Yes, Revert',
-                confirmButtonColor: '#eab308',
-                iconColor: '#f59e0b'
-            },
-            'revert_to_arrived': {
-                title: 'Revert to Arrived?',
-                text: 'The patient will be moved back to "Arrived" status. They will need to wait for doctor to accept again.',
-                icon: 'warning',
-                confirmButtonText: '<i class="hgi-stroke hgi-rotate-left-01 mr-1"></i> Yes, Revert',
-                confirmButtonColor: '#f97316',
-                iconColor: '#f59e0b'
-            }
-        };
-        return configs[action] || {
-            title: 'Confirm Action?',
-            text: 'Are you sure you want to proceed?',
-            icon: 'question',
-            confirmButtonText: 'Yes, Proceed',
-            confirmButtonColor: '#f59e0b',
-            iconColor: '#f59e0b'
-        };
-    }
-
-    // Update appointment status
-    function updateStatus(appointmentId, action) {
-        if (action === 'mark_paid') {
-            openPaymentModal(appointmentId);
-            return;
-        }
-
-        const config = getConfirmationConfig(action);
-
-        Swal.fire({
-            title: config.title,
-            text: config.text,
-            icon: config.icon,
-            iconColor: config.iconColor,
-            showCancelButton: true,
-            confirmButtonColor: config.confirmButtonColor,
-            cancelButtonColor: '#6b7280',
-            confirmButtonText: config.confirmButtonText,
-            cancelButtonText: '<i class="hgi-stroke hgi-cancel-circle mr-1"></i> Cancel',
-            reverseButtons: true,
-            customClass: {
-                popup: 'rounded-2xl',
-                confirmButton: 'rounded-xl px-5 py-2.5',
-                cancelButton: 'rounded-xl px-5 py-2.5'
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Show loading
-                Swal.fire({
-                    title: 'Processing...',
-                    html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-amber-500"></i><span>Updating status...</span></div>',
-                    allowOutsideClick: false,
-                    showConfirmButton: false
-                });
-
-                fetch(`{{ url('staff/patient-flow') }}/${appointmentId}/update-status`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({ action: action })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Success!',
-                            text: data.message,
-                            timer: 1500,
-                            showConfirmButton: false,
-                            customClass: {
-                                popup: 'rounded-2xl'
-                            }
-                        }).then(() => {
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: data.message || 'Failed to update status',
-                            customClass: {
-                                popup: 'rounded-2xl'
-                            }
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
+                title: config.title,
+                text: config.text,
+                icon: config.icon,
+                iconColor: config.iconColor,
+                showCancelButton: true,
+                confirmButtonColor: config.confirmButtonColor,
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: config.confirmButtonText,
+                cancelButtonText: '<i class="hgi-stroke hgi-cancel-circle mr-1"></i> Cancel',
+                reverseButtons: true,
+                customClass: {
+                    popup: 'rounded-2xl',
+                    confirmButton: 'rounded-xl px-5 py-2.5',
+                    cancelButton: 'rounded-xl px-5 py-2.5'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Show loading
                     Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Failed to update status',
-                        customClass: {
-                            popup: 'rounded-2xl'
-                        }
+                        title: 'Processing...',
+                        html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 animate-spin text-2xl text-amber-500"></i><span>Updating status...</span></div>',
+                        allowOutsideClick: false,
+                        showConfirmButton: false
                     });
-                });
-            }
-        });
-    }
 
-    // Payment modal functions
-    function openPaymentModal(appointmentId, amount = 0) {
-        document.getElementById('paymentAppointmentId').value = appointmentId;
-        document.getElementById('paymentAmountDisplay').textContent = '{{ get_currency_symbol() }} ' + parseFloat(amount).toFixed(2);
-        document.getElementById('paymentModal').classList.remove('hidden');
-        selectPaymentMethod('cash');
-    }
-
-    function closePaymentModal() {
-        document.getElementById('paymentModal').classList.add('hidden');
-    }
-
-    function selectPaymentMethod(method) {
-        selectedPaymentMethod = method;
-        document.querySelectorAll('.payment-method-btn').forEach(btn => {
-            btn.classList.remove('border-green-500', 'bg-green-50', 'ring-2', 'ring-green-200');
-            btn.classList.add('border-gray-200');
-        });
-        const selectedBtn = document.querySelector(`.payment-method-btn[data-method="${method}"]`);
-        selectedBtn.classList.remove('border-gray-200');
-        selectedBtn.classList.add('border-green-500', 'bg-green-50', 'ring-2', 'ring-green-200');
-    }
-
-    function submitPayment() {
-        const appointmentId = document.getElementById('paymentAppointmentId').value;
-        const amount = document.getElementById('paymentAmountDisplay').textContent;
-        const methodLabels = {
-            'cash': 'Cash',
-            'card': 'Credit/Debit Card',
-            'online': 'Online Transfer',
-            'insurance': 'Insurance'
-        };
-
-        closePaymentModal();
-
-        // Show confirmation
-        Swal.fire({
-            title: 'Confirm Payment?',
-            html: `
-                <div class="text-left py-2">
-                    <div class="flex justify-between items-center py-2 border-b">
-                        <span class="text-gray-600">Amount:</span>
-                        <span class="font-bold text-lg text-green-600">${amount}</span>
-                    </div>
-                    <div class="flex justify-between items-center py-2">
-                        <span class="text-gray-600">Payment Method:</span>
-                        <span class="font-semibold">${methodLabels[selectedPaymentMethod]}</span>
-                    </div>
-                </div>
-            `,
-            icon: 'question',
-            iconColor: '#10b981',
-            showCancelButton: true,
-            confirmButtonColor: '#10b981',
-            cancelButtonColor: '#6b7280',
-            confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02 mr-1"></i> Confirm Payment',
-            cancelButtonText: '<i class="hgi-stroke hgi-cancel-circle mr-1"></i> Cancel',
-            reverseButtons: true,
-            customClass: {
-                popup: 'rounded-2xl',
-                confirmButton: 'rounded-xl px-5 py-2.5',
-                cancelButton: 'rounded-xl px-5 py-2.5'
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Show processing
-                Swal.fire({
-                    title: 'Processing Payment...',
-                    html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-green-500"></i><span>Recording payment...</span></div>',
-                    allowOutsideClick: false,
-                    showConfirmButton: false
-                });
-
-                fetch(`{{ url('staff/patient-flow') }}/${appointmentId}/update-status`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        action: 'mark_paid',
-                        payment_method: selectedPaymentMethod
+                    fetch(`{{ url('staff/patient-flow') }}/${appointmentId}/update-status`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({ action: action })
                     })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Payment Recorded!',
-                            text: data.message,
-                            timer: 2000,
-                            showConfirmButton: false,
-                            customClass: {
-                                popup: 'rounded-2xl'
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Success!',
+                                    text: data.message,
+                                    timer: 1500,
+                                    showConfirmButton: false,
+                                    customClass: {
+                                        popup: 'rounded-2xl'
+                                    }
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: data.message || 'Failed to update status',
+                                    customClass: {
+                                        popup: 'rounded-2xl'
+                                    }
+                                });
                             }
-                        }).then(() => {
-                            location.reload();
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Failed to update status',
+                                customClass: {
+                                    popup: 'rounded-2xl'
+                                }
+                            });
                         });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: data.message || 'Failed to record payment',
-                            customClass: {
-                                popup: 'rounded-2xl'
-                            }
-                        });
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
+                }
+            });
+        }
+
+        // Payment modal functions
+        function openPaymentModal(appointmentId, amount = 0) {
+            document.getElementById('paymentAppointmentId').value = appointmentId;
+            document.getElementById('paymentAmountDisplay').textContent = '{{ get_currency_symbol() }} ' + parseFloat(amount).toFixed(2);
+            document.getElementById('paymentModal').classList.remove('hidden');
+            selectPaymentMethod('cash');
+        }
+
+        function closePaymentModal() {
+            document.getElementById('paymentModal').classList.add('hidden');
+        }
+
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+            document.querySelectorAll('.payment-method-btn').forEach(btn => {
+                btn.classList.remove('border-green-500', 'bg-green-50', 'ring-2', 'ring-green-200');
+                btn.classList.add('border-gray-200');
+            });
+            const selectedBtn = document.querySelector(`.payment-method-btn[data-method="${method}"]`);
+            selectedBtn.classList.remove('border-gray-200');
+            selectedBtn.classList.add('border-green-500', 'bg-green-50', 'ring-2', 'ring-green-200');
+        }
+
+        function submitPayment() {
+            const appointmentId = document.getElementById('paymentAppointmentId').value;
+            const amount = document.getElementById('paymentAmountDisplay').textContent;
+            const methodLabels = {
+                'cash': 'Cash',
+                'card': 'Credit/Debit Card',
+                'online': 'Online Transfer',
+                'insurance': 'Insurance'
+            };
+
+            closePaymentModal();
+
+            // Show confirmation
+            Swal.fire({
+                title: 'Confirm Payment?',
+                html: `
+                    <div class="text-left py-2">
+                        <div class="flex justify-between items-center py-2 border-b">
+                            <span class="text-gray-600">Amount:</span>
+                            <span class="font-bold text-lg text-green-600">${amount}</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2">
+                            <span class="text-gray-600">Payment Method:</span>
+                            <span class="font-semibold">${methodLabels[selectedPaymentMethod]}</span>
+                        </div>
+                    </div>
+                `,
+                icon: 'question',
+                iconColor: '#10b981',
+                showCancelButton: true,
+                confirmButtonColor: '#10b981',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: '<i class="hgi-stroke hgi-checkmark-circle-02 mr-1"></i> Confirm Payment',
+                cancelButtonText: '<i class="hgi-stroke hgi-cancel-circle mr-1"></i> Cancel',
+                reverseButtons: true,
+                customClass: {
+                    popup: 'rounded-2xl',
+                    confirmButton: 'rounded-xl px-5 py-2.5',
+                    cancelButton: 'rounded-xl px-5 py-2.5'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Show processing
                     Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'Failed to record payment',
-                        customClass: {
-                            popup: 'rounded-2xl'
-                        }
+                        title: 'Processing Payment...',
+                        html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 animate-spin text-2xl text-green-500"></i><span>Recording payment...</span></div>',
+                        allowOutsideClick: false,
+                        showConfirmButton: false
                     });
-                });
+
+                    fetch(`{{ url('staff/patient-flow') }}/${appointmentId}/update-status`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            action: 'mark_paid',
+                            payment_method: selectedPaymentMethod
+                        })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Payment Recorded!',
+                                    text: data.message,
+                                    timer: 2000,
+                                    showConfirmButton: false,
+                                    customClass: {
+                                        popup: 'rounded-2xl'
+                                    }
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: data.message || 'Failed to record payment',
+                                    customClass: {
+                                        popup: 'rounded-2xl'
+                                    }
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'Failed to record payment',
+                                customClass: {
+                                    popup: 'rounded-2xl'
+                                }
+                            });
+                        });
+                }
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            startAutoRefresh();
+        });
+
+        // Stop auto-refresh when page is hidden
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                stopAutoRefresh();
+            } else {
+                startAutoRefresh();
             }
         });
-    }
-
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
-        startAutoRefresh();
-    });
-
-    // Stop auto-refresh when page is hidden
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            stopAutoRefresh();
-        } else {
-            startAutoRefresh();
-        }
-    });
-</script>
+    </script>
 @endpush
-

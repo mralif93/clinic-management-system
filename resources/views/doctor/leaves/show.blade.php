@@ -1,41 +1,52 @@
-@extends('layouts.doctor')
+@extends('layouts.doctor', ['hideLayoutTitle' => true])
+@section('title', 'Leave Details')
+@section('page-title', 'Leave Details')
+@section('hide-layout-title', true)
 
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div>
-                    <a href="{{ route('doctor.leaves.index') }}" class="inline-flex items-center gap-1 text-emerald-100 hover:text-white text-sm mb-2 transition">
-                        <i class='hgi-stroke hgi-arrow-left-01'></i> Back to Leave Requests
+                <div class="flex items-center gap-4">
+                    <a href="{{ route('doctor.leaves.index') }}"
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-arrow-left-01 text-white text-xl'></i>
                     </a>
-                    <h1 class="text-2xl font-bold flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                            <i class='hgi-stroke hgi-calendar-03 text-xl'></i>
-                        </div>
-                        Leave Details
-                    </h1>
-                </div>
-                @if($leave->status === 'pending')
-                    <div class="flex gap-2">
-                        <a href="{{ route('doctor.leaves.edit', $leave->id) }}"
-                            class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur text-white font-medium rounded-xl hover:bg-white/30 transition">
-                            <i class='hgi-stroke hgi-pencil-edit-01 mr-2'></i> Edit
-                        </a>
-                        <form action="{{ route('doctor.leaves.destroy', $leave->id) }}" method="POST" class="delete-form">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit"
-                                class="inline-flex items-center px-4 py-2 bg-red-500/80 backdrop-blur text-white font-medium rounded-xl hover:bg-red-600 transition">
-                                <i class='hgi-stroke hgi-delete-01 mr-2'></i> Cancel
-                            </button>
-                        </form>
+                    <div class="text-white">
+                        <h1 class="text-2xl font-bold">Leave Details</h1>
+                        <p class="text-emerald-100 text-sm mt-1">View status and details of your leave request</p>
                     </div>
-                @endif
+                </div>
+                <div class="flex items-center gap-3">
+                    @if($leave->status === 'pending')
+                        <div class="flex gap-2">
+                            <a href="{{ route('doctor.leaves.edit', $leave->id) }}"
+                                class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur text-white font-medium rounded-xl hover:bg-white/30 transition border border-white/30">
+                                <i class='hgi-stroke hgi-pencil-edit-01 mr-2'></i> Edit
+                            </a>
+                            <form action="{{ route('doctor.leaves.destroy', $leave->id) }}" method="POST" class="delete-form">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                    class="inline-flex items-center px-4 py-2 bg-red-500/80 backdrop-blur text-white font-medium rounded-xl hover:bg-red-600 transition">
+                                    <i class='hgi-stroke hgi-delete-01 mr-2'></i> Cancel
+                                </button>
+                            </form>
+                        </div>
+                    @else
+                        <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 text-sm text-white">
+                            <i class='hgi-stroke hgi-calendar-03 mr-1'></i>
+                            {{ now()->format('l, M d') }}
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
 
@@ -55,23 +66,28 @@
                                 <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Status</p>
                                 <div class="flex items-center gap-2">
                                     @if($leave->status === 'approved')
-                                        <span class="inline-flex items-center px-4 py-2 rounded-xl text-lg font-bold bg-emerald-100 text-emerald-700">
+                                        <span
+                                            class="inline-flex items-center px-4 py-2 rounded-xl text-lg font-bold bg-emerald-100 text-emerald-700">
                                             <i class='hgi-stroke hgi-checkmark-circle-02 mr-2'></i> Approved
                                         </span>
                                     @elseif($leave->status === 'rejected')
-                                        <span class="inline-flex items-center px-4 py-2 rounded-xl text-lg font-bold bg-red-100 text-red-700">
+                                        <span
+                                            class="inline-flex items-center px-4 py-2 rounded-xl text-lg font-bold bg-red-100 text-red-700">
                                             <i class='hgi-stroke hgi-cancel-circle mr-2'></i> Rejected
                                         </span>
                                     @else
-                                        <span class="inline-flex items-center px-4 py-2 rounded-xl text-lg font-bold bg-amber-100 text-amber-700">
+                                        <span
+                                            class="inline-flex items-center px-4 py-2 rounded-xl text-lg font-bold bg-amber-100 text-amber-700">
                                             <i class='hgi-stroke hgi-clock-02 mr-2'></i> Pending
                                         </span>
                                     @endif
                                 </div>
                             </div>
                             <div class="text-right">
-                                <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Submitted On</p>
-                                <p class="text-lg font-semibold text-gray-800">{{ $leave->created_at->format('M d, Y') }}</p>
+                                <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Submitted On
+                                </p>
+                                <p class="text-lg font-semibold text-gray-800">{{ $leave->created_at->format('M d, Y') }}
+                                </p>
                                 <p class="text-sm text-gray-500">{{ $leave->created_at->format('h:i A') }}</p>
                             </div>
                         </div>
@@ -85,7 +101,8 @@
                                     </div>
                                     <div>
                                         <p class="font-medium text-gray-800">{{ $leave->reviewer->name }}</p>
-                                        <p class="text-sm text-gray-500">on {{ $leave->reviewed_at->format('M d, Y h:i A') }}</p>
+                                        <p class="text-sm text-gray-500">on {{ $leave->reviewed_at->format('M d, Y h:i A') }}
+                                        </p>
                                     </div>
                                 </div>
                                 @if($leave->admin_notes)
@@ -115,8 +132,11 @@
                                 </span>
                             </div>
                             <div>
-                                <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Total Duration</p>
-                                <p class="text-xl font-bold text-gray-800">{{ $leave->total_days }} {{ Str::plural('day', $leave->total_days) }}</p>
+                                <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Total Duration
+                                </p>
+                                <p class="text-xl font-bold text-gray-800">{{ $leave->total_days }}
+                                    {{ Str::plural('day', $leave->total_days) }}
+                                </p>
                             </div>
                             <div>
                                 <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Start Date</p>
@@ -164,7 +184,8 @@
                                     $extension = pathinfo($leave->attachment, PATHINFO_EXTENSION);
                                 @endphp
 
-                                <div class="w-14 h-14 rounded-xl {{ in_array(strtolower($extension), ['jpg', 'jpeg', 'png']) ? 'bg-blue-100' : 'bg-red-100' }} flex items-center justify-center mx-auto mb-3">
+                                <div
+                                    class="w-14 h-14 rounded-xl {{ in_array(strtolower($extension), ['jpg', 'jpeg', 'png']) ? 'bg-blue-100' : 'bg-red-100' }} flex items-center justify-center mx-auto mb-3">
                                     @if(in_array(strtolower($extension), ['jpg', 'jpeg', 'png']))
                                         <i class='hgi-stroke hgi-image-01 text-2xl text-blue-600'></i>
                                     @else
@@ -200,7 +221,9 @@
                         <div class="relative pl-6 border-l-2 border-gray-200 space-y-6">
                             <!-- Created -->
                             <div class="relative">
-                                <div class="absolute -left-[25px] w-4 h-4 rounded-full bg-blue-500 border-2 border-white shadow"></div>
+                                <div
+                                    class="absolute -left-[25px] w-4 h-4 rounded-full bg-blue-500 border-2 border-white shadow">
+                                </div>
                                 <p class="text-sm font-semibold text-gray-800">Request Submitted</p>
                                 <p class="text-xs text-gray-500">{{ $leave->created_at->format('M d, Y h:i A') }}</p>
                             </div>
@@ -208,13 +231,17 @@
                             <!-- Reviewed -->
                             @if($leave->status !== 'pending')
                                 <div class="relative">
-                                    <div class="absolute -left-[25px] w-4 h-4 rounded-full {{ $leave->status === 'approved' ? 'bg-emerald-500' : 'bg-red-500' }} border-2 border-white shadow"></div>
+                                    <div
+                                        class="absolute -left-[25px] w-4 h-4 rounded-full {{ $leave->status === 'approved' ? 'bg-emerald-500' : 'bg-red-500' }} border-2 border-white shadow">
+                                    </div>
                                     <p class="text-sm font-semibold text-gray-800">Request {{ ucfirst($leave->status) }}</p>
                                     <p class="text-xs text-gray-500">{{ $leave->reviewed_at->format('M d, Y h:i A') }}</p>
                                 </div>
                             @else
                                 <div class="relative">
-                                    <div class="absolute -left-[25px] w-4 h-4 rounded-full bg-gray-300 border-2 border-white shadow"></div>
+                                    <div
+                                        class="absolute -left-[25px] w-4 h-4 rounded-full bg-gray-300 border-2 border-white shadow">
+                                    </div>
                                     <p class="text-sm font-medium text-gray-400">Awaiting Review</p>
                                 </div>
                             @endif

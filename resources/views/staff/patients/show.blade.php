@@ -6,9 +6,13 @@
 @section('content')
 <div class="space-y-6">
     <!-- Page Header -->
-    <div class="bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-2xl shadow-lg overflow-hidden">
-        <div class="p-6 md:p-8">
-            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+    <div class="bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
+        <!-- Decorative background elements -->
+        <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+        <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+        <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
+        <div class="relative">
                 <div class="flex items-center gap-4">
                     <a href="{{ route('staff.patients.index') }}"
                         class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">

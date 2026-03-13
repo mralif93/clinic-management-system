@@ -61,7 +61,7 @@
         >
         
         <div x-show="loading" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-            <i class='hgi-stroke hgi-loading-02 bx-spin text-gray-400'></i>
+            <i class='hgi-stroke hgi-loading-02 animate-spin text-gray-400'></i>
         </div>
     </div>
     

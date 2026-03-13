@@ -74,22 +74,23 @@
                 <div class="flex items-center gap-4">
                     @if($logoUrl)
                         <div
-                            class="w-10 h-10 rounded-2xl bg-white/5 p-2 flex items-center justify-center border border-white/10 shadow-lg">
+                            class="w-10 h-10 rounded-2xl bg-white/5 p-2 flex items-center justify-center border border-white/10 shadow-lg shrink-0">
                             <img src="{{ $logoUrl }}" alt="{{ $clinicName }}"
                                 class="max-h-full max-w-full object-contain filter brightness-110">
                         </div>
                     @else
                         <div
-                            class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
-                            <i class='hgi-stroke hgi-identity-card text-xl text-white'></i>
+                            class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20 shrink-0">
+                            <i class='hgi-stroke hgi-hospital text-xl text-white'></i>
                         </div>
                     @endif
-                    <div class="flex-1 min-w-0">
-                        <h1
-                            class="text-sm font-extrabold text-white truncate tracking-tight uppercase leading-none mb-1">
+                    <div class="flex-1 min-w-0 flex flex-col justify-center">
+                        <h1 class="text-[12px] font-black text-white leading-tight uppercase tracking-wide break-words">
                             {{ $clinicName }}
                         </h1>
-                        <p class="text-[10px] text-amber-400/80 font-bold tracking-[0.1em] uppercase">Staff Portal</p>
+                        <p
+                            class="text-[9px] text-amber-400/60 font-bold tracking-widest uppercase mt-0.5 whitespace-nowrap">
+                            Staff Portal</p>
                     </div>
                 </div>
             </div>
@@ -99,133 +100,199 @@
                 $navBase = "group relative flex items-center gap-3 px-4 py-2.5 rounded-xl text-[13px] font-bold transition-all mb-1";
                 $navActive = "bg-amber-500/10 text-amber-400 shadow-[inset_0_0_20px_-10px_rgba(59,104,245,0.4)] border border-amber-500/20";
                 $navInactive = "text-sidebar-text hover:bg-white/5 hover:text-white border border-transparent";
+
+                $navActiveIconBg = "bg-amber-500";
+                $navInactiveIconBg = "bg-white/5";
+                $navActiveIconColor = "text-white";
+                $navInactiveIconColor = "text-amber-400/70 group-hover:text-amber-400";
             @endphp
             <nav class="flex-1 overflow-y-auto py-6 px-4 custom-scrollbar">
-                <div class="mb-6">
-                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">Main</p>
-                    <a href="{{ route('staff.dashboard') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('staff.dashboard') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.dashboard') ? 'bg-amber-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-dashboard-square-01 text-lg {{ request()->routeIs('staff.dashboard') ? 'text-white' : 'text-amber-400/70 group-hover:text-amber-400' }}'></i>
-                        </div>
-                        <span>Dashboard</span>
-                    </a>
-                    <a href="{{ route('staff.patient-flow') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('staff.patient-flow') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.patient-flow') ? 'bg-amber-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-arrow-data-transfer-horizontal text-lg {{ request()->routeIs('staff.patient-flow') ? 'text-white' : 'text-amber-400/70 group-hover:text-amber-400' }}'></i>
-                        </div>
-                        <span>Patient Flow</span>
-                    </a>
-                    <a href="{{ route('staff.qr-scanner') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('staff.qr-scanner') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.qr-scanner') ? 'bg-amber-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-qr-code text-lg {{ request()->routeIs('staff.qr-scanner') ? 'text-white' : 'text-amber-400/70 group-hover:text-amber-400' }}'></i>
-                        </div>
-                        <span>QR Scanner</span>
-                    </a>
-                    <a href="{{ route('staff.todos.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('staff.todos.index.*') || request()->routeIs('staff.todos.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.todos.index.*') || request()->routeIs('staff.todos.index') ? 'bg-amber-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-task-01 text-lg {{ request()->routeIs('staff.todos.index.*') || request()->routeIs('staff.todos.index') ? 'text-white' : 'text-amber-400/70 group-hover:text-amber-400' }}'></i>
-                        </div>
-                        <span>Tasks</span>
-                    </a>
-                <div class="mb-6">
-                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">Work</p>
-                    <a href="{{ route('staff.attendance.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('staff.attendance.index.*') || request()->routeIs('staff.attendance.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.attendance.index.*') || request()->routeIs('staff.attendance.index') ? 'bg-amber-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-clock-02 text-lg {{ request()->routeIs('staff.attendance.index.*') || request()->routeIs('staff.attendance.index') ? 'text-white' : 'text-amber-400/70 group-hover:text-amber-400' }}'></i>
-                        </div>
-                        <span>Attendance</span>
-                    </a>
-                    <a href="{{ route('staff.schedule.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('staff.schedule.index.*') || request()->routeIs('staff.schedule.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.schedule.index.*') || request()->routeIs('staff.schedule.index') ? 'bg-amber-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-calendar-03 text-lg {{ request()->routeIs('staff.schedule.index.*') || request()->routeIs('staff.schedule.index') ? 'text-white' : 'text-amber-400/70 group-hover:text-amber-400' }}'></i>
-                        </div>
-                        <span>My Schedule</span>
-                    </a>
-                    <a href="{{ route('staff.appointments.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('staff.appointments.index.*') || request()->routeIs('staff.appointments.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.appointments.index.*') || request()->routeIs('staff.appointments.index') ? 'bg-amber-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-calendar-03 text-lg {{ request()->routeIs('staff.appointments.index.*') || request()->routeIs('staff.appointments.index') ? 'text-white' : 'text-amber-400/70 group-hover:text-amber-400' }}'></i>
-                        </div>
-                        <span>Appointments</span>
-                    </a>
-                <div class="mb-6">
-                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">Management</p>
-                    <a href="{{ route('staff.schedule.doctors') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('staff.schedule.doctors.*') || request()->routeIs('staff.schedule.doctors') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.schedule.doctors.*') || request()->routeIs('staff.schedule.doctors') ? 'bg-amber-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-user-list text-lg {{ request()->routeIs('staff.schedule.doctors.*') || request()->routeIs('staff.schedule.doctors') ? 'text-white' : 'text-amber-400/70 group-hover:text-amber-400' }}'></i>
-                        </div>
-                        <span>Doctors</span>
-                    </a>
-                    <a href="{{ route('staff.patients.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('staff.patients.index.*') || request()->routeIs('staff.patients.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.patients.index.*') || request()->routeIs('staff.patients.index') ? 'bg-amber-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-user-group text-lg {{ request()->routeIs('staff.patients.index.*') || request()->routeIs('staff.patients.index') ? 'text-white' : 'text-amber-400/70 group-hover:text-amber-400' }}'></i>
-                        </div>
-                        <span>Patients</span>
-                    </a>
-                <div class="mb-6">
-                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">Personal</p>
-                    <a href="{{ route('staff.leaves.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('staff.leaves.index.*') || request()->routeIs('staff.leaves.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.leaves.index.*') || request()->routeIs('staff.leaves.index') ? 'bg-amber-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-clock-01 text-lg {{ request()->routeIs('staff.leaves.index.*') || request()->routeIs('staff.leaves.index') ? 'text-white' : 'text-amber-400/70 group-hover:text-amber-400' }}'></i>
-                        </div>
-                        <span>Leave</span>
-                    </a>
-                    <a href="{{ route('staff.payslips.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('staff.payslips.index.*') || request()->routeIs('staff.payslips.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.payslips.index.*') || request()->routeIs('staff.payslips.index') ? 'bg-amber-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-invoice text-lg {{ request()->routeIs('staff.payslips.index.*') || request()->routeIs('staff.payslips.index') ? 'text-white' : 'text-amber-400/70 group-hover:text-amber-400' }}'></i>
-                        </div>
-                        <span>Payslips</span>
-                    </a>
-                    <a href="{{ route('staff.reports.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('staff.reports.index.*') || request()->routeIs('staff.reports.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.reports.index.*') || request()->routeIs('staff.reports.index') ? 'bg-amber-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-file-01 text-lg {{ request()->routeIs('staff.reports.index.*') || request()->routeIs('staff.reports.index') ? 'text-white' : 'text-amber-400/70 group-hover:text-amber-400' }}'></i>
-                        </div>
-                        <span>Reports</span>
-                    </a>
-                    <a href="{{ route('staff.digital-card.show') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('staff.digital-card.*') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.digital-card.*') ? 'bg-amber-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-identity-card text-lg {{ request()->routeIs("staff.digital-card.*") ? "text-white" : "text-amber-400/70 group-hover:text-amber-400" }}'></i>
-                        </div>
-                        <span>Digital Card</span>
-                    </a>
+                <!-- Main -->
+                <div class="mb-4"
+                    x-data="{ open: {{ request()->routeIs('staff.dashboard') || request()->routeIs('staff.patient-flow') || request()->routeIs('staff.qr-scanner') || request()->routeIs('staff.todos.*') ? 'true' : 'false' }} }">
+                    <button @click="open = !open"
+                        class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[11px] font-black text-white/40 uppercase tracking-widest hover:bg-white/5 hover:text-white/70 transition-all group">
+                        <span class="flex items-center gap-2">
+                            <span
+                                class="w-1.5 h-1.5 rounded-full bg-amber-500/30 group-hover:bg-amber-500 transition-colors"></span>
+                            Main
+                        </span>
+                        <i class='hgi-stroke hgi-arrow-down-01 text-[14px] transition-transform duration-300'
+                            :class="open ? 'rotate-180' : ''"></i>
+                    </button>
+
+                    <div x-show="open" x-collapse>
+                        <a href="{{ route('staff.dashboard') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('staff.dashboard') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.dashboard') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-dashboard-square-01 text-lg {{ request()->routeIs('staff.dashboard') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="{{ route('staff.patient-flow') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('staff.patient-flow') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.patient-flow') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-arrow-data-transfer-horizontal text-lg {{ request()->routeIs('staff.patient-flow') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Patient Flow</span>
+                        </a>
+                        <a href="{{ route('staff.qr-scanner') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('staff.qr-scanner') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.qr-scanner') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-qr-code text-lg {{ request()->routeIs('staff.qr-scanner') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>QR Scanner</span>
+                        </a>
+                        <a href="{{ route('staff.todos.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('staff.todos.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.todos.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-task-01 text-lg {{ request()->routeIs('staff.todos.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Tasks</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Work -->
+                <div class="mb-4"
+                    x-data="{ open: {{ request()->routeIs('staff.attendance.*') || request()->routeIs('staff.schedule.*') || request()->routeIs('staff.appointments.*') ? 'true' : 'false' }} }">
+                    <button @click="open = !open"
+                        class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[11px] font-black text-white/40 uppercase tracking-widest hover:bg-white/5 hover:text-white/70 transition-all group">
+                        <span class="flex items-center gap-2">
+                            <span
+                                class="w-1.5 h-1.5 rounded-full bg-amber-500/30 group-hover:bg-amber-500 transition-colors"></span>
+                            Work
+                        </span>
+                        <i class='hgi-stroke hgi-arrow-down-01 text-[14px] transition-transform duration-300'
+                            :class="open ? 'rotate-180' : ''"></i>
+                    </button>
+
+                    <div x-show="open" x-collapse>
+                        <a href="{{ route('staff.attendance.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('staff.attendance.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.attendance.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-clock-02 text-lg {{ request()->routeIs('staff.attendance.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Attendance</span>
+                        </a>
+                        <a href="{{ route('staff.schedule.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('staff.schedule.index.*') || request()->routeIs('staff.schedule.index') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.schedule.index.*') || request()->routeIs('staff.schedule.index') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-time-schedule text-lg {{ request()->routeIs('staff.schedule.index.*') || request()->routeIs('staff.schedule.index') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>My Schedule</span>
+                        </a>
+                        <a href="{{ route('staff.appointments.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('staff.appointments.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.appointments.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-calendar-03 text-lg {{ request()->routeIs('staff.appointments.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Appointments</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Management -->
+                <div class="mb-4"
+                    x-data="{ open: {{ request()->routeIs('staff.schedule.doctors.*') || request()->routeIs('staff.patients.*') ? 'true' : 'false' }} }">
+                    <button @click="open = !open"
+                        class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[11px] font-black text-white/40 uppercase tracking-widest hover:bg-white/5 hover:text-white/70 transition-all group">
+                        <span class="flex items-center gap-2">
+                            <span
+                                class="w-1.5 h-1.5 rounded-full bg-amber-500/30 group-hover:bg-amber-500 transition-colors"></span>
+                            Management
+                        </span>
+                        <i class='hgi-stroke hgi-arrow-down-01 text-[14px] transition-transform duration-300'
+                            :class="open ? 'rotate-180' : ''"></i>
+                    </button>
+
+                    <div x-show="open" x-collapse>
+                        <a href="{{ route('staff.schedule.doctors') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('staff.schedule.doctors.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.schedule.doctors.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-doctor-01 text-lg {{ request()->routeIs('staff.schedule.doctors.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Doctors</span>
+                        </a>
+                        <a href="{{ route('staff.patients.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('staff.patients.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.patients.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-patient text-lg {{ request()->routeIs('staff.patients.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Patients</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Personal -->
+                <div class="mb-4"
+                    x-data="{ open: {{ request()->routeIs('staff.leaves.*') || request()->routeIs('staff.payslips.*') || request()->routeIs('staff.reports.*') || request()->routeIs('staff.digital-card.*') ? 'true' : 'false' }} }">
+                    <button @click="open = !open"
+                        class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[11px] font-black text-white/40 uppercase tracking-widest hover:bg-white/5 hover:text-white/70 transition-all group">
+                        <span class="flex items-center gap-2">
+                            <span
+                                class="w-1.5 h-1.5 rounded-full bg-amber-500/30 group-hover:bg-amber-500 transition-colors"></span>
+                            Personal
+                        </span>
+                        <i class='hgi-stroke hgi-arrow-down-01 text-[14px] transition-transform duration-300'
+                            :class="open ? 'rotate-180' : ''"></i>
+                    </button>
+
+                    <div x-show="open" x-collapse>
+                        <a href="{{ route('staff.leaves.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('staff.leaves.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.leaves.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-clock-01 text-lg {{ request()->routeIs('staff.leaves.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Leave</span>
+                        </a>
+                        <a href="{{ route('staff.payslips.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('staff.payslips.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.payslips.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-invoice text-lg {{ request()->routeIs('staff.payslips.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Payslips</span>
+                        </a>
+                        <a href="{{ route('staff.reports.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('staff.reports.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.reports.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-file-01 text-lg {{ request()->routeIs('staff.reports.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Reports</span>
+                        </a>
+                        <a href="{{ route('staff.digital-card.show') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('staff.digital-card.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('staff.digital-card.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-identity-card text-lg {{ request()->routeIs('staff.digital-card.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Digital Card</span>
+                        </a>
+                    </div>
+                </div>
             </nav>
 
             <!-- Footer Section -->
@@ -431,13 +498,13 @@
 
 
         // Logout confirmation with clock-out option
-        @php
-            $hasActiveAttendance = \App\Models\Attendance::where('user_id', auth()->id())
-                ->whereDate('date', today())
-                ->whereNotNull('clock_in_time')
-                ->whereNull('clock_out_time')
-                ->exists();
-        @endphp
+            @php
+                $hasActiveAttendance = \App\Models\Attendance::where('user_id', auth()->id())
+                    ->whereDate('date', \Carbon\Carbon::today()->toDateString())
+                    ->whereNotNull('clock_in_time')
+                    ->whereNull('clock_out_time')
+                    ->exists();
+            @endphp
 
         document.querySelectorAll('.logout-form').forEach(form => {
             form.addEventListener('submit', function (e) {
@@ -480,7 +547,7 @@
                             // Clock out first, then logout
                             Swal.fire({
                                 title: 'Clocking Out...',
-                                html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-green-500"></i><span>Recording your clock out time...</span></div>',
+                                html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 animate-spin text-2xl text-green-500"></i><span>Recording your clock out time...</span></div>',
                                 allowOutsideClick: false,
                                 showConfirmButton: false
                             });
@@ -497,7 +564,7 @@
                                 // Now logout
                                 Swal.fire({
                                     title: 'Logging out...',
-                                    html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-amber-500"></i><span>Goodbye!</span></div>',
+                                    html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 animate-spin text-2xl text-amber-500"></i><span>Goodbye!</span></div>',
                                     allowOutsideClick: false,
                                     showConfirmButton: false
                                 });
@@ -513,7 +580,7 @@
                             // Just logout without clocking out
                             Swal.fire({
                                 title: 'Logging out...',
-                                html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-red-500"></i><span>Goodbye!</span></div>',
+                                html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 animate-spin text-2xl text-red-500"></i><span>Goodbye!</span></div>',
                                 allowOutsideClick: false,
                                 showConfirmButton: false
                             });

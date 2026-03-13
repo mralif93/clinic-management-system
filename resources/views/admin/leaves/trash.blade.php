@@ -3,16 +3,32 @@
 @section('content')
     <div class="space-y-6">
         <!-- Header -->
-        <div class="flex justify-between items-center">
-            <div>
-                <h1 class="text-3xl font-bold text-gray-800">Trashed Leaves</h1>
-                <p class="text-gray-600 mt-1">View and manage deleted leave requests</p>
+        <div
+            class="bg-gradient-to-r from-red-600 to-rose-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-8">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-delete-01 text-2xl'></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold">Trashed Leaves</h2>
+                        <p class="text-red-100 text-sm mt-1">View and manage deleted leave requests</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('admin.leaves.index') }}"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
+                        <i class='hgi-stroke hgi-arrow-left-01'></i>
+                        Back to Leaves
+                    </a>
+                </div>
             </div>
-            <a href="{{ route('admin.leaves.index') }}"
-                class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded-lg flex items-center gap-2 transition-colors">
-                <i class='hgi-stroke hgi-arrow-left-01 text-xl'></i>
-                Back to Leaves
-            </a>
         </div>
 
         <!-- Trashed Leaves List -->
@@ -64,7 +80,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex justify-end items-center gap-2">
                                             <!-- Restore -->
-                                            <form action="{{ route('admin.leaves.restore', $leave->id) }}" method="POST" class="inline">
+                                            <form action="{{ route('admin.leaves.restore', $leave->id) }}" method="POST"
+                                                class="inline">
                                                 @csrf
                                                 <button type="submit"
                                                     class="w-8 h-8 flex items-center justify-center bg-green-500 text-white hover:bg-green-600 rounded-full transition shadow-sm"

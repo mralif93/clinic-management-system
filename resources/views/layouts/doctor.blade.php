@@ -74,22 +74,21 @@
                 <div class="flex items-center gap-4">
                     @if($logoUrl)
                         <div
-                            class="w-10 h-10 rounded-2xl bg-white/5 p-2 flex items-center justify-center border border-white/10 shadow-lg">
+                            class="w-10 h-10 rounded-xl bg-white/5 p-2 flex items-center justify-center border border-white/10 shadow-lg shrink-0">
                             <img src="{{ $logoUrl }}" alt="{{ $clinicName }}"
                                 class="max-h-full max-w-full object-contain filter brightness-110">
                         </div>
                     @else
                         <div
-                            class="w-10 h-10 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                            <i class='hgi-stroke hgi-plus-sign text-xl text-white'></i>
+                            class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0">
+                            <i class='hgi-stroke hgi-hospital text-xl text-white'></i>
                         </div>
                     @endif
-                    <div class="flex-1 min-w-0">
-                        <h1
-                            class="text-sm font-extrabold text-white truncate tracking-tight uppercase leading-none mb-1">
+                    <div class="flex-1 min-w-0 flex flex-col justify-center">
+                        <h1 class="text-[12px] font-black text-white leading-tight uppercase tracking-wide break-words">
                             {{ $clinicName }}
                         </h1>
-                        <p class="text-[10px] text-emerald-400/80 font-bold tracking-[0.1em] uppercase">Doctor Portal</p>
+                        <p class="text-[9px] text-emerald-400/60 font-bold tracking-widest uppercase mt-0.5 whitespace-nowrap">Doctor Portal</p>
                     </div>
                 </div>
             </div>
@@ -99,104 +98,154 @@
                 $navBase = "group relative flex items-center gap-3 px-4 py-2.5 rounded-xl text-[13px] font-bold transition-all mb-1";
                 $navActive = "bg-emerald-500/10 text-emerald-400 shadow-[inset_0_0_20px_-10px_rgba(59,104,245,0.4)] border border-emerald-500/20";
                 $navInactive = "text-sidebar-text hover:bg-white/5 hover:text-white border border-transparent";
+                
+                $navActiveIconBg = "bg-emerald-500";
+                $navInactiveIconBg = "bg-white/5";
+                $navActiveIconColor = "text-white";
+                $navInactiveIconColor = "text-emerald-400/70 group-hover:text-emerald-400";
             @endphp
             <nav class="flex-1 overflow-y-auto py-6 px-4 custom-scrollbar">
-                <div class="mb-6">
-                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">Main</p>
-                    <a href="{{ route('doctor.dashboard') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.dashboard') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.dashboard') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-dashboard-square-01 text-lg {{ request()->routeIs('doctor.dashboard') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
-                        </div>
-                        <span>Dashboard</span>
-                    </a>
-                    <a href="{{ route('doctor.todos.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.todos.index.*') || request()->routeIs('doctor.todos.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.todos.index.*') || request()->routeIs('doctor.todos.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-task-01 text-lg {{ request()->routeIs('doctor.todos.index.*') || request()->routeIs('doctor.todos.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
-                        </div>
-                        <span>Tasks</span>
-                    </a>
-                <div class="mb-6">
-                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">Clinical</p>
-                    <a href="{{ route('doctor.schedule.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.schedule.index.*') || request()->routeIs('doctor.schedule.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.schedule.index.*') || request()->routeIs('doctor.schedule.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-calendar-03 text-lg {{ request()->routeIs('doctor.schedule.index.*') || request()->routeIs('doctor.schedule.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
-                        </div>
-                        <span>Schedule</span>
-                    </a>
-                    <a href="{{ route('doctor.appointments.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.appointments.index.*') || request()->routeIs('doctor.appointments.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.appointments.index.*') || request()->routeIs('doctor.appointments.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-calendar-03 text-lg {{ request()->routeIs('doctor.appointments.index.*') || request()->routeIs('doctor.appointments.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
-                        </div>
-                        <span>Appointments</span>
-                    </a>
-                    <a href="{{ route('doctor.patients.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.patients.index.*') || request()->routeIs('doctor.patients.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.patients.index.*') || request()->routeIs('doctor.patients.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-user-group text-lg {{ request()->routeIs('doctor.patients.index.*') || request()->routeIs('doctor.patients.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
-                        </div>
-                        <span>Patients</span>
-                    </a>
-                    <a href="{{ route('doctor.referral-letters.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.referral-letters.index.*') || request()->routeIs('doctor.referral-letters.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.referral-letters.index.*') || request()->routeIs('doctor.referral-letters.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-medical-file text-lg {{ request()->routeIs('doctor.referral-letters.index.*') || request()->routeIs('doctor.referral-letters.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
-                        </div>
-                        <span>Referral Letters</span>
-                    </a>
-                <div class="mb-6">
-                    <p class="px-4 mb-3 text-[10px] font-extrabold text-white/20 uppercase tracking-[0.2em]">HR</p>
-                    <a href="{{ route('doctor.attendance.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.attendance.index.*') || request()->routeIs('doctor.attendance.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.attendance.index.*') || request()->routeIs('doctor.attendance.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-clock-02 text-lg {{ request()->routeIs('doctor.attendance.index.*') || request()->routeIs('doctor.attendance.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
-                        </div>
-                        <span>Attendance</span>
-                    </a>
-                    <a href="{{ route('doctor.leaves.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.leaves.index.*') || request()->routeIs('doctor.leaves.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.leaves.index.*') || request()->routeIs('doctor.leaves.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-clock-01 text-lg {{ request()->routeIs('doctor.leaves.index.*') || request()->routeIs('doctor.leaves.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
-                        </div>
-                        <span>Leave</span>
-                    </a>
-                    <a href="{{ route('doctor.payslips.index') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.payslips.index.*') || request()->routeIs('doctor.payslips.index') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.payslips.index.*') || request()->routeIs('doctor.payslips.index') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-invoice text-lg {{ request()->routeIs('doctor.payslips.index.*') || request()->routeIs('doctor.payslips.index') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
-                        </div>
-                        <span>Payslips</span>
-                    </a>
-                    <a href="{{ route('doctor.digital-card.show') }}"
-                        class="{{ $navBase }} {{ request()->routeIs('doctor.digital-card.*') ? $navActive : $navInactive }}">
-                        <div
-                            class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.digital-card.*') ? 'bg-emerald-500' : 'bg-white/5' }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
-                            <i
-                                class='hgi-stroke hgi-identity-card text-lg {{ request()->routeIs('doctor.digital-card.*') ? 'text-white' : 'text-emerald-400/70 group-hover:text-emerald-400' }}'></i>
-                        </div>
-                        <span>Digital Card</span>
-                    </a>
+                <!-- Main -->
+                <div class="mb-4"
+                    x-data="{ open: {{ request()->routeIs('doctor.dashboard') || request()->routeIs('doctor.todos.*') ? 'true' : 'false' }} }">
+                    <button @click="open = !open"
+                        class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[11px] font-black text-white/40 uppercase tracking-widest hover:bg-white/5 hover:text-white/70 transition-all group">
+                        <span class="flex items-center gap-2">
+                            <span
+                                class="w-1.5 h-1.5 rounded-full bg-emerald-500/30 group-hover:bg-emerald-500 transition-colors"></span>
+                            Main
+                        </span>
+                        <i class='hgi-stroke hgi-arrow-down-01 text-[14px] transition-transform duration-300'
+                            :class="open ? 'rotate-180' : ''"></i>
+                    </button>
+
+                    <div x-show="open" x-collapse>
+                        <a href="{{ route('doctor.dashboard') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('doctor.dashboard') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.dashboard') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-dashboard-square-01 text-lg {{ request()->routeIs('doctor.dashboard') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Dashboard</span>
+                        </a>
+                        <a href="{{ route('doctor.todos.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('doctor.todos.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.todos.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-task-01 text-lg {{ request()->routeIs('doctor.todos.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Tasks</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- Clinical -->
+                <div class="mb-4"
+                    x-data="{ open: {{ request()->routeIs('doctor.schedule.*') || request()->routeIs('doctor.appointments.*') || request()->routeIs('doctor.patients.*') || request()->routeIs('doctor.referral-letters.*') ? 'true' : 'false' }} }">
+                    <button @click="open = !open"
+                        class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[11px] font-black text-white/40 uppercase tracking-widest hover:bg-white/5 hover:text-white/70 transition-all group">
+                        <span class="flex items-center gap-2">
+                            <span
+                                class="w-1.5 h-1.5 rounded-full bg-emerald-500/30 group-hover:bg-emerald-500 transition-colors"></span>
+                            Clinical
+                        </span>
+                        <i class='hgi-stroke hgi-arrow-down-01 text-[14px] transition-transform duration-300'
+                            :class="open ? 'rotate-180' : ''"></i>
+                    </button>
+
+                    <div x-show="open" x-collapse>
+                        <a href="{{ route('doctor.schedule.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('doctor.schedule.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.schedule.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-time-schedule text-lg {{ request()->routeIs('doctor.schedule.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Schedule</span>
+                        </a>
+                        <a href="{{ route('doctor.appointments.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('doctor.appointments.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.appointments.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-calendar-03 text-lg {{ request()->routeIs('doctor.appointments.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Appointments</span>
+                        </a>
+                        <a href="{{ route('doctor.patients.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('doctor.patients.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.patients.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-patient text-lg {{ request()->routeIs('doctor.patients.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Patients</span>
+                        </a>
+                        <a href="{{ route('doctor.referral-letters.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('doctor.referral-letters.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.referral-letters.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-medical-file text-lg {{ request()->routeIs('doctor.referral-letters.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Referral Letters</span>
+                        </a>
+                    </div>
+                </div>
+                <!-- HR -->
+                <div class="mb-4"
+                    x-data="{ open: {{ request()->routeIs('doctor.attendance.*') || request()->routeIs('doctor.leaves.*') || request()->routeIs('doctor.payslips.*') || request()->routeIs('doctor.digital-card.*') ? 'true' : 'false' }} }">
+                    <button @click="open = !open"
+                        class="w-full flex items-center justify-between px-3 py-2 rounded-xl text-[11px] font-black text-white/40 uppercase tracking-widest hover:bg-white/5 hover:text-white/70 transition-all group">
+                        <span class="flex items-center gap-2">
+                            <span
+                                class="w-1.5 h-1.5 rounded-full bg-emerald-500/30 group-hover:bg-emerald-500 transition-colors"></span>
+                            HR
+                        </span>
+                        <i class='hgi-stroke hgi-arrow-down-01 text-[14px] transition-transform duration-300'
+                            :class="open ? 'rotate-180' : ''"></i>
+                    </button>
+
+                    <div x-show="open" x-collapse>
+                        <a href="{{ route('doctor.attendance.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('doctor.attendance.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.attendance.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-clock-02 text-lg {{ request()->routeIs('doctor.attendance.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Attendance</span>
+                        </a>
+                        <a href="{{ route('doctor.leaves.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('doctor.leaves.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.leaves.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-clock-01 text-lg {{ request()->routeIs('doctor.leaves.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Leave</span>
+                        </a>
+                        <a href="{{ route('doctor.payslips.index') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('doctor.payslips.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.payslips.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-invoice text-lg {{ request()->routeIs('doctor.payslips.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Payslips</span>
+                        </a>
+                        <a href="{{ route('doctor.digital-card.show') }}"
+                            class="{{ $navBase }} {{ request()->routeIs('doctor.digital-card.*') ? $navActive : $navInactive }}">
+                            <div
+                                class="w-8 h-8 rounded-lg {{ request()->routeIs('doctor.digital-card.*') ? $navActiveIconBg : $navInactiveIconBg }} flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                                <i
+                                    class='hgi-stroke hgi-identity-card text-lg {{ request()->routeIs('doctor.digital-card.*') ? $navActiveIconColor : $navInactiveIconColor }}'></i>
+                            </div>
+                            <span>Digital Card</span>
+                        </a>
+                    </div>
+                </div>
             </nav>
 
             <!-- Footer Section -->
@@ -227,11 +276,13 @@
                         </button>
 
                         <!-- Page Title -->
-                        <div class="min-w-0">
-                            <h1 class="text-base sm:text-lg font-bold text-gray-900 tracking-tight truncate">
-                                @yield('page-title', 'Dashboard')
-                            </h1>
-                        </div>
+                        @if(!isset($hideLayoutTitle) && !View::hasSection('hide-layout-title'))
+                            <div class="min-w-0">
+                                <h1 class="text-base sm:text-lg font-bold text-gray-900 tracking-tight truncate">
+                                    @yield('page-title', 'Dashboard')
+                                </h1>
+                            </div>
+                        @endif
                     </div>
 
                     <!-- Right Side - Actions -->
@@ -402,13 +453,13 @@
 
 
         // Logout confirmation with clock-out option
-        @php
-            $hasActiveAttendance = \App\Models\Attendance::where('user_id', auth()->id())
-                ->whereDate('date', today())
-                ->whereNotNull('clock_in_time')
-                ->whereNull('clock_out_time')
-                ->exists();
-        @endphp
+            @php
+                $hasActiveAttendance = \App\Models\Attendance::where('user_id', auth()->id())
+                    ->whereDate('date', \Carbon\Carbon::today()->toDateString())
+                    ->whereNotNull('clock_in_time')
+                    ->whereNull('clock_out_time')
+                    ->exists();
+            @endphp
 
         document.querySelectorAll('.logout-form').forEach(form => {
             form.addEventListener('submit', function (e) {
@@ -451,7 +502,7 @@
                             // Clock out first, then logout
                             Swal.fire({
                                 title: 'Clocking Out...',
-                                html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-green-500"></i><span>Recording your clock out time...</span></div>',
+                                html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 animate-spin text-2xl text-green-500"></i><span>Recording your clock out time...</span></div>',
                                 allowOutsideClick: false,
                                 showConfirmButton: false
                             });
@@ -468,7 +519,7 @@
                                 // Now logout
                                 Swal.fire({
                                     title: 'Logging out...',
-                                    html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-amber-500"></i><span>Goodbye!</span></div>',
+                                    html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 animate-spin text-2xl text-amber-500"></i><span>Goodbye!</span></div>',
                                     allowOutsideClick: false,
                                     showConfirmButton: false
                                 });
@@ -484,7 +535,7 @@
                             // Just logout without clocking out
                             Swal.fire({
                                 title: 'Logging out...',
-                                html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 bx-spin text-2xl text-red-500"></i><span>Goodbye!</span></div>',
+                                html: '<div class="flex items-center justify-center gap-2"><i class="hgi-stroke hgi-loading-02 animate-spin text-2xl text-red-500"></i><span>Goodbye!</span></div>',
                                 allowOutsideClick: false,
                                 showConfirmButton: false
                             });

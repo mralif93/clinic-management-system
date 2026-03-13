@@ -1,24 +1,35 @@
-@extends('layouts.doctor')
+@extends('layouts.doctor', ['hideLayoutTitle' => true])
+@section('title', 'Apply for Leave')
+@section('page-title', 'Apply for Leave')
+@section('hide-layout-title', true)
 
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-            <div class="relative">
-                <a href="{{ route('doctor.leaves.index') }}" class="inline-flex items-center gap-1 text-emerald-100 hover:text-white text-sm mb-2 transition">
-                    <i class='hgi-stroke hgi-arrow-left-01'></i> Back to Leave Requests
-                </a>
-                <h1 class="text-2xl font-bold flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='hgi-stroke hgi-calendar-03 text-xl'></i>
+
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <a href="{{ route('doctor.leaves.index') }}"
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-arrow-left-01 text-white text-xl'></i>
+                    </a>
+                    <div class="text-white">
+                        <h1 class="text-2xl font-bold">Apply for Leave</h1>
+                        <p class="text-emerald-100 text-sm mt-1">Submit a new leave request for approval</p>
                     </div>
-                    Apply for Leave
-                </h1>
-                <p class="text-emerald-100 mt-2">Submit a new leave request for approval</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 text-sm text-white">
+                        <i class='hgi-stroke hgi-calendar-03 mr-1'></i>
+                        {{ now()->format('l, M d') }}
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -30,15 +41,18 @@
                 </h3>
             </div>
             <div class="p-6">
-                <form action="{{ route('doctor.leaves.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+                <form action="{{ route('doctor.leaves.store') }}" method="POST" enctype="multipart/form-data"
+                    class="space-y-6">
                     @csrf
 
                     <!-- Leave Type -->
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-3">Leave Type <span class="text-red-500">*</span></label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-3">Leave Type <span
+                                class="text-red-500">*</span></label>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                             @foreach(\App\Models\Leave::getLeaveTypes() as $value => $label)
-                                <label class="relative flex items-center p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 hover:border-emerald-300 transition-all focus-within:ring-2 focus-within:ring-emerald-500">
+                                <label
+                                    class="relative flex items-center p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 hover:border-emerald-300 transition-all focus-within:ring-2 focus-within:ring-emerald-500">
                                     <input type="radio" name="leave_type" value="{{ $value }}"
                                         class="h-4 w-4 text-emerald-600 border-gray-300 focus:ring-emerald-500" {{ old('leave_type') == $value ? 'checked' : '' }} required>
                                     <span class="ml-3 block text-sm font-medium text-gray-900">{{ $label }}</span>
@@ -53,18 +67,22 @@
                     <!-- Date Range -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label for="start_date" class="block text-sm font-semibold text-gray-700 mb-2">Start Date <span class="text-red-500">*</span></label>
+                            <label for="start_date" class="block text-sm font-semibold text-gray-700 mb-2">Start Date <span
+                                    class="text-red-500">*</span></label>
                             <input type="date" name="start_date" id="start_date" value="{{ old('start_date') }}"
-                                class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition" required>
+                                class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                                required>
                             @error('start_date')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div>
-                            <label for="end_date" class="block text-sm font-semibold text-gray-700 mb-2">End Date <span class="text-red-500">*</span></label>
+                            <label for="end_date" class="block text-sm font-semibold text-gray-700 mb-2">End Date <span
+                                    class="text-red-500">*</span></label>
                             <input type="date" name="end_date" id="end_date" value="{{ old('end_date') }}"
-                                class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition" required>
+                                class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
+                                required>
                             @error('end_date')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -72,19 +90,23 @@
                     </div>
 
                     <!-- Duration Calculation (Auto-updated via JS) -->
-                    <div id="duration_display" class="hidden bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-center gap-3">
+                    <div id="duration_display"
+                        class="hidden bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-center gap-3">
                         <div class="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
                             <i class='hgi-stroke hgi-clock-02 text-emerald-600 text-xl'></i>
                         </div>
-                        <p class="text-emerald-800 font-medium">Total Duration: <span id="total_days" class="font-bold">0</span> days</p>
+                        <p class="text-emerald-800 font-medium">Total Duration: <span id="total_days"
+                                class="font-bold">0</span> days</p>
                     </div>
 
                     <!-- Reason -->
                     <div>
-                        <label for="reason" class="block text-sm font-semibold text-gray-700 mb-2">Reason <span class="text-red-500">*</span></label>
+                        <label for="reason" class="block text-sm font-semibold text-gray-700 mb-2">Reason <span
+                                class="text-red-500">*</span></label>
                         <textarea name="reason" id="reason" rows="4"
                             class="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition"
-                            placeholder="Please provide a detailed reason for your leave request..." required>{{ old('reason') }}</textarea>
+                            placeholder="Please provide a detailed reason for your leave request..."
+                            required>{{ old('reason') }}</textarea>
                         @error('reason')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -93,15 +115,18 @@
                     <!-- Attachment -->
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Attachment (Optional)</label>
-                        <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-200 border-dashed rounded-xl hover:border-emerald-400 transition-colors bg-gray-50/50">
+                        <div
+                            class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-200 border-dashed rounded-xl hover:border-emerald-400 transition-colors bg-gray-50/50">
                             <div class="space-y-2 text-center">
                                 <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mx-auto">
                                     <i class='hgi-stroke hgi-cloud-upload text-2xl text-emerald-600'></i>
                                 </div>
                                 <div class="flex text-sm text-gray-600 justify-center">
-                                    <label for="attachment" class="relative cursor-pointer font-medium text-emerald-600 hover:text-emerald-500">
+                                    <label for="attachment"
+                                        class="relative cursor-pointer font-medium text-emerald-600 hover:text-emerald-500">
                                         <span>Upload a file</span>
-                                        <input id="attachment" name="attachment" type="file" class="sr-only" accept=".jpg,.jpeg,.png,.pdf">
+                                        <input id="attachment" name="attachment" type="file" class="sr-only"
+                                            accept=".jpg,.jpeg,.png,.pdf">
                                     </label>
                                     <p class="pl-1">or drag and drop</p>
                                 </div>

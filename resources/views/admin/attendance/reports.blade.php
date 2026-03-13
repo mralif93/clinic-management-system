@@ -5,24 +5,59 @@
 
 @section('content')
     <div class="w-full space-y-6">
+        <!-- Header -->
+        <div
+            class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-chart-column text-2xl'></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold">Attendance Reports</h2>
+                        <p class="text-blue-100 text-sm mt-1">Generate and view attendance reports</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('admin.attendance.index') }}"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
+                        <i class='hgi-stroke hgi-arrow-left-01 text-xl'></i>
+                        Back to Attendance
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <!-- Date Range Filter -->
-        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Select Date Range</h3>
-            <form method="GET" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 overflow-hidden relative">
+            <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <i class='hgi-stroke hgi-calendar-01 text-blue-600'></i>
+                Select Date Range
+            </h3>
+            <form method="GET" class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Start Date</label>
-                    <input type="date" name="start_date" value="{{ $startDate }}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    <label class="block text-sm font-semibold text-gray-600 mb-2">Start Date</label>
+                    <div class="relative">
+                        <input type="date" name="start_date" value="{{ $startDate }}"
+                            class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm outline-none">
+                    </div>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">End Date</label>
-                    <input type="date" name="end_date" value="{{ $endDate }}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    <label class="block text-sm font-semibold text-gray-600 mb-2">End Date</label>
+                    <div class="relative">
+                        <input type="date" name="end_date" value="{{ $endDate }}"
+                            class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all text-sm outline-none">
+                    </div>
                 </div>
                 <div class="flex items-end">
                     <button type="submit"
-                        class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                        <i class='hgi-stroke hgi-search-01 mr-2'></i>Generate Report
+                        class="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">
+                        <i class='hgi-stroke hgi-search-01 text-xl'></i>
+                        Generate Report
                     </button>
                 </div>
             </form>
@@ -130,7 +165,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
                                         class="px-2 py-1 text-xs font-semibold rounded-full 
-                                                    {{ $userSummary['user']->role === 'staff' ? 'bg-yellow-100 text-yellow-700' : 'bg-blue-100 text-blue-700' }}">
+                                                            {{ $userSummary['user']->role === 'staff' ? 'bg-yellow-100 text-yellow-700' : 'bg-blue-100 text-blue-700' }}">
                                         {{ ucfirst($userSummary['user']->role) }}
                                     </span>
                                 </td>

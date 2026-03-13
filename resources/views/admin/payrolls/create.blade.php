@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <a href="{{ route('admin.payrolls.index') }}"
-                    class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                     <i class='hgi-stroke hgi-arrow-left-01'></i>
                     Back to List
                 </a>
@@ -69,7 +69,7 @@
                 </div>
 
                 <!-- Pay Period -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Pay Period Start <span
                                 class="text-red-500">*</span></label>
@@ -88,14 +88,22 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Payment Release Date</label>
+                        <input type="date" name="payment_release_date" id="payment_release_date"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        @error('payment_release_date')
+                            <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
 
                 <!-- Auto Calculate Button -->
                 <div class="flex justify-end">
                     <button type="button" onclick="autoCalculateSalary()" id="auto_calculate_btn"
-                        class="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-blue-700 transition shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
-                        <i class='hgi-stroke hgi-calculator mr-2'></i>
-                        Auto Calculate Salary
+                        class="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-blue-700 transition shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+                        <i class='hgi-stroke hgi-calendar-03'></i>
+                        Get Prorated Salary
                     </button>
                 </div>
             </div>
@@ -131,11 +139,12 @@
                 <!-- Deductions -->
                 <div>
                     <div class="flex justify-between items-center mb-3">
-                        <label class="block text-sm font-medium text-gray-700">Deductions</label>
+                        <label class="block text-sm font-medium text-gray-700">Deductions <span
+                                class="text-xs text-gray-500 font-normal ml-2">(EPF, SOCSO, EIS, Tax)</span></label>
                         <div class="flex gap-2">
-                            <button type="button" onclick="autoCalculateDeductions()"
+                            <button type="button" id="auto_calculate_statutory_btn" onclick="autoCalculateStatutory()"
                                 class="text-green-600 hover:text-green-700 text-sm font-medium flex items-center gap-1">
-                                <i class='hgi-stroke hgi-calculator'></i> Auto Calculate
+                                <i class='hgi-stroke hgi-calculator'></i> Auto Calculate Statutory
                             </button>
                             <button type="button" onclick="addDeduction()"
                                 class="text-blue-600 hover:text-blue-700 text-sm font-medium">
@@ -144,6 +153,19 @@
                         </div>
                     </div>
                     <div id="deductions-container" class="space-y-2"></div>
+                </div>
+
+                <!-- Employer Contributions -->
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="block text-sm font-medium text-gray-700">Employer Contributions <span
+                                class="text-xs text-gray-500 font-normal ml-2">(EPF, SOCSO, EIS)</span></label>
+                        <button type="button" onclick="addEmployerContribution()"
+                            class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                            <i class='hgi-stroke hgi-plus-sign'></i> Add Contribution
+                        </button>
+                    </div>
+                    <div id="employer-contributions-container" class="space-y-2"></div>
                 </div>
 
                 <!-- Overtime -->
@@ -222,6 +244,23 @@
         </form>
     </div>
 
+    <!-- Custom Alert Modal -->
+    <div id="customAlertModal"
+        class="fixed inset-0 bg-black/40 backdrop-blur-md hidden items-center justify-center z-[100] transition-opacity duration-300 opacity-0">
+        <div
+            class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-md transform scale-95 transition-transform duration-300">
+            <div id="alertIcon" class="mb-4"></div>
+            <h3 id="alertTitle" class="text-xl font-bold text-gray-900 mb-2"></h3>
+            <div id="alertMessage" class="text-gray-600 text-sm whitespace-pre-line mb-6"></div>
+            <div class="flex justify-end">
+                <button type="button" onclick="closeCustomAlert()"
+                    class="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 transition-colors focus:ring-4 focus:ring-blue-200">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Preview Modal -->
     <div id="previewModal"
         class="fixed inset-0 bg-black bg-opacity-50 hidden items-start justify-center z-50 overflow-y-auto py-10">
@@ -256,16 +295,16 @@
             const div = document.createElement('div');
             div.className = 'flex gap-2';
             div.innerHTML = `
-                                            <input type="text" name="allowance_names[]" placeholder="Allowance name (e.g., Housing)"
-                                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent allowance-name">
-                                            <input type="number" name="allowance_amounts[]" step="0.01" min="0" placeholder="Amount"
-                                                class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent allowance-input"
-                                                oninput="calculateSalary()">
-                                            <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
-                                                class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                                                <i class='hgi-stroke hgi-delete-01'></i>
-                                            </button>
-                                        `;
+                                                                                <input type="text" name="allowance_names[]" placeholder="Allowance name (e.g., Housing)"
+                                                                                    class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent allowance-name">
+                                                                                <input type="number" name="allowance_amounts[]" step="0.01" min="0" placeholder="Amount"
+                                                                                    class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent allowance-input"
+                                                                                    oninput="calculateSalary()">
+                                                                                <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
+                                                                                    class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                                                                                    <i class='hgi-stroke hgi-delete-01'></i>
+                                                                                </button>
+                                                                            `;
             container.appendChild(div);
         }
 
@@ -274,16 +313,33 @@
             const div = document.createElement('div');
             div.className = 'flex gap-2';
             div.innerHTML = `
-                                            <input type="text" name="deduction_names[]" placeholder="Deduction name (e.g., Tax)"
-                                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-name">
-                                            <input type="number" name="deduction_amounts[]" step="0.01" min="0" placeholder="Amount"
-                                                class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-input"
-                                                oninput="calculateSalary()">
-                                            <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
-                                                class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                                                <i class='hgi-stroke hgi-delete-01'></i>
-                                            </button>
-                                        `;
+                                                                                <input type="text" name="deduction_names[]" placeholder="Deduction name (e.g., Tax)"
+                                                                                    class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-name">
+                                                                                <input type="number" name="deduction_amounts[]" step="0.01" min="0" placeholder="Amount"
+                                                                                    class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-input"
+                                                                                    oninput="calculateSalary()">
+                                                                                <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
+                                                                                    class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                                                                                    <i class='hgi-stroke hgi-delete-01'></i>
+                                                                                </button>
+                                                                            `;
+            container.appendChild(div);
+        }
+
+        function addEmployerContribution() {
+            const container = document.getElementById('employer-contributions-container');
+            const div = document.createElement('div');
+            div.className = 'flex gap-2';
+            div.innerHTML = `
+                                                                                <input type="text" name="employer_deduction_names[]" placeholder="Contribution name (e.g., EPF)"
+                                                                                    class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent employer-deduction-name">
+                                                                                <input type="number" name="employer_deduction_amounts[]" step="0.01" min="0" placeholder="Amount"
+                                                                                    class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent employer-deduction-input">
+                                                                                <button type="button" onclick="this.parentElement.remove();"
+                                                                                    class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                                                                                    <i class='hgi-stroke hgi-delete-01'></i>
+                                                                                </button>
+                                                                            `;
             container.appendChild(div);
         }
 
@@ -313,57 +369,40 @@
             document.getElementById('net_salary').textContent = netSalary.toFixed(2);
         }
 
-        function autoCalculateDeductions() {
-            const basicSalary = parseFloat(document.getElementById('basic_salary').value) || 0;
-
-            // Calculate total allowances for base calculation
-            const allowanceInputs = document.querySelectorAll('.allowance-input');
-            let totalAllowances = 0;
-            allowanceInputs.forEach(input => {
-                totalAllowances += parseFloat(input.value) || 0;
-            });
-
-            const baseAmount = basicSalary + totalAllowances;
-
-            // Get rates from server-side settings
-            const rates = @json($payrollSettings);
-
-            // Calculate amounts
-            const epf = baseAmount * (rates.epf_employee / 100);
-            const socso = baseAmount * (rates.socso_employee / 100);
-            const eis = baseAmount * (rates.eis_employee / 100);
-            const tax = baseAmount * (rates.tax / 100);
-
-            // Clear existing deductions
-            document.getElementById('deductions-container').innerHTML = '';
-            deductionCount = 0;
-
-            // Add new deductions
-            addDeductionItem('EPF (Employee)', epf);
-            addDeductionItem('SOCSO (Employee)', socso);
-            addDeductionItem('EIS (Employee)', eis);
-            if (tax > 0) {
-                addDeductionItem('Tax (PCB)', tax);
-            }
-
-            calculateSalary();
-        }
+        // Replaced client-side deduction generation with server-side using autoCalculateSalary
 
         function addDeductionItem(name, amount) {
             const container = document.getElementById('deductions-container');
             const div = document.createElement('div');
             div.className = 'flex gap-2';
             div.innerHTML = `
-                                        <input type="text" name="deduction_names[]" value="${name}"
-                                            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-name">
-                                        <input type="number" name="deduction_amounts[]" value="${amount.toFixed(2)}" step="0.01" min="0"
-                                            class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-input"
-                                            oninput="calculateSalary()">
-                                        <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
-                                            class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-                                            <i class='hgi-stroke hgi-delete-01'></i>
-                                        </button>
-                                    `;
+                                                                            <input type="text" name="deduction_names[]" value="${name}"
+                                                                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-name">
+                                                                            <input type="number" name="deduction_amounts[]" value="${amount.toFixed(2)}" step="0.01" min="0"
+                                                                                class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent deduction-input"
+                                                                                oninput="calculateSalary()">
+                                                                            <button type="button" onclick="this.parentElement.remove(); calculateSalary();"
+                                                                                class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                                                                                <i class='hgi-stroke hgi-delete-01'></i>
+                                                                            </button>
+                                                                        `;
+            container.appendChild(div);
+        }
+
+        function addEmployerContributionItem(name, amount) {
+            const container = document.getElementById('employer-contributions-container');
+            const div = document.createElement('div');
+            div.className = 'flex gap-2';
+            div.innerHTML = `
+                                                                            <input type="text" name="employer_deduction_names[]" value="${name}"
+                                                                                class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent employer-deduction-name">
+                                                                            <input type="number" name="employer_deduction_amounts[]" value="${amount.toFixed(2)}" step="0.01" min="0"
+                                                                                class="w-32 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent employer-deduction-input">
+                                                                            <button type="button" onclick="this.parentElement.remove();"
+                                                                                class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                                                                                <i class='hgi-stroke hgi-delete-01'></i>
+                                                                            </button>
+                                                                        `;
             container.appendChild(div);
         }
 
@@ -396,11 +435,11 @@
                 if (amount > 0) {
                     const name = allowanceNames[index].value || 'Allowance';
                     allowancesList.innerHTML += `
-                                                    <tr class="border-b border-gray-100">
-                                                        <td class="py-3 px-4 text-gray-600">${name}</td>
-                                                        <td class="py-3 px-4 text-right text-gray-900">${amount.toFixed(2)}</td>
-                                                    </tr>
-                                                `;
+                                                                                        <tr class="border-b border-gray-100">
+                                                                                            <td class="py-3 px-4 text-gray-600">${name}</td>
+                                                                                            <td class="py-3 px-4 text-right text-gray-900">${amount.toFixed(2)}</td>
+                                                                                        </tr>
+                                                                                    `;
                 }
             });
 
@@ -430,21 +469,21 @@
                     hasDeductions = true;
                     const name = deductionNames[index].value || 'Deduction';
                     deductionsList.innerHTML += `
-                                                    <tr class="border-b border-gray-100">
-                                                        <td class="py-3 px-4 text-gray-600">${name}</td>
-                                                        <td class="py-3 px-4 text-right text-red-600">- ${amount.toFixed(2)}</td>
-                                                    </tr>
-                                                `;
+                                                                                        <tr class="border-b border-gray-100">
+                                                                                            <td class="py-3 px-4 text-gray-600">${name}</td>
+                                                                                            <td class="py-3 px-4 text-right text-red-600">- ${amount.toFixed(2)}</td>
+                                                                                        </tr>
+                                                                                    `;
                 }
             });
 
             if (!hasDeductions) {
                 deductionsList.innerHTML = `
-                                                <tr class="border-b border-gray-100">
-                                                    <td class="py-3 px-4 text-gray-500 italic">No deductions</td>
-                                                    <td class="py-3 px-4 text-right text-gray-500">- 0.00</td>
-                                                </tr>
-                                            `;
+                                                                                    <tr class="border-b border-gray-100">
+                                                                                        <td class="py-3 px-4 text-gray-500 italic">No deductions</td>
+                                                                                        <td class="py-3 px-4 text-right text-gray-500">- 0.00</td>
+                                                                                    </tr>
+                                                                                `;
             }
 
             // Total Deductions & Net Salary
@@ -453,6 +492,38 @@
 
             document.getElementById('preview-total-deductions').textContent = '- ' + totalDeductions.toFixed(2);
             document.getElementById('preview-net-salary').textContent = netSalary.toFixed(2);
+
+            // Employer Deductions
+            const employerDeductionsSection = document.getElementById('employer-contributions-section');
+            if (employerDeductionsSection) {
+                const employerDeductionsNames = document.querySelectorAll('input[name="employer_deduction_names[]"]');
+                const employerDeductionsAmounts = document.querySelectorAll('input[name="employer_deduction_amounts[]"]');
+                const employerDeductionsList = document.getElementById('preview-employer-contributions-list');
+
+                if (employerDeductionsNames.length > 0) {
+                    employerDeductionsSection.style.display = 'block';
+                    employerDeductionsList.innerHTML = '';
+                    let totalEmployerDeductions = 0;
+
+                    employerDeductionsNames.forEach((input, index) => {
+                        const amount = parseFloat(employerDeductionsAmounts[index].value) || 0;
+                        if (amount > 0) {
+                            totalEmployerDeductions += amount;
+                            const name = input.value || 'Employer Contribution';
+                            employerDeductionsList.innerHTML += `
+                                            <tr class="border-b border-gray-100">
+                                                <td class="py-1.5 px-3 text-gray-600">${name}</td>
+                                                <td class="py-1.5 px-3 text-right text-blue-600 font-medium">${amount.toFixed(2)}</td>
+                                            </tr>
+                                        `;
+                        }
+                    });
+
+                    document.getElementById('preview-total-employer-contributions').textContent = totalEmployerDeductions.toFixed(2);
+                } else {
+                    employerDeductionsSection.style.display = 'none';
+                }
+            }
 
             // Show Modal
             const modal = document.getElementById('previewModal');
@@ -506,18 +577,20 @@
             const button = document.getElementById('auto_calculate_btn');
 
             if (!userId) {
-                alert('Please select an employee first');
+                showCustomAlert('Validation Error', 'Please select an employee first', false);
                 return;
             }
 
             if (!payPeriodStart || !payPeriodEnd) {
-                alert('Please select pay period dates');
+                showCustomAlert('Validation Error', 'Please select pay period dates', false);
                 return;
             }
 
+            const manualBasicSalary = basicSalaryInput.value ? parseFloat(basicSalaryInput.value) : null;
+
             // Disable button and show loading
             button.disabled = true;
-            button.innerHTML = '<i class="hgi-stroke hgi-loading-02 bx-spin mr-2"></i>Calculating...';
+            button.innerHTML = '<i class="hgi-stroke hgi-loading-02 animate-spin"></i> Calculating...';
 
             try {
                 const response = await fetch('{{ route("admin.payrolls.calculate-salary") }}', {
@@ -529,7 +602,8 @@
                     body: JSON.stringify({
                         user_id: userId,
                         pay_period_start: payPeriodStart,
-                        pay_period_end: payPeriodEnd
+                        pay_period_end: payPeriodEnd,
+                        basic_salary: manualBasicSalary
                     })
                 });
 
@@ -540,38 +614,114 @@
                     calculateSalary();
 
                     // Show success message with details
-                    const details = data.details;
-                    let message = `✅ Salary calculated successfully!\n\n`;
+                    const details = data.base_details;
+                    let message = `✅ Prorated base salary calculated successfully!\n\n`;
                     message += `📋 Employment Type: ${details.type}\n`;
-                    message += `💰 ${details.description}\n`;
 
-                    // Add extra details for locum doctors
+                    if (details.description) {
+                        message += `💰 ${details.description}\n`;
+                    }
+
                     if (details.type === 'Locum' && details.appointments) {
                         message += `\n📊 Commission Breakdown:\n`;
                         message += `   • Appointments: ${details.appointments}\n`;
                         message += `   • Total Fees: RM ${parseFloat(details.total_fee).toFixed(2)}\n`;
                         message += `   • Commission Rate: ${details.commission_rate}%\n`;
-                        message += `   • Your Commission: RM ${parseFloat(data.basic_salary).toFixed(2)}`;
                     } else if (details.type === 'Part Time' && details.hours) {
                         message += `\n📊 Hours Breakdown:\n`;
                         message += `   • Total Hours: ${details.hours}h\n`;
                         message += `   • Hourly Rate: RM ${parseFloat(details.rate).toFixed(2)}\n`;
-                        message += `   • Total Salary: RM ${parseFloat(data.basic_salary).toFixed(2)}`;
-                    } else {
-                        message += `\n💵 Salary: RM ${parseFloat(data.basic_salary).toFixed(2)}`;
                     }
 
-                    alert(message);
+                    message += `\n💵 Calculated Basic Salary: RM ${parseFloat(data.basic_salary).toFixed(2)}`;
+
+                    showCustomAlert('Salary Prorated', message, true);
                 } else {
-                    alert('❌ Failed to calculate salary: ' + (data.message || 'Unknown error'));
+                    showCustomAlert('Calculation Failed', data.message || 'Unknown error', false);
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('An error occurred while calculating salary');
+                showCustomAlert('Error', 'An error occurred while getting prorated salary', false);
             } finally {
                 // Re-enable button
                 button.disabled = false;
-                button.innerHTML = '<i class="hgi-stroke hgi-calculator mr-2"></i>Auto Calculate Salary';
+                button.innerHTML = '<i class="hgi-stroke hgi-calendar-03"></i> Get Prorated Salary';
+            }
+        }
+
+        async function autoCalculateStatutory() {
+            const basicSalaryInput = document.getElementById('basic_salary');
+            const button = document.getElementById('auto_calculate_statutory_btn');
+
+            if (!basicSalaryInput.value || parseFloat(basicSalaryInput.value) <= 0) {
+                showCustomAlert('Validation Error', 'Basic salary must be greater than 0 to calculate deductions', false);
+                return;
+            }
+
+            // Gather extra inputs for calculation
+            const allowanceInputs = document.querySelectorAll('.allowance-input');
+            let allowanceAmounts = [];
+            allowanceInputs.forEach(input => {
+                allowanceAmounts.push(parseFloat(input.value) || 0);
+            });
+            const overtimePay = parseFloat(document.getElementById('overtime_pay').value) || 0;
+            const currentBasicSalary = parseFloat(basicSalaryInput.value);
+
+            button.disabled = true;
+            button.innerHTML = '<i class="hgi-stroke hgi-loading-02 animate-spin"></i> Calculating...';
+
+            try {
+                const response = await fetch('{{ route("admin.payrolls.calculate-statutory") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        user_id: document.getElementById('employee_select').value,
+                        basic_salary: currentBasicSalary,
+                        allowance_amounts: allowanceAmounts,
+                        overtime_pay: overtimePay
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Auto-fill statutory deductions
+                    document.getElementById('deductions-container').innerHTML = '';
+
+                    // Clear previous employer deductions hidden inputs
+                    document.querySelectorAll('.employer-deduction-hidden').forEach(el => el.remove());
+
+                    const formContainer = document.getElementById('deductions-container').parentElement;
+
+                    if (data.statutory_deductions) {
+                        const stat = data.statutory_deductions;
+                        if (stat.epf_employee > 0) addDeductionItem('EPF (Employee)', stat.epf_employee);
+                        if (stat.socso_employee > 0) addDeductionItem('SOCSO (Employee)', stat.socso_employee);
+                        if (stat.eis_employee > 0) addDeductionItem('EIS (Employee)', stat.eis_employee);
+                        if (stat.pcb > 0) addDeductionItem('Tax (PCB)', stat.pcb);
+
+                        // Auto-fill employer deductions visibly instead of hidden
+                        document.getElementById('employer-contributions-container').innerHTML = '';
+                        if (stat.epf_employer > 0) addEmployerContributionItem('EPF (Employer)', stat.epf_employer);
+                        if (stat.socso_employer > 0) addEmployerContributionItem('SOCSO (Employer)', stat.socso_employer);
+                        if (stat.eis_employer > 0) addEmployerContributionItem('EIS (Employer)', stat.eis_employer);
+                    }
+
+                    calculateSalary();
+                    showCustomAlert('Calculation Successful', '🛡️ Statutory Deductions (EPF, SOCSO, EIS, PCB) successfully applied to the form based on subjective earnings.', true);
+                } else {
+                    showCustomAlert('Calculation Failed', data.message || 'Unknown error', false);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showCustomAlert('Error', 'An error occurred while calculating deductions', false);
+            } finally {
+                // Re-enable button
+                button.disabled = false;
+                button.innerHTML = '<i class="hgi-stroke hgi-calculator"></i> Auto Calculate Statutory';
             }
         }
 
@@ -579,6 +729,45 @@
             if (!dateString) return 'N/A';
             const date = new Date(dateString);
             return date.toLocaleDateString('en-MY', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        // Custom Modal Logic
+        function showCustomAlert(title, message, isSuccess = true) {
+            const modal = document.getElementById('customAlertModal');
+            const modalInner = modal.querySelector('div.bg-white');
+            const titleEl = document.getElementById('alertTitle');
+            const messageEl = document.getElementById('alertMessage');
+            const iconEl = document.getElementById('alertIcon');
+
+            titleEl.textContent = title;
+            messageEl.textContent = message;
+
+            if (isSuccess) {
+                iconEl.innerHTML = `<div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center"><i class="hgi-stroke hgi-tick-02 text-2xl text-green-600"></i></div>`;
+            } else {
+                iconEl.innerHTML = `<div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center"><i class="hgi-stroke hgi-alert-02 text-2xl text-red-600"></i></div>`;
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            // slight delay for animation
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalInner.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function closeCustomAlert() {
+            const modal = document.getElementById('customAlertModal');
+            const modalInner = modal.querySelector('div.bg-white');
+
+            modal.classList.add('opacity-0');
+            modalInner.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
         }
     </script>
 @endsection

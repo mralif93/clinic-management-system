@@ -41,6 +41,9 @@ class User extends Authenticatable
         'emergency_contact_phone',
         'card_issued_at',
         'card_expires_at',
+        'marital_status',
+        'number_of_children',
+        'tax_number',
     ];
 
     /**

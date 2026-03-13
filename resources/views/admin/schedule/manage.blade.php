@@ -10,7 +10,8 @@
             <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div class="space-y-2">
                     <div class="flex items-center gap-3">
-                        <a href="{{ route('admin.schedules.index') }}" class="rounded-xl bg-white/20 p-2 backdrop-blur-sm hover:bg-white/30 transition-colors text-white">
+                        <a href="{{ route('admin.schedules.index') }}" 
+                           class="inline-flex items-center justify-center w-11 h-11 bg-white/20 backdrop-blur-md border border-white/30 text-white rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                             <i class='hgi-stroke hgi-arrow-left-01 text-2xl'></i>
                         </a>
                         <h1 class="text-3xl font-bold text-white">Manage Schedule</h1>

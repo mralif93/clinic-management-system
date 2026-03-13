@@ -80,6 +80,9 @@ class DoctorController extends Controller
                 'basic_salary' => 'required_if:employment_type,full_time|nullable|numeric|min:0',
                 'commission_rate' => 'required_if:employment_type,locum|nullable|numeric|min:0|max:100',
                 'is_available' => 'boolean',
+                'marital_status' => 'nullable|string|in:single,married,married_spouse_working,married_spouse_not_working',
+                'number_of_children' => 'nullable|integer|min:0',
+                'tax_number' => 'nullable|string|max:255',
             ], [
                 'first_name.required' => 'The first name field is required.',
                 'last_name.required' => 'The last name field is required.',
@@ -117,6 +120,9 @@ class DoctorController extends Controller
                 $user->update([
                     'employment_type' => $validated['employment_type'],
                     'basic_salary' => $validated['employment_type'] === 'full_time' ? $validated['basic_salary'] : null,
+                    'marital_status' => $validated['marital_status'] ?? 'single',
+                    'number_of_children' => $validated['number_of_children'] ?? 0,
+                    'tax_number' => $validated['tax_number'] ?? null,
                 ]);
             }
 
@@ -145,13 +151,13 @@ class DoctorController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to create doctor: '.$e->getMessage(),
+                    'message' => 'Failed to create doctor: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to create doctor: '.$e->getMessage());
+                ->with('error', 'Failed to create doctor: ' . $e->getMessage());
         }
     }
 
@@ -224,6 +230,9 @@ class DoctorController extends Controller
                 'basic_salary' => 'required_if:employment_type,full_time|nullable|numeric|min:0',
                 'commission_rate' => 'required_if:employment_type,locum|nullable|numeric|min:0|max:100',
                 'is_available' => 'boolean',
+                'marital_status' => 'nullable|string|in:single,married,married_spouse_working,married_spouse_not_working',
+                'number_of_children' => 'nullable|integer|min:0',
+                'tax_number' => 'nullable|string|max:255',
             ], [
                 'first_name.required' => 'The first name field is required.',
                 'last_name.required' => 'The last name field is required.',
@@ -261,6 +270,9 @@ class DoctorController extends Controller
                 $doctor->user->update([
                     'employment_type' => $validated['employment_type'],
                     'basic_salary' => $validated['employment_type'] === 'full_time' ? $validated['basic_salary'] : null,
+                    'marital_status' => $validated['marital_status'] ?? 'single',
+                    'number_of_children' => $validated['number_of_children'] ?? 0,
+                    'tax_number' => $validated['tax_number'] ?? null,
                 ]);
             }
 
@@ -289,13 +301,13 @@ class DoctorController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to update doctor: '.$e->getMessage(),
+                    'message' => 'Failed to update doctor: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to update doctor: '.$e->getMessage());
+                ->with('error', 'Failed to update doctor: ' . $e->getMessage());
         }
     }
 
@@ -321,12 +333,12 @@ class DoctorController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to delete doctor: '.$e->getMessage(),
+                    'message' => 'Failed to delete doctor: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->route('admin.doctors.index')
-                ->with('error', 'Failed to delete doctor: '.$e->getMessage());
+                ->with('error', 'Failed to delete doctor: ' . $e->getMessage());
         }
     }
 
@@ -338,7 +350,7 @@ class DoctorController extends Controller
         try {
             $doctor = Doctor::withTrashed()->findOrFail($id);
 
-            if (! $doctor->trashed()) {
+            if (!$doctor->trashed()) {
                 $message = 'This doctor is not deleted.';
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
@@ -366,12 +378,12 @@ class DoctorController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to restore doctor: '.$e->getMessage(),
+                    'message' => 'Failed to restore doctor: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->route('admin.doctors.index')
-                ->with('error', 'Failed to restore doctor: '.$e->getMessage());
+                ->with('error', 'Failed to restore doctor: ' . $e->getMessage());
         }
     }
 
@@ -397,12 +409,12 @@ class DoctorController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to permanently delete doctor: '.$e->getMessage(),
+                    'message' => 'Failed to permanently delete doctor: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->route('admin.doctors.index')
-                ->with('error', 'Failed to permanently delete doctor: '.$e->getMessage());
+                ->with('error', 'Failed to permanently delete doctor: ' . $e->getMessage());
         }
     }
 }

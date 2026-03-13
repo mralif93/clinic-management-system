@@ -1,17 +1,23 @@
 @extends('layouts.admin')
 
+@php
+    /** @var \Illuminate\Database\Eloquent\Collection $months */
+@endphp
+
 @section('content')
     <div class="space-y-6">
         <!-- Header -->
-        <div class="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
- 
+
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                    <div
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
                         <i class='hgi-stroke hgi-calendar-03 text-2xl'></i>
                     </div>
                     <div>
@@ -21,13 +27,13 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <a href="{{ route('admin.appointments.trash') }}"
-                       class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm text-white font-medium rounded-xl hover:bg-white/20 transition border border-white/20">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-delete-01'></i>
                         Trash
                     </a>
                     <a href="{{ route('admin.appointments.create') }}"
-                       class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all shadow-lg">
-                        <i class='hgi-stroke hgi-plus-sign text-xl'></i>
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
+                        <i class='hgi-stroke hgi-plus-sign'></i>
                         Schedule Appointment
                     </a>
                 </div>
@@ -62,7 +68,8 @@
                                 </div>
 
                                 <h3 class="text-xl font-bold text-gray-800 mb-1 group-hover:text-indigo-600 transition-colors">
-                                    {{ $monthName }}</h3>
+                                    {{ $monthName }}
+                                </h3>
                                 <p class="text-sm text-gray-500 mb-4">{{ $month->total_appointments }} Appointments</p>
 
                                 <div class="flex items-center justify-between text-sm border-t border-gray-100 pt-4">

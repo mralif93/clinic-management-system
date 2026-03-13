@@ -46,12 +46,12 @@
                 </div>
                 <div class="flex flex-wrap items-center gap-3">
                     <button onclick="printPayslip()" id="printBtn"
-                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-gray-900 rounded-xl font-semibold hover:bg-gray-50 transition-all shadow-lg border border-gray-100">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-printer'></i>
                         Print
                     </button>
                     <button onclick="downloadPayslip()" id="downloadBtn"
-                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-emerald-600 rounded-xl font-semibold hover:bg-emerald-50 transition-all shadow-lg border border-emerald-100">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-download-04'></i>
                         Download PDF
                     </button>
@@ -60,24 +60,24 @@
 
                     @if($payroll->status === 'draft')
                         <button onclick="approvePayroll({{ $payroll->id }})"
-                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-emerald-600 rounded-xl font-semibold hover:bg-emerald-50 hover:scale-105 transition-all shadow-lg border border-emerald-100">
+                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                             <i class='hgi-stroke hgi-checkmark-circle-02'></i>
                             Approve
                         </button>
                         <a href="{{ route('admin.payrolls.edit', $payroll->id) }}"
-                            class="inline-flex items-center justify-center w-11 h-11 bg-white text-amber-600 rounded-xl hover:bg-amber-50 hover:scale-105 transition-all shadow-lg border border-amber-100">
+                            class="inline-flex items-center justify-center w-11 h-11 bg-white/20 backdrop-blur-md border border-white/30 text-white rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                             <i class='hgi-stroke hgi-pencil-edit-01 text-xl'></i>
                         </a>
                     @elseif($payroll->status === 'approved')
                         <button onclick="markAsPaid({{ $payroll->id }})"
-                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-purple-600 rounded-xl font-semibold hover:bg-purple-50 hover:scale-105 transition-all shadow-lg border border-purple-100">
+                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                             <i class='hgi-stroke hgi-dollar-circle'></i>
                             Mark as Paid
                         </button>
                     @endif
 
                     <a href="{{ route('admin.payrolls.index') }}"
-                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back to List
                     </a>

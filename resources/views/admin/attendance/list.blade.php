@@ -21,14 +21,14 @@
     </div>
 </div>
             <div class="flex items-center gap-3">
-                <a href="{{ route('admin.attendance.index') }}" 
-                   class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
-                    <i class='hgi-stroke hgi-arrow-left-01 text-lg'></i>
+                <a href="{{ route('admin.attendance.index') }}"
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
+                    <i class='hgi-stroke hgi-arrow-left-01'></i>
                     All Months
                 </a>
                 <button onclick="openAddEntryModal()"
-                   class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-orange-600 rounded-xl font-semibold hover:bg-orange-50 transition-all shadow-lg shadow-orange-900/20">
-                    <i class='hgi-stroke hgi-plus-sign text-xl'></i>
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
+                    <i class='hgi-stroke hgi-plus-sign'></i>
                     Add Entry
                 </button>
             </div>
@@ -134,7 +134,7 @@
                 </thead>
                 <tbody class="divide-y divide-gray-100">
                     @forelse($attendances as $attendance)
-                        <tr class="hover:bg-gray-50/50 transition-colors {{ $attendance->trashed() ? 'bg-red-50/30' : '' }}">
+                        <tr class="hover:bg-gray-50/50 transition-colors {{ (isset($attendance->deleted_at) && $attendance->deleted_at) ? 'bg-red-50/30' : '' }}">
                             <!-- Employee -->
                             <td class="px-6 py-4">
                                 <div class="flex items-center gap-3">

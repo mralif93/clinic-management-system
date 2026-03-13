@@ -1,26 +1,36 @@
-@extends('layouts.doctor')
+@extends('layouts.doctor', ['hideLayoutTitle' => true])
 
 @section('title', 'Task Details')
 @section('page-title', 'Task Details')
+@section('hide-layout-title', true)
 
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div
+            class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
-            <div class="relative">
-                <a href="{{ route('doctor.todos.index') }}" class="inline-flex items-center gap-1 text-emerald-100 hover:text-white text-sm mb-2 transition">
-                    <i class='hgi-stroke hgi-arrow-left-01'></i> Back to My Tasks
-                </a>
-                <h1 class="text-2xl font-bold flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center">
-                        <i class='hgi-stroke hgi-task-01 text-xl'></i>
+
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <a href="{{ route('doctor.todos.index') }}"
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-arrow-left-01 text-white text-xl'></i>
+                    </a>
+                    <div class="text-white">
+                        <h1 class="text-2xl font-bold">Task Details</h1>
+                        <p class="text-emerald-100 text-sm mt-1">View and manage your assigned task</p>
                     </div>
-                    Task Details
-                </h1>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 text-sm text-white">
+                        <i class='hgi-stroke hgi-task-01 mr-1'></i>
+                        {{ ucfirst($todo->priority) }} Priority
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -35,33 +45,40 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Title -->
                     <div class="md:col-span-2">
-                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Task Title</label>
+                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Task
+                            Title</label>
                         <p class="text-lg font-bold text-gray-900">{{ $todo->title }}</p>
                     </div>
 
                     <!-- Description -->
                     @if($todo->description)
                         <div class="md:col-span-2">
-                            <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Description</label>
+                            <label
+                                class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Description</label>
                             <p class="text-gray-700 bg-gray-50 p-4 rounded-xl leading-relaxed">{{ $todo->description }}</p>
                         </div>
                     @endif
 
                     <!-- Status -->
                     <div>
-                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Status</label>
+                        <label
+                            class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Status</label>
                         @if($todo->status === 'completed')
-                            <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-emerald-100 text-emerald-700">Completed</span>
+                            <span
+                                class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-emerald-100 text-emerald-700">Completed</span>
                         @elseif($todo->status === 'in_progress')
-                            <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-blue-100 text-blue-700">In Progress</span>
+                            <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-blue-100 text-blue-700">In
+                                Progress</span>
                         @else
-                            <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-amber-100 text-amber-700">Pending</span>
+                            <span
+                                class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-amber-100 text-amber-700">Pending</span>
                         @endif
                     </div>
 
                     <!-- Priority -->
                     <div>
-                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Priority</label>
+                        <label
+                            class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Priority</label>
                         @if($todo->priority === 'high')
                             <span class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-red-100 text-red-700">High</span>
                         @elseif($todo->priority === 'medium')
@@ -73,11 +90,14 @@
 
                     <!-- Due Date -->
                     <div>
-                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Due Date</label>
+                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Due
+                            Date</label>
                         @if($todo->due_date)
                             <div class="flex items-center gap-2 {{ $todo->isOverdue() ? 'text-red-600' : 'text-gray-900' }}">
-                                <div class="w-8 h-8 rounded-lg {{ $todo->isOverdue() ? 'bg-red-100' : 'bg-emerald-100' }} flex items-center justify-center">
-                                    <i class='hgi-stroke {{ $todo->isOverdue() ? 'hgi-alert-circle text-red-600' : 'hgi-calendar-03 text-emerald-600' }}'></i>
+                                <div
+                                    class="w-8 h-8 rounded-lg {{ $todo->isOverdue() ? 'bg-red-100' : 'bg-emerald-100' }} flex items-center justify-center">
+                                    <i
+                                        class='hgi-stroke {{ $todo->isOverdue() ? 'hgi-alert-circle text-red-600' : 'hgi-calendar-03 text-emerald-600' }}'></i>
                                 </div>
                                 <span class="font-medium">{{ $todo->due_date->format('M d, Y') }}</span>
                                 @if($todo->isOverdue())
@@ -91,7 +111,8 @@
 
                     <!-- Created By -->
                     <div>
-                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Assigned By</label>
+                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Assigned
+                            By</label>
                         <div class="flex items-center gap-2">
                             <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
                                 <i class='hgi-stroke hgi-user text-gray-600'></i>
@@ -102,7 +123,8 @@
 
                     <!-- Created At -->
                     <div>
-                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Created At</label>
+                        <label class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block">Created
+                            At</label>
                         <div class="flex items-center gap-2">
                             <div class="w-8 h-8 rounded-lg bg-gray-100 flex items-center justify-center">
                                 <i class='hgi-stroke hgi-clock-02 text-gray-600'></i>
@@ -141,4 +163,3 @@
         </div>
     </div>
 @endsection
-

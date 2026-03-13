@@ -22,17 +22,18 @@
                     <div>
                         <h2 class="text-2xl font-bold">Edit Staff</h2>
                         <p class="text-cyan-100 text-sm mt-1">
-                            {{ $staff->full_name ?? ($staff->first_name . ' ' . $staff->last_name) }}</p>
+                            {{ $staff->full_name ?? ($staff->first_name . ' ' . $staff->last_name) }}
+                        </p>
                     </div>
                 </div>
                 <div class="flex items-center gap-3">
                     <a href="{{ route('admin.staff.show', $staff->id) }}"
-                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-eye'></i>
                         View Details
                     </a>
                     <a href="{{ route('admin.staff.index') }}"
-                        class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-arrow-left-01'></i>
                         Back to List
                     </a>
@@ -203,6 +204,65 @@
                                     class="w-full pl-12 pr-4 py-2.5 rounded-xl border border-gray-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all text-sm"
                                     placeholder="8.00">
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LHDN Tax Information Section -->
+                <div class="p-6 border-b border-gray-100 bg-gray-50/50">
+                    <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                        <i class='hgi-stroke hgi-file-check-01 text-cyan-600'></i>
+                        LHDN Tax Information
+                    </h3>
+                    <p class="text-sm text-gray-500 mt-1">Information for PCB/MTD tax calculations</p>
+                </div>
+                <div class="p-6 border-b border-gray-100">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Marital Status -->
+                        <div>
+                            <label for="marital_status" class="block text-sm font-medium text-gray-700 mb-2">Marital
+                                Status</label>
+                            <select id="marital_status" name="marital_status"
+                                class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all text-sm bg-white @error('marital_status') border-red-500 @enderror">
+                                <option value="single" {{ old('marital_status', $staff->user?->marital_status) == 'single' ? 'selected' : '' }}>Single</option>
+                                <option value="married" {{ old('marital_status', $staff->user?->marital_status) == 'married' ? 'selected' : '' }}>Married</option>
+                                <option value="married_spouse_working" {{ old('marital_status', $staff->user?->marital_status) == 'married_spouse_working' ? 'selected' : '' }}>Married
+                                    (Spouse Working)</option>
+                                <option value="married_spouse_not_working" {{ old('marital_status', $staff->user?->marital_status) == 'married_spouse_not_working' ? 'selected' : '' }}>
+                                    Married (Spouse Not Working)</option>
+                            </select>
+                            @error('marital_status')
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Number of Children -->
+                        <div>
+                            <label for="number_of_children" class="block text-sm font-medium text-gray-700 mb-2">Number of
+                                Children</label>
+                            <input type="number" id="number_of_children" name="number_of_children"
+                                value="{{ old('number_of_children', $staff->user?->number_of_children ?? 0) }}" min="0"
+                                class="w-full px-4 py-2.5 rounded-xl border border-cyan-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all text-sm @error('number_of_children') border-red-500 @enderror"
+                                placeholder="0">
+                            @error('number_of_children')
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <!-- Tax Number (Income Tax No) -->
+                        <div class="md:col-span-2">
+                            <label for="tax_number" class="block text-sm font-medium text-gray-700 mb-2">LHDN Tax
+                                Number</label>
+                            <input type="text" id="tax_number" name="tax_number"
+                                value="{{ old('tax_number', $staff->user?->tax_number) }}"
+                                class="w-full px-4 py-2.5 rounded-xl border border-cyan-500 focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all text-sm @error('tax_number') border-red-500 @enderror"
+                                placeholder="e.g. SG 1234567890">
+                            @error('tax_number')
+                                <p class="mt-2 text-sm text-red-600 flex items-center gap-1"><i
+                                        class='hgi-stroke hgi-alert-circle'></i>{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                 </div>

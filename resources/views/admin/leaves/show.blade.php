@@ -47,26 +47,26 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-wrap items-center gap-2">
+            <div class="flex flex-wrap items-center gap-3">
                 @if($leave->status === 'pending')
                     <button onclick="approveLeave({{ $leave->id }})"
-                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-green-600 rounded-xl font-semibold hover:bg-green-50 hover:scale-105 transition-all shadow-lg border border-green-100">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-checkmark-circle-02 text-lg'></i>
                         Approve
                     </button>
                     <button onclick="rejectLeave({{ $leave->id }})"
-                            class="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-red-600 rounded-xl font-semibold hover:bg-red-50 hover:scale-105 transition-all shadow-lg border border-red-100">
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-cancel-circle text-lg'></i>
                         Reject
                     </button>
                 @endif
-                
+
                 <a href="{{ route('admin.leaves.edit', $leave->id) }}" title="Edit Leave"
-                   class="w-11 h-11 flex items-center justify-center bg-white rounded-xl text-violet-600 hover:bg-violet-50 hover:scale-105 transition-all shadow-lg scale-90 border border-violet-100">
+                    class="inline-flex items-center justify-center w-11 h-11 bg-white/20 backdrop-blur-md border border-white/30 text-white rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                     <i class='hgi-stroke hgi-pencil-edit-01 text-xl'></i>
                 </a>
                 <a href="{{ route('admin.leaves.index') }}"
-                   class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur text-white rounded-xl font-medium hover:bg-white/30 transition-all">
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                     <i class='hgi-stroke hgi-arrow-left-01'></i>
                     Back to List
                 </a>

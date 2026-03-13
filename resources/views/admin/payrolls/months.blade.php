@@ -1,5 +1,9 @@
 @extends('layouts.admin')
 
+@php
+    /** @var \Illuminate\Database\Eloquent\Collection $months */
+@endphp
+
 @section('content')
     <div class="space-y-6">
         <!-- Header -->
@@ -23,13 +27,13 @@
 
                 <div class="flex items-center gap-3">
                     <a href="{{ route('admin.payrolls.trash') }}"
-                        class="bg-white/10 hover:bg-white/20 border border-white/10 text-white px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all backdrop-blur-sm font-medium">
-                        <i class='hgi-stroke hgi-delete-01 text-xl'></i>
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
+                        <i class='hgi-stroke hgi-delete-01'></i>
                         Trash
                     </a>
                     <a href="{{ route('admin.payrolls.create') }}"
-                        class="bg-white text-indigo-600 hover:bg-indigo-50 px-5 py-2.5 rounded-xl flex items-center gap-2 font-bold shadow-lg transition-all hover:scale-105 active:scale-95">
-                        <i class='hgi-stroke hgi-plus-sign text-xl'></i>
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
+                        <i class='hgi-stroke hgi-plus-sign'></i>
                         Generate Payslip
                     </a>
                 </div>

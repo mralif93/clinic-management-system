@@ -1,13 +1,13 @@
-@extends('layouts.doctor')
+@extends('layouts.doctor', ['hideLayoutTitle' => true])
 
 @section('title', 'My Appointments')
 @section('page-title', 'My Appointments')
+@section('hide-layout-title', true)
 
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div
-            class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+        <div class="bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
@@ -15,13 +15,18 @@
 
             <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div class="flex items-center gap-4">
-                    <div
-                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                    <div class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
                         <i class='hgi-stroke hgi-calendar-download-02 text-2xl'></i>
                     </div>
                     <div>
-                        <h2 class="text-2xl font-bold">My Appointments</h2>
+                        <h1 class="text-2xl font-bold">My Appointments</h1>
                         <p class="text-emerald-100 text-sm mt-1">Manage your patient appointments</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-2 text-sm">
+                        <i class='hgi-stroke hgi-calendar-03 mr-1'></i>
+                        {{ now()->format('l, M d') }}
                     </div>
                 </div>
             </div>
@@ -106,7 +111,7 @@
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap">
                                                     <div class="text-sm font-medium text-gray-900">
-                                                        {{ $appointment->appointment_date->format('M d, Y') }}</div>
+                                                        {{ $appointment->appointment_date instanceof \Carbon\Carbon ? $appointment->appointment_date->format('M d, Y') : \Carbon\Carbon::parse($appointment->appointment_date)->format('M d, Y') }}</div>
                                                     <div class="text-xs text-gray-500">
                                                         {{ \Carbon\Carbon::parse($appointment->appointment_time)->format('h:i A') }}</div>
                                                 </td>
@@ -137,7 +142,7 @@
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                     @if($appointment->fee)
-                                                        {{ get_currency_symbol() }}{{ number_format($appointment->fee, 2) }}
+                                                        {{ get_currency_symbol() }}{{ number_format((float)($appointment->fee ?? 0), 2) }}
                                                     @else
                                                         <span class="text-gray-400">N/A</span>
                                                     @endif

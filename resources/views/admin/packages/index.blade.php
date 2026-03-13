@@ -25,8 +25,8 @@
                     </div>
                 </div>
                 <a href="{{ route('admin.packages.create') }}"
-                    class="inline-flex items-center gap-2 px-4 py-2.5 bg-white/20 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-white/30 active:bg-white/40 transition-all border border-white/30 shadow-lg shadow-black/10">
-                    <i class='hgi-stroke hgi-plus-sign'></i>
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
+                    <i class='hgi-stroke hgi-plus-sign text-xl'></i>
                     Add New Package
                 </a>
             </div>
@@ -141,7 +141,8 @@
                                 </div>
                                 <div>
                                     <h3 class="font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
-                                        {{ $package->name }}</h3>
+                                        {{ $package->name }}
+                                    </h3>
                                     @if($package->discount_percentage)
                                         <span
                                             class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-red-100 text-red-700">

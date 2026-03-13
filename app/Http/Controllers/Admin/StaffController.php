@@ -80,6 +80,9 @@ class StaffController extends Controller
                 'basic_salary' => 'required_if:employment_type,full_time|nullable|numeric|min:0',
                 'hourly_rate' => 'required_if:employment_type,part_time|nullable|numeric|min:0',
                 'notes' => 'nullable|string',
+                'marital_status' => 'nullable|string|in:single,married,married_spouse_working,married_spouse_not_working',
+                'number_of_children' => 'nullable|integer|min:0',
+                'tax_number' => 'nullable|string|max:255',
             ], [
                 'user_id.required' => 'Please select a user account.',
                 'user_id.exists' => 'Selected user does not exist.',
@@ -112,6 +115,9 @@ class StaffController extends Controller
                 'employment_type' => $validated['employment_type'],
                 'basic_salary' => $validated['employment_type'] === 'full_time' ? $validated['basic_salary'] : null,
                 'hourly_rate' => $validated['employment_type'] === 'part_time' ? $validated['hourly_rate'] : null,
+                'marital_status' => $validated['marital_status'] ?? 'single',
+                'number_of_children' => $validated['number_of_children'] ?? 0,
+                'tax_number' => $validated['tax_number'] ?? null,
             ]);
 
             $staff = Staff::create($validated);
@@ -139,13 +145,13 @@ class StaffController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to create staff: '.$e->getMessage(),
+                    'message' => 'Failed to create staff: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to create staff: '.$e->getMessage());
+                ->with('error', 'Failed to create staff: ' . $e->getMessage());
         }
     }
 
@@ -206,6 +212,9 @@ class StaffController extends Controller
                 'basic_salary' => 'required_if:employment_type,full_time|nullable|numeric|min:0',
                 'hourly_rate' => 'required_if:employment_type,part_time|nullable|numeric|min:0',
                 'notes' => 'nullable|string',
+                'marital_status' => 'nullable|string|in:single,married,married_spouse_working,married_spouse_not_working',
+                'number_of_children' => 'nullable|integer|min:0',
+                'tax_number' => 'nullable|string|max:255',
             ], [
                 'first_name.required' => 'The first name field is required.',
                 'last_name.required' => 'The last name field is required.',
@@ -220,6 +229,9 @@ class StaffController extends Controller
                     'employment_type' => $validated['employment_type'],
                     'basic_salary' => $validated['employment_type'] === 'full_time' ? $validated['basic_salary'] : null,
                     'hourly_rate' => $validated['employment_type'] === 'part_time' ? $validated['hourly_rate'] : null,
+                    'marital_status' => $validated['marital_status'] ?? 'single',
+                    'number_of_children' => $validated['number_of_children'] ?? 0,
+                    'tax_number' => $validated['tax_number'] ?? null,
                 ]);
             }
 
@@ -248,13 +260,13 @@ class StaffController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to update staff: '.$e->getMessage(),
+                    'message' => 'Failed to update staff: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Failed to update staff: '.$e->getMessage());
+                ->with('error', 'Failed to update staff: ' . $e->getMessage());
         }
     }
 
@@ -280,12 +292,12 @@ class StaffController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to delete staff: '.$e->getMessage(),
+                    'message' => 'Failed to delete staff: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->route('admin.staff.index')
-                ->with('error', 'Failed to delete staff: '.$e->getMessage());
+                ->with('error', 'Failed to delete staff: ' . $e->getMessage());
         }
     }
 
@@ -297,7 +309,7 @@ class StaffController extends Controller
         try {
             $staff = Staff::withTrashed()->findOrFail($id);
 
-            if (! $staff->trashed()) {
+            if (!$staff->trashed()) {
                 $message = 'This staff is not deleted.';
                 if ($request->ajax() || $request->wantsJson()) {
                     return response()->json([
@@ -325,12 +337,12 @@ class StaffController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to restore staff: '.$e->getMessage(),
+                    'message' => 'Failed to restore staff: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->route('admin.staff.index')
-                ->with('error', 'Failed to restore staff: '.$e->getMessage());
+                ->with('error', 'Failed to restore staff: ' . $e->getMessage());
         }
     }
 
@@ -356,12 +368,12 @@ class StaffController extends Controller
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Failed to permanently delete staff: '.$e->getMessage(),
+                    'message' => 'Failed to permanently delete staff: ' . $e->getMessage(),
                 ], 500);
             }
 
             return redirect()->route('admin.staff.index')
-                ->with('error', 'Failed to permanently delete staff: '.$e->getMessage());
+                ->with('error', 'Failed to permanently delete staff: ' . $e->getMessage());
         }
     }
 }

@@ -7,7 +7,7 @@
     <div class="space-y-6">
         <!-- Page Header -->
         <div
-            class="bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            class="bg-gradient-to-br from-indigo-500 via-purple-600 to-indigo-800 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
             <!-- Decorative background elements -->
             <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
             <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>

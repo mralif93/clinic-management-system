@@ -28,7 +28,7 @@
                         {{ now()->format('l, M d, Y') }}
                     </div>
                     <a href="{{ route('staff.appointments.create') }}"
-                        class="inline-flex items-center px-5 py-2.5 bg-white text-amber-600 font-semibold rounded-xl hover:bg-amber-50 transition shadow-lg hover:shadow-xl">
+                        class="inline-flex items-center px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 text-white font-semibold rounded-xl hover:bg-white/30 transition-all shadow-lg hover:shadow-xl">
                         <i class='hgi-stroke hgi-plus-sign mr-2 text-lg'></i>
                         Schedule Appointment
                     </a>

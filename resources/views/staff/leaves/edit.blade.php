@@ -3,18 +3,21 @@
 @section('content')
     <div class="space-y-6">
         <!-- Page Header -->
-        <div class="bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 rounded-2xl shadow-lg overflow-hidden">
-            <div class="p-6 md:p-8">
-                <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div class="flex items-center gap-4">
-                        <a href="{{ route('staff.leaves.index') }}"
-                            class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
-                            <i class='hgi-stroke hgi-arrow-left-01 text-white text-xl'></i>
-                        </a>
-                        <div class="text-white">
-                            <h1 class="text-2xl font-bold">Edit Leave Request</h1>
-                            <p class="text-purple-100 text-sm mt-1">Update your pending leave request</p>
-                        </div>
+        <div
+            class="bg-gradient-to-br from-purple-500 via-indigo-600 to-purple-700 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden mb-6">
+            <!-- Decorative background elements -->
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+            <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+            <div class="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-center gap-4">
+                    <a href="{{ route('staff.leaves.index') }}"
+                        class="shrink-0 w-12 h-12 bg-white/20 backdrop-blur-md rounded-xl flex items-center justify-center shadow-inner border border-white/20 transform transition-transform hover:scale-105">
+                        <i class='hgi-stroke hgi-arrow-left-01 text-white text-xl'></i>
+                    </a>
+                    <div class="text-white">
+                        <h1 class="text-2xl font-bold">Edit Leave Request</h1>
+                        <p class="text-purple-100 text-sm mt-1">Update your pending leave request</p>
                     </div>
                 </div>
             </div>
